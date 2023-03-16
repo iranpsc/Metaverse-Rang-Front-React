@@ -1,0 +1,65 @@
+{
+  "name": "metaverse-rang",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@deck.gl/core": "^8.8.26",
+    "@deck.gl/layers": "^8.8.26",
+    "@deck.gl/mesh-layers": "^8.8.26",
+    "@persian-tools/persian-tools": "^3.4.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@tippyjs/react": "^4.2.6",
+    "@types/styled-components": "^5.1.26",
+    "axios": "^1.2.1",
+    "compressorjs": "^1.2.1",
+    "deck.gl-leaflet": "^1.2.1",
+    "jalali-moment": "^3.3.11",
+    "laravel-echo": "^1.15.0",
+    "lodash": "^4.17.21",
+    "lottie-react": "^2.4.0",
+    "pusher-js": "^8.0.1",
+    "react": "^18.2.0",
+    "react-countdown": "^2.3.5",
+    "react-dom": "^18.2.0",
+    "react-easy-crop": "^4.7.4",
+    "react-files": "^3.0.0",
+    "react-hot-toast": "^2.4.0",
+    "react-indiana-drag-scroll": "^2.2.0",
+    "react-leaflet": "^4.2.0",
+    "react-multi-date-picker": "^3.3.4",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^6.6.1",
+    "react-scripts": "^5.0.1",
+    "react-spinners": "^0.13.7",
+    "shortid": "^2.2.16",
+    "styled-components": "^5.3.6",
+    "swiper": "^9.1.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
