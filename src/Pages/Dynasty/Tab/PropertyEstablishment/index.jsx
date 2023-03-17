@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import TableDynasty from "./Components/TableDynasty";
 import TableFeature from "./Components/TableFeature";
 import TableFeatureDynasty from "./Components/TableFeatureDynasty";
 
@@ -36,16 +37,20 @@ export default function PropertyEstablishment() {
     Request('dynasty').then(response => {
       setDynasty(response.data.data);
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <Container>
       <ContainerTableFeature>
-        <TableFeature dynasty={dynasty}/>
+        <TableFeature dynasty={dynasty} setDynasty={setDynasty}/>
       </ContainerTableFeature>
       
       <ContainerTableDetail>
-        <TableFeatureDynasty dynasty={dynasty}/>
+        {dynasty["user-has-dynasty"] ? 
+          <TableDynasty dynasty={dynasty}/> : 
+          <TableFeatureDynasty dynasty={dynasty}/>
+        }
       </ContainerTableDetail>
     </Container>
   );

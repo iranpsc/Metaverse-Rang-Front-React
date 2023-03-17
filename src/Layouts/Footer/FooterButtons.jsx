@@ -3,8 +3,29 @@ import ImageShop from "../../Assets/images/shop.png";
 import ImageNotification from "../../Assets/images/notification.png";
 import { useNavigate } from "react-router-dom";
 import Tippy from "@tippyjs/react";
+import styled from "styled-components";
+import useAuth from "../../Services/Hooks/useAuth";
+
+const Container = styled.div`
+  position: relative;
+`;
+
+const Counter = styled.span`
+  position: absolute;
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border-radius: 100%;
+  font-family: iransans;
+  font-weight: bold;
+  font-size: 14px;
+  top: -4px;
+  color: white;
+`;
 
 export default function FooterButtons() {
+  const { getUser } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -51,12 +72,15 @@ export default function FooterButtons() {
         }
         zIndex={10000}
       >
-        <img
-          className="footer-icon-button"
-          src={ImageNotification}
-          alt="notification"
-          onClick={() => navigate("/metaverse/notifications")}
-        />
+        <Container>
+          {getUser().notifications > 0 && <Counter>{getUser().notifications}</Counter>}
+          <img
+            className="footer-icon-button"
+            src={ImageNotification}
+            alt="notification"
+            onClick={() => navigate("/metaverse/notifications")}
+          />
+        </Container>
       </Tippy>
     </section>
   );

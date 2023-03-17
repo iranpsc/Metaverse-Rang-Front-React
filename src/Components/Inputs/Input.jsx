@@ -17,9 +17,8 @@ const InputField = styled.input`
     padding: 8px 16px;
     width: 100%;
     margin-bottom: 32px;
-    font-size: 1.4rem !important;
+    font-size: 1.2rem !important;
     font-family: iransans;
-    
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
         -webkit-appearance: none;

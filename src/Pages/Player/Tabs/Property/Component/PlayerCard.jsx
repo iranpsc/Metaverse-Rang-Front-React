@@ -68,9 +68,6 @@ export default function PlayerCard({ PlayerImg, TextBtn, Id, Name }) {
         options={{
           style: {
             width: 155
-          },
-          onClick: () => {
-            console.log("hello world !");
           }
         }}
       />

@@ -1,18 +1,18 @@
 @keyframes closePlayerAnimation {
-    from {width: 800px;}
+    from {width: 60% ;}
     to {width: 0px;}
 }
 
 @keyframes openPlayerAnimation {
     from {width: 0px;}
-    to {width: 800px;}
+    to {width: 60% ;}
 }
 
 .ScrollContainer {
     height: 160px;
     position: absolute;
     top: 16px;
-    width: 800px;
+    width: 60% ;
     right: 235px;
     z-index: 500;
     display: flex;

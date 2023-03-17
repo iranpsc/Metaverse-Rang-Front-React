@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import HomeSelect from "../../../../../Assets/images/home-check.png";
 import HomeChange from "../../../../../Assets/images/change-house.png";
+import useRequest from "../../../../../Services/Hooks/useRequest";
+import { ToastError, ToastSuccess } from "../../../../../Services/Utility";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -61,7 +64,36 @@ const Tr = styled.tr`
   }
 `;
 
-export default function TableFeature({ dynasty }) {
+export default function TableFeature({ dynasty, setDynasty }) {
+  const { Request, HTTP_METHOD } = useRequest();
+  const Navigate = useNavigate();
+
+  const updateDynasty = (id) => {
+    Request(`dynasty/${dynasty.id}/update/${id}`, HTTP_METHOD.POST).then(response => {
+      setDynasty({...response.data.data});
+      ToastSuccess('VOD جدید با موفقیت بروز گردید.');
+    }).catch(error => {
+      if (error.response.status === 410) {
+        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
+        return Navigate("/metaverse/confirmation");
+      }
+      ToastError(error.response.data.message);
+    })
+  }
+
+  const selectDynasty = (id) => {
+    Request(`dynasty/create/${id}`, HTTP_METHOD.POST).then(response => {
+      setDynasty({...response.data.data});
+      ToastSuccess('سلسله با موفقیت تاسیس شد.');
+    }).catch(error => {
+      if (error.response.status === 410) {
+        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
+        return Navigate("/metaverse/confirmation");
+      }
+      ToastError(error.response.data.message);
+    })
+  }
+
   return (
     <Container>
       <Table>
@@ -71,25 +103,25 @@ export default function TableFeature({ dynasty }) {
           <td>انتقال</td>
         </TableHead>
         {dynasty?.["user-has-dynasty"] ? 
-            <TableBody>
-              {Object.keys(dynasty?.features).map(key => (
-                <Tr>
-                  <td>{dynasty?.features[key].properties_id}</td>
-                  <td>{dynasty?.features[key].stability}</td>
-                  <td>
-                    <IconFeature src={HomeChange} />
-                  </td>
-                </Tr>
-              ))}
-            </TableBody>
+          <TableBody>
+            {Object.keys(dynasty?.features).map(key => (
+              <Tr>
+                <td>{dynasty?.features[key].properties_id}</td>
+                <td>{dynasty?.features[key].stability}</td>
+                <td>
+                  <IconFeature src={HomeChange} onClick={() => updateDynasty(dynasty?.features[key].id)}/>
+                </td>
+              </Tr>
+            ))}
+          </TableBody>
           :
           <TableBody>
-            {dynasty?.feature?.map(feature => (
+            {dynasty?.features?.map(feature => (
               <Tr>
-                <td>qa31a-3377</td>
-                <td>15000</td>
+                <td>{feature?.properties_id}</td>
+                <td>{feature?.stability}</td>
                 <td>
-                  <IconFeature src={HomeSelect} />
+                  <IconFeature src={HomeSelect} onClick={() => selectDynasty(feature.id)}/>
                 </td>
               </Tr>
             ))}

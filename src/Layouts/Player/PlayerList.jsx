@@ -8,7 +8,7 @@ import PlayerProfile from "./PlayerProfile";
 export default function PlayerList() {
   const { getUser } = useAuth();
   const [players, setPlayers] = useState([]);
-  const [followers, dispatch] = useContext(FollowContext);
+  const [followers, ] = useContext(FollowContext);
 
   const { Request } = useRequest();
 

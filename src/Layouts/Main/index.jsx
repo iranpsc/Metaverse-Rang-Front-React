@@ -15,9 +15,11 @@ import ImageLogin from '../../Assets/images/login.png'
 import ImageLogout from '../../Assets/images/logout.png'
 import ImageLock from '../../Assets/images/lock.png'
 import ImageUnlock from '../../Assets/images/unlock.png'
+import useRequest from '../../Services/Hooks/useRequest';
 
 
 export default function Main() {
+  const { Request, HTTP_METHOD } = useRequest();
   const [statusSecurity, setStatusSecurity] = useState(false);
   const navigation = useNavigate();
 
@@ -32,8 +34,10 @@ export default function Main() {
   }, [])
 
   const logoutHandler = () => {
-    removeItem('user');
-    window.location.reload();
+    Request('logout', HTTP_METHOD.POST).then(() => {
+      removeItem('user');
+      window.location.reload();
+    })
   }
 
   return (

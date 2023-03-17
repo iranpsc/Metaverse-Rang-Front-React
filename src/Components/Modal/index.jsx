@@ -23,7 +23,7 @@ function Modal({ children, title, disabled = false, type='modal-section-sm' }) {
                     {!disabled &&
                         <>
                             <img className='modal-icon white-drop-shadow cursor-pointer' src={ImageHelp} alt='help' />
-                            <img className='modal-icon white-drop-shadow cursor-pointer' src={ImageReport} alt='report'/>
+                            <img className='modal-icon white-drop-shadow cursor-pointer' src={ImageReport} alt='report' onClick={() => navigation('/metaverse/report', { state: { href: window.location.href.split('/').slice(3).join('/') } })}/>
                         </>
                     }
 

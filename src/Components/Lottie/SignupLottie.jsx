@@ -3,7 +3,6 @@ import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SvgAni from "../../Assets/Json/AniBackSvg.json";
-import LottieMessage from "./Components/LottieMessage";
 
 const Container = styled.div`
   width: 100%;
@@ -17,6 +16,27 @@ const Container = styled.div`
   fill-opacity: 1;
   backdrop-filter: blur(10px);
 `;
+
+const TextContainer = styled.div`
+  z-index: 1200;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LottieTitle = styled.span`
+  color: white;
+  font-size: 2rem;
+`
+
+const LottieDescription = styled.span`
+  color: white;
+  font-size: 1.2rem;
+  direction: rtl;
+`
 
 export default function SignupLottie() {
   const navigate = useNavigate();
@@ -277,7 +297,10 @@ export default function SignupLottie() {
           </g>
         </g>
       </svg>
-      <LottieMessage title="خرید زمین تجاری با موفقیت انجام شد" />
+      <TextContainer>
+        <LottieTitle>به جهان موازی خوش امدید</LottieTitle>
+        <LottieDescription>جهت ادامه لطفا ایمیل خود را برسی کنید.</LottieDescription>
+      </TextContainer>
     </Container>
   );
 }

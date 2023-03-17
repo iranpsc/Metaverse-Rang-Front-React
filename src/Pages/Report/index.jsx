@@ -7,8 +7,8 @@ import Problem from './Tabs/Problem';
 
 export default function Report() {
   const tabs = [
-    {title: 'گذارش خطا', content: <Problem />},
-    // {title: 'گذارش خطا', content: <Preview />}
+    {title: 'گزارش خطا', content: <Problem />},
+    // {title: 'گزارش خطا', content: <Preview />}
   ]
 
   const TabPanel = useTabs(tabs);

@@ -37,7 +37,7 @@ export default function Loading() {
             margin='5'
         />
 
-        <Text>... چند لحضه صبر کنید</Text>
+        <Text>... چند لحظه صبر کنید</Text>
     </Container>
   )
 }

@@ -46,7 +46,7 @@ function ReportTable({ reports }) {
       </Description>
     </> : (
     <>
-      <h4 className="text-right rtl mb-3">لیست گذارشات : </h4>
+      <h4 className="text-right rtl mb-3">لیست گزارشات : </h4>
 
       <Table>
         <Thead>

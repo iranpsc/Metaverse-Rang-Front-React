@@ -6,7 +6,7 @@ import { POLYGON_COLORS } from '../../Services/Constants/PolygonColors';
 import useRequest from '../../Services/Hooks/useRequest';
 
 const MapPolygons = memo(() => {
-    const [polygons, setPolygons] = useState([]);
+    const [features, setFeatures] = useState([]);
     const [zoom, setZoom] = useState(15);
     
     const { Request } = useRequest();
@@ -37,23 +37,33 @@ const MapPolygons = memo(() => {
                             coordinates: feature?.geometry?.coordinates.map(coordinate => [coordinate.y, coordinate.x])
                         });
                    }
-        
-                   setPolygons(features.map(feature => <Polygon eventHandlers={{ click: () => Navigate(`/metaverse/feature/${feature.id}`) }} key={feature.id} pathOptions={{ color: BORDER_COLORS[feature.rgb], fillColor: POLYGON_COLORS[feature.rgb], fillOpacity: 0.5 }} positions={feature.coordinates} />))
+
+                   setFeatures(features);
                 })
             }
         }
     });
 
     useEffect(() => {
-          window.Echo.channel('feature-status')
-          .listen('.feature-status-changed', (e) => {
-            console.log(e.data);
-          });
-    }, [])
+        window.Echo.channel('feature-status')
+        .listen('.feature-status-changed', (e) => {
+            const data = []
+            for (const feature of features) {
+                if(parseInt(feature.id) === parseInt(e.data.id)) {
+                    feature.rgb = e.data.rgb;
+                }
+                data.push(feature);
+            }
+
+            setFeatures(data);
+        });
+    }, [features])
 
     return (
         <>
-            { zoom >= 17 && polygons }
+            { zoom >= 17 && 
+                features.map(feature => <Polygon eventHandlers={{ click: () => Navigate(`/metaverse/feature/${feature.id}`) }} key={feature.id} pathOptions={{ color: BORDER_COLORS[feature.rgb], fillColor: POLYGON_COLORS[feature.rgb], fillOpacity: 0.5 }} positions={feature.coordinates} />)
+            }
         </>
     )
 })

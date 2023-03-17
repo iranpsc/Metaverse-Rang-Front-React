@@ -17,7 +17,12 @@ import SanadImage from '../../Assets/images/sanad.png';
 import ChatImage from '../../Assets/images/chat.png';
 import SettingImage from '../../Assets/images/setting.png';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
+const LevelProgress = styled.div`
+    height: 100%;
+    background: red;
+`;
 
 
 export default function Profile() {
@@ -36,6 +41,7 @@ export default function Profile() {
                 <ProfileImage src={user?.image ? user?.image : AnonymousImage} onClick={() => navigate('/metaverse/profile')} />
 
                 <ProfileId className='white-box-shadow'>
+                    <LevelProgress style={{ width: `${user?.score_percentage_to_next_level ? user?.score_percentage_to_next_level : 0}%` }}/>
                     <p>{ user?.code }</p>
                 </ProfileId>
 

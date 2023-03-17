@@ -69,7 +69,7 @@ function PlayerProfile({ image ,code, level, id, Online }) {
     <Container className='white-box-shadow'>
         <ProfileImage src={image ? image : AnonymousImage} />
 
-        <ProfileId className='white-box-shadow'>
+        <ProfileId className='white-box-shadow' onClick={() => window.location.href = `https://rgb.irpsc.com/citizen/${code}`}>
             <p style={{ fontSize: 12 }}>{ code }</p>
         </ProfileId>
 

@@ -6,6 +6,7 @@ import useRequest from '../../Services/Hooks/useRequest';
 import SeenImage from '../../Assets/images/seen.png';
 import BellGif from '../../Assets/gif/bell.gif';
 import { useNavigate } from 'react-router-dom';
+import { TextShorter } from '../../Services/Utility';
 
 
 const Notification = styled.div`
@@ -88,9 +89,9 @@ export default function Notifications() {
   }
 
   return (
-    <FloatingModal title={"چالش پاسخ به سوالات متارنگ"}>
+    <FloatingModal title={"اعلان ها "}>
         {notifications?.map(notification => (
-          <Notification key={notification.id}>
+          <Notification key={notification.id} onClick={() => Navigate(Pages[notification.data["related-to"]])}>
             <img
               style={{ marginLeft: 16, borderRadius: 100, height: '75%' }}
               src={notification?.data?.["sender-image"]}
@@ -103,12 +104,12 @@ export default function Notifications() {
             }</DateContainer>
             
             <Information>
-              <h4 className='link' onClick={() => Navigate(Pages[notification.data["related-to"]])}>
+              <h4 className='link' onClick={() => Navigate(`/metaverse/player/`)}>
                 {notification?.data?.["sender-name"]}
               </h4>
 
               <p className='text-information rtl'>
-                {notification?.data?.["message"]}
+                {TextShorter(notification?.data?.["message"], 68)}
               </p>
             </Information>
 

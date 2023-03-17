@@ -12,6 +12,11 @@ import { getItem, removeItem } from '../../Services/Utility/LocalStorage';
 import './Security.css';
 import Countdown from 'react-countdown';
 
+const renderer = ({ hours, minutes, seconds, completed }) => {
+  return (
+      <span>{minutes}:{seconds}</span>
+  );
+};
 
 export default function Security() {
   const [options, setOptions] = useState({
@@ -29,7 +34,7 @@ export default function Security() {
     <Modal title='امنیت حساب کاربری'>
 
     {accountSecurity ? 
-      <Countdown className='counter-down' date={accountSecurity} onComplete={() => {removeItem('account_security'); setAccountSecurity(null)}}></Countdown> :
+      <Countdown className='counter-down' renderer={renderer} date={accountSecurity}  onComplete={() => {removeItem('account_security'); setAccountSecurity(null)}}></Countdown> :
 
       (!options.nextPage ? 
         <SendOtp paginate={{options, setOptions}}/>

@@ -42,16 +42,20 @@ export const ProfileId = styled.div`
     background-color: #1212;
     padding-top: 2px;
     padding-bottom: 2px;
-    padding-left: 8px;
-    padding-right: 8px;
+    /* padding-left: 8px;
+    padding-right: 8px; */
     font-family: iransans;
     font-weight: bold;
     border-bottom: 3px solid #fff;
     background-color: #fff;
     z-index: 502;
+    
     & p {
         font-size: 14px;
         color: #2563Eb;
+        position: absolute;
+        top: 1.5px;
+        left: 4px;
     }
 `;
 

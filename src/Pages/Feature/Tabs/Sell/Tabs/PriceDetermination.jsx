@@ -12,9 +12,22 @@ import { Container, Text, Title } from "../../../Styles";
 
 
 export default function PriceDetermination() {
-  const [feature, setFeature] = useContext(FeatureContext);
+  const [feature, ] = useContext(FeatureContext);
   const [user, ] = useContext(UserContext);
-;
+  const [featureStatus, setFeatureStatus] = useState({});
+
+  useEffect(() => {
+    Request(`sell-requests`).then(listResponse => {
+      for (let index = 0; index < listResponse?.data?.data.length; index++) {
+        const element = listResponse?.data?.data[index];
+        if(element.feature_id === feature.id) {
+          setFeatureStatus(element);
+        }
+      }
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [feature.id])
+
   const [formData, setFormData] = useState({
     price_irr: calculateFee(feature.properties.price_irr, 80),
     price_psc: calculateFee(feature.properties.price_psc, 80)
@@ -66,41 +79,29 @@ export default function PriceDetermination() {
   }
 
   const onRemovePrice = () => {
-    console.log(feature?.properties);
-      Request(`sell-requests`).then(listResponse => {
-        let featureId = null;
-        for (let index = 0; index < listResponse?.data?.data.length; index++) {
-          const element = listResponse?.data?.data[index];
-
-          if(element.feature_id === feature.id) {
-            featureId = element.id;
-          }
-        }
-
-        if(featureId) {
-          Request(`sell-requests/${featureId}`, HTTP_METHOD.DELETE).then(deleteResponse => {
-            setFeature({...feature, properties: {...feature.properties, price_irr: "0", price_psc: "0"}});
-          }).catch(error => {
-            if (error.response.status === 410) {
-              ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
-              return Navigate("/metaverse/confirmation");
-            } else {
-              ToastError(error.response.data.message)
-            }
-          })
-        }
+  if(featureStatus.id) {
+    Request(`sell-requests/${featureStatus.id}`, HTTP_METHOD.DELETE).then(deleteResponse => {
+      setFeatureStatus(null);
+    }).catch(error => {
+      if (error.response.status === 410) {
+        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
+        return Navigate("/metaverse/confirmation");
+      } else {
+        ToastError(error.response.data.message)
+      }
     })
+  }
   }
 
   return (
     
     <Container>
-      {/* {(parseInt(feature?.properties?.price_irr) > 0 && parseInt(feature?.properties?.price_psc) > 0) ? 
+      {featureStatus?.id ? 
         <Form onSubmit={onRemovePrice}>
           <Submit type="primary" text="حذف قیمت گذاری"/>
         </Form>
       :
-      <> */}
+      <>
         <Text>
           شما میتوانید ملک خود را به دو صورت ریال و PSC قیمت گذاری نمایید
         </Text>
@@ -145,8 +146,8 @@ export default function PriceDetermination() {
             options={{ style: { width: "20%", marginTop: 16 } }}
           />
         </Form>
-      {/* </>
-    } */}
+      </>
+    }
     </Container>
   );
 }

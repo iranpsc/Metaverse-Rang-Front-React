@@ -24,7 +24,7 @@ export default function Signup() {
   const onSubmitHandler = () => {
     Request('register', HTTP_METHOD.POST, formData)
       .then(() => {
-        navigation('/successful/signup');
+        navigation('/metaverse/successful/signup');
       })
       .catch((error) => {
         if (error?.response?.status === 422) {

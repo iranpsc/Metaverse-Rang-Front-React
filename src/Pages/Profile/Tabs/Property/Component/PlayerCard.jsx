@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
 import AnonymousImage from "../../../../../Assets/images/anonymous.png";
+import { useNavigate } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -60,6 +61,8 @@ const NamePlayer = styled.p`
 `;
 
 export default function PlayerCard({ PlayerImg, TextBtn, Code, Name, onClick, Id }) {
+  const Navigate = useNavigate();
+
   return (
     <Container>
       <Submit
@@ -76,7 +79,7 @@ export default function PlayerCard({ PlayerImg, TextBtn, Code, Name, onClick, Id
       />
       <DetailPlayersCard>
         <BorderImgPlayersCard>
-          <ImgPlayersCard src={PlayerImg ? PlayerImg : AnonymousImage} />
+          <ImgPlayersCard src={PlayerImg ? PlayerImg : AnonymousImage} onClick={() => Navigate(`/metaverse/player/${Id}`)}/>
         </BorderImgPlayersCard>
         
         <ContainerTextPlayer>

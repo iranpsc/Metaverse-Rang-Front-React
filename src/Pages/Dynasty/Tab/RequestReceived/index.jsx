@@ -7,6 +7,15 @@ import SatisfactionICoin from "../../../../Assets/images/satisfaction.png";
 import IncreaseICoin from "../../../../Assets/images/increase.png";
 import BankICoin from "../../../../Assets/images/bank.png";
 import SeenICoin from "../../../../Assets/images/eye-scanner.png";
+import useRequest from "../../../../Services/Hooks/useRequest";
+import { useEffect, useState } from "react";
+
+const status = {
+  '-1': 'رد شده',
+  '1': 'تایید شده',
+  '0': 'تایید نشده'
+}
+
 const Table = styled.table`
   width: 100%;
   padding: 10px;
@@ -36,7 +45,7 @@ const TdGift = styled.td`
   height: 60px;
   width: 434px;
 `;
-const Tablebody = styled.tbody`
+const TableBody = styled.tbody`
   tr:nth-of-type(odd) {
     background: white;
   }
@@ -45,84 +54,57 @@ const Tablebody = styled.tbody`
   }
 `;
 export default function RequestReceived() {
+  const { Request } = useRequest();
+  const [recived, setRecived] = useState([]);
+
+  useEffect(() => {
+    Request('dynasty/requests/recieved').then(response => {
+      setRecived(response.data.data);
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <Table>
       <HeaderTable>
         <tr>
           <th>دریافت از</th>
-          <th>تاریخ وساعت ارسال</th>
           <th>نسبت خانوادگی</th>
           <th>وضعیت درخواست</th>
           <th>پاداش</th>
           <th></th>
         </tr>
       </HeaderTable>
-      <Tablebody>
-        <Tr>
-          <td>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              HM-2000004
-            </a>
-          </td>
-          <td>1401/01/01 &nbsp; 19:50:00</td>
-          <td>خواهر</td>
-          <td>در دست بررسی</td>
-          <TdGift>
-            <GiftIcon src={PscCoin} />
-            1000
-            <GiftIcon src={DataBaseIcon} />
-            26.3%
-            <GiftIcon src={BankICoin} />
-            32%
-            <GiftIcon src={IncreaseICoin} />
-            32%
-            <GiftIcon src={SatisfactionICoin} />
-            0.5
-          </TdGift>
-          <td>
-            <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
-          </td>
-        </Tr>
-        <Tr>
-          <td>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              HM-2000004
-            </a>
-          </td>
-          <td>1401/01/01 &nbsp; 19:50:00</td>
-          <td>خواهر</td>
-          <td>در دست بررسی</td>
-          <TdGift>
-            <GiftIcon src={PscCoin} />
-            1000
-            <GiftIcon src={DataBaseIcon} />
-            26.3%
-            <GiftIcon src={BankICoin} />
-            32%
-            <GiftIcon src={IncreaseICoin} />
-            32%
-            <GiftIcon src={SatisfactionICoin} />
-            0.5
-          </TdGift>
-          <td>
-            <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
-          </td>
-        </Tr>
-        <Tr>
-          <td>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              HM-2000004
-            </a>
-          </td>
-          <td>1401/01/01 &nbsp; 19:50:00</td>
-          <td>خواهر</td>
-          <td>در دست بررسی</td>
-          <TdGift></TdGift>
-          <td>
-            <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
-          </td>
-        </Tr>
-      </Tablebody>
+      <TableBody>
+        {
+          recived?.map(item => (
+            <Tr>
+              <td>
+                <a href="http://" target="_blank" rel="noopener noreferrer">
+                  {item.from_user.code}
+                </a>
+              </td>
+              <td>{item.relationship}</td>
+              <td>{status[item.status]}</td>
+              <TdGift>
+                <GiftIcon src={PscCoin} />
+                1000
+                <GiftIcon src={DataBaseIcon} />
+                26.3%
+                <GiftIcon src={BankICoin} />
+                32%
+                <GiftIcon src={IncreaseICoin} />
+                32%
+                <GiftIcon src={SatisfactionICoin} />
+                0.5
+              </TdGift>
+              <td>
+                <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
+              </td>
+            </Tr>
+          ))
+        }
+      </TableBody>
     </Table>
   );
 }

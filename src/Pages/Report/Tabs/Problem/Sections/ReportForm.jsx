@@ -9,13 +9,7 @@ import Input from '../../../../../Components/Inputs/Input';
 import { Select } from '../../../../../Components/Inputs/Select';
 import ErrorMessage from '../../../../../Components/ErrorMessage';
 import Attachment from '../../../../../Components/Attachment';
-
-const initialState = {
-  title: '',
-  content: '',
-  subject: 'none',
-  url: 'https://rgb.irpsc.com/metaverse/report',
-}
+import { useLocation } from 'react-router-dom';
 
 const SelectOption = memo(({ value, dispatch }) => {
   const selectOptionHandler = (e) => {
@@ -40,8 +34,16 @@ const SelectOption = memo(({ value, dispatch }) => {
 
 
 export default function ReportForm({ setReports }) {
+  const { state } = useLocation();
   const { Request, HTTP_METHOD } = useRequest();
-  const [formData, setFormData] = useState(initialState);
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    subject: 'none',
+    url: state?.href ? `https://rgb.irpsc.com/${state?.href}` : 'https://rgb.irpsc.com/metaverse/report',
+  });
+
+  console.log(formData);
   const [errors, setErrors] = useState([]);
   const [files, setFiles] = useState([]);
 
@@ -54,7 +56,7 @@ export default function ReportForm({ setReports }) {
     }
     
     if(formData.subject === 'none') {
-      errors.push('لطفا موضوع گذارش خود را وارد کنید.')
+      errors.push('لطفا موضوع گزارش خود را وارد کنید.')
 
     }
     
@@ -73,7 +75,12 @@ export default function ReportForm({ setReports }) {
       if(!errors[0]) {
         Request('reports', HTTP_METHOD.POST, {...formData, attachment: attachment}, {"Content-Type": "multipart/form-data"}).then((response) => {
           setReports((prevState) => [...prevState, response.data.data]);
-          setFormData(initialState);
+          setFormData({
+            title: '',
+            content: '',
+            subject: 'none',
+            url: 'https://rgb.irpsc.com/metaverse/report',
+          });
           setFiles([]);
         }, []);
       }
@@ -81,7 +88,12 @@ export default function ReportForm({ setReports }) {
       if(!errors[0]) {
         Request('reports', HTTP_METHOD.POST, formData).then((response) => {
           setReports((prevState) => [...prevState, response.data.data]);
-          setFormData(initialState);
+          setFormData({
+            title: '',
+            content: '',
+            subject: 'none',
+            url: 'https://rgb.irpsc.com/metaverse/report',
+          });
         }, []);
       }
     }

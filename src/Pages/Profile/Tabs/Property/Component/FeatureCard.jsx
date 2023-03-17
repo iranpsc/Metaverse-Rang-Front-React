@@ -5,7 +5,7 @@ import { TextShorter } from "../../../../../Services/Utility";
 
 const Container = styled.div`
   width: 100%;
-  height: 140px;
+  height: 160px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,7 +56,7 @@ const IdContainer = styled.p`
   cursor: pointer;
 `;
 
-export default function FeatureCard({ Id, IdMap, Address, Area, Psc, Irr, Type }) {
+export default function FeatureCard({ Id, IdMap, Address, Area, Psc, Irr, Type, Image }) {
   const Navigate = useNavigate();
 
   return (
@@ -87,7 +87,12 @@ export default function FeatureCard({ Id, IdMap, Address, Area, Psc, Irr, Type }
           
           <TextDetail>
             {Type}&nbsp; - متراژ : &nbsp;{Area}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <img src={Image} width={30} alt=""/>
           </TextDetail>
+
         </Information>
         
         <Title>

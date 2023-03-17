@@ -75,7 +75,7 @@ export default function Variable({ settings }) {
             value={formData.checkout_days_count}
             onChange={onChangeHandler}
           />
-          <TitleVariable>زمان تسویه حساب بازه زمانی | روزانه</TitleVariable>
+          <TitleVariable>زمان تصویه حساب بازه زمانی | روزانه</TitleVariable>
         </ContainerVariable>
 
         <ContainerVariable>

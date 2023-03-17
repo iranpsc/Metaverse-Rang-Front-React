@@ -33,6 +33,7 @@ import Dynasty from "./Pages/Dynasty";
 import { useLayoutEffect } from "react";
 import Echo from "laravel-echo";
 import Pusher from 'pusher-js';
+import Tutorial from "./Components/Tutorial";
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
       <WalletProvider>
         <FollowProvider>
           <BrowserRouter>
+            {/* <Tutorial /> */}
             <Map />
 
             <Toaster

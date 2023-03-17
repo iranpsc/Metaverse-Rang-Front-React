@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import FeatureCard from "../Component/FeatureCard";
-// import SearchBox from "../../../../../Components/Inputs/SearchBox";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../../Services/Hooks/useRequest";
-import FeatureType from "../../../../../Services/Constants/FeatureType";
+import FeatureType, { FeatureColor } from "../../../../../Services/Constants/FeatureType";
 import FeaturesSearch from "../../../Components/FeaturesSearch";
-
 
 const Container = styled.div`
   width: 90%;
@@ -42,6 +40,7 @@ export default function Features() {
             Irr={feature.properties.price_irr}
             Psc={feature.properties.price_psc}
             Type={FeatureType(feature.properties.rgb)}
+            Image={FeatureColor(feature.properties.rgb)}
           />
         ))}
       </Container>

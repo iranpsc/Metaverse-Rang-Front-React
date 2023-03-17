@@ -272,17 +272,17 @@ export default function General() {
           <EstateContainer>
             <Estate>
               <img src={RedHouseImage} alt="" width={48} />
-              <p>{player?.features?.tejari}</p>
+              <p>{player?.features?.tejari ? player?.features?.tejari : 0}</p>
             </Estate>
 
             <Estate>
               <img src={YellowHouseImage} alt="" width={48} />
-              <p>{player?.features?.maskoni}</p>
+              <p>{player?.features?.maskoni ? player?.features?.maskoni : 0}</p>
             </Estate>
 
             <Estate>
               <img src={BlueHouseImage} alt="" width={48} />
-              <p>{player?.features?.amoozeshi}</p>
+              <p>{player?.features?.amoozeshi ? player?.features?.amoozeshi : 0}</p>
             </Estate>
           </EstateContainer>
 

@@ -3,6 +3,7 @@ import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import shortid from "shortid";
 import styled from "styled-components";
+import { COMBINE_FEATURE } from "../../../../Services/Constants/FeatureType";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
 import { ToastError, ToastSuccess } from "../../../../Services/Utility";
@@ -66,6 +67,7 @@ const Input = styled.input`
 export default function Property() {
   const [user, ] = useContext(UserContext);
   const [feature, setFeature] = useContext(FeatureContext);
+  console.log(feature);
   const Navigate = useNavigate();
 
   const inputRef = useRef();
@@ -130,7 +132,7 @@ export default function Property() {
       <PropertyContainer>
         <Specification title="صاحب ملک " value={feature?.properties?.owner === "rgb" ? "سیستم" : feature?.properties?.owner} />
         <Specification title="آدرس" value={feature?.properties?.address} />
-        <Specification title="وضعیت" value={feature?.properties?.address} />
+        <Specification title="وضعیت" value={COMBINE_FEATURE[feature?.properties?.karbari]} />
         <Specification
           title="متراژ | مترمربع"
           value={feature?.properties?.area}

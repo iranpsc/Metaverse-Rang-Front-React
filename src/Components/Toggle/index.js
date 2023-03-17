@@ -11,7 +11,7 @@ const Input = styled.input`
   -webkit-appearance: none;
   background: #c6c6c6;
   outline: none;
-  border-radius: 20px;
+  border-radius: 20px !important;
   transition: 0.7s;
 
   &:checked {
@@ -23,7 +23,7 @@ const Input = styled.input`
     position: absolute;
     width: 22px;
     height: 22px;
-    border-radius: 20px;
+    border-radius: 20px !important;
     left: 0;
     background: #ffffff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

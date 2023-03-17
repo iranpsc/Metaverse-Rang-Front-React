@@ -7,6 +7,10 @@ import SatisfactionICoin from "../../../../Assets/images/satisfaction.png";
 import IncreaseICoin from "../../../../Assets/images/increase.png";
 import BankICoin from "../../../../Assets/images/bank.png";
 import SeenICoin from "../../../../Assets/images/eye-scanner.png";
+import { useEffect, useState } from "react";
+import useRequest from "../../../../Services/Hooks/useRequest";
+
+
 const Table = styled.table`
   width: 100%;
   padding: 10px;
@@ -16,17 +20,21 @@ const Table = styled.table`
     text-align: center;
   }
 `;
+
 const HeaderTable = styled.thead`
   background: #e9e9e9;
   height: 50px;
 `;
+
 const Tr = styled.tr`
   height: 60px !important;
   padding: 5px;
 `;
+
 const GiftIcon = styled.img`
   width: 30px;
 `;
+
 const TdGift = styled.td`
   display: flex;
   align-items: center;
@@ -36,6 +44,7 @@ const TdGift = styled.td`
   height: 60px;
   width: 434px;
 `;
+
 const TableBody = styled.tbody`
   tr:nth-of-type(odd) {
     background: white;
@@ -44,7 +53,23 @@ const TableBody = styled.tbody`
     background: #e9e9e9;
   }
 `;
+
+const status = {
+  '-1': 'رد شده',
+  '1': 'تایید شده',
+  '0': 'تایید نشده'
+}
+
 export default function RequestSent() {
+  const { Request } = useRequest();
+  const [sent, setSent] = useState([]);
+
+  useEffect(() => {
+    Request('dynasty/requests/sent').then(response => {
+      setSent(response.data.data);
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <Table>
       <HeaderTable>
@@ -58,70 +83,34 @@ export default function RequestSent() {
         </tr>
       </HeaderTable>
       <TableBody>
-        <Tr>
-          <td>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              HM-2000004
-            </a>
-          </td>
-          <td>1401/01/01 &nbsp; 19:50:00</td>
-          <td>خواهر</td>
-          <td>در دست بررسی</td>
-          <TdGift>
-            <GiftIcon src={PscCoin} />
-            1000
-            <GiftIcon src={DataBaseIcon} />
-            26.3%
-            <GiftIcon src={BankICoin} />
-            32%
-            <GiftIcon src={IncreaseICoin} />
-            32%
-            <GiftIcon src={SatisfactionICoin} />
-            0.5
-          </TdGift>
-          <td>
-            <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
-          </td>
-        </Tr>
-        <Tr>
-          <td>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              HM-2000004
-            </a>
-          </td>
-          <td>1401/01/01 &nbsp; 19:50:00</td>
-          <td>خواهر</td>
-          <td>در دست بررسی</td>
-          <TdGift>
-            <GiftIcon src={PscCoin} />
-            1000
-            <GiftIcon src={DataBaseIcon} />
-            26.3%
-            <GiftIcon src={BankICoin} />
-            32%
-            <GiftIcon src={IncreaseICoin} />
-            32%
-            <GiftIcon src={SatisfactionICoin} />
-            0.5
-          </TdGift>
-          <td>
-            <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
-          </td>
-        </Tr>
-        <Tr>
-          <td>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              HM-2000004
-            </a>
-          </td>
-          <td>1401/01/01 &nbsp; 19:50:00</td>
-          <td>خواهر</td>
-          <td>در دست بررسی</td>
-          <TdGift></TdGift>
-          <td>
-            <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
-          </td>
-        </Tr>
+      {
+        sent?.map(item => (
+          <Tr>
+            <td>
+              <a href="http://" target="_blank" rel="noopener noreferrer">
+                {item.to_user.code}
+              </a>
+            </td>
+            <td>{item.relationship}</td>
+            <td>{status[item.status]}</td>
+            <TdGift>
+              <GiftIcon src={PscCoin} />
+              1000
+              <GiftIcon src={DataBaseIcon} />
+              26.3%
+              <GiftIcon src={BankICoin} />
+              32%
+              <GiftIcon src={IncreaseICoin} />
+              32%
+              <GiftIcon src={SatisfactionICoin} />
+              0.5
+            </TdGift>
+            <td>
+              <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
+            </td>
+          </Tr>
+          ))
+        }
       </TableBody>
     </Table>
   );
