@@ -21,7 +21,7 @@ export default function FooterPing() {
                     }
                 };
 
-                xhr.open('GET', `https://hc-ping.com/3b18cbd2-c118-4b23-92af-4dea9cd8d906`, true);
+                xhr.open('GET', `https://rgb.irpsc.com/metaverse`, true);
 
                 startTime = new Date().getTime();
                 
