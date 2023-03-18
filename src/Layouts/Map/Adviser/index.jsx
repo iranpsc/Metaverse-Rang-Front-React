@@ -35,7 +35,7 @@ export default function AdviserIcon() {
                   <div className="box-1 "> </div>
                   <div className="position-text">
                     <p className="class-text">
-                      زمین آموزشی خریداری شده قیمت گذاری شده
+                      VOD آموزشی خریداری شده قیمت گذاری شده
                     </p>
                   </div>
                 </div>
@@ -43,7 +43,7 @@ export default function AdviserIcon() {
                   <div className="box-2 "> </div>
                   <div className="position-text">
                     <p className="class-text">
-                      زمین مسکونی خریداری شده قیمت گذاری شده
+                      VOD مسکونی خریداری شده قیمت گذاری شده
                     </p>
                   </div>
                 </div>
@@ -51,7 +51,7 @@ export default function AdviserIcon() {
                   <div className="box-3 "> </div>
                   <div className="position-text">
                     <p className="class-text">
-                      زمین تجاری خریداری شده قیمت گذاری شده
+                      VOD تجاری خریداری شده قیمت گذاری شده
                     </p>
                   </div>
                 </div>
@@ -63,7 +63,7 @@ export default function AdviserIcon() {
                     </div>
                     <div className="position-text">
                       <p className="class-text">
-                        زمین آموزشی پیش خرید یا قفل شده
+                        VOD آموزشی پیش خرید یا قفل شده
                       </p>
                     </div>
                   </div>
@@ -77,7 +77,7 @@ export default function AdviserIcon() {
                   </div>
                   <div className="position-text">
                     <p className="class-text">
-                      زمین آموزشی پیش خرید یا قفل شده
+                      VOD آموزشی پیش خرید یا قفل شده
                     </p>
                   </div>
                 </div>
@@ -90,26 +90,26 @@ export default function AdviserIcon() {
                   </div>
                   <div className="position-text">
                     <p className="class-text">
-                      زمین آموزشی پیش خرید یا قفل شده
+                      VOD آموزشی پیش خرید یا قفل شده
                     </p>
                   </div>
                 </div>
                 <div className="w-box">
                   <div className="box-7 "> </div>
                   <div className="position-text">
-                    <p className="class-text">زمین آموزشی آزاد</p>
+                    <p className="class-text">VOD آموزشی آزاد</p>
                   </div>
                 </div>
                 <div className="w-box">
                   <div className="box-8  "> </div>
                   <div className="position-text">
-                    <p className="class-text">زمین مسکونی آزاد</p>
+                    <p className="class-text">VOD مسکونی آزاد</p>
                   </div>
                 </div>
                 <div className="w-box">
                   <div className="box-9"> </div>
                   <div className="position-text">
-                    <p className="class-text">زمین تجاری آزاد</p>
+                    <p className="class-text">VOD تجاری آزاد</p>
                   </div>
                 </div>
               </div>

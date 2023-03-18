@@ -582,7 +582,7 @@ export default function Commercial() {
         </g>
       </svg>
       <LottieMessage
-        title="خرید زمین تجاری با موفقیت انجام شد"
+        title="خرید VOD تجاری با موفقیت انجام شد"
       />
     </Container>
   );

@@ -11,10 +11,10 @@ export default function YellowTutorial({ nextPageHandler }) {
     </div>
     <div className="container-text-Education">
       <div className="Education-text">
-        یک شاخص داخلی برای خرید زمین مجازی کاربری مراکز مسکونی است
+        یک شاخص داخلی برای خرید VOD مجازی کاربری مراکز مسکونی است
       </div>
       <div className="page-box-color ">
-        رنگ قرمز شاخص خرید زمین در بافت مسکونی میباشد <br /><br /> زمین هایی که توسط سرور برای عرضه آزاد میشود در
+        رنگ قرمز شاخص خرید VOD در بافت مسکونی میباشد <br /><br /> VOD هایی که توسط سرور برای عرضه آزاد میشود در
         صورتی که به رنگ زرد باشد شما میتوانید با این موجودی صاحب ملک مجازی شوید
       </div>
     </div>

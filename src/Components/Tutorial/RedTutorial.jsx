@@ -11,10 +11,10 @@ export default function RedTutorial({ nextPageHandler }) {
     </div>
     <div className="container-text-Education">
       <div className="Education-text">
-        یک شاخص داخلی برای خرید زمین مجازی کاربری مراکز تجاری است
+        یک شاخص داخلی برای خرید VOD مجازی کاربری مراکز تجاری است
       </div>
       <div className="page-box-color ">
-        رنگ قرمز شاخص خرید زمین در بافت تجاری میباشد <br /><br /> زمین هایی که توسط سرور برای عرضه آزاد میشود در صورتی
+        رنگ قرمز شاخص خرید VOD در بافت تجاری میباشد <br /><br /> VOD هایی که توسط سرور برای عرضه آزاد میشود در صورتی
         که به رنگ rقرمز باشد شما میتوانید با این موجودی صاحب ملک مجازی شوید
       </div>
     </div>

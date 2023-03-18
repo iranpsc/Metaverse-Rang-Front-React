@@ -98,7 +98,7 @@ export default function TableFeature({ dynasty, setDynasty }) {
     <Container>
       <Table>
         <TableHead>
-          <td>شناسه زمین</td>
+          <td>شناسه VOD</td>
           <td>متراژ</td>
           <td>انتقال</td>
         </TableHead>

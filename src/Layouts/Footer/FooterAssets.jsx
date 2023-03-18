@@ -40,7 +40,7 @@ export default function FooterAssets() {
                 alt='blue-color'
                 borderColor='blue'
                 TitleToltip={"رنگ آبی"}
-                ContentToltip={"یک واحد قابل خرید از متارنگ به منظور تهیه زمین های آزاد شده آموزشی"}
+                ContentToltip={"یک واحد قابل خرید از متارنگ به منظور تهیه VOD های آزاد شده آموزشی"}
             />
 
             <FooterAssetsBox
@@ -49,7 +49,7 @@ export default function FooterAssets() {
                 alt='red-color'
                 borderColor='red'
                 TitleToltip={"رنگ قرمز "}
-                ContentToltip={"یک واحد قابل خرید از متارنگ به منظور تهیه زمین های آزاد شده تجاری"}
+                ContentToltip={"یک واحد قابل خرید از متارنگ به منظور تهیه VOD های آزاد شده تجاری"}
             />
 
             <FooterAssetsBox
@@ -58,7 +58,7 @@ export default function FooterAssets() {
                 alt='yellow-color'
                 borderColor='yellow'
                 TitleToltip={"رنگ زرد"}
-                ContentToltip={"یک واحد قابل خرید از متارنگ به منظور تهیه زمین های آزاد شده مسکونی"}
+                ContentToltip={"یک واحد قابل خرید از متارنگ به منظور تهیه VOD های آزاد شده مسکونی"}
             />
 
             <FooterAssetsBox

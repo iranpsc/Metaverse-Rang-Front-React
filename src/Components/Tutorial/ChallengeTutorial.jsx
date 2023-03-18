@@ -15,7 +15,7 @@ export default function ChallengeTutorial({ nextPageHandler }) {return(
     </div>
     <div className="container-text-Education">
       <div className="Education-text">
-        جوایز متعدد در زمینه های مختلف متناسب با رده های سنی 
+        جوایز متعدد در VODه های مختلف متناسب با رده های سنی 
       </div>
       <div className="page-box-color ">
         با شرکت در چالش ها اطلاعت خود در باره جهان متاورس را افزایش داده و با ارایه پاسخ هدایای نفیسی به دست آورید 
