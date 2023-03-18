@@ -1,1 +1,1 @@
-export default function Members() {console.log(3)}
+export default function Members() {(3)}
