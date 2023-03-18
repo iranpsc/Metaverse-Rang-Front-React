@@ -13,13 +13,15 @@ import styled from "styled-components";
 import flyToGif from "../../Assets/gif/Flyto.gif";
 import ContextMenu from "./ContextMenu/ContextMenu";
 import AdviserIcon from "./Adviser";
+import ToolTip from "../../Components/Tooltip";
 
 const IconFlyTo = styled.img`
   position: absolute;
   z-index: 500;
   top:50%;
   right: 0px;
-  width: 116px;
+  width:100px;
+  aspect-ratio: 1/1;
   cursor: pointer;
 `;
 
@@ -73,7 +75,7 @@ export default function Map() {
 
       <ContextMenu />
       <AdviserIcon />
-      <IconFlyTo src={flyToGif} onClick={flyToPosition} />
+      <ToolTip Chidren={<IconFlyTo src={flyToGif} onClick={flyToPosition} />} TitleToltip={"تنب بزرگ"} ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"} classNamePosstion={"tw-flyto"} />
     </MapContainer>
   );
 }

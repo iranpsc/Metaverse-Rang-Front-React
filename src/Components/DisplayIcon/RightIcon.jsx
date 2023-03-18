@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PercentageIcon from "./PercentageIcon";
 
 import KycImage from "../../Assets/images/kyc.png";
-
+import ToolTip from "../Tooltip";
 
 const RightIconContainer = styled.div`
   display: flex;
@@ -22,10 +22,20 @@ const Icon = styled.img`
 
 export default function LeftIcon() {
   const navigation = useNavigate();
-  
+
   return (
     <RightIconContainer>
-      <Icon src={KycImage} onClick={() => navigation(`/metaverse/verification`)} />
+      <ToolTip
+        Chidren={
+          <Icon
+            src={KycImage}
+            onClick={() => navigation(`/metaverse/verification`)}
+          />
+        }
+        TitleToltip={"احراز هویت"}
+        ContentToltip={"احراز هویت شخصی و بانکی"}
+        classNamePosstion={"tw-righticon"}
+      />
       <PercentageIcon />
     </RightIconContainer>
   );

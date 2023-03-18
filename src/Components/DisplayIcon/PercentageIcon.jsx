@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PercentageImage from "../../Assets/images/percentage.png";
 import useAuth from "../../Services/Hooks/useAuth";
+import ToolTip from "../Tooltip";
 
 const ProfitIcon = styled.img`
   width: 56px;
@@ -46,15 +47,22 @@ export default function PercentageIcon() {
 
   useEffect(() => {
     setPercentage(getUser().hourly_profit_time_percentage);
-  }, [getUser])
+  }, [getUser]);
 
   return (
-    <Container>
-      <ProfitIcon src={PercentageImage} />
+    <ToolTip
+      Chidren={
+        <Container>
+          <ProfitIcon src={PercentageImage} />
 
-      <PercentCoin>
-        <PercentText>{ Percentage }</PercentText>
-      </PercentCoin>
-    </Container>
+          <PercentCoin>
+            <PercentText>{Percentage}</PercentText>
+          </PercentCoin>
+        </Container>
+      }
+      TitleToltip={"سود انباشته"}
+      ContentToltip={"جمع آوری و ذخیره سود از سرمایه و دارایی ها"}
+      classNamePosstion={"tw-righticon"}
+    />
   );
 }

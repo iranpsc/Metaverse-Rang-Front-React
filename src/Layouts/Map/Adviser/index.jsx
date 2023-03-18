@@ -1,17 +1,25 @@
 import { useState } from "react";
-import IconAdviser from "../../../Assets/images/support.png";
-import "./Adviser.css"
+import IconAdviser from "../../../Assets/images/robot.png";
+import ToolTip from "../../../Components/Tooltip";
+import "./Adviser.css";
 
 export default function AdviserIcon() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="tw-accordion-cont" >
-      <img
-        src={IconAdviser}
-        alt=""
-        className="tw-icon-acc"
-        onClick={() => setOpen(!open)}
+    <div className="tw-accordion-cont">
+      <ToolTip
+        Chidren={
+          <img
+            src={IconAdviser}
+            alt=""
+            className="tw-icon-acc cursor-pointer"
+            onClick={() => setOpen(!open)}
+          />
+        }
+        TitleToltip={"راهنمای VOD"}
+        ContentToltip={"توضیحات  VOD"}
+        classNamePosstion={"tw-righticon"}
       />
 
       <div
