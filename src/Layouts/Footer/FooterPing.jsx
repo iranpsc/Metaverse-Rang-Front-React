@@ -27,7 +27,7 @@ export default function FooterPing() {
                 
                 xhr.send();
             } catch {}
-        }, 3000)
+        }, 7000)
 
         return () => clearInterval(interval);
     });
