@@ -30,14 +30,14 @@ export default function LeftIcon() {
       <ToolTip
         Chidren={<Icon src={GiftImage} />}
         TitleToltip={"چالش ها"}
-        ContentToltip={"جوایز متعدد در VODه های مختلف متناسب با رده های سنی"}
+        ContentToltip={"جوایز متعدد در VOD مختلف متناسب با رده های سنی"}
         classNamePosstion={"tw-lefticon"}
       />
 
       <ToolTip
         Chidren={<Icon src={SearchImage} />}
         TitleToltip={"جستجوی مرکزی"}
-        ContentToltip={"جستجو در VODه ها و بخش های متارنگ"}
+        ContentToltip={"جستجو در VOD و بخش های متارنگ"}
         classNamePosstion={"tw-lefticon"}
       />
 
