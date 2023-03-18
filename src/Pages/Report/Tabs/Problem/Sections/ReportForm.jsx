@@ -42,8 +42,6 @@ export default function ReportForm({ setReports }) {
     subject: 'none',
     url: state?.href ? `https://rgb.irpsc.com/${state?.href}` : 'https://rgb.irpsc.com/metaverse/report',
   });
-
-  (formData);
   const [errors, setErrors] = useState([]);
   const [files, setFiles] = useState([]);
 
