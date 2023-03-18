@@ -9,8 +9,8 @@ const RightIconContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 30%;
-  right: 16px;
+  top: 35%;
+  right: 31px;
   z-index: 500;
   gap: 16px;
 `;

@@ -5,6 +5,7 @@ import GiftImage from "../../Assets/images/gift-box.png";
 import SearchImage from "../../Assets/images/search.png";
 import StatisticsImage from "../../Assets/images/statistics.png";
 import DynastyImage from "../../Assets/images/dynsty.png";
+import ToolTip from "../Tooltip";
 
 const Container = styled.div`
   display: flex;
@@ -18,20 +19,46 @@ const Container = styled.div`
 
 const Icon = styled.img`
   width: 56px;
-  -webkit-filter: grayscale(1) ;
-  filter: grayscale(1) ;
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
 `;
 
 export default function LeftIcon() {
   const navigate = useNavigate();
   return (
     <Container>
-      <Icon src={GiftImage} />
+      <ToolTip
+        Chidren={<Icon src={GiftImage} />}
+        TitleToltip={"چالش ها"}
+        ContentToltip={"جوایز متعدد در زمینه های مختلف متناسب با رده های سنی"}
+        classNamePosstion={"tw-lefticon"}
+      />
 
-      <Icon src={SearchImage} />
+      <ToolTip
+        Chidren={<Icon src={SearchImage} />}
+        TitleToltip={"جستجوی مرکزی"}
+        ContentToltip={"جستجو در زمینه ها و بخش های متارنگ"}
+        classNamePosstion={"tw-lefticon"}
+      />
 
-      <Icon src={StatisticsImage} />
-      <Icon src={DynastyImage} onClick={() => navigate("/metaverse/dynasty")} style={{filter:"none",cursor:"pointer"}}/>
+      <ToolTip
+        Chidren={<Icon src={StatisticsImage} />}
+        TitleToltip={"آمار سراسری"}
+        ContentToltip={"لیست شهروندان متارنگ طبقه بندی شده بر اساس ویژگی"}
+        classNamePosstion={"tw-lefticon"}
+      />
+      <ToolTip
+        Chidren={
+          <Icon
+            src={DynastyImage}
+            onClick={() => navigate("/metaverse/dynasty")}
+            style={{ filter: "none", cursor: "pointer" }}
+          />
+        }
+        TitleToltip={"سلسله"}
+        ContentToltip={"ساخت سلسله خانوادگی"}
+        classNamePosstion={"tw-lefticon"}
+      />
     </Container>
   );
 }
