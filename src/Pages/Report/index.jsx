@@ -14,7 +14,7 @@ export default function Report() {
   const TabPanel = useTabs(tabs);
 
   return (
-    <Modal type='modal-section-xl' title='سوالات خود را در انجمن حم مطرح نمایید این بخش تنها در صورت وجود هرگونه خطا با تذکر شما حل خواهد شد'>
+    <Modal type='modal-section-xl' title='گزارشات '>
       { TabPanel }
     </Modal>
   )

@@ -84,7 +84,7 @@ export default function NotesForm({ setNotes }) {
 
       <Submit
         type={'primary'}
-        text='ارسال'
+        text='ذخیره'
         options={{ style: { marginTop: 16, width: '100%' } }}
       />
 

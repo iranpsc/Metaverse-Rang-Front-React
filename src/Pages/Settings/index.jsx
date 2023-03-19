@@ -89,14 +89,14 @@ function GeneralSettings() {
 
         <Section>
           <Toggle
-            text='ارسال پیامک تصویه حساب تراکنش ها'
+            text='ارسال پیامک تسویه حساب تراکنش ها'
             onChange={setGeneralSettings}
             value={generalSettings.transactions_sms}
             name='transactions_sms'
           />
 
           <Toggle
-            text='ارسال ایمیل تصویه حساب تراکنش ها'
+            text='ارسال ایمیل تسویه حساب تراکنش ها'
             onChange={setGeneralSettings}
             value={generalSettings.transactions_email}
             name='transactions_email'

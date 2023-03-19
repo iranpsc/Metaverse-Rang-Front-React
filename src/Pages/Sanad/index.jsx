@@ -7,7 +7,7 @@ import Ticket from './Tabs/Ticket';
 
 export default function Sanad() {
   const tabs = [
-    {title: 'تیکت', content: <Ticket />},
+    {title: 'سند', content: <Ticket />},
     {title: 'یادداشت ها', content: <Note />}
   ]
 
