@@ -34,7 +34,6 @@ export default function ConditionalPage() {
 
   const AnonymousTabs = [
     { title: "خصوصیات", content: <Property /> },
-    { title: "ورود بخ ملک", content: <UnityTab /> }
   ];
   const AnonymousTabPanel = useTabs(AnonymousTabs);
 
@@ -50,21 +49,18 @@ export default function ConditionalPage() {
       setUserId(parseInt(user?.id));
     }
   }, [getUser]);
-  console.log(feature?.properties?.rgb);
-  return (
-    <>
-      {userId && FeatureColor(feature?.properties?.rgb) ? (
-        <>
-          {feature?.owner_id === userId && SellTabPanel}
-          {feature?.owner_id === 1 && BuySystemTabPanel}
-          {feature?.owner_id !== 1 &&
-            feature?.owner_id !== userId &&
-            BuyUserTabPanel}
-          {feature.id == 6220 && UnityTabPanel}
-        </>
-      ) : (
-        AnonymousTabPanel
-      )}
-    </>
-  );
+  
+  if (userId && FeatureColor(feature?.properties?.rgb)) {
+    if (feature.id == 6220) {
+      return UnityTabPanel ;
+    } else if (feature?.owner_id === 1) {
+      return BuySystemTabPanel ;
+    } else if (feature?.owner_id !== 1 && feature?.owner_id !== userId) {
+      return BuyUserTabPanel ;
+    } else if (feature?.owner_id === userId) {
+      return SellTabPanel;
+    }
+  } else {
+    return AnonymousTabPanel ;
+  }
 }
