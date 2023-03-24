@@ -3,6 +3,7 @@ import styled from "styled-components";
 import React, { useEffect, useState,useContext } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { FeatureContext } from "../../Context/FeatureProvider";
+import Submit from "../../../../Components/Buttons/Submit";
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -70,7 +71,7 @@ export default function UnitiTab() {
       </ContainerItem>
 
       <ContainerItem>
-        <button onClick={handleClickSpawnEnemies}>Send Json Object</button>
+        <Submit text="ورود" onClick={handleClickSpawnEnemies} type={"primary"}  options={{ style: { width: 150 } }}/>
       </ContainerItem>
     </Container>
   );
