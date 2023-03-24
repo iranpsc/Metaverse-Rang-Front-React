@@ -197,7 +197,7 @@ export default function SendDocuments({ setDefaultTab }) {
       </ErrorContainer>
       <Container>
         <ParentUploadImg className={`${errorHandler(kyc?.errors, 'resume') && 'invalid-input'}`}>
-          <LabelBorder>عکس کارت بانکی</LabelBorder>
+          <LabelBorder>تصویر کارت بانکی</LabelBorder>
 
           <ContainerUploader onClick={() => kyc?.status === 1 ? null : bankCardRef.current.click()}>
             {!preview?.resume && kyc?.status !== 1 && <p>+</p>}
@@ -218,7 +218,7 @@ export default function SendDocuments({ setDefaultTab }) {
         </ParentUploadImg>
         
         <ParentUploadImg className={`${errorHandler(kyc?.errors, 'melli_card') && 'invalid-input'}`}>
-          <LabelBorder>کارت ملی</LabelBorder>
+          <LabelBorder>  تصویر کارت ملی</LabelBorder>
 
           <ContainerUploader onClick={() => kyc?.status === 1 ? null : meliCardRef.current.click()}>
             {!preview?.melli_card && kyc?.status !== 1 && <p>+</p>}
@@ -239,7 +239,7 @@ export default function SendDocuments({ setDefaultTab }) {
         </ParentUploadImg>
 
         <ParentUploadImg className={`${errorHandler(kyc?.errors, 'prove_picture') && 'invalid-input'}`}>
-          <LabelBorder>عکس چهره و مدارک همراه</LabelBorder>
+          <LabelBorder>تصویر چهره به همراه فرم قوانین و مدارک همراه</LabelBorder>
 
           <ContainerUploader onClick={() => kyc?.status === 1 ? null : provePicRef.current.click()}>
             {!preview?.prove_picture && kyc?.status !== 1 && <p>+</p>}

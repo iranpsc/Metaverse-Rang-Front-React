@@ -173,56 +173,75 @@ export default function General() {
   const { Request, HTTP_METHOD } = useRequest();
 
   useEffect(() => {
-    Request('user/wallet').then(response => {
-        setAssets(response.data.data);
+    Request("user/wallet").then((response) => {
+      setAssets(response.data.data);
     });
 
-    Request('user/profile').then(response => {
-        setUser(response.data.data);
+    Request("user/profile").then((response) => {
+      setUser(response.data.data);
     });
 
-    Request('profilePhotos').then(response => {
-        setProfileImage(response?.data?.data.reverse());
+    Request("profilePhotos").then((response) => {
+      setProfileImage(response?.data?.data.reverse());
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const deleteProfileImage = (id) => {
     Request(`profilePhotos/${id}`, HTTP_METHOD.DELETE).then(() => {
-      setProfileImage(profileImage.filter(image => image.id !== id));
-    })
-  }
+      setProfileImage(profileImage.filter((image) => image.id !== id));
+    });
+  };
 
   return (
     <>
       <Container>
         <ProfileSection>
-          <Swiper slidesPerView={1} navigation={{ enabled: true }} className="cursor-pointer">
-            {profileImage.length > 0 ? 
-                profileImage.map(image => (
-                    <SwiperSlide key={image.id}>
-                        <img
-                            style={{ borderRadius: "100%" }}
-                            src={image.url}
-                            width={150}
-                            height={150}
-                            alt=""
-                        />
-                        <DeleteProfile src={DeletesImage} onClick={() => deleteProfileImage(image.id)}/>
-                        <UploadProfile src={CameraImage} onClick={() => Navigate('/metaverse/upload/avatar')}/>
-                    </SwiperSlide>
-                ))
-                :
-                <>
+          <Swiper
+            direction={"vertical"}
+            slidesPerView={1}
+            spaceBetween={30}
+            mousewheel={true}
+            pagination={{
+              clickable: true,
+            }}
+            className="mySwiper cursor-pointer "
+            style={{height:"100%"}}
+          >
+            {profileImage.length > 0 ? (
+              profileImage.map((image) => (
+                <SwiperSlide key={image.id} style={{height:"fit-content !important"}}>
                   <img
-                      style={{ borderRadius: "100%" }}
-                      src={AnonymousImage}
-                      width={150}
-                      alt=""
+                    style={{ borderRadius: "10px" }}
+                    src={image.url}
+                    width={150}
+                    height={150}
+                    alt=""
                   />
-                  <UploadProfile src={CameraImage} onClick={() => Navigate('/metaverse/upload/avatar')}/>
-                </>
-            }
+                  <DeleteProfile
+                    src={DeletesImage}
+                    onClick={() => deleteProfileImage(image.id)}
+                  />
+                  <UploadProfile
+                    src={CameraImage}
+                    onClick={() => Navigate("/metaverse/upload/avatar")}
+                  />
+                </SwiperSlide>
+              ))
+            ) : (
+              <>
+                <img
+                  style={{ borderRadius: "10px" }}
+                  src={AnonymousImage}
+                  width={150}
+                  alt=""
+                />
+                <UploadProfile
+                  src={CameraImage}
+                  onClick={() => Navigate("/metaverse/upload/avatar")}
+                />
+              </>
+            )}
           </Swiper>
         </ProfileSection>
 
@@ -234,13 +253,29 @@ export default function General() {
 
           <Label Image={PSCImage} Name="PSC مجموع دارایی" Value={assets?.psc} />
 
-          <Label Image={IRRImage} Name="مجموع دارایی ریال" Value={assets?.irr} />
+          <Label
+            Image={IRRImage}
+            Name="مجموع دارایی ریال"
+            Value={assets?.irr}
+          />
 
-          <Label Image={BlueImage} Name="مجموع دارایی رنگ آبی" Value={assets?.blue} />
+          <Label
+            Image={BlueImage}
+            Name="مجموع دارایی رنگ آبی"
+            Value={assets?.blue}
+          />
 
-          <Label Image={RedImage} Name="مجموع دارایی رنگ قرمز" Value={assets?.red} />
+          <Label
+            Image={RedImage}
+            Name="مجموع دارایی رنگ قرمز"
+            Value={assets?.red}
+          />
 
-          <Label Image={YellowImage} Name="مجموع دارایی رنگ زرد" Value={assets?.yellow} />
+          <Label
+            Image={YellowImage}
+            Name="مجموع دارایی رنگ زرد"
+            Value={assets?.yellow}
+          />
 
           <Label
             Image={SatisfactionImage}
@@ -252,10 +287,10 @@ export default function General() {
         <InfoSection style={{ borderRight: "1px solid #333" }}>
           <Info>
             <p>تاریخ ورود</p>
-            <p>{ user?.registered_at }</p>
+            <p>{user?.registered_at}</p>
           </Info>
 
-          <ProgressLevel percent={`${user?.score_percentage_to_next_level}%`}/>
+          <ProgressLevel percent={`${user?.score_percentage_to_next_level}%`} />
 
           <EstateContainer>
             <Estate>
@@ -274,19 +309,17 @@ export default function General() {
             </Estate>
           </EstateContainer>
 
-          <Label Image={FollowingImage} Name="دنبال کننده" Value={user?.followers} />
+          <Label
+            Image={FollowingImage}
+            Name="دنبال کننده"
+            Value={user?.followers}
+          />
 
-          <Label Image={FollowersImage} Name="دنبال شونده" Value={user?.following} />
-
-          <NoteContainer>
-            <img
-              src={CommentImage}
-              alt=""
-              width={32}
-              className="cursor-pointer"
-            />
-            <Note placeholder="یاداشتی بنویسید..." />
-          </NoteContainer>
+          <Label
+            Image={FollowersImage}
+            Name="دنبال شونده"
+            Value={user?.following}
+          />
         </InfoSection>
       </Container>
     </>

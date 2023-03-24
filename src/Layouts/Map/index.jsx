@@ -18,11 +18,14 @@ import ToolTip from "../../Components/Tooltip";
 const IconFlyTo = styled.img`
   position: absolute;
   z-index: 500;
-  top:50%;
+  top: 56%;
   right: 0px;
-  width:100px;
+  width: 100px;
   aspect-ratio: 1/1;
   cursor: pointer;
+  @media (min-width: 1536px) {
+    top: 50%;
+  }
 `;
 
 export default function Map() {
@@ -75,7 +78,12 @@ export default function Map() {
 
       <ContextMenu />
       <AdviserIcon />
-      <ToolTip Chidren={<IconFlyTo src={flyToGif} onClick={flyToPosition} />} TitleToltip={"تنب بزرگ"} ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"} classNamePosstion={"tw-flyto"} />
+      <ToolTip
+        Chidren={<IconFlyTo src={flyToGif} onClick={flyToPosition} />}
+        TitleToltip={"تنب بزرگ"}
+        ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
+        classNamePosstion={"tw-flyto"}
+      />
     </MapContainer>
   );
 }

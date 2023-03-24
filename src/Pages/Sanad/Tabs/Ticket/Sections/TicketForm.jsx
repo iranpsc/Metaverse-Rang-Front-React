@@ -30,7 +30,7 @@ const SelectOption = ({ value, dispatch }) => {
   
   return (
     <Select name='department' onChange={selectOptionHandler} value={value}>
-      <option value="none">دسته بندی نامه ارسال شده</option>
+      <option value="none">دسته بندی سند ارسال شده</option>
       <option value="technical_support">پشتیبانی فنی</option>
       <option value="citizens_safety">ایمنی شهروندان</option>
       <option value="investment">سرمایه گذاری</option>
@@ -175,7 +175,7 @@ export default function TicketForm({ setTickets }) {
         onChange={(e) =>
           setFormData((prevState) => ({ ...prevState, content: e }))
         }
-        placeholder='متن پیام ...'
+        placeholder='متن سند ...'
       />
 
       <Attachment setFiles={setFiles} files={files}/>

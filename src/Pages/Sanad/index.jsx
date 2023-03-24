@@ -7,14 +7,14 @@ import Ticket from './Tabs/Ticket';
 
 export default function Sanad() {
   const tabs = [
-    {title: 'سند', content: <Ticket />},
+    {title: ' سند ها ', content: <Ticket />},
     {title: 'یادداشت ها', content: <Note />}
   ]
 
   const TabPanel = useTabs(tabs);
 
   return (
-    <Modal type='modal-section-xl' title='سند'>
+    <Modal type='modal-section-xl' title='اسناد'>
       { TabPanel }
     </Modal>
   )

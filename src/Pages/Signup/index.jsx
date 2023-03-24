@@ -75,7 +75,7 @@ export default function Signup() {
           با کلیک بر روی دکمه ورود به سامانه موافقت میکنید
         </p>
 
-        <a href='https://rgb.irpsc.com/ruls' className='link text-1 mt-2'>
+        <a href='https://rgb.irpsc.com/overview' className='link text-1 mt-2' target={"_blank"} rel="noreferrer">
           شرایط قرارداد خدمات
         </a>
 

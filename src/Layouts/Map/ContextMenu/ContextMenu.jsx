@@ -108,7 +108,7 @@ export default function ContextMenu() {
 
           <li
             className="item"
-            onClick={() => openInNewTab("https://faq.irpsc.com/tags/meta-rgb/")}
+            onClick={() => openInNewTab("https://faq.irpsc.com/tags/meta-rgb")}
           >
             <a
               href="https://faq.irpsc.com/categories/meta-rgb"
@@ -122,9 +122,9 @@ export default function ContextMenu() {
 
           <li
             className="item"
-            onClick={() => openInNewTab("https:/rgb.irpsc.com/about/")}
+            onClick={() => openInNewTab("https:/rgb.irpsc.com/about")}
           >
-            <a href="https:/rgb.irpsc.com/about/" target={"_blank"} rel="noreferrer">
+            <a href="https:/rgb.irpsc.com/about" target={"_blank"} rel="noreferrer">
               
               <span>درباره متارنگ</span>
             </a>
@@ -133,9 +133,9 @@ export default function ContextMenu() {
 
           <li
             className="item"
-            onClick={() => openInNewTab("https://uni.irpsc.com/course/rang/")}
+            onClick={() => openInNewTab("https://uni.irpsc.com/course/rang")}
           >
-            <a href="https://uni.irpsc.com/course/rang/" target={"_blank"} rel="noreferrer">
+            <a href="https://uni.irpsc.com/course/rang" target={"_blank"} rel="noreferrer">
               
               <span>دانشگاه متاورس </span>
             </a>
@@ -144,9 +144,9 @@ export default function ContextMenu() {
 
           <li
             className="item"
-            onClick={() => openInNewTab("https://rgb.irpsc.com/version/")}
+            onClick={() => openInNewTab("https://rgb.irpsc.com/version")}
           >
-            <a href="https://rgb.irpsc.com/version/" target={"_blank"} rel="noreferrer">
+            <a href="https://rgb.irpsc.com/version" target={"_blank"} rel="noreferrer">
               <span>V 1.1.0</span>
             </a>
             <i className="fa-solid fa-code-compare"></i>

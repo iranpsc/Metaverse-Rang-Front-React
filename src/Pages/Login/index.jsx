@@ -79,7 +79,7 @@ export default function Login() {
           با کلیک بر روی دکمه ورود به سامانه موافقت میکنید
         </p>
 
-        <a href='https://rgb.irpsc.com/ruls' className='link text-1 mt-2 pb-3'>
+        <a href='https://rgb.irpsc.com/overview' target={"_blank"} rel="noreferrer" className='link text-1 mt-2 pb-3'>
           شرایط قرارداد خدمات
         </a>
 
