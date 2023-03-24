@@ -19,7 +19,7 @@ import CommentImage from "../../../../Assets/images/comment.png";
 import AnonymousImage from "../../../../Assets/images/anonymous.png";
 import DeletesImage from "../../../../Assets/images/cross.png";
 import CameraImage from "../../../../Assets/images/camera.png";
-
+import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-cards";
 
@@ -205,12 +205,13 @@ export default function General() {
             pagination={{
               clickable: true,
             }}
+            modules={[Pagination]}
             className="mySwiper cursor-pointer "
             style={{height:"100%"}}
           >
             {profileImage.length > 0 ? (
               profileImage.map((image) => (
-                <SwiperSlide key={image.id} style={{height:"fit-content !important"}}>
+                <SwiperSlide key={image.id} className='h-fit'>
                   <img
                     style={{ borderRadius: "10px" }}
                     src={image.url}

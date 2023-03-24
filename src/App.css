@@ -1125,3 +1125,6 @@ button {
 .counter-down {
   font-size: 80px;
 }
+.h-fit{
+  height: fit-content !important;
+}

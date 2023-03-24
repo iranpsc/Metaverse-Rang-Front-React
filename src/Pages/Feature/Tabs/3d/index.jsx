@@ -1,7 +1,8 @@
 import { Unity, useUnityContext } from "react-unity-webgl";
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { FeatureContext } from "../../Context/FeatureProvider";
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -25,6 +26,7 @@ const LoadingContainer = styled.div`
   position: absolute;
 `;
 export default function UnitiTab() {
+  const [feature] = useContext(FeatureContext);
   const [user, setUser] = useState({});
   const { Request, HTTP_METHOD } = useRequest();
   const { unityProvider, isLoaded, loadingProgression, sendMessage } =
@@ -42,10 +44,9 @@ export default function UnitiTab() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const testObject = {
-    ID: user?.code,
+    ID: feature.properties?.id,
     urlImgCharacter: user?.image,
   };
-  console.log(user)
   var jsonString = JSON.stringify(testObject);
   const loadingPercentage = Math.round(loadingProgression * 100);
 
