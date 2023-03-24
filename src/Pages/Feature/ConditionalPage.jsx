@@ -39,7 +39,7 @@ export default function ConditionalPage() {
 
   const UnityTabs = [
     { title: "خصوصیات", content: <Property /> },
-    { title: "ورود بخ ملک", content: <UnityTab /> },
+    { title: "ورود به ملک", content: <UnityTab /> },
   ];
   const UnityTabPanel = useTabs(UnityTabs);
   useEffect(() => {
