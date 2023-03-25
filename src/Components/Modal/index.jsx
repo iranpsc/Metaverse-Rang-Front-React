@@ -22,8 +22,72 @@ function Modal({
   const Location = useLocation();
   const [showModal, setShowModal] = useState(false);
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
-  const AdviserPage = Location.state ? Location.state : newStr;
+  let AdviserPage = Location.state ? Location.state : newStr;
+  switch (AdviserPage) {
+    case "settings-1":
+      AdviserPage = "general-setting-desktop";
+      break;
+    case "settings-2":
+      AdviserPage = "general-setting-desktop";
+      break;
+    case "profile-1":
+      AdviserPage = "owner-specifications-desktop";
+      break;
+    case "profile-2":
+      AdviserPage = "owner-property-feature-desktop";
+      break;
+    case "login-":
+      AdviserPage = "login-desktop";
+      break;
+    case "signup-":
+      AdviserPage = "register-desktop";
+      break;
+    case "store-1":
+      AdviserPage = "shop-tools-desktop";
+      break;
+    case "store-2":
+      AdviserPage = "shop-currency-desktop";
+      break;
+    case "sanad-1":
+      AdviserPage = "vod-send-desktop";
+      break;
+    case "sanad-2":
+      AdviserPage = "vod-note-desktop";
+      break;
+    case "report-1":
+      AdviserPage = "reports-report-desktop";
+      break;
+    case "verification-1":
+      AdviserPage = "kyc-man-desktop";
+      break;
+    case "verification-2":
+      AdviserPage = "kyc-attachment-desktop";
+      break;
+    case "verification-3":
+      AdviserPage = "kyc-bank-desktop";
+      break;
+    case "confirmation-":
+      AdviserPage = "account-security-code-desktop";
+      break;
+    case "dynasty-1":
+      AdviserPage = "request-received-desktop";
+      break;
+    case "dynasty-2":
+      AdviserPage = "submitted-request-desktop";
+      break;
+    case "dynasty-3":
+      AdviserPage = "family-members-desktop";
+      break;
+    case "dynasty-4":
+      AdviserPage = "establishment-desktop";
+      break;
+
+    default:
+      console.log("No matching case found.");
+  }
+
   console.log(AdviserPage);
+
   return (
     <section className="modal">
       <div className={`modal-section modal-border ${type}`}>

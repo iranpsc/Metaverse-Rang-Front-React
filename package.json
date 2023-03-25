@@ -6,7 +6,6 @@
     "@deck.gl/core": "^8.8.26",
     "@deck.gl/layers": "^8.8.26",
     "@deck.gl/mesh-layers": "^8.8.26",
-    "@floating-ui/react": "^0.22.0",
     "@persian-tools/persian-tools": "^3.4.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
