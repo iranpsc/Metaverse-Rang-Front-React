@@ -239,7 +239,7 @@ export default function SendDocuments({ setDefaultTab }) {
         </ParentUploadImg>
 
         <ParentUploadImg className={`${errorHandler(kyc?.errors, 'prove_picture') && 'invalid-input'}`}>
-          <LabelBorder>تصویر چهره به همراه فرم قوانین و مدارک همراه</LabelBorder>
+          <LabelBorder>تصویر چهره به همراه فرم قوانین و مدارک </LabelBorder>
 
           <ContainerUploader onClick={() => kyc?.status === 1 ? null : provePicRef.current.click()}>
             {!preview?.prove_picture && kyc?.status !== 1 && <p>+</p>}

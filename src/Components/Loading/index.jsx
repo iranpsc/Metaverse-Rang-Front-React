@@ -19,7 +19,7 @@ const Container = styled.div`
   align-items: center;
   box-shadow: 0px 0px 32px 0px rgb(215, 215, 128);
   background-color: rgba(152, 152, 152, 0.438);
-  backdrop-filter: blur(6px);
+  background-color: #7777779e;
   z-index: 99999;
   border-radius: 29px 29px 8px 8px;
   flex-direction: column;

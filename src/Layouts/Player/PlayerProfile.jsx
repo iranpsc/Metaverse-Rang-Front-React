@@ -22,7 +22,7 @@ const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(4px);
+  background-color: #7777779e;
   display: none;
 `;
 

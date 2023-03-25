@@ -6,7 +6,7 @@
   width: 100%;
   justify-content: center;
   overflow-y: hidden;
-  backdrop-filter: blur(3px);
+  background-color: #7777779e;
 }
 .t-container {
   display: flex;

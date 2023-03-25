@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import shortid from 'shortid';
 import styled from 'styled-components';
 
@@ -64,14 +65,18 @@ function useTabs(tabs, current) {
   const [Tabs, ] = useState(tabs);
   const [activeTab, setActiveTab] = useState(0);
   const [page, setPage] = useState(0);
-
+  const [locationPage,setLocationPage]=useState("")
+  const Location =useLocation()
+  const newStr =  Location.pathname.replace(/\/metaverse\//g, '')+"-";;
   useEffect(() => {
     if(current) {
       setActiveTab(current)
     }
+    setLocationPage(newStr+(activeTab + 1))
     setPage(Tabs[activeTab].content);
-  }, [Tabs, activeTab, current])
-
+  }, [Tabs, activeTab, current,newStr])
+  
+  Location.state=locationPage
   return (
     <TabContainer>
       <TabList>

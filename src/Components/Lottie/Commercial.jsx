@@ -16,7 +16,7 @@ const Container = styled.div`
   justify-content: center;
   height: 100%;
   fill-opacity: 1;
-  backdrop-filter: blur(10px);
+  background-color: #7777779e;
 `;
 
 export default function Commercial() {
