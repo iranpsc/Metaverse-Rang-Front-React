@@ -67,7 +67,7 @@ const Input = styled.input`
 export default function Property() {
   const [user, ] = useContext(UserContext);
   const [feature, setFeature] = useContext(FeatureContext);
-  (feature);
+  // (feature);
   const Navigate = useNavigate();
 
   const inputRef = useRef();

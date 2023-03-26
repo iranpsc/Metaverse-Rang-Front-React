@@ -1,12 +1,12 @@
 import Modal from "../../Components/Modal";
 import useTabs from "../../Services/Hooks/useTabs";
 import General from "./Tabs/General";
-// import Property from "./Tabs/Property";
+import Property from "./Tabs/Property";
 
 export default function Player() {
   const tabs = [
     { title: 'کلیات', content: <General /> },
-    // { title: 'دارایی', content: <Property /> }
+    { title: 'دارایی', content: <Property /> }
   ];
 
   const TabPanel = useTabs(tabs);

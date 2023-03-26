@@ -44,7 +44,7 @@ export default function Amozesh({ title, description, creator, video }) {
           <div className="container-video-div">
             <video width="100%" height="50%" controls>
               <source
-                src="/video/d6312f14ab0866b4f21f4eb7829543a529287192-720p.mp4"
+                src={video}
                 type="video/mp4"
               />
             </video>
@@ -58,11 +58,7 @@ export default function Amozesh({ title, description, creator, video }) {
             <div className="container-div-p">
               <div>
                 <p className="para-class">
-                  زمین های مسکونی دارای ویژگی های خاصی میباشد که شامل حال زمین
-                  های تجاری و آموزشی نخواهد بود و از دیگر فوائد زمین های مسکونی
-                  میتوان به قابلیت تاسیس سلسله پرداخت ما در این اخبار به قابلیت
-                  های دیگر زمین های مسکونی میپردازیم و شما میتوانید با زدن گزینه
-                  مطالعه بیشتر ما را همراهی کنید.
+            {description}
                 </p>
               </div>
             </div>
@@ -94,7 +90,7 @@ export default function Amozesh({ title, description, creator, video }) {
               </div>
               <div className="position-icons-2">
                 <div>
-                  <span className="span-icon-HM">HM-2000001</span>
+                  <span className="span-icon-HM">{creator}</span>
                 </div>
                 <div className="width-icons">
                   <img src={Teacher} className="tw-w-100" alt="" />

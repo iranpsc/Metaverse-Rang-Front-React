@@ -7,7 +7,8 @@ import Amozesh from "../ModalAmozash";
 import ImageHelp from "../../Assets/images/help.png";
 import ImageExit from "../../Assets/images/exit.png";
 import ImageReport from "../../Assets/images/report.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useRequest from "../../Services/Hooks/useRequest";
 
 /*
  ** type : modal-section-sm, modal-section-md, modal-section-xl | default = modal-section-md |
@@ -22,6 +23,9 @@ function Modal({
   const Location = useLocation();
   const [showModal, setShowModal] = useState(false);
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
+  const { Request, HTTP_METHOD } = useRequest();
+  let UrlRequest = Location.pathname.replace(/\/metaverse\//g, "");
+  const [adviserData, setAdviserData] = useState({});
   let AdviserPage = Location.state ? Location.state : newStr;
   switch (AdviserPage) {
     case "settings-1":
@@ -43,9 +47,11 @@ function Modal({
       AdviserPage = "register-desktop";
       break;
     case "store-1":
+      UrlRequest="shop"
       AdviserPage = "shop-tools-desktop";
       break;
     case "store-2":
+      UrlRequest="shop"
       AdviserPage = "shop-currency-desktop";
       break;
     case "sanad-1":
@@ -86,8 +92,13 @@ function Modal({
       console.log("No matching case found.");
   }
 
-  console.log(AdviserPage);
-
+  console.log(`tutorials/${UrlRequest}/${AdviserPage}`);
+  useEffect(() => {
+    Request(`video-tutorials`, HTTP_METHOD.POST,{"url":`tutorials/${UrlRequest}/${AdviserPage}`}).then((response) => {
+      setAdviserData(response.data.data);
+    });
+  }, [AdviserPage]);
+  console.log(adviserData);
   return (
     <section className="modal">
       <div className={`modal-section modal-border ${type}`}>
@@ -131,7 +142,7 @@ function Modal({
           />
         </div>
         <div className="modal-body ">
-          {children} {showModal && <Amozesh />}
+          {children} {showModal && <Amozesh creator={adviserData?.creator} title={adviserData?.title} video={adviserData?.video} description={adviserData?.description}/>}
         </div>
       </div>
     </section>
