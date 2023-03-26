@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useRequest from "../../../../Services/Hooks/useRequest";
-
 import PSCImage from "../../../../Assets/images/coin-psc.png";
 import IRRImage from "../../../../Assets/images/coin-irr.png";
 import BlueImage from "../../../../Assets/images/blue.png";
@@ -19,7 +18,6 @@ import CommentImage from "../../../../Assets/images/comment.png";
 import AnonymousImage from "../../../../Assets/images/anonymous.png";
 import DeletesImage from "../../../../Assets/images/cross.png";
 import CameraImage from "../../../../Assets/images/camera.png";
-import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-cards";
 
@@ -202,12 +200,8 @@ export default function General() {
             slidesPerView={1}
             spaceBetween={30}
             mousewheel={true}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination]}
             className="mySwiper cursor-pointer "
-            style={{height:"100%"}}
+            style={{height:"37%"}}
           >
             {profileImage.length > 0 ? (
               profileImage.map((image) => (
