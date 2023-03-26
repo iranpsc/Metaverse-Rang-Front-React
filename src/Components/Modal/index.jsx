@@ -89,16 +89,12 @@ function Modal({
       break;
 
     default:
-      console.log("No matching case found.");
   }
-
-  console.log(`tutorials/${UrlRequest}/${AdviserPage}`);
   useEffect(() => {
     Request(`video-tutorials`, HTTP_METHOD.POST,{"url":`tutorials/${UrlRequest}/${AdviserPage}`}).then((response) => {
       setAdviserData(response.data.data);
     });
   }, [AdviserPage]);
-  console.log(adviserData);
   return (
     <section className="modal">
       <div className={`modal-section modal-border ${type}`}>

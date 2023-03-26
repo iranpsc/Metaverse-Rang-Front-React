@@ -53,7 +53,6 @@ export default function UnitiTab() {
 
   function handleClickSpawnEnemies() {
     sendMessage("JavaScriptHook", "SetJson", jsonString);
-    console.log(jsonString);
   }
   return (
     <Container>
