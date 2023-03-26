@@ -29,21 +29,27 @@ function Modal({
   let AdviserPage = Location.state ? Location.state : newStr;
   switch (AdviserPage) {
     case "settings-1":
+      UrlRequest ="setting"
       AdviserPage = "general-setting-desktop";
       break;
     case "settings-2":
-      AdviserPage = "general-setting-desktop";
+      UrlRequest ="setting"
+      AdviserPage = "account-setting-desktop";
       break;
     case "profile-1":
+      UrlRequest="profile"
       AdviserPage = "owner-specifications-desktop";
       break;
     case "profile-2":
+      UrlRequest="profile"
       AdviserPage = "owner-property-feature-desktop";
       break;
     case "login-":
+      UrlRequest="login"
       AdviserPage = "login-desktop";
       break;
     case "signup-":
+      UrlRequest="register"
       AdviserPage = "register-desktop";
       break;
     case "store-1":
@@ -55,39 +61,49 @@ function Modal({
       AdviserPage = "shop-currency-desktop";
       break;
     case "sanad-1":
+      UrlRequest="sanad"
       AdviserPage = "vod-send-desktop";
       break;
     case "sanad-2":
+      UrlRequest="sanad"
       AdviserPage = "vod-note-desktop";
       break;
     case "report-1":
+      UrlRequest="reports"
       AdviserPage = "reports-report-desktop";
       break;
     case "verification-1":
+      UrlRequest="kyc"
       AdviserPage = "kyc-man-desktop";
       break;
     case "verification-2":
+      UrlRequest="kyc"
       AdviserPage = "kyc-attachment-desktop";
       break;
     case "verification-3":
+      UrlRequest="kyc"
       AdviserPage = "kyc-bank-desktop";
       break;
     case "confirmation-":
+      UrlRequest="account-security"
       AdviserPage = "account-security-code-desktop";
       break;
     case "dynasty-1":
+      UrlRequest="dynasty"
       AdviserPage = "request-received-desktop";
       break;
     case "dynasty-2":
+      UrlRequest="dynasty"
       AdviserPage = "submitted-request-desktop";
       break;
     case "dynasty-3":
+      UrlRequest="dynasty"
       AdviserPage = "family-members-desktop";
       break;
     case "dynasty-4":
+      UrlRequest="dynasty"
       AdviserPage = "establishment-desktop";
       break;
-
     default:
   }
   useEffect(() => {
