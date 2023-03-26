@@ -1,7 +1,6 @@
 import "./index.css";
 import Draggable from "react-draggable";
-import React from "react";
-
+import React , { useState, useEffect, useRef } from "react";
 import Exit from "../../Assets/images/exit.png";
 import Minimize from "../../Assets/images/minimize.png";
 import Back from "../../Assets/images/back-arow.png";
@@ -20,6 +19,11 @@ export default function Amozesh({ title, description, creator, video }) {
     top: -clientHeight - 60,
   };
 
+  const videoRef = useRef();
+
+  useEffect(() => {    
+    videoRef.current?.load();
+  }, [video]);
   return (
     <Draggable bounds={bounds}>
       <div className="tw-modal-container" dir="rtl">
@@ -42,7 +46,7 @@ export default function Amozesh({ title, description, creator, video }) {
         {/* container main */}
         <div className="container-main">
           <div className="container-video-div">
-            <video width="100%" height="50%" controls>
+            <video width="100%" height="50%" controls ref={videoRef}>
               <source
                 src={video}
                 type="video/mp4"
