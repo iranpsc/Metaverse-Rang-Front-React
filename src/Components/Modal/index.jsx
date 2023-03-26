@@ -24,93 +24,40 @@ function Modal({
   const [showModal, setShowModal] = useState(false);
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
   const { Request, HTTP_METHOD } = useRequest();
-  let UrlRequest = Location.pathname.replace(/\/metaverse\//g, "");
   const [adviserData, setAdviserData] = useState({});
-  let AdviserPage = Location.state ? Location.state : newStr;
-  switch (AdviserPage) {
-    case "settings-1":
-      UrlRequest ="setting"
-      AdviserPage = "general-setting-desktop";
-      break;
-    case "settings-2":
-      UrlRequest ="setting"
-      AdviserPage = "account-setting-desktop";
-      break;
-    case "profile-1":
-      UrlRequest="profile"
-      AdviserPage = "owner-specifications-desktop";
-      break;
-    case "profile-2":
-      UrlRequest="profile"
-      AdviserPage = "owner-property-feature-desktop";
-      break;
-    case "login-":
-      UrlRequest="login"
-      AdviserPage = "login-desktop";
-      break;
-    case "signup-":
-      UrlRequest="register"
-      AdviserPage = "register-desktop";
-      break;
-    case "store-1":
-      UrlRequest="shop"
-      AdviserPage = "shop-tools-desktop";
-      break;
-    case "store-2":
-      UrlRequest="shop"
-      AdviserPage = "shop-currency-desktop";
-      break;
-    case "sanad-1":
-      UrlRequest="sanad"
-      AdviserPage = "vod-send-desktop";
-      break;
-    case "sanad-2":
-      UrlRequest="sanad"
-      AdviserPage = "vod-note-desktop";
-      break;
-    case "report-1":
-      UrlRequest="reports"
-      AdviserPage = "reports-report-desktop";
-      break;
-    case "verification-1":
-      UrlRequest="kyc"
-      AdviserPage = "kyc-man-desktop";
-      break;
-    case "verification-2":
-      UrlRequest="kyc"
-      AdviserPage = "kyc-attachment-desktop";
-      break;
-    case "verification-3":
-      UrlRequest="kyc"
-      AdviserPage = "kyc-bank-desktop";
-      break;
-    case "confirmation-":
-      UrlRequest="account-security"
-      AdviserPage = "account-security-code-desktop";
-      break;
-    case "dynasty-1":
-      UrlRequest="dynasty"
-      AdviserPage = "request-received-desktop";
-      break;
-    case "dynasty-2":
-      UrlRequest="dynasty"
-      AdviserPage = "submitted-request-desktop";
-      break;
-    case "dynasty-3":
-      UrlRequest="dynasty"
-      AdviserPage = "family-members-desktop";
-      break;
-    case "dynasty-4":
-      UrlRequest="dynasty"
-      AdviserPage = "establishment-desktop";
-      break;
-    default:
-  }
+  const pageMappings = {
+    'settings-1': { urlRequest: 'setting', adviserPage: 'general-setting-desktop' },
+    'settings-2': { urlRequest: 'setting', adviserPage: 'account-setting-desktop' },
+    'profile-1': { urlRequest: 'profile', adviserPage: 'owner-specifications-desktop' },
+    'profile-2': { urlRequest: 'profile', adviserPage: 'owner-property-feature-desktop' },
+    'login-': { urlRequest: 'login', adviserPage: 'login-desktop' },
+    'signup-': { urlRequest: 'register', adviserPage: 'register-desktop' },
+    'store-1': { urlRequest: 'shop', adviserPage: 'shop-tools-desktop' },
+    'store-2': { urlRequest: 'shop', adviserPage: 'shop-currency-desktop' },
+    'sanad-1': { urlRequest: 'sanad', adviserPage: 'vod-send-desktop' },
+    'sanad-2': { urlRequest: 'sanad', adviserPage: 'vod-note-desktop' },
+    'report-1': { urlRequest: 'reports', adviserPage: 'reports-report-desktop' },
+    'verification-1': { urlRequest: 'kyc', adviserPage: 'kyc-man-desktop' },
+    'verification-2': { urlRequest: 'kyc', adviserPage: 'kyc-attachment-desktop' },
+    'verification-3': { urlRequest: 'kyc', adviserPage: 'kyc-bank-desktop' },
+    'confirmation-': { urlRequest: 'account-security', adviserPage: 'account-security-code-desktop' },
+    'dynasty-1': { urlRequest: 'dynasty', adviserPage: 'request-received-desktop' },
+    'dynasty-2': { urlRequest: 'dynasty', adviserPage: 'submitted-request-desktop' },
+    'dynasty-3': { urlRequest: 'dynasty', adviserPage: 'family-members-desktop' },
+    'dynasty-4': { urlRequest: 'dynasty', adviserPage: 'establishment-desktop' },
+  };
+  
+  const { urlRequest, adviserPage } = pageMappings[Location.state || newStr] || {};
+  
   useEffect(() => {
-    Request(`video-tutorials`, HTTP_METHOD.POST,{"url":`tutorials/${UrlRequest}/${AdviserPage}`}).then((response) => {
-      setAdviserData(response.data.data);
-    });
-  }, [AdviserPage]);
+    if (!urlRequest || !adviserPage) return;
+  
+    Request('video-tutorials', HTTP_METHOD.POST, { url: `tutorials/${urlRequest}/${adviserPage}` })
+      .then((response) => {
+        setAdviserData(response.data.data);
+      });
+  }, [urlRequest, adviserPage]);
+  
   return (
     <section className="modal">
       <div className={`modal-section modal-border ${type}`}>
