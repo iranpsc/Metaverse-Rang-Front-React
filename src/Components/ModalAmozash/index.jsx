@@ -1,6 +1,6 @@
 import "./index.css";
 import Draggable from "react-draggable";
-import React , { useState, useEffect, useRef } from "react";
+import React , { useEffect, useRef } from "react";
 import Exit from "../../Assets/images/exit.png";
 import Minimize from "../../Assets/images/minimize.png";
 import Back from "../../Assets/images/back-arow.png";
