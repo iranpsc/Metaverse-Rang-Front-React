@@ -23,12 +23,10 @@ import MessageImage from "../../../../Assets/images/message.png";
 import SanadImage from "../../../../Assets/images/sanad.png";
 import CrossImage from "../../../../Assets/images/cross.png";
 
-
 import "swiper/css";
 import "swiper/css/effect-cards";
 import { useNavigate, useParams } from "react-router-dom";
 import { FollowContext } from "../../../../Services/Reducers/FollowContext";
-
 
 const Container = styled.div`
   width: 100%;
@@ -167,7 +165,6 @@ const ProfileIcons = styled.div`
   width: 100%;
 `;
 
-
 export default function General() {
   const [follow, dispatch] = useContext(FollowContext);
   const { id } = useParams();
@@ -176,65 +173,105 @@ export default function General() {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    Request(`players/${id}/profile`).then(response => {
+    Request(`players/${id}/profile`).then((response) => {
       setPlayer(response.data.data);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onFollowHandler = () => {
     Request(`follow/${id}`).then(() => {
-      Request('following').then((response) => {
+      Request("following").then((response) => {
         dispatch(response.data.data);
       });
     });
-  }
+  };
 
   const onUnFollowHandler = () => {
     Request(`unfollow/${id}`).then(() => {
-      Request('following').then((response) => {
+      Request("following").then((response) => {
         dispatch(response.data.data);
       });
     });
-  }
+  };
 
   return (
     <>
       <Container>
         <ProfileSection>
-          <Swiper slidesPerView={1} navigation={{ enabled: true }} className="cursor-pointer">
-            {player?.images?.length > 0 ? 
-              player.images.reverse().map(image => (
-                    <SwiperSlide key={image.id}>
-                        <img
-                            style={{ borderRadius: "100%" }}
-                            src={image.url}
-                            width={150}
-                            height={150}
-                            alt=""
-                        />
-                    </SwiperSlide>
-                ))
-                :
+          <Swiper
+            direction={"vertical"}
+            slidesPerView={1}
+            spaceBetween={30}
+            mousewheel={true}
+            className="mySwiper cursor-pointer "
+            style={{ height: "37%" }}
+          >
+            {player?.images?.length > 0 ? (
+              player.images.reverse().map((image) => (
+                <SwiperSlide key={image.id} className='h-fit'>
+                  <img
+                    style={{ borderRadius: "10px" }}
+                    src={image.url}
+                    width={150}
+                    height={150}
+                    alt=""
+                  />
+                </SwiperSlide>
+              ))
+            ) : (
               <img
-                style={{ borderRadius: "100%" }}
+              style={{ borderRadius: "10px" }}
                 src={AnonymousImage}
                 width={150}
                 alt=""
               />
-            }
+            )}
           </Swiper>
 
           <ProfileIcons>
-            <img className="cursor-pointer" src={SanadImage} alt="" width={32} onClick={() => Navigate('/metaverse/sanad', {state: { code :player?.code, id }})}/>
-            <img className="cursor-pointer object-disabled" src={MessageImage} alt="" width={32} />
-            <img className="cursor-pointer object-disabled" src={ShareImage} alt="" width={32} />
-            {
-              _.findIndex(follow, function(o) { return parseInt(o.id) === parseInt(id); }) > -1 ? 
-              <img className="cursor-pointer" src={CrossImage} alt="" width={32} onClick={() => onUnFollowHandler()}/> : 
-              <img className="cursor-pointer" src={FollowImage} alt="" width={32} onClick={() => onFollowHandler()}/>
-            }
-            
+            <img
+              className="cursor-pointer"
+              src={SanadImage}
+              alt=""
+              width={32}
+              onClick={() =>
+                Navigate("/metaverse/sanad", {
+                  state: { code: player?.code, id },
+                })
+              }
+            />
+            <img
+              className="cursor-pointer object-disabled"
+              src={MessageImage}
+              alt=""
+              width={32}
+            />
+            <img
+              className="cursor-pointer object-disabled"
+              src={ShareImage}
+              alt=""
+              width={32}
+            />
+            {_.findIndex(follow, function (o) {
+              return parseInt(o.id) === parseInt(id);
+            }) > -1 ? (
+              <img
+                className="cursor-pointer"
+                src={CrossImage}
+                alt=""
+                width={32}
+                onClick={() => onUnFollowHandler()}
+              />
+            ) : (
+              <img
+                className="cursor-pointer"
+                src={FollowImage}
+                alt=""
+                width={32}
+                onClick={() => onFollowHandler()}
+              />
+            )}
           </ProfileIcons>
         </ProfileSection>
 
@@ -244,15 +281,35 @@ export default function General() {
             <p className="link">{player?.code}</p>
           </Info>
 
-          <Label Image={PSCImage} Name="PSC مجموع دارایی" Value={player?.wallet?.psc} />
+          <Label
+            Image={PSCImage}
+            Name="PSC مجموع دارایی"
+            Value={player?.wallet?.psc}
+          />
 
-          <Label Image={IRRImage} Name="مجموع دارایی ریال" Value={player?.wallet?.irr} />
+          <Label
+            Image={IRRImage}
+            Name="مجموع دارایی ریال"
+            Value={player?.wallet?.irr}
+          />
 
-          <Label Image={BlueImage} Name="مجموع دارایی رنگ آبی" Value={player?.wallet?.blue} />
+          <Label
+            Image={BlueImage}
+            Name="مجموع دارایی رنگ آبی"
+            Value={player?.wallet?.blue}
+          />
 
-          <Label Image={RedImage} Name="مجموع دارایی رنگ قرمز" Value={player?.wallet?.red} />
+          <Label
+            Image={RedImage}
+            Name="مجموع دارایی رنگ قرمز"
+            Value={player?.wallet?.red}
+          />
 
-          <Label Image={YellowImage} Name="مجموع دارایی رنگ زرد" Value={player?.wallet?.yellow} />
+          <Label
+            Image={YellowImage}
+            Name="مجموع دارایی رنگ زرد"
+            Value={player?.wallet?.yellow}
+          />
 
           <Label
             Image={SatisfactionImage}
@@ -267,7 +324,9 @@ export default function General() {
             <p>{player?.registered_at}</p>
           </Info>
 
-          <ProgressLevel percent={`${player?.score_percentage_to_next_level}%`} />
+          <ProgressLevel
+            percent={`${player?.score_percentage_to_next_level}%`}
+          />
 
           <EstateContainer>
             <Estate>
@@ -282,13 +341,23 @@ export default function General() {
 
             <Estate>
               <img src={BlueHouseImage} alt="" width={48} />
-              <p>{player?.features?.amoozeshi ? player?.features?.amoozeshi : 0}</p>
+              <p>
+                {player?.features?.amoozeshi ? player?.features?.amoozeshi : 0}
+              </p>
             </Estate>
           </EstateContainer>
 
-          <Label Image={FollowingImage} Name="دنبال کننده" Value={player?.followers} />
+          <Label
+            Image={FollowingImage}
+            Name="دنبال کننده"
+            Value={player?.followers}
+          />
 
-          <Label Image={FollowersImage} Name="دنبال شونده" Value={player?.following} />
+          <Label
+            Image={FollowersImage}
+            Name="دنبال شونده"
+            Value={player?.following}
+          />
 
           <NoteContainer>
             <img
