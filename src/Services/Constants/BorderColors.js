@@ -6,7 +6,6 @@ export const BORDER_COLORS = {
     "e":"#ffff00",
     "f":"#ffff00",
     "g":"white",
-    "d":"#cecece",
     "h":"#ff0000",
     "i":"#cecece",
     "j":"#cecece",
