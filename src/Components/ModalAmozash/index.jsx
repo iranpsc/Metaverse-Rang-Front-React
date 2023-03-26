@@ -8,7 +8,7 @@ import Eye from "../../Assets/images/Eye.png";
 import Dislike from "../../Assets/images/dislike.png";
 import Like from "../../Assets/images/like.png";
 import Teacher from "../../Assets/images/teacher.png";
-export default function Amozesh({ title, description, creator, video }) {
+export default function Amozesh({ title, description, creator, video,setShowModal }) {
   const clientWidth = document.documentElement.clientWidth / 2.7;
   const clientHeight = document.documentElement.clientHeight / 9.5;
 
@@ -30,7 +30,7 @@ export default function Amozesh({ title, description, creator, video }) {
         <div className="tw-header">
           <div className="header-top">
             <div className="tw-header-icon">
-              <img src={Exit} alt="" className="tw-drop-shaow tw-w-100" />
+              <img src={Exit} alt="" className="tw-drop-shaow tw-w-100 cursor-pointer"  onClick={() => setShowModal(false)} />
             </div>
             <div className="tw-header-icon">
               <img src={Minimize} alt="" className="tw-drop-shaow tw-w-100" />

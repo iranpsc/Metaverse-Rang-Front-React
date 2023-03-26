@@ -138,7 +138,7 @@ function Modal({
           />
         </div>
         <div className="modal-body ">
-          {children} {showModal && <Amozesh creator={adviserData?.creator} title={adviserData?.title} video={adviserData?.video} description={adviserData?.description}/>}
+          {children} {showModal && <Amozesh creator={adviserData?.creator} title={adviserData?.title} video={adviserData?.video} description={adviserData?.description} setShowModal={setShowModal}/>}
         </div>
       </div>
     </section>
