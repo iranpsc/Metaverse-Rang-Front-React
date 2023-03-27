@@ -29,7 +29,7 @@ export default function AdviserIcon() {
       >
         <div className="position-icon accordion">
           <div className="container-slide  ">
-            <div className=" tw-modal-container show-slide gra-bg">
+            <div className="  show-slide gra-bg">
               <div className=" container-box">
                 <div className="w-box    ">
                   <div className="box-1 "> </div>

@@ -32,7 +32,9 @@
   margin-right: 16px;
 }
 .gra-bg {
-  background-color: #7777779e;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(2px);
+  background: #0000008c;
 }
 
 /* start */
