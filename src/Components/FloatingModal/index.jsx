@@ -1,11 +1,13 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import ExitImage from '../../Assets/images/exit.png';
-import ReportImage from '../../Assets/images/report.png';
-import HelpImage from '../../Assets/images/help.png';
-import { useNavigate } from 'react-router-dom';
-
+import ExitImage from "../../Assets/images/exit.png";
+import ReportImage from "../../Assets/images/report.png";
+import HelpImage from "../../Assets/images/help.png";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import useAdviserData from "../../Services/Hooks/useAdviserData";
+import Amozesh from "../ModalAmozash";
 
 const Container = styled.section`
   z-index: 501;
@@ -50,10 +52,9 @@ const Body = styled.div`
   border-radius: 8px;
   overflow-y: scroll;
   box-shadow: inset 0 2px 6px -1px #07af07be;
-  
+
   @media screen and (max-height: 900px) {
     height: 87%;
-
   }
 
   /* @media screen and (min-width: 900px) {
@@ -62,23 +63,52 @@ const Body = styled.div`
   } */
 `;
 
-export default function FloatingModal({ children,title }) {
+export default function FloatingModal({ children, title }) {
   const navigate = useNavigate();
-
+  const Location = useLocation();
+  const [showModal, setShowModal] = useState(false);
+  const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
+  const adviserData = useAdviserData(newStr, Location.state);
   return (
     <Container>
-        <Header>
-            <img className='cursor-pointer white-drop-shadow' src={HelpImage} width={40} alt='exit' />
-            <img className='cursor-pointer white-drop-shadow' src={ReportImage} width={40} alt='report' />
+      <Header>
+        <img
+          className="cursor-pointer white-drop-shadow"
+          src={HelpImage}
+          width={40}
+          alt="help"
+          onClick={() => setShowModal((showModal) => !showModal)}
+        />
+        <img
+          className="cursor-pointer white-drop-shadow"
+          src={ReportImage}
+          width={40}
+          alt="report"
+        />
 
-            <h4 className='purple-box-shadow'>{title}</h4>
+        <h4 className="purple-box-shadow">{title}</h4>
 
-            <img className='cursor-pointer white-drop-shadow' src={ExitImage} width={40} alt='exit' onClick={() => navigate('/metaverse')}/>
-        </Header>
+        <img
+          className="cursor-pointer white-drop-shadow"
+          src={ExitImage}
+          width={40}
+          alt="exit"
+          onClick={() => navigate("/metaverse")}
+        />
+      </Header>
 
-        <Body>
-            {children}
-        </Body>
-  </Container>
-  )
+      <Body>
+        {children}{" "}
+        {showModal && (
+          <Amozesh
+            creator={adviserData?.creator}
+            title={adviserData?.title}
+            video={adviserData?.video}
+            description={adviserData?.description}
+            setShowModal={setShowModal}
+          />
+        )}
+      </Body>
+    </Container>
+  );
 }

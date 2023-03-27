@@ -7,8 +7,8 @@ import Amozesh from "../ModalAmozash";
 import ImageHelp from "../../Assets/images/help.png";
 import ImageExit from "../../Assets/images/exit.png";
 import ImageReport from "../../Assets/images/report.png";
-import { useEffect, useState } from "react";
-import useRequest from "../../Services/Hooks/useRequest";
+import {  useState } from "react";
+import useAdviserData from "../../Services/Hooks/useAdviserData";
 
 /*
  ** type : modal-section-sm, modal-section-md, modal-section-xl | default = modal-section-md |
@@ -23,40 +23,7 @@ function Modal({
   const Location = useLocation();
   const [showModal, setShowModal] = useState(false);
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
-  const { Request, HTTP_METHOD } = useRequest();
-  const [adviserData, setAdviserData] = useState({});
-  const pageMappings = {
-    'settings-1': { urlRequest: 'setting', adviserPage: 'general-setting-desktop' },
-    'settings-2': { urlRequest: 'setting', adviserPage: 'account-setting-desktop' },
-    'profile-1': { urlRequest: 'profile', adviserPage: 'owner-specifications-desktop' },
-    'profile-2': { urlRequest: 'profile', adviserPage: 'owner-property-feature-desktop' },
-    'login-': { urlRequest: 'login', adviserPage: 'login-desktop' },
-    'signup-': { urlRequest: 'register', adviserPage: 'register-desktop' },
-    'store-1': { urlRequest: 'shop', adviserPage: 'shop-tools-desktop' },
-    'store-2': { urlRequest: 'shop', adviserPage: 'shop-currency-desktop' },
-    'sanad-1': { urlRequest: 'sanad', adviserPage: 'vod-send-desktop' },
-    'sanad-2': { urlRequest: 'sanad', adviserPage: 'vod-note-desktop' },
-    'report-1': { urlRequest: 'reports', adviserPage: 'reports-report-desktop' },
-    'verification-1': { urlRequest: 'kyc', adviserPage: 'kyc-man-desktop' },
-    'verification-2': { urlRequest: 'kyc', adviserPage: 'kyc-attachment-desktop' },
-    'verification-3': { urlRequest: 'kyc', adviserPage: 'kyc-bank-desktop' },
-    'confirmation-': { urlRequest: 'account-security', adviserPage: 'account-security-code-desktop' },
-    'dynasty-1': { urlRequest: 'dynasty', adviserPage: 'request-received-desktop' },
-    'dynasty-2': { urlRequest: 'dynasty', adviserPage: 'submitted-request-desktop' },
-    'dynasty-3': { urlRequest: 'dynasty', adviserPage: 'family-members-desktop' },
-    'dynasty-4': { urlRequest: 'dynasty', adviserPage: 'establishment-desktop' },
-  };
-  
-  const { urlRequest, adviserPage } = pageMappings[Location.state || newStr] || {};
-  
-  useEffect(() => {
-    if (!urlRequest || !adviserPage) return;
-  
-    Request('video-tutorials', HTTP_METHOD.POST, { url: `tutorials/${urlRequest}/${adviserPage}` })
-      .then((response) => {
-        setAdviserData(response.data.data);
-      });
-  }, [urlRequest, adviserPage]);
+  const adviserData = useAdviserData(newStr, Location.state);
   
   return (
     <section className="modal">

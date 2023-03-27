@@ -9,15 +9,6 @@ import Dislike from "../../Assets/images/dislike.png";
 import Like from "../../Assets/images/like.png";
 import Teacher from "../../Assets/images/teacher.png";
 export default function Amozesh({ title, description, creator, video,setShowModal }) {
-  const clientWidth = document.documentElement.clientWidth / 2.7;
-  const clientHeight = document.documentElement.clientHeight / 9.5;
-
-  const bounds = {
-    right: clientWidth,
-    bottom: clientHeight,
-    left: -clientWidth,
-    top: -clientHeight - 60,
-  };
 
   const videoRef = useRef();
 
@@ -25,7 +16,7 @@ export default function Amozesh({ title, description, creator, video,setShowModa
     videoRef.current?.load();
   }, [video]);
   return (
-    <Draggable bounds={bounds}>
+    <Draggable >
       <div className="tw-modal-container" dir="rtl">
         <div className="tw-header">
           <div className="header-top">
