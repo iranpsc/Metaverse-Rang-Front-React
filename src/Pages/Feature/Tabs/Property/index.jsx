@@ -132,7 +132,7 @@ export default function Property() {
       <PropertyContainer>
         <Specification title="صاحب ملک " value={feature?.properties?.owner === "rgb" ? "سیستم" : feature?.properties?.owner} />
         <Specification title="آدرس" value={feature?.properties?.address} />
-        <Specification title="وضعیت" value={COMBINE_FEATURE[feature?.properties?.karbari]} />
+        <Specification title="وضعیت" value={COMBINE_FEATURE[feature?.properties?.rgb]} />
         <Specification
           title="متراژ | مترمربع"
           value={feature?.properties?.area}
