@@ -43,14 +43,25 @@ const BtnProperty = styled.button`
 //     {name: 'کف قیمت', component: <p>hello world</p>}
 // ]
 
-export default function useActivity(tabs, style) {
-  const [activity, setActivity] = useState(0);
-  const [current, setCurrent] = useState(<></>);
+// This is a custom hook named useActivity which takes two arguments
+// `tabs`: an array of objects containing information about tabs and their corresponding components
+// `style`: an object containing styles to be applied to the container
 
+export default function useActivity(tabs, style) {
+  // Two state variables are defined using the useState hook
+  const [activity, setActivity] = useState(0); // `activity` stores the index of the currently active tab
+  const [current, setCurrent] = useState(<></>); // `current` represents the rendered component corresponding to the currently active tab
+  
+  // The useEffect hook updates the `current` variable whenever the `activity` variable changes
   useEffect(() => {
-    setCurrent(tabs[activity].component)
+    setCurrent(tabs[activity].component);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activity]);
+
+  // The hook returns JSX with the following structure:
+  // A Container component that wraps two child components: 
+    // A MainContainer component that renders the currently active component
+    // A BtnContainer component that wraps multiple child components representing each tab. Each button is associated with a corresponding tab and sets the activity state when clicked.
 
   return (
     <Container>
