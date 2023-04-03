@@ -1,29 +1,68 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import DynastySolidImg from "../../../../Assets/images/Dynasty-solid.png";
 import Member from "./Components/Member";
+import UserSearch from "./Components/SearchBoxMember";
 const DynastySolid = styled.div`
   width: 100%;
-  height: 100%;
+  height: 90%;
   background-image: url(${DynastySolidImg});
   background-repeat: no-repeat;
   background-size: 100% 117%;
 `;
+
+const membersData = [
+  { Left: "33.5%", Top: "11.5%" },
+  { Left: "5.4%", Top: "37.3%", Name: "پدر", Relationship: "father" },
+  { Left: "21%", Top: "37.3%", Name: "مادر", Relationship: "mother" },
+  { Left: "40.2%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
+  { Left: "54.5%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
+  { Left: "69.7%", Top: "37.3%", Name: "بردار", Relationship: "brother" },
+  { Left: "86%", Top: "37.3%", Name: "بردار", Relationship: "brother" },
+  { Left: "13.5%", Top: "71.5%", Name: "همسر", Relationship: "spouse" },
+  { Left: "40%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+  { Left: "54.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+  { Left: "69.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+  { Left: "85.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+];
+const ConiainerSerchBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`;
 export default function Members() {
+  const handleClick = () => {
+    setIsUserSearchOpen(true);
+  };
+  
+  const handleBack = () => {
+    setIsUserSearchOpen(false);
+  };
+  
+  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [isUserSearchOpen, setIsUserSearchOpen] = useState(false);
   return (
-    <DynastySolid>
-      <Member Left={"33.5%"} Top={"11.5%"}></Member>
-      <Member Left={"5.4%"} Top={"42.3%"} Name={"پدر"}></Member>
-      <Member Left={"21%"} Top={"42.3%"} Name={"مادر"}></Member>
-      <Member Left={"40.2%"} Top={"42.3%"} Name={"خواهر"}></Member>
-      <Member Left={"54.5%"} Top={"42.3%"} Name={"خواهر"}></Member>
-      <Member Left={"69.7%"} Top={"42.3%"} Name={"بردار"}></Member>
-      <Member Left={"86%"} Top={"42.3%"} Name={"بردار"}></Member>
-      <Member Left={"13.5%"} Top={"80.5%"} Name={"همسر"} ></Member>
-      <Member Left={"33.5%"} Top={"42.3%"} Name={"فرزند"}></Member>
-      <Member Left={"33.5%"} Top={"42.3%"} Name={"فرزند"}></Member>
-      <Member Left={"33.5%"} Top={"42.3%"} Name={"فرزند"}></Member>
-      <Member Left={"33.5%"} Top={"42.3%"} Name={"فرزند"}></Member>
-    </DynastySolid>
+    <>
+      {isUserSearchOpen ? (
+        <ConiainerSerchBox>
+          <UserSearch
+            setCurrentUser={setCurrentUser}
+            currentUser={currentUser}
+            setCurrentUserId={setCurrentUserId}
+            handleBack={handleBack}
+          />
+        </ConiainerSerchBox>
+      ) : (
+        <DynastySolid>
+          {membersData.map((member) => (
+            <Member {...member} HandleClick={handleClick} />
+          ))}
+        </DynastySolid>
+      )}
+    </>
   );
 }
