@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import SearchIcon from "../../../../../Assets/images/searchIcon.png";
 import CrossIcon from "../../../../../Assets/images/cross.png";
@@ -19,7 +19,6 @@ const InputSearch = styled.input`
   text-align: right;
   direction: rtl;
   padding: 8px 16px;
-  width: 100%;
   margin-bottom: 16px;
   font-size: 1.3rem !important;
   font-family: iransans;
@@ -87,7 +86,8 @@ const BorderImg = styled.div`
   width: 79px;
   height: 79px;
 `;
-export default function UserSearch({
+
+function UserSearch({
   setCurrentUser,
   currentUser,
   setCurrentUserId,
@@ -96,6 +96,12 @@ export default function UserSearch({
   const [query, setQuery] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
   const [users, setUsers] = useState([]);
+
+  // Memoize the search query to avoid unnecessary re-renders
+  const memoizedQuery = useMemo(
+    () => (currentUser ? currentUser : query),
+    [currentUser, query]
+  );
 
   const SearchHandler = () => {
     Request("dynasty/search", HTTP_METHOD.POST, { searchTerm: query }).then(
@@ -127,12 +133,12 @@ export default function UserSearch({
           type="text"
           placeholder="جستجو کنید"
           onChange={(e) => setQuery(e.target.value)}
-          value={currentUser ? currentUser : query}
+          value={memoizedQuery}
         />
 
         {users.length > 0 && (
           <UserContainer>
-            {users.slice(0, 2).map((user) => (
+            {users.map((user) => (
               <UserItem>
                 <Checkbox/>
                 <ContainerName>
@@ -158,3 +164,5 @@ export default function UserSearch({
     </Container>
   );
 }
+
+export default React.memo(UserSearch);
