@@ -4,9 +4,10 @@ import SearchIcon from "../../../../../Assets/images/searchIcon.png";
 import CrossIcon from "../../../../../Assets/images/cross.png";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import BackIcon from "../../../../../Assets/images/back.png";
+import Checkbox from "../../../../../Components/Inputs/CheckBoxOrange";
 
 const ParentInput = styled.div`
-  width:50%;
+  width: 70%;
   position: relative;
   display: flex;
   align-items: center;
@@ -35,7 +36,7 @@ const IconSearch = styled.img`
 
 const UserContainer = styled.div`
   position: absolute;
-  background: #fff;
+  background: transparent;
   padding: 8px;
   z-index: 5002;
   width: 100%;
@@ -47,30 +48,45 @@ const UserItem = styled.div`
   padding: 8px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   border-radius: 8px;
   cursor: pointer;
-  &:nth-child(odd) {
-    background-color: #f1f2f3;
-  }
+  gap: 10px;
 `;
 
 const ProfilePhoto = styled.img`
-  width: 70px;
-  height: 70px;
   border-radius: 100px;
+  width: 100%;
 `;
 const IconBack = styled.img`
-  width: 60px;
+  width: 50px;
+  rotate: 360deg;
+  transform: rotateY(185deg);
+  cursor: pointer;
 `;
 const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   align-items: flex-start;
-  justify-content:space-around ;
+  justify-content: space-around;
+  margin-top: 20px;
 `;
 
+const ContainerName = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI";
+`;
+const BorderImg = styled.div`
+  border-radius: 100%;
+  border: 1px solid #777;
+  padding: 3px;
+  width: 79px;
+  height: 79px;
+`;
 export default function UserSearch({
   setCurrentUser,
   currentUser,
@@ -117,9 +133,17 @@ export default function UserSearch({
         {users.length > 0 && (
           <UserContainer>
             {users.slice(0, 2).map((user) => (
-              <UserItem onClick={() => onClickHandler(user?.code, user?.id)}>
-                <p>{user.name}</p>
-                <ProfilePhoto src={user.image} alt="" />
+              <UserItem>
+                <Checkbox/>
+                <ContainerName>
+                  <p style={{ color: "#0800FF", fontWeight: "700" }}>
+                    {user.code}
+                  </p>
+                  <p style={{ fontWeight: "600" }}>{user.name}</p>
+                </ContainerName>
+                <BorderImg>
+                  <ProfilePhoto src={user.image} alt="" />
+                </BorderImg>
               </UserItem>
             ))}
           </UserContainer>
