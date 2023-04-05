@@ -63,18 +63,14 @@ const Checkmark = styled.span`
   `}
 `;
 
-const Checkbox = (props) => {
-  const [checked, setChecked] = useState(false);
-console.log(checked)
-  const handleChange = () => {
-    setChecked(!checked);
-  };
+const Checkbox = ({label,borderColor,onTick,isChecked}) => {
 
+console.log(onTick)
   return (
     <CheckboxContainer>
-      <CheckboxInput type="checkbox" checked={checked} onChange={handleChange} />
-      <Checkmark checked={checked} borderColor={props.borderColor} />
-      {props.label ? props.label : ""}
+      <CheckboxInput type="checkbox" checked={isChecked} onChange={onTick} />
+      <Checkmark checked={isChecked} borderColor={borderColor} />
+      {label ? label : ""}
     </CheckboxContainer>
   );
 };

@@ -124,6 +124,13 @@ function UserSearch({
     setQuery("");
     setUsers([]);
   };
+  const [checked, setChecked] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const handleChange = (user)=>{
+    setChecked(!checked);
+    setSelectedUser(user);
+  }
+  console.log(selectedUser)
   return (
     <Container>
       <IconBack src={BackIcon} onClick={handleBack} />
@@ -139,8 +146,8 @@ function UserSearch({
         {users.length > 0 && (
           <UserContainer>
             {users.map((user) => (
-              <UserItem>
-                <Checkbox/>
+              <UserItem key={user.id}>
+                <Checkbox isChecked={checked}onTick={() => handleChange(user)}/>
                 <ContainerName>
                   <p style={{ color: "#0800FF", fontWeight: "700" }}>
                     {user.code}
