@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import styled from "styled-components";
 import SearchIcon from "../../../../../Assets/images/searchIcon.png";
 import CrossIcon from "../../../../../Assets/images/cross.png";
@@ -41,6 +41,10 @@ const UserContainer = styled.div`
   width: 100%;
   top: 56px;
   border-radius: 8px;
+
+  ${Checkbox} {
+    margin-right: 10px;
+  }
 `;
 
 const UserItem = styled.div`
@@ -57,12 +61,14 @@ const ProfilePhoto = styled.img`
   border-radius: 100px;
   width: 100%;
 `;
+
 const IconBack = styled.img`
   width: 50px;
   rotate: 360deg;
   transform: rotateY(185deg);
   cursor: pointer;
 `;
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -79,6 +85,7 @@ const ContainerName = styled.div`
   justify-content: center;
   font-family: "Segoe UI";
 `;
+
 const BorderImg = styled.div`
   border-radius: 100%;
   border: 1px solid #777;
@@ -97,39 +104,43 @@ function UserSearch({
   const { Request, HTTP_METHOD } = useRequest();
   const [users, setUsers] = useState([]);
 
-  // Memoize the search query to avoid unnecessary re-renders
   const memoizedQuery = useMemo(
-    () => (currentUser ? currentUser : query),
+    () => currentUser ?? query,
     [currentUser, query]
   );
 
-  const SearchHandler = () => {
+  const handleSearch = useCallback(() => {
     Request("dynasty/search", HTTP_METHOD.POST, { searchTerm: query }).then(
       (response) => {
         setUsers([response.data]);
       }
     );
-  };
+  }, [query, Request, HTTP_METHOD]);
 
-  const onClickHandler = (code, id) => {
-    setCurrentUser(code);
-    setCurrentUserId(id);
-    setQuery(code);
-    setUsers([]);
-  };
+  const handleClick = useCallback(
+    (code, id) => {
+      setCurrentUser(code);
+      setCurrentUserId(id);
+      setQuery(code);
+      setUsers([]);
+    },
+    [setCurrentUser, setCurrentUserId]
+  );
 
-  const onRemoveHandler = () => {
+  const handleRemove = useCallback(() => {
     setCurrentUser(null);
     setCurrentUserId(null);
     setQuery("");
     setUsers([]);
-  };
-  const [checked, setChecked] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const handleChange = (user)=>{
-    setChecked(!checked);
+  }, [setCurrentUser, setCurrentUserId]);
+
+  const handleCheckbox = (user) => {
     setSelectedUser(user);
-  }
+    setChecked(!checked);
+  };
+
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [checked, setChecked] = useState(false);
   console.log(selectedUser)
   return (
     <Container>
@@ -147,7 +158,10 @@ function UserSearch({
           <UserContainer>
             {users.map((user) => (
               <UserItem key={user.id}>
-                <Checkbox isChecked={checked}onTick={() => handleChange(user)}/>
+                <Checkbox
+                  isChecked={checked}
+                  onTick={() => handleCheckbox(user)}
+                />
                 <ContainerName>
                   <p style={{ color: "#0800FF", fontWeight: "700" }}>
                     {user.code}
@@ -162,11 +176,12 @@ function UserSearch({
           </UserContainer>
         )}
 
-        {currentUser || users.length > 0 ? (
-          <IconSearch src={CrossIcon} onClick={onRemoveHandler} />
-        ) : (
-          <IconSearch src={SearchIcon} onClick={SearchHandler} />
-        )}
+        <IconSearch
+          src={currentUser || users.length > 0 ? CrossIcon : SearchIcon}
+          onClick={
+            currentUser || users.length > 0 ? handleRemove : handleSearch
+          }
+        />
       </ParentInput>
     </Container>
   );

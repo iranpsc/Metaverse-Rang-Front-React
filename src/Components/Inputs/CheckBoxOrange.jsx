@@ -64,8 +64,6 @@ const Checkmark = styled.span`
 `;
 
 const Checkbox = ({label,borderColor,onTick,isChecked}) => {
-
-console.log(onTick)
   return (
     <CheckboxContainer>
       <CheckboxInput type="checkbox" checked={isChecked} onChange={onTick} />
