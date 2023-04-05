@@ -132,6 +132,8 @@ function UserSearch({
     setCurrentUserId(null);
     setQuery("");
     setUsers([]);
+    setChecked(false)
+    setSelectedUser(null)
   }, [setCurrentUser, setCurrentUserId]);
 
   const handleCheckbox = (user) => {
