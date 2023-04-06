@@ -4,6 +4,7 @@ import styled from "styled-components";
 import DynastySolidImg from "../../../../Assets/images/Dynasty-solid.png";
 import Member from "./Components/Member";
 import UserSearch from "./Components/SearchBoxMember";
+import { useLocation } from "react-router-dom";
 const DynastySolid = styled.div`
   width: 100%;
   height: 90%;
@@ -34,14 +35,15 @@ const ConiainerSerchBox = styled.div`
   justify-content: flex-start;
 `;
 export default function Members() {
-  const handleClick = () => {
+  const Location = useLocation();
+  const handleClick = (member) => {
     setIsUserSearchOpen(true);
+   Location.state =member
   };
-  
   const handleBack = () => {
     setIsUserSearchOpen(false);
+    Location.state=null
   };
-  
   const [currentUser, setCurrentUser] = useState(null);
   const [currentUserId, setCurrentUserId] = useState(null);
   const [isUserSearchOpen, setIsUserSearchOpen] = useState(false);
@@ -59,7 +61,7 @@ export default function Members() {
       ) : (
         <DynastySolid>
           {membersData.map((member) => (
-            <Member {...member} HandleClick={handleClick} />
+            <Member {...member} HandleClick={()=>{handleClick(member)}} />
           ))}
         </DynastySolid>
       )}
