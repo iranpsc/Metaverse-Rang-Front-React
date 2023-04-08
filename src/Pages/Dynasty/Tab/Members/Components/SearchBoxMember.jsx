@@ -185,7 +185,7 @@ function UserSearch({
         }
       />
     </ParentInput>
-  </Container>:<PremissionDynasty Age={selectedUser.age}/>)
+  </Container>:<PremissionDynasty User={selectedUser}/>)
   );
 }
 

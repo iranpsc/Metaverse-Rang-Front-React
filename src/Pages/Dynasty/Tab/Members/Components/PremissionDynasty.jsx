@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SubmitDanasty from "./SubmitDynasty";
 import GeneralPremission from "./GeneralPremission";
-function PremissionDynasty({ Age }) {
+function PremissionDynasty({ User }) {
   const Location = useLocation();
   const Data = Location.state;
   const [generalSettings, setGeneralSettings] = useState({
@@ -23,17 +23,24 @@ function PremissionDynasty({ Age }) {
       Object.entries(generalSettings).filter(([key]) => !key.includes("id"))
     );
   };
-  console.log(generalSettings)
   return (
     <>
-      {Data.Relationship === "offspring" && Age < 18 ? (
+      {Data.Relationship === "offspring" && User.age < 18 ? (
         <GeneralPremission
           generalSettings={generalSettings}
           setGeneralSettings={setGeneralSettings}
           onSubmit={onSubmit}
         />
       ) : (
-        <SubmitDanasty Permission={generalSettings} />
+        <SubmitDanasty
+          Permission={generalSettings}
+          IdUser={User.code}
+          ImgUser={User.image}
+          Id={User.id}
+          Relationship={Data.Name}
+          NameUser={User.name}
+          RelationshipFamily={Data.Relationship}
+        />
       )}
     </>
   );
