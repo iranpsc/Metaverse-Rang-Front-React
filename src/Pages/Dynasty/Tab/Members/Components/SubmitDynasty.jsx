@@ -74,26 +74,24 @@ const BorderImg = styled.div`
 export default function SubmitDanasty({
   Permission,
   Relationship,
-  IdUser,
-  ImgUser,
-  NameUser,
   RelationshipFamily,
-  Id
+  UserData,
+
 }) {
   const { Request, HTTP_METHOD } = useRequest();
   const handelSubmit=()=>{
-    Request("dynasty/add/member", HTTP_METHOD.POST, { user: Id,relationship:RelationshipFamily })
+    Request("dynasty/add/member", HTTP_METHOD.POST, { user: UserData.id,relationship:RelationshipFamily })
   }
   return (
     <Container>
       <ContainerMessage>
         <UserItem>
           <ContainerName>
-            <p style={{ color: "#0800FF", fontWeight: "700" }}>{IdUser}</p>
-            <p style={{ fontWeight: "600" }}>{NameUser}</p>
+            <p style={{ color: "#0800FF", fontWeight: "700" }}>{UserData.code}</p>
+            <p style={{ fontWeight: "600" }}>{UserData.name}</p>
           </ContainerName>
           <BorderImg>
-            <ProfilePhoto src={ImgUser} alt="" />
+            <ProfilePhoto src={UserData.image} alt="" />
           </BorderImg>
         </UserItem>
         <Text>نسبت {Relationship}</Text>
@@ -102,7 +100,7 @@ export default function SubmitDanasty({
           <span style={{ fontWeight: "600" }}>
             «شهروند مورد نظر به عنوان {Relationship}»
           </span>
-          به عنوان یک پیام تاییدیه برای شهروند ارسال میشود و در صورت تایید
+           یک پیام تاییدیه برای شهروند ارسال میشود و در صورت تایید
           اطلاعات سلسله دربانک اطلاعات مرکزی متارنگ ذخیره خواهد شد
         </Text>
         <Text>

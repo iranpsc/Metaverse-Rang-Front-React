@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import DynastySolidImg from "../../../../Assets/images/Dynasty-solid.png";
 import Member from "./Components/Member";

@@ -17,29 +17,37 @@ function PremissionDynasty({ User }) {
     ESOO: 0,
     COTB: 0,
   });
-
+  const [showSubmit, setShowSubmit] = useState(false);
+  const [data, setDataPremission] = useState({});
   const onSubmit = () => {
     const data = Object.fromEntries(
       Object.entries(generalSettings).filter(([key]) => !key.includes("id"))
     );
+    setDataPremission(data);
+    setShowSubmit(true);
   };
+
   return (
     <>
-      {Data.Relationship === "offspring" && User.age < 18 ? (
+      {Data.Relationship === "offspring" && User.age < 18 && !showSubmit ? (
         <GeneralPremission
           generalSettings={generalSettings}
           setGeneralSettings={setGeneralSettings}
           onSubmit={onSubmit}
         />
+      ) : Data.Relationship === "offspring" && User.age < 18 && showSubmit ? (
+        <SubmitDanasty
+          Permission={data}
+          Relationship={Data.Name}
+          RelationshipFamily={Data.Relationship}
+          UserData={User}
+        />
       ) : (
         <SubmitDanasty
-          Permission={generalSettings}
-          IdUser={User.code}
-          ImgUser={User.image}
-          Id={User.id}
+          Permission={data}
           Relationship={Data.Name}
-          NameUser={User.name}
           RelationshipFamily={Data.Relationship}
+          UserData={User}
         />
       )}
     </>
