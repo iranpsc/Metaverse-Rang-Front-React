@@ -76,18 +76,28 @@ export default function SubmitDanasty({
   Relationship,
   RelationshipFamily,
   UserData,
-
 }) {
   const { Request, HTTP_METHOD } = useRequest();
-  const handelSubmit=()=>{
-    Request("dynasty/add/member", HTTP_METHOD.POST, { user: UserData.id,relationship:RelationshipFamily })
-  }
+  const handleSubmit = () => {
+    Request("dynasty/add/member", HTTP_METHOD.POST, {
+      user: UserData.id,
+      relationship: RelationshipFamily,
+      ...(UserData.age > 18
+        ? {}
+        : {
+            permissions:Permission,
+          }),
+    });
+  };
+
   return (
     <Container>
       <ContainerMessage>
         <UserItem>
           <ContainerName>
-            <p style={{ color: "#0800FF", fontWeight: "700" }}>{UserData.code}</p>
+            <p style={{ color: "#0800FF", fontWeight: "700" }}>
+              {UserData.code}
+            </p>
             <p style={{ fontWeight: "600" }}>{UserData.name}</p>
           </ContainerName>
           <BorderImg>
@@ -100,8 +110,8 @@ export default function SubmitDanasty({
           <span style={{ fontWeight: "600" }}>
             «شهروند مورد نظر به عنوان {Relationship}»
           </span>
-           یک پیام تاییدیه برای شهروند ارسال میشود و در صورت تایید
-          اطلاعات سلسله دربانک اطلاعات مرکزی متارنگ ذخیره خواهد شد
+          یک پیام تاییدیه برای شهروند ارسال میشود و در صورت تایید اطلاعات سلسله
+          دربانک اطلاعات مرکزی متارنگ ذخیره خواهد شد
         </Text>
         <Text>
           سلسله خانوادگی قابلیت ویرایش نخواهد داشت و فرزند شما در آینده نمیتواند
@@ -117,12 +127,15 @@ export default function SubmitDanasty({
           بسیار سنگین خواهد بود
         </Text>
         <ContainerBtn>
-          <Submit text="تایید میکنم" type="primary"  options={{
-        
-          onClick: () => {
-            handelSubmit()
-          }
-        }} />
+          <Submit
+            text="تایید میکنم"
+            type="primary"
+            options={{
+              onClick: () => {
+                handleSubmit();
+              },
+            }}
+          />
           <CancelButton>تایید نمیکنم</CancelButton>
         </ContainerBtn>
       </ContainerMessage>
