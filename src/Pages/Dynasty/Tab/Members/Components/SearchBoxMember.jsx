@@ -6,6 +6,7 @@ import useRequest from "../../../../../Services/Hooks/useRequest";
 import BackIcon from "../../../../../Assets/images/back.png";
 import Checkbox from "../../../../../Components/Inputs/CheckBoxOrange";
 import PremissionDynasty from "./PremissionDynasty";
+import { ToastError } from "../../../../../Services/Utility";
 
 const ParentInput = styled.div`
   width: 70%;
@@ -133,59 +134,66 @@ function UserSearch({
     setCurrentUserId(null);
     setQuery("");
     setUsers([]);
-    setChecked(false)
-    setSelectedUser(null)
+    setChecked(false);
+    setSelectedUser(null);
   }, [setCurrentUser, setCurrentUserId]);
 
-  const handleCheckbox = (user) => {
-    setSelectedUser(user);
-    setChecked(!checked);
-  };
-
   const [selectedUser, setSelectedUser] = useState(null);
+  const handleCheckbox = (user) => {
+    if (user.verified === false) {
+      ToastError(
+        "شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید"
+        );
+      } else {
+        setSelectedUser(user);
+        setChecked(!checked);
+      }
+  };
   const [checked, setChecked] = useState(false);
-  return (
-  (checked === false ? <Container>
-    <IconBack src={BackIcon} onClick={handleBack} />
-    <ParentInput>
-      <InputSearch
-        disabled={currentUser}
-        type="text"
-        placeholder="جستجو کنید"
-        onChange={(e) => setQuery(e.target.value)}
-        value={memoizedQuery}
-      />
+  return checked === false ? (
+    <Container>
+      <IconBack src={BackIcon} onClick={handleBack} />
+      <ParentInput>
+        <InputSearch
+          disabled={currentUser}
+          type="text"
+          placeholder="جستجو کنید"
+          onChange={(e) => setQuery(e.target.value)}
+          value={memoizedQuery}
+        />
 
-      {users.length > 0 && (
-        <UserContainer>
-          {users.map((user) => (
-            <UserItem key={user.id}>
-              <Checkbox
-                isChecked={checked}
-                onTick={() => handleCheckbox(user)}
-              />
-              <ContainerName>
-                <p style={{ color: "#0800FF", fontWeight: "700" }}>
-                  {user.code}
-                </p>
-                <p style={{ fontWeight: "600" }}>{user.name}</p>
-              </ContainerName>
-              <BorderImg>
-                <ProfilePhoto src={user.image} alt="" />
-              </BorderImg>
-            </UserItem>
-          ))}
-        </UserContainer>
-      )}
+        {users.length > 0 && (
+          <UserContainer>
+            {users.map((user) => (
+              <UserItem key={user.id}>
+                <Checkbox
+                  isChecked={checked}
+                  onTick={() => handleCheckbox(user)}
+                />
+                <ContainerName>
+                  <p style={{ color: "#0800FF", fontWeight: "700" }}>
+                    {user.code}
+                  </p>
+                  <p style={{ fontWeight: "600" }}>{user.name}</p>
+                </ContainerName>
+                <BorderImg>
+                  <ProfilePhoto src={user.image} alt="" />
+                </BorderImg>
+              </UserItem>
+            ))}
+          </UserContainer>
+        )}
 
-      <IconSearch
-        src={currentUser || users.length > 0 ? CrossIcon : SearchIcon}
-        onClick={
-          currentUser || users.length > 0 ? handleRemove : handleSearch
-        }
-      />
-    </ParentInput>
-  </Container>:<PremissionDynasty User={selectedUser}/>)
+        <IconSearch
+          src={currentUser || users.length > 0 ? CrossIcon : SearchIcon}
+          onClick={
+            currentUser || users.length > 0 ? handleRemove : handleSearch
+          }
+        />
+      </ParentInput>
+    </Container>
+  ) : (
+    <PremissionDynasty User={selectedUser} />
   );
 }
 

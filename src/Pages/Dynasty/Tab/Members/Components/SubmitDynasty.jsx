@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
 import useRequest from "../../../../../Services/Hooks/useRequest";
+import Members from "..";
+import { ToastError, ToastSuccess } from "../../../../../Services/Utility";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -77,6 +80,7 @@ export default function SubmitDanasty({
   RelationshipFamily,
   UserData,
 }) {
+  const Navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
   const handleSubmit = () => {
     Request("dynasty/add/member", HTTP_METHOD.POST, {
@@ -85,9 +89,21 @@ export default function SubmitDanasty({
       ...(UserData.age > 18
         ? {}
         : {
-            permissions:Permission,
+            permissions: Permission,
           }),
-    });
+    })
+      .then(() => {
+        ToastSuccess("دعوت نامه با موفقیت اسال شد ");
+        return <Members />;
+      })
+      .catch((error) => {
+        if (error.response.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          return Navigate("/metaverse/confirmation");
+        }
+
+        ToastError(error.response.data.message);
+      });
   };
 
   return (

@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import SubmitDanasty from "./SubmitDynasty";
 import GeneralPremission from "./GeneralPremission";
