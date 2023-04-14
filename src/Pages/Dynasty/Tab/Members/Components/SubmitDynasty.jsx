@@ -155,7 +155,7 @@ function SubmitDanasty({
             type="primary"
             options={{ onClick: handleSubmit }}
           />
-          <CancelButton>تایید نمی‌کنم</CancelButton>
+          <CancelButton onClick={()=>setShowMembers(true)}>تایید نمی‌کنم</CancelButton>
         </ContainerBtn>
       </ContainerMessage>
     </Container>
