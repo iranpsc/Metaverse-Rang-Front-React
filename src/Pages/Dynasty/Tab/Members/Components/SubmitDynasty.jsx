@@ -1,17 +1,10 @@
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
 import useRequest from "../../../../../Services/Hooks/useRequest";
-import Members from "..";
+import Members from "../index";
 import { ToastError, ToastSuccess } from "../../../../../Services/Utility";
 import { useNavigate } from "react-router-dom";
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import React, { useState } from "react";
 
 const ContainerMessage = styled.div`
   width: 100%;
@@ -57,6 +50,7 @@ const UserItem = styled.div`
 const ProfilePhoto = styled.img`
   border-radius: 100px;
   width: 100%;
+  height: 100%;
 `;
 const ContainerName = styled.div`
   display: flex;
@@ -74,7 +68,15 @@ const BorderImg = styled.div`
   height: 79px;
 `;
 
-export default function SubmitDanasty({
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+function SubmitDanasty({
   Permission,
   Relationship,
   RelationshipFamily,
@@ -82,29 +84,27 @@ export default function SubmitDanasty({
 }) {
   const Navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
-  const handleSubmit = () => {
-    Request("dynasty/add/member", HTTP_METHOD.POST, {
-      user: UserData.id,
-      relationship: RelationshipFamily,
-      ...(UserData.age > 18
-        ? {}
-        : {
-            permissions: Permission,
-          }),
-    })
-      .then(() => {
-        ToastSuccess("دعوت نامه با موفقیت اسال شد ");
-        return <Members />;
-      })
-      .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          return Navigate("/metaverse/confirmation");
-        }
+  const [showMembers, setShowMembers] = useState(false);
+  const { id, age } = UserData;
 
-        ToastError(error.response.data.message);
-      });
+  const handleSubmit = async () => {
+    let body = { user: id, relationship: RelationshipFamily };
+    if (age <= 18) body = { ...body, permissions: Permission };
+
+    try {
+      await sendRequest(Request, "dynasty/add/member", HTTP_METHOD.POST, body);
+
+      ToastSuccess("دعوت نامه با موفقیت ارسال شد");
+      setShowMembers(true);
+    } catch (error) {
+      handleRequestError(error, Navigate);
+      setShowMembers(true);
+    }
   };
+
+  if (showMembers) {
+    return <Members />;
+  }
 
   return (
     <Container>
@@ -120,41 +120,64 @@ export default function SubmitDanasty({
             <ProfilePhoto src={UserData.image} alt="" />
           </BorderImg>
         </UserItem>
+
         <Text>نسبت {Relationship}</Text>
+
         <Text>
-          در صورت تایید
+          در صورت
           <span style={{ fontWeight: "600" }}>
-            «شهروند مورد نظر به عنوان {Relationship}»
+            {`«شهروند مورد نظر به عنوان ${Relationship}»`}
           </span>
-          یک پیام تاییدیه برای شهروند ارسال میشود و در صورت تایید اطلاعات سلسله
-          دربانک اطلاعات مرکزی متارنگ ذخیره خواهد شد
+          یک پیام تاییدیه برای شهروند ارسال می‌شود و در صورت تایید اطلاعات سلسله
+          خانوادگی در بانک اطلاعات مرکزی متارنگ ذخیره خواهد شد.
         </Text>
+
         <Text>
-          سلسله خانوادگی قابلیت ویرایش نخواهد داشت و فرزند شما در آینده نمیتواند
-          شما را حذف کند و همچنین شد شما نیز نمیتوانید فرزند خود را حذف نمایید
+          سلسله خانوادگی قابلیت ویرایش نخواهد داشت و فرزند شما در آینده
+          نمی‌تواند شما را حذف کند و همچنین شما نیز نمی‌توانید فرزند خود را حذف
+          نمایید.
         </Text>
+
         <Text>
           قابلیت ویرایش تنظیمات دسترسی فرزند شما در هر زمان به صورت یک طرفه از
-          سمت شما امکان پذیر است فرزند شما تنها تا قبل از سن قانونی توسط شما
-          محدود خواهد شد سن قانونی 18
+          سمت شما امکان پذیر است. فرزند شما تنها تا قبل از سن قانونی توسط شما
+          محدود خواهد شد (سن قانونی ۱۸).
         </Text>
+
         <Text style={{ color: "red" }}>
-          جریمه هایی که در خصوص دروغ گویی توسط دادگاه متارنگ در نظر گرفته میشود
-          بسیار سنگین خواهد بود
+          جریمه هایی که در خصوص دروغ گویی توسط دادگاه متارنگ در نظر گرفته می‌شود
+          بسیار سنگین خواهد بود.
         </Text>
+
         <ContainerBtn>
           <Submit
-            text="تایید میکنم"
+            text="تایید می‌کنم"
             type="primary"
-            options={{
-              onClick: () => {
-                handleSubmit();
-              },
-            }}
+            options={{ onClick: handleSubmit }}
           />
-          <CancelButton>تایید نمیکنم</CancelButton>
+          <CancelButton>تایید نمی‌کنم</CancelButton>
         </ContainerBtn>
       </ContainerMessage>
     </Container>
   );
 }
+
+function handleRequestError(error, Navigate) {
+  if (error.response.status === 410) {
+    ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+    Navigate("/metaverse/confirmation");
+  } else {
+    ToastError(error.response.data.message);
+  }
+}
+
+async function sendRequest(request, url, method, body) {
+  try {
+    const response = await request(url, method, body);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export default React.memo(SubmitDanasty);

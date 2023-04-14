@@ -62,6 +62,7 @@ const UserItem = styled.div`
 const ProfilePhoto = styled.img`
   border-radius: 100px;
   width: 100%;
+  height: 100%;
 `;
 
 const IconBack = styled.img`
@@ -140,14 +141,13 @@ function UserSearch({
 
   const [selectedUser, setSelectedUser] = useState(null);
   const handleCheckbox = (user) => {
-    if (user.verified === false) {
-      ToastError(
-        "شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید"
-        );
-      } else {
-        setSelectedUser(user);
-        setChecked(!checked);
-      }
+    if (!user.verified) {
+      ToastError("شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید");
+      return;
+    }
+  
+    setSelectedUser(user);
+    setChecked(!checked);
   };
   const [checked, setChecked] = useState(false);
   return checked === false ? (
