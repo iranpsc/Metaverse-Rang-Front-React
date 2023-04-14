@@ -74,12 +74,12 @@ export default function RequestSent() {
     <Table>
       <HeaderTable>
         <tr>
-          <th>ارسال به</th>
-          <th>تاریخ وساعت ارسال</th>
-          <th>نسبت خانوادگی</th>
-          <th>وضعیت درخواست</th>
-          <th>پاداش</th>
-          <th></th>
+          <th style={{padding: "5px"}}>ارسال به</th>
+          <th style={{padding: "5px"}}>تاریخ وساعت ارسال</th>
+          <th style={{padding: "5px"}}>نسبت خانوادگی</th>
+          <th style={{padding: "5px"}}>وضعیت درخواست</th>
+          <th style={{padding: "5px"}}>پاداش</th>
+          <th style={{padding: "5px"}}></th>
         </tr>
       </HeaderTable>
       <TableBody>
@@ -87,10 +87,11 @@ export default function RequestSent() {
         sent?.map(item => (
           <Tr>
             <td>
-              <a href="http://" target="_blank" rel="noopener noreferrer">
+              <p style={{fontWeight:"600",color:"blue",cursor:"pointer"}} onClick={() => window.open(`https://rgb.irpsc.com/citizen/${item.to_user.code}`,'_blank')}>
                 {item.to_user.code}
-              </a>
+              </p>
             </td>
+            <td>{item.Date?item.Date:"00:00:00 01/01/0101"}</td>
             <td>{item.relationship}</td>
             <td>{status[item.status]}</td>
             <TdGift>

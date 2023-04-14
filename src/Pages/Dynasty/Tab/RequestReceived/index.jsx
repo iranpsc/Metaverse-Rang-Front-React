@@ -68,40 +68,42 @@ export default function RequestReceived() {
     <Table>
       <HeaderTable>
         <tr>
-          <th>دریافت از</th>
-          <th>نسبت خانوادگی</th>
-          <th>وضعیت درخواست</th>
-          <th>پاداش</th>
-          <th></th>
+          <th style={{padding: "5px"}}>دریافت از</th>
+          <th style={{padding: "5px"}}>تاریخ وساعت دریافت</th>
+          <th style={{padding: "5px"}}>نسبت خانوادگی</th>
+          <th style={{padding: "5px"}}>وضعیت درخواست</th>
+          <th style={{padding: "5px"}}>پاداش</th>
+          <th style={{padding: "5px"}}></th>
         </tr>
       </HeaderTable>
       <TableBody>
-        {
-          recived?.map(item => (
-            <Tr>
-              <td>
-                <a href="http://" target="_blank" rel="noopener noreferrer">
-                  {item.from_user.code}
-                </a>
-              </td>
-              <td>{item.relationship}</td>
-              <td>{status[item.status]}</td>
-              <TdGift>
-                <GiftIcon src={PscCoin} />
-                1000
-                <GiftIcon src={DataBaseIcon} />
-                26.3%
-                <GiftIcon src={BankICoin} />
-                32%
-                <GiftIcon src={IncreaseICoin} />
-                32%
-                <GiftIcon src={SatisfactionICoin} />
-                0.5
-              </TdGift>
-              <td>
-                <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
-              </td>
-            </Tr>
+      {
+        recived?.map(item => (
+          <Tr>
+            <td>
+              <p style={{fontWeight:"600",color:"blue",cursor:"pointer"}} onClick={() => window.open(`https://rgb.irpsc.com/citizen/${item.to_user.code}`,'_blank')}>
+                {item.to_user.code}
+              </p>
+            </td>
+            <td>{item.Date?item.Date:"00:00:00 01/01/0101"}</td>
+            <td>{item.relationship}</td>
+            <td>{status[item.status]}</td>
+            <TdGift>
+              <GiftIcon src={PscCoin} />
+              1000
+              <GiftIcon src={DataBaseIcon} />
+              26.3%
+              <GiftIcon src={BankICoin} />
+              32%
+              <GiftIcon src={IncreaseICoin} />
+              32%
+              <GiftIcon src={SatisfactionICoin} />
+              0.5
+            </TdGift>
+            <td>
+              <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
+            </td>
+          </Tr>
           ))
         }
       </TableBody>
