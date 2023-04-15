@@ -9,7 +9,7 @@ import BankICoin from "../../../../Assets/images/bank.png";
 import SeenICoin from "../../../../Assets/images/eye-scanner.png";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
-
+import Message from "./Components/Message";
 
 const Table = styled.table`
   width: 100%;
@@ -55,64 +55,94 @@ const TableBody = styled.tbody`
 `;
 
 const status = {
-  '-1': 'رد شده',
-  '1': 'تایید شده',
-  '0': 'تایید نشده'
-}
+  "-1": "رد شده",
+  1: "تایید شده",
+  0: "تایید نشده",
+};
 
 export default function RequestSent() {
   const { Request } = useRequest();
   const [sent, setSent] = useState([]);
 
   useEffect(() => {
-    Request('dynasty/requests/sent').then(response => {
+    Request("dynasty/requests/sent").then((response) => {
       setSent(response.data.data);
-    })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const [show, setShowMessage] = useState(false);
+  const [items, setItems] = useState({});
+  const ShowHandel = (item) => {
+    setShowMessage(true);
+    setItems(item);
+  };
+  const handleBack = () => {
+    setShowMessage(false);
+    setItems(null);
+  };
   return (
-    <Table>
-      <HeaderTable>
-        <tr>
-          <th style={{padding: "5px"}}>ارسال به</th>
-          <th style={{padding: "5px"}}>تاریخ وساعت ارسال</th>
-          <th style={{padding: "5px"}}>نسبت خانوادگی</th>
-          <th style={{padding: "5px"}}>وضعیت درخواست</th>
-          <th style={{padding: "5px"}}>پاداش</th>
-          <th style={{padding: "5px"}}></th>
-        </tr>
-      </HeaderTable>
-      <TableBody>
-      {
-        sent?.map(item => (
-          <Tr>
-            <td>
-              <p style={{fontWeight:"600",color:"blue",cursor:"pointer"}} onClick={() => window.open(`https://rgb.irpsc.com/citizen/${item.to_user.code}`,'_blank')}>
-                {item.to_user.code}
-              </p>
-            </td>
-            <td>{item.Date?item.Date:"00:00:00 01/01/0101"}</td>
-            <td>{item.relationship}</td>
-            <td>{status[item.status]}</td>
-            <TdGift>
-              <GiftIcon src={PscCoin} />
-              1000
-              <GiftIcon src={DataBaseIcon} />
-              26.3%
-              <GiftIcon src={BankICoin} />
-              32%
-              <GiftIcon src={IncreaseICoin} />
-              32%
-              <GiftIcon src={SatisfactionICoin} />
-              0.5
-            </TdGift>
-            <td>
-              <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
-            </td>
-          </Tr>
-          ))
-        }
-      </TableBody>
-    </Table>
+    <>
+      {show ? (
+        <Message items={items} handleBack={handleBack} />
+      ) : (
+        <Table>
+          <HeaderTable>
+            <tr>
+              <th style={{ padding: "5px" }}>ارسال به</th>
+              <th style={{ padding: "5px" }}>تاریخ وساعت ارسال</th>
+              <th style={{ padding: "5px" }}>نسبت خانوادگی</th>
+              <th style={{ padding: "5px" }}>وضعیت درخواست</th>
+              <th style={{ padding: "5px" }}>پاداش</th>
+              <th style={{ padding: "5px" }}></th>
+            </tr>
+          </HeaderTable>
+          <TableBody>
+            {sent?.map((item) => (
+              <Tr>
+                <td>
+                  <p
+                    style={{
+                      fontWeight: "600",
+                      color: "blue",
+                      cursor: "pointer",
+                    }}
+                    onClick={() =>
+                      window.open(
+                        `https://rgb.irpsc.com/citizen/${item.to_user.code}`,
+                        "_blank"
+                      )
+                    }
+                  >
+                    {item.to_user.code}
+                  </p>
+                </td>
+                <td>{item.Date ? item.Date : "00:00:00 01/01/0101"}</td>
+                <td>{item.relationship}</td>
+                <td>{status[item.status]}</td>
+                <TdGift>
+                  <GiftIcon src={PscCoin} />
+                  1000
+                  <GiftIcon src={DataBaseIcon} />
+                  26.3%
+                  <GiftIcon src={BankICoin} />
+                  32%
+                  <GiftIcon src={IncreaseICoin} />
+                  32%
+                  <GiftIcon src={SatisfactionICoin} />
+                  0.5
+                </TdGift>
+                <td>
+                  <GiftIcon
+                    src={SeenICoin}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => ShowHandel(item)}
+                  />
+                </td>
+              </Tr>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </>
   );
 }
