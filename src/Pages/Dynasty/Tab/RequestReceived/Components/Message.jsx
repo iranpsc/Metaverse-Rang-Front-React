@@ -5,6 +5,8 @@ import CrossIcon from "../../../../../Assets/images/cross-2.png";
 import CheckIcon from "../../../../../Assets/images/check.png";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import Submit from "../../../../../Components/Buttons/Submit";
+import { ToastSuccess } from "../../../../../Services/Utility";
 
 const Container = styled.div`
   width: 100%;
@@ -64,7 +66,7 @@ function getStatusText(statusCode) {
   return statusDict[statusCode] || "";
 }
 export default function Message({ items, handleBack }) {
-  const { Request } = useRequest();
+  const { Request, HTTP_METHOD } = useRequest();
   const [data, setData] = useState();
   useEffect(() => {
     Request(`dynasty/requests/recieved/${items.id}`).then((response) => {
@@ -74,7 +76,10 @@ export default function Message({ items, handleBack }) {
   }, []);
   
   const status = getStatusText(data?.status);
-
+const handleSubmit =()=>{
+  Request(`dynasty/requests/recieved/${items.id}`,HTTP_METHOD.POST)
+  ToastSuccess("دعوت نامه با موفقیت ارسال شد");
+}
   return (
     <Container>
       <ContainerMessage>
@@ -105,6 +110,15 @@ export default function Message({ items, handleBack }) {
           <p>{status.text}</p>
         </StatusContainer>
         <p>{data ? data.message : ""}</p>
+        {data?.status === 0 && 
+        <Submit
+            text="تایید سلسله"
+            type="primary"
+            options={{ onClick: handleSubmit , style: {
+              margin: "0 auto" ,
+
+            },}}
+          />}
       </ContainerMessage>
     </Container>
   );
