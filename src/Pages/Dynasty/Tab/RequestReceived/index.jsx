@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import Message from "./Components/Message";
 //icons
 import PscCoin from "../../../../Assets/images/psc-2.png";
 import DataBaseIcon from "../../../../Assets/images/database.png";
@@ -63,50 +63,62 @@ export default function RequestReceived() {
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
+  const [show, setShowMessage] = useState(false);
+  const [items, setItems] = useState({});
+  const ShowHandel = (item) => {
+    setShowMessage(true);
+    setItems(item);
+  };
+  const handleBack = () => {
+    setShowMessage(false);
+    setItems(null);
+  };
   return (
-    <Table>
-      <HeaderTable>
-        <tr>
-          <th style={{padding: "5px"}}>دریافت از</th>
-          <th style={{padding: "5px"}}>تاریخ وساعت دریافت</th>
-          <th style={{padding: "5px"}}>نسبت خانوادگی</th>
-          <th style={{padding: "5px"}}>وضعیت درخواست</th>
-          <th style={{padding: "5px"}}>پاداش</th>
-          <th style={{padding: "5px"}}></th>
-        </tr>
-      </HeaderTable>
-      <TableBody>
-      {
-        recived?.map(item => (
-          <Tr>
-            <td>
-              <p style={{fontWeight:"600",color:"blue",cursor:"pointer"}} onClick={() => window.open(`https://rgb.irpsc.com/citizen/${item.to_user.code}`,'_blank')}>
-                {item.to_user.code}
-              </p>
-            </td>
-            <td>{item.Date?item.Date:"00:00:00 01/01/0101"}</td>
-            <td>{item.relationship}</td>
-            <td>{status[item.status]}</td>
-            <TdGift>
-              <GiftIcon src={PscCoin} />
-              1000
-              <GiftIcon src={DataBaseIcon} />
-              26.3%
-              <GiftIcon src={BankICoin} />
-              32%
-              <GiftIcon src={IncreaseICoin} />
-              32%
-              <GiftIcon src={SatisfactionICoin} />
-              0.5
-            </TdGift>
-            <td>
-              <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }} />
-            </td>
-          </Tr>
-          ))
-        }
-      </TableBody>
-    </Table>
+  <>{  show ? (
+    <Message items={items} handleBack={handleBack} />
+  ):(  <Table>
+    <HeaderTable>
+      <tr>
+        <th style={{padding: "5px"}}>دریافت از</th>
+        <th style={{padding: "5px"}}>تاریخ وساعت دریافت</th>
+        <th style={{padding: "5px"}}>نسبت خانوادگی</th>
+        <th style={{padding: "5px"}}>وضعیت درخواست</th>
+        <th style={{padding: "5px"}}>پاداش</th>
+        <th style={{padding: "5px"}}></th>
+      </tr>
+    </HeaderTable>
+    <TableBody>
+    {
+      recived?.map(item => (
+        <Tr>
+          <td>
+            <p style={{fontWeight:"600",color:"blue",cursor:"pointer"}} onClick={() => window.open(`https://rgb.irpsc.com/citizen/${item?.from_user?.code}`,'_blank')}>
+              {item?.from_user?.code}
+            </p>
+          </td>
+          <td>{item.Date?item.Date:"00:00:00 01/01/0101"}</td>
+          <td>{item.relationship}</td>
+          <td>{status[item.status]}</td>
+          <TdGift>
+            <GiftIcon src={PscCoin} />
+            1000
+            <GiftIcon src={DataBaseIcon} />
+            26.3%
+            <GiftIcon src={BankICoin} />
+            32%
+            <GiftIcon src={IncreaseICoin} />
+            32%
+            <GiftIcon src={SatisfactionICoin} />
+            0.5
+          </TdGift>
+          <td>
+            <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }}   onClick={() => ShowHandel(item)}/>
+          </td>
+        </Tr>
+        ))
+      }
+    </TableBody>
+  </Table>)}</>
+  
   );
 }
