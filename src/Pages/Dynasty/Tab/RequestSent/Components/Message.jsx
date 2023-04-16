@@ -1,6 +1,8 @@
 import React from "react";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import BackIcon from "../../../../../Assets/images/back.png";
+import CrossIcon from "../../../../../Assets/images/cross-2.png";
+import CheckIcon from "../../../../../Assets/images/check.png";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
@@ -18,7 +20,7 @@ const ContainerMessage = styled.div`
   padding: 10px;
   display: flex;
   align-items: end;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-direction: column;
   text-align: right;
   padding: 0.5rem;
@@ -40,6 +42,27 @@ const Header = styled.div`
   justify-content: space-between;
   padding: 10px;
 `;
+const StatusContainer=styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 10px;
+  & img {
+    width: 30px;
+  }
+  & p{
+font-size: 16px;
+  }
+`
+function getStatusText(statusCode) {
+  const statusDict = {
+    0: { text: "در دست بررسی", image: "" },
+    "-1": { text: "رد شده", image: CrossIcon },
+    1: { text: "تایید شده", image: CheckIcon },
+  };
+  return statusDict[statusCode] || "";
+}
 export default function Message({ items, handleBack }) {
   const { Request } = useRequest();
   const [data, setData] = useState();
@@ -50,6 +73,8 @@ export default function Message({ items, handleBack }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
+  const status = getStatusText(data?.status);
+
   return (
     <Container>
       <ContainerMessage>
@@ -61,7 +86,7 @@ export default function Message({ items, handleBack }) {
                 fontWeight: "600",
                 color: "blue",
                 cursor: "pointer",
-                fontFamily:'Segoe UI',
+                fontFamily: "Segoe UI",
               }}
               onClick={() =>
                 window.open(
@@ -71,11 +96,14 @@ export default function Message({ items, handleBack }) {
               }
             >
               {data?.to_user.code}
-            </span>  {" "}
-              درخواست ارسال شده به شهروند
+            </span>{" "}
+            درخواست ارسال شده به شهروند
           </h2>
         </Header>
-        <div></div>
+        <StatusContainer>
+          {status.image && <img src={status.image} alt="وضعیت" />}
+          <p>{status.text}</p>
+        </StatusContainer>
         <p>{data ? data.message : ""}</p>
       </ContainerMessage>
     </Container>
