@@ -18,13 +18,13 @@ const ContainerMessage = styled.div`
   padding: 10px;
   display: flex;
   align-items: end;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   text-align: right;
-  padding: 2rem;
+  padding: 0.5rem;
   line-height: 2;
   border: 1px solid #777;
-    border-radius: 7px;
+  border-radius: 7px;
 `;
 
 const IconBack = styled.img`
@@ -32,11 +32,14 @@ const IconBack = styled.img`
   rotate: 360deg;
   transform: rotateY(185deg);
   cursor: pointer;
-  position: absolute;
-  top: 12%;
-  left: 2.5%;
 `;
-
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+`;
 export default function Message({ items, handleBack }) {
   const { Request } = useRequest();
   const [data, setData] = useState();
@@ -46,10 +49,33 @@ export default function Message({ items, handleBack }) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
   return (
     <Container>
       <ContainerMessage>
-        <IconBack src={BackIcon} onClick={handleBack} />
+        <Header>
+          <IconBack src={BackIcon} onClick={handleBack} />
+          <h2>
+            <span
+              style={{
+                fontWeight: "600",
+                color: "blue",
+                cursor: "pointer",
+                fontFamily:'Segoe UI',
+              }}
+              onClick={() =>
+                window.open(
+                  `https://rgb.irpsc.com/citizen/${data?.to_user.code}`,
+                  "_blank"
+                )
+              }
+            >
+              {data?.to_user.code}
+            </span>  {" "}
+              درخواست ارسال شده به شهروند
+          </h2>
+        </Header>
+        <div></div>
         <p>{data ? data.message : ""}</p>
       </ContainerMessage>
     </Container>

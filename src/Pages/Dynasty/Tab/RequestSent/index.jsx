@@ -105,20 +105,21 @@ export default function RequestSent() {
                       fontWeight: "600",
                       color: "blue",
                       cursor: "pointer",
+                      fontFamily:'Segoe UI',
                     }}
                     onClick={() =>
                       window.open(
-                        `https://rgb.irpsc.com/citizen/${item.to_user.code}`,
+                        `https://rgb.irpsc.com/citizen/${item?.to_user.code}`,
                         "_blank"
                       )
                     }
                   >
-                    {item.to_user.code}
+                    {item?.to_user.code}
                   </p>
                 </td>
-                <td>{item.Date ? item.Date : "00:00:00 01/01/0101"}</td>
-                <td>{item.relationship}</td>
-                <td>{status[item.status]}</td>
+                <td>{item?.Date ? item?.Date : "00:00:00 01/01/0101"}</td>
+                <td>{item?.relationship}</td>
+                <td>{status[item?.status]}</td>
                 <TdGift>
                   <GiftIcon src={PscCoin} />
                   1000
