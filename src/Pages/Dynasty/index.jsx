@@ -9,10 +9,10 @@ import RequestSent from "./Tab/RequestSent";
 
 export default function Dynasty() {
   const tabs = [
+    { title: "تاسیس ملک", content: <PropertyEstablishment /> },
+    { title: "اعضاء", content: <Members /> },
     { title: "درخواست ارسالی", content: <RequestSent/> },
     { title: "درخواست دریافتی", content: <RequestReceived /> },
-    { title: "اعضاء", content: <Members /> },
-    { title: "تاسیس ملک", content: <PropertyEstablishment /> },
   ];
 
   const TabPanel = useTabs(tabs);
