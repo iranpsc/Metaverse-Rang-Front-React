@@ -8,7 +8,7 @@ import ImageBlue from '../../Assets/images/blue.png';
 import ImageRed from '../../Assets/images/red.png';
 import ImageYellow from '../../Assets/images/yellow.png';
 import ImageSatisfaction from '../../Assets/images/satisfaction.png';
-import { WalletContext } from '../../Services/Reducers/WalletContext.js';
+import { WalletContext } from '../../Services/Reducers/WalletContext.jsx';
 
 
 export default function FooterAssets() {

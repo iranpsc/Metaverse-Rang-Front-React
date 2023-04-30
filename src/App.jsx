@@ -8,7 +8,7 @@ import Map from "./Layouts/Map";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Security from "./Pages/Security";
-import UserProvider from "./Services/Reducers/UserContext.js";
+import UserProvider from "./Services/Reducers/UserContext.jsx";
 import PrivateRoute from "./Routes/PrivateRoute";
 import Report from "./Pages/Report";
 import Settings from "./Pages/Settings";
