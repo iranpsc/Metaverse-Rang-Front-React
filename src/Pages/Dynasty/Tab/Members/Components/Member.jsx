@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 import UserImg from "../../../../../Assets/images/user.png";
 
@@ -23,8 +22,7 @@ const ImgMember = styled.img`
   border-radius: 100%;
 `;
 
-export default function Member({ Top, Left, MemberImg, Name, HandleClick}) {
-
+export default function Member({ Top, Left, MemberImg, Name, HandleClick }) {
   const Container = styled.div`
     width: 72px;
     aspect-ratio: 1/1;
@@ -37,14 +35,13 @@ export default function Member({ Top, Left, MemberImg, Name, HandleClick}) {
     justify-content: center;
     background: #f6f6f6;
   `;
- 
 
   return (
-          <Container>
-            <BorderImg onClick={HandleClick}>
-              <ImgMember src={UserImg} />
-            </BorderImg>
-            {Name && <ContainerName>{Name}</ContainerName>}
-          </Container>
+    <Container>
+      <BorderImg onClick={HandleClick}>
+        <ImgMember src={MemberImg ? MemberImg : UserImg} />
+      </BorderImg>
+      {Name && <ContainerName>{Name}</ContainerName>}
+    </Container>
   );
 }
