@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useCallback, memo } from "react";
+// Importing required libraries and components
+import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-
 import DynastySolidImg from "../../../../Assets/images/Dynasty-solid.png";
 import Member from "./Components/Member";
 import UserSearch from "./Components/SearchBoxMember";
 import useRequest from "../../../../Services/Hooks/useRequest";
 
+// Styling for background image of component
 const DynastySolid = styled.div`
   width: 100%;
   height: 90%;
@@ -15,6 +16,7 @@ const DynastySolid = styled.div`
   background-size: 100% 117%;
 `;
 
+// Styling for search box
 const ContainerSearchBox = styled.div`
   width: 100%;
   height: 100%;
@@ -22,57 +24,88 @@ const ContainerSearchBox = styled.div`
   justify-content: flex-start;
 `;
 
+// Main functional component
 const Members = () => {
+  // Using custom hook to fetch data from server
   const { Request } = useRequest();
+  
+  // Getting current page location using react-router's useLocation hook
   const location = useLocation();
+  
+  // Setting initial states using useState hook
   const [dynastyId, setDynastyId] = useState({});
   const [currentUser, setCurrentUser] = useState(null);
   const [currentUserId, setCurrentUserId] = useState(null);
   const [isUserSearchOpen, setIsUserSearchOpen] = useState(false);
   const [family, setFamily] = useState([]);
-  const membersData = [
-    { Left: "33.5%", Top: "11.5%", MemberImg: dynastyId["profile-image"] },
-    { Left: "5.4%", Top: "37.3%", Name: "پدر", Relationship: "father" },
-    { Left: "21%", Top: "37.3%", Name: "مادر", Relationship: "mother" },
-    { Left: "40.2%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
-    { Left: "54.5%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
-    { Left: "69.7%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
-    { Left: "86%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
-    { Left: "13.5%", Top: "71.5%", Name: "همسر", Relationship: "spouse" },
-    { Left: "40%", Top: "77%", Name: "فرزند", Relationship: "offspring" ,},
-    { Left: "54.5%", Top: "77%", Name: "فرزند", Relationship: "offspring",},
-    { Left: "69.5%", Top: "77%", Name: "فرزند", Relationship: "offspring", },
-    { Left: "85.5%", Top: "77%", Name: "فرزند", Relationship: "offspring", },
-  ];
-  const handleClick = useCallback(
-    (member, index) => {
-      if (index > 0) {
-        setIsUserSearchOpen(true);
-        location.state = member;
+
+ const [membersData, setMembersData] = useState([]);
+ 
+   useEffect(() => {
+     const updatedMembersData = [
+       { Left: "33.5%", Top: "11.5%", MemberImg: dynastyId["profile-image"] },
+       { Left: "5.4%", Top: "37.3%", Name: "پدر", Relationship: "father" },
+       { Left: "21%", Top: "37.3%", Name: "مادر", Relationship: "mother" },
+       { Left: "40.2%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
+       { Left: "54.5%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
+       { Left: "69.7%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
+       { Left: "86%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
+       { Left: "13.5%", Top: "71.5%", Name: "همسر", Relationship: "spouse" },
+       { Left: "40%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+       { Left: "54.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+       { Left: "69.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+       { Left: "85.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+     ];
+     family.forEach(({profile_photo, relationship}) => {
+      if (relationship === "offspring") {
+        const index = updatedMembersData.findIndex(member => member.Relationship === "offspring" && !member.MemberImg);
+        if (index !== -1) {
+          updatedMembersData[index].MemberImg = profile_photo;
+        }
+      } else {
+        if (updatedMembersData.some(member => member.Relationship === relationship)) {
+          updatedMembersData.find(member => member.Relationship === relationship).MemberImg = profile_photo;
+        }
       }
-    },
-    [location]
-  );
+    });
+    
+ 
+     setMembersData(updatedMembersData);
+   }, [family, dynastyId]);
+ 
+  // Function to handle click event of each member
+  const handleClick = useCallback((member, index) => {
+    if (index > 0 && !member.MemberImg) {
+      setIsUserSearchOpen(true);
+      location.state = member;
+    }
+  }, [location]);
+
+  // Function to handle go back button event in search box component
   const handleBack = useCallback(() => {
     setIsUserSearchOpen(false);
     location.state = null;
   }, [location]);
 
+  // Function to fetch data from server when component mounts
   useEffect(() => {
-    Request("dynasty").then((response) => {
-      setDynastyId(response.data.data);
-    });
-  }, []);
-  useEffect(() => {
-    if (dynastyId["user-has-dynasty"]) {
-      Request(
-        `dynasty/${dynastyId.id}/family/${dynastyId.family_id}`
-      ).then((response) => {
-        setFamily(response.data.data)
-      });
-    }
-  }, [dynastyId]);
+    const fetchData = async () => {
+      const dynastyResponse = await Request("dynasty");
+      setDynastyId(dynastyResponse.data.data);
 
+      if (dynastyResponse.data.data["user-has-dynasty"]) {
+        const familyResponse = await Request(
+          `dynasty/${dynastyResponse.data.data.id}/family/${dynastyResponse.data.data.family_id}`
+        );
+        setFamily(familyResponse.data.data);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  // Returning the JSX structure
   return (
     <>
       {isUserSearchOpen ? (
