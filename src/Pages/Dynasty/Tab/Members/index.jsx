@@ -26,6 +26,10 @@ const Members = () => {
   const { Request } = useRequest();
   const location = useLocation();
   const [dynastyId, setDynastyId] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [isUserSearchOpen, setIsUserSearchOpen] = useState(false);
+  const [family, setFamily] = useState([]);
   const membersData = [
     { Left: "33.5%", Top: "11.5%", MemberImg: dynastyId["profile-image"] },
     { Left: "5.4%", Top: "37.3%", Name: "پدر", Relationship: "father" },
@@ -35,22 +39,20 @@ const Members = () => {
     { Left: "69.7%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
     { Left: "86%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
     { Left: "13.5%", Top: "71.5%", Name: "همسر", Relationship: "spouse" },
-    { Left: "40%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
-    { Left: "54.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
-    { Left: "69.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
-    { Left: "85.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+    { Left: "40%", Top: "77%", Name: "فرزند", Relationship: "offspring" ,},
+    { Left: "54.5%", Top: "77%", Name: "فرزند", Relationship: "offspring",},
+    { Left: "69.5%", Top: "77%", Name: "فرزند", Relationship: "offspring", },
+    { Left: "85.5%", Top: "77%", Name: "فرزند", Relationship: "offspring", },
   ];
-  const [currentUser, setCurrentUser] = useState(null);
-  const [currentUserId, setCurrentUserId] = useState(null);
-  const [isUserSearchOpen, setIsUserSearchOpen] = useState(false);
-
-  const handleClick = useCallback((member, index) => {
-    if (index > 0) {
-      setIsUserSearchOpen(true);
-      location.state = member;
-    }
-  }, [location]);
-
+  const handleClick = useCallback(
+    (member, index) => {
+      if (index > 0) {
+        setIsUserSearchOpen(true);
+        location.state = member;
+      }
+    },
+    [location]
+  );
   const handleBack = useCallback(() => {
     setIsUserSearchOpen(false);
     location.state = null;
@@ -61,6 +63,15 @@ const Members = () => {
       setDynastyId(response.data.data);
     });
   }, []);
+  useEffect(() => {
+    if (dynastyId["user-has-dynasty"]) {
+      Request(
+        `dynasty/${dynastyId.id}/family/${dynastyId.family_id}`
+      ).then((response) => {
+        setFamily(response.data.data)
+      });
+    }
+  }, [dynastyId]);
 
   return (
     <>
@@ -79,7 +90,7 @@ const Members = () => {
             <Member
               key={`${member.Name}_${index}`}
               {...member}
-              HandleClick={() => handleClick(member,index)}
+              HandleClick={() => handleClick(member, index)}
             />
           ))}
         </DynastySolid>
