@@ -35,7 +35,6 @@ export default function Member({ Top, Left, MemberImg, Name, HandleClick }) {
     justify-content: center;
     background: #f6f6f6;
   `;
-
   return (
     <Container>
       <BorderImg onClick={HandleClick}>
