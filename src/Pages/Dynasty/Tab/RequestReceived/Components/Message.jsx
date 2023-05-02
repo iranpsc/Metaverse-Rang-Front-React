@@ -6,7 +6,7 @@ import CheckIcon from "../../../../../Assets/images/check.png";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Submit from "../../../../../Components/Buttons/Submit";
-import { ToastSuccess } from "../../../../../Services/Utility";
+import { ToastError, ToastSuccess } from "../../../../../Services/Utility";
 
 const Container = styled.div`
   width: 100%;
@@ -77,8 +77,17 @@ export default function Message({ items, handleBack }) {
   
   const status = getStatusText(data?.status);
 const handleSubmit =()=>{
-  Request(`dynasty/requests/recieved/${items.id}`,HTTP_METHOD.POST)
-  ToastSuccess("دعوت نامه با موفقیت ارسال شد");
+  Request(`dynasty/requests/recieved/${items.id}`,HTTP_METHOD.POST).then(response => {
+    console.log(response)
+    ToastSuccess('سلسله با موفقیت تاسیس شد.');
+  }).catch(error => {
+    if (error.response.status === 410) {
+      ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
+      return Navigate("/metaverse/confirmation");
+    }
+    ToastError(error.response.data.message);
+  })
+ 
 }
   return (
     <Container>
