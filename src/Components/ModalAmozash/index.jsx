@@ -52,8 +52,8 @@ export default function Amozesh({ title, description, creator, video,setShowModa
             </div>
             <div className="container-div-p">
               <div>
-                <p className="para-class">
-            {description}
+                <p className="para-class" dangerouslySetInnerHTML={{ __html: description }}>
+           
                 </p>
               </div>
             </div>
