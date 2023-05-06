@@ -104,7 +104,7 @@ export default function Message({ items, handleBack }) {
           {status.image && <img src={status.image} alt="وضعیت" />}
           <p>{status.text}</p>
         </StatusContainer>
-        <p>{data ? data.message : ""}</p>
+        <p dangerouslySetInnerHTML={{ __html:data? data.message :""}} ></p>
       </ContainerMessage>
     </Container>
   );
