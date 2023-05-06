@@ -11,7 +11,7 @@ export default function FeatureProvider({ children, id }) {
     Request(`features/${id}`).then((response) => {
       setFeature(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   return (

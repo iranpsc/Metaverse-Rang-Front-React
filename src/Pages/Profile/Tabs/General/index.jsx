@@ -182,7 +182,7 @@ export default function General() {
     Request("profilePhotos").then((response) => {
       setProfileImage(response?.data?.data.reverse());
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const deleteProfileImage = (id) => {

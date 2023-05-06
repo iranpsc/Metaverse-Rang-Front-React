@@ -41,7 +41,7 @@ export default function Ticket() {
     Request('tickets/recieved').then(response => {
       setTickets(tickets => [...tickets, ...response.data.data])
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
 

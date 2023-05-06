@@ -13,7 +13,7 @@ export default function PrivateRoute({ children }) {
         }
 
         setComponents(children)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [isLoggedIn])
 
 

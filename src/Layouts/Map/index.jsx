@@ -35,7 +35,7 @@ export default function Map() {
 
   useEffect(() => {
     setUserWithToken();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const flyToPosition = () => {

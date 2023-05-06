@@ -25,7 +25,7 @@ export default function Following() {
     Request("following", HTTP_METHOD.GET).then((response) => {
       setFollowing(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   return (

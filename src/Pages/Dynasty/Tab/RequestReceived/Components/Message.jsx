@@ -72,7 +72,7 @@ export default function Message({ items, handleBack }) {
     Request(`dynasty/requests/recieved/${items.id}`).then((response) => {
       setData(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
   
   const status = getStatusText(data?.status);

@@ -68,7 +68,7 @@ export default function RequestSent() {
     Request("dynasty/requests/sent").then((response) => {
       setSent(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
   const [show, setShowMessage] = useState(false);
   const [items, setItems] = useState({});

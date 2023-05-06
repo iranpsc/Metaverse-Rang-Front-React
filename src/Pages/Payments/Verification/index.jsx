@@ -127,7 +127,7 @@ export default function Verification() {
     Request('user/payments/latest').then(response => {
       setPayment(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [])
 
   return (

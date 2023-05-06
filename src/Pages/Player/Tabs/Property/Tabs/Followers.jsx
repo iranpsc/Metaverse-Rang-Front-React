@@ -25,7 +25,7 @@ export default function Followers() {
     Request("followers", HTTP_METHOD.GET).then((response) => {
       setFollowers(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   return (

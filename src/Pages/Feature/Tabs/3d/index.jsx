@@ -42,7 +42,7 @@ export default function UnitiTab() {
       setUser(response.data.data);
     });
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
   const testObject = {
     ID: feature.properties?.id,

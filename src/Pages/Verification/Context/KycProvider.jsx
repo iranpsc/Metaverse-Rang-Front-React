@@ -11,7 +11,7 @@ export default function KycProvider({ children, id }) {
     Request(`kyc`).then((response) => {
       setKyc(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   return (

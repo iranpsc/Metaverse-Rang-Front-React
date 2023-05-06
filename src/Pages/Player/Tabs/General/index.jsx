@@ -176,7 +176,7 @@ export default function General() {
     Request(`players/${id}/profile`).then((response) => {
       setPlayer(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const onFollowHandler = () => {

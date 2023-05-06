@@ -39,7 +39,7 @@ export default function Note() {
     Request('notes').then((response) => {
       setNotes(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
 

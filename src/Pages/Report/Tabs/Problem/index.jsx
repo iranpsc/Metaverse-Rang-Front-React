@@ -38,7 +38,7 @@ export default function Problem() {
     Request('reports').then((response) => {
       setReports(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
 

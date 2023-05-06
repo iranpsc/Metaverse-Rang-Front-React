@@ -32,7 +32,7 @@ export default function Currency() {
     }).then((response) => {
       setAssets(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [index]);
 
 
