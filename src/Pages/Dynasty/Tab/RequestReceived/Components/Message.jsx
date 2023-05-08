@@ -78,7 +78,6 @@ export default function Message({ items, handleBack }) {
   const status = getStatusText(data?.status);
 const handleSubmit =()=>{
   Request(`dynasty/requests/recieved/${items.id}`,HTTP_METHOD.POST).then(response => {
-    console.log(response)
     ToastSuccess('سلسله با موفقیت تاسیس شد.');
   }).catch(error => {
     if (error.response.status === 410) {
