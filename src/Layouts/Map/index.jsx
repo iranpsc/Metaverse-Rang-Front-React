@@ -28,14 +28,13 @@ const IconFlyTo = styled.img`
   }
 `;
 
-export default function Map() {
+const Map = () => {
   const mapRef = useRef();
 
   const { setUserWithToken } = useAuth();
 
   useEffect(() => {
     setUserWithToken();
-
   }, []);
 
   const flyToPosition = () => {
@@ -71,7 +70,13 @@ export default function Map() {
       ref={mapRef}
       layers={deckLayer}
     >
-      <TileLayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
+      <TileLayer
+        url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+        options={{
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }}
+      />
 
       <MapPolygons />
       <Main />
@@ -86,4 +91,6 @@ export default function Map() {
       />
     </MapContainer>
   );
-}
+};
+
+export default Map;
