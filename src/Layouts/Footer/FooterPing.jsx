@@ -21,7 +21,7 @@ export default function FooterPing() {
                     }
                 };
 
-                xhr.open('GET', `https://rgb.irpsc.com/metaverse`, true);
+                xhr.open('GET', `https://rgb.irpsc.com`, true);
 
                 startTime = new Date().getTime();
                 

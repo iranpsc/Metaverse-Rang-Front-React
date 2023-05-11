@@ -14,6 +14,7 @@ import flyToGif from "../../Assets/gif/Flyto.gif";
 import ContextMenu from "./ContextMenu/ContextMenu";
 import AdviserIcon from "./Adviser";
 import ToolTip from "../../Components/Tooltip";
+import flyToPosition from "./FlyToGift";
 
 const IconFlyTo = styled.img`
   position: absolute;
@@ -37,9 +38,7 @@ const Map = () => {
     setUserWithToken();
   }, []);
 
-  const flyToPosition = () => {
-    mapRef.current.flyTo([26.264711, 55.305572], 14);
-  };
+
 
   const deckLayer = new LeafletLayer({
     views: [
@@ -77,14 +76,12 @@ const Map = () => {
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }}
       />
-
       <MapPolygons />
       <Main />
-
       <ContextMenu />
       <AdviserIcon />
       <ToolTip
-        Chidren={<IconFlyTo src={flyToGif} onClick={flyToPosition} />}
+        Chidren={<IconFlyTo src={flyToGif} onClick={() => flyToPosition({ latitude: 26.264711, longitude: 55.305572, icon: flyToGif, mapRe: mapRef ,zoom:17 })} />}
         TitleToltip={"تنب بزرگ"}
         ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
         classNamePosstion={"tw-flyto"}
