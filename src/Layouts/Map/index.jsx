@@ -15,6 +15,7 @@ import ContextMenu from "./ContextMenu/ContextMenu";
 import AdviserIcon from "./Adviser";
 import ToolTip from "../../Components/Tooltip";
 import flyToPosition from "./FlyToGift";
+import LocationPin from '../../Assets/gif/location-pin.gif';
 
 const IconFlyTo = styled.img`
   position: absolute;
@@ -81,7 +82,7 @@ const Map = () => {
       <ContextMenu />
       <AdviserIcon />
       <ToolTip
-        Chidren={<IconFlyTo src={flyToGif} onClick={() => flyToPosition({ latitude: 26.264711, longitude: 55.305572, icon: flyToGif, mapRe: mapRef ,zoom:17 })} />}
+        Chidren={<IconFlyTo src={flyToGif} onClick={() => flyToPosition({ latitude: 26.264711, longitude: 55.305572, icon: LocationPin, mapRe: mapRef ,zoom:17 })} />}
         TitleToltip={"تنب بزرگ"}
         ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
         classNamePosstion={"tw-flyto"}
