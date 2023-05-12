@@ -23,7 +23,7 @@ function Modal({
   const Location = useLocation();
   const [showModal, setShowModal] = useState(false);
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
-  const adviserData = useAdviserData(newStr, Location.state);
+  const adviserData = useAdviserData(newStr, Location?.state?.locationPage);
   
   return (
     <section className="modal">

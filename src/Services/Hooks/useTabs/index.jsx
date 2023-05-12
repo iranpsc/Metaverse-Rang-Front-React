@@ -68,19 +68,21 @@ const TabPanel = styled.div`
 function useTabs(tabs, current) {
   // Set active tab to current index or 0
   const [activeTab, setActiveTab] = useState(current || 0);
-  // Set initial location page state
-  const [locationPage, setLocationPage] = useState("");
   // Get current location
+
   const Location = useLocation();
-  
+  const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
+  const [locationPage, setLocationPage] = useState(`${newStr}${activeTab + 1}`);
   // Update location page on active tab change
   useEffect(() => {
     const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
-    setLocationPage(newStr + (activeTab + 1));
-  }, [activeTab, Location]);
-
-  // Set location state
-  Location.state = locationPage;
+    setLocationPage(`${newStr}${activeTab + 1}`);
+  }, [activeTab, Location,current]);
+  useEffect(() => {
+    if (Location.state && Location.state.activePageNumber) {
+      setActiveTab(Location.state.activePageNumber);
+    }
+  }, [Location]);
 
   // Return the TabContainer component with the appropriate styling and content
   return (
@@ -90,13 +92,20 @@ function useTabs(tabs, current) {
           <Tab
             key={index} // Use tab index as key
             className={`${activeTab === index && "active"}`}
-            onClick={() => setActiveTab(index)}
+            onClick={() => {
+              setActiveTab(index);
+              Location.state = {
+                ...Location.state,
+                activePageNumber: index,
+                locationPage
+              };
+            }}
           >
             {tab.title}
           </Tab>
         ))}
       </TabList>
-      <TabPanel>{tabs[activeTab].content}</TabPanel>
+      <TabPanel>{tabs[activeTab]?.content}</TabPanel>
     </TabContainer>
   );
 }
