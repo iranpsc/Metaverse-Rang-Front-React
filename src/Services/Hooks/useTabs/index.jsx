@@ -1,8 +1,9 @@
+// import necessary modules
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import shortid from "shortid";
 import styled from "styled-components";
 
+// Create a styled TabContainer component
 const TabContainer = styled.section`
   width: 99%;
   height: 500px;
@@ -13,6 +14,7 @@ const TabContainer = styled.section`
   margin-bottom: 16px;
 `;
 
+// Create a styled TabList component
 const TabList = styled.div`
   position: absolute;
   width: 100%;
@@ -24,6 +26,7 @@ const TabList = styled.div`
   border-bottom: 2px solid var(--bs-orange);
 `;
 
+// Create a styled Tab component
 const Tab = styled.button`
   border: none;
   font-size: 14px;
@@ -54,34 +57,38 @@ const Tab = styled.button`
   }
 `;
 
+// Create a styled TabPanel component
 const TabPanel = styled.div`
   margin-top: 40px;
   width: 100%;
   height: 91%;
 `;
 
+// Create a function that uses the tabs and current index
 function useTabs(tabs, current) {
-  const [Tabs] = useState(tabs);
-  const [activeTab, setActiveTab] = useState(0);
-  const [page, setPage] = useState(0);
+  // Set active tab to current index or 0
+  const [activeTab, setActiveTab] = useState(current || 0);
+  // Set initial location page state
   const [locationPage, setLocationPage] = useState("");
+  // Get current location
   const Location = useLocation();
-  const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
+  
+  // Update location page on active tab change
   useEffect(() => {
-    if (current) {
-      setActiveTab(current);
-    }
+    const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
     setLocationPage(newStr + (activeTab + 1));
-    setPage(Tabs[activeTab].content);
-  }, [Tabs, activeTab, current, newStr]);
+  }, [activeTab, Location]);
 
+  // Set location state
   Location.state = locationPage;
+
+  // Return the TabContainer component with the appropriate styling and content
   return (
     <TabContainer>
       <TabList>
-        {Tabs.map((tab, index) => (
+        {tabs.map((tab, index) => (
           <Tab
-            key={shortid.generate()}
+            key={index} // Use tab index as key
             className={`${activeTab === index && "active"}`}
             onClick={() => setActiveTab(index)}
           >
@@ -89,10 +96,10 @@ function useTabs(tabs, current) {
           </Tab>
         ))}
       </TabList>
-
-      <TabPanel>{page}</TabPanel>
+      <TabPanel>{tabs[activeTab].content}</TabPanel>
     </TabContainer>
   );
 }
 
+// Export the useTabs function
 export default useTabs;
