@@ -72,12 +72,12 @@ function useTabs(tabs, current) {
 
   const Location = useLocation();
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
-  const [locationPage, setLocationPage] = useState(`${newStr}${activeTab + 1}`);
+  const [locationPage, setLocationPage] = useState("");
   // Update location page on active tab change
+  Location.state = { ...Location.state, locationPage };
   useEffect(() => {
-    const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
-    setLocationPage(`${newStr}${activeTab + 1}`);
-  }, [activeTab, Location,current]);
+    setLocationPage(newStr + (activeTab + 1));
+  }, [activeTab, Location, current]);
   useEffect(() => {
     if (Location.state && Location.state.activePageNumber) {
       setActiveTab(Location.state.activePageNumber);
@@ -97,7 +97,7 @@ function useTabs(tabs, current) {
               Location.state = {
                 ...Location.state,
                 activePageNumber: index,
-                locationPage
+                locationPage,
               };
             }}
           >
