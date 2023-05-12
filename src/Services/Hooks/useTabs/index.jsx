@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import shortid from 'shortid';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import shortid from "shortid";
+import styled from "styled-components";
 
 const TabContainer = styled.section`
   width: 99%;
@@ -32,11 +32,11 @@ const Tab = styled.button`
   border-radius: 8px 8px 0px 0px;
   background: #fff;
   color: #999;
-  
+
   &:hover {
     color: var(--bs-orange);
   }
-  
+
   &.active {
     background: #f6f6f6;
     color: var(--bs-orange);
@@ -50,7 +50,7 @@ const Tab = styled.button`
       border-bottom: none;
       filter: none;
       cursor: auto;
-    } 
+    }
   }
 `;
 
@@ -60,34 +60,37 @@ const TabPanel = styled.div`
   height: 91%;
 `;
 
-
 function useTabs(tabs, current) {
-  const [Tabs, ] = useState(tabs);
+  const [Tabs] = useState(tabs);
   const [activeTab, setActiveTab] = useState(0);
   const [page, setPage] = useState(0);
-  const [locationPage,setLocationPage]=useState("")
-  const Location =useLocation()
-  const newStr =  Location.pathname.replace(/\/metaverse\//g, '')+"-";;
+  const [locationPage, setLocationPage] = useState("");
+  const Location = useLocation();
+  const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
   useEffect(() => {
-    if(current) {
-      setActiveTab(current)
+    if (current) {
+      setActiveTab(current);
     }
-    setLocationPage(newStr+(activeTab + 1))
+    setLocationPage(newStr + (activeTab + 1));
     setPage(Tabs[activeTab].content);
-  }, [Tabs, activeTab, current,newStr])
-  
-  Location.state=locationPage
+  }, [Tabs, activeTab, current, newStr]);
+
+  Location.state = locationPage;
   return (
     <TabContainer>
       <TabList>
-        {Tabs.map((tab, index) => 
-          <Tab key={shortid.generate()} className={`${activeTab === index && 'active'}`} onClick={() => setActiveTab(index)}>{ tab.title }</Tab>
-        )}
+        {Tabs.map((tab, index) => (
+          <Tab
+            key={shortid.generate()}
+            className={`${activeTab === index && "active"}`}
+            onClick={() => setActiveTab(index)}
+          >
+            {tab.title}
+          </Tab>
+        ))}
       </TabList>
-        
-      <TabPanel>
-        { page }
-      </TabPanel>
+
+      <TabPanel>{page}</TabPanel>
     </TabContainer>
   );
 }
