@@ -8,7 +8,7 @@ import Eye from "../../Assets/images/Eye.png";
 import Dislike from "../../Assets/images/dislike.png";
 import Like from "../../Assets/images/like.png";
 import Teacher from "../../Assets/images/teacher.png";
-export default function Amozesh({ title, description, creator, video,setShowModal }) {
+export default function Amozesh({ title, description, creator, video,setShowModal,dislikes,views,likes }) {
 
   const videoRef = useRef();
 
@@ -61,7 +61,7 @@ export default function Amozesh({ title, description, creator, video,setShowModa
             <div className="container-icons">
               <div className="position-icons">
                 <div>
-                  <span className="span-number-icons">195623</span>
+                  <span className="span-number-icons">{views}</span>
                 </div>
                 <div className="width-icons">
                   <img src={Eye} className="tw-w-100" alt="" />
@@ -69,7 +69,7 @@ export default function Amozesh({ title, description, creator, video,setShowModa
               </div>
               <div className="position-icons">
                 <div>
-                  <span className="span-number-icons">23</span>
+                  <span className="span-number-icons">{dislikes}</span>
                 </div>
                 <div className="width-icons">
                   <img src={Dislike} className="tw-w-100" alt="" />
@@ -77,7 +77,7 @@ export default function Amozesh({ title, description, creator, video,setShowModa
               </div>
               <div className="position-icons">
                 <div>
-                  <span className="span-number-icons">365</span>
+                  <span className="span-number-icons">{likes}</span>
                 </div>
                 <div className="width-icons">
                   <img src={Like} className="tw-w-100" alt="" />
