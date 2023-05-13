@@ -22,6 +22,10 @@ const Icon = styled.img`
   -webkit-filter: grayscale(1);
   filter: grayscale(1);
 `;
+const IconEnable = styled.img`
+  width: 56px;
+  cursor: pointer;
+`;
 
 export default function LeftIcon() {
   const navigate = useNavigate();
@@ -35,7 +39,7 @@ export default function LeftIcon() {
       />
 
       <ToolTip
-        Chidren={<Icon src={SearchImage} />}
+        Chidren={<IconEnable onClick={()=>navigate("/metaverse/search")} src={SearchImage} />}
         TitleToltip={"جستجوی مرکزی"}
         ContentToltip={"جستجو در VOD و بخش های متارنگ"}
         classNamePosstion={"tw-lefticon"}

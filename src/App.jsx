@@ -34,6 +34,7 @@ import { useLayoutEffect } from "react";
 import Echo from "laravel-echo";
 import Pusher from 'pusher-js';
 import Tutorial from "./Components/Tutorial";
+import Search from "./Pages/Search";
 
 
 function App() {
@@ -208,6 +209,14 @@ function App() {
                   element={
                     <PrivateRoute>
                       <UploadAvatar />
+                    </PrivateRoute>
+                  }
+                />
+                 <Route
+                  path="search"
+                  element={
+                    <PrivateRoute>
+                     <Search/>
                     </PrivateRoute>
                   }
                 />
