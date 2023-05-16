@@ -6,12 +6,12 @@ import styled from "styled-components";
 // Create a styled TabContainer component
 const TabContainer = styled.section`
   width: 99%;
-  height: 500px;
-  margin-top: 24px;
+  height: ${props => props.fullHeight ? '90%' : '500px'};
+  margin-top: ${props => props.fullHeight ? '0' : '24px'};;
   position: relative;
   background: #f6f6f6;
   border-radius: 8px;
-  margin-bottom: 16px;
+  margin-bottom:${props => props.fullHeight ? '0' : '16px'};;
 `;
 
 // Create a styled TabList component
@@ -59,13 +59,13 @@ const Tab = styled.button`
 
 // Create a styled TabPanel component
 const TabPanel = styled.div`
-  margin-top: 40px;
+  margin-top: ${props => props.fullHeight ? '20px' : '40px'};;
   width: 100%;
   height: 91%;
 `;
 
 // Create a function that uses the tabs and current index
-function useTabs(tabs, current) {
+function useTabs(tabs, current,fullHeight) {
   // Set active tab to current index or 0
   const [activeTab, setActiveTab] = useState(current || 0);
   // Get current location
@@ -86,8 +86,8 @@ function useTabs(tabs, current) {
 
   // Return the TabContainer component with the appropriate styling and content
   return (
-    <TabContainer>
-      <TabList>
+    <TabContainer fullHeight={fullHeight}>
+      <TabList fullHeight={fullHeight}>
         {tabs.map((tab, index) => (
           <Tab
             key={index} // Use tab index as key
@@ -105,7 +105,7 @@ function useTabs(tabs, current) {
           </Tab>
         ))}
       </TabList>
-      <TabPanel>{tabs[activeTab]?.content}</TabPanel>
+      <TabPanel fullHeight={fullHeight}>{tabs[activeTab]?.content}</TabPanel>
     </TabContainer>
   );
 }
