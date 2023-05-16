@@ -1,0 +1,1 @@
+export default function PropertySearch(second) {return <p>Property search</p>}
