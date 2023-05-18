@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import styled from "styled-components";
-import { SearchIcon, CrossIcon } from "../../../Assets/images";
+import SearchIcon  from "../../../Assets/images/searchIcon.png";
+import  CrossIcon from '../../../Assets/images/cross.png';
 
 import useRequest from "../../../Services/Hooks/useRequest";
 
@@ -10,6 +11,7 @@ const ParentInput = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 10px;
 `;
 
 const InputSearch = styled.input`
@@ -19,27 +21,26 @@ const InputSearch = styled.input`
   padding: 8px 16px;
   width: 100%;
   margin-bottom: 16px;
-  font-size: 1.3rem !important;
+  font-size: 1rem !important;
   font-family: iransans;
 `;
 
 const IconSearch = styled.img`
   width: 32px;
   height: 32px;
-  left: 8px;
-  top: 8px;
+  left: 15px;
+  top: 5px;
   position: absolute;
   cursor: pointer;
 `;
 
 const UserContainer = styled.div`
   position: absolute;
-  background: #fff;
+ 
   padding: 8px;
   z-index: 5002;
   width: 100%;
   top: 56px;
-  border-radius: 8px;
 `;
 
 const UserItem = styled.div`
@@ -47,9 +48,11 @@ const UserItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 8px;
   height: 200px;
   width: 100%;
+  border-bottom: 1px solid #777;
+  padding: 0 10px;
+  
 `;
 
 const ProfilePhoto = styled.img`
@@ -58,7 +61,7 @@ const ProfilePhoto = styled.img`
   border-radius: 100px;
 `;
 
-export default function InputSearch({
+export default function Search({
   setCurrentUser,
   currentUser,
   setCurrentUserId,
@@ -69,11 +72,13 @@ export default function InputSearch({
   const [users, setUsers] = useState([]);
 
   const SearchHandler = useCallback(() => {
-    Request("search/users", HTTP_METHOD.POST, { searchTerm: query }).then(
-      (response) => {
-        setUsers(response.data.data);
-      }
-    );
+    Request(
+      `${isCitizen ? "search/users" : "search/features"}`,
+      HTTP_METHOD.POST,
+      { searchTerm: query }
+    ).then((response) => {
+      setUsers(response.data.data);
+    });
   }, [HTTP_METHOD, Request, query]);
 
   const onRemoveHandler = useCallback(() => {
@@ -83,7 +88,7 @@ export default function InputSearch({
     setUsers([]);
   }, [setCurrentUser, setCurrentUserId]);
 
-  const slicedUsers = useMemo(() => users.slice(0, 2), [users]);
+  const slicedUsers = useMemo(() => users, [users]);
 
   return (
     <ParentInput>
@@ -91,7 +96,9 @@ export default function InputSearch({
         disabled={currentUser}
         type="text"
         placeholder={`${
-          isCitizen ? " شناسه شهروند یا نام را جستجوی کنید" : "شناسه ملک را وارد کنید "
+          isCitizen
+            ? " شناسه شهروند یا نام را جستجوی کنید"
+            : "شناسه ملک را وارد کنید "
         }`}
         onChange={(e) => setQuery(e.target.value)}
         value={currentUser ? currentUser : query}
@@ -100,7 +107,10 @@ export default function InputSearch({
       {slicedUsers.length > 0 && (
         <UserContainer>
           {slicedUsers.map((user) => (
-            <UserItem></UserItem>
+            <UserItem>
+              <div>11</div>
+              <div>22</div>
+            </UserItem>
           ))}
         </UserContainer>
       )}

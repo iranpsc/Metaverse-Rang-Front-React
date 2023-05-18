@@ -1,6 +1,6 @@
 import ModalSearch from "../../Components/ModalSearch";
 import useTabs from "../../Services/Hooks/useTabs";
-import CitizenSearch from "./Tabs/citizensearch.jsx";
+import CitizenSearch from "./Tabs/Citizensearch.JSX";
 import PropertySearch from "./Tabs/PropertySearch";
 
 export default function Search() {

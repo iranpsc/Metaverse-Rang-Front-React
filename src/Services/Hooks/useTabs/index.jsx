@@ -6,7 +6,7 @@ import styled from "styled-components";
 // Create a styled TabContainer component
 const TabContainer = styled.section`
   width: 99%;
-  height: ${props => props.fullHeight ? '90%' : '500px'};
+  height: ${props => props.fullHeight ? '93%' : '500px'};
   margin-top: ${props => props.fullHeight ? '0' : '24px'};;
   position: relative;
   background: #f6f6f6;
@@ -61,7 +61,7 @@ const Tab = styled.button`
 const TabPanel = styled.div`
   margin-top: ${props => props.fullHeight ? '20px' : '40px'};;
   width: 100%;
-  height: 91%;
+  height: 90%;
 `;
 
 // Create a function that uses the tabs and current index
