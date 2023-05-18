@@ -4,14 +4,14 @@ const Container =styled.div`
     width: 100%;
     height: 110%;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
 `
 
 export default function CitizenSearch(second) {
   return(
     <Container>
-        kfkkf
+      <
     </Container>
   )
 }
