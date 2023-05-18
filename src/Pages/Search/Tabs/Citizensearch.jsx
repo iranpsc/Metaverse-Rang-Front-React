@@ -11,7 +11,7 @@ const Container =styled.div`
 export default function CitizenSearch(second) {
   return(
     <Container>
-      <
+      
     </Container>
   )
 }
