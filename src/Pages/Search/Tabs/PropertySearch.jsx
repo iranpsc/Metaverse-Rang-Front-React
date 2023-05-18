@@ -26,7 +26,6 @@ export default function PropertySearch(second) {
         setCurrentUser={setCurrentUser}
         currentUser={currentUser}
         setCurrentUserId={setCurrentUserId}
-       
       />
      </TopContainer>
     </Container>

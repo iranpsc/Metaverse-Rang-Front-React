@@ -1,9 +1,11 @@
 import { useState, useMemo, useCallback } from "react";
 import styled from "styled-components";
-import SearchIcon  from "../../../Assets/images/searchIcon.png";
-import  CrossIcon from '../../../Assets/images/cross.png';
+import SearchIcon from "../../../Assets/images/searchIcon.png";
+import CrossIcon from "../../../Assets/images/cross.png";
 
 import useRequest from "../../../Services/Hooks/useRequest";
+import FeatureContainer from "./FeatureContainer";
+import UserContainer from "./UserContainer";
 
 const ParentInput = styled.div`
   width: 100%;
@@ -34,31 +36,13 @@ const IconSearch = styled.img`
   cursor: pointer;
 `;
 
-const UserContainer = styled.div`
+const UsersContainer = styled.div`
   position: absolute;
- 
+
   padding: 8px;
   z-index: 5002;
   width: 100%;
   top: 56px;
-`;
-
-const UserItem = styled.div`
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 200px;
-  width: 100%;
-  border-bottom: 1px solid #777;
-  padding: 0 10px;
-  
-`;
-
-const ProfilePhoto = styled.img`
-  width: 70px;
-  height: 70px;
-  border-radius: 100px;
 `;
 
 export default function Search({
@@ -69,7 +53,7 @@ export default function Search({
 }) {
   const [query, setQuery] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
-  const [users, setUsers] = useState([]);
+  const [data, setdata] = useState([]);
 
   const SearchHandler = useCallback(() => {
     Request(
@@ -77,7 +61,7 @@ export default function Search({
       HTTP_METHOD.POST,
       { searchTerm: query }
     ).then((response) => {
-      setUsers(response.data.data);
+      setdata(response.data.data);
     });
   }, [HTTP_METHOD, Request, query]);
 
@@ -85,11 +69,8 @@ export default function Search({
     setCurrentUser(null);
     setCurrentUserId(null);
     setQuery("");
-    setUsers([]);
+    setdata([]);
   }, [setCurrentUser, setCurrentUserId]);
-
-  const slicedUsers = useMemo(() => users, [users]);
-
   return (
     <ParentInput>
       <InputSearch
@@ -104,18 +85,19 @@ export default function Search({
         value={currentUser ? currentUser : query}
       />
 
-      {slicedUsers.length > 0 && (
-        <UserContainer>
-          {slicedUsers.map((user) => (
-            <UserItem>
-              <div>11</div>
-              <div>22</div>
-            </UserItem>
-          ))}
-        </UserContainer>
+      {data.length > 0 && (
+        <UsersContainer>
+          {data.map((data) => {
+            return isCitizen ? (
+              <UserContainer user={data} />
+            ) : (
+              <FeatureContainer />
+            );
+          })}
+        </UsersContainer>
       )}
 
-      {currentUser || slicedUsers.length > 0 ? (
+      {currentUser || data.length > 0 ? (
         <IconSearch src={CrossIcon} onClick={onRemoveHandler} />
       ) : (
         <IconSearch src={SearchIcon} onClick={SearchHandler} />
