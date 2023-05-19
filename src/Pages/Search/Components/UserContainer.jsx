@@ -118,8 +118,8 @@ const UserContainer = ({ user }) => {
             style={{ fontWeight: "600", color: "blue", cursor: "pointer" ,fontFamily:"Segoe UI",}}
           >
             {user.code}
-          </span>{" "}
-          : شناسه شهروند{" "}
+          </span>
+          : شناسه شهروند
         </span>
         <span>{user.name} : نام شهروند </span>
         <span>{user.level} : سطح </span>

@@ -91,7 +91,7 @@ export default function Search({
             return isCitizen ? (
               <UserContainer user={data} />
             ) : (
-              <FeatureContainer />
+              <FeatureContainer feature={data} />
             );
           })}
         </UsersContainer>
