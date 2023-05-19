@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import ChatIcon from "../../../Assets/images/chat.png";
-import MessageIcon from "../../../Assets/images/message.png";
+import MessageIcon from "../../../Assets/images/sanad.png";
 import FollowIcon from "../../../Assets/images/follow.png";
 import AnonymousIcon from "../../../Assets/images/anonymous.png";
 import CrossImage from "../../../Assets/images/cross.png";
@@ -10,6 +10,7 @@ import useRequest from "../../../Services/Hooks/useRequest";
 import { useContext } from "react";
 import { FollowContext } from "../../../Services/Reducers/FollowContext";
 import _ from "lodash";
+import { useNavigate } from "react-router-dom";
 
 //Creates a UserItem div and styles it with css
 const UserItem = styled.div`
@@ -61,6 +62,7 @@ const UserContainer = ({ user }) => {
   //Retrieve the request hook
   const { Request } = useRequest();
 
+  const Navigate = useNavigate();
   //Retrieve the follow context
   const [follow, dispatch] = useContext(FollowContext);
 
@@ -95,10 +97,30 @@ const UserContainer = ({ user }) => {
           <Icons src={FollowIcon} onClick={() => onFollowHandler(user?.id)} />
         )}
         <Icons src={ChatIcon} />
-        <Icons src={MessageIcon} />
+        <Icons
+          src={MessageIcon}
+          onClick={() =>
+            Navigate("/metaverse/sanad", {
+              state: { code: user?.code, user: user?.id },
+            })
+          }
+        />
       </ImgContainer>
       <DetailsContainer>
-        <span>{user.code} : شناسه شهروند </span>
+        <span>
+          <span
+            onClick={() =>
+              window.open(
+                `https://rgb.irpsc.com/citizen/${user.code}`,
+                "_blank"
+              )
+            }
+            style={{ fontWeight: "600", color: "blue", cursor: "pointer" ,fontFamily:"Segoe UI",}}
+          >
+            {user.code}
+          </span>{" "}
+          : شناسه شهروند{" "}
+        </span>
         <span>{user.name} : نام شهروند </span>
         <span>{user.level} : سطح </span>
         <span> {user.followers} : دنبال کنندگان </span>
