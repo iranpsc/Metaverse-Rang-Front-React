@@ -12,7 +12,7 @@ export default function PlayerList() {
   // Set state to store players list
   const [players, setPlayers] = useState([]);
   // Get followers list from FollowContext
-  const [followers, ] = useContext(FollowContext);
+  const [followers] = useContext(FollowContext);
 
   // Get request methods
   const { Request } = useRequest();
@@ -48,14 +48,13 @@ export default function PlayerList() {
     if (parseInt(getUser()?.id) === parseInt(player?.id)) {
       return null;
     }
-
     return (
       <PlayerProfile
         key={player?.code}
         id={player?.id}
         code={player?.code}
         level={player?.level}
-        image={player?.image}
+        image={followers.length > 0 ? player?.profile_photos : player?.image}
         Online={player?.online}
       />
     );
