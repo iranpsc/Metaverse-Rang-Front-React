@@ -6,7 +6,6 @@ export const FollowContext = createContext({});
 export default function FollowProvider({ children }) {
     const [state, dispatch] = useState([]);
     const { Request } = useRequest();
-
     useEffect(() => {
         if(!children) {
             throw Error('You must use FollowProvider provider ...');
