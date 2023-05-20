@@ -53,24 +53,24 @@ export default function Search({
 }) {
   const [query, setQuery] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
-  const [data, setdata] = useState([]);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const SearchHandler = useCallback(() => {
-    Request(
-      `${isCitizen ? "search/users" : "search/features"}`,
-      HTTP_METHOD.POST,
-      { searchTerm: query }
-    ).then((response) => {
-      setdata(response.data.data);
+  const searchHandler = useCallback(() => {
+    setIsLoading(true);
+    searchAPI(Request, HTTP_METHOD, query, isCitizen).then((response) => {
+      setData(response.data.data);
+      setIsLoading(false);
     });
-  }, [HTTP_METHOD, Request, query]);
+  }, [query, isCitizen, Request, HTTP_METHOD]);
 
   const onRemoveHandler = useCallback(() => {
     setCurrentUser(null);
     setCurrentUserId(null);
     setQuery("");
-    setdata([]);
+    setData([]);
   }, [setCurrentUser, setCurrentUserId]);
+
   return (
     <ParentInput>
       <InputSearch
@@ -84,29 +84,39 @@ export default function Search({
         onChange={(e) => setQuery(e.target.value)}
         value={currentUser ? currentUser : query}
       />
-      {data.length <= 0 && (
+     {!isLoading && data.length <= 0  && (
+         <UsersContainer>
+             <p style={{ textAlign: "center" }}>اطلاعات موجود نمیباشد جستجوی کنید</p>
+         </UsersContainer>
+     )}
+     
+      {isLoading && (
         <UsersContainer>
-          <p style={{ textAlign: "center" }}>اطلاعات موجود نمیباشد</p>
+          <p style={{ textAlign: "center" }}>درحال دریافت اطلاعات</p>
         </UsersContainer>
       )}
-
       {data.length > 0 && (
         <UsersContainer>
-          {data.map((data) => {
-            return isCitizen ? (
+          {data.map((data) =>
+            isCitizen ? (
               <UserContainer user={data} />
             ) : (
               <FeatureContainer feature={data} />
-            );
-          })}
+            )
+          )}
         </UsersContainer>
       )}
-
       {currentUser || data.length > 0 ? (
         <IconSearch src={CrossIcon} onClick={onRemoveHandler} />
       ) : (
-        <IconSearch src={SearchIcon} onClick={SearchHandler} />
+        <IconSearch src={SearchIcon} onClick={searchHandler} />
       )}
     </ParentInput>
   );
+}
+
+function searchAPI(request, method, query, isCitizen) {
+  const url = isCitizen ? "search/users" : "search/features";
+  const body = { searchTerm: query };
+  return request(url, method.POST, body);
 }
