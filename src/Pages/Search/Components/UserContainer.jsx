@@ -61,8 +61,13 @@ const SpanDetails = styled.div`
   align-items: center;
   justify-content: end;
   gap: 5px;
-  width: 230px;
+
+  >:last-child {
+   width: 105px;
+   text-align: end;
+  }
 `;
+
 
 //Function to render the user item
 const UserContainer = ({ user }) => {
@@ -135,17 +140,19 @@ const UserContainer = ({ user }) => {
           <span> شناسه شهروند</span>
         </SpanDetails>
         <SpanDetails>
-          <span>{user.name}</span> <span>:</span> <span>نام شهروند </span>
+          <span>{user.name}</span> <span>:</span> <span >نام شهروند </span>
         </SpanDetails>
         <SpanDetails>
           <span>{user.level}</span> <span> : </span> <span>سطح</span>
         </SpanDetails>
         <SpanDetails>
-          
           <span>{user.followers}</span> <span>:</span>
           <span>دنبال کنندگان </span>
         </SpanDetails>
-        <span> - : شناسه شهروند </span>
+        <SpanDetails>
+          <span> - </span>
+          <span>:</span> <span>شناسه شهروند </span>
+        </SpanDetails>
       </DetailsContainer>
     </UserItem>
   );

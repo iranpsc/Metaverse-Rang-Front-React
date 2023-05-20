@@ -76,7 +76,10 @@ const SpanDetails = styled.div`
   align-items: center;
   justify-content: end;
   gap: 5px;
-  width: 230px;
+  > :last-child {
+    width:120px;
+    text-align: end;
+  }
 `;
 
 const FeatureContainer = ({ feature }) => {
@@ -91,19 +94,19 @@ const FeatureContainer = ({ feature }) => {
           <Icons src={PropertyLocationIcon} />
         </ImgContainer>
         <DetailsContainer>
-          <SpanDetails style={{marginRight:"2px"}}>
+          <SpanDetails>
             <OrangeBoldFont>{feature?.feature_properties_id}</OrangeBoldFont>
             <span>:</span>
-            &nbsp; &nbsp;
+
             <span>شناسه VOD</span>
           </SpanDetails>
-          <SpanDetails style={{marginRight:"2px"}}>
+          <SpanDetails>
             <span> {feature?.karbari}</span>
             <span>:</span>
-            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+
             <span>کاربری</span>
           </SpanDetails>
-          <SpanDetails style={{marginRight:"5px"}}>
+          <SpanDetails >
             <span
               onClick={() =>
                 window.open(
@@ -146,7 +149,8 @@ const FeatureContainer = ({ feature }) => {
         >
           {address}
         </span>
-        <span style={{ width: "10%", display: "flex" }}>: &nbsp; &nbsp; VOD آدرس</span>
+        :
+        <span style={{ width: "130px", textAlign:"end" }}> VOD آدرس</span>
       </div>
     </FeatureItem>
   );
