@@ -56,6 +56,13 @@ const DetailsContainer = styled.div`
   align-items: end;
   gap: 15px;
 `;
+const SpanDetails = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 5px;
+  width: 230px;
+`;
 
 //Function to render the user item
 const UserContainer = ({ user }) => {
@@ -107,7 +114,7 @@ const UserContainer = ({ user }) => {
         />
       </ImgContainer>
       <DetailsContainer>
-        <span>
+        <SpanDetails>
           <span
             onClick={() =>
               window.open(
@@ -115,15 +122,29 @@ const UserContainer = ({ user }) => {
                 "_blank"
               )
             }
-            style={{ fontWeight: "600", color: "blue", cursor: "pointer" ,fontFamily:"Segoe UI",}}
+            style={{
+              fontWeight: "600",
+              color: "blue",
+              cursor: "pointer",
+              fontFamily: "Segoe UI",
+            }}
           >
             {user.code}
           </span>
-          : شناسه شهروند
-        </span>
-        <span>{user.name} : نام شهروند </span>
-        <span>{user.level} : سطح </span>
-        <span> {user.followers} : دنبال کنندگان </span>
+          <span>:</span>
+          <span> شناسه شهروند</span>
+        </SpanDetails>
+        <SpanDetails>
+          <span>{user.name}</span> <span>:</span> <span>نام شهروند </span>
+        </SpanDetails>
+        <SpanDetails>
+          <span>{user.level}</span> <span> : </span> <span>سطح</span>
+        </SpanDetails>
+        <SpanDetails>
+          
+          <span>{user.followers}</span> <span>:</span>
+          <span>دنبال کنندگان </span>
+        </SpanDetails>
         <span> - : شناسه شهروند </span>
       </DetailsContainer>
     </UserItem>

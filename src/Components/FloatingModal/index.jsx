@@ -98,7 +98,7 @@ export default function FloatingModal({ children, title }) {
       </Header>
 
       <Body>
-        {children}{" "}
+        {children}
         {showModal && (
           <Amozesh
             creator={adviserData?.creator}

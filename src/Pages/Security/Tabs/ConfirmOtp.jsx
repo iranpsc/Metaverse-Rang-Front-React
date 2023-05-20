@@ -134,12 +134,12 @@ export default function ConfirmOtp({ paginate }) {
       {
         !resend ? (
             <p className="text-information w-75 mt-2 mb-5 text-center text-1 rtl">
-                اگر کد تایید را دریافت نکرده اید میتوانید{" "}
+                اگر کد تایید را دریافت نکرده اید میتوانید
                 <Countdown
                 date={Date.now() + 120000}
                 onComplete={() => setResend(true)}
                 renderer={renderer}
-                />{" "}
+                />
                 دقیقه دیگر مجددا کد تایید را ارسال کنید.
             </p>
         ) : <p className="link cursor-pointer mb-5" onClick={() => onResendCode()}>ارسال مجدد</p>
