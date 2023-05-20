@@ -84,6 +84,11 @@ export default function Search({
         onChange={(e) => setQuery(e.target.value)}
         value={currentUser ? currentUser : query}
       />
+      {data.length <= 0 && (
+        <UsersContainer>
+          <p style={{ textAlign: "center" }}>اطلاعات موجود نمیباشد</p>
+        </UsersContainer>
+      )}
 
       {data.length > 0 && (
         <UsersContainer>
