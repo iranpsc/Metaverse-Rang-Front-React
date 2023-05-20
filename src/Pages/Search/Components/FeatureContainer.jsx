@@ -37,7 +37,6 @@ const Icons = styled.img`
   aspect-ratio: 1/1;
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.678));
   cursor: pointer;
-
 `;
 
 //Creates a DetailsContainer div and styles it with css
@@ -49,7 +48,7 @@ const DetailsContainer = styled.div`
   gap: 5px;
 `;
 const IconSpan = styled.img`
-  width: 15px;
+  width: 20px;
   aspect-ratio: 1/1;
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.678));
 `;
@@ -59,7 +58,30 @@ const Contai = styled.div`
   justify-content: space-between;
   width: 100%;
 `;
+const OrangeBoldFont = styled.span`
+  font-weight: 700;
+  color: orange;
+  cursor: pointer;
+  font-family: "Segoe UI";
+`;
+
+const blueBoldFont = {
+  fontWeight: "600",
+  color: "blue",
+  cursor: "pointer",
+  fontFamily: "Segoe UI",
+};
+const SpanDetails = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 5px;
+  width: 230px;
+`;
+
 const FeatureContainer = ({ feature }) => {
+  const address = feature?.address.split(", ").reverse().join(", ");
+
   return (
     <FeatureItem>
       <Contai>
@@ -69,23 +91,19 @@ const FeatureContainer = ({ feature }) => {
           <Icons src={PropertyLocationIcon} />
         </ImgContainer>
         <DetailsContainer>
-          <span>
-            شناسه زمین :
-            <span
-              style={{
-                fontWeight: "600",
-                color: "orange",
-                cursor: "pointer",
-                fontFamily: "Segoe UI",
-              }}
-            >
-              {feature?.feature_properties_id}
-            </span>
-          </span>
-          <span>
-            قیمت گزاری <IconSpan src={IrrIcon} />:{feature?.price_irr}
-          </span>
-          <span>
+          <SpanDetails style={{marginRight:"2px"}}>
+            <OrangeBoldFont>{feature?.feature_properties_id}</OrangeBoldFont>
+            <span>:</span>
+            &nbsp; &nbsp;
+            <span>شناسه VOD</span>
+          </SpanDetails>
+          <SpanDetails style={{marginRight:"2px"}}>
+            <span> {feature?.karbari}</span>
+            <span>:</span>
+            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+            <span>کاربری</span>
+          </SpanDetails>
+          <SpanDetails style={{marginRight:"5px"}}>
             <span
               onClick={() =>
                 window.open(
@@ -93,31 +111,42 @@ const FeatureContainer = ({ feature }) => {
                   "_blank"
                 )
               }
-              style={{
-                fontWeight: "600",
-                color: "blue",
-                cursor: "pointer",
-                fontFamily: "Segoe UI",
-              }}
+              style={blueBoldFont}
             >
               {feature?.owner_code}
             </span>
-            : شناسه شهروند
-          </span>
-          <span>کاربری :{feature?.karbari}</span>
-          <span>
-            قیمت گزاری <IconSpan src={PscIcon} />:{feature?.price_psc}
-          </span>
+            <span>:</span>
+            <span>شناسه شهروند</span>
+          </SpanDetails>
+          <SpanDetails>
+            <span>{feature?.price_irr}</span>
+            <span>:</span>
+            <span>
+              <IconSpan src={IrrIcon} /> قیمت گزاری
+            </span>
+          </SpanDetails>
+          <SpanDetails>
+            <span>{feature?.price_psc}</span>
+            <span>:</span>
+            <span>
+              <IconSpan src={PscIcon} /> قیمت گزاری
+            </span>
+          </SpanDetails>
         </DetailsContainer>
       </Contai>
 
-      <div style={{ whiteSpace: "nowrap",display: "flex" ,width: "100%"}}>
-        <span style={{ width: "81%", display: "flex", overflowY: "auto" ,flexDirection:"row-reverse"}}>
-    
-    {feature?.address.split(', ').reverse().join(', ')}
-    
+      <div style={{ whiteSpace: "nowrap", display: "flex", width: "100%" }}>
+        <span
+          style={{
+            width: "72%",
+            display: "flex",
+            overflowY: "auto",
+            flexDirection: "row-reverse",
+          }}
+        >
+          {address}
         </span>
-        <span style={{ width: "10%" ,display: "flex"}}>:VOD آدرس</span>
+        <span style={{ width: "10%", display: "flex" }}>: &nbsp; &nbsp; VOD آدرس</span>
       </div>
     </FeatureItem>
   );
