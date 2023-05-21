@@ -8,6 +8,7 @@ import YellowHouseIcon from "../../../Assets/images/yellowHouse.png";
 import BlueHouseIcon from "../../../Assets/images/blueHouse.png";
 import IrrIcon from "../../../Assets/images/coin-irr.png";
 import PscIcon from "../../../Assets/images/coin-psc.png";
+import { useNavigate } from "react-router-dom";
 const FeatureItem = styled.div`
   padding: 8px;
   display: flex;
@@ -84,18 +85,18 @@ const SpanDetails = styled.div`
 
 const FeatureContainer = ({ feature }) => {
   const address = feature?.address.split(", ").reverse().join(", ");
-
+  const Navigate = useNavigate();
   return (
-    <FeatureItem>
+    <FeatureItem key={feature.id}> 
       <Contai>
         <ImgContainer>
-          <Icons src={BuyingHouseIcon} />
+          <Icons src={BuyingHouseIcon} onClick={()=>Navigate(`/metaverse/feature/${feature?.id}`,{state:{activePageNumber:1}})} />
           <Icons src={PropertyValueBalanceIcon} />
-          <Icons src={PropertyLocationIcon} />
+          <Icons src={PropertyLocationIcon}/>
         </ImgContainer>
         <DetailsContainer>
           <SpanDetails>
-            <OrangeBoldFont>{feature?.feature_properties_id}</OrangeBoldFont>
+            <OrangeBoldFont onClick={()=>Navigate(`/metaverse/feature/${feature?.id}`)}>{feature?.feature_properties_id}</OrangeBoldFont>
             <span>:</span>
 
             <span>شناسه VOD</span>

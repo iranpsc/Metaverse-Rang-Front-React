@@ -8,7 +8,6 @@ const HtmlForm = styled.form`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
 `
 
 export default function Form({ children, onSubmit, options = {} }) {
