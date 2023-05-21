@@ -3,12 +3,16 @@ import styled from "styled-components";
 import BuyingHouseIcon from "../../../Assets/images/buying-house-128.png";
 import PropertyValueBalanceIcon from "../../../Assets/images/property-value-balance-128.png";
 import PropertyLocationIcon from "../../../Assets/images/property-location-128.png";
+import LocationPin from '../../../Assets/gif/location-pin.gif';
 import RedHouseIcon from "../../../Assets/images/redHouse.png";
 import YellowHouseIcon from "../../../Assets/images/yellowHouse.png";
 import BlueHouseIcon from "../../../Assets/images/blueHouse.png";
 import IrrIcon from "../../../Assets/images/coin-irr.png";
 import PscIcon from "../../../Assets/images/coin-psc.png";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { MapContext } from "../../../Layouts/Map";
+import flyToPosition from "../../../Layouts/Map/FlyToGift";
 const FeatureItem = styled.div`
   padding: 8px;
   display: flex;
@@ -86,13 +90,14 @@ const SpanDetails = styled.div`
 const FeatureContainer = ({ feature }) => {
   const address = feature?.address.split(", ").reverse().join(", ");
   const Navigate = useNavigate();
+  const map = useContext(MapContext);
   return (
     <FeatureItem key={feature.id}> 
       <Contai>
         <ImgContainer>
           <Icons src={BuyingHouseIcon} onClick={()=>Navigate(`/metaverse/feature/${feature?.id}`,{state:{activePageNumber:1}})} />
           <Icons src={PropertyValueBalanceIcon} />
-          <Icons src={PropertyLocationIcon}/>
+          <Icons src={PropertyLocationIcon} onClick={() => flyToPosition({ latitude: feature?.coordinates[1].y, longitude: feature?.coordinates[1].x, icon: LocationPin, mapRe: map ,zoom:17 })}/>
         </ImgContainer>
         <DetailsContainer>
           <SpanDetails>

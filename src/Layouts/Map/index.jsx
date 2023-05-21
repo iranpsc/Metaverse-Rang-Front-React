@@ -1,6 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import "./MapLayout.css";
 
+import {  Outlet, Route, Routes } from "react-router-dom";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { ScenegraphLayer } from "@deck.gl/mesh-layers";
 import { LeafletLayer } from "deck.gl-leaflet";
@@ -17,6 +18,36 @@ import ToolTip from "../../Components/Tooltip";
 import flyToPosition from "./FlyToGift";
 import LocationPin from '../../Assets/gif/location-pin.gif';
 
+
+
+
+
+import Tutorial from "../../Components/Tutorial";
+import Search from "../../Pages/Search";
+
+import Login from "../../Pages/Login";
+import Signup from "../../Pages/Signup";
+import Security from "../../Pages/Security";
+import PrivateRoute from "../../Routes/PrivateRoute";
+import Report from "../../Pages/Report";
+import Sanad from "../../Pages/Sanad";
+import Settings from "../../Pages/Settings";
+import Notifications from "../../Pages/Notifications";
+import Store from "../../Pages/Store";
+import PublicRoute from "../../Routes/PublicRoute";
+import ForgetPassword from "../../Pages/ForgetPassword";
+import PaymentVerification from "../../Pages/Payments/Verification";
+import Profile from "../../Pages/Profile";
+import Verification from "../../Pages/Verification";
+import Feature from "../../Pages/Feature";
+import UploadAvatar from "../../Pages/UploadAvatar";
+import Commercial from "../../Components/Lottie/Commercial";
+import Residential from "../../Components/Lottie/Residential";
+import Educational from "../../Components/Lottie/Educational";
+import SignupLottie from "../../Components/Lottie/SignupLottie";
+import Player from "../../Pages/Player";
+import Dynasty from "../../Pages/Dynasty";
+import { createContext } from "react";
 const IconFlyTo = styled.img`
   position: absolute;
   z-index: 500;
@@ -29,7 +60,7 @@ const IconFlyTo = styled.img`
     top: 50%;
   }
 `;
-
+export  const MapContext=createContext()
 // This is a functional component named Map.
 const Map = () => {
 
@@ -70,7 +101,8 @@ const Map = () => {
 
   // Return a MapContainer component that renders the leaflet map.
   return (
-    <MapContainer
+<MapContext.Provider value={mapRef}>
+<MapContainer
       center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
       zoom={15} // The initial zoom level of the map.
       style={{ width: "100%", height: "100vh" }}
@@ -99,7 +131,175 @@ const Map = () => {
         ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
         classNamePosstion={"tw-flyto"}
       />
+        <Routes>
+              <Route path="/metaverse" element={<Outlet />}>
+                <Route
+                  path="login"
+                  element={
+                    <PublicRoute>
+                      <Login />
+                    </PublicRoute>
+                  }
+                />
+
+                <Route
+                  path="signup"
+                  element={
+                    <PublicRoute>
+                      <Signup />
+                    </PublicRoute>
+                  }
+                />
+
+                <Route
+                  path="sanad"
+                  element={
+                    <PrivateRoute>
+                      <Sanad />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="reset-password"
+                  element={
+                    <PublicRoute>
+                      <ForgetPassword />
+                    </PublicRoute>
+                  }
+                />
+
+                <Route
+                  path="confirmation"
+                  element={
+                    <PrivateRoute>
+                      <Security />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="report"
+                  element={
+                    <PrivateRoute>
+                      <Report />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="settings"
+                  element={
+                    <PrivateRoute>
+                      <Settings />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="profile"
+                  element={
+                    <PrivateRoute>
+                      <Profile />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="player/:id"
+                  element={
+                    <PrivateRoute>
+                      <Player />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="notifications"
+                  element={
+                    <PrivateRoute>
+                      <Notifications />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="verification"
+                  element={
+                    <PrivateRoute>
+                      <Verification />
+                    </PrivateRoute>
+                  }
+                />
+                
+                <Route
+                  path="dynasty"
+                  element={
+                    <PrivateRoute>
+                      <Dynasty />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="store"
+                  element={
+                    <PrivateRoute>
+                      <Store />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="payment/verify"
+                  element={
+                    <PrivateRoute>
+                      <PaymentVerification />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="verification"
+                  element={
+                    <PrivateRoute>
+                      <Verification />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route path="feature/:id" element={<Feature />} />
+
+                <Route
+                  path="upload/avatar"
+                  element={
+                    <PrivateRoute>
+                      <UploadAvatar />
+                    </PrivateRoute>
+                  }
+                />
+                 <Route
+                  path="search"
+                  element={
+                    <PrivateRoute>
+                     <Search/>
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route path="successful" element={<Outlet />}>
+                  <Route path="commercial" element={<Commercial />} />
+
+                  <Route path="residential" element={<Residential />} />
+
+                  <Route path="educational" element={<Educational />} />
+
+                  <Route path="signup" element={<SignupLottie />} />
+                </Route>
+              </Route>
+            </Routes>
     </MapContainer>
+</MapContext.Provider>
   );
 };
 

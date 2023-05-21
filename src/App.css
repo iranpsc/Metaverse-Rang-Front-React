@@ -235,6 +235,10 @@ button {
 a{
   text-decoration: none;
 }
+.leaflet-container {
+  font-family: iransans !important;
+  font-size: 16px !important;
+}
 
 .purple-box-shadow {
   box-shadow: 0 2px 5px 2px #bb1fcf73, inset 0 2px 5px 2px #bb1fcf73;
