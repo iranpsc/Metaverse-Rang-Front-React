@@ -3,7 +3,7 @@ import styled from "styled-components";
 import BuyingHouseIcon from "../../../Assets/images/buying-house-128.png";
 import PropertyValueBalanceIcon from "../../../Assets/images/property-value-balance-128.png";
 import PropertyLocationIcon from "../../../Assets/images/property-location-128.png";
-import LocationPin from '../../../Assets/gif/location-pin.gif';
+import LocationPin from "../../../Assets/gif/location-pin.gif";
 import RedHouseIcon from "../../../Assets/images/redHouse.png";
 import YellowHouseIcon from "../../../Assets/images/yellowHouse.png";
 import BlueHouseIcon from "../../../Assets/images/blueHouse.png";
@@ -53,7 +53,7 @@ const DetailsContainer = styled.div`
   gap: 5px;
 `;
 const IconSpan = styled.img`
-  width: 20px;
+  width:18px;
   aspect-ratio: 1/1;
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.678));
 `;
@@ -82,37 +82,67 @@ const SpanDetails = styled.div`
   justify-content: end;
   gap: 5px;
   > :last-child {
-    width:120px;
+    width: 120px;
     text-align: end;
   }
 `;
+
+  const karbariIcons = {
+    "آموزشی": BlueHouseIcon,
+    "تجاری": RedHouseIcon,
+    "مسکونی": YellowHouseIcon,
+  };
 
 const FeatureContainer = ({ feature }) => {
   const address = feature?.address.split(", ").reverse().join(", ");
   const Navigate = useNavigate();
   const map = useContext(MapContext);
   return (
-    <FeatureItem key={feature.id}> 
+    <FeatureItem key={feature.id}>
       <Contai>
         <ImgContainer>
-          <Icons src={BuyingHouseIcon} onClick={()=>Navigate(`/metaverse/feature/${feature?.id}`,{state:{activePageNumber:1}})} />
+          <Icons
+            src={BuyingHouseIcon}
+            onClick={() =>
+              Navigate(`/metaverse/feature/${feature?.id}`, {
+                state: { activePageNumber: 1 },
+              })
+            }
+          />
           <Icons src={PropertyValueBalanceIcon} />
-          <Icons src={PropertyLocationIcon} onClick={() => flyToPosition({ latitude: feature?.coordinates[1].y, longitude: feature?.coordinates[1].x, icon: LocationPin, mapRe: map ,zoom:17 })}/>
+          <Icons
+            src={PropertyLocationIcon}
+            onClick={() =>
+              flyToPosition({
+                latitude: feature?.coordinates[1].y,
+                longitude: feature?.coordinates[1].x,
+                icon: LocationPin,
+                mapRe: map,
+                zoom: 17,
+              })
+            }
+          />
         </ImgContainer>
         <DetailsContainer>
           <SpanDetails>
-            <OrangeBoldFont onClick={()=>Navigate(`/metaverse/feature/${feature?.id}`)}>{feature?.feature_properties_id}</OrangeBoldFont>
+            <OrangeBoldFont
+              onClick={() => Navigate(`/metaverse/feature/${feature?.id}`)}
+            >
+              {feature?.feature_properties_id}
+            </OrangeBoldFont>
             <span>:</span>
 
             <span>شناسه VOD</span>
           </SpanDetails>
           <SpanDetails>
-            <span> {feature?.karbari}</span>
+            <span>
+              {feature?.karbari} <IconSpan src={karbariIcons[feature?.karbari]} />
+            </span>
             <span>:</span>
 
             <span>کاربری</span>
           </SpanDetails>
-          <SpanDetails >
+          <SpanDetails>
             <span
               onClick={() =>
                 window.open(
@@ -155,8 +185,7 @@ const FeatureContainer = ({ feature }) => {
         >
           {address}
         </span>
-        :
-        <span style={{ width: "130px", textAlign:"end" }}> VOD آدرس</span>
+        :<span style={{ width: "130px", textAlign: "end" }}> VOD آدرس</span>
       </div>
     </FeatureItem>
   );
