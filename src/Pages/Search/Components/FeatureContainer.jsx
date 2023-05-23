@@ -53,7 +53,7 @@ const DetailsContainer = styled.div`
   gap: 5px;
 `;
 const IconSpan = styled.img`
-  width:18px;
+  width: 18px;
   aspect-ratio: 1/1;
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.678));
 `;
@@ -87,16 +87,33 @@ const SpanDetails = styled.div`
   }
 `;
 
-  const karbariIcons = {
-    "آموزشی": BlueHouseIcon,
-    "تجاری": RedHouseIcon,
-    "مسکونی": YellowHouseIcon,
-  };
+const karbariIcons = {
+  آموزشی: BlueHouseIcon,
+  تجاری: RedHouseIcon,
+  مسکونی: YellowHouseIcon,
+};
+function calculatePolygonCentroid(vertices) {
+  const numVertices = vertices.length;
+  let sumX = 0;
+  let sumY = 0;
+
+  for (let i = 0; i < numVertices; i++) {
+    sumX += parseFloat(vertices[i].x);
+    sumY += parseFloat(vertices[i].y);
+  }
+
+  const centroidX = sumX / numVertices;
+  const centroidY = sumY / numVertices;
+
+  return { x: centroidX, y: centroidY };
+}
 
 const FeatureContainer = ({ feature }) => {
   const address = feature?.address.split(", ").reverse().join(", ");
   const Navigate = useNavigate();
   const map = useContext(MapContext);
+  const center = calculatePolygonCentroid(feature?.coordinates);
+  console.log(center);
   return (
     <FeatureItem key={feature.id}>
       <Contai>
@@ -114,8 +131,8 @@ const FeatureContainer = ({ feature }) => {
             src={PropertyLocationIcon}
             onClick={() =>
               flyToPosition({
-                latitude: feature?.coordinates[1].y,
-                longitude: feature?.coordinates[1].x,
+                latitude: center.y,
+                longitude: center.x,
                 icon: LocationPin,
                 mapRe: map,
                 zoom: 17,
@@ -136,7 +153,8 @@ const FeatureContainer = ({ feature }) => {
           </SpanDetails>
           <SpanDetails>
             <span>
-              {feature?.karbari} <IconSpan src={karbariIcons[feature?.karbari]} />
+              {feature?.karbari}{" "}
+              <IconSpan src={karbariIcons[feature?.karbari]} />
             </span>
             <span>:</span>
 
