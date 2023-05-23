@@ -114,8 +114,8 @@ const Map = () => {
           ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
           classNamePosstion={"tw-flyto"}
         />
-        <Routes />
       </MapContainer>
+        <Routes />
     </MapContext.Provider>
   );
 };
