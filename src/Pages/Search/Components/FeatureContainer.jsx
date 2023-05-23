@@ -133,7 +133,7 @@ const FeatureContainer = ({ feature }) => {
               flyToPosition({
                 latitude: center.y,
                 longitude: center.x,
-                icon: LocationPin,
+                icon:"https://cdn-icons-png.flaticon.com/512/3549/3549693.png",
                 mapRe: map,
                 zoom: 17,
               })

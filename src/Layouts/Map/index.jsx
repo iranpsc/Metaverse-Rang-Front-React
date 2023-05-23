@@ -103,7 +103,7 @@ const Map = () => {
                 flyToPosition({
                   latitude: 26.264711,
                   longitude: 55.305572,
-                  icon: LocationPin,
+                  icon: "https://cdn-icons-png.flaticon.com/512/3549/3549693.png",
                   mapRe: mapRef,
                   zoom: 17,
                 })

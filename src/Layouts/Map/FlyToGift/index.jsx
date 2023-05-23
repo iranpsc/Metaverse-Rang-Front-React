@@ -20,8 +20,9 @@ const flyToPosition = async ({ latitude, longitude, icon, mapRe, zoom }) => {
   marker = await new Promise((resolve) => {
     const markerObj = new L.marker([latitude, longitude], {
       icon: L.icon({
-        iconUrl: icon,
-        iconSize: [60],
+        iconUrl:icon,
+        iconSize: [40, 40],
+        iconAnchor: [20, 40]
       }),
     });
     markerObj.addTo(mapRe.current);
