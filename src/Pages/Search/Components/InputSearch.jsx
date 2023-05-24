@@ -99,9 +99,9 @@ export default function Search({
         <UsersContainer>
           {data.map((data) =>
             isCitizen ? (
-              <UserContainer user={data} />
+              <UserContainer user={data} key={data.id} />
             ) : (
-              <FeatureContainer feature={data} />
+              <FeatureContainer feature={data}  key={data.id}/>
             )
           )}
         </UsersContainer>
