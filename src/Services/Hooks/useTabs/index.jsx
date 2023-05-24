@@ -98,6 +98,7 @@ function useTabs(tabs, current,fullHeight) {
                 ...Location.state,
                 activePageNumber: index,
                 locationPage,
+                activeTab,
               };
             }}
           >

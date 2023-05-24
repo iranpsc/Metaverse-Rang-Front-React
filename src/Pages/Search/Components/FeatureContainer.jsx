@@ -113,7 +113,6 @@ const FeatureContainer = ({ feature }) => {
   const Navigate = useNavigate();
   const map = useContext(MapContext);
   const center = calculatePolygonCentroid(feature?.coordinates);
-  console.log(center);
   return (
     <FeatureItem key={feature.id}>
       <Contai>
@@ -126,7 +125,11 @@ const FeatureContainer = ({ feature }) => {
               })
             }
           />
-          <Icons src={PropertyValueBalanceIcon} />
+          <Icons src={PropertyValueBalanceIcon}  onClick={() =>
+              Navigate(`/metaverse/feature/${feature?.id}`, {
+                state: { activePageNumber: 1 ,activeTab:1},
+              })
+            } />
           <Icons
             src={PropertyLocationIcon}
             onClick={() =>

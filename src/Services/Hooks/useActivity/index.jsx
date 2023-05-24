@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import shortid from 'shortid';
 import styled from 'styled-components';
 
@@ -48,21 +49,13 @@ const BtnProperty = styled.button`
 // `style`: an object containing styles to be applied to the container
 
 export default function useActivity(tabs, style) {
-  // Two state variables are defined using the useState hook
-  const [activity, setActivity] = useState(0); // `activity` stores the index of the currently active tab
-  const [current, setCurrent] = useState(<></>); // `current` represents the rendered component corresponding to the currently active tab
-  
-  // The useEffect hook updates the `current` variable whenever the `activity` variable changes
+  const location = useLocation();
+  const [activity, setActivity] = useState(location.state?.activeTab  || 0);
+  const [current, setCurrent] = useState(tabs[activity]?.component);
+
   useEffect(() => {
-    setCurrent(tabs[activity].component);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setCurrent(tabs[activity]?.component);
   }, [activity]);
-
-  // The hook returns JSX with the following structure:
-  // A Container component that wraps two child components: 
-    // A MainContainer component that renders the currently active component
-    // A BtnContainer component that wraps multiple child components representing each tab. Each button is associated with a corresponding tab and sets the activity state when clicked.
-
   return (
     <Container>
       <MainContainer style={{...style}}>
