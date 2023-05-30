@@ -1,4 +1,4 @@
-import ModalSearch from "../../Components/ModalSearch";
+import ModalPosition from "../../Components/ModalPosition";
 import useTabs from "../../Services/Hooks/useTabs";
 import CitizenSearch from "./Tabs/Citizensearch.JSX";
 import PropertySearch from "./Tabs/PropertySearch";
@@ -12,5 +12,5 @@ export default function Search() {
 
 
   const TabPanel = useTabs(tabs, 0, true);
-  return <ModalSearch title={"جستجوی در متارنگ"}>{TabPanel}</ModalSearch>;
+  return <ModalPosition title={"جستجوی در متارنگ"}>{TabPanel}</ModalPosition>;
 }

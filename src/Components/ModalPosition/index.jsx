@@ -12,6 +12,7 @@ const Container = styled.div`
   z-index: 1500;
   padding: 10px;
   background-color: #fff;
+  ${props => props.position === "right" && "right: 0;"}
   top: 0;
   @media (min-width: 1024px) {
     width: 30%;
@@ -20,6 +21,7 @@ const Container = styled.div`
     width: 25%;
   }
 `;
+
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -50,14 +52,14 @@ const Title = styled.div`
     width: 67%;
   }
 `;
-export default function ModalSearch({ children, title }) {
+export default function ModalPosition({ children, title ,position }) {
   const navigation = useNavigate();
   const Location = useLocation();
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
   const adviserData = useAdviserData(newStr, Location?.state?.locationPage);
   const [showModal, setShowModal] = useState(false);
   return (
-    <Container>
+    <Container  position={position}>
       <Header>
         <Img
           src={ImageHelp}
