@@ -36,7 +36,7 @@ export default function LeftIcon() {
         ContentToltip={"احراز هویت شخصی و بانکی"}
         classNamePosstion={"tw-righticon"}
       />
-      <PercentageIcon />
+      <PercentageIcon  onClick={() => navigation(`/metaverse/hour-profit`)} />
     </RightIconContainer>
   );
 }

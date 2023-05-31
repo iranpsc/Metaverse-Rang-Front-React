@@ -41,7 +41,7 @@ const PercentText = styled.p`
   font-weight: bold;
 `;
 
-export default function PercentageIcon() {
+export default function PercentageIcon({onClick}) {
   const { getUser } = useAuth();
   const [Percentage, setPercentage] = useState(0);
 
@@ -52,7 +52,7 @@ export default function PercentageIcon() {
   return (
     <ToolTip
       Chidren={
-        <Container>
+        <Container onClick={onClick}>
           <ProfitIcon src={PercentageImage} />
 
           <PercentCoin>

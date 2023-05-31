@@ -24,6 +24,7 @@ import Educational from "../../Components/Lottie/Educational";
 import SignupLottie from "../../Components/Lottie/SignupLottie";
 import Player from "../../Pages/Player";
 import Dynasty from "../../Pages/Dynasty";
+import HourMeterProfit from "../../Pages/HourMeterProfit/Index";
 
 export default function Routers() {
   return (
@@ -179,6 +180,14 @@ export default function Routers() {
           element={
             <PrivateRoute>
               <Search />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="hour-profit"
+          element={
+            <PrivateRoute>
+              <HourMeterProfit />
             </PrivateRoute>
           }
         />
