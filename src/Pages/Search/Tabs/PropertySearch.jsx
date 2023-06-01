@@ -11,7 +11,7 @@ const Container = styled.div`
  
 `;
 const TopContainer =styled.div`
-  margin-top: 3rem;
+
   width: 100%;
   overflow-y: auto;
   height: 95%;

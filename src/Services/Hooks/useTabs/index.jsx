@@ -59,7 +59,8 @@ const Tab = styled.button`
 
 // Create a styled TabPanel component
 const TabPanel = styled.div`
-  margin-top: ${props => props.fullHeight ? '20px' : '40px'};;
+  margin-top: ${props => props.fullHeight ? '20px' : '40px'};
+  padding-top: ${props => props.fullHeight ? '2.8rem' : '0'}; ;
   width: 100%;
   height: 90%;
 `;

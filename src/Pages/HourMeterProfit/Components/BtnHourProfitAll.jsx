@@ -11,8 +11,12 @@ const Btn = styled.button`
   color: ${(props) => props.color || "black"};
 `;
 
-const BtnHourProfitAll = ({ value, color }) => {
-  return <Btn color={color}>{value}</Btn>;
+const BtnHourProfitAll = ({ value, color, onClick }) => {
+  return (
+    <Btn onClick={ onClick} color={color}>
+      {value}
+    </Btn>
+  );
 };
 
 export default BtnHourProfitAll;
