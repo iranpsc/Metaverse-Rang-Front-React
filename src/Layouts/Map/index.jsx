@@ -8,7 +8,7 @@ import { MapView } from "@deck.gl/core";
 import MapPolygons from "./MapPolygons";
 import Main from "../Main";
 import useAuth from "../../Services/Hooks/useAuth";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import flyToGif from "../../Assets/gif/Flyto.gif";
 import ContextMenu from "./ContextMenu/ContextMenu";
@@ -32,11 +32,12 @@ const IconFlyTo = styled.img`
   }
 `;
 export const MapContext = createContext();
+export const TransactionContext = createContext()
 // This is a functional component named Map.
 const Map = () => {
   // A reference to the map container element.
   const mapRef = useRef();
-
+  const [selectedTransaction, setSelectedTransaction] = useState([]);
   // A custom hook to get user authentication details. setUserWithToken function is being destructured from useAuth.
   const { setUserWithToken } = useAuth();
 
@@ -71,7 +72,8 @@ const Map = () => {
 
   // Return a MapContainer component that renders the leaflet map.
   return (
-    <MapContext.Provider value={mapRef}>
+  <TransactionContext.Provider value={{selectedTransaction ,setSelectedTransaction }}>
+      <MapContext.Provider value={mapRef}>
       <MapContainer
         center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
         zoom={15} // The initial zoom level of the map.
@@ -117,6 +119,7 @@ const Map = () => {
       </MapContainer>
         <Routes />
     </MapContext.Provider>
+  </TransactionContext.Provider>
   );
 };
 
