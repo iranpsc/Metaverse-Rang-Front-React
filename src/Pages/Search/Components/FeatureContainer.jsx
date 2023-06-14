@@ -156,7 +156,7 @@ const FeatureContainer = ({ feature }) => {
           </SpanDetails>
           <SpanDetails>
             <span>
-              {feature?.karbari}{" "}
+              {feature?.karbari}
               <IconSpan src={karbariIcons[feature?.karbari]} />
             </span>
             <span>:</span>

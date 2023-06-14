@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import Modal from "../../../Components/Modal";
+import FailedTransactionImage from "../../../Assets/images/transacion-1.png";
+import SuccessTransactionImage from "../../../Assets/images/transacion-2.png";
 
-import FailedTransactionImage from "../../../Assets/images/failed-transaction.png";
-import SuccessTransactionImage from "../../../Assets/images/successful-transaction.png";
-
-import StoreImage from "../../../Assets/images/shop.png";
 import { TransactionContext } from "../../../Layouts/Map";
 import { useContext } from "react";
 
@@ -19,7 +17,7 @@ const Header = styled.div`
   width: 95%;
   margin: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 `;
 const Image = styled.img``;
@@ -69,49 +67,85 @@ const Div = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 96%;
+  flex-direction: row-reverse;
 `;
 const Border = styled.div`
   display: flex;
+
   height: 2px;
-  width: 90%;
+  width: 88%;
   background: #777;
 `;
-function FailedTransaction({data}) {
+function FailedTransaction({ data }) {
   const navigate = useNavigate();
   return (
     <Container>
       <Header>
-        <Image src={FailedTransactionImage} />
+        <Image
+          src={
+            data.action == "deposit"
+              ? SuccessTransactionImage
+              :  FailedTransactionImage
+          }
+        />
         <FailedTitle>تراکنش شما انجام نشد</FailedTitle>
       </Header>
 
       <Body className="red-box-shadow">
         <DetaileContainer>
           <Div>
-            <Cell>شناسه تراکنش</Cell>
-            <Cell>تاریخ واریز</Cell>
-            <Cell>ساعت واریز</Cell>
+            <Cell>
+              {data.action == "deposit"
+                ? "شناسه خرید"
+                : data.action == "withdraw"
+                ? "شناسه واریز"
+                : ""}
+            </Cell>
+            <Cell>
+              تاریخ
+              {data.action == "deposit"
+                ? " خرید"
+                : data.action == "withdraw"
+                ? " واریز"
+                : ""}
+            </Cell>
+            <Cell>
+              ساعت
+              {data.action == "deposit"
+                ? " خرید"
+                : data.action == "withdraw"
+                ? " واریز"
+                : ""}
+            </Cell>
           </Div>
-          <Border ></Border>
+          <Border></Border>
           <Div>
             <Cell>{data.id}</Cell>
             <Cell>{data.date}</Cell>
             <Cell>{data.time}</Cell>
           </Div>
           <Body className="red-box-shadow">
-          <DetaileContainer>
-          <Div>
-            <Cell>عنوان پرداختی</Cell>
-            <Cell>تعداد</Cell>
-            <Cell>مبلغ واریزی</Cell>
-          </Div>
-          <Border ></Border>
-          <Div>
-            <Cell>{data.type}</Cell>
-            <Cell>{data.amount}</Cell>
-            <Cell>{data.time}</Cell>
-          </Div>
-        </DetaileContainer>
+            <DetaileContainer>
+              <Div>
+                <Cell>عنوان پرداختی</Cell>
+                <Cell>تعداد</Cell>
+                <Cell>
+                  مبلغ
+                  {data.action == "deposit"
+                    ? " خرید"
+                    : data.action == "withdraw"
+                    ? " واریز"
+                    : ""}
+                  ی
+                </Cell>
+              </Div>
+              <Border></Border>
+              <Div>
+                <Cell>{data.type}</Cell>
+                <Cell>1</Cell>
+                <Cell>{data.amount}</Cell>
+              </Div>
+            </DetaileContainer>
           </Body>
         </DetaileContainer>
       </Body>
@@ -123,37 +157,71 @@ function SuccessTransaction({ data }) {
   return (
     <Container>
       <Header>
-        <Image src={SuccessTransactionImage} />
+        <Image
+          src={
+            data.action == "deposit"
+              ? SuccessTransactionImage
+              :  FailedTransactionImage
+          }
+        />
         <SuccessTitle>از خرید شما سپاس گذاریم</SuccessTitle>
       </Header>
 
       <Body className="green-box-shadow">
-      <DetaileContainer>
+        <DetaileContainer>
           <Div>
-            <Cell>شناسه تراکنش</Cell>
-            <Cell>تاریخ واریز</Cell>
-            <Cell>ساعت واریز</Cell>
+            <Cell>
+              {data.action == "deposit"
+                ? "شناسه خرید"
+                : data.action == "withdraw"
+                ? "شناسه واریز"
+                : ""}
+            </Cell>
+            <Cell>
+              تاریخ
+              {data.action == "deposit"
+                ? " خرید"
+                : data.action == "withdraw"
+                ? " واریز"
+                : ""}
+            </Cell>
+            <Cell>
+              ساعت
+              {data.action == "deposit"
+                ? " خرید"
+                : data.action == "withdraw"
+                ? " واریز"
+                : ""}
+            </Cell>
           </Div>
-          <Border ></Border>
+          <Border></Border>
           <Div>
             <Cell>{data.id}</Cell>
             <Cell>{data.date}</Cell>
             <Cell>{data.time}</Cell>
           </Div>
           <Body className="green-box-shadow">
-          <DetaileContainer>
-          <Div>
-            <Cell>عنوان پرداختی</Cell>
-            <Cell>تعداد</Cell>
-            <Cell>مبلغ واریزی</Cell>
-          </Div>
-          <Border ></Border>
-          <Div>
-            <Cell>{data.type}</Cell>
-            <Cell>{data.amount}</Cell>
-            <Cell>{data.time}</Cell>
-          </Div>
-        </DetaileContainer>
+            <DetaileContainer>
+              <Div>
+                <Cell>عنوان پرداختی</Cell>
+                <Cell>تعداد</Cell>
+                <Cell>
+                  مبلغ
+                  {data.action == "deposit"
+                    ? " خرید"
+                    : data.action == "withdraw"
+                    ? " واریز"
+                    : ""}
+                  ی
+                </Cell>
+              </Div>
+              <Border></Border>
+              <Div>
+                <Cell>{data.type}</Cell>
+                <Cell>{data.amount}</Cell>
+                <Cell>{data.time}</Cell>
+              </Div>
+            </DetaileContainer>
           </Body>
         </DetaileContainer>
       </Body>
@@ -165,7 +233,13 @@ export default function TransactionPeyments() {
   const { selectedTransaction } = useContext(TransactionContext);
   return (
     <Modal title="جزئیات تراکنش ">
-    {selectedTransaction.status === 1 ? ( <SuccessTransaction data={selectedTransaction} /> ) : selectedTransaction.status === -1 ? ( <FailedTransaction data={selectedTransaction} /> ) : ( "" )}
+      {selectedTransaction.status === 1 ? (
+        <SuccessTransaction data={selectedTransaction} />
+      ) : selectedTransaction.status === -1 ? (
+        <FailedTransaction data={selectedTransaction} />
+      ) : (
+        ""
+      )}
     </Modal>
   );
 }
