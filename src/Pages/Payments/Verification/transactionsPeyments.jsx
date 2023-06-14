@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import Modal from "../../../Components/Modal";
 import FailedTransactionImage from "../../../Assets/images/transacion-1.png";
 import SuccessTransactionImage from "../../../Assets/images/transacion-2.png";
+import PrintImage from "../../../Assets/images/print.png";
 
 import { TransactionContext } from "../../../Layouts/Map";
 import { useContext } from "react";
@@ -77,7 +78,7 @@ const Border = styled.div`
   background: #777;
 `;
 function FailedTransaction({ data }) {
-  const navigate = useNavigate();
+
   return (
     <Container>
       <Header>
@@ -154,6 +155,7 @@ function FailedTransaction({ data }) {
 }
 
 function SuccessTransaction({ data }) {
+  const navigate = useNavigate();
   return (
     <Container>
       <Header>
@@ -219,20 +221,23 @@ function SuccessTransaction({ data }) {
               <Div>
                 <Cell>{data.type}</Cell>
                 <Cell>{data.amount}</Cell>
-                <Cell>{data.time}</Cell>
+                <Cell >{data.time}</Cell>
               </Div>
             </DetaileContainer>
           </Body>
+          <Image src={PrintImage} style={{position:"absolute",width:"90px",bottom:"0"}} onClick={handlePrint}/>
         </DetaileContainer>
       </Body>
     </Container>
   );
 }
-
+const handlePrint = () => {
+  window.print();
+};
 export default function TransactionPeyments() {
   const { selectedTransaction } = useContext(TransactionContext);
   return (
-    <Modal title="جزئیات تراکنش ">
+    <Modal title="جزئیات تراکنش " disabled>
       {selectedTransaction.status === 1 ? (
         <SuccessTransaction data={selectedTransaction} />
       ) : selectedTransaction.status === -1 ? (
