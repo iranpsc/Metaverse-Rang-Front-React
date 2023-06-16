@@ -25,7 +25,7 @@ import SignupLottie from "../../Components/Lottie/SignupLottie";
 import Player from "../../Pages/Player";
 import Dynasty from "../../Pages/Dynasty";
 import HourMeterProfit from "../../Pages/HourMeterProfit/Index";
-import TransactionPeyments from "../../Pages/Payments/Verification/transactionsPeyments";
+import TransactionPayments from "../../Pages/Payments/Verification/transactionPayments";
 
 export default function Routers() {
   return (
@@ -160,7 +160,7 @@ export default function Routers() {
           path="transaction"
           element={
             <PrivateRoute>
-              <TransactionPeyments />
+              <TransactionPayments />
             </PrivateRoute>
           }
         />
