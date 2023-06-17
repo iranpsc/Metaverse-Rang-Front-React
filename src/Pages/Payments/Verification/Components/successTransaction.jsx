@@ -1,8 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import FailedTransactionImage from "../../../../Assets/images/transaction-1.png";
 import SuccessTransactionImage from "../../../../Assets/images/transaction-2.png";
+import rgbImage from "../../../../Assets/images/rgbIcon.png";
 import PrintImage from "../../../../Assets/images/print.png";
+import html2pdf from "html2pdf.js";
+
 const Container = styled.div`
   width: 100%;
   height: 500px;
@@ -68,83 +71,199 @@ const Border = styled.div`
   width: 88%;
   background: #777;
 `;
-const SuccessTransaction = ({data}) => {
-    
-        return (
-            <Container>
-              <Header>
-                <Image
-                  src={
-                    data.action == "deposit"
-                      ? SuccessTransactionImage
-                      :  FailedTransactionImage
-                  }
-                />
-                <SuccessTitle>از خرید شما سپاس گذاریم</SuccessTitle>
-              </Header>
-        
+const ContainerPdf = styled.div`
+  display: none;
+  border: 4px solid black;
+`;
+const ContainerPdfTitle = styled.div`
+  display: flex;
+  padding: 8px;
+  justify-content: space-between;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  width: 100%;
+  border: 1px solid black;
+`;
+
+const handleDownload = () => {
+  console.log(11);
+  const content = document.getElementById("my-component").innerHTML;
+
+  const opt = {
+    filename: "myDocument.pdf",
+    margin: [0, 0, 0, 0],
+    image: { type: "jpeg", quality: 1 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+  };
+  html2pdf().set(opt).from(content).save();
+};
+
+const SuccessTransaction = ({ data }) => {
+  return (
+    <>
+      <Container>
+        <Header>
+          <Image
+            src={
+              data.action == "deposit"
+                ? FailedTransactionImage
+                : SuccessTransactionImage
+            }
+          />
+          <SuccessTitle>از خرید شما سپاس گذاریم</SuccessTitle>
+        </Header>
+
+        <Body className="green-box-shadow">
+          <DetailContainer>
+            <Div>
+              <Cell>
+                {data.action == "deposit"
+                  ? "شناسه خرید"
+                  : data.action == "withdraw"
+                  ? "شناسه واریز"
+                  : ""}
+              </Cell>
+              <Cell>
+                تاریخ
+                {data.action == "deposit"
+                  ? " خرید"
+                  : data.action == "withdraw"
+                  ? " واریز"
+                  : ""}
+              </Cell>
+              <Cell>
+                ساعت
+                {data.action == "deposit"
+                  ? " خرید"
+                  : data.action == "withdraw"
+                  ? " واریز"
+                  : ""}
+              </Cell>
+            </Div>
+            <Border></Border>
+            <Div>
+              <Cell>{data.id}</Cell>
+              <Cell>{data.date}</Cell>
+              <Cell>{data.time}</Cell>
+            </Div>
+            <Body className="green-box-shadow">
+              <DetailContainer>
+                <Div>
+                  <Cell>عنوان پرداختی</Cell>
+                  <Cell>تعداد</Cell>
+                  <Cell>
+                    مبلغ
+                    {data.action == "deposit"
+                      ? " خرید"
+                      : data.action == "withdraw"
+                      ? " واریز"
+                      : ""}
+                    ی
+                  </Cell>
+                </Div>
+                <Border></Border>
+                <Div>
+                  <Cell>{data.type}</Cell>
+                  <Cell>{data.amount}</Cell>
+                  <Cell>{data.time}</Cell>
+                </Div>
+              </DetailContainer>
+            </Body>
+            <Image
+              src={PrintImage}
+              style={{ position: "absolute", width: "90px", bottom: "0" }}
+              onClick={handleDownload}
+            />
+          </DetailContainer>
+        </Body>
+      </Container>
+      <ContainerPdf id="my-component">
+        <Container style={{ height: "100%" }}>
+          <Div style={{ justifyContent: "space-around", paddingLeft: "25px" }}>
+            <h2>فاکتور ثبت شده در متارنگ </h2>
+            <Image src={rgbImage} style={{ width: "60px" }} />
+          </Div>
+          <Header>
+            <Image
+              src={
+                data.action == "deposit"
+                  ? FailedTransactionImage
+                  : SuccessTransactionImage
+              }
+            />
+            <SuccessTitle>از خرید شما سپاس گذاریم</SuccessTitle>
+          </Header>
+
+          <Body className="green-box-shadow">
+            <DetailContainer>
+              <Div>
+                <Cell>
+                  {data.action == "deposit"
+                    ? "شناسه خرید"
+                    : data.action == "withdraw"
+                    ? "شناسه واریز"
+                    : ""}
+                </Cell>
+                <Cell>
+                  تاریخ
+                  {data.action == "deposit"
+                    ? " خرید"
+                    : data.action == "withdraw"
+                    ? " واریز"
+                    : ""}
+                </Cell>
+                <Cell>
+                  ساعت
+                  {data.action == "deposit"
+                    ? " خرید"
+                    : data.action == "withdraw"
+                    ? " واریز"
+                    : ""}
+                </Cell>
+              </Div>
+              <Border></Border>
+              <Div>
+                <Cell>{data.id}</Cell>
+                <Cell>{data.date}</Cell>
+                <Cell>{data.time}</Cell>
+              </Div>
               <Body className="green-box-shadow">
                 <DetailContainer>
                   <Div>
+                    <Cell>عنوان پرداختی</Cell>
+                    <Cell>تعداد</Cell>
                     <Cell>
-                      {data.action == "deposit"
-                        ? "شناسه خرید"
-                        : data.action == "withdraw"
-                        ? "شناسه واریز"
-                        : ""}
-                    </Cell>
-                    <Cell>
-                      تاریخ
+                      مبلغ
                       {data.action == "deposit"
                         ? " خرید"
                         : data.action == "withdraw"
                         ? " واریز"
                         : ""}
-                    </Cell>
-                    <Cell>
-                      ساعت
-                      {data.action == "deposit"
-                        ? " خرید"
-                        : data.action == "withdraw"
-                        ? " واریز"
-                        : ""}
+                      ی
                     </Cell>
                   </Div>
                   <Border></Border>
                   <Div>
-                    <Cell>{data.id}</Cell>
-                    <Cell>{data.date}</Cell>
+                    <Cell>{data.type}</Cell>
+                    <Cell>{data.amount}</Cell>
                     <Cell>{data.time}</Cell>
                   </Div>
-                  <Body className="green-box-shadow">
-                    <DetailContainer>
-                      <Div>
-                        <Cell>عنوان پرداختی</Cell>
-                        <Cell>تعداد</Cell>
-                        <Cell>
-                          مبلغ
-                          {data.action == "deposit"
-                            ? " خرید"
-                            : data.action == "withdraw"
-                            ? " واریز"
-                            : ""}
-                          ی
-                        </Cell>
-                      </Div>
-                      <Border></Border>
-                      <Div>
-                        <Cell>{data.type}</Cell>
-                        <Cell>{data.amount}</Cell>
-                        <Cell >{data.time}</Cell>
-                      </Div>
-                    </DetailContainer>
-                  </Body>
-                  <Image src={PrintImage} style={{position:"absolute",width:"90px",bottom:"0"}} />
                 </DetailContainer>
               </Body>
-            </Container>
-          );
-    
+            </DetailContainer>
+          </Body>
+          <Div style={{ paddingLeft: "25px", marginTop: "10px" }}>
+            <span>متارنگ پاسخگوی شما همراهان </span>
+            <span>TR@rgb.irpsc.com</span>
+          </Div>
+          <Div style={{ justifyContent: "start", paddingLeft: "25px" }}>
+            <span>02833698111</span>
+          </Div>
+        </Container>
+      </ContainerPdf>
+    </>
+  );
 };
 
 export default SuccessTransaction;
