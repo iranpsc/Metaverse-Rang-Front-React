@@ -93,7 +93,7 @@ export default function RequestSent() {
               <th style={{ padding: "5px" }}>نسبت خانوادگی</th>
               <th style={{ padding: "5px" }}>وضعیت درخواست</th>
               <th style={{ padding: "5px" }}>پاداش</th>
-              <th style={{ padding: "5px" }}></th>
+              <th style={{ padding: "5px" }}>مشاهده</th>
             </tr>
           </HeaderTable>
           <TableBody>
@@ -121,16 +121,7 @@ export default function RequestSent() {
                 <td>{item?.relationship}</td>
                 <td>{status[item?.status]}</td>
                 <TdGift>
-                  <GiftIcon src={PscCoin} />
-                  1000
-                  <GiftIcon src={DataBaseIcon} />
-                  26.3%
-                  <GiftIcon src={BankICoin} />
-                  32%
-                  <GiftIcon src={IncreaseICoin} />
-                  32%
-                  <GiftIcon src={SatisfactionICoin} />
-                  0.5
+               
                 </TdGift>
                 <td>
                   <GiftIcon
