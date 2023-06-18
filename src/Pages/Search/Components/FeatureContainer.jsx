@@ -55,7 +55,6 @@ const DetailsContainer = styled.div`
 const IconSpan = styled.img`
   width: 18px;
   aspect-ratio: 1/1;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.678));
 `;
 const Contai = styled.div`
   display: flex;
