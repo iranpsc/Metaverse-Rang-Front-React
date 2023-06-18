@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FailedTransactionImage from "../../../../Assets/images/transaction-1.png";
 import SuccessTransactionImage from "../../../../Assets/images/transaction-2.png";
-import rgbImage from "../../../../Assets/images/rgbIcon.png";
+import factorImage from "../../../../Assets/images/factor-1.png";
 import PrintImage from "../../../../Assets/images/print.png";
 import html2pdf from "html2pdf.js";
 
@@ -19,6 +19,7 @@ const Header = styled.div`
   justify-content: space-around;
   align-items: center;
 `;
+
 const Image = styled.img``;
 
 const SuccessTitle = styled.h2`
@@ -49,6 +50,7 @@ const Cell = styled.span`
   padding: 16px;
   text-align: center;
 `;
+
 const DetailContainer = styled.div`
   display: flex;
   align-items: center;
@@ -57,6 +59,7 @@ const DetailContainer = styled.div`
   padding: 0.5rem;
   flex-direction: column;
 `;
+
 const Div = styled.div`
   display: flex;
   align-items: center;
@@ -64,203 +67,166 @@ const Div = styled.div`
   width: 96%;
   flex-direction: row-reverse;
 `;
+
 const Border = styled.div`
   display: flex;
-
   height: 2px;
   width: 88%;
   background: #777;
 `;
+
 const ContainerPdf = styled.div`
   display: none;
   border: 4px solid black;
 `;
-const ContainerPdfTitle = styled.div`
-  display: flex;
-  padding: 8px;
-  justify-content: space-between;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  width: 100%;
-  border: 1px solid black;
-`;
 
 const handleDownload = () => {
-  console.log(11);
   const content = document.getElementById("my-component").innerHTML;
 
   const opt = {
     filename: "myDocument.pdf",
     margin: [0, 0, 0, 0],
-    image: { type: "jpeg", quality: 1 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+    image: { type: "jpeg", quality: 10 },
+    html2canvas: { scale: 1 },
+    jsPDF: { unit: "mm", format: "a5" },
   };
+
   html2pdf().set(opt).from(content).save();
 };
 
 const SuccessTransaction = ({ data }) => {
+  const getImageSrc = () => {
+    return data.action === "deposit"
+      ? FailedTransactionImage
+      : SuccessTransactionImage;
+  };
+
+  const getActionLabel = () => {
+    if (data.action === "deposit") {
+      return " خرید";
+    } else if (data.action === "withdraw") {
+      return " واریز";
+    }
+    return "";
+  };
+
+  const renderTransactionDetails = () => {
+    return (
+      <>
+        <Div>
+          <Cell>
+            {data.action === "deposit"
+              ? "شناسه خرید"
+              : data.action === "withdraw"
+              ? "شناسه واریز"
+              : ""}
+          </Cell>
+          <Cell>تاریخ{getActionLabel()}</Cell>
+          <Cell>ساعت{getActionLabel()}</Cell>
+        </Div>
+        <Border></Border>
+        <Div>
+          <Cell>{data.id}</Cell>
+          <Cell>{data.date}</Cell>
+          <Cell>{data.time}</Cell>
+        </Div>
+      </>
+    );
+  };
+
+  const renderPaymentDetails = () => {
+    return (
+      <DetailContainer>
+        <Div>
+          <Cell>عنوان پرداختی</Cell>
+          <Cell>تعداد</Cell>
+          <Cell>
+            مبلغ{getActionLabel()}ی
+          </Cell>
+        </Div>
+        <Border></Border>
+        <Div>
+          <Cell>{data.type}</Cell>
+          <Cell>{data.amount}</Cell>
+          <Cell>{data.time}</Cell>
+        </Div>
+      </DetailContainer>
+    );
+  };
+
+  const renderPDFDetails = () => {
+    return (
+      <>
+        <span style={{ position: "absolute", top: "45%", right: "17%" }}>
+          {data.action === "deposit"
+            ? "شناسه خرید"
+            : data.action === "withdraw"
+            ? "شناسه واریز"
+            : ""}
+        </span>
+        <span style={{ position: "absolute", top: "45%", right: "45%" }}>
+          تاریخ{getActionLabel()}
+        </span>
+        <span style={{ position: "absolute", top: "45%", left: "14%" }}>
+          ساعت{getActionLabel()}
+        </span>
+        <span style={{ position: "absolute", top: "50%", right: "17%" }}>
+          {data.id}
+        </span>
+        <span style={{ position: "absolute", top: "50%", right: "45%" }}>
+          {data.date}
+        </span>
+        <span style={{ position: "absolute", top: "50%", left: "14%" }}>
+          {data.time}
+        </span>
+        <span style={{ position: "absolute", top: "61%", right: "17%" }}>
+          {data.action === "deposit"
+            ? "شناسه خرید"
+            : data.action === "withdraw"
+            ? "شناسه واریز"
+            : ""}
+        </span>
+        <span style={{ position: "absolute", top: "61%", right: "45%" }}>
+          تاریخ{getActionLabel()}
+        </span>
+        <span style={{ position: "absolute", top: "61%", left: "14%" }}>
+          ساعت{getActionLabel()}
+        </span>
+        <span style={{ position: "absolute", top: "66%", right: "17%" }}>
+          {data.id}
+        </span>
+        <span style={{ position: "absolute", top: "66%", right: "45%" }}>
+          {data.date}
+        </span>
+        <span style={{ position: "absolute", top: "66%", left: "14%" }}>
+          {data.time}
+        </span>
+      </>
+    );
+  };
+
   return (
     <>
       <Container>
         <Header>
-          <Image
-            src={
-              data.action == "deposit"
-                ? FailedTransactionImage
-                : SuccessTransactionImage
-            }
-          />
+          <Image src={getImageSrc()} />
           <SuccessTitle>از خرید شما سپاس گذاریم</SuccessTitle>
         </Header>
-
         <Body className="green-box-shadow">
-          <DetailContainer>
-            <Div>
-              <Cell>
-                {data.action == "deposit"
-                  ? "شناسه خرید"
-                  : data.action == "withdraw"
-                  ? "شناسه واریز"
-                  : ""}
-              </Cell>
-              <Cell>
-                تاریخ
-                {data.action == "deposit"
-                  ? " خرید"
-                  : data.action == "withdraw"
-                  ? " واریز"
-                  : ""}
-              </Cell>
-              <Cell>
-                ساعت
-                {data.action == "deposit"
-                  ? " خرید"
-                  : data.action == "withdraw"
-                  ? " واریز"
-                  : ""}
-              </Cell>
-            </Div>
-            <Border></Border>
-            <Div>
-              <Cell>{data.id}</Cell>
-              <Cell>{data.date}</Cell>
-              <Cell>{data.time}</Cell>
-            </Div>
-            <Body className="green-box-shadow">
-              <DetailContainer>
-                <Div>
-                  <Cell>عنوان پرداختی</Cell>
-                  <Cell>تعداد</Cell>
-                  <Cell>
-                    مبلغ
-                    {data.action == "deposit"
-                      ? " خرید"
-                      : data.action == "withdraw"
-                      ? " واریز"
-                      : ""}
-                    ی
-                  </Cell>
-                </Div>
-                <Border></Border>
-                <Div>
-                  <Cell>{data.type}</Cell>
-                  <Cell>{data.amount}</Cell>
-                  <Cell>{data.time}</Cell>
-                </Div>
-              </DetailContainer>
-            </Body>
+          {renderTransactionDetails()}
+          <Body className="green-box-shadow">
+            {renderPaymentDetails()}
             <Image
               src={PrintImage}
-              style={{ position: "absolute", width: "90px", bottom: "0" }}
+              style={{ position: "absolute", width: "90px", bottom: "0" ,cursor:"pointer"}}
               onClick={handleDownload}
             />
-          </DetailContainer>
+          </Body>
         </Body>
       </Container>
       <ContainerPdf id="my-component">
-        <Container style={{ height: "100%" }}>
-          <Div style={{ justifyContent: "space-around", paddingLeft: "25px" }}>
-            <h2>فاکتور ثبت شده در متارنگ </h2>
-            <Image src={rgbImage} style={{ width: "60px" }} />
-          </Div>
-          <Header>
-            <Image
-              src={
-                data.action == "deposit"
-                  ? FailedTransactionImage
-                  : SuccessTransactionImage
-              }
-            />
-            <SuccessTitle>از خرید شما سپاس گذاریم</SuccessTitle>
-          </Header>
-
-          <Body className="green-box-shadow">
-            <DetailContainer>
-              <Div>
-                <Cell>
-                  {data.action == "deposit"
-                    ? "شناسه خرید"
-                    : data.action == "withdraw"
-                    ? "شناسه واریز"
-                    : ""}
-                </Cell>
-                <Cell>
-                  تاریخ
-                  {data.action == "deposit"
-                    ? " خرید"
-                    : data.action == "withdraw"
-                    ? " واریز"
-                    : ""}
-                </Cell>
-                <Cell>
-                  ساعت
-                  {data.action == "deposit"
-                    ? " خرید"
-                    : data.action == "withdraw"
-                    ? " واریز"
-                    : ""}
-                </Cell>
-              </Div>
-              <Border></Border>
-              <Div>
-                <Cell>{data.id}</Cell>
-                <Cell>{data.date}</Cell>
-                <Cell>{data.time}</Cell>
-              </Div>
-              <Body className="green-box-shadow">
-                <DetailContainer>
-                  <Div>
-                    <Cell>عنوان پرداختی</Cell>
-                    <Cell>تعداد</Cell>
-                    <Cell>
-                      مبلغ
-                      {data.action == "deposit"
-                        ? " خرید"
-                        : data.action == "withdraw"
-                        ? " واریز"
-                        : ""}
-                      ی
-                    </Cell>
-                  </Div>
-                  <Border></Border>
-                  <Div>
-                    <Cell>{data.type}</Cell>
-                    <Cell>{data.amount}</Cell>
-                    <Cell>{data.time}</Cell>
-                  </Div>
-                </DetailContainer>
-              </Body>
-            </DetailContainer>
-          </Body>
-          <Div style={{ paddingLeft: "25px", marginTop: "10px" }}>
-            <span>متارنگ پاسخگوی شما همراهان </span>
-            <span>TR@rgb.irpsc.com</span>
-          </Div>
-          <Div style={{ justifyContent: "start", paddingLeft: "25px" }}>
-            <span>02833698111</span>
-          </Div>
-        </Container>
+        <Image src={factorImage} style={{ width: "99%" }} />
+        {renderPDFDetails()}
       </ContainerPdf>
     </>
   );
