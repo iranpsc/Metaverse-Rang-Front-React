@@ -20,6 +20,7 @@ const ContainerName = styled.div`
 const ImgMember = styled.img`
   width: 100%;
   border-radius: 100%;
+  height: 100%;
 `;
 
 export default function Member({ Top, Left, MemberImg, Name, HandleClick }) {

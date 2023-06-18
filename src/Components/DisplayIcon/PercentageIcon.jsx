@@ -6,6 +6,7 @@ import ToolTip from "../Tooltip";
 
 const ProfitIcon = styled.img`
   width: 56px;
+  cursor: pointer;
 `;
 
 const Container = styled.div``;
@@ -47,12 +48,21 @@ export default function PercentageIcon({onClick}) {
 
   useEffect(() => {
     setPercentage(getUser().hourly_profit_time_percentage);
-  }, [getUser]);
+  }, [getUser().hourly_profit_time_percentage]);
+
+  // Define updatePercentage function to be called on click
+  const updatePercentage = () => {
+    // Update the Percentage state to a new value here if needed
+    setPercentage(0);
+  };
 
   return (
     <ToolTip
       Chidren={
-        <Container onClick={onClick}>
+        <Container onClick={() => {
+          onClick();
+          updatePercentage();
+        }}>
           <ProfitIcon src={PercentageImage} />
 
           <PercentCoin>
