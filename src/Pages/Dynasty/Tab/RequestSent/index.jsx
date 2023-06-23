@@ -68,7 +68,6 @@ export default function RequestSent() {
     Request("dynasty/requests/sent").then((response) => {
       setSent(response.data.data);
     });
-
   }, []);
   const [show, setShowMessage] = useState(false);
   const [items, setItems] = useState({});
@@ -92,7 +91,7 @@ export default function RequestSent() {
               <th style={{ padding: "5px" }}>تاریخ وساعت ارسال</th>
               <th style={{ padding: "5px" }}>نسبت خانوادگی</th>
               <th style={{ padding: "5px" }}>وضعیت درخواست</th>
-              <th style={{ padding: "5px" }}>پاداش</th>
+
               <th style={{ padding: "5px" }}>مشاهده</th>
             </tr>
           </HeaderTable>
@@ -105,7 +104,7 @@ export default function RequestSent() {
                       fontWeight: "600",
                       color: "blue",
                       cursor: "pointer",
-                      fontFamily:'Segoe UI',
+                      fontFamily: "Segoe UI",
                     }}
                     onClick={() =>
                       window.open(
@@ -117,12 +116,11 @@ export default function RequestSent() {
                     {item?.to_user.code}
                   </p>
                 </td>
-                <td>{item?.Date ? item?.Date : "00:00:00 01/01/0101"}</td>
+                <td>
+                  {item.date} {item.time}
+                </td>
                 <td>{item?.relationship}</td>
                 <td>{status[item?.status]}</td>
-                <TdGift>
-               
-                </TdGift>
                 <td>
                   <GiftIcon
                     src={SeenICoin}

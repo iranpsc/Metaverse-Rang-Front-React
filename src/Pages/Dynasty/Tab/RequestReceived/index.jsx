@@ -83,7 +83,6 @@ export default function RequestReceived() {
         <th style={{padding: "5px"}}>تاریخ وساعت دریافت</th>
         <th style={{padding: "5px"}}>نسبت خانوادگی</th>
         <th style={{padding: "5px"}}>وضعیت درخواست</th>
-        <th style={{padding: "5px"}}>پاداش</th>
         <th style={{padding: "5px"}}>مشاهده</th>
       </tr>
     </HeaderTable>
@@ -96,12 +95,10 @@ export default function RequestReceived() {
               {item?.from_user?.code}
             </p>
           </td>
-          <td>{item.Date?item.Date:"00:00:00 01/01/0101"}</td>
+          <td>{item.date} {item.time}</td>
           <td>{item.relationship}</td>
           <td>{status[item.status]}</td>
-          <TdGift>
-        
-          </TdGift>
+
           <td>
             <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }}   onClick={() => ShowHandel(item)}/>
           </td>
