@@ -62,6 +62,7 @@ export default function SignupLottie() {
         width="808.768"
         height="411.59"
         viewBox="0 0 808.768 411.59"
+        style={{zIndex:1199}}
       >
         <defs>
           <linearGradient
