@@ -1,7 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import "./MapLayout.css";
 
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, Polygon, TileLayer } from "react-leaflet";
 import { ScenegraphLayer } from "@deck.gl/mesh-layers";
 import { LeafletLayer } from "deck.gl-leaflet";
 import { MapView } from "@deck.gl/core";
@@ -19,6 +19,8 @@ import LocationPin from "../../Assets/gif/location-pin.gif";
 
 import { createContext } from "react";
 import Routes from "./Routers";
+import useRequest from "../../Services/Hooks/useRequest";
+
 const IconFlyTo = styled.img`
   position: absolute;
   z-index: 500;
@@ -31,21 +33,30 @@ const IconFlyTo = styled.img`
     top: 50%;
   }
 `;
+
 export const MapContext = createContext();
-export const TransactionContext = createContext()
+export const TransactionContext = createContext();
 // This is a functional component named Map.
 const Map = () => {
   // A reference to the map container element.
+  const [flags, setFlags] = useState([]);
+  const [polygons, setPolygons] = useState([]);
   const mapRef = useRef();
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   // A custom hook to get user authentication details. setUserWithToken function is being destructured from useAuth.
   const { setUserWithToken } = useAuth();
 
   // useEffect hook to set the user with token when the component mounts. An empty dependency array is passed to avoid multiple calls.
+  const { Request } = useRequest();
   useEffect(() => {
     setUserWithToken();
+    // async function fetchMap() {
+    //   const response = await Request("maps");
+    //   setFlags(response.data.data);
+    // }
+    // fetchMap();
   }, []);
-
+  console.log(flags);
   // A LeafletLayer component that represents the deck.gl overlay for the map.
   const deckLayer = new LeafletLayer({
     views: [
@@ -70,56 +81,101 @@ const Map = () => {
     ],
   });
 
+  // const FitBounds = () => {
+  //   const map = useMap();
+
+  //   if (polygons.length > 0) {
+  //     const bounds = polygons.reduce((acc, polygon) => {
+  //       const polygonBounds = L.latLngBounds(polygon);
+  //       return acc.extend(polygonBounds);
+  //     }, L.latLngBounds(polygons[0]));
+
+  //     map.fitBounds(bounds);
+  //   }
+
+  //   return null;
+  // };
+
+  // const handleButtonClick = (id) => {
+  //   async function fetchBorderCoordinates() {
+  //     const response = await Request(`maps/${id}/border`);
+  //     setPolygons((prevPolygons) => [
+  //       ...prevPolygons,
+  //       response.data.data.border_coordinates,
+  //     ]);
+  //   }
+  //   fetchBorderCoordinates();
+  // };
+  // console.log(polygons[0]);
   // Return a MapContainer component that renders the leaflet map.
+
   return (
-  <TransactionContext.Provider value={{selectedTransaction ,setSelectedTransaction }}>
+    <TransactionContext.Provider
+      value={{ selectedTransaction, setSelectedTransaction }}
+    >
       <MapContext.Provider value={mapRef}>
-      <MapContainer
-        center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
-        zoom={15} // The initial zoom level of the map.
-        style={{ width: "100%", height: "100vh" }}
-        ref={mapRef} // A reference to the map container element.
-        layers={deckLayer} // The deck.gl overlay layer to be added on top of the map.
-      >
-        <TileLayer
-          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" // The source of the tile images for the map.
-          options={{
-            attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          }}
-        />
-        {/* A MapPolygons component */}
-        <MapPolygons />
-        {/* A Main component */}
-        <Main />
-        {/* A ContextMenu component */}
-        <ContextMenu />
-        {/* An AdviserIcon component */}
-        <AdviserIcon />
-        {/* A ToolTip component that renders an icon which, when clicked, adjusts the map's position and displays a tooltip. */}
-        <ToolTip
-          Chidren={
-            <IconFlyTo
-              src={flyToGif}
-              onClick={() =>
-                flyToPosition({
-                  latitude: 26.264711,
-                  longitude: 55.305572,
-                  icon: LocationPin,
-                  mapRe: mapRef,
-                  zoom: 17,
-                })
-              }
-            />
-          }
-          TitleToltip={"تنب بزرگ"}
-          ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
-          classNamePosstion={"tw-flyto"}
-        />
-      </MapContainer>
+        <MapContainer
+          center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
+          zoom={15} // The initial zoom level of the map.
+          style={{ width: "100%", height: "100vh" }}
+          ref={mapRef} // A reference to the map container element.
+          layers={deckLayer} // The deck.gl overlay layer to be added on top of the map.
+        >
+          {/* {flags.map((flag) => {
+            return (
+              <button
+                onClick={() => handleButtonClick(flag.id)}
+                style={{ position: "absolute", zIndex: "1000" }}
+              >
+                {flag.name}
+              </button>
+            );
+          })} */}
+          <TileLayer
+            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" // The source of the tile images for the map.
+          />
+          {/* A MapPolygons component */}
+          <MapPolygons />
+          {/* A Main component */}
+          <Main />
+          {/* A ContextMenu component */}
+          <ContextMenu />
+          {/* An AdviserIcon component */}
+          <AdviserIcon />
+          {/* A ToolTip component that renders an icon which, when clicked, adjusts the map's position and displays a tooltip. */}
+          <ToolTip
+            Chidren={
+              <IconFlyTo
+                src={flyToGif}
+                onClick={() =>
+                  flyToPosition({
+                    latitude: 26.264711,
+                    longitude: 55.305572,
+                    icon: LocationPin,
+                    mapRe: mapRef,
+                    zoom: 17,
+                  })
+                }
+              />
+            }
+            TitleToltip={"تنب بزرگ"}
+            ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
+            classNamePosstion={"tw-flyto"}
+          />
+          {/* {polygons.length > 0 &&
+            polygons.map((polygon, index) => {
+              return (
+                <Polygon
+                  key={index}
+                  positions={[36.38219957015392, 50.91184057565782]}
+                  fillColor="red"
+                />
+              );
+            })} */}
+        </MapContainer>
         <Routes />
-    </MapContext.Provider>
-  </TransactionContext.Provider>
+      </MapContext.Provider>
+    </TransactionContext.Provider>
   );
 };
 

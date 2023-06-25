@@ -26,6 +26,7 @@ import Player from "../../Pages/Player";
 import Dynasty from "../../Pages/Dynasty";
 import HourMeterProfit from "../../Pages/HourMeterProfit/Index";
 import TransactionPayments from "../../Pages/Payments/Verification/transactionPayments";
+import VerificationEmail from "../../Pages/VerificationEmail";
 
 export default function Routers() {
   return (
@@ -63,6 +64,14 @@ export default function Routers() {
           element={
             <PublicRoute>
               <ForgetPassword />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="email"
+          element={
+            <PublicRoute>
+             <VerificationEmail/>
             </PublicRoute>
           }
         />
@@ -156,7 +165,7 @@ export default function Routers() {
             </PrivateRoute>
           }
         />
-           <Route
+        <Route
           path="transaction"
           element={
             <PrivateRoute>
