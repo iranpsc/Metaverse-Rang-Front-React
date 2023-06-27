@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import useRequest from "../../Services/Hooks/useRequest";
 
 const MapFlag = () => {
+  const map = useMap(); 
   const [flags, setFlags] = useState([]);
   const [polygons, setPolygons] = useState([]);
 
@@ -18,28 +19,48 @@ const MapFlag = () => {
 
   const handleButtonClick = async (id) => {
     const response = await Request(`maps/${id}/border`);
-    setPolygons((prevPolygons) => [
-      ...prevPolygons,
-      JSON.parse(response.data.data.border_coordinates),
-    ]);
+    const parsedCoordinates = JSON.parse(response.data.data.border_coordinates);
+
+    // Check if the polygon with the given ID already exists
+    const existingPolygon = polygons.find(polygon => polygon.id === id);
+
+    if (existingPolygon) {
+      // Remove the existing polygon
+      setPolygons(prevPolygons => prevPolygons.filter(polygon => polygon.id !== id));
+    } else {
+      // Add a new polygon
+      const newPolygon = {
+        id: id,
+        coordinates: parsedCoordinates,
+      };
+      setPolygons(prevPolygons => [...prevPolygons, newPolygon]);
+    }
   };
 
   const FitBounds = () => {
-    const map = useMap();
-    if (polygons.length > 0) {
-      const bounds = polygons.reduce((acc, polygon) => {
-        const polygonBounds = L.latLngBounds(polygon);
-        return acc.extend(polygonBounds);
-      }, L.latLngBounds(polygons[0]));
+    useEffect(() => {
+      if (polygons.length > 0 && polygons.length <= 2) {
+        const bounds = polygons.reduce((acc, polygon) => {
+          const polygonBounds = L.latLngBounds(polygon.coordinates);
+          return acc.extend(polygonBounds);
+        }, L.latLngBounds(polygons[0].coordinates));
+        map.fitBounds(bounds);
+      }
+    }, [map, polygons]);
 
-      map.fitBounds(bounds);
-    }
+    return null;
   };
 
   const mappedPolygons = useMemo(
     () =>
       polygons.map((polygon, index) => {
-        return <Polygon key={index} positions={polygon} fillColor="red" />;
+        return (
+          <Polygon
+            key={index}
+            positions={polygon.coordinates}
+            fillColor={polygon.color}
+          />
+        );
       }),
     [polygons]
   );
@@ -51,7 +72,7 @@ const MapFlag = () => {
           <button
             key={flag.id}
             onClick={() => handleButtonClick(flag.id)}
-            style={{zIndex:1200,position:"absolute"}}
+            style={{ zIndex: 1200, position: "absolute" }}
           >
             {flag.name}
           </button>
@@ -59,12 +80,12 @@ const MapFlag = () => {
       </>
     );
   };
-console.log(1)
+
   return (
     <>
       {mappedPolygons}
       <FlagButtons />
-      {FitBounds()} {/* Call the function here instead of returning it */}
+      {FitBounds()} 
     </>
   );
 };
