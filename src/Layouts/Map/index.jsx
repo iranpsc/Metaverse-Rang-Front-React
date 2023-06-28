@@ -1,27 +1,27 @@
 import "leaflet/dist/leaflet.css";
 import "./MapLayout.css";
-
 import { MapContainer, Polygon, TileLayer, useMap } from "react-leaflet";
 import { ScenegraphLayer } from "@deck.gl/mesh-layers";
 import { LeafletLayer } from "deck.gl-leaflet";
 import { MapView } from "@deck.gl/core";
+import { useEffect, useMemo, useRef, useState } from "react";
+import styled from "styled-components";
+import { createContext } from "react";
+
 import MapPolygons from "./MapPolygons";
 import Main from "../Main";
 import useAuth from "../../Services/Hooks/useAuth";
-import { useEffect, useMemo, useRef, useState } from "react";
-import styled from "styled-components";
+import MapFlag from "./MapFlag";
+import AdviserIcon from "./Adviser";
+import flyToPosition from "./FlyToGift";
 import flyToGif from "../../Assets/gif/Flyto.gif";
 import ContextMenu from "./ContextMenu/ContextMenu";
-import AdviserIcon from "./Adviser";
 import ToolTip from "../../Components/Tooltip";
-import flyToPosition from "./FlyToGift";
-import LocationPin from "../../Assets/gif/location-pin.gif";
-
-import { createContext } from "react";
 import Routes from "./Routers";
 import useRequest from "../../Services/Hooks/useRequest";
-import MapFlag from "./MapFlag";
 
+import LocationPin from "../../Assets/gif/location-pin.gif";
+import BtnFlagMap from "./BtnFlagMap";
 const IconFlyTo = styled.img`
   position: absolute;
   z-index: 500;
@@ -44,11 +44,17 @@ const Map = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   // A custom hook to get user authentication details. setUserWithToken function is being destructured from useAuth.
   const { setUserWithToken } = useAuth();
-
+  const [flags, setFlags] = useState([]);
+  const [polygons, setPolygons] = useState([]);
   // useEffect hook to set the user with token when the component mounts. An empty dependency array is passed to avoid multiple calls.
   const { Request } = useRequest();
   useEffect(() => {
     setUserWithToken();
+    async function fetchMap() {
+      const response = await Request("maps");
+      setFlags(response.data.data);
+    }
+    fetchMap();
   }, []);
   // A LeafletLayer component that represents the deck.gl overlay for the map.
   const deckLayer = new LeafletLayer({
@@ -74,6 +80,24 @@ const Map = () => {
     ],
   });
 
+  const handleButtonClick = async (id) => {
+    const response = await Request(`maps/${id}/border`);
+    const parsedCoordinates = JSON.parse(response.data.data.border_coordinates);
+
+    const existingPolygon = polygons.find((polygon) => polygon.id === id);
+
+    if (existingPolygon) {
+      setPolygons((prevPolygons) =>
+        prevPolygons.filter((polygon) => polygon.id !== id)
+      );
+    } else {
+      const newPolygon = {
+        id: id,
+        coordinates: parsedCoordinates,
+      };
+      setPolygons((prevPolygons) => [...prevPolygons, newPolygon]);
+    }
+  };
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
@@ -117,8 +141,9 @@ const Map = () => {
             ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
             classNamePosstion={"tw-flyto"}
           />
-  <MapFlag/>
+          <MapFlag polygons={polygons} />
         </MapContainer>
+        <BtnFlagMap flags={flags} handleButtonClick={handleButtonClick} />
         <Routes />
       </MapContext.Provider>
     </TransactionContext.Provider>
