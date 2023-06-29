@@ -141,7 +141,7 @@ const Map = () => {
             ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
             classNamePosstion={"tw-flyto"}
           />
-          <MapFlag polygons={polygons} />
+          <MapFlag polygons={polygons} flags={flags} />
         </MapContainer>
         <BtnFlagMap flags={flags} handleButtonClick={handleButtonClick} />
         <Routes />

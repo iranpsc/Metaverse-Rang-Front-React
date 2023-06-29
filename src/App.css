@@ -85,6 +85,13 @@
     url("./Assets/fonts/woff/iranyekanwebextrablackfanum.woff") format("woff"),
     url("./Assets/fonts/ttf/iranyekanwebextrablackfanum.ttf") format("truetype");
 }
+@font-face {
+  font-family: brunoace;
+  font-style: normal;
+  font-weight:normal;
+  src:
+    url("./Assets/fonts/ttf/BrunoAceSC-Regular.ttf") format("truetype");
+}
 
 :root {
   --bs-blue: #0d6efd;
