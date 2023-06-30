@@ -23,6 +23,7 @@ const Btn = styled.div`
   height: 35px;
   align-items: center;
   justify-content: space-between;
+  background: linear-gradient(to right, white, gray);
   &:hover {
     border: blue 2px solid;
   }
@@ -42,21 +43,49 @@ const Icon = styled.img`
 
 const BtnFlagMap = ({ flags, handleButtonClick }) => {
   const [activeMapIds, setActiveMapIds] = useState([]);
+  const [activeButtonId, setActiveButtonId] = useState(null);
+  const [isFilterActive, setIsFilterActive] = useState(false);
+  const [activeButtonCount, setActiveButtonCount] = useState(0);
+
+  const resetButtonState = () => {
+    setActiveMapIds([]);
+    setActiveButtonId(null);
+    setActiveButtonCount(0);
+  };
 
   const handleClick = (flagId) => {
+    if (activeButtonCount >= 2) {
+      if (activeMapIds.includes(flagId)) {
+        const updatedActiveMapIds = activeMapIds.filter((id) => id !== flagId);
+        setActiveMapIds(updatedActiveMapIds);
+        setActiveButtonCount(activeButtonCount - 1);
+        setActiveButtonId(null);
+        handleButtonClick(null);
+        setIsFilterActive(false);
+      }
+    }
+
+    if (flagId === activeButtonId) {
+      resetButtonState();
+      handleButtonClick(null);
+      setIsFilterActive(false);
+    }
+
     const index = activeMapIds.indexOf(flagId);
     let updatedActiveMapIds;
 
     if (index !== -1) {
-      // Flag already active, deactivate it
       updatedActiveMapIds = activeMapIds.filter((id) => id !== flagId);
+      setActiveButtonCount(activeButtonCount - 1);
     } else {
-      // Flag not active, activate it
       updatedActiveMapIds = [...activeMapIds, flagId];
+      setActiveButtonCount(activeButtonCount + 1);
     }
 
     setActiveMapIds(updatedActiveMapIds);
+    setActiveButtonId(flagId);
     handleButtonClick(flagId);
+    setIsFilterActive(true);
   };
 
   return (

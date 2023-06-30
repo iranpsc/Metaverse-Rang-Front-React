@@ -53,19 +53,9 @@ const Div4 = styled.div`
 
 const MapFlag = ({ polygons, flags }) => {
   const map = useMap();
-  const [zoom, setZoom] = useState(0);
+  const [zoomLevel, setZoomLevel] = useState(map.getZoom());
 
-  useEffect(() => {
-    const handleZoomChange = () => {
-      setZoom(map.getZoom());
-    };
-
-    map.on("zoomend", handleZoomChange);
-
-    return () => {
-      map.off("zoomend", handleZoomChange);
-    };
-  }, [map]);
+ 
 
   const FitBounds = () => {
     useEffect(() => {
@@ -83,30 +73,30 @@ const MapFlag = ({ polygons, flags }) => {
 
   const mappedFlags = useMemo(
     () =>
-      flags.map((flag, index) => {
-        const icon = L.divIcon({
-          className: "custom-marker",
-          html: renderToString(
-            <FlagIcon>
-              <Div2 color={flag.color} />
-              <Div3 color={flag.color}> {flag.name}</Div3>
-              <Div4 color={flag.color} />
-            </FlagIcon>
-          ),
-          iconSize: [40, 80],
-          iconAnchor: [20, 100],
-        });
-        return (
-          <Marker
-            key={index}
-            position={JSON.parse(flag.central_point_coordinates)}
-            icon={icon}
-          >
-            {flag.name}
-          </Marker>
-        );
-      }),
-    [flags]
+      zoomLevel < 17
+        ? flags.map((flag, index) => {
+            const icon = L.divIcon({
+              className: "custom-marker",
+              html: renderToString(
+                <FlagIcon>
+                  <Div2 color={flag.color} />
+                  <Div3 color={flag.color}> {flag.name}</Div3>
+                  <Div4 color={flag.color} />
+                </FlagIcon>
+              ),
+              iconSize: [40, 80],
+              iconAnchor: [25, 90],
+            });
+            return (
+              <Marker
+                key={index}
+                position={JSON.parse(flag.central_point_coordinates)}
+                icon={icon}
+              ></Marker>
+            );
+          })
+        : [],
+    [flags, zoomLevel]
   );
 
   const mappedPolygons = useMemo(
@@ -120,11 +110,15 @@ const MapFlag = ({ polygons, flags }) => {
       )),
     [polygons]
   );
-
+ useEffect(() => {
+    map.on("zoomend", () => {
+      setZoomLevel(map.getZoom());
+    });
+  }, [map]);
   return (
     <>
       {mappedPolygons}
-      {zoom <=16 && mappedFlags}
+      {mappedFlags}
       {polygons.length > 0 && polygons.length <= 2 && <FitBounds />}
     </>
   );
