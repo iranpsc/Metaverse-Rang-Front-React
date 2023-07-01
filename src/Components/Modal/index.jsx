@@ -7,7 +7,7 @@ import Amozesh from "../ModalAmozash";
 import ImageHelp from "../../Assets/images/help.png";
 import ImageExit from "../../Assets/images/exit.png";
 import ImageReport from "../../Assets/images/report.png";
-import {  useState } from "react";
+import { useState } from "react";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
 
 /*
@@ -24,7 +24,7 @@ function Modal({
   const [showModal, setShowModal] = useState(false);
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
   const adviserData = useAdviserData(newStr, Location?.state?.locationPage);
-  
+
   return (
     <section className="modal">
       <div className={`modal-section modal-border ${type}`}>
@@ -68,7 +68,19 @@ function Modal({
           />
         </div>
         <div className="modal-body ">
-          {children} {showModal && <Amozesh creator={adviserData?.creator_code} title={adviserData?.title} video={adviserData?.video} description={adviserData?.description} setShowModal={setShowModal} dislikes={adviserData?.dislikes} likes={adviserData?.likes} views={adviserData?.views}/> }
+          {children}
+          {showModal && (
+            <Amozesh
+              creator={adviserData?.creator_code}
+              title={adviserData?.title}
+              video={adviserData?.video}
+              description={adviserData?.description}
+              setShowModal={setShowModal}
+              dislikes={adviserData?.dislikes}
+              likes={adviserData?.likes}
+              views={adviserData?.views}
+            />
+          )}
         </div>
       </div>
     </section>
