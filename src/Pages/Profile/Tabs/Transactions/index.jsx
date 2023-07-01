@@ -74,7 +74,6 @@ const Transactions = () => {
   }
 
   function handleRowClick(transaction) {
-    console.log(transaction)
     setSelectedTransaction(transaction); // update selected transaction in context
     navigate("/metaverse/transaction");
   }
