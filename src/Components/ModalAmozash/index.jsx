@@ -1,6 +1,6 @@
 import "./index.css";
 import Draggable from "react-draggable";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Exit from "../../Assets/images/exit.png";
 import Minimize from "../../Assets/images/minimize.png";
 import Back from "../../Assets/images/back-arow.png";
@@ -8,6 +8,8 @@ import Eye from "../../Assets/images/Eye.png";
 import Dislike from "../../Assets/images/dislike.png";
 import Like from "../../Assets/images/like.png";
 import Teacher from "../../Assets/images/teacher.png";
+import useRequest from "../../Services/Hooks/useRequest";
+import { ToastError } from "../../Services/Utility";
 export default function Amozesh({
   title,
   description,
@@ -17,12 +19,45 @@ export default function Amozesh({
   dislikes,
   views,
   likes,
+  id,
 }) {
   const videoRef = useRef();
+  const { Request, HTTP_METHOD } = useRequest();
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
+  const [likeCount, setLikeCount] = useState(likes);
+  const [dislikeCount, setDislikeCount] = useState(dislikes);
+
+  const handleLike = async () => {
+    if (!isLiked) {
+      try {
+        await Request(`tutorials/like/${id}`, HTTP_METHOD.POST);
+        setLikeCount(likeCount + 1);
+        setIsLiked(true);
+        setIsDisliked(false);
+      } catch (error) {
+        ToastError("خطا در ارسال درخواست به سرور برای لایک:");
+      }
+    }
+  };
+
+  const handleDislike = async () => {
+    if (!isDisliked) {
+      try {
+        await Request(`tutorials/dislike/${id}`, HTTP_METHOD.POST);
+        setDislikeCount(dislikeCount + 1);
+        setIsLiked(false);
+        setIsDisliked(true);
+      } catch (error) {
+        ToastError("خطا در ارسال درخواست به سرور برای دیسلایک:");
+      }
+    }
+  };
 
   useEffect(() => {
     videoRef.current?.load();
   }, [video]);
+
   return (
     <Draggable>
       <div className="tw-modal-container" dir="rtl">
@@ -74,18 +109,28 @@ export default function Amozesh({
               </div>
               <div className="position-icons">
                 <div>
-                  <span className="span-number-icons">{dislikes}</span>
+                  <span className="span-number-icons">{dislikeCount}</span>
                 </div>
                 <div className="width-icons">
-                  <img src={Dislike} className="tw-w-100" alt="" />
+                  <img
+                    src={Dislike}
+                    className="tw-w-100"
+                    alt=""
+                    onClick={handleDislike}
+                  />
                 </div>
               </div>
               <div className="position-icons">
                 <div>
-                  <span className="span-number-icons">{likes}</span>
+                  <span className="span-number-icons">{likeCount}</span>
                 </div>
                 <div className="width-icons">
-                  <img src={Like} className="tw-w-100" alt="" />
+                  <img
+                    src={Like}
+                    className="tw-w-100"
+                    alt=""
+                    onClick={handleLike}
+                  />
                 </div>
               </div>
               <div className="position-icons-2">

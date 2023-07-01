@@ -79,6 +79,7 @@ function Modal({
               dislikes={adviserData?.dislikes}
               likes={adviserData?.likes}
               views={adviserData?.views}
+              id={adviserData?.id}
             />
           )}
         </div>

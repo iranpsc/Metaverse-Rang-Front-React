@@ -4,14 +4,14 @@ import FilterIcon from "../../../Assets/images/filter.png";
 import MapIcon from "../../../Assets/images/maps.png";
 
 const ContainerBtn = styled.div`
-  width: 10%;
+  width:12%;
   height: 130px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
   position: absolute;
-  top: 13%;
+  top:17%;
   overflow-y: auto;
   z-index: 999;
 `;
