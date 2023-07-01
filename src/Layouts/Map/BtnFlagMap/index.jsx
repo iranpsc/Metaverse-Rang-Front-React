@@ -4,19 +4,27 @@ import FilterIcon from "../../../Assets/images/filter.png";
 import MapIcon from "../../../Assets/images/maps.png";
 
 const ContainerBtn = styled.div`
-  width:14%;
-  height: 130px;
+  width: 15%;
+  height: 138px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
   position: absolute;
-  top: 17%;
+  top: 2%;
   overflow-y: auto;
   z-index: 999;
+  left: 5%;
   @media (min-width: 1536px) {
+    width: 14%;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    left: 0;
     top: 17%;
-    width: 12%;
+    z-index: 999;
   }
 `;
 
