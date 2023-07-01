@@ -78,7 +78,7 @@
     width: 92.5%;
     flex-direction: column;
     row-gap: 1.25rem;
-    overflow-y: auto;
+
     border-radius: 1.5rem;
     border-width: 2px;
     padding: 1.25rem;
@@ -165,7 +165,6 @@
    position: absolute;
     width: 365px;
     max-height: 95vh;
-    overflow-y: auto;
     border-top-left-radius: 0.375rem;
     border-top-right-radius: 0.375rem;
     --tw-bg-opacity: 1;
@@ -270,6 +269,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    overflow-y: auto;
+    flex-direction: column;
+    height: 26vh;
   }
   
   .p-bold {

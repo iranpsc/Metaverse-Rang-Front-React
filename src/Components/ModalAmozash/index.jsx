@@ -1,6 +1,6 @@
 import "./index.css";
 import Draggable from "react-draggable";
-import React , { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Exit from "../../Assets/images/exit.png";
 import Minimize from "../../Assets/images/minimize.png";
 import Back from "../../Assets/images/back-arow.png";
@@ -8,20 +8,33 @@ import Eye from "../../Assets/images/Eye.png";
 import Dislike from "../../Assets/images/dislike.png";
 import Like from "../../Assets/images/like.png";
 import Teacher from "../../Assets/images/teacher.png";
-export default function Amozesh({ title, description, creator, video,setShowModal,dislikes,views,likes }) {
-
+export default function Amozesh({
+  title,
+  description,
+  creator,
+  video,
+  setShowModal,
+  dislikes,
+  views,
+  likes,
+}) {
   const videoRef = useRef();
 
-  useEffect(() => {    
+  useEffect(() => {
     videoRef.current?.load();
   }, [video]);
   return (
-    <Draggable >
+    <Draggable>
       <div className="tw-modal-container" dir="rtl">
         <div className="tw-header">
           <div className="header-top">
             <div className="tw-header-icon">
-              <img src={Exit} alt="" className="tw-drop-shaow tw-w-100 cursor-pointer"  onClick={() => setShowModal(false)} />
+              <img
+                src={Exit}
+                alt=""
+                className="tw-drop-shaow tw-w-100 cursor-pointer"
+                onClick={() => setShowModal(false)}
+              />
             </div>
             <div className="tw-header-icon">
               <img src={Minimize} alt="" className="tw-drop-shaow tw-w-100" />
@@ -38,24 +51,16 @@ export default function Amozesh({ title, description, creator, video,setShowModa
         <div className="container-main">
           <div className="container-video-div">
             <video width="100%" height="50%" controls ref={videoRef}>
-              <source
-                src={video}
-                type="video/mp4"
-              />
+              <source src={video} type="video/mp4" />
             </video>
           </div>
           <div className="container-inside-main">
             <div className="container-div-p">
-              <p className="p-bold">
-                {title}
-              </p>
-            </div>
-            <div className="container-div-p">
-              <div>
-                <p className="para-class" dangerouslySetInnerHTML={{ __html: description }}>
-           
-                </p>
-              </div>
+              <p className="p-bold">{title}</p>
+              <p
+                className="para-class"
+                dangerouslySetInnerHTML={{ __html: description }}
+              ></p>
             </div>
 
             <div className="container-icons">

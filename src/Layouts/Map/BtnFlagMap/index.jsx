@@ -13,7 +13,7 @@ const ContainerBtn = styled.div`
   position: absolute;
   top: 13%;
   overflow-y: auto;
-  z-index: 1200;
+  z-index: 999;
 `;
 
 const Btn = styled.div`
