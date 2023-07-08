@@ -13,7 +13,7 @@ const Container = styled.div`
 const Counter = styled.span`
   position: absolute;
   background-color: red;
-  width: 20px;
+  width: max-content;
   height: 20px;
   text-align: center;
   border-radius: 100%;
