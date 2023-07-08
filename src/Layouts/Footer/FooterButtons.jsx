@@ -22,6 +22,7 @@ const Counter = styled.span`
   font-size: 14px;
   top: -4px;
   color: white;
+  min-width: 20px;
 `;
 
 export default function FooterButtons() {
