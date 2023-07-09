@@ -150,7 +150,7 @@ const UserContainer = ({ user }) => {
         </SpanDetails>
         <SpanDetails>
           <span> - </span>
-          <span>:</span> <span>شناسه شهروند </span>
+          <span>:</span> <span>اتحاد</span>
         </SpanDetails>
       </DetailsContainer>
     </UserItem>
