@@ -61,12 +61,11 @@ const SpanDetails = styled.div`
   justify-content: end;
   gap: 5px;
 
-  >:last-child {
-   width: 105px;
-   text-align: end;
+  > :last-child {
+    width: 105px;
+    text-align: end;
   }
 `;
-
 
 //Function to render the user item
 const UserContainer = ({ user }) => {
@@ -107,7 +106,8 @@ const UserContainer = ({ user }) => {
         ) : (
           <Icons src={FollowIcon} onClick={() => onFollowHandler(user?.id)} />
         )}
-        <Icons src={ChatIcon} />
+        <Icons src={ChatIcon} style={{ filter: "grayscale(1)" }} />
+
         <Icons
           src={MessageIcon}
           onClick={() =>
@@ -139,7 +139,7 @@ const UserContainer = ({ user }) => {
           <span> شناسه شهروند</span>
         </SpanDetails>
         <SpanDetails>
-          <span>{user.name}</span> <span>:</span> <span >نام شهروند </span>
+          <span>{user.name}</span> <span>:</span> <span>نام شهروند </span>
         </SpanDetails>
         <SpanDetails>
           <span>{user.level}</span> <span> : </span> <span>سطح</span>
