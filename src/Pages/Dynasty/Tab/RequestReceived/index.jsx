@@ -11,10 +11,10 @@ import useRequest from "../../../../Services/Hooks/useRequest";
 import { useEffect, useState } from "react";
 
 const status = {
-  '-1': 'رد شده',
-  '1': 'تایید شده',
-  '0': 'تایید نشده'
-}
+  "-1": "رد شده",
+  1: "تایید شده",
+  0: "تایید نشده",
+};
 
 const Table = styled.table`
   width: 100%;
@@ -58,11 +58,11 @@ export default function RequestReceived() {
   const [recived, setRecived] = useState([]);
 
   useEffect(() => {
-    Request('dynasty/requests/recieved').then(response => {
+    Request("dynasty/requests/recieved").then((response) => {
       setRecived(response.data.data);
-    })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [show, setShowMessage] = useState(false);
   const [items, setItems] = useState({});
   const ShowHandel = (item) => {
@@ -74,39 +74,59 @@ export default function RequestReceived() {
     setItems(null);
   };
   return (
-  <>{  show ? (
-    <Message items={items} handleBack={handleBack} />
-  ):(  <Table>
-    <HeaderTable>
-      <tr>
-        <th style={{padding: "5px"}}>دریافت از</th>
-        <th style={{padding: "5px"}}>تاریخ وساعت دریافت</th>
-        <th style={{padding: "5px"}}>نسبت خانوادگی</th>
-        <th style={{padding: "5px"}}>وضعیت درخواست</th>
-        <th style={{padding: "5px"}}>مشاهده</th>
-      </tr>
-    </HeaderTable>
-    <TableBody>
-    {
-      recived?.map(item => (
-        <Tr>
-          <td>
-            <p style={{fontWeight:"600",color:"blue",cursor:"pointer"}} onClick={() => window.open(`https://rgb.irpsc.com/citizen/${item?.from_user?.code}`,'_blank')}>
-              {item?.from_user?.code}
-            </p>
-          </td>
-          <td>{item.date} {item.time}</td>
-          <td>{item.relationship}</td>
-          <td>{status[item.status]}</td>
+    <>
+      {show ? (
+        <Message items={items} handleBack={handleBack} />
+      ) : (
+        <Table>
+          <HeaderTable>
+            <tr>
+              <th style={{ padding: "5px" }}>دریافت از</th>
+              <th style={{ padding: "5px" }}>تاریخ وساعت دریافت</th>
+              <th style={{ padding: "5px" }}>نسبت خانوادگی</th>
+              <th style={{ padding: "5px" }}>وضعیت درخواست</th>
+              <th style={{ padding: "5px" }}>مشاهده</th>
+            </tr>
+          </HeaderTable>
+          <TableBody>
+            {recived?.map((item) => (
+              <Tr>
+                <td>
+                  <p
+                    style={{
+                      fontWeight: "600",
+                      color: "blue",
+                      cursor: "pointer",
+                      fontFamily: "Segoe UI",
+                    }}
+                    onClick={() =>
+                      window.open(
+                        `https://rgb.irpsc.com/citizen/${item?.from_user?.code}`,
+                        "_blank"
+                      )
+                    }
+                  >
+                    {item?.from_user?.code}
+                  </p>
+                </td>
+                <td>
+                  {item.date} {item.time}
+                </td>
+                <td>{item.relationship}</td>
+                <td>{status[item.status]}</td>
 
-          <td>
-            <GiftIcon src={SeenICoin} style={{ cursor: "pointer" }}   onClick={() => ShowHandel(item)}/>
-          </td>
-        </Tr>
-        ))
-      }
-    </TableBody>
-  </Table>)}</>
-  
+                <td>
+                  <GiftIcon
+                    src={SeenICoin}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => ShowHandel(item)}
+                  />
+                </td>
+              </Tr>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </>
   );
 }
