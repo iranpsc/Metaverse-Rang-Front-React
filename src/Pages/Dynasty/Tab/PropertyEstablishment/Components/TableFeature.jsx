@@ -59,7 +59,7 @@ const Tr = styled.tr`
   height: 100px !important;
   padding: 5px;
   display: block;
-  & td{
+  & td {
     width: 40.5%;
   }
 `;
@@ -69,30 +69,34 @@ export default function TableFeature({ dynasty, setDynasty }) {
   const Navigate = useNavigate();
 
   const updateDynasty = (id) => {
-    Request(`dynasty/${dynasty.id}/update/${id}`, HTTP_METHOD.POST).then(response => {
-      setDynasty({...response.data.data});
-      ToastSuccess('VOD جدید با موفقیت بروز گردید.');
-    }).catch(error => {
-      if (error.response.status === 410) {
-        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
-        return Navigate("/metaverse/confirmation");
-      }
-      ToastError(error.response.data.message);
-    })
-  }
+    Request(`dynasty/${dynasty.id}/update/${id}`, HTTP_METHOD.POST)
+      .then((response) => {
+        setDynasty({ ...response.data.data });
+        ToastSuccess("VOD جدید با موفقیت بروز گردید.");
+      })
+      .catch((error) => {
+        if (error.response.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          return Navigate("/metaverse/confirmation");
+        }
+        ToastError(error.response.data.message);
+      });
+  };
 
   const selectDynasty = (id) => {
-    Request(`dynasty/create/${id}`, HTTP_METHOD.POST).then(response => {
-      setDynasty({...response.data.data});
-      ToastSuccess('سلسله با موفقیت تاسیس شد.');
-    }).catch(error => {
-      if (error.response.status === 410) {
-        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
-        return Navigate("/metaverse/confirmation");
-      }
-      ToastError(error.response.data.message);
-    })
-  }
+    Request(`dynasty/create/${id}`, HTTP_METHOD.POST)
+      .then((response) => {
+        setDynasty({ ...response.data.data });
+        ToastSuccess("سلسله با موفقیت تاسیس شد.");
+      })
+      .catch((error) => {
+        if (error.response.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          return Navigate("/metaverse/confirmation");
+        }
+        ToastError(error.response.data.message);
+      });
+  };
 
   return (
     <Container>
@@ -100,34 +104,39 @@ export default function TableFeature({ dynasty, setDynasty }) {
         <TableHead>
           <td>شناسه VOD</td>
           <td>متراژ</td>
-          <td>انتقال</td>
+          <td>تاسیس</td>
         </TableHead>
-        {dynasty?.["user-has-dynasty"] ? 
+        {dynasty?.["user-has-dynasty"] ? (
           <TableBody>
-            {Object.keys(dynasty?.features).map(key => (
+            {Object.keys(dynasty?.features).map((key) => (
               <Tr>
                 <td>{dynasty?.features[key].properties_id}</td>
                 <td>{dynasty?.features[key].stability}</td>
                 <td>
-                  <IconFeature src={HomeChange} onClick={() => updateDynasty(dynasty?.features[key].id)}/>
+                  <IconFeature
+                    src={HomeChange}
+                    onClick={() => updateDynasty(dynasty?.features[key].id)}
+                  />
                 </td>
               </Tr>
             ))}
           </TableBody>
-          :
+        ) : (
           <TableBody>
-            {dynasty?.features?.map(feature => (
+            {dynasty?.features?.map((feature) => (
               <Tr>
                 <td>{feature?.properties_id}</td>
                 <td>{feature?.stability}</td>
                 <td>
-                  <IconFeature src={HomeSelect} onClick={() => selectDynasty(feature.id)}/>
+                  <IconFeature
+                    src={HomeSelect}
+                    onClick={() => selectDynasty(feature.id)}
+                  />
                 </td>
               </Tr>
             ))}
           </TableBody>
-        }
-
+        )}
       </Table>
     </Container>
   );

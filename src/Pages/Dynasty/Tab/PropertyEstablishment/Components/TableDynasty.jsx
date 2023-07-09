@@ -38,19 +38,19 @@ const Body = styled.div`
   justify-content: space-around;
   gap: 5px;
   flex-direction: column;
-  padding: 5px 0; 
+  padding: 5px 0;
 `;
 const Text = styled.p`
   font-size: 16px;
   color: #707070;
 `;
-const DetaileContainer = styled.div`
+const DetailedContainer = styled.div`
   width: 100%;
   height: 20%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding:10px;
+  padding: 10px;
 `;
 const Icon = styled.img`
   width: 40px;
@@ -66,45 +66,54 @@ export default function TableDynasty({ dynasty }) {
     <Container>
       <Table>
         <Header>
-          <Text style={{ color: "#fd7e14", fontWeight: 700 }}>{dynasty?.["dynasty-feature"]?.properties_id}</Text>
+          <Text style={{ color: "#fd7e14", fontWeight: 700 }}>
+            {dynasty?.["dynasty-feature"]?.properties_id}
+          </Text>
           <Text style={{ fontWeight: 700 }}>ملک سلسله</Text>
         </Header>
         <Body>
-          <DetaileContainer>
+          <DetailedContainer>
             <Text>{dynasty?.["dynasty-feature"]?.area}</Text>
             <Title>
               <Text>متراژ</Text>
               <Icon src={Plan} />
             </Title>
-          </DetaileContainer>
-          <DetaileContainer>
+          </DetailedContainer>
+          <DetailedContainer>
             <Text>{dynasty?.["dynasty-feature"]?.density}</Text>
             <Title>
               <Text>تراکم</Text>
               <Icon src={Building} />
             </Title>
-          </DetaileContainer>
-          <DetaileContainer>
+          </DetailedContainer>
+          <DetailedContainer>
             <Text>1%</Text>
             <Title>
               <Text>افزایش سود از املاک</Text>
               <Icon src={Increase} />
             </Title>
-          </DetaileContainer>
-          <DetaileContainer>
-            <Text>{dynasty?.["dynasty-feature"]?.["family-members-count"]}</Text>
+          </DetailedContainer>
+          <DetailedContainer>
+            <Text>
+              {dynasty?.["dynasty-feature"]?.["family-members-count"]}
+            </Text>
             <Title>
               <Text>تعداد اعضای سلسله</Text>
               <Icon src={User} />
             </Title>
-          </DetaileContainer>
-          <DetaileContainer>
-            <Countdown date={moment(dynasty.created_at, 'jYYYY/jMM/jDD').add(1, 'M').unix() * 1000}/>
+          </DetailedContainer>
+          <DetailedContainer>
+            <Countdown
+              date={
+                moment(dynasty.created_at, "jYYYY/jMM/jDD").add(1, "M").unix() *
+                1000
+              }
+            />
             <Title>
-              <Text>قابلیت انتقال</Text>
+              <Text>قابلیت تاسیس</Text>
               <Icon src={Trasfer} />
             </Title>
-          </DetaileContainer>
+          </DetailedContainer>
         </Body>
       </Table>
     </Container>
