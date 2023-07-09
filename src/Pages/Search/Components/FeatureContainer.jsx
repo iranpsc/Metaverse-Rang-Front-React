@@ -180,14 +180,14 @@ const FeatureContainer = ({ feature }) => {
             <span>{feature?.price_irr}</span>
             <span>:</span>
             <span>
-              <IconSpan src={IrrIcon} /> قیمت گزاری
+              <IconSpan src={IrrIcon} /> قیمت گذاری
             </span>
           </SpanDetails>
           <SpanDetails>
             <span>{feature?.price_psc}</span>
             <span>:</span>
             <span>
-              <IconSpan src={PscIcon} /> قیمت گزاری
+              <IconSpan src={PscIcon} /> قیمت گذاری
             </span>
           </SpanDetails>
         </DetailsContainer>
