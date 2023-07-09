@@ -40,7 +40,6 @@ const ImgContainer = styled.div`
 const Icons = styled.img`
   width: 35px;
   aspect-ratio: 1/1;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.678));
   cursor: pointer;
 `;
 
