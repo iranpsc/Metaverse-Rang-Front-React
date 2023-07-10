@@ -43,6 +43,7 @@
     "react-router-dom": "^6.6.1",
     "react-scripts": "^5.0.1",
     "react-spinners": "^0.13.7",
+    "react-spring": "^9.7.2",
     "react-unity-webgl": "^9.4.0",
     "shortid": "^2.2.16",
     "styled-components": "^5.3.6",

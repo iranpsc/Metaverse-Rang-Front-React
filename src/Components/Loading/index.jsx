@@ -17,7 +17,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 0px 32px 0px rgb(215, 215, 128);
   background-color: rgba(152, 152, 152, 0.438);
   background-color: #7777779e;
   z-index: 99999;

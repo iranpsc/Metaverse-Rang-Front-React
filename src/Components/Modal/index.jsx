@@ -10,6 +10,8 @@ import ImageReport from "../../Assets/images/report.png";
 import { useState } from "react";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
 
+import { useSpring, animated } from "@react-spring/web";
+
 /*
  ** type : modal-section-sm, modal-section-md, modal-section-xl | default = modal-section-md |
  */
@@ -24,9 +26,21 @@ function Modal({
   const [showModal, setShowModal] = useState(false);
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
   const adviserData = useAdviserData(newStr, Location?.state?.locationPage);
-
+  const springs = useSpring({
+    from: {
+      opacity: 0,
+      transform: "scale(0.8)",
+    },
+    to: {
+      opacity: 1,
+      transform: "scale(1)",
+    },
+    config: {
+      duration: 200,
+    },
+  });
   return (
-    <section className="modal">
+    <animated.section className={"modal"} style={{ ...springs }}>
       <div className={`modal-section modal-border ${type}`}>
         <div className="modal-header modal-border">
           {!disabled && (
@@ -84,7 +98,7 @@ function Modal({
           )}
         </div>
       </div>
-    </section>
+    </animated.section>
   );
 }
 
