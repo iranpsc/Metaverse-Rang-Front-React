@@ -6,13 +6,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
 import { useState } from "react";
 import Amozesh from "../ModalAmozash";
-const Container = styled.div`
+import { useSpring, animated } from "@react-spring/web";
+const Container = styled(animated.div)`
   height: 100vh;
   position: absolute;
   z-index: 1500;
   padding: 10px;
   background-color: #fff;
-  ${props => props.position === "right" && "right: 0;"}
+  ${(props) => props.position === "right" && "right: 0;"}
   top: 0;
   @media (min-width: 1024px) {
     width: 30%;
@@ -52,47 +53,62 @@ const Title = styled.div`
     width: 67%;
   }
 `;
-export default function ModalPosition({ children, title ,position }) {
+export default function ModalPosition({ children, title, position }) {
   const navigation = useNavigate();
   const Location = useLocation();
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
   const adviserData = useAdviserData(newStr, Location?.state?.locationPage);
   const [showModal, setShowModal] = useState(false);
+  const springs = useSpring({
+    from: {
+      opacity: 0,
+      transform: "scale(0.8)",
+    },
+    to: {
+      opacity: 1,
+      transform: "scale(1)",
+    },
+    config: {
+      duration: 200,
+    },
+  });
   return (
-    <Container  position={position}>
-      <Header>
-        <Img
-          src={ImageHelp}
-          alt="help"
-          onClick={() => setShowModal((showModal) => !showModal)}
-        />
-        <Img
-          src={ImageReport}
-          alt="report"
-          onClick={() =>
-            navigation("/metaverse/report", {
-              state: {
-                href: window.location.href.split("/").slice(3).join("/"),
-              },
-            })
-          }
-        />
-        <Title>{title}</Title>
-        <Img src={ImageExit} onClick={() => navigation("/metaverse")} />
-      </Header>
-      {children}
-      {showModal && (
-        <Amozesh
-          creator={adviserData?.creator}
-          title={adviserData?.title}
-          video={adviserData?.video}
-          description={adviserData?.description}
-          setShowModal={setShowModal}
-          dislikes={adviserData?.dislikes}
-          likes={adviserData?.likes}
-          views={adviserData?.views}
-        />
-      )}
-    </Container>
+
+      <Container position={position} style={springs}>
+        <Header>
+          <Img
+            src={ImageHelp}
+            alt="help"
+            onClick={() => setShowModal((showModal) => !showModal)}
+          />
+          <Img
+            src={ImageReport}
+            alt="report"
+            onClick={() =>
+              navigation("/metaverse/report", {
+                state: {
+                  href: window.location.href.split("/").slice(3).join("/"),
+                },
+              })
+            }
+          />
+          <Title>{title}</Title>
+          <Img src={ImageExit} onClick={() => navigation("/metaverse")} />
+        </Header>
+        {children}
+        {showModal && (
+          <Amozesh
+            creator={adviserData?.creator}
+            title={adviserData?.title}
+            video={adviserData?.video}
+            description={adviserData?.description}
+            setShowModal={setShowModal}
+            dislikes={adviserData?.dislikes}
+            likes={adviserData?.likes}
+            views={adviserData?.views}
+          />
+        )}
+      </Container>
+
   );
 }
