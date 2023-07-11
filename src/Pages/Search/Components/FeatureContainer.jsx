@@ -66,6 +66,7 @@ const OrangeBoldFont = styled.span`
   color: orange;
   cursor: pointer;
   font-family: "Segoe UI";
+  text-transform: uppercase;
 `;
 
 const blueBoldFont = {
@@ -73,6 +74,7 @@ const blueBoldFont = {
   color: "blue",
   cursor: "pointer",
   fontFamily: "Segoe UI",
+  textTransform:"uppercase",
 };
 const SpanDetails = styled.div`
   display: flex;

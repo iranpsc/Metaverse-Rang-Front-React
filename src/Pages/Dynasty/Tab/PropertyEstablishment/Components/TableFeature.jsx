@@ -57,7 +57,7 @@ const TableHead = styled.thead`
 
 const Tr = styled.tr`
   height: 100px !important;
-  padding: 5px;
+  padding: 4px;
   display: block;
   & td {
     width: 40.5%;
@@ -110,7 +110,7 @@ export default function TableFeature({ dynasty, setDynasty }) {
           <TableBody>
             {Object.keys(dynasty?.features).map((key) => (
               <Tr>
-                <td>{dynasty?.features[key].properties_id}</td>
+                <td style={{textTransform:"uppercase",}}>{dynasty?.features[key].properties_id}</td>
                 <td>{dynasty?.features[key].stability}</td>
                 <td>
                   <IconFeature

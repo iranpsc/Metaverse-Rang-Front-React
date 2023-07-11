@@ -66,7 +66,7 @@ export default function TableDynasty({ dynasty }) {
     <Container>
       <Table>
         <Header>
-          <Text style={{ color: "#fd7e14", fontWeight: 700 }}>
+          <Text style={{ color: "#fd7e14", fontWeight: 700, textTransform:"uppercase",fontFamily:'Segoe UI' }}>
             {dynasty?.["dynasty-feature"]?.properties_id}
           </Text>
           <Text style={{ fontWeight: 700 }}>ملک سلسله</Text>

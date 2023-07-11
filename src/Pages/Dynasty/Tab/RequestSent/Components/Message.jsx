@@ -87,6 +87,7 @@ export default function Message({ items, handleBack }) {
                 color: "blue",
                 cursor: "pointer",
                 fontFamily: "Segoe UI",
+                 textTransform:"uppercase",
               }}
               onClick={() =>
                 window.open(

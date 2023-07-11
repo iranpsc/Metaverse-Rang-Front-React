@@ -58,6 +58,7 @@ const ContainerName = styled.div`
   align-items: center;
   justify-content: center;
   font-family: "Segoe UI";
+  text-transform: uppercase;
 `;
 
 const BorderImg = styled.div`

@@ -50,6 +50,7 @@ const IdPlayer = styled.p`
   white-space: nowrap;
   font-family: "Segoe UI";
   font-weight: 700;
+  text-transform: uppercase;
 `;
 
 const NamePlayer = styled.p`
@@ -57,6 +58,7 @@ const NamePlayer = styled.p`
   color: #707070;
   font-family: "Segoe UI";
   white-space: nowrap;
+  text-transform: uppercase;
 `;
 
 export default function PlayerCard({ PlayerImg, TextBtn, Id, Name }) {

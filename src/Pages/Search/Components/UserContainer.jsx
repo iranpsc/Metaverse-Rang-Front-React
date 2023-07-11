@@ -131,6 +131,7 @@ const UserContainer = ({ user }) => {
               color: "blue",
               cursor: "pointer",
               fontFamily: "Segoe UI",
+              textTransform: "uppercase",
             }}
           >
             {user.code}

@@ -23,6 +23,7 @@ const ContainerPrice = styled.div`
   justify-content: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 700;
+  text-transform: uppercase;
 `;
 
 const IconPrice = styled.img`

@@ -105,6 +105,7 @@ export default function RequestSent() {
                       color: "blue",
                       cursor: "pointer",
                       fontFamily: "Segoe UI",
+                      textTransform:"uppercase",
                     }}
                     onClick={() =>
                       window.open(

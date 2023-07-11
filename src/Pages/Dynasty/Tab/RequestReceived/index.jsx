@@ -98,6 +98,7 @@ export default function RequestReceived() {
                       color: "blue",
                       cursor: "pointer",
                       fontFamily: "Segoe UI",
+                      textTransform:"uppercase",
                     }}
                     onClick={() =>
                       window.open(

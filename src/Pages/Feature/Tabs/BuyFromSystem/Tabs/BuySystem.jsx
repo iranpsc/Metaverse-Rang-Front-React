@@ -19,6 +19,7 @@ const ContainerPrice = styled.div`
   align-items: center;
   justify-content: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
   font-weight: 700;
 `;
 

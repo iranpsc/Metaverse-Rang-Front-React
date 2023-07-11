@@ -57,6 +57,7 @@ const OrangeBoldFont = styled.span`
   color: orange;
   cursor: pointer;
   font-family: "Segoe UI";
+  text-transform: uppercase;
 `;
 const karbariIcons = {
   a: BlueHouseIcon,
