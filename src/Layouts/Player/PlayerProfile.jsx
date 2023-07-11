@@ -70,7 +70,7 @@ function PlayerProfile({ image ,code, level, id, Online }) {
         <ProfileImage src={image ? image : AnonymousImage} />
 
         <ProfileId className='white-box-shadow cursor-pointer' onClick={() => window.open(`https://rgb.irpsc.com/citizen/${code}`,'_blank')}>
-            <p style={{ fontSize: 12 }}>{ code }</p>
+            <p style={{ fontSize: 12 , textTransform:"uppercase",fontFamily:"Segoe UI"}}>{ code }</p>
         </ProfileId>
 
         <ProfileLevel className='white-box-shadow' style={{ height: 35 }}>

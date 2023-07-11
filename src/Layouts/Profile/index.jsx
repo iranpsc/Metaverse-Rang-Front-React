@@ -52,7 +52,7 @@ export default function Profile() {
               }%`,
             }}
           />
-          <p>{user?.code}</p>
+          <p style={{ textTransform:"uppercase",fontFamily:"Segoe UI"}}>{user?.code}</p>
         </ProfileId>
 
         <ProfileLevel className="white-box-shadow">
