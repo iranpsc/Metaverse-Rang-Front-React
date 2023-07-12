@@ -11,7 +11,7 @@ import {
 } from "./Styles";
 
 // user images
-import AnonymousImage from "../../Assets/images/anonymous.png";
+import AnonymousImage from "../../Assets/images/default-image-user.png";
 
 import SanadImage from "../../Assets/images/sanad.png";
 import ChatImage from "../../Assets/images/chat.png";

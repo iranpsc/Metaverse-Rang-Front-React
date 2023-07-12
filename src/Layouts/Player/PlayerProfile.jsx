@@ -10,7 +10,7 @@ import LedGreen from '../../Assets/images/led-green.png';
 
 import './Styles.css';
 
-import AnonymousImage from '../../Assets/images/anonymous.png';
+import AnonymousImage from '../../Assets/images/default-image-user.png';
 import { useNavigate } from 'react-router-dom';
 
 const IconContainer = styled.div`

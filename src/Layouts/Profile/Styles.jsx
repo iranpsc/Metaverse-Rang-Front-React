@@ -32,6 +32,7 @@ export const ProfileImage = styled.img`
     width: 100%;
     height: 100%;
     cursor: pointer;
+    border-radius: 4px;
 `;
 
 export const ProfileId = styled.div`
