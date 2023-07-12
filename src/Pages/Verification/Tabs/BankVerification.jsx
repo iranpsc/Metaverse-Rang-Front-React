@@ -3,7 +3,11 @@ import styled from "styled-components";
 import Submit from "../../../Components/Buttons/Submit";
 import Input from "../Components/Input";
 import Form from "../../../Components/Form";
-import { getBankNameFromCardNumber, getShebaInfo, verifyCardNumber } from "@persian-tools/persian-tools";
+import {
+  getBankNameFromCardNumber,
+  getShebaInfo,
+  verifyCardNumber,
+} from "@persian-tools/persian-tools";
 import useRequest from "../../../Services/Hooks/useRequest";
 import ErrorMessage from "../../../Components/ErrorMessage";
 import { ToastError, ToastSuccess } from "../../../Services/Utility";
@@ -24,7 +28,7 @@ const InputContainer = styled.div`
 
 const ErrorContainer = styled.div`
   width: 95%;
-  background-color: #DF2E38;
+  background-color: #df2e38;
   border-radius: 32px;
   margin-top: 16px;
 `;
@@ -37,6 +41,11 @@ const CardNumber = styled.div`
   justify-content: space-between;
   border: 2px solid #fcfcfc;
 `;
+const ContainerCart = styled.div`
+  display: block;
+  overflow-y: auto;
+  max-height: 190px;
+`;
 
 export default function BankVerification() {
   const [errors, setErrors] = useState([]);
@@ -44,15 +53,15 @@ export default function BankVerification() {
   const { Request, HTTP_METHOD } = useRequest();
 
   const [formData, setFormData] = useState({
-    card_num: '',
-    shaba_num: ''
+    card_num: "",
+    shaba_num: "",
   });
 
   useEffect(() => {
-    Request('bank-accounts').then(response => {
+    Request("bank-accounts").then((response) => {
       setCards(response.data.data);
-    })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = () => {
@@ -60,51 +69,62 @@ export default function BankVerification() {
     const cartValidate = verifyCardNumber(formData.card_num);
     const cartName = getBankNameFromCardNumber(formData.card_num);
 
-    if(shebaInfo?.persianName) {
-      if(cartName === shebaInfo.persianName) {
-        if(cartValidate) {
-          Request('bank-accounts', HTTP_METHOD.POST, {card_num: formData.card_num, shaba_num: `IR${formData.shaba_num}`, bank_name: shebaInfo.persianName}).then(() => {
-            ToastSuccess('حساب بانکی شما با موفقيت ثبت شد. تاييد نهايی پس از بررسی های لازم صورت ميگيرد/ قابليت بارگذاری ٢٠ حساب بانکی توسط متقاضی صورت گيرد')
-          }).catch(error => {
-            ToastError(error.response.data.message);
+    if (shebaInfo?.persianName) {
+      if (cartName === shebaInfo.persianName) {
+        if (cartValidate) {
+          Request("bank-accounts", HTTP_METHOD.POST, {
+            card_num: formData.card_num,
+            shaba_num: `IR${formData.shaba_num}`,
+            bank_name: shebaInfo.persianName,
           })
+            .then(() => {
+              ToastSuccess(
+                "حساب بانکی شما با موفقيت ثبت شد. تاييد نهايی پس از بررسی های لازم صورت ميگيرد/ قابليت بارگذاری ٢٠ حساب بانکی توسط متقاضی صورت گيرد"
+              );
+            })
+            .catch((error) => {
+              ToastError(error.response.data.message);
+            });
         } else {
-          setErrors(["شماره کارت صحیح نمی باشد لطفا آنرا برسی نمایید."])
+          setErrors(["شماره کارت صحیح نمی باشد لطفا آنرا برسی نمایید."]);
         }
       } else {
-        setErrors(["شماره شبا و شماره کارت باید متعلق به یک کارت باشد."])
+        setErrors(["شماره شبا و شماره کارت باید متعلق به یک کارت باشد."]);
       }
     } else {
-      setErrors(["شماره شبا صحیح نمی باشد لطفا آنرا برسی نمایید."])
+      setErrors(["شماره شبا صحیح نمی باشد لطفا آنرا برسی نمایید."]);
     }
-  }
+  };
 
   return (
-    
-    <Form onSubmit={onSubmit} options={{ style: { height: '100%' } }}>
+    <Form onSubmit={onSubmit} options={{ style: { height: "100%" } }}>
       <ErrorContainer>
-        <ErrorMessage maxList={1} errors={errors} style={{padding: 8, color: 'white', margin: 0 }}/>
+        <ErrorMessage
+          maxList={1}
+          errors={errors}
+          style={{ padding: 8, color: "white", margin: 0 }}
+        />
       </ErrorContainer>
-      <Container >
-          <InputContainer>
-            <Input
-              name="card_num"
-              text=": شماره کارت"
-              numberOnly={true}
-              value={formData.card_num}
-              onChange={setFormData}
-            />
+      <Container>
+        <InputContainer>
+          <Input
+            name="card_num"
+            text=": شماره کارت"
+            numberOnly={true}
+            value={formData.card_num}
+            onChange={setFormData}
+          />
 
-            <Input
-              name="shaba_num"
-              text=": شماره شبا"
-              numberOnly={true}
-              value={formData.shaba_num}
-              onChange={setFormData}
-            />
-          </InputContainer>
-          
-          {cards.map(card => (
+          <Input
+            name="shaba_num"
+            text=": شماره شبا"
+            numberOnly={true}
+            value={formData.shaba_num}
+            onChange={setFormData}
+          />
+        </InputContainer>
+        <ContainerCart>
+          {cards.map((card) => (
             <CardNumber>
               <p>{card.card_num}</p>
               {card.status === 0 && <span>درحال برسی</span>}
@@ -112,9 +132,12 @@ export default function BankVerification() {
               {card.status === -1 && <span>رد شده</span>}
             </CardNumber>
           ))}
-
-          
-          <Submit type="primary" text="ذخیره" options={{ style: { width: 150 } }} />
+        </ContainerCart>
+        <Submit
+          type="primary"
+          text="ذخیره"
+          options={{ style: { width: 150 } }}
+        />
       </Container>
     </Form>
   );
