@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-
 const Select = styled.select`
   width: 100%;
   position: relative;
@@ -17,16 +16,31 @@ const Select = styled.select`
   border: 1px solid #c2c2c2 !important;
   font-family: iransans;
   outline: none;
-
+  color: #707070 !important;
   &.invalid {
     border: 1px solid red !important;
     box-shadow: 2px 2px 5px 0px #ef58589e;
   }
+  background-color: ${(props) => (props.disabled ? "transparent" : "#ffffff")};
 `;
 
-export default function SelectProvince({onChange, name, error, value, disabled}) {
+export default function SelectProvince({
+  onChange,
+  name,
+  error,
+  value,
+  disabled,
+}) {
   return (
-    <Select disabled={disabled} name={name} onChange={(e) => onChange(state => ({...state, [e.target.name]: e.target.value}))} className={`${error && 'invalid'}`} value={value}>
+    <Select
+      disabled={disabled}
+      name={name}
+      onChange={(e) =>
+        onChange((state) => ({ ...state, [e.target.name]: e.target.value }))
+      }
+      className={`${error && "invalid"}`}
+      value={value}
+    >
       <option value="none">استان خود را انتخاب کنید</option>
       <option value="تهران">تهران</option>
       <option value="گیلان">گیلان</option>
