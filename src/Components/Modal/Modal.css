@@ -9,7 +9,7 @@
   width: 100%;
   flex-direction: column;
   background: #fff;
-  @media (min-width: 768px) { background-color: #7777779e; }
+  @media (min-width: 768px) { background-color: #0000009e; }
 }
 
 .modal-section {
