@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import useRequest from '../../../../Services/Hooks/useRequest';
-import TicketForm from './Sections/TicketForm';
-import TicketTable from './Sections/TicketTable';
-
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import useRequest from "../../../../Services/Hooks/useRequest";
+import TicketForm from "./Sections/TicketForm";
+import TicketTable from "./Sections/TicketTable";
 
 const Section = styled.div`
   width: 100%;
   padding: 16px;
-  margin-top: 32px;
   overflow-y: scroll;
-  height: 400px;
-`
+  height: 100%;
+`;
 
 const Container = styled.section`
   display: flex;
   height: 100%;
 
-  @media screen and (max-width: 1200px){
+  @media screen and (max-width: 1200px) {
     flex-direction: column-reverse;
-
     & > ${Section} {
       padding: 0px 32px 0px 32px;
-      margin-top: 32px;
-
     }
   }
-`
+`;
 
 export default function Ticket() {
   const { Request } = useRequest();
@@ -34,25 +29,23 @@ export default function Ticket() {
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
-    Request('tickets').then((response) => {
-      setTickets(tickets => [...tickets, ...response.data.data])
+    Request("tickets").then((response) => {
+      setTickets((tickets) => [...tickets, ...response.data.data]);
     });
 
-    Request('tickets/recieved').then(response => {
-      setTickets(tickets => [...tickets, ...response.data.data])
-    })
-
+    Request("tickets/recieved").then((response) => {
+      setTickets((tickets) => [...tickets, ...response.data.data]);
+    });
   }, []);
-
 
   return (
     <Container>
       <Section>
-        <TicketTable tickets={tickets}/>
+        <TicketTable tickets={tickets} />
       </Section>
 
       <Section>
-        <TicketForm setTickets={setTickets}/>
+        <TicketForm setTickets={setTickets} />
       </Section>
     </Container>
   );

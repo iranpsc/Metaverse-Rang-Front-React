@@ -21,20 +21,20 @@ const Description = styled.div`
 `;
 
 const Container = styled.div`
-  height: 89%;
+  height:100%;
   width: 100%;
   position: relative;
 `;
 
 const Editor = styled.div`
   width: 100%;
-  height: 53%;
+  height:48%;
   position: absolute;
   bottom: -16px;
 `;
 
 const Chat = styled.div`
-  height: 40%;
+  height:46%;
   overflow-y: scroll;
   direction: rtl;
 `;
