@@ -41,6 +41,7 @@ export default function Residential() {
         width="804.402"
         height="489.704"
         viewBox="0 0 804.402 489.704"
+        style={{zIndex:1199}}
       >
         <defs>
           <linearGradient

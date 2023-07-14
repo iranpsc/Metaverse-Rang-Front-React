@@ -121,26 +121,6 @@ const Map = () => {
           <ContextMenu />
           {/* An AdviserIcon component */}
           <AdviserIcon />
-          {/* A ToolTip component that renders an icon which, when clicked, adjusts the map's position and displays a tooltip. */}
-          <ToolTip
-            Chidren={
-              <IconFlyTo
-                src={flyToGif}
-                onClick={() =>
-                  flyToPosition({
-                    latitude: 26.264711,
-                    longitude: 55.305572,
-                    icon: LocationPin,
-                    mapRe: mapRef,
-                    zoom: 17,
-                  })
-                }
-              />
-            }
-            TitleToltip={"تنب بزرگ"}
-            ContentToltip={"برای انتقال به تنب بزرگ کلیک کنید"}
-            classNamePosstion={"tw-flyto"}
-          />
           <MapFlag polygons={polygons} flags={flags} />
         </MapContainer>
         <BtnFlagMap flags={flags} handleButtonClick={handleButtonClick} />
