@@ -57,7 +57,7 @@ const TableBody = styled.tbody`
 const status = {
   "-1": "رد شده",
   1: "تایید شده",
-  0: "تایید نشده",
+  0: "در دست بررسی",
 };
 
 export default function RequestSent() {
