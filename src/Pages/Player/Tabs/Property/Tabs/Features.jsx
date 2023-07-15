@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import FeatureType from "../../../../../Services/Constants/FeatureType";
 import FeaturesSearch from "../../../Components/FeaturesSearch";
-
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   width: 90%;
@@ -15,24 +15,22 @@ const Container = styled.div`
   margin-top: 4%;
 `;
 
-
 export default function Features() {
   const { Request } = useRequest();
   const [features, setFeatures] = useState([]);
   const [result, setResult] = useState([]);
-
+  const { id } = useParams();
   useEffect(() => {
-    Request('my-features').then(response => {
+    Request(`players/${id}/assets`).then((response) => {
       setFeatures(response.data.data);
     });
- 
   }, []);
 
   return (
     <>
-      <FeaturesSearch data={features} setResult={setResult}/>
+      <FeaturesSearch data={features} setResult={setResult} />
       <Container>
-        {result.map(feature => (
+        {result.map((feature) => (
           <FeatureCard
             key={feature.properties.id}
             Address={feature.properties.address}

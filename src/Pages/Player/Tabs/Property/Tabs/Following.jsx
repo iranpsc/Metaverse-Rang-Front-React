@@ -4,6 +4,7 @@ import styled from "styled-components";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import FollowsSearch from "../../../Components/FollowsSearch";
 import PlayerCard from "../Component/PlayerCard";
+import { useParams } from "react-router-dom";
 
 const ContainerPlayerCard = styled.div`
   width: 90%;
@@ -20,9 +21,9 @@ export default function Following() {
   const [following, setFollowing] = useState([]);
   const { Request, HTTP_METHOD } = useRequest();
   const [result, setResult] = useState([]);
-
+  const { id } = useParams();
   useLayoutEffect(() => {
-    Request("following", HTTP_METHOD.GET).then((response) => {
+    Request(`players/${id}/following`, HTTP_METHOD.GET).then((response) => {
       setFollowing(response.data.data);
     });
 
