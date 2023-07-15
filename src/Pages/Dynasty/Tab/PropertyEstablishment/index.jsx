@@ -37,7 +37,7 @@ export default function PropertyEstablishment() {
     Request('dynasty').then(response => {
       setDynasty(response.data.data);
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [])
 
   return (

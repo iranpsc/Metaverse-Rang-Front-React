@@ -39,7 +39,7 @@ function GeneralSettings() {
     Request('general-settings').then(response => {
       setGeneralSettings({...response.data.data});
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [])
 
   const onSubmit = () => {

@@ -77,7 +77,7 @@ export default function Notifications() {
     Request('notifications').then(response => {
       setNotifications(response.data.data);
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, []);
 
   const ReadClickHandler = (id) => {

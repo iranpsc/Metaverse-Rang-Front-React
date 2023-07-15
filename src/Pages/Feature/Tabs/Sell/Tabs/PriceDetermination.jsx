@@ -25,7 +25,7 @@ export default function PriceDetermination() {
         }
       }
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [feature.id])
 
   const [formData, setFormData] = useState({

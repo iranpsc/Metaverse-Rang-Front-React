@@ -23,7 +23,7 @@ export default function Features() {
     Request('my-features').then(response => {
       setFeatures(response.data.data);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, []);
 
   return (

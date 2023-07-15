@@ -121,7 +121,7 @@ export default function Tutorial() {
     } else {
       setFinish(true);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [page, getUser]);
 
   const nextPageHandler = () => {

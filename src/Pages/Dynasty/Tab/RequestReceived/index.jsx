@@ -61,7 +61,7 @@ export default function RequestReceived() {
     Request("dynasty/requests/recieved").then((response) => {
       setRecived(response.data.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
   const [show, setShowMessage] = useState(false);
   const [items, setItems] = useState({});

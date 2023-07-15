@@ -39,7 +39,7 @@ export default function FeaturesSearch({ data, setResult }) {
     startTransition(() => {
       setResult(data.filter(item => (item.properties.address.indexOf(query) !== -1) || (item.properties.id.indexOf(query) !== -1)));
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [data, query])
 
   return (

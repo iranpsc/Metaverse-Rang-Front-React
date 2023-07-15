@@ -112,7 +112,7 @@ export default function SendDocuments({ setDefaultTab }) {
 
   useEffect(() => {
     setDefaultTab(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
 
   const onChangeHandler = (e) => {

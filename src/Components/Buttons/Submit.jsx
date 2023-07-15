@@ -56,7 +56,7 @@ function Submit({ text, type, options }) {
       default:
         return
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [])
 
   return button;

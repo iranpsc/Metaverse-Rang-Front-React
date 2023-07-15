@@ -39,7 +39,7 @@ export default function FollowsSearch({ data, setResult }) {
     startTransition(() => {
       setResult(data.filter(item => (item.name.indexOf(query) !== -1) || (item.code.indexOf(query) !== -1)));
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [data, query])
 
   return (
