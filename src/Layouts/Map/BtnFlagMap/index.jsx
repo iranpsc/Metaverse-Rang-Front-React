@@ -15,6 +15,9 @@ const ContainerBtn = styled.div`
   overflow-y: auto;
   z-index: 999;
   left: 5%;
+  ::-webkit-scrollbar-thumb {
+    background: none;
+  }
   @media (min-width: 1536px) {
     width: 14%;
     height: 130px;
