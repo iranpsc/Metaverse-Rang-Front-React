@@ -20,12 +20,11 @@ export default function Followers() {
   const [followers, setFollowers] = useState([]);
   const { Request, HTTP_METHOD } = useRequest();
   const [result, setResult] = useState([]);
-
+  const { id } = useParams();
   useLayoutEffect(() => {
-    Request("followers", HTTP_METHOD.GET).then((response) => {
+    Request(`players/${id}/followers`, HTTP_METHOD.GET).then((response) => {
       setFollowers(response.data.data);
     });
-
   }, []);
 
   return (
