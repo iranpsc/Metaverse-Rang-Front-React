@@ -19,13 +19,13 @@ const ContainerBtn = styled.div`
     background: none;
   }
   @media (min-width: 1536px) {
-    width: 14%;
+    width: 13%;
     height: 130px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    left: 0;
+    left: -2px;
     top: 17%;
     z-index: 999;
   }
@@ -33,16 +33,22 @@ const ContainerBtn = styled.div`
 
 const Btn = styled.div`
   width: 100%;
-  border: 2px solid #9b9797;
+  border:3px solid #757373;
   display: flex;
   height: 35px;
   align-items: center;
   justify-content: space-between;
   background: linear-gradient(to right, white, gray);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-left:5px ;
   &:hover {
-    border: blue 2px solid;
+    border: ${(props) =>
+      `${props.border} 3px solid`}; /* Dynamic border color */
   }
-  border-radius: 5px;
+  border-radius:0  5px  5px 0;
+  &.active {
+    border: ${(props) => `${props.border} 3px solid`};
+  }
 `;
 
 const ContainerIcon = styled.div`
@@ -69,44 +75,42 @@ const BtnFlagMap = ({ flags, handleButtonClick }) => {
   };
 
   const handleClick = (flagId) => {
-    if (activeButtonCount >= 2) {
-      if (activeMapIds.includes(flagId)) {
-        const updatedActiveMapIds = activeMapIds.filter((id) => id !== flagId);
-        setActiveMapIds(updatedActiveMapIds);
-        setActiveButtonCount(activeButtonCount - 1);
-        setActiveButtonId(null);
-        handleButtonClick(null);
-        setIsFilterActive(false);
-      }
-    }
-
-    if (flagId === activeButtonId) {
+    if (activeButtonId === flagId) {
       resetButtonState();
       handleButtonClick(null);
       setIsFilterActive(false);
-    }
-
-    const index = activeMapIds.indexOf(flagId);
-    let updatedActiveMapIds;
-
-    if (index !== -1) {
-      updatedActiveMapIds = activeMapIds.filter((id) => id !== flagId);
-      setActiveButtonCount(activeButtonCount - 1);
     } else {
-      updatedActiveMapIds = [...activeMapIds, flagId];
-      setActiveButtonCount(activeButtonCount + 1);
+      if (activeButtonCount >= 2) {
+        return; 
+      }
+  
+      const index = activeMapIds.indexOf(flagId);
+      let updatedActiveMapIds;
+  
+      if (index !== -1) {
+        updatedActiveMapIds = activeMapIds.filter((id) => id !== flagId);
+        setActiveButtonCount(activeButtonCount - 1);
+      } else {
+        updatedActiveMapIds = [...activeMapIds, flagId];
+        setActiveButtonCount(activeButtonCount + 1);
+      }
+  
+      setActiveMapIds(updatedActiveMapIds);
+      setActiveButtonId(flagId);
+      handleButtonClick(flagId);
+      setIsFilterActive(true);
     }
-
-    setActiveMapIds(updatedActiveMapIds);
-    setActiveButtonId(flagId);
-    handleButtonClick(flagId);
-    setIsFilterActive(true);
   };
+  
 
   return (
     <ContainerBtn>
       {flags.map((flag) => (
-        <Btn key={flag.id}>
+        <Btn
+          key={flag.id}
+          border={flag.color}
+          className={activeButtonId === flag.id ? "active" : ""}
+        >
           <span style={{ textTransform: "uppercase" }}>{flag.name}</span>
           <ContainerIcon>
             <Icon src={FilterIcon} style={{ cursor: "not-allowed" }} />
