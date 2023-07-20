@@ -1,77 +1,72 @@
-import { Unity, useUnityContext } from "react-unity-webgl";
 import styled from "styled-components";
-import React, { useEffect, useState,useContext } from "react";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { FeatureContext } from "../../Context/FeatureProvider";
-import Submit from "../../../../Components/Buttons/Submit";
+import React, { useEffect, useState, useContext } from "react";
+import Specification from "../../Components/Specification";
 const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  flex-direction: column;
+  gap: 3%;
+  overflow-y: auto;
 `;
-const ContainerItem = styled.div`
-  width: 50%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
+const DetailFeature = styled.div`
+  width: 95%;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6%;
 `;
-const LoadingContainer = styled.div`
+const ContainerSpecification = styled.div`
+  width:95%;
+  height: 150px;
+  display: flex;
+  border-radius: 5px;
+  flex-direction: column;
+  align-items: end;
+`;
+
+const TitleSpecification = styled.div`
+  width: 120px;
+  background: white;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  border: 1px solid #c2c2c2;
+  padding-right: 5px;
+  border-radius: 5px;
+  border-bottom: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  height: 40%;
+`;
+
+const ValueSpecification = styled.div`
   width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
+  height:fit-content;
+  background-color: #e9e9e9;
+  text-align: right !important;
   display: flex;
-  position: absolute;
+  padding: 12px;
+  align-items: center;
+  border-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 `;
 export default function UnitiTab() {
-  const [feature] = useContext(FeatureContext);
-  const [user, setUser] = useState({});
-  const { Request, HTTP_METHOD } = useRequest();
-  const { unityProvider, isLoaded, loadingProgression, sendMessage } =
-    useUnityContext({
-      loaderUrl: "/Build/WebGL.loader.js",
-      dataUrl: "/Build/WebGL.data.unityweb",
-      frameworkUrl: "/Build/WebGL.framework.js.unityweb",
-      codeUrl: "/Build/WebGL.wasm.unityweb",
-    });
-  useEffect(() => {
-    Request("user/profile").then((response) => {
-      setUser(response.data.data);
-    });
-
-
-  }, []);
-  const testObject = {
-    ID: feature.properties?.id,
-    urlImgCharacter: user?.image,
-  };
-  var jsonString = JSON.stringify(testObject);
-  const loadingPercentage = Math.round(loadingProgression * 100);
-
-  function handleClickSpawnEnemies() {
-    sendMessage("JavaScriptHook", "SetJson", jsonString);
-  }
   return (
     <Container>
-      <ContainerItem>
-        {isLoaded === false && (
-          <LoadingContainer className="loading-overlay">
-            <p>Loading... ({loadingPercentage}%)</p>
-          </LoadingContainer>
-        )}
-        <Unity
-          className="unity"
-          unityProvider={unityProvider}
-          style={{ width: "100%", height: "100%" }}
-        />
-      </ContainerItem>
-
-      <ContainerItem>
-        <Submit text="ورود" onClick={handleClickSpawnEnemies} type={"primary"}  options={{ style: { width: 150 } }}/>
-      </ContainerItem>
+      <DetailFeature>
+        <Specification title={"هزینه ورودی"} value={20} />
+        <Specification title={"هزینه ورودی"} value={20} />
+        <Specification title={"هزینه ورودی"} value={20} />
+      </DetailFeature>
+      <ContainerSpecification>
+        <TitleSpecification>5566</TitleSpecification>
+        <ValueSpecification>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti doloribus non, ex ipsam reprehenderit modi deleniti, saepe illum similique quisquam quos delectus voluptatem eius consequuntur optio cumque! Repudiandae, consequuntur ipsam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi mollitia enim natus ipsam accusantium iusto consequatur illum rem magni, sunt quo omnis nostrum vel inventore similique asperiores aperiam cum at.</ValueSpecification>
+      </ContainerSpecification>
     </Container>
   );
 }
