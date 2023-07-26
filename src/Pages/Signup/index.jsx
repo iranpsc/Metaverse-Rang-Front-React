@@ -7,6 +7,7 @@ import useRequest from "../../Services/Hooks/useRequest";
 import Submit from "../../Components/Buttons/Submit.jsx";
 import styled from "styled-components";
 import GmailIcon from "../../Assets/images/gmail.png";
+import { ToastSuccess } from "../../Services/Utility";
 
 const BodyEmail = styled.div`
   height: 100%;
@@ -30,15 +31,14 @@ const BoxEmailNavigate = styled.div`
 
 export default function Signup() {
   const [searchParams] = useSearchParams();
-
+  const [emailVerification, setEmailVerification] = useState(false);
+  const [token, setToken] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     referral: searchParams.get("referral"),
   });
-
-  const [emailVerification, setEmailVerification] = useState(false);
 
   const { Request, HTTP_METHOD } = useRequest();
   const navigation = useNavigate();
@@ -48,6 +48,7 @@ export default function Signup() {
       .then((res) => {
         if (res.status == 201) {
           setEmailVerification(true);
+          setToken(res.data.data.token);
         }
       })
       .catch((error) => {
@@ -57,6 +58,16 @@ export default function Signup() {
       });
   };
 
+  const resendEmailHandler = () => {
+    Request(
+      "email/verification-notification",
+      HTTP_METHOD.GET,
+      {},
+      { Authorization: `Bearer ${token}` }
+    ).then((res) => {
+      ToastSuccess("ایمیل تایید مجدد ارسال شد ");
+    });
+  };
   return (
     <Modal title="ثبت نام">
       {!emailVerification ? (
@@ -113,12 +124,12 @@ export default function Signup() {
           </a>
         </Form>
       ) : (
-        < >
+        <>
           <h2 className="mt-5">ایمیل خود را تایید کنید</h2>
           <span className="mt-2">ما یک ایمیل به </span>
           <span className="mt-2">{formData.email}</span>
           <span className="mt-4">برای شروع روی لینک داخل ایمیل کلیک کنید </span>
-          <BoxEmailNavigate >
+          <BoxEmailNavigate>
             <img src={GmailIcon} alt="gmail" style={{ width: "40px" }} />
             <a
               href="https://mail.google.com/"
@@ -128,7 +139,10 @@ export default function Signup() {
               باز کردن جیمیل
             </a>
           </BoxEmailNavigate>
-          <span  className="mt-2"> ایمیل را دوباره ارسال کن </span>
+          <span className="mt-3" onClick={resendEmailHandler} style={{color:"#0a58ca"}}>
+            
+            ایمیل را دوباره ارسال کن
+          </span>
           <p className="text-information mt-5">
             سئوالی دارید یا میخواهید بیشتر بدانید؟
           </p>
