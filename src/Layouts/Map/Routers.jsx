@@ -27,6 +27,7 @@ import Dynasty from "../../Pages/Dynasty";
 import HourMeterProfit from "../../Pages/HourMeterProfit/Index";
 import TransactionPayments from "../../Pages/Payments/Verification/transactionPayments";
 import VerificationEmail from "../../Pages/VerificationEmail";
+import Ip from "../../Pages/Ip";
 
 export default function Routers() {
   return (
@@ -71,7 +72,7 @@ export default function Routers() {
           path="email"
           element={
             <PublicRoute>
-             <VerificationEmail/>
+              <VerificationEmail />
             </PublicRoute>
           }
         />
@@ -207,6 +208,14 @@ export default function Routers() {
             <PrivateRoute>
               <HourMeterProfit />
             </PrivateRoute>
+          }
+        />
+        <Route
+          path="access-ip"
+          element={
+            <PublicRoute>
+              <Ip />
+            </PublicRoute>
           }
         />
 

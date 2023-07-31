@@ -4,6 +4,7 @@ import useAuth from "../../Services/Hooks/useAuth";
 import useRequest from "../../Services/Hooks/useRequest";
 import { FollowContext } from "../../Services/Reducers/FollowContext";
 import PlayerProfile from "./PlayerProfile";
+import { useNavigate } from "react-router-dom";
 
 // PlayerList Component
 export default function PlayerList() {
@@ -16,14 +17,23 @@ export default function PlayerList() {
 
   // Get request methods
   const { Request } = useRequest();
-
+  const navigate = useNavigate();
   // Fetch player list from API and set the list to players state
-  useEffect(() => {
-    async function fetchPlayers() {
+  async function fetchPlayers() {
+    try {
       const response = await Request("players");
       setPlayers(response.data.data.reverse());
+      localStorage.removeItem("IpAccess");
+    } catch (error) {
+      const { status } = error.response;
+      if (status === 403) {
+        localStorage.setItem("IpAccess", true);
+        navigate("/metaverse/access-ip");
+      }
     }
+  }
 
+  useEffect(() => {
     if (players.length === 0) {
       fetchPlayers();
     }
@@ -41,7 +51,7 @@ export default function PlayerList() {
     return () => {
       userStatusChannel.stopListening(".user-status-changed");
     };
-  }, [players, Request]);
+  }, [players]);
 
   // Render player profile based on given player
   const renderPlayerProfile = (player) => {

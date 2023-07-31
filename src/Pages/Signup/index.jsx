@@ -8,6 +8,7 @@ import Submit from "../../Components/Buttons/Submit.jsx";
 import styled from "styled-components";
 import GmailIcon from "../../Assets/images/gmail.png";
 import { ToastSuccess } from "../../Services/Utility";
+import { useEffect } from "react";
 
 const BodyEmail = styled.div`
   height: 100%;
@@ -30,6 +31,12 @@ const BoxEmailNavigate = styled.div`
 `;
 
 export default function Signup() {
+  const navigation = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("IpAccess")) {
+      return navigation("/metaverse/access-ip"); // Navigate to a different location
+    }
+  }, []);
   const [searchParams] = useSearchParams();
   const [emailVerification, setEmailVerification] = useState(false);
   const [token, setToken] = useState("");
@@ -41,7 +48,6 @@ export default function Signup() {
   });
 
   const { Request, HTTP_METHOD } = useRequest();
-  const navigation = useNavigate();
 
   const onSubmitHandler = () => {
     Request("register", HTTP_METHOD.POST, formData)
@@ -139,8 +145,11 @@ export default function Signup() {
               باز کردن جیمیل
             </a>
           </BoxEmailNavigate>
-          <span className="mt-3" onClick={resendEmailHandler} style={{color:"#0a58ca"}}>
-            
+          <span
+            className="mt-3"
+            onClick={resendEmailHandler}
+            style={{ color: "#0a58ca" }}
+          >
             ایمیل را دوباره ارسال کن
           </span>
           <p className="text-information mt-5">
