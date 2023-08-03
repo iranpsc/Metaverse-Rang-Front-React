@@ -88,9 +88,8 @@
 @font-face {
   font-family: brunoace;
   font-style: normal;
-  font-weight:normal;
-  src:
-    url("./Assets/fonts/ttf/BrunoAceSC-Regular.ttf") format("truetype");
+  font-weight: normal;
+  src: url("./Assets/fonts/ttf/BrunoAceSC-Regular.ttf") format("truetype");
 }
 
 :root {
@@ -239,7 +238,7 @@ p {
 button {
   font-family: iransans;
 }
-a{
+a {
   text-decoration: none;
 }
 .leaflet-container {
@@ -267,7 +266,6 @@ a{
 .green-box-shadow {
   box-shadow: 0 2px 5px 2px #5dff39a4, inset 0 2px 5px 2px #5dff39a4;
 }
-
 
 .yellow-box-shadow {
   box-shadow: 0 2px 5px 2px #fff710be, inset 0 2px 5px 2px #fff710be;
@@ -810,7 +808,7 @@ a{
 }
 
 .link:hover {
-    color: #0a58ca;
+  color: #0a58ca;
 }
 
 .text-1 {
@@ -831,7 +829,6 @@ a{
 .text-information {
   color: #707070;
 }
-
 
 .cursor-pointer {
   cursor: pointer;
@@ -865,22 +862,28 @@ a{
 }
 
 /* webkit solution */
-.rtl-placeholder::-webkit-input-placeholder { text-align:right; }
+.rtl-placeholder::-webkit-input-placeholder {
+  text-align: right;
+}
 /* mozilla solution */
-.rtl-placeholder:-moz-placeholder { text-align:right; }
+.rtl-placeholder:-moz-placeholder {
+  text-align: right;
+}
 
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #333;
   opacity: 0.5; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: #333;
   opacity: 0.5;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
+::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: #333;
   opacity: 0.5;
 }
@@ -958,17 +961,26 @@ button {
 
 .bg-primary {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(
+    var(--bs-primary-rgb),
+    var(--bs-bg-opacity)
+  ) !important;
 }
 
 .bg-secondary {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(
+    var(--bs-secondary-rgb),
+    var(--bs-bg-opacity)
+  ) !important;
 }
 
 .bg-success {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(
+    var(--bs-success-rgb),
+    var(--bs-bg-opacity)
+  ) !important;
 }
 
 .bg-info {
@@ -1025,34 +1037,34 @@ button {
   text-align: right !important;
 }
 
-@media screen and (max-height: 768px)  {
+@media screen and (max-height: 768px) {
   .text-1 {
     font-size: 0.5em;
     font-weight: 500;
   }
-  
+
   .text-2 {
     font-size: 1rem;
     font-weight: 500;
   }
-  
+
   .text-3 {
     font-size: 2rem;
     font-weight: 700;
   }
 }
 
-@media screen and (max-height: 840px)  {
+@media screen and (max-height: 840px) {
   .text-1 {
     font-size: 1em;
     font-weight: 500;
   }
-  
+
   .text-2 {
     font-size: 1.5rem;
     font-weight: 500;
   }
-  
+
   .text-3 {
     font-size: 2rem;
     font-weight: 700;
@@ -1062,14 +1074,14 @@ button {
 .tooltip-container {
   border-radius: 0.5rem;
   border-width: 2px;
-  border-color: rgb(156 ,139 ,51 );
+  border-color: rgb(156, 139, 51);
   border-style: solid;
   background-color: rgb(139, 139, 139);
   padding: 3.5px;
   font-size: 0.875rem;
   line-height: 1.25rem;
   box-shadow: 0px 0px 5px 2px rgb(0 0 0 / 50%);
-  width:max-content;
+  width: max-content;
   animation-name: tooltip-horizontal-move;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
@@ -1091,14 +1103,13 @@ button {
   align-items: flex-end;
   border-radius: 3px;
   background-color: rgb(110, 110, 110);
-  padding:0.5rem;
+  padding: 0.5rem;
   text-align: center;
-  color: rgb(255, 255 ,255);
+  color: rgb(255, 255, 255);
   box-shadow: inset 0px 2px 4px 0px rgb(0 0 0 / 70%);
- width: max-content;
-  
+  width: max-content;
 }
-.title-toltip{
+.title-toltip {
   font-weight: 800;
 }
 
@@ -1150,6 +1161,38 @@ button {
 .counter-down {
   font-size: 80px;
 }
-.h-fit{
+.h-fit {
   height: fit-content !important;
+}
+
+.content {
+  height: 0;
+  display: none;
+  transition: 0.3s ease;
+}
+
+.show {
+  display: block;
+  height: fit-content;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
 }
