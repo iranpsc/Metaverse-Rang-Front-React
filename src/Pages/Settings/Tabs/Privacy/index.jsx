@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Collapses from "./Component/collapse";
 import Toggle from "../../../../Components/Toggle";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { ToastError } from "../../../../Services/Utility";
 const Container = styled.section`
   height: 100%;
   width: 100%;
@@ -174,21 +175,25 @@ const Privacy = () => {
   });
 
   const onChangeHandler = (name, value) => {
-    setData((prevData) =>
-      prevData.map((item) =>
-        item.name === name ? { ...item, display: Number(!value) } : item
-      )
-    );
-
     Request("privacy", HTTP_METHOD.POST, {
       setting: name,
       value: Number(!value),
-    });
+    })
+      .then(() => {
+        setData((prevData) =>
+          prevData.map((item) =>
+            item.name === name ? { ...item, display: Number(!value) } : item
+          )
+        );
+      })
+      .catch(() => {
+        ToastError("لطفا بعدا تلاش کنید ");
+      });
   };
   return (
     <Container>
       {result.map((section) => (
-        <Collapses title={Object.keys(section)[0]}>
+        <Collapses title={Object.keys(section)[0].replace("_", " ")}>
           {section[Object.keys(section)[0]].map((item) => (
             <Toggle
               key={item.name}
