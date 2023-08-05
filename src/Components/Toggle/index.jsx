@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
-import styled from 'styled-components';
-import propTypes from 'prop-types';
+import React, { memo } from "react";
+import styled from "styled-components";
+import propTypes from "prop-types";
 
 const Input = styled.input`
   cursor: pointer;
@@ -19,7 +19,7 @@ const Input = styled.input`
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 22px;
     height: 22px;
@@ -51,11 +51,24 @@ const TextToggle = styled.div`
   }
 `;
 
-function Toggle({ text, onChange, value, name }) {
+function Toggle({ text, onChange, value, name, privacy }) {
   return (
     <TextToggle>
       <p>{text}</p>
-      <Input name={name} type='checkbox' checked={value} onChange={() => onChange((prevState) => ({...prevState, [name]: Number(!value)}))} />
+      <Input
+        name={name}
+        type="checkbox"
+        checked={value}
+        onChange={
+          !privacy
+            ? () =>
+                onChange((prevState) => ({
+                  ...prevState,
+                  [name]: Number(!value),
+                }))
+            : onChange
+        }
+      />
     </TextToggle>
   );
 }

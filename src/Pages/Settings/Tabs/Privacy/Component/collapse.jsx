@@ -1,12 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 const Container = styled.div`
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
 `;
 
 const Collapses = ({ title, children }) => {
