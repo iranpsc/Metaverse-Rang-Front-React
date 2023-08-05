@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Collapses from "./Component/collapse";
 import Toggle from "../../../../Components/Toggle";
+import useRequest from "../../../../Services/Hooks/useRequest";
+import { useState } from "react";
 
 const Container = styled.section`
   height: 100%;
@@ -12,10 +14,12 @@ const Container = styled.section`
   flex-direction: column;
   overflow-y: auto;
   gap: 20px;
+  padding: 10px 0;
 `;
 
 const Privacy = () => {
-  const data = {
+  const [data, setData] = useState([]);
+  const dataToggle = {
     مشخصات_حقیقی: {
       nationality: "ملیت",
       birthdate: "تاریخ تولد",
@@ -148,18 +152,44 @@ const Privacy = () => {
       all_licenses: "عدم نمایش تعداد کل مجوزات",
     },
   };
+  const { Request, HTTP_METHOD } = useRequest();
+
+  useEffect(() => {
+    Request("privacy").then((res) => {
+      setData(res.data.data);
+    });
+  }, []);
+  const result = [];
+  for (const section in dataToggle) {
+    const sectionData = dataToggle[section];
+    const sectionDataArray = [];
+    for (const item of data) {
+      if (sectionData[item.name]) {
+        sectionDataArray.push({
+          name: item.name,
+          display: item.display,
+          nameDisplay: sectionData[item.name],
+        });
+      }
+    }
+    result.push({
+      [section]: sectionDataArray,
+    });
+  }
 
   return (
     <Container>
-      {Object.keys(data).map((section) => {
-        return (
-          <Collapses title={section}>
-            {Object.values(data[section]).map((item) => {
-              return <Toggle text={item} name="announcements_sms" />;
-            })}
-          </Collapses>
-        );
-      })}
+      {result.map((section) => (
+        <Collapses title={Object.keys(section)[0]}>
+          {section[Object.keys(section)[0]].map((item) => (
+            <Toggle
+              key={item.name}
+              text={item.nameDisplay}
+              value={item.display}
+            />
+          ))}
+        </Collapses>
+      ))}
     </Container>
   );
 };
