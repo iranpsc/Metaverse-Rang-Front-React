@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import Collapses from "./Component/collapse";
 import Toggle from "../../../../Components/Toggle";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import { useState } from "react";
-
 const Container = styled.section`
   height: 100%;
   width: 100%;
@@ -19,6 +17,14 @@ const Container = styled.section`
 
 const Privacy = () => {
   const [data, setData] = useState([]);
+  const { Request, HTTP_METHOD } = useRequest();
+
+  useEffect(() => {
+    Request("privacy").then((res) => {
+      setData(res.data.data);
+    });
+  }, []);
+
   const dataToggle = {
     مشخصات_حقیقی: {
       nationality: "ملیت",
@@ -152,31 +158,33 @@ const Privacy = () => {
       all_licenses: "عدم نمایش تعداد کل مجوزات",
     },
   };
-  const { Request, HTTP_METHOD } = useRequest();
 
-  useEffect(() => {
-    Request("privacy").then((res) => {
-      setData(res.data.data);
-    });
-  }, []);
-  const result = [];
-  for (const section in dataToggle) {
-    const sectionData = dataToggle[section];
-    const sectionDataArray = [];
-    for (const item of data) {
-      if (sectionData[item.name]) {
-        sectionDataArray.push({
-          name: item.name,
-          display: item.display,
-          nameDisplay: sectionData[item.name],
-        });
-      }
-    }
-    result.push({
+  const result = Object.entries(dataToggle).map(([section, sectionData]) => {
+    const sectionDataArray = data
+      .filter((item) => sectionData[item.name])
+      .map((item) => ({
+        name: item.name,
+        display: item.display,
+        nameDisplay: sectionData[item.name],
+      }));
+
+    return {
       [section]: sectionDataArray,
-    });
-  }
+    };
+  });
 
+  const onChangeHandler = (name, value) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.name === name ? { ...item, display: Number(!value) } : item
+      )
+    );
+
+    Request("privacy", HTTP_METHOD.POST, {
+      setting: name,
+      value: Number(!value),
+    });
+  };
   return (
     <Container>
       {result.map((section) => (
@@ -186,6 +194,9 @@ const Privacy = () => {
               key={item.name}
               text={item.nameDisplay}
               value={item.display}
+              name={item.name}
+              onChange={() => onChangeHandler(item.name, item.display)}
+              privacy
             />
           ))}
         </Collapses>
