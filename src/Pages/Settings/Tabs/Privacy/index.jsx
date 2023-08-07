@@ -68,16 +68,10 @@ const Privacy = () => {
       nemayeshgah_features: "vod های نمایشگاه",
     },
 
-    دنبال_شوندگان: {
+    روابط_شهروندی: {
       following: "لیست دنبال شوندگان",
       following_count: "تعداد دنبال شوندگان",
     },
-
-    دنبال_کنندگان: {
-      followers: "لیست دنبال کنندگان",
-      followers_count: "تعداد دنبال کنندگان",
-    },
-
     مجوزات_دریافتی: {
       establish_store_license: "مجوز ایجاد فروشگاه",
       establish_union_license: "مجوز ایجاد اتحاد",
