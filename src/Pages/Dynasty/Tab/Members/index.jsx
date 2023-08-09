@@ -28,10 +28,10 @@ const ContainerSearchBox = styled.div`
 const Members = () => {
   // Using custom hook to fetch data from server
   const { Request } = useRequest();
-  
+
   // Getting current page location using react-router's useLocation hook
   const location = useLocation();
-  
+
   // Setting initial states using useState hook
   const [dynastyId, setDynastyId] = useState({});
   const [currentUser, setCurrentUser] = useState(null);
@@ -39,54 +39,60 @@ const Members = () => {
   const [isUserSearchOpen, setIsUserSearchOpen] = useState(false);
   const [family, setFamily] = useState([]);
 
- const [membersData, setMembersData] = useState([]);
- 
-   useEffect(() => {
-     const updatedMembersData = [
-       { Left: "33.5%", Top: "11.5%", MemberImg: dynastyId["profile-image"] },
-       { Left: "5.4%", Top: "37.3%", Name: "پدر", Relationship: "father" },
-       { Left: "21%", Top: "37.3%", Name: "مادر", Relationship: "mother" },
-       { Left: "40.2%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
-       { Left: "54.5%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
-       { Left: "69.7%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
-       { Left: "86%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
-       { Left: "13.5%", Top: "71.5%", Name: "همسر", Relationship: "spouse" },
-       { Left: "40%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
-       { Left: "54.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
-       { Left: "69.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
-       { Left: "85.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
-     ];
-     family.forEach(({profile_photo, relationship}) => {
+  const [membersData, setMembersData] = useState([]);
+
+  useEffect(() => {
+    const updatedMembersData = [
+      { Left: "33.5%", Top: "11.5%", MemberImg: dynastyId["profile-image"] },
+      { Left: "5.4%", Top: "37.3%", Name: "پدر", Relationship: "father" },
+      { Left: "21%", Top: "37.3%", Name: "مادر", Relationship: "mother" },
+      { Left: "40.2%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
+      { Left: "54.5%", Top: "37.3%", Name: "خواهر", Relationship: "sister" },
+      { Left: "69.7%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
+      { Left: "86%", Top: "37.3%", Name: "برادر", Relationship: "brother" },
+      { Left: "13.5%", Top: "71.5%", Name: "همسر", Relationship: "spouse" },
+      { Left: "40%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+      { Left: "54.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+      { Left: "69.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+      { Left: "85.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
+    ];
+    family.forEach(({ profile_photo, relationship, id }) => {
       if (relationship === "offspring") {
-        const index = updatedMembersData.findIndex(member => member.Relationship === "offspring" && !member.MemberImg);
+        const index = updatedMembersData.findIndex(
+          (member) => member.Relationship === "offspring" && !member.MemberImg
+        );
         if (index !== -1) {
+          updatedMembersData[index].id = id;
           updatedMembersData[index].MemberImg = profile_photo;
         }
       } else {
-        if (updatedMembersData.some(member => member.Relationship === relationship)) {
-          updatedMembersData.find(member => member.Relationship === relationship).MemberImg = profile_photo;
+        const memberToUpdate = updatedMembersData.find(
+          (member) => member.Relationship === relationship
+        );
+        if (memberToUpdate) {
+          updatedMembersData.MemberImg = profile_photo;
         }
       }
     });
-    
- 
-     setMembersData(updatedMembersData);
-   }, [family, dynastyId]);
- 
+    setMembersData(updatedMembersData);
+  }, [family, dynastyId]);
+
   // Function to handle click event of each member
-  const handleClick = useCallback((member, index) => {
-    if (index > 0 && !member.MemberImg) {
-      setIsUserSearchOpen(true);
-      location.state = member;
-    }
-  }, [location]);
+  const handleClick = useCallback(
+    (member, index) => {
+      if (index > 0 && !member.MemberImg) {
+        setIsUserSearchOpen(true);
+        location.state = member;
+      }
+    },
+    [location]
+  );
 
   // Function to handle go back button event in search box component
   const handleBack = useCallback(() => {
     setIsUserSearchOpen(false);
     location.state = null;
   }, [location]);
-
   // Function to fetch data from server when component mounts
   useEffect(() => {
     const fetchData = async () => {
@@ -103,7 +109,6 @@ const Members = () => {
 
     fetchData();
   }, []);
-
 
   // Returning the JSX structure
   return (

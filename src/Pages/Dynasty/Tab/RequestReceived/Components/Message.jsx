@@ -27,8 +27,6 @@ const ContainerMessage = styled.div`
   text-align: right;
   padding: 0.5rem;
   line-height: 2;
-  border: 1px solid #777;
-  border-radius: 7px;
 `;
 
 const IconBack = styled.img`
@@ -44,7 +42,7 @@ const Header = styled.div`
   justify-content: space-between;
   padding: 10px;
 `;
-const StatusContainer=styled.div`
+const StatusContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -53,10 +51,10 @@ const StatusContainer=styled.div`
   & img {
     width: 30px;
   }
-  & p{
-font-size: 16px;
+  & p {
+    font-size: 16px;
   }
-`
+`;
 function getStatusText(statusCode) {
   const statusDict = {
     0: { text: "در دست بررسی", image: "" },
@@ -72,22 +70,22 @@ export default function Message({ items, handleBack }) {
     Request(`dynasty/requests/recieved/${items.id}`).then((response) => {
       setData(response.data.data);
     });
-
   }, []);
-  
+
   const status = getStatusText(data?.status);
-const handleSubmit =()=>{
-  Request(`dynasty/requests/recieved/${items.id}`,HTTP_METHOD.POST).then(response => {
-    ToastSuccess('سلسله با موفقیت تاسیس شد.');
-  }).catch(error => {
-    if (error.response.status === 410) {
-      ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
-      return Navigate("/metaverse/confirmation");
-    }
-    ToastError(error.response.data.message);
-  })
- 
-}
+  const handleSubmit = () => {
+    Request(`dynasty/requests/recieved/${items.id}`, HTTP_METHOD.POST)
+      .then((response) => {
+        ToastSuccess("سلسله با موفقیت تاسیس شد.");
+      })
+      .catch((error) => {
+        if (error.response.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          return Navigate("/metaverse/confirmation");
+        }
+        ToastError(error.response.data.message);
+      });
+  };
   return (
     <Container>
       <ContainerMessage>
@@ -100,7 +98,7 @@ const handleSubmit =()=>{
                 color: "blue",
                 cursor: "pointer",
                 fontFamily: "Segoe UI",
-                textTransform:"uppercase",
+                textTransform: "uppercase",
               }}
               onClick={() =>
                 window.open(
@@ -110,7 +108,7 @@ const handleSubmit =()=>{
               }
             >
               {data?.from_user.code}
-            </span>
+            </span>{" "}
             درخواست دریافت شده از شهروند
           </h2>
         </Header>
@@ -119,15 +117,18 @@ const handleSubmit =()=>{
           <p>{status.text}</p>
         </StatusContainer>
         <p>{data ? data.message : ""}</p>
-        {data?.status === 0 && 
-        <Submit
+        {data?.status === 0 && (
+          <Submit
             text="تایید سلسله"
             type="primary"
-            options={{ onClick: handleSubmit , style: {
-              margin: "0 auto" ,
-
-            },}}
-          />}
+            options={{
+              onClick: handleSubmit,
+              style: {
+                margin: "0 auto",
+              },
+            }}
+          />
+        )}
       </ContainerMessage>
     </Container>
   );

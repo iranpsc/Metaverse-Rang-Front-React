@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import UserImg from "../../../../../Assets/images/user.png";
+import { useNavigate } from "react-router-dom";
 
 const BorderImg = styled.div`
   border-radius: 100%;
@@ -21,9 +22,18 @@ const ImgMember = styled.img`
   width: 100%;
   border-radius: 100%;
   height: 100%;
+  cursor: pointer;
 `;
 
-export default function Member({ Top, Left, MemberImg, Name, HandleClick }) {
+export default function Member({
+  Top,
+  Left,
+  MemberImg,
+  Name,
+  HandleClick,
+  id,
+}) {
+  const navigate = useNavigate();
   const Container = styled.div`
     width: 72px;
     aspect-ratio: 1/1;
@@ -39,7 +49,10 @@ export default function Member({ Top, Left, MemberImg, Name, HandleClick }) {
   return (
     <Container>
       <BorderImg onClick={HandleClick}>
-        <ImgMember src={MemberImg ? MemberImg : UserImg} />
+        <ImgMember
+          src={MemberImg ? MemberImg : UserImg}
+          onClick={id ? () => navigate(`/metaverse/player/${id}`) : () => {}}
+        />
       </BorderImg>
       {Name && <ContainerName>{Name}</ContainerName>}
     </Container>

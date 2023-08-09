@@ -25,8 +25,6 @@ const ContainerMessage = styled.div`
   text-align: right;
   padding: 0.5rem;
   line-height: 2;
-  border: 1px solid #777;
-  border-radius: 7px;
 `;
 
 const IconBack = styled.img`
@@ -42,7 +40,7 @@ const Header = styled.div`
   justify-content: space-between;
   padding: 10px;
 `;
-const StatusContainer=styled.div`
+const StatusContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -51,10 +49,10 @@ const StatusContainer=styled.div`
   & img {
     width: 30px;
   }
-  & p{
-font-size: 16px;
+  & p {
+    font-size: 16px;
   }
-`
+`;
 function getStatusText(statusCode) {
   const statusDict = {
     0: { text: "در دست بررسی", image: "" },
@@ -70,9 +68,8 @@ export default function Message({ items, handleBack }) {
     Request(`dynasty/requests/sent/${items.id}`).then((response) => {
       setData(response.data.data);
     });
-
   }, []);
-  
+
   const status = getStatusText(data?.status);
 
   return (
@@ -87,7 +84,7 @@ export default function Message({ items, handleBack }) {
                 color: "blue",
                 cursor: "pointer",
                 fontFamily: "Segoe UI",
-                 textTransform:"uppercase",
+                textTransform: "uppercase",
               }}
               onClick={() =>
                 window.open(
@@ -97,7 +94,7 @@ export default function Message({ items, handleBack }) {
               }
             >
               {data?.to_user.code}
-            </span>
+            </span>{" "}
             درخواست ارسال شده به شهروند
           </h2>
         </Header>
@@ -105,7 +102,7 @@ export default function Message({ items, handleBack }) {
           {status.image && <img src={status.image} alt="وضعیت" />}
           <p>{status.text}</p>
         </StatusContainer>
-        <p dangerouslySetInnerHTML={{ __html:data? data.message :""}} ></p>
+        <p dangerouslySetInnerHTML={{ __html: data ? data.message : "" }}></p>
       </ContainerMessage>
     </Container>
   );
