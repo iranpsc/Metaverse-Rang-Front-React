@@ -112,7 +112,6 @@ export default function SendDocuments({ setDefaultTab }) {
 
   useEffect(() => {
     setDefaultTab(null);
-   
   }, []);
 
   const onChangeHandler = (e) => {
@@ -348,7 +347,20 @@ export default function SendDocuments({ setDefaultTab }) {
           options={{ style: { width: "95%" } }}
         />
       )}
-      <a href="#" target="_blank" rel="noopener noreferrer">دریافت نمونه فرم مشابه</a>
+      <a
+        href="https://rgb.irpsc.com/assets/kyc/unnamed.jpg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        مشاهده نمونه فرم
+      </a>
+      <a
+        href="https://rgb.irpsc.com/assets/kyc/kyc.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        دریافت فرم قوانین و مدارک
+      </a>
     </Form>
   );
 }
