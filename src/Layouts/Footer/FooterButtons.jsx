@@ -16,7 +16,7 @@ const Counter = styled.span`
   width: max-content;
   height: 20px;
   text-align: center;
-  border-radius: 100%;
+  border-radius: 8px;
   font-family: iransans;
   font-weight: bold;
   font-size: 14px;
@@ -74,7 +74,9 @@ export default function FooterButtons() {
         zIndex={10000}
       >
         <Container>
-          {getUser().notifications > 0 && <Counter>{getUser().notifications}</Counter>}
+          {getUser().notifications > 0 && (
+            <Counter>{getUser().notifications}</Counter>
+          )}
           <img
             className="footer-icon-button"
             src={ImageNotification}
