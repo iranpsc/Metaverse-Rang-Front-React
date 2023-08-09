@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import SearchIcon from "../../../Assets/images/searchIcon.png";
 import CrossIcon from "../../../Assets/images/cross.png";
+import AnonymousImg from "../../../Assets/images/anonymous.png";
 import useRequest from "../../../Services/Hooks/useRequest";
-
 
 const ParentInput = styled.div`
   width: 100%;
@@ -61,51 +61,66 @@ const ProfilePhoto = styled.img`
   border-radius: 100px;
 `;
 
-export default function UserSearch({setCurrentUser, currentUser, setCurrentUserId}) {
-  const [query, setQuery] = useState('');
+export default function UserSearch({
+  setCurrentUser,
+  currentUser,
+  setCurrentUserId,
+}) {
+  const [query, setQuery] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
   const [users, setUsers] = useState([]);
 
   const SearchHandler = () => {
-    Request('search/users', HTTP_METHOD.POST, {searchTerm: query}).then(response => {
-      setUsers(response.data.data);
-    })
-  }
+    Request("search/users", HTTP_METHOD.POST, { searchTerm: query }).then(
+      (response) => {
+        setUsers(response.data.data);
+      }
+    );
+  };
 
   const onClickHandler = (code, id) => {
     setCurrentUser(code);
     setCurrentUserId(id);
-    setQuery(code)
+    setQuery(code);
     setUsers([]);
-  }
+  };
 
   const onRemoveHandler = () => {
     setCurrentUser(null);
-    setCurrentUserId(null)
-    setQuery('')
+    setCurrentUserId(null);
+    setQuery("");
     setUsers([]);
-  }
+  };
 
   return (
     <ParentInput>
-      <InputSearch disabled={currentUser} type="text" placeholder="جستجو کنید" onChange={(e) => setQuery(e.target.value)} value={currentUser ? currentUser : query}/>
+      <InputSearch
+        disabled={currentUser}
+        type="text"
+        placeholder="جستجو کنید"
+        onChange={(e) => setQuery(e.target.value)}
+        value={currentUser ? currentUser : query}
+      />
 
-      {users.length > 0 &&
+      {users.length > 0 && (
         <UserContainer>
-          {users.slice(0, 2).map(user => (
+          {users.slice(0, 2).map((user) => (
             <UserItem onClick={() => onClickHandler(user?.code, user?.id)}>
               <p>{user.name}</p>
-              <ProfilePhoto src={user.photo} alt=""/>
+              <ProfilePhoto
+                src={user.photo ? user.photo : AnonymousImg}
+                alt=""
+              />
             </UserItem>
           ))}
         </UserContainer>
-      }
+      )}
 
-      {currentUser || users.length > 0 ?
-        <IconSearch src={CrossIcon} onClick={onRemoveHandler}/> :
-        <IconSearch src={SearchIcon} onClick={SearchHandler}/>
-      }
+      {currentUser || users.length > 0 ? (
+        <IconSearch src={CrossIcon} onClick={onRemoveHandler} />
+      ) : (
+        <IconSearch src={SearchIcon} onClick={SearchHandler} />
+      )}
     </ParentInput>
-  )
-    
+  );
 }
