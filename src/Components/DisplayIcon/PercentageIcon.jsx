@@ -16,7 +16,7 @@ const PercentCoin = styled.span`
   bottom: -10%;
   right: -10%;
   display: flex;
-  width: 50%;
+  width: 63%;
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
@@ -38,11 +38,11 @@ const PercentText = styled.p`
   justify-content: center;
   border-radius: 9999px;
   font-family: iransans !important;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
 `;
 
-export default function PercentageIcon({onClick}) {
+export default function PercentageIcon({ onClick }) {
   const { getUser } = useAuth();
   const [Percentage, setPercentage] = useState(0);
 
@@ -59,14 +59,16 @@ export default function PercentageIcon({onClick}) {
   return (
     <ToolTip
       Chidren={
-        <Container onClick={() => {
-          onClick();
-          updatePercentage();
-        }}>
+        <Container
+          onClick={() => {
+            onClick();
+            updatePercentage();
+          }}
+        >
           <ProfitIcon src={PercentageImage} />
 
           <PercentCoin>
-            <PercentText>{Percentage}</PercentText>
+            <PercentText>{Percentage}%</PercentText>
           </PercentCoin>
         </Container>
       }
