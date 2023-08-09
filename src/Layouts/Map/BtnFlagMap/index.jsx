@@ -26,26 +26,26 @@ const ContainerBtn = styled.div`
     align-items: center;
     gap: 5px;
     left: -2px;
-    top: 17%;
+    top: 13%;
     z-index: 999;
   }
 `;
 
 const Btn = styled.div`
   width: 100%;
-  border:3px solid #757373;
+  border: 3px solid #757373;
   display: flex;
   height: 35px;
   align-items: center;
   justify-content: space-between;
   background: linear-gradient(to right, white, gray);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding-left:5px ;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding-left: 5px;
   &:hover {
     border: ${(props) =>
       `${props.border} 3px solid`}; /* Dynamic border color */
   }
-  border-radius:0  5px  5px 0;
+  border-radius: 0 5px 5px 0;
   &.active {
     border: ${(props) => `${props.border} 3px solid`};
   }
@@ -81,12 +81,12 @@ const BtnFlagMap = ({ flags, handleButtonClick }) => {
       setIsFilterActive(false);
     } else {
       if (activeButtonCount >= 2) {
-        return; 
+        return;
       }
-  
+
       const index = activeMapIds.indexOf(flagId);
       let updatedActiveMapIds;
-  
+
       if (index !== -1) {
         updatedActiveMapIds = activeMapIds.filter((id) => id !== flagId);
         setActiveButtonCount(activeButtonCount - 1);
@@ -94,14 +94,13 @@ const BtnFlagMap = ({ flags, handleButtonClick }) => {
         updatedActiveMapIds = [...activeMapIds, flagId];
         setActiveButtonCount(activeButtonCount + 1);
       }
-  
+
       setActiveMapIds(updatedActiveMapIds);
       setActiveButtonId(flagId);
       handleButtonClick(flagId);
       setIsFilterActive(true);
     }
   };
-  
 
   return (
     <ContainerBtn>
