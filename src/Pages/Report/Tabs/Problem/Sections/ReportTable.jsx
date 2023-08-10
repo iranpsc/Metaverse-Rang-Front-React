@@ -10,7 +10,7 @@ import BackArrowImage from "../../../../../Assets/images/back-arow.png";
 const Description = styled.div`
   text-align: right;
   direction: rtl;
-  background: #ECF2FF;
+  background: #ecf2ff;
   padding: 8px;
   border-radius: 8px;
   width: 100%;
@@ -33,18 +33,30 @@ function ReportTable({ reports }) {
     Request(`reports/${id}`).then((response) => {
       setReport(response.data.data);
     });
-  }
+  };
 
-  return (
-    report ? <>
-      <img className='cursor-pointer' src={BackArrowImage} alt='' width={32} onClick={() => setReport(null)}/>
+  return report ? (
+    <>
+      <img
+        className="cursor-pointer"
+        src={BackArrowImage}
+        alt=""
+        style={{ transform: " rotateY(185deg)" }}
+        width={32}
+        onClick={() => setReport(null)}
+      />
 
       <Description>
         <h3>{SanitizeHTML(report.title)}</h3>
-        <p className='mb-3'>{SanitizeHTML(report.content)}</p>
-        {report.attachment && <a href={report.attachment} className='link'>فایل ضمیمه</a>}
+        <p className="mb-3">{SanitizeHTML(report.content)}</p>
+        {report.attachment && (
+          <a href={report.attachment} className="link">
+            فایل ضمیمه
+          </a>
+        )}
       </Description>
-    </> : (
+    </>
+  ) : (
     <>
       <h4 className="text-right rtl mb-3">لیست گزارشات : </h4>
 
@@ -68,18 +80,17 @@ function ReportTable({ reports }) {
 
             <Cell>
               <img
-                  className="cursor-pointer"
-                  src={SeenIcon}
-                  alt=""
-                  width={32}
-                  onClick={() => onClickHandler(report.id)}
-                />
+                className="cursor-pointer"
+                src={SeenIcon}
+                alt=""
+                width={32}
+                onClick={() => onClickHandler(report.id)}
+              />
             </Cell>
           </Row>
         ))}
       </Table>
     </>
-    )
   );
 }
 
