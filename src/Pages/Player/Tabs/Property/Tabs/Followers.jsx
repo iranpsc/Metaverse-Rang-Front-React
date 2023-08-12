@@ -4,6 +4,7 @@ import styled from "styled-components";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import FollowsSearch from "../../../Components/FollowsSearch";
 import PlayerCard from "../Component/PlayerCard";
+import { useParams } from "react-router-dom";
 
 const ContainerPlayerCard = styled.div`
   width: 90%;

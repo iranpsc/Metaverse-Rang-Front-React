@@ -176,7 +176,6 @@ export default function General() {
     Request(`players/${id}/profile`).then((response) => {
       setPlayer(response.data.data);
     });
-
   }, []);
 
   const onFollowHandler = () => {
@@ -209,7 +208,7 @@ export default function General() {
           >
             {player?.images?.length > 0 ? (
               player.images.reverse().map((image) => (
-                <SwiperSlide key={image.id} className='h-fit'>
+                <SwiperSlide key={image.id} className="h-fit">
                   <img
                     style={{ borderRadius: "10px" }}
                     src={image.url}
@@ -221,7 +220,7 @@ export default function General() {
               ))
             ) : (
               <img
-              style={{ borderRadius: "10px" }}
+                style={{ borderRadius: "10px" }}
                 src={AnonymousImage}
                 width={150}
                 alt=""
