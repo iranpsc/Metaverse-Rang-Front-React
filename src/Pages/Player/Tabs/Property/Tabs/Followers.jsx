@@ -35,7 +35,6 @@ export default function Followers() {
       <ContainerPlayerCard>
         {result.map((user) => (
           <PlayerCard
-            TextBtn="آنفالو کردن"
             Id={user.code}
             Name={user.name}
             PlayerImg={user.profile_photos}

@@ -164,7 +164,9 @@ const ProfileIcons = styled.div`
   bottom: 20%;
   width: 100%;
 `;
-
+const Text = styled.p`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+`;
 export default function General() {
   const [follow, dispatch] = useContext(FollowContext);
   const { id } = useParams();
@@ -276,8 +278,10 @@ export default function General() {
 
         <InfoSection>
           <Info>
-            <p>{player?.name}</p>
-            <p className="link">{player?.code}</p>
+            <Text>{player?.name}</Text>
+            <Text className="link" style={{ textTransform: "uppercase" }}>
+              {player?.code}
+            </Text>
           </Info>
 
           <Label

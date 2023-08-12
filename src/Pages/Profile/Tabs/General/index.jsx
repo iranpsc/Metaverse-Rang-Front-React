@@ -162,6 +162,9 @@ const UploadProfile = styled.img`
   right: 10px;
   bottom: 10px;
 `;
+const Text = styled.p`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+`;
 
 export default function General() {
   const [user, setUser] = useState({});
@@ -182,7 +185,6 @@ export default function General() {
     Request("profilePhotos").then((response) => {
       setProfileImage(response?.data?.data.reverse());
     });
-
   }, []);
 
   const deleteProfileImage = (id) => {
@@ -201,11 +203,11 @@ export default function General() {
             spaceBetween={30}
             mousewheel={true}
             className="mySwiper cursor-pointer "
-            style={{height:"37%"}}
+            style={{ height: "37%" }}
           >
             {profileImage.length > 0 ? (
               profileImage.map((image) => (
-                <SwiperSlide key={image.id} className='h-fit'>
+                <SwiperSlide key={image.id} className="h-fit">
                   <img
                     style={{ borderRadius: "10px" }}
                     src={image.url}
@@ -242,8 +244,10 @@ export default function General() {
 
         <InfoSection>
           <Info>
-            <p>{user?.name}</p>
-            <p className="link">{user?.code}</p>
+            <Text>{user?.name}</Text>
+            <Text className="link" style={{ textTransform: "uppercase" }}>
+              {user?.code}
+            </Text>
           </Info>
 
           <Label Image={PSCImage} Name="PSC مجموع دارایی" Value={assets?.psc} />

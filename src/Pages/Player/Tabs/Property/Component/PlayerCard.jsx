@@ -2,13 +2,12 @@ import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
 import AnonymousImage from "../../../../../Assets/images/anonymous.png";
 
-
 const Container = styled.div`
   width: 100%;
   height: 100px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 const DetailPlayersCard = styled.div`
@@ -61,28 +60,18 @@ const NamePlayer = styled.p`
   text-transform: uppercase;
 `;
 
-export default function PlayerCard({ PlayerImg, TextBtn, Id, Name }) {
+export default function PlayerCard({ PlayerImg, Id, Name }) {
   return (
     <Container>
-      <Submit
-        text={TextBtn}
-        type="primary"
-        options={{
-          style: {
-            width: 155
-          }
-        }}
-      />
       <DetailPlayersCard>
         <BorderImgPlayersCard>
           <ImgPlayersCard src={PlayerImg ? PlayerImg : AnonymousImage} />
         </BorderImgPlayersCard>
-        
+
         <ContainerTextPlayer>
           <IdPlayer>{Id}</IdPlayer>
           <NamePlayer>{Name}</NamePlayer>
         </ContainerTextPlayer>
-
       </DetailPlayersCard>
     </Container>
   );

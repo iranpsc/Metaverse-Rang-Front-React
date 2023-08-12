@@ -26,17 +26,15 @@ export default function Following() {
     Request(`players/${id}/following`, HTTP_METHOD.GET).then((response) => {
       setFollowing(response.data.data);
     });
-
   }, []);
 
   return (
     <>
-      <FollowsSearch data={following} setResult={setResult}/>
+      <FollowsSearch data={following} setResult={setResult} />
 
       <ContainerPlayerCard>
         {result.map((user) => (
           <PlayerCard
-            TextBtn="آنفالو کردن"
             Id={user.code}
             Name={user.name}
             PlayerImg={user.profile_photos}
