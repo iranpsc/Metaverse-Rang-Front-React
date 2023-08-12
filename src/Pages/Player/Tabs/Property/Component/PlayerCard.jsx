@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
 import AnonymousImage from "../../../../../Assets/images/anonymous.png";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -33,6 +34,7 @@ const ImgPlayersCard = styled.img`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const ContainerTextPlayer = styled.div`
@@ -60,12 +62,16 @@ const NamePlayer = styled.p`
   text-transform: uppercase;
 `;
 
-export default function PlayerCard({ PlayerImg, Id, Name }) {
+export default function PlayerCard({ PlayerImg, Id, Name, IdNavigate }) {
+  const navigate = useNavigate();
   return (
     <Container>
       <DetailPlayersCard>
         <BorderImgPlayersCard>
-          <ImgPlayersCard src={PlayerImg ? PlayerImg : AnonymousImage} />
+          <ImgPlayersCard
+            src={PlayerImg ? PlayerImg : AnonymousImage}
+            onClick={() => navigate(`/metaverse/player/${IdNavigate}`)}
+          />
         </BorderImgPlayersCard>
 
         <ContainerTextPlayer>
