@@ -39,6 +39,7 @@ export default function Features() {
             Irr={feature.properties.price_irr}
             Psc={feature.properties.price_psc}
             Type={FeatureType(feature.properties.rgb)}
+            IdNavigate={feature.id}
           />
         ))}
       </Container>

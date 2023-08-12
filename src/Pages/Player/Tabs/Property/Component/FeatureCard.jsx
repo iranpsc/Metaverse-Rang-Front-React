@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
 import { TextShorter } from "../../../../../Services/Utility";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -14,7 +15,8 @@ const Container = styled.div`
 const DetailContainer = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;`;
+  align-items: center;
+`;
 
 const Title = styled.div`
   width: 50%;
@@ -23,7 +25,7 @@ const Title = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   gap: 22px;
-`
+`;
 
 const Information = styled.div`
   width: 100%;
@@ -53,40 +55,39 @@ const Id = styled.p`
   color: #fd7e14;
   font-weight: 700;
   cursor: pointer;
+  text-transform: uppercase;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 `;
 
-export default function FeatureCard({ IdMap, Address, Area, Psc, Irr, Type }) {
+export default function FeatureCard({
+  IdMap,
+  Address,
+  Area,
+  Psc,
+  Irr,
+  Type,
+  IdNavigate,
+}) {
+  const navigate = useNavigate();
   return (
     <Container>
       <PolygonContainer>
-        <Id>{IdMap}</Id>
+        <Id onClick={() => navigate(`/metaverse/feature/${IdNavigate}`)}>
+          {IdMap}
+        </Id>
       </PolygonContainer>
 
       <DetailContainer>
         <Information>
           <TextDetail>{TextShorter(Address, 40)}</TextDetail>
-
-          {(parseInt(Psc) !== 0 && parseInt(Irr) !== 0) ? 
           <TextDetail>
             {parseInt(Psc)} / {parseInt(Irr)}
           </TextDetail>
-          :
-          <Submit
-            text={"قیمت گذاری"}
-            type="primary"
-            options={{
-              style: {
-                width: 120,
-              }
-            }}
-          />
-          }
-          
           <TextDetail>
             {Type}&nbsp; - متراژ : &nbsp;{Area}
           </TextDetail>
         </Information>
-        
+
         <Title>
           <TextDetail>آدرس:</TextDetail>
           <TextDetail>قیمت:</TextDetail>
