@@ -66,7 +66,14 @@ export default function TableDynasty({ dynasty }) {
     <Container>
       <Table>
         <Header>
-          <Text style={{ color: "#fd7e14", fontWeight: 700, textTransform:"uppercase",fontFamily:'Segoe UI' }}>
+          <Text
+            style={{
+              color: "#fd7e14",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              fontFamily: "Segoe UI",
+            }}
+          >
             {dynasty?.["dynasty-feature"]?.properties_id}
           </Text>
           <Text style={{ fontWeight: 700 }}>ملک سلسله</Text>
@@ -87,7 +94,9 @@ export default function TableDynasty({ dynasty }) {
             </Title>
           </DetailedContainer>
           <DetailedContainer>
-            <Text>1%</Text>
+            <Text>
+              {dynasty?.["dynasty-feature"]?.["feature-profit-increase"]}%
+            </Text>
             <Title>
               <Text>افزایش سود از املاک</Text>
               <Icon src={Increase} />
