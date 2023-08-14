@@ -1,4 +1,4 @@
-import * as moment from "jalali-moment";
+import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
 
 export function SanitizeHTML(content) {
@@ -19,7 +19,7 @@ export function ConvertJalali(date) {
 
 export function TimeAgo(time) {
   // Convert the Persian date to a JavaScript Date object using moment-jalaali
-  const birthDate = moment(time, 'jYYYY/jMM/jDD').toDate();
+  const birthDate = moment(time, "jYYYY/jMM/jDD").toDate();
 
   // Calculate the difference between the birth date and the current date in milliseconds
   const ageInMs = Date.now() - birthDate.getTime();
@@ -37,24 +37,30 @@ export function EmailValidator(email) {
 
 export const calculateFee = (number = 100, percent = 5) => {
   const parseNumber = parseInt(number);
-  return ((parseNumber * percent) / 100) + parseNumber
-}
-
-export const
-persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
-arabicNumbers  = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
-fixNumbers = function (str)
-{
-  if(typeof str === 'string')
-  {
-    for(var i=0; i<10; i++)
-    {
-      str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
-    }
-  }
-  return str;
+  return (parseNumber * percent) / 100 + parseNumber;
 };
 
+export const persianNumbers = [
+    /۰/g,
+    /۱/g,
+    /۲/g,
+    /۳/g,
+    /۴/g,
+    /۵/g,
+    /۶/g,
+    /۷/g,
+    /۸/g,
+    /۹/g,
+  ],
+  arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
+  fixNumbers = function (str) {
+    if (typeof str === "string") {
+      for (var i = 0; i < 10; i++) {
+        str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
+      }
+    }
+    return str;
+  };
 
 export const ToastError = (message) => {
   return toast.error(message, {
