@@ -38,6 +38,7 @@ export default function Followers() {
             Id={user.code}
             Name={user.name}
             PlayerImg={user.profile_photos}
+            IdNavigate={user.id}
             key={shortid.generate()}
           />
         ))}

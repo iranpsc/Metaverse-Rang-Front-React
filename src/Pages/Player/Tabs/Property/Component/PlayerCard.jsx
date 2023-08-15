@@ -52,6 +52,7 @@ const IdPlayer = styled.p`
   font-family: "Segoe UI";
   font-weight: 700;
   text-transform: uppercase;
+  cursor: pointer;
 `;
 
 const NamePlayer = styled.p`
@@ -75,7 +76,13 @@ export default function PlayerCard({ PlayerImg, Id, Name, IdNavigate }) {
         </BorderImgPlayersCard>
 
         <ContainerTextPlayer>
-          <IdPlayer>{Id}</IdPlayer>
+          <IdPlayer
+            onClick={() =>
+              window.open(`https://rgb.irpsc.com/citizen/${Id}`, "_blank")
+            }
+          >
+            {Id}
+          </IdPlayer>
           <NamePlayer>{Name}</NamePlayer>
         </ContainerTextPlayer>
       </DetailPlayersCard>

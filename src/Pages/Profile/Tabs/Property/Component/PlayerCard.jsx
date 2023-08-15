@@ -3,7 +3,6 @@ import Submit from "../../../../../Components/Buttons/Submit";
 import AnonymousImage from "../../../../../Assets/images/anonymous.png";
 import { useNavigate } from "react-router-dom";
 
-
 const Container = styled.div`
   width: 100%;
   height: 100px;
@@ -52,6 +51,7 @@ const IdPlayer = styled.p`
   font-family: "Segoe UI";
   font-weight: 700;
   text-transform: uppercase;
+  cursor: pointer;
 `;
 
 const NamePlayer = styled.p`
@@ -62,7 +62,14 @@ const NamePlayer = styled.p`
   text-transform: uppercase;
 `;
 
-export default function PlayerCard({ PlayerImg, TextBtn, Code, Name, onClick, Id }) {
+export default function PlayerCard({
+  PlayerImg,
+  TextBtn,
+  Code,
+  Name,
+  onClick,
+  Id,
+}) {
   const Navigate = useNavigate();
 
   return (
@@ -72,23 +79,31 @@ export default function PlayerCard({ PlayerImg, TextBtn, Code, Name, onClick, Id
         type="primary"
         options={{
           style: {
-            width: 155
+            width: 155,
           },
           onClick: () => {
             onClick(Id);
-          }
+          },
         }}
       />
       <DetailPlayersCard>
         <BorderImgPlayersCard>
-          <ImgPlayersCard src={PlayerImg ? PlayerImg : AnonymousImage} onClick={() => Navigate(`/metaverse/player/${Id}`)}/>
+          <ImgPlayersCard
+            src={PlayerImg ? PlayerImg : AnonymousImage}
+            onClick={() => Navigate(`/metaverse/player/${Id}`)}
+          />
         </BorderImgPlayersCard>
-        
+
         <ContainerTextPlayer>
-          <IdPlayer>{Code}</IdPlayer>
+          <IdPlayer
+            onClick={() =>
+              window.open(`https://rgb.irpsc.com/citizen/${Id}`, "_blank")
+            }
+          >
+            {Code}
+          </IdPlayer>
           <NamePlayer>{Name}</NamePlayer>
         </ContainerTextPlayer>
-
       </DetailPlayersCard>
     </Container>
   );
