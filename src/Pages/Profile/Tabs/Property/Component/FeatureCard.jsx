@@ -15,7 +15,8 @@ const Container = styled.div`
 const DetailContainer = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;`;
+  align-items: center;
+`;
 
 const Title = styled.div`
   width: 50%;
@@ -24,7 +25,7 @@ const Title = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   gap: 22px;
-`
+`;
 
 const Information = styled.div`
   width: 100%;
@@ -54,47 +55,62 @@ const IdContainer = styled.p`
   color: #fd7e14;
   font-weight: 700;
   cursor: pointer;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
 `;
 
-export default function FeatureCard({ Id, IdMap, Address, Area, Psc, Irr, Type, Image }) {
+export default function FeatureCard({
+  Id,
+  IdMap,
+  Address,
+  Area,
+  Psc,
+  Irr,
+  Type,
+  Image,
+}) {
   const Navigate = useNavigate();
 
   return (
     <Container>
       <PolygonContainer>
-        <IdContainer onClick={() => Navigate(`/metaverse/feature/${Id}`)}>{IdMap}</IdContainer>
+        <IdContainer onClick={() => Navigate(`/metaverse/feature/${Id}`)}>
+          {IdMap}
+        </IdContainer>
       </PolygonContainer>
 
       <DetailContainer>
         <Information>
           <TextDetail>{TextShorter(Address, 40)}</TextDetail>
 
-          {(parseInt(Psc) !== 0 && parseInt(Irr) !== 0) ? 
-          <TextDetail>
-            {parseInt(Psc)} / {parseInt(Irr)}
-          </TextDetail>
-          :
-          <Submit
-            text={"قیمت گذاری"}
-            type="primary"
-            options={{
-              style: {
-                width: 120,
-              }
-            }}
-          />
-          }
-          
+          {parseInt(Psc) !== 0 && parseInt(Irr) !== 0 ? (
+            <TextDetail>
+              {parseInt(Psc)} / {parseInt(Irr)}
+            </TextDetail>
+          ) : (
+            <Submit
+              text="قیمت گذاری"
+              type="primary"
+              options={{
+                style: {
+                  width: 120,
+                },
+                onClick: () => {
+                  Navigate(`/metaverse/feature/${Id}`, {
+                    state: { activePageNumber: 1 },
+                  });
+                },
+              }}
+            />
+          )}
+
           <TextDetail>
             {Type}&nbsp; - متراژ : &nbsp;{Area}
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <img src={Image} width={30} alt=""/>
+            &nbsp; &nbsp; &nbsp;
+            <img src={Image} width={30} alt="" />
           </TextDetail>
-
         </Information>
-        
+
         <Title>
           <TextDetail>آدرس:</TextDetail>
           <TextDetail>قیمت:</TextDetail>
