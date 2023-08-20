@@ -23,6 +23,7 @@
     "axios": "^1.2.1",
     "compressorjs": "^1.2.1",
     "deck.gl-leaflet": "^1.2.1",
+    "esbuild": "^0.19.2",
     "html2pdf.js": "^0.9.3",
     "jalali-moment": "^3.3.11",
     "laravel-echo": "^1.15.0",

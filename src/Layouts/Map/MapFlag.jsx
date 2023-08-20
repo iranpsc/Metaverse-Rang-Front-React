@@ -55,8 +55,6 @@ const MapFlag = ({ polygons, flags }) => {
   const map = useMap();
   const [zoomLevel, setZoomLevel] = useState(map.getZoom());
 
- 
-
   const FitBounds = () => {
     useEffect(() => {
       if (polygons.length > 0 && polygons.length <= 2) {
@@ -110,11 +108,7 @@ const MapFlag = ({ polygons, flags }) => {
       )),
     [polygons]
   );
- useEffect(() => {
-    map.on("zoomend", () => {
-      setZoomLevel(map.getZoom());
-    });
-  }, [map]);
+
   return (
     <>
       {mappedPolygons}

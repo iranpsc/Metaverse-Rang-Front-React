@@ -64,41 +64,35 @@ const Icon = styled.img`
 
 const BtnFlagMap = ({ flags, handleButtonClick }) => {
   const [activeMapIds, setActiveMapIds] = useState([]);
-  const [activeButtonId, setActiveButtonId] = useState(null);
-  const [isFilterActive, setIsFilterActive] = useState(false);
-  const [activeButtonCount, setActiveButtonCount] = useState(0);
-
-  const resetButtonState = () => {
-    setActiveMapIds([]);
-    setActiveButtonId(null);
-    setActiveButtonCount(0);
-  };
+  const [clickState, setClickState] = useState({});
 
   const handleClick = (flagId) => {
-    if (activeButtonId === flagId) {
-      resetButtonState();
-      handleButtonClick(null);
-      setIsFilterActive(false);
-    } else {
-      if (activeButtonCount >= 2) {
+    const { [flagId]: currentClickState, ...updatedClickState } = clickState;
+
+    if (!currentClickState) {
+      if (activeMapIds.length >= 2) {
         return;
       }
 
-      const index = activeMapIds.indexOf(flagId);
-      let updatedActiveMapIds;
+      setActiveMapIds((prevActiveMapIds) => [...prevActiveMapIds, flagId]);
+      setClickState((prevState) => ({
+        ...prevState,
+        ...updatedClickState,
+        [flagId]: true,
+      }));
 
-      if (index !== -1) {
-        updatedActiveMapIds = activeMapIds.filter((id) => id !== flagId);
-        setActiveButtonCount(activeButtonCount - 1);
-      } else {
-        updatedActiveMapIds = [...activeMapIds, flagId];
-        setActiveButtonCount(activeButtonCount + 1);
-      }
-
-      setActiveMapIds(updatedActiveMapIds);
-      setActiveButtonId(flagId);
       handleButtonClick(flagId);
-      setIsFilterActive(true);
+    } else {
+      setActiveMapIds((prevActiveMapIds) =>
+        prevActiveMapIds.filter((id) => id !== flagId)
+      );
+      setClickState((prevState) => ({
+        ...prevState,
+        ...updatedClickState,
+        [flagId]: false,
+      }));
+
+      handleButtonClick(null);
     }
   };
 
@@ -108,14 +102,14 @@ const BtnFlagMap = ({ flags, handleButtonClick }) => {
         <Btn
           key={flag.id}
           border={flag.color}
-          className={activeButtonId === flag.id ? "active" : ""}
+          className={clickState[flag.id] ? "active" : ""}
         >
           <span style={{ textTransform: "uppercase" }}>{flag.name}</span>
           <ContainerIcon>
             <Icon src={FilterIcon} style={{ cursor: "not-allowed" }} />
             <Icon
               src={MapIcon}
-              active={activeMapIds.includes(flag.id)}
+              active={clickState[flag.id]}
               onClick={() => handleClick(flag.id)}
             />
           </ContainerIcon>
