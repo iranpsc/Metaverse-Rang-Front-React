@@ -56,7 +56,6 @@ export default function TicketForm({ setTickets }) {
       setCurrentUserId(state.id);
     }
   }, [state]);
-
   const onSubmit = () => {
     const errors = [];
 
@@ -84,6 +83,9 @@ export default function TicketForm({ setTickets }) {
       errors.push("متن پیام شما باید بیش از 50 کارکتر داشته باشد.");
     }
 
+    if (formData.content.replace(/<[^>]*>?/gm, "").length) {
+      errors.push("متن پیام بیشتر از 2000 کاراکتر  است .");
+    }
     setErrors(errors);
 
     if (files.length > 0) {
@@ -210,7 +212,9 @@ export default function TicketForm({ setTickets }) {
         }
         placeholder="متن سند ..."
       />
-
+      <p style={{ alignSelf: "end" }}>
+        {formData.content.replace(/<[^>]*>?/gm, "").length} /2000
+      </p>
       <Attachment setFiles={setFiles} files={files} />
 
       <Submit
