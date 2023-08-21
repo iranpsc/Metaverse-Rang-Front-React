@@ -22,7 +22,7 @@ export default function PlayerList() {
   async function fetchPlayers() {
     try {
       const response = await Request("players");
-      setPlayers(response.data.data.reverse());
+      setPlayers(response.data.data);
       localStorage.removeItem("IpAccess");
     } catch (error) {
       const { status } = error.response;
