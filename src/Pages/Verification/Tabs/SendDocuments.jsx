@@ -351,6 +351,7 @@ export default function SendDocuments({ setDefaultTab }) {
         href="https://rgb.irpsc.com/assets/kyc/unnamed.jpg"
         target="_blank"
         rel="noopener noreferrer"
+        style={{ alignSelf: "end" }}
       >
         مشاهده نمونه فرم
       </a>
@@ -358,6 +359,7 @@ export default function SendDocuments({ setDefaultTab }) {
         href="https://rgb.irpsc.com/assets/kyc/kyc.pdf"
         target="_blank"
         rel="noopener noreferrer"
+        style={{ alignSelf: "end" }}
       >
         دریافت فرم قوانین و مدارک
       </a>
