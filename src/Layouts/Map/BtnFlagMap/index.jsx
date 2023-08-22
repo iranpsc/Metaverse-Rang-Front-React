@@ -26,7 +26,7 @@ const ContainerBtn = styled.div`
     align-items: center;
     gap: 5px;
     left: -2px;
-    top: 13%;
+    top: 18%;
     z-index: 999;
   }
 `;

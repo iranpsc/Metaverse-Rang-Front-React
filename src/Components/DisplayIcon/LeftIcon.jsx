@@ -11,7 +11,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 30%;
+  top: 35%;
   left: 8px;
   z-index: 500;
   gap: 32px;
@@ -39,7 +39,12 @@ export default function LeftIcon() {
       />
 
       <ToolTip
-        Chidren={<IconEnable onClick={()=>navigate("/metaverse/search")} src={SearchImage} />}
+        Chidren={
+          <IconEnable
+            onClick={() => navigate("/metaverse/search")}
+            src={SearchImage}
+          />
+        }
         TitleToltip={"جستجوی مرکزی"}
         ContentToltip={"جستجو در VOD و بخش های متارنگ"}
         classNamePosstion={"tw-lefticon"}
