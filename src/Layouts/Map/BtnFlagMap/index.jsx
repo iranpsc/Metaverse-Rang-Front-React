@@ -92,7 +92,7 @@ const BtnFlagMap = ({ flags, handleButtonClick }) => {
         [flagId]: false,
       }));
 
-      handleButtonClick(null);
+      handleButtonClick(flagId);
     }
   };
 

@@ -84,13 +84,20 @@ const Map = () => {
     const response = await Request(`maps/${id}/border`);
     const parsedCoordinates = JSON.parse(response.data.data.border_coordinates);
 
-    const existingPolygon = polygons.find((polygon) => polygon.id === id);
+    // بدست آوردن شاخص اولین ورودی مورد نظر در آرایه
+    const existingPolygonIndex = polygons.findIndex(
+      (polygon) => polygon.id === id
+    );
 
-    if (existingPolygon) {
-      setPolygons((prevPolygons) =>
-        prevPolygons.filter((polygon) => polygon.id !== id)
-      );
+    if (existingPolygonIndex !== -1) {
+      // اگر پلیگان با این id قبلا وجود داشت، آن را حذف کنید
+      setPolygons((prevPolygons) => {
+        const updatedPolygons = [...prevPolygons];
+        updatedPolygons.splice(existingPolygonIndex, 1);
+        return updatedPolygons;
+      });
     } else {
+      // اگر پلیگان با این id وجود نداشت، آن را اضافه کنید
       const newPolygon = {
         id: id,
         coordinates: parsedCoordinates,
@@ -98,6 +105,7 @@ const Map = () => {
       setPolygons((prevPolygons) => [...prevPolygons, newPolygon]);
     }
   };
+
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
