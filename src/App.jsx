@@ -35,7 +35,7 @@ function App() {
       <WalletProvider>
         <FollowProvider>
           <BrowserRouter>
-            <Tutorial />
+            {/* <Tutorial /> */}
             <Map />
 
             <Toaster
