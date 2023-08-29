@@ -8,6 +8,7 @@
   overflow-y: hidden;
   background-color: #7777779e;
 }
+
 .t-container {
   display: flex;
   height: 100%;
@@ -16,6 +17,7 @@
   justify-content: center;
   direction: rtl;
 }
+
 .bakhsh-1 {
   position: relative;
   display: flex;
@@ -127,6 +129,7 @@
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
+
 .json-class-3 {
   position: absolute;
   left: 0px;
@@ -134,12 +137,14 @@
   height: 85px;
   width: 90px;
 }
+
 .text-welcome {
   font-size: 1.5rem;
   line-height: 2rem;
   --tw-text-opacity: 1;
   color: rgb(112 112 112 / var(--tw-text-opacity));
 }
+
 .container-text-Education {
   display: flex;
   flex-direction: column;
@@ -147,15 +152,18 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+
 .Education-text {
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(112 112 112 / var(--tw-text-opacity));
 }
+
 .page-box-color {
   --tw-text-opacity: 1;
   color: rgb(112 112 112 / var(--tw-text-opacity));
 }
+
 .container-btn {
   position: absolute;
   bottom: 0.75rem;
@@ -164,6 +172,7 @@
   align-items: flex-end;
   justify-content: flex-end;
 }
+
 .btn-color {
   width: 9rem;
   border-radius: 0.25rem;
@@ -181,9 +190,11 @@
   transition-duration: 150ms;
   border: none;
 }
+
 .btn-color:hover {
   transform: translate(1.1, 1.1);
 }
+
 .class-arrows {
   position: absolute;
   left: -1rem;
@@ -191,7 +202,7 @@
   height: 2.5rem;
   width: 2.5rem;
   --tw-rotate: 80deg;
-
+  border-style: solid;
   border-radius: 0.25rem;
   border-top-width: 60px;
   border-right-width: 100px;
@@ -209,7 +220,7 @@
   bottom: 84px;
   height: 2.5rem;
   width: 2.5rem;
-
+  border-style: solid;
   border-radius: 0.25rem;
   border-top-width: 60px;
   border-right-width: 100px;
@@ -227,7 +238,7 @@
   bottom: 70px;
   height: 2.5rem;
   width: 2.5rem;
-
+  border-style: solid;
   border-radius: 0.25rem;
   border-top-width: 60px;
   border-right-width: 100px;
@@ -245,7 +256,7 @@
   bottom: 61px;
   height: 2.5rem;
   width: 2.5rem;
-
+  border-style: solid;
   border-radius: 0.25rem;
   border-top-width: 60px;
   border-right-width: 100px;
@@ -264,12 +275,12 @@
   height: 2.5rem;
   width: 2.5rem;
   --tw-rotate: 130deg;
-
+  border-style: solid;
   border-radius: 0.25rem;
   border-top-width: 60px;
   border-right-width: 100px;
   border-bottom-width: 60px;
-
+  border-left: transparent;
   border-color: rgb(147 51 234);
   border-top-color: transparent;
   border-bottom-color: transparent;
@@ -283,7 +294,7 @@
   height: 2.5rem;
   width: 2.5rem;
   --tw-rotate: 130deg;
-
+  border-style: solid;
   border-radius: 0.25rem;
   border-top-width: 60px;
   border-right-width: 100px;
@@ -314,7 +325,7 @@
   height: 2.5rem;
   width: 2.5rem;
   --tw-rotate: 50deg;
-
+  border-style: solid;
   border-radius: 0.25rem;
   border-top-width: 60px;
   border-right-width: 100px;
@@ -333,7 +344,7 @@
   height: 2.5rem;
   width: 2.5rem;
   --tw-rotate: 80deg;
-
+  border-style: solid;
   border-radius: 0.25rem;
   border-top-width: 60px;
   border-right-width: 100px;
@@ -344,9 +355,10 @@
   border-bottom-color: transparent;
   rotate: 80deg;
 }
+
 .hidden-box {
   position: absolute;
-  left: 10.5%;
+  left:8.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -355,14 +367,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box {
-    left: 9%;
+    left:7%;
     bottom: 6px;
   }
 }
 
 .hidden-box-1 {
   position: absolute;
-  left: 20.5%;
+  left:18.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -371,14 +383,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-1 {
-    left: 20%;
+    left: 17%;
     bottom: 6px;
   }
 }
 
 .hidden-box-2 {
   position: absolute;
-  left: 31%;
+  left:29%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -387,14 +399,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-2 {
-    left: 31%;
+    left:27%;
     bottom: 6px;
   }
 }
 
 .hidden-box-3 {
   position: absolute;
-  left: 52.2%;
+  left: 48.2%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -403,14 +415,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-3 {
-    left: 53%;
+    left:47%;
     bottom: 6px;
   }
 }
 
 .hidden-box-4 {
   position: absolute;
-  left: 35%;
+  left: 30%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -419,14 +431,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-4 {
-    left: 49.5%;
+    left: 42.5%;
     bottom: 10px;
   }
 }
 
 .hidden-box-5 {
   position: absolute;
-  left: 40.5%;
+  left:32.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -435,14 +447,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-5 {
-    left: 53.5%;
+    left:46.5%;
     bottom: 10px;
   }
 }
 
 .hidden-box-6 {
   position: absolute;
-  left: 45.5%;
+  left: 36.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -451,14 +463,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-6 {
-    left: 58%;
+    left: 50.5%;
     bottom: 10px;
   }
 }
 
 .hidden-box-7 {
   position: absolute;
-  left: 62.2%;
+  left:58.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -467,14 +479,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-7 {
-    left: 63%;
+    left:57%;
     bottom: 6px;
   }
 }
 
 .hidden-box-8 {
   position: absolute;
-  left: 41.2%;
+  left:39%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -483,14 +495,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-8 {
-    left: 42%;
+    left:37%;
     bottom: 6px;
   }
 }
 
 .hidden-box-9 {
   position: absolute;
-  left: 55%;
+  left:49.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -499,14 +511,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-9 {
-    left: 65%;
+    left: 61.5%;
     bottom: 6px;
   }
 }
 
 .hidden-box-16 {
   position: absolute;
-  left: 50%;
+  left:42%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -515,14 +527,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-16 {
-    left: 60%;
+    left:57.5%;
     bottom: 6px;
   }
 }
 
 .hidden-box-10 {
   position: absolute;
-  left: 60%;
+  left: 57%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -531,7 +543,7 @@
 
 @media (min-width: 1536px) {
   .hidden-box-10 {
-    left: 71.2%;
+    left: 69.2%;
     bottom: 6px;
   }
 }
@@ -548,7 +560,7 @@
 @media (min-width: 1536px) {
   .hidden-box-11 {
     right: 7rem;
-    top: 30%;
+    top:43%;
   }
 }
 
@@ -615,12 +627,14 @@
     top: 7%;
   }
 }
+
 .tw-box-value {
   display: flex;
   width: 100%;
   align-items: flex-end;
   justify-content: flex-end;
 }
+
 .tw_box_value_container {
   margin-left: -75px;
   display: flex;
@@ -648,17 +662,19 @@
   border-width: 3px;
 
   border-color: rgb(255 255 255);
-
+  height: 32px;
   background-color: rgb(248 250 252);
   padding-top: 1%;
   padding-bottom: 1%;
 }
+
 .text-inside-box {
   width: 60%;
   padding-right: 0.5rem;
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
 }
+
 .icon-class-1 {
   position: absolute;
   left: -21%;
@@ -667,6 +683,7 @@
   width: 60%;
   flex-direction: column-reverse;
 }
+
 .img-class-1 {
   position: relative;
   width: 100%;
@@ -692,6 +709,7 @@
   align-items: flex-end;
   justify-content: flex-end;
 }
+
 .tw-box-icons {
   position: relative;
   margin-right: -74px;
@@ -715,7 +733,7 @@
   border-width: 3px;
 
   border-color: rgb(255 255 255);
-
+  height: 30px;
   background-color: rgb(241 245 249);
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -744,7 +762,7 @@
   justify-content: center;
   border-radius: 0.375rem;
   border-width: 3px;
-
+height: 30px;
   border-color: rgb(255 255 255);
 
   background-color: rgb(241 245 249);
@@ -767,6 +785,7 @@
   margin-left: -75px;
   width: 13%;
 }
+
 .tw-profile-tuto {
   z-index: 30;
   margin-right: -125px;
@@ -969,6 +988,7 @@
 .tw-certice-shadow-profile {
   width: 22%;
 }
+
 .json-class-1 {
   position: absolute;
   left: 0px;
@@ -977,6 +997,7 @@
   width: 90px;
   border-radius: 1rem;
 }
+
 .tw-icons-left-prof-tuto {
   position: relative;
   margin-left: -75px;

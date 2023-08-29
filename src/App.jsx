@@ -11,22 +11,22 @@ import FollowProvider from "./Services/Reducers/FollowContext";
 import { useLayoutEffect } from "react";
 
 import Echo from "laravel-echo";
-import Pusher from 'pusher-js';
-
+import Pusher from "pusher-js";
+import Tutorial from "./Components/Tutorial";
 
 function App() {
   useLayoutEffect(() => {
     window.Echo = new Echo({
-      broadcaster: 'pusher',
-      key: 'local',
-      cluster: '',
-      wsHost: 'api.rgb.irpsc.com',
+      broadcaster: "pusher",
+      key: "local",
+      cluster: "",
+      wsHost: "api.rgb.irpsc.com",
       wsPort: 6001,
       wssPort: 6001,
       encrypted: true,
       forceTLS: true,
       disableStats: true,
-      enabledTransports: ['wss', 'ws']
+      enabledTransports: ["wss", "ws"],
     });
   }, []);
 
@@ -35,13 +35,13 @@ function App() {
       <WalletProvider>
         <FollowProvider>
           <BrowserRouter>
-            {/* <Tutorial /> */}
+            <Tutorial />
             <Map />
 
             <Toaster
               containerStyle={{ zIndex: 1000, marginBottom: 48 }}
               position="bottom-right"
-            />    
+            />
           </BrowserRouter>
         </FollowProvider>
       </WalletProvider>

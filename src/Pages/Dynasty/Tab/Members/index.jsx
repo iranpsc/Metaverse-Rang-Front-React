@@ -57,20 +57,13 @@ const Members = () => {
       { Left: "85.5%", Top: "77%", Name: "فرزند", Relationship: "offspring" },
     ];
     family.forEach(({ profile_photo, relationship, id }) => {
-      if (relationship === "offspring") {
+      if (relationship) {
         const index = updatedMembersData.findIndex(
-          (member) => member.Relationship === "offspring" && !member.MemberImg
+          (member) => member.Relationship === relationship && !member.MemberImg
         );
         if (index !== -1) {
           updatedMembersData[index].id = id;
           updatedMembersData[index].MemberImg = profile_photo;
-        }
-      } else {
-        const memberToUpdate = updatedMembersData.find(
-          (member) => member.Relationship === relationship
-        );
-        if (memberToUpdate) {
-          updatedMembersData.MemberImg = profile_photo;
         }
       }
     });
