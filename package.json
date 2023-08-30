@@ -41,6 +41,7 @@
     "react-leaflet": "^4.2.0",
     "react-multi-date-picker": "^3.3.4",
     "react-quill": "^2.0.0",
+    "react-rnd": "^10.4.1",
     "react-router-dom": "^6.6.1",
     "react-scripts": "^5.0.1",
     "react-spinners": "^0.13.7",

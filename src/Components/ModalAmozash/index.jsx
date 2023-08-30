@@ -1,5 +1,6 @@
 import "./index.css";
 import Draggable from "react-draggable";
+
 import React, { useEffect, useRef, useState } from "react";
 import Exit from "../../Assets/images/exit.png";
 import Minimize from "../../Assets/images/minimize.png";
@@ -10,6 +11,7 @@ import Like from "../../Assets/images/like.png";
 import Teacher from "../../Assets/images/teacher.png";
 import useRequest from "../../Services/Hooks/useRequest";
 import { ToastError } from "../../Services/Utility";
+import { Rnd } from "react-rnd";
 export default function Amozesh({
   title,
   description,
@@ -57,9 +59,16 @@ export default function Amozesh({
   useEffect(() => {
     videoRef.current?.load();
   }, [video]);
-
   return (
-    <Draggable>
+    <Rnd
+      default={{
+        x: 0,
+        y: 0,
+        width: 320,
+        height: 200,
+      }}
+      style={{ zIndex: 1500 }}
+    >
       <div className="tw-modal-container" dir="rtl">
         <div className="tw-header">
           <div className="header-top">
@@ -145,6 +154,6 @@ export default function Amozesh({
           </div>
         </div>
       </div>
-    </Draggable>
+    </Rnd>
   );
 }
