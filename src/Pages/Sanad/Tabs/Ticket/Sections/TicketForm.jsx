@@ -83,7 +83,7 @@ export default function TicketForm({ setTickets }) {
       errors.push("متن پیام شما باید بیش از 50 کارکتر داشته باشد.");
     }
 
-    if (formData.content.replace(/<[^>]*>?/gm, "").length) {
+    if (formData.content.replace(/<[^>]*>?/gm, "").length >= 2000) {
       errors.push("متن پیام بیشتر از 2000 کاراکتر  است .");
     }
     setErrors(errors);

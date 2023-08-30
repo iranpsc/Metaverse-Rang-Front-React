@@ -94,7 +94,7 @@ export default function Message({ items, handleBack }) {
               }
             >
               {data?.to_user.code}
-            </span>{" "}
+            </span>
             درخواست ارسال شده به شهروند
           </h2>
         </Header>
