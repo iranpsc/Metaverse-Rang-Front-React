@@ -9,6 +9,8 @@ import styled from "styled-components";
 import GmailIcon from "../../Assets/images/gmail.png";
 import { ToastSuccess } from "../../Services/Utility";
 import { useEffect } from "react";
+import LoginSwitch from "../../Components/Buttons/LoginSwitch";
+import CheckBox from "../../Components/Inputs/CheckBox";
 
 const BodyEmail = styled.div`
   height: 100%;
@@ -32,14 +34,11 @@ const BoxEmailNavigate = styled.div`
 
 export default function Signup() {
   const navigation = useNavigate();
-  useEffect(() => {
-    if (localStorage.getItem("IpAccess")) {
-      return navigation("/metaverse/access-ip"); // Navigate to a different location
-    }
-  }, []);
+  const [remember, setRemember] = useState(false);
   const [searchParams] = useSearchParams();
   const [emailVerification, setEmailVerification] = useState(false);
   const [token, setToken] = useState("");
+  const { Request, HTTP_METHOD } = useRequest();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -47,7 +46,11 @@ export default function Signup() {
     referral: searchParams.get("referral"),
   });
 
-  const { Request, HTTP_METHOD } = useRequest();
+  useEffect(() => {
+    if (localStorage.getItem("IpAccess")) {
+      return navigation("/metaverse/access-ip"); // Navigate to a different location
+    }
+  }, []);
 
   const onSubmitHandler = () => {
     Request("register", HTTP_METHOD.POST, formData)
@@ -75,60 +78,55 @@ export default function Signup() {
     });
   };
   return (
-    <Modal title="ثبت نام">
+    <Modal type=" registry">
       {!emailVerification ? (
-        <Form onSubmit={onSubmitHandler}>
-          <Input
-            name="name"
-            type="text"
-            className="mt-5"
-            placeholder="نام کاربری میتوان نام شرکت و یا برند باشد"
-            value={formData.name}
-            dispatch={setFormData}
-          />
+        <>
+          <LoginSwitch />
+          <Form onSubmit={onSubmitHandler}>
+            <Input
+              name="name"
+              type="text"
+              placeholder="نام کاربری"
+              value={formData.name}
+              dispatch={setFormData}
+            />
 
-          <Input
-            name="email"
-            type="email"
-            placeholder="name@example.com"
-            value={formData.email}
-            dispatch={setFormData}
-          />
+            <Input
+              name="email"
+              type="email"
+              placeholder="ایمیل خود را وارد کنید"
+              value={formData.email}
+              dispatch={setFormData}
+            />
 
-          <Input
-            name="password"
-            type="password"
-            placeholder="********"
-            value={formData.password}
-            dispatch={setFormData}
-          />
-          <Submit text="ثبت نام" type="secondary" />
+            <Input
+              name="password"
+              type="password"
+              placeholder="رمز ورود"
+              value={formData.password}
+              dispatch={setFormData}
+            />
+            <Submit text="ثبت نام" type="secondary" />
 
-          <Link to="/metaverse/login" className="link text-2 mt-3 ">
-            ثبت نام کرده ام' وارد شوید'
-          </Link>
+            <CheckBox value={remember} onClickHandler={setRemember} />
 
-          <p className="text-information mt-4">
-            با کلیک بر روی دکمه ورود به سامانه موافقت میکنید
-          </p>
-
-          <a
-            href="https://rgb.irpsc.com/overview"
-            className="link text-1 mt-2"
-            target={"_blank"}
-            rel="noreferrer"
-          >
-            شرایط قرارداد خدمات
-          </a>
-
-          <p className="text-information mt-4">
-            سئوالی دارید یا میخواهید بیشتر بدانید؟
-          </p>
-
-          <a href="https://rgb.irpsc.com/" className="link text-1 mt-2 pb-2">
-            .از وبسایت ما دیدن کنید
-          </a>
-        </Form>
+            <Link to="/metaverse/reset-password" className="link text-1 ">
+              فراموشی رمز عبور
+            </Link>
+            <p className="text-information mt-2 ">
+              برای کسب اطلاعات بیشتر و پاسخ به سوالات واز <br />
+              <a
+                href="https://rgb.irpsc.com/overview"
+                target={"_blank"}
+                rel="noreferrer"
+                className="link text-1 "
+              >
+                وبسایت{" "}
+              </a>
+              دیدن نمایید.
+            </p>
+          </Form>
+        </>
       ) : (
         <>
           <h2 className="mt-5">ایمیل خود را تایید کنید</h2>

@@ -20,11 +20,11 @@
 
 .modal-section-xs {
   width: 97%;
-  height: 70.75%;
+  height: 61.125%;
 
   @media (min-width: 768px) {
     width: 340px;
-    height: 479px;
+    height: 489px;
   }
 }
 
@@ -82,4 +82,14 @@
 .container-icon {
   display: flex;
   gap: 12px;
+}
+
+.registry {
+  width: 97%;
+  height: 70.75%;
+
+  @media (min-width: 768px) {
+    width: 340px;
+    height: 548px;
+  }
 }

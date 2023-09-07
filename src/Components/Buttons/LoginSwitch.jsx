@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import addMemberIcon from "../../Assets/svg/addMember.svg";
 import profileIcon from "../../Assets/svg/profile.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -57,14 +57,15 @@ const Icon = styled.img`
   height: 19.81px;
 `;
 const LoginSwitch = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Container>
-        <BtnRegistry>
+        <BtnRegistry onClick={() => navigate("/metaverse/signup")}>
           <Icon src={addMemberIcon} />
           ثبت نام
         </BtnRegistry>
-        <BtnLogin>
+        <BtnLogin onClick={() => navigate("/metaverse/login")}>
           <Icon src={profileIcon} />
           ورود
         </BtnLogin>
