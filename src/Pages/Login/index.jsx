@@ -9,9 +9,9 @@ import useAuth from "../../Services/Hooks/useAuth";
 import Form from "../../Components/Form";
 import Submit from "../../Components/Buttons/Submit";
 import { useEffect } from "react";
+import LoginSwitch from "../../Components/Buttons/LoginSwitch";
 
 export default function Login() {
-  // hooks
   const { Request, HTTP_METHOD } = useRequest();
   const navigation = useNavigate();
   const { setUser } = useAuth();
@@ -20,7 +20,6 @@ export default function Login() {
       return navigation("/metaverse/access-ip"); // Navigate to a different location
     }
   }, []);
-  // state
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -32,7 +31,6 @@ export default function Login() {
 
   const onSubmitHandler = () => {
     setMessage("");
-
     Request("login", HTTP_METHOD.POST, formData)
       .then((res) => {
         setUser(res.data);
@@ -46,11 +44,11 @@ export default function Login() {
   return (
     <Modal type="modal-section-xs">
       <Form onSubmit={onSubmitHandler}>
+        <LoginSwitch />
         <Input
           name="email"
           type="email"
-          className="mt-5"
-          placeholder="name@example.com"
+          placeholder="ایمیل خود را وارد کنید"
           value={formData.email}
           dispatch={setFormData}
         />
@@ -58,7 +56,7 @@ export default function Login() {
         <Input
           name="password"
           type="password"
-          placeholder="********"
+          placeholder="رمز ورود "
           value={formData.password}
           dispatch={setFormData}
         />

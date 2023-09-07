@@ -18,9 +18,14 @@ const InputField = styled.input`
   padding: 10px;
   border-radius: 5px;
   background-color: #fcfcfc;
-  border: 1px solid;
+  border: 1px solid #dadada;
   outline: none;
-
+  text-align: right;
+  font-family: AzarMehr-DS2;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
   &.dark {
     background-color: #000; // تغییر به مقدار مورد نظر برای حالت تاریک
     border-color: #333; // تغییر به مقدار مورد نظر برای حالت تاریک
