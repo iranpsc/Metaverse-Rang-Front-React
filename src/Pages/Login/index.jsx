@@ -43,8 +43,8 @@ export default function Login() {
 
   return (
     <Modal type="modal-section-xs">
+      <LoginSwitch />
       <Form onSubmit={onSubmitHandler}>
-        <LoginSwitch />
         <Input
           name="email"
           type="email"
@@ -69,26 +69,22 @@ export default function Login() {
 
         <CheckBox value={remember} onClickHandler={setRemember} />
 
-        <Link to="/metaverse/reset-password" className="link text-1 mt-3 mb-3">
+        <Link to="/metaverse/reset-password" className="link text-1 ">
           فراموشی رمز عبور
         </Link>
-
-        <Link to="/metaverse/signup" className="link text-2 mt-auto">
-          ثبت نام و عضویت در سامانه
-        </Link>
-
-        <p className="text-information mt-4">
-          با کلیک بر روی دکمه ورود به سامانه موافقت میکنید
+        <p className="text-information mt-1">
+          با کلیک بر روی دکمه ورود
+          <br />{" "}
+          <a
+            href="https://rgb.irpsc.com/overview"
+            target={"_blank"}
+            rel="noreferrer"
+            className="link text-1 "
+          >
+            شرایط قرارداد خدمات{" "}
+          </a>
+          موافقت میکنید
         </p>
-
-        <a
-          href="https://rgb.irpsc.com/overview"
-          target={"_blank"}
-          rel="noreferrer"
-          className="link text-1 mt-2 pb-3"
-        >
-          شرایط قرارداد خدمات
-        </a>
       </Form>
     </Modal>
   );

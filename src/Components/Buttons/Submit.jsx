@@ -26,6 +26,13 @@ const SecondaryButton = styled.button`
   border-radius: 5px;
   border: 1px solid rgba(24, 192, 143, 0.5);
   background: #d7fbf0;
+  color: #18c08f;
+  text-align: center;
+  font-family: AzarMehr-DS2;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 function Submit({ text, type, options }) {

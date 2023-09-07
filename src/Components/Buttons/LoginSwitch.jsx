@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import addMemberIcon from "../../Assets/svg/addMember.svg";
 import profileIcon from "../../Assets/svg/profile.svg";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -33,7 +34,7 @@ const BtnRegistry = styled.button`
 `;
 const BtnLogin = styled.button`
   display: flex;
-  width: 47%;
+  width: 44%;
   height: 50px;
   padding: 14px 45.929px 13.707px 45px;
   justify-content: center;

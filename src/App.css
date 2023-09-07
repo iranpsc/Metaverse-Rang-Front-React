@@ -786,7 +786,7 @@ a {
 }
 
 .link {
-  color: #0d6efd;
+  color: #008BF8;
   text-decoration: none;
   cursor: pointer;
 }
@@ -811,7 +811,13 @@ a {
 }
 
 .text-information {
-  color: #707070;
+  color: rgba(0, 0, 0, 0.45);
+  text-align: center;
+  font-family: AzarMehr;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px;
 }
 
 .cursor-pointer {
