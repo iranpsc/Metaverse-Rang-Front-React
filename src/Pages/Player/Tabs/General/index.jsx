@@ -146,7 +146,7 @@ const Note = styled.textarea`
   border: 2px solid #707070 !important;
   border-radius: 8px;
   padding: 4px;
-  font-family: iransans;
+  font-family: "AzarMehr";
 `;
 
 const NoteContainer = styled.div`

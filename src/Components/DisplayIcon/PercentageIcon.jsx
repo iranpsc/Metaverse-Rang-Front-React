@@ -37,7 +37,7 @@ const PercentText = styled.p`
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  font-family: iransans !important;
+  font-family: "AzarMehr" !important;
   font-size: 12px;
   font-weight: bold;
 `;

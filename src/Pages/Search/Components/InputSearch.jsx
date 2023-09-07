@@ -24,7 +24,7 @@ const InputSearch = styled.input`
   width: 100%;
   margin-bottom: 16px;
   font-size: 1rem !important;
-  font-family: iransans;
+  font-family: "AzarMehr";
 `;
 
 const IconSearch = styled.img`
@@ -84,12 +84,14 @@ export default function Search({
         onChange={(e) => setQuery(e.target.value)}
         value={currentUser ? currentUser : query}
       />
-     {!isLoading && data.length <= 0  && (
-         <UsersContainer>
-             <p style={{ textAlign: "center" }}>اطلاعات موجود نمیباشد جستجوی کنید</p>
-         </UsersContainer>
-     )}
-     
+      {!isLoading && data.length <= 0 && (
+        <UsersContainer>
+          <p style={{ textAlign: "center" }}>
+            اطلاعات موجود نمیباشد جستجوی کنید
+          </p>
+        </UsersContainer>
+      )}
+
       {isLoading && (
         <UsersContainer>
           <p style={{ textAlign: "center" }}>درحال دریافت اطلاعات</p>
@@ -101,7 +103,7 @@ export default function Search({
             isCitizen ? (
               <UserContainer user={data} key={data.id} />
             ) : (
-              <FeatureContainer feature={data}  key={data.id}/>
+              <FeatureContainer feature={data} key={data.id} />
             )
           )}
         </UsersContainer>

@@ -23,7 +23,7 @@ const InputSearch = styled.input`
   padding: 8px 16px;
   margin-bottom: 16px;
   font-size: 1.3rem !important;
-  font-family: iransans;
+  font-family: "AzarMehr";
 `;
 
 const IconSearch = styled.img`
@@ -143,10 +143,12 @@ function UserSearch({
   const [selectedUser, setSelectedUser] = useState(null);
   const handleCheckbox = (user) => {
     if (!user.verified) {
-      ToastError("شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید");
+      ToastError(
+        "شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید"
+      );
       return;
     }
-  
+
     setSelectedUser(user);
     setChecked(!checked);
   };

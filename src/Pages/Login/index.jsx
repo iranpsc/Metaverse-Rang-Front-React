@@ -44,7 +44,7 @@ export default function Login() {
   };
 
   return (
-    <Modal title="ورود">
+    <Modal type="modal-section-xs">
       <Form onSubmit={onSubmitHandler}>
         <Input
           name="email"

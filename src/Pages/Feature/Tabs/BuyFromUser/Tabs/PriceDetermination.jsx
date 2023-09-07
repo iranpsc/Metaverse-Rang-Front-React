@@ -5,7 +5,11 @@ import Submit from "../../../../../Components/Buttons/Submit";
 import Form from "../../../../../Components/Form";
 import { FeaturePrice } from "../../../../../Services/Constants/FeatureType";
 import useRequest from "../../../../../Services/Hooks/useRequest";
-import { calculateFee, ToastError, ToastSuccess } from "../../../../../Services/Utility";
+import {
+  calculateFee,
+  ToastError,
+  ToastSuccess,
+} from "../../../../../Services/Utility";
 import PriceInput from "../../../Components/PriceInput";
 import Specification from "../../../Components/Specification";
 import { FeatureContext } from "../../../Context/FeatureProvider";
@@ -23,51 +27,65 @@ const TextOffer = styled.textarea`
   padding: 1px;
   color: #707070 !important;
   border: 1px solid #c2c2c2;
-  font-family: iransans;
+  font-family: "AzarMehr";
   direction: rtl;
   text-align: right;
 `;
 
 export default function PriceDetermination() {
-  const [feature, ] = useContext(FeatureContext);
+  const [feature] = useContext(FeatureContext);
 
   const { Request, HTTP_METHOD } = useRequest();
 
   const Navigate = useNavigate();
 
   const totalArea = feature?.properties?.density * feature?.properties?.area;
-  const totalIrr = ((totalArea * FeaturePrice(feature?.properties?.rgb)) * (feature?.properties?.minimum_price_percentage / 100));
+  const totalIrr =
+    totalArea *
+    FeaturePrice(feature?.properties?.rgb) *
+    (feature?.properties?.minimum_price_percentage / 100);
 
   const [formData, setFormData] = useState({
-    price_irr: ((totalArea * FeaturePrice(feature?.properties?.rgb)) * (feature?.properties?.minimum_price_percentage / 100)) / 2,
-    price_psc: ((totalArea * FeaturePrice(feature?.properties?.rgb)) * (feature?.properties?.minimum_price_percentage / 100)) / 2 / 900,
+    price_irr:
+      (totalArea *
+        FeaturePrice(feature?.properties?.rgb) *
+        (feature?.properties?.minimum_price_percentage / 100)) /
+      2,
+    price_psc:
+      (totalArea *
+        FeaturePrice(feature?.properties?.rgb) *
+        (feature?.properties?.minimum_price_percentage / 100)) /
+      2 /
+      900,
     note: "",
   });
 
   const [errors, setErrors] = useState({
-    price_irr: '',
-    price_psc: ''
+    price_irr: "",
+    price_psc: "",
   });
 
   const onSubmit = () => {
-    if((formData.price_irr + (formData.price_psc * 900)) >= totalIrr) {
-      Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST).then(() => {
-        ToastSuccess("پیشنهاد شما با موفقیت ارسال گردید.");
-      }).catch(error => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
-          return Navigate("/metaverse/confirmation");
-        } else {
-          ToastError(error.response.data.message)
-        }
-      })
+    if (formData.price_irr + formData.price_psc * 900 >= totalIrr) {
+      Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST)
+        .then(() => {
+          ToastSuccess("پیشنهاد شما با موفقیت ارسال گردید.");
+        })
+        .catch((error) => {
+          if (error.response.status === 410) {
+            ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+            return Navigate("/metaverse/confirmation");
+          } else {
+            ToastError(error.response.data.message);
+          }
+        });
     } else {
       setErrors({
         ...errors,
-        price_irr:`حداقل ارزش معامله ${feature?.properties?.minimum_price_percentage}% قیمت اولیه میباشد`,
-      })
+        price_irr: `حداقل ارزش معامله ${feature?.properties?.minimum_price_percentage}% قیمت اولیه میباشد`,
+      });
     }
-  }
+  };
 
   return (
     <Container style={{ marginTop: 30 }}>
@@ -115,10 +133,19 @@ export default function PriceDetermination() {
           }}
         >
           <Specification title={"کارمزد"} value={"5%"} />
-          <Specification title={"مانده"} value={(totalIrr - formData.price_irr) - (formData.price_psc * 900)} />
+          <Specification
+            title={"مانده"}
+            value={totalIrr - formData.price_irr - formData.price_psc * 900}
+          />
           <Specification
             title={"قیمت نهایی"}
-            value={`${calculateFee(formData.price_irr ? formData.price_irr : 0, 5)} IRR / ${calculateFee(formData.price_irr ? formData.price_irr : 0, 5)} PSC`}
+            value={`${calculateFee(
+              formData.price_irr ? formData.price_irr : 0,
+              5
+            )} IRR / ${calculateFee(
+              formData.price_irr ? formData.price_irr : 0,
+              5
+            )} PSC`}
           />
         </Container>
 

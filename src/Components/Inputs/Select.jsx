@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Select = styled.select`
   width: 100%;
@@ -6,10 +6,10 @@ export const Select = styled.select`
   width: 100%;
   margin-bottom: 16px;
   font-size: 1.2rem !important;
-  font-family: iransans;
+  font-family: "AzarMehr";
   outline: none;
   border: 2px solid #707070 !important;
   border-radius: 12px !important;
   color: #707070 !important;
   direction: rtl;
-`
+`;

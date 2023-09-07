@@ -14,7 +14,7 @@ const Select = styled.select`
   height: 50px !important;
   border-radius: 8px !important;
   border: 1px solid #c2c2c2 !important;
-  font-family: iransans;
+  font-family: "AzarMehr";
   outline: none;
   color: #707070 !important;
   &.invalid {

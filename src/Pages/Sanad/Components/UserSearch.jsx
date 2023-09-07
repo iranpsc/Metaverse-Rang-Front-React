@@ -21,7 +21,7 @@ const InputSearch = styled.input`
   width: 100%;
   margin-bottom: 16px;
   font-size: 1.3rem !important;
-  font-family: iransans;
+  font-family: "AzarMehr";
 `;
 
 const IconSearch = styled.img`

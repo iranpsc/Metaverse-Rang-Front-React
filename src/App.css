@@ -1,95 +1,77 @@
+/* تعریف فونت با وزن 100 */
 @font-face {
-  font-family: iransans;
-  font-style: normal;
-  font-weight: bold;
-  src: url("./Assets/fonts/eot/iranyekanwebboldfanum.eot");
-  src: url("./Assets/fonts/eot/iranyekanwebboldfanum.eot?#iefix")
-      format("embedded-opentype"),
-    url("./Assets/fonts/woff/iranyekanwebboldfanum.woff") format("woff"),
-    url("./Assets/fonts/ttf/iranyekanwebboldfanum.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: iransans;
-  font-style: normal;
+  font-family: 'AzarMehr';
+  src: url('../../public/fonts/AzarMehr-DS2-Thin.woff2') format('woff2');
   font-weight: 100;
-  src: url("./Assets/fonts/eot/iranyekanwebthinfanum.eot");
-  src: url("./Assets/fonts/eot/iranyekanwebthinfanum.eot?#iefix")
-      format("embedded-opentype"),
-    url("./Assets/fonts/woff/iranyekanwebthinfanum.woff") format("woff"),
-    url("./Assets/fonts/ttf/iranyekanwebthinfanum.ttf") format("truetype");
+  font-style: normal;
 }
 
+/* تعریف فونت با وزن 300 */
 @font-face {
-  font-family: iransans;
-  font-style: normal;
+  font-family: 'AzarMehr';
+  src: url('../../public/fonts/AzarMehr-DS2-Light.woff2') format('woff2');
   font-weight: 300;
-  src: url("./Assets/fonts/eot/iranyekanweblightfanum.eot");
-  src: url("./Assets/fonts/eot/iranyekanweblightfanum.eot?#iefix")
-      format("embedded-opentype"),
-    url("./Assets/fonts/woff/iranyekanweblightfanum.woff") format("woff"),
-    url("./Assets/fonts/ttf/iranyekanweblightfanum.ttf") format("truetype");
+  font-style: normal;
 }
 
+/* تعریف فونت با وزن 400 */
 @font-face {
-  font-family: iransans;
+  font-family: 'AzarMehr';
+  src: url('../../public/fonts/AzarMehr-DS2-Medium.woff2') format('woff2');
+  font-weight: 400;
   font-style: normal;
-  font-weight: normal;
-  src: url("./Assets/fonts/eot/iranyekanwebregularfanum.eot");
-  src: url("./Assets/fonts/eot/iranyekanwebregularfanum.eot?#iefix")
-      format("embedded-opentype"),
-    url("./Assets/fonts/woff/iranyekanwebregularfanum.woff") format("woff"),
-    url("./Assets/fonts/ttf/iranyekanwebregularfanum.ttf") format("truetype");
 }
 
+/* تعریف فونت با وزن 500 */
 @font-face {
-  font-family: iransans;
-  font-style: normal;
+  font-family: 'AzarMehr';
+  src: url('../../public/fonts/AzarMehr-DS2-Medium.woff2') format('woff2');
   font-weight: 500;
-  src: url("./Assets/fonts/eot/iranyekanwebmediumfanum.eot");
-  src: url("./Assets/fonts/eot/iranyekanwebmediumfanum.eot?#iefix")
-      format("embedded-opentype"),
-    url("./Assets/fonts/woff/iranyekanwebmediumfanum.woff") format("woff"),
-    url("./Assets/fonts/ttf/iranyekanwebmediumfanum.ttf") format("truetype");
+  font-style: normal;
 }
 
+/* تعریف فونت با وزن 700 */
 @font-face {
-  font-family: iransans;
+  font-family: 'AzarMehr';
+  src: url('../../public/fonts/AzarMehr-DS2-Bold.woff2') format('woff2');
+  font-weight: 700;
   font-style: normal;
+}
+
+/* تعریف فونت با وزن 800 */
+@font-face {
+  font-family: 'AzarMehr';
+  src: url('../../public/fonts/AzarMehr-ExtraBold.woff2') format('woff2');
   font-weight: 800;
-  src: url("./Assets/fonts/eot/iranyekanwebextraboldfanum.eot");
-  src: url("./Assets/fonts/eot/iranyekanwebextraboldfanum.eot?#iefix")
-      format("embedded-opentype"),
-    url("./Assets/fonts/woff/iranyekanwebextraboldfanum.woff") format("woff"),
-    url("./Assets/fonts/ttf/iranyekanwebextraboldfanum.ttf") format("truetype");
+  font-style: normal;
 }
 
+/* تعریف فونت با وزن 900 */
 @font-face {
-  font-family: iransans;
-  font-style: normal;
+  font-family: 'AzarMehr';
+  src: url('../../public/fonts/AzarMehr-DS2-Black.woff2') format('woff2');
   font-weight: 900;
-  src: url("./Assets/fonts/eot/iranyekanwebblackfanum.eot");
-  src: url("./Assets/fonts/eot/iranyekanwebblackfanum.eot?#iefix")
-      format("embedded-opentype"),
-    url("./Assets/fonts/woff/iranyekanwebblackfanum.woff") format("woff"),
-    url("./Assets/fonts/ttf/iranyekanwebblackfanum.ttf") format("truetype");
+  font-style: normal;
 }
 
+/* تعریف فونت با وزن 950 */
 @font-face {
-  font-family: iransans;
-  font-style: normal;
+  font-family: 'AzarMehr';
+  src: url('../../public/fonts/AzarMehr-ExtraBlack.woff2') format('woff2');
   font-weight: 950;
-  src: url("./Assets/fonts/eot/iranyekanwebextrablackfanum.eot");
-  src: url("./Assets/fonts/eot/iranyekanwebextrablackfanum.eot?#iefix")
-      format("embedded-opentype"),
-    url("./Assets/fonts/woff/iranyekanwebextrablackfanum.woff") format("woff"),
-    url("./Assets/fonts/ttf/iranyekanwebextrablackfanum.ttf") format("truetype");
-}
-@font-face {
-  font-family: brunoace;
   font-style: normal;
-  font-weight: normal;
-  src: url("./Assets/fonts/ttf/BrunoAceSC-Regular.ttf") format("truetype");
+}
+
+
+body {
+  direction: rtl;
+  font-family: "AzarMehr" !important;
+  overflow: hidden;
+}
+
+
+input {
+  font-family: "AzarMehr" !important;
 }
 
 :root {
@@ -165,11 +147,9 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
-  --bs-gradient: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.15),
-    rgba(255, 255, 255, 0)
-  );
+  --bs-gradient: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
@@ -226,23 +206,20 @@
   box-sizing: border-box;
 }
 
-body {
-  overflow: hidden;
-  font-family: iransans;
-}
+
 
 p {
   font-size: 16px;
 }
 
-button {
-  font-family: iransans;
-}
+
+
 a {
   text-decoration: none;
 }
+
 .leaflet-container {
-  font-family: iransans !important;
+  font-family: "AzarMehr" !important;
   font-size: 16px !important;
 }
 
@@ -349,6 +326,7 @@ a {
 .link-primary {
   color: #0d6efd !important;
 }
+
 .link-primary:hover,
 .link-primary:focus {
   color: #0a58ca !important;
@@ -865,6 +843,7 @@ a {
 .rtl-placeholder::-webkit-input-placeholder {
   text-align: right;
 }
+
 /* mozilla solution */
 .rtl-placeholder:-moz-placeholder {
   text-align: right;
@@ -873,7 +852,8 @@ a {
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #333;
-  opacity: 0.5; /* Firefox */
+  opacity: 0.5;
+  /* Firefox */
 }
 
 :-ms-input-placeholder {
@@ -937,19 +917,8 @@ a {
   text-align: justify;
 }
 
-input {
-  outline: none;
-  border: 2px solid #707070 !important;
-  border-radius: 5px !important;
-  color: #707070 !important;
-  font-size: 15px !important;
-  font-weight: 700;
-  font-family: iransans;
-  padding-right: 2%;
-}
-input:focus {
-  border: 2px solid #fd7e14 !important;
-}
+
+
 button {
   cursor: pointer;
 }
@@ -961,26 +930,20 @@ button {
 
 .bg-primary {
   --bs-bg-opacity: 1;
-  background-color: rgba(
-    var(--bs-primary-rgb),
-    var(--bs-bg-opacity)
-  ) !important;
+  background-color: rgba(var(--bs-primary-rgb),
+      var(--bs-bg-opacity)) !important;
 }
 
 .bg-secondary {
   --bs-bg-opacity: 1;
-  background-color: rgba(
-    var(--bs-secondary-rgb),
-    var(--bs-bg-opacity)
-  ) !important;
+  background-color: rgba(var(--bs-secondary-rgb),
+      var(--bs-bg-opacity)) !important;
 }
 
 .bg-success {
   --bs-bg-opacity: 1;
-  background-color: rgba(
-    var(--bs-success-rgb),
-    var(--bs-bg-opacity)
-  ) !important;
+  background-color: rgba(var(--bs-success-rgb),
+      var(--bs-bg-opacity)) !important;
 }
 
 .bg-info {
@@ -1031,7 +994,7 @@ button {
 }
 
 .ql-editor {
-  font-family: iransans !important;
+  font-family: "AzarMehr" !important;
   height: 100px !important;
   direction: rtl !important;
   text-align: right !important;
@@ -1086,17 +1049,20 @@ button {
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
 }
+
 @keyframes tooltip-horizontal-move {
   0% {
     opacity: 0;
     transition: all 0.3s;
     transform: translateX(-50px);
   }
+
   100% {
     opacity: 1;
     transition: all 0.3s;
   }
 }
+
 .tooltip-container-2 {
   display: flex;
   flex-direction: column;
@@ -1109,6 +1075,7 @@ button {
   box-shadow: inset 0px 2px 4px 0px rgb(0 0 0 / 70%);
   width: max-content;
 }
+
 .title-toltip {
   font-weight: 800;
 }
@@ -1161,6 +1128,7 @@ button {
 .counter-down {
   font-size: 80px;
 }
+
 .h-fit {
   height: fit-content !important;
 }
@@ -1182,6 +1150,7 @@ button {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -1191,6 +1160,7 @@ button {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
     display: none;

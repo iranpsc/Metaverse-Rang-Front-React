@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Table = styled.table`
   margin: 0 0 40px 0;
@@ -11,7 +11,7 @@ export const Thead = styled.div`
   display: table-row;
   width: 100%;
   font-weight: bold;
-  font-family: iransans;
+  font-family: "AzarMehr";
   color: #ffffff;
   background: var(--bs-orange);
   text-align: center;

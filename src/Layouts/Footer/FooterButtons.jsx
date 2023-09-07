@@ -17,7 +17,7 @@ const Counter = styled.span`
   height: 20px;
   text-align: center;
   border-radius: 8px;
-  font-family: iransans;
+  font-family: "AzarMehr";
   font-weight: bold;
   font-size: 14px;
   top: -4px;
