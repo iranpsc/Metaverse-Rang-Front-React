@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import Input from "../../Components/Inputs/Input";
 import Modal from "../../Components/Modal";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +8,7 @@ import useAuth from "../../Services/Hooks/useAuth";
 import Form from "../../Components/Form";
 import Submit from "../../Components/Buttons/Submit";
 import { useEffect } from "react";
-import LoginSwitch from "../../Components/Buttons/LoginSwitch";
+import LoginSwitch from "./LoginSwitch";
 
 export default function Login() {
   const { Request, HTTP_METHOD } = useRequest();

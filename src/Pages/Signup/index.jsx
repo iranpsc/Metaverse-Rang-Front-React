@@ -9,8 +9,8 @@ import styled from "styled-components";
 import GmailIcon from "../../Assets/images/gmail.png";
 import { ToastSuccess } from "../../Services/Utility";
 import { useEffect } from "react";
-import LoginSwitch from "../../Components/Buttons/LoginSwitch";
 import CheckBox from "../../Components/Inputs/CheckBox";
+import LoginSwitch from "./LoginSwitch";
 
 const BodyEmail = styled.div`
   height: 100%;

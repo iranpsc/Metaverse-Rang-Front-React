@@ -9,7 +9,7 @@ import UserProvider from "./Services/Reducers/UserContext.jsx";
 import WalletProvider from "./Services/Reducers/WalletContext";
 import FollowProvider from "./Services/Reducers/FollowContext";
 import { useLayoutEffect } from "react";
-
+import "./i18n/i18n.js";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 import Tutorial from "./Components/Tutorial";
