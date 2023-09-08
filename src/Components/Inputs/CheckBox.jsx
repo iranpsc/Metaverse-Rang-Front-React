@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
-  color: rgba(0, 0, 0, 0.45);
+  color: ${(props) => props.theme.checkBoxLabel};
   text-align: right;
   font-family: AzarMehr !important;
   font-size: 16px;

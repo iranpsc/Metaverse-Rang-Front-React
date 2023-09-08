@@ -13,6 +13,7 @@ export const lightTheme = {
   inputLabelColor: "#BABABA",
   inputText: "black",
   placeholder: "#BABABA",
+  checkBoxLabel: "rgba(0, 0, 0, 0.45)",
 };
 export const darkTheme = {
   body: "#121620",
@@ -21,6 +22,7 @@ export const darkTheme = {
   inputBgColor: "#282828",
   inputBorder: "#2C2C2C",
   inputLabelColor: "#858585",
-  inputText: "white",
+  inputText: "#E1E1E1",
   placeholder: "#858585",
+  checkBoxLabel: "#E1E1E1",
 };

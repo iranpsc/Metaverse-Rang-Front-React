@@ -5,7 +5,7 @@ import Modal from "../../Components/Modal";
 import Form from "../../Components/Form/index.jsx";
 import useRequest from "../../Services/Hooks/useRequest";
 import Submit from "../../Components/Buttons/Submit.jsx";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import GmailIcon from "../../Assets/images/gmail.png";
 import { ToastSuccess } from "../../Services/Utility";
 import { useEffect } from "react";
@@ -39,6 +39,7 @@ export default function Signup() {
   const [emailVerification, setEmailVerification] = useState(false);
   const [token, setToken] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
+  const theme = useTheme();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -113,7 +114,10 @@ export default function Signup() {
             <Link to="/metaverse/reset-password" className="link text-1 ">
               فراموشی رمز عبور
             </Link>
-            <p className="text-information mt-2 ">
+            <p
+              className="text-information mt-2 "
+              style={{ color: `${theme.checkBoxLabel} ` }}
+            >
               برای کسب اطلاعات بیشتر و پاسخ به سوالات واز <br />
               <a
                 href="https://rgb.irpsc.com/overview"

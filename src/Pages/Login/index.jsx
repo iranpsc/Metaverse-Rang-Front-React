@@ -9,10 +9,12 @@ import Form from "../../Components/Form";
 import Submit from "../../Components/Buttons/Submit";
 import { useEffect } from "react";
 import LoginSwitch from "./LoginSwitch";
+import { useTheme } from "styled-components";
 
 export default function Login() {
   const { Request, HTTP_METHOD } = useRequest();
   const navigation = useNavigate();
+  const theme = useTheme();
   const { setUser } = useAuth();
   useEffect(() => {
     if (localStorage.getItem("IpAccess")) {
@@ -71,9 +73,12 @@ export default function Login() {
         <Link to="/metaverse/reset-password" className="link text-1 ">
           فراموشی رمز عبور
         </Link>
-        <p className="text-information mt-1">
+        <p
+          className="text-information mt-1"
+          style={{ color: `${theme.checkBoxLabel} ` }}
+        >
           با کلیک بر روی دکمه ورود
-          <br />{" "}
+          <br />
           <a
             href="https://rgb.irpsc.com/overview"
             target={"_blank"}
