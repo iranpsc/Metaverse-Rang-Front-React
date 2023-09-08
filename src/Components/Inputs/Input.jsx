@@ -2,7 +2,7 @@ import { memo, useState } from "react";
 import styled from "styled-components";
 
 const Label = styled.label`
-  color: #707070 !important;
+  color: ${(props) => props.theme.inputLabelColor};
   position: absolute;
   top: 16px;
   right: 16px;
@@ -17,8 +17,8 @@ const InputField = styled.input`
   height: 50px;
   padding: 10px;
   border-radius: 5px;
-  background-color: #fcfcfc;
-  border: 1px solid #dadada;
+  background-color: ${(props) => props.theme.inputBgColor};
+  border: 1px solid ${(props) => props.theme.inputBorder};
   outline: none;
   text-align: right;
   font-family: AzarMehr-DS2;
@@ -26,9 +26,9 @@ const InputField = styled.input`
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
-  &.dark {
-    background-color: #000; // تغییر به مقدار مورد نظر برای حالت تاریک
-    border-color: #333; // تغییر به مقدار مورد نظر برای حالت تاریک
+  color: ${(props) => props.theme.inputText};
+  ::placeholder {
+    color: ${(props) => props.theme.placeholder};
   }
 `;
 

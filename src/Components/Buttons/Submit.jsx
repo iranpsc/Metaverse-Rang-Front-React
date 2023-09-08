@@ -26,7 +26,8 @@ const SecondaryButton = styled.button`
   border-radius: 5px;
   border: 1px solid rgba(24, 192, 143, 0.5);
   background: #d7fbf0;
-  color: #18c08f;
+
+  color: ${(props) => props.theme.text};
   text-align: center;
   font-family: AzarMehr-DS2;
   font-size: 16px;

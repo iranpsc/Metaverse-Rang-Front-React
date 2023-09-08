@@ -13,7 +13,9 @@ import "./i18n/i18n.js";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 import Tutorial from "./Components/Tutorial";
-
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme, GlobalStyles } from "./Theme/theme.js";
+import { useState } from "react";
 function App() {
   useLayoutEffect(() => {
     window.Echo = new Echo({
@@ -29,23 +31,40 @@ function App() {
       enabledTransports: ["wss", "ws"],
     });
   }, []);
-
+  const [theme, setTheme] = useState("light");
+  const isDarkTheme = theme === "dark";
+  const toggleTheme = () => setTheme(isDarkTheme ? "light" : "dark");
   return (
-    <UserProvider>
-      <WalletProvider>
-        <FollowProvider>
-          <BrowserRouter>
-            {/* <Tutorial /> */}
-            <Map />
-
-            <Toaster
-              containerStyle={{ zIndex: 1000, marginBottom: 48 }}
-              position="bottom-right"
-            />
-          </BrowserRouter>
-        </FollowProvider>
-      </WalletProvider>
-    </UserProvider>
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <UserProvider>
+        <WalletProvider>
+          <FollowProvider>
+            <BrowserRouter>
+              {/* <Tutorial /> */}
+              <Map />
+              <button
+                onClick={toggleTheme}
+                style={{ zIndex: 1500, top: 0, position: "absolute" }}
+              >
+                {isDarkTheme ? (
+                  <span aria-label="Light mode" role="img">
+                    🌞
+                  </span>
+                ) : (
+                  <span aria-label="Dark mode" role="img">
+                    🌜
+                  </span>
+                )}
+              </button>
+              <Toaster
+                containerStyle={{ zIndex: 1000, marginBottom: 48 }}
+                position="bottom-right"
+              />
+            </BrowserRouter>
+          </FollowProvider>
+        </WalletProvider>
+      </UserProvider>
+    </ThemeProvider>
   );
 }
 

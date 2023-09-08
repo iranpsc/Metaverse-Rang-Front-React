@@ -11,6 +11,7 @@ import { useState } from "react";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
 
 import { useSpring, animated } from "@react-spring/web";
+import { useTheme } from "styled-components";
 
 /*
  ** type : modal-section-xs, modal-section-sm, modal-section-md, modal-section-xl | default = modal-section-md |
@@ -26,6 +27,7 @@ function Modal({
   const [showModal, setShowModal] = useState(false);
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
   const adviserData = useAdviserData(newStr, Location?.state?.locationPage);
+  const theme = useTheme();
   const springs = useSpring({
     from: {
       opacity: 0,
@@ -39,9 +41,13 @@ function Modal({
       duration: 200,
     },
   });
+
   return (
     <animated.section className={"modal"} style={{ ...springs }}>
-      <div className={`modal-section modal-border ${type}`}>
+      <div
+        className={`modal-section modal-border ${type}`}
+        style={{ background: `${theme.bg}` }}
+      >
         <div className="modal-header modal-border">
           <div className="container-icon">
             {!disabled && (
