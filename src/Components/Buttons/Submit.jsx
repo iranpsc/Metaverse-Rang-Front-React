@@ -19,15 +19,14 @@ const SecondaryButton = styled.button`
   display: flex;
   width: 100%;
   height: 50px;
-  padding: 12px 12px 8px 12px;
+  padding: 12px 8px;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
   border-radius: 5px;
   border: 1px solid rgba(24, 192, 143, 0.5);
-  background: #d7fbf0;
-
-  color: ${(props) => props.theme.text};
+  background: ${(props) => props.theme.btnSubmitBgColor};
+  color: ${(props) => props.theme.btnSubmitTextColor};
   text-align: center;
   font-family: AzarMehr-DS2;
   font-size: 16px;

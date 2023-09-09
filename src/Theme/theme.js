@@ -18,6 +18,10 @@ export const lightTheme = {
   btnPrimaryTextColor: "#D4ECFF",
   btnScenery: "#D4ECFF",
   btnSceneryTextColor: "#008BF8",
+  headerIconFill: "#E9E9E9",
+  headerIconStroke: "#353535",
+  btnSubmitBgColor: "#D7FBF0",
+  btnSubmitTextColor: "#18C08F",
 };
 export const darkTheme = {
   body: "#121620",
@@ -33,4 +37,8 @@ export const darkTheme = {
   btnPrimaryTextColor: "#000000",
   btnScenery: "#332800",
   btnSceneryTextColor: "#FFC700",
+  headerIconFill: "#3B3B3B",
+  headerIconStroke: "#949494",
+  btnSubmitBgColor: "#004531",
+  btnSubmitTextColor: "#18C08F",
 };

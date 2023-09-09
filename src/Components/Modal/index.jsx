@@ -1,21 +1,21 @@
-import "./Modal.css";
-
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import PromiseModal from "../../Middleware/PromiseModal";
-import Amozesh from "../ModalAmozash";
-import ImageHelp from "../../Assets/svg/exclamation.svg";
-import ImageExit from "../../Assets/svg/close.svg";
-import ImageReport from "../../Assets/svg/question.svg";
-import { useState } from "react";
-import useAdviserData from "../../Services/Hooks/useAdviserData";
-
 import { useSpring, animated } from "@react-spring/web";
-import { useTheme } from "styled-components";
+import styled, { useTheme } from "styled-components";
+import PromiseModal from "../../Middleware/PromiseModal";
+import { ReactComponent as Help } from "../../Assets/svg/exclamation.svg";
+import { ReactComponent as Exit } from "../../Assets/svg/close.svg";
+import { ReactComponent as Report } from "../../Assets/svg/question.svg";
+
+import useAdviserData from "../../Services/Hooks/useAdviserData";
+import "./Modal.css";
+import Amozesh from "../ModalAmozash";
 
 /*
  ** type : modal-section-xs, modal-section-sm, modal-section-md, modal-section-xl | default = modal-section-md |
  */
+
 function Modal({
   children,
   title,
@@ -41,7 +41,33 @@ function Modal({
       duration: 200,
     },
   });
+  const Icon = styled(Help)`
+    width: 40px;
+    height: 40px;
+    & > :first-child {
+      fill: ${() => theme.headerIconFill};
+    }
 
+    & > :nth-child(2) {
+      fill: ${() => theme.headerIconStroke};
+    }
+  `;
+  const Icon2 = styled(Report)`
+    width: 40px;
+    height: 40px;
+    & > :first-child {
+      fill: ${() => theme.headerIconFill};
+    }
+
+    & > :nth-child(2) {
+      fill: ${() => theme.headerIconStroke};
+    }
+  `;
+
+  const Icon3 = styled(Exit)`
+    width: 40px;
+    height: 40px;
+  `;
   return (
     <animated.section className={"modal"} style={{ ...springs }}>
       <div
@@ -52,15 +78,13 @@ function Modal({
           <div className="container-icon">
             {!disabled && (
               <>
-                <img
-                  className="modal-icon cursor-pointer"
-                  src={ImageHelp}
+                <Icon
+                  className=" cursor-pointer"
                   alt="help"
                   onClick={() => setShowModal((showModal) => !showModal)}
                 />
-                <img
-                  className="modal-icon cursor-pointer"
-                  src={ImageReport}
+                <Icon2
+                  className="cursor-pointer"
                   alt="report"
                   onClick={() =>
                     navigation("/metaverse/report", {
@@ -75,9 +99,8 @@ function Modal({
                 />
               </>
             )}
-            <img
-              className="modal-icon cursor-pointer"
-              src={ImageExit}
+            <Icon3
+              className=" cursor-pointer"
               alt="exit"
               onClick={() => navigation("/metaverse")}
             />
