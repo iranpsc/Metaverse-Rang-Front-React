@@ -14,6 +14,10 @@ export const lightTheme = {
   inputText: "black",
   placeholder: "#BABABA",
   checkBoxLabel: "rgba(0, 0, 0, 0.45)",
+  btnPrimary: "#008BF8",
+  btnPrimaryTextColor: "#D4ECFF",
+  btnScenery: "#D4ECFF",
+  btnSceneryTextColor: "#008BF8",
 };
 export const darkTheme = {
   body: "#121620",
@@ -25,4 +29,8 @@ export const darkTheme = {
   inputText: "#E1E1E1",
   placeholder: "#858585",
   checkBoxLabel: "#E1E1E1",
+  btnPrimary: "#FFC700",
+  btnPrimaryTextColor: "#000000",
+  btnScenery: "#332800",
+  btnSceneryTextColor: "#FFC700",
 };
