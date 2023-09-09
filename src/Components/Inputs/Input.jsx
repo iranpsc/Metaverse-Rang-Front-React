@@ -1,6 +1,7 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
-
+import { ReactComponent as Show } from "../../Assets/svg/passShowIcon.svg";
+import { ReactComponent as Hidden } from "../../Assets/svg/passIcon.svg";
 const Label = styled.label`
   color: ${(props) => props.theme.inputLabelColor};
   position: absolute;
@@ -36,16 +37,13 @@ const Container = styled.div`
   position: relative;
   width: 100%;
 
-  & i {
-    color: #555;
+  & svg {
     position: absolute;
-    right: 16px;
-    top: 22%;
-    font-size: 20px;
-    display: none;
+    left: 12px;
+    top: 29%;
   }
 
-  & i:hover {
+  & svg:hover {
     cursor: pointer;
   }
 
@@ -67,7 +65,18 @@ const Container = styled.div`
     font-size: 16px;
   }
 `;
-
+const Icon = styled(Show)`
+  width: 20.8px;
+  height: 20.8px;
+  flex-shrink: 0;
+  stroke: ${(props) => props.theme.inputText};
+`;
+const Icon2 = styled(Hidden)`
+  width: 20.8px;
+  height: 20.8px;
+  flex-shrink: 0;
+  stroke: ${(props) => props.theme.inputText};
+`;
 function Input({
   placeholder,
   className,
@@ -137,12 +146,9 @@ function Input({
 
       {type === "password" &&
         (show ? (
-          <i
-            className="fa-solid fa-eye-slash"
-            onClick={() => setShow(false)}
-          ></i>
+          <Icon onClick={() => setShow(false)}></Icon>
         ) : (
-          <i className="fa-solid fa-eye" onClick={() => setShow(true)}></i>
+          <Icon2 onClick={() => setShow(true)}></Icon2>
         ))}
     </Container>
   );
