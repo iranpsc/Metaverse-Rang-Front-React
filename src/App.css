@@ -67,6 +67,7 @@ body {
   direction: rtl;
   font-family: "AzarMehr" !important;
   overflow: hidden;
+  transition: background all 0.2s ease-in, color 0.2s ease-in;
 }
 
 
