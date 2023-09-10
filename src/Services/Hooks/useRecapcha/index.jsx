@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 
 const Modal = styled.div`
   position: fixed;
@@ -18,7 +18,7 @@ const Container = styled.div`
   width: 86%;
   height: 140px;
   border-radius: 10px;
-  background: var(--neutral-f-9, #f9f9f9);
+  background: ${(props) => props.theme.bgRecaptcha};
   @media (min-width: 768px) {
     width: 310px;
   }
@@ -37,10 +37,19 @@ const Container = styled.div`
     transform-origin: "0 0";
   }
 `;
-const Text = styled.p``;
+const Text = styled.p`
+  color: ${(props) => props.theme.recaptchaText};
+  text-align: center;
+  font-family: AzarMehr;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px; /* 178.571% */
+`;
 export function useRecaptcha() {
   const [recaptchaValue, setRecaptchaValue] = useState(null);
   const captchaRef = useRef(null);
+  const theme = useTheme();
   const renderRecaptcha = () => (
     <Modal>
       <Container>
@@ -52,6 +61,7 @@ export function useRecaptcha() {
             setRecaptchaValue(value);
           }}
           ref={captchaRef}
+          theme={`${theme.recaptchaText == "#00000073" ? "light" : "dark"}`}
         />
       </Container>
     </Modal>

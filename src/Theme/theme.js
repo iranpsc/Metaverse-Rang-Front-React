@@ -22,6 +22,8 @@ export const lightTheme = {
   headerIconStroke: "#353535",
   btnSubmitBgColor: "#D7FBF0",
   btnSubmitTextColor: "#18C08F",
+  bgRecaptcha: "#F9F9F9",
+  recaptchaText: "#00000073",
 };
 export const darkTheme = {
   body: "#121620",
@@ -41,4 +43,6 @@ export const darkTheme = {
   headerIconStroke: "#949494",
   btnSubmitBgColor: "#004531",
   btnSubmitTextColor: "#18C08F",
+  bgRecaptcha: "#272727;",
+  recaptchaText: "#FFFFFF",
 };
