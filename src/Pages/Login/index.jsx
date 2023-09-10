@@ -18,22 +18,24 @@ export default function Login() {
   const theme = useTheme();
   const { setUser } = useAuth();
   const { recaptchaValue, renderRecaptcha } = useRecaptcha();
+  const [isRecaptcha, setIsRecaptcha] = useState(false);
+  const [remember, setRemember] = useState(false);
+  const [message, setMessage] = useState("");
+
   useEffect(() => {
     if (localStorage.getItem("IpAccess")) {
       return navigation("/metaverse/access-ip"); // Navigate to a different location
     }
   }, []);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const [remember, setRemember] = useState(false);
-
-  const [message, setMessage] = useState("");
-
   const onSubmitHandler = () => {
     if (!recaptchaValue) {
+      setIsRecaptcha(true);
       return;
     }
     setMessage("");
@@ -95,7 +97,7 @@ export default function Login() {
           موافقت میکنید
         </p>
 
-        {recaptchaValue ? null : renderRecaptcha()}
+        {isRecaptcha && !recaptchaValue ? renderRecaptcha() : null}
       </Form>
     </Modal>
   );

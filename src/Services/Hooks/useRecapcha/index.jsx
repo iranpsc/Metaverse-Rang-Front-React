@@ -46,7 +46,7 @@ export function useRecaptcha() {
       <Container>
         <Text>لطفا بررسی کنید که ربات نیستید</Text>
         <ReCAPTCHA
-          sitekey="6LdhteYnAAAAAAyAGd2zI0BZrSNgqWnkbSJVnsxZ"
+          sitekey="6LdqfRMoAAAAAClPNzvvB25nCmBE8jVN34glKaya"
           onChange={(value) => {
             console.log(value);
             setRecaptchaValue(value);

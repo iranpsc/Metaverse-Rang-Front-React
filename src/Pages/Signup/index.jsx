@@ -11,6 +11,7 @@ import { ToastSuccess } from "../../Services/Utility";
 import { useEffect } from "react";
 import CheckBox from "../../Components/Inputs/CheckBox";
 import LoginSwitch from "./LoginSwitch";
+import { useRecaptcha } from "../../Services/Hooks/useRecapcha";
 
 const BodyEmail = styled.div`
   height: 100%;
@@ -34,12 +35,14 @@ const BoxEmailNavigate = styled.div`
 
 export default function Signup() {
   const navigation = useNavigate();
+  const theme = useTheme();
+  const { recaptchaValue, renderRecaptcha } = useRecaptcha();
+  const { Request, HTTP_METHOD } = useRequest();
   const [remember, setRemember] = useState(false);
   const [searchParams] = useSearchParams();
   const [emailVerification, setEmailVerification] = useState(false);
   const [token, setToken] = useState("");
-  const { Request, HTTP_METHOD } = useRequest();
-  const theme = useTheme();
+  const [isRecaptcha, setIsRecaptcha] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -54,6 +57,10 @@ export default function Signup() {
   }, []);
 
   const onSubmitHandler = () => {
+    if (!recaptchaValue) {
+      setIsRecaptcha(true);
+      return;
+    }
     Request("register", HTTP_METHOD.POST, formData)
       .then((res) => {
         if (res.status == 201) {
@@ -129,6 +136,7 @@ export default function Signup() {
               </a>
               دیدن نمایید.
             </p>
+            {isRecaptcha && !recaptchaValue ? renderRecaptcha() : null}
           </Form>
         </>
       ) : (
