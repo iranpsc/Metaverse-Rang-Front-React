@@ -10,12 +10,14 @@ import Submit from "../../Components/Buttons/Submit";
 import { useEffect } from "react";
 import LoginSwitch from "./LoginSwitch";
 import { useTheme } from "styled-components";
+import { useRecaptcha } from "../../Services/Hooks/useRecapcha";
 
 export default function Login() {
   const { Request, HTTP_METHOD } = useRequest();
   const navigation = useNavigate();
   const theme = useTheme();
   const { setUser } = useAuth();
+  const { recaptchaValue, renderRecaptcha } = useRecaptcha();
   useEffect(() => {
     if (localStorage.getItem("IpAccess")) {
       return navigation("/metaverse/access-ip"); // Navigate to a different location
@@ -31,6 +33,9 @@ export default function Login() {
   const [message, setMessage] = useState("");
 
   const onSubmitHandler = () => {
+    if (!recaptchaValue) {
+      return;
+    }
     setMessage("");
     Request("login", HTTP_METHOD.POST, formData)
       .then((res) => {
@@ -89,6 +94,8 @@ export default function Login() {
           </a>
           موافقت میکنید
         </p>
+
+        {recaptchaValue ? null : renderRecaptcha()}
       </Form>
     </Modal>
   );
