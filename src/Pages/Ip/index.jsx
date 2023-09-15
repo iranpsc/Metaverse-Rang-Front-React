@@ -6,32 +6,6 @@ import { ToastError, ToastSuccess } from "../../Services/Utility";
 import Submit from "../../Components/Buttons/Submit";
 import Input from "../../Components/Inputs/Input";
 
-const Box = styled.div`
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 88%;
-  background-color: #e9e9e9;
-  border-radius: 5px;
-  gap: 5px;
-  margin-top: 1rem;
-  cursor: pointer;
-`;
-
-const InputEmail = styled.input`
-  height: 50px;
-  width: 88%;
-  border: 1px solid #777;
-  border-radius: 5px;
-  font-size: x-large !important;
-  padding: 8px !important;
-  ::placeholder {
-    font-size: x-large;
-    padding: 10px 0;
-  }
-`;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
