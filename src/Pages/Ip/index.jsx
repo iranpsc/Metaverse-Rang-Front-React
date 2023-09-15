@@ -3,6 +3,9 @@ import Modal from "../../Components/Modal";
 import styled from "styled-components";
 import useRequest from "../../Services/Hooks/useRequest";
 import { ToastError, ToastSuccess } from "../../Services/Utility";
+import Submit from "../../Components/Buttons/Submit";
+import Input from "../../Components/Inputs/Input";
+
 const Box = styled.div`
   height: 40px;
   display: flex;
@@ -15,6 +18,7 @@ const Box = styled.div`
   margin-top: 1rem;
   cursor: pointer;
 `;
+
 const InputEmail = styled.input`
   height: 50px;
   width: 88%;
@@ -27,6 +31,7 @@ const InputEmail = styled.input`
     padding: 10px 0;
   }
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,89 +40,149 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+const Header = styled.p`
+  color: #ff3e3e;
+  text-align: center;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-top: 45px;
+`;
+
+const TapIp = styled.p`
+  color: #757575;
+  text-align: center;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  text-transform: capitalize;
+`;
+
+const P = styled.p`
+  color: rgba(0, 0, 0, 0.36);
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px; /* 156.25% */
+`;
+
+const Details = styled.p`
+  color: rgba(0, 0, 0, 0.63);
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px; /* 156.25% */
+`;
+
+const Information = styled.p`
+  color: rgba(0, 0, 0, 0.45);
+  text-align: center;
+  margin-top: 29px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px; /* 178.571% */
+`;
+
 const Ip = () => {
   const [isEmail, setIsEmail] = useState(false);
-  const [email, setEmail] = useState(false);
+  const [email, setEmail] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
   const [ip, setIp] = useState("");
+
   useEffect(() => {
-    Request("ip").then((response) => {
-      setIp(response.data);
-    });
+    // Fetch the IP here and set it in the state
+    const fetchIp = async () => {
+      try {
+        const response = await Request("ip");
+        setIp(response.data);
+      } catch (error) {
+        // Handle error if needed
+        console.error(error);
+      }
+    };
+
+    fetchIp();
   }, []);
-  const onIpSender = () => {
-    Request("ip/send-to-support", HTTP_METHOD.POST, {
-      ip,
-      email: "",
-    })
-      .then(() => {
-        setIsEmail("true");
-      })
-      .catch(() => {
-        ToastError("مشکلی در ارسال پیش آمد .لفطا بعدا درخواست ارسال کنید");
+
+  const onIpSender = async () => {
+    try {
+      const ip = await Request("ip");
+      const response = await Request("ip/send-to-support", HTTP_METHOD.POST, {
+        ip: ip.data,
+        email: "",
       });
+      setIsEmail(true);
+      ToastSuccess("ممنون از همراهی شما ");
+    } catch (err) {
+      console.error(err);
+      ToastError("مشکلی در ارسال پیش آمد .لطفاً بعداً درخواست ارسال کنید");
+    }
   };
+
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
 
-  const onEmailSender = () => {
+  const onEmailSender = async () => {
     if (!validateEmail(email)) {
       ToastError("فرمت ایمیل معتبر نیست");
       return;
     }
 
-    Request("ip/send-to-support", HTTP_METHOD.POST, {
-      ip,
-      email,
-    })
-      .then(() => {
-        ToastSuccess("ممنون از همراهی شما ");
-      })
-      .catch(() => {
-        ToastError("مشکلی در ارسال پیش آمد");
+    try {
+      const response = await Request("ip/send-to-support", HTTP_METHOD.POST, {
+        ip,
+        email,
       });
+      ToastSuccess("ممنون از همراهی شما ");
+    } catch (err) {
+      console.error(err);
+      ToastError("مشکلی در ارسال پیش آمد");
+    }
   };
+
   return (
     <Modal title="سطح دسترسی">
       <Container>
         {!isEmail ? (
           <>
-            <h2 className="mt-5">آی پی غیر مجاز </h2>
-            <span className="mt-2">{ip}</span>
-            <span className="mt-2" style={{ direction: "rtl" }}>
-              IP شما غیر ایرانی شناخته شده است
-            </span>
-            <span className="mt-2" style={{ direction: "rtl" }}>
+            <Header>آی پی غیر مجاز </Header>
+            <TapIp>{ip}</TapIp>
+            <P>IP شما غیر ایرانی شناخته شده است</P>
+            <Details style={{ marginTop: "24px" }}>
               اگر از
-              <span style={{ fontWeight: 500, color: "red" }}>VPN</span>
+              <span style={{ fontWeight: 500, color: "red" }}> VPN </span>
               استفاده میکنید آن را خاموش کرده
-            </span>
-            <span className="mt-2">سپس صفحه را مجدد بارگزاری کنید </span>
-            <span className="mt-2">
-              در غیر این صورت روی گزینه زیر کلیک کنید
-            </span>
-            <Box
-              className="mt-2"
-              style={{ direction: "rtl" }}
-              onClick={onIpSender}
-            >
-              مجاز سازی IP
-            </Box>
+            </Details>
+            <Details>سپس صفحه را مجدد بارگزاری کنید </Details>
+            <Submit
+              type="secondary"
+              text="مجاز سازی IP"
+              options={{
+                onClick: onIpSender,
+                style: {
+                  marginTop: 24,
+                },
+              }}
+            />
           </>
         ) : (
           <>
-            <h2 className="mt-5" style={{ direction: "rtl" }}>
-              بررسی وضعیت ip
-            </h2>
-            <span className="mt-3">زمان مورد نیاز 24 ساعت</span>
-            <span className="mt-3"> جهت اطلاع رسانی از شرح اقدامات</span>
-            <span className="mt-3">ایمیل خود را در زیر وارد کنید </span>
-            <InputEmail
+            <Header style={{ color: "#18C08F" }}>بررسی وضعیت ip</Header>
+            <P>زمان مورد نیاز 24 ساعت</P>
+            <Details> جهت اطلاع رسانی از شرح اقدامات</Details>
+            <Details>ایمیل خود را در زیر وارد کنید </Details>
+            <Input
+              name="email"
               type="email"
-              placeholder="example@example.com"
-              className="mt-4"
+              placeholder="ایمیل خود را وارد کنید"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Box className="mt-2" onClick={onEmailSender}>
@@ -126,13 +191,14 @@ const Ip = () => {
           </>
         )}
       </Container>
-      <p className="text-information mt-5">
-        سئوالی دارید یا میخواهید بیشتر بدانید؟
-      </p>
-
-      <a href="https://rgb.irpsc.com/" className="link text-1 mt-2 pb-5">
-        .از وبسایت ما دیدن کنید
-      </a>
+      <Information>
+        برای کسب اطلاعات بیشتر و پاسخ به سوالات، از
+        <br />
+        <a href="https://rgb.irpsc.com/" className="link text-1 ">
+          وبسایت ما
+        </a>
+        دیدن کنید
+      </Information>
     </Modal>
   );
 };

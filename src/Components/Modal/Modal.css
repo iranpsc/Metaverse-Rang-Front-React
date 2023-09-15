@@ -20,7 +20,7 @@
 
 .modal-section-xs {
   width: 97%;
-  height: 61.125%;
+  height: 472px;
 
   @media (min-width: 768px) {
     width: 340px;
@@ -29,10 +29,12 @@
 }
 
 .modal-section-sm {
-  width: 90%;
+  width: 97%;
+  height: 489px;
 
   @media (min-width: 768px) {
-    width: 600px !important;
+    width: 450px;
+    height: 490px;
   }
 }
 
@@ -92,4 +94,13 @@
     width: 340px;
     height: 548px;
   }
+}
+
+.header-modal-text {
+  text-align: right;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 180%;
+  text-transform: capitalize;
 }

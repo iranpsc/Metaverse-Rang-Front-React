@@ -14,7 +14,7 @@ import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 import Tutorial from "./Components/Tutorial";
 import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme, GlobalStyles } from "./Theme/theme.js";
+import { lightTheme, darkTheme } from "./Theme/theme.js";
 import { useState } from "react";
 function App() {
   useLayoutEffect(() => {

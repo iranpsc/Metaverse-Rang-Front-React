@@ -106,7 +106,12 @@ function Modal({
             />
           </div>
 
-          <p className="rtl">{title}</p>
+          <p
+            className="header-modal-text"
+            style={{ color: `${theme.headerModals}` }}
+          >
+            {title}
+          </p>
         </div>
         <div className="modal-body ">
           {children}

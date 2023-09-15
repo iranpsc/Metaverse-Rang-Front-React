@@ -18,6 +18,7 @@ export const lightTheme = {
   btnSubmitTextColor: "#18C08F",
   bgRecaptcha: "#F9F9F9",
   recaptchaText: "#00000073",
+  headerModals: "#353535",
 };
 export const darkTheme = {
   body: "#121620",
@@ -39,4 +40,5 @@ export const darkTheme = {
   btnSubmitTextColor: "#18C08F",
   bgRecaptcha: "#272727;",
   recaptchaText: "#FFFFFF",
+  headerModals: "#E9E9E9",
 };
