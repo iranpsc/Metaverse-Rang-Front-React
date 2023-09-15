@@ -52,7 +52,7 @@ const Header = styled.p`
 `;
 
 const TapIp = styled.p`
-  color: #757575;
+  color: ${(props) => props.theme.textIp};
   text-align: center;
   font-size: 25px;
   font-style: normal;
@@ -61,7 +61,7 @@ const TapIp = styled.p`
 `;
 
 const P = styled.p`
-  color: rgba(0, 0, 0, 0.36);
+  color: ${(props) => props.theme.textDetail};
   text-align: center;
   font-size: 16px;
   font-style: normal;
@@ -70,7 +70,7 @@ const P = styled.p`
 `;
 
 const Details = styled.p`
-  color: rgba(0, 0, 0, 0.63);
+  color: ${(props) => props.theme.textDetails};
   text-align: center;
   font-size: 16px;
   font-style: normal;
@@ -79,7 +79,7 @@ const Details = styled.p`
 `;
 
 const Information = styled.p`
-  color: rgba(0, 0, 0, 0.45);
+  color: ${(props) => props.theme.Information};
   text-align: center;
   margin-top: 29px;
   font-size: 14px;
@@ -185,9 +185,19 @@ const Ip = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Box className="mt-2" onClick={onEmailSender}>
+            <Submit
+              className="mt-2"
+              type="secondary"
+              text="مرا خبر کن"
+              options={{
+                onClick: onEmailSender,
+                style: {
+                  marginTop: 24,
+                },
+              }}
+            >
               مرا خبر کن
-            </Box>
+            </Submit>
           </>
         )}
       </Container>

@@ -19,6 +19,10 @@ export const lightTheme = {
   bgRecaptcha: "#F9F9F9",
   recaptchaText: "#00000073",
   headerModals: "#353535",
+  textIp: "#757575",
+  textDetail: "#0000005C",
+  textDetails: "#000000A1",
+  Information: "#00000073",
 };
 export const darkTheme = {
   body: "#121620",
@@ -41,4 +45,8 @@ export const darkTheme = {
   bgRecaptcha: "#272727;",
   recaptchaText: "#FFFFFF",
   headerModals: "#E9E9E9",
+  textIp: "#FFFFFF",
+  textDetail: "#5B5B5B",
+  textDetails: "#969696",
+  Information: "#898989",
 };
