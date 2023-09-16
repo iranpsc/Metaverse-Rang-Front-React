@@ -18,8 +18,15 @@ const InputField = styled.input`
   height: 50px;
   padding: 10px;
   border-radius: 5px;
-  background-color: ${(props) => props.theme.inputBgColor};
-  border: 1px solid ${(props) => props.theme.inputBorder};
+  background-color: ${(props) =>
+    props.validation
+      ? props.theme.inputBgColorError
+      : props.theme.inputBgColor};
+  border: 1px solid
+    ${(props) =>
+      props.validation
+        ? props.theme.inputBorderError
+        : props.theme.inputBorder};
   outline: none;
   text-align: right;
   font-family: AzarMehr-DS2;
@@ -27,7 +34,8 @@ const InputField = styled.input`
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
-  color: ${(props) => props.theme.inputText};
+  color: ${(props) =>
+    props.validation ? props.theme.inputTextError : props.theme.inputText};
   ::placeholder {
     color: ${(props) => props.theme.placeholder};
   }
@@ -45,24 +53,6 @@ const Container = styled.div`
 
   & svg:hover {
     cursor: pointer;
-  }
-
-  ${InputField}[value='']:focus + ${Label} {
-    top: -26px;
-    right: 16px;
-    background: white;
-    padding-right: 8px;
-    padding-left: 8px;
-    font-size: 16px;
-  }
-
-  ${InputField}:not([value='']) + ${Label} {
-    top: -26px;
-    right: 16px;
-    background: white;
-    padding-right: 8px;
-    padding-left: 8px;
-    font-size: 16px;
   }
 `;
 const Icon = styled(Show)`
@@ -89,6 +79,7 @@ function Input({
   type = "text",
   nextSibling = false,
   floatLabel = false,
+  validation,
 }) {
   const [show, setShow] = useState(false);
   const onChangeHandler = (e) => {
@@ -123,6 +114,7 @@ function Input({
           e.preventDefault();
           onChangeHandler(e);
         }}
+        autocomplete="off"
         {...options}
       />
 
@@ -141,6 +133,8 @@ function Input({
           e.preventDefault();
           onChangeHandler(e);
         }}
+        autocomplete="off"
+        validation={validation}
         {...options}
       />
 

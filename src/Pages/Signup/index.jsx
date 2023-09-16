@@ -85,6 +85,16 @@ export default function Signup() {
       ToastSuccess("ایمیل تایید مجدد ارسال شد ");
     });
   };
+  const isPasswordValid = (password) => {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]/;
+    const persianRegex = /[آ-ی]/;
+    return regex.test(password) && !persianRegex.test(password);
+  };
+  const isEmailValid = (email) => {
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    return emailRegex.test(email);
+  };
   return (
     <Modal type=" registry">
       {!emailVerification ? (
@@ -97,6 +107,7 @@ export default function Signup() {
               placeholder="نام کاربری"
               value={formData.name}
               dispatch={setFormData}
+              validation={formData.name.includes("hm_")}
             />
 
             <Input
@@ -105,6 +116,7 @@ export default function Signup() {
               placeholder="ایمیل خود را وارد کنید"
               value={formData.email}
               dispatch={setFormData}
+              validation={!isEmailValid(formData.email)}
             />
 
             <Input
@@ -113,6 +125,7 @@ export default function Signup() {
               placeholder="رمز ورود"
               value={formData.password}
               dispatch={setFormData}
+              validation={!isPasswordValid(formData.password)}
             />
             <Submit text="ثبت نام" type="secondary" />
 
