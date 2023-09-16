@@ -61,12 +61,16 @@ function Signup() {
 
   const onSubmitHandler = () => {
     if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
       !isEmailValid(formData.email) ||
       !isPasswordValid(formData.password) ||
       formData.name.includes("hm_")
     ) {
       return;
     }
+
     if (!recaptchaValue) {
       setIsRecaptcha(true);
       return;
@@ -109,7 +113,7 @@ function Signup() {
               placeholder="نام کاربری"
               value={formData.name}
               dispatch={setFormData}
-              validation={formData.name.includes("hm_")}
+              validation={formData.name !== "" && formData.name.includes("hm_")}
               Error={"نام کاربری دارای محدودیت _hm میباشد."}
             />
             <Input
@@ -118,7 +122,9 @@ function Signup() {
               placeholder="ایمیل خود را وارد کنید"
               value={formData.email}
               dispatch={setFormData}
-              validation={!isEmailValid(formData.email)}
+              validation={
+                formData.email !== "" && !isEmailValid(formData.email)
+              }
               Error={"ایمیل را درست وارد کنید"}
             />
             <Input
@@ -127,7 +133,9 @@ function Signup() {
               placeholder="رمز ورود"
               value={formData.password}
               dispatch={setFormData}
-              validation={!isPasswordValid(formData.password)}
+              validation={
+                formData.password !== "" && !isPasswordValid(formData.password)
+              }
               Error={
                 "گذرواژه می‌بایست شامل اعداد، سیمبل و حروف کوچک و بزرگ انگلیسی باشد."
               }
