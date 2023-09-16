@@ -67,6 +67,20 @@ const Icon2 = styled(Hidden)`
   flex-shrink: 0;
   stroke: ${(props) => props.theme.inputText};
 `;
+const ErrorMassage = styled.p`
+  color: #f00;
+  text-align: right;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px;
+  display: flex;
+  width: 298px;
+  height: 16px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+`;
 function Input({
   placeholder,
   className,
@@ -80,6 +94,7 @@ function Input({
   nextSibling = false,
   floatLabel = false,
   validation,
+  Error,
 }) {
   const [show, setShow] = useState(false);
   const onChangeHandler = (e) => {
@@ -144,6 +159,7 @@ function Input({
         ) : (
           <Icon2 onClick={() => setShow(true)}></Icon2>
         ))}
+      {validation && <ErrorMassage>{Error} </ErrorMassage>}
     </Container>
   );
 }
