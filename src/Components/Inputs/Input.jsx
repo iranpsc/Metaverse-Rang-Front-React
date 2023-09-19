@@ -157,12 +157,10 @@ function Input({
         ) : (
           <Icon2 onClick={() => setShow(true)}></Icon2>
         ))}
-      {validation && <ErrorMassage>{Error} </ErrorMassage>}
+      {validation || (Error && <ErrorMassage>{Error} </ErrorMassage>)}
     </Container>
   );
 }
-// fa-solid fa-eye
-// fa-solid fa-eye-slash
 const areEqual = (prevProps, nextProps) => {
   return (
     prevProps.value === nextProps.value &&

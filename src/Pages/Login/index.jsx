@@ -9,12 +9,17 @@ import Form from "../../Components/Form";
 import Submit from "../../Components/Buttons/Submit";
 import { useEffect } from "react";
 import LoginSwitch from "./LoginSwitch";
-import { useTheme } from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { useRecaptcha } from "../../Services/Hooks/useRecapcha";
-import { useTranslation } from "react-i18next";
 import { getFieldTranslationByNames } from "../../Services/Utility";
-import i18n from "../../i18n/i18n";
 
+const Errors = styled.p`
+  color: #f00;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 17px;
+`;
 export default function Login() {
   const { Request, HTTP_METHOD } = useRequest();
   const navigation = useNavigate();
@@ -37,6 +42,9 @@ export default function Login() {
   });
 
   const onSubmitHandler = () => {
+    if (!formData.email || !formData.password) {
+      return;
+    }
     if (!recaptchaValue) {
       setIsRecaptcha(true);
       return;
@@ -64,6 +72,7 @@ export default function Login() {
           )}
           value={formData.email}
           dispatch={setFormData}
+          validation={message ? true : false}
         />
 
         <Input
@@ -75,11 +84,10 @@ export default function Login() {
           )}
           value={formData.password}
           dispatch={setFormData}
+          validation={message ? true : false}
         />
 
-        {message && (
-          <p className="w-100 text-right mb-3 text-danger">{message}</p>
-        )}
+        {message && <Errors>{message}</Errors>}
 
         <Submit
           text={getFieldTranslationByNames("login", "login")}
