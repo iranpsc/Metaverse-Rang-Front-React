@@ -10,7 +10,10 @@ import Submit from "../../Components/Buttons/Submit.jsx";
 import CheckBox from "../../Components/Inputs/CheckBox";
 import LoginSwitch from "./LoginSwitch";
 import { useRecaptcha } from "../../Services/Hooks/useRecapcha";
-import { ToastSuccess } from "../../Services/Utility";
+import {
+  ToastSuccess,
+  getFieldTranslationByNames,
+} from "../../Services/Utility";
 
 const BoxEmailNavigate = styled.div`
   height: 40px;
@@ -110,7 +113,10 @@ function Signup() {
             <Input
               name="name"
               type="text"
-              placeholder="نام کاربری"
+              placeholder={getFieldTranslationByNames(
+                "register",
+                "username can be company or brand name"
+              )}
               value={formData.name}
               dispatch={setFormData}
               validation={formData.name !== "" && formData.name.includes("hm_")}
@@ -119,7 +125,10 @@ function Signup() {
             <Input
               name="email"
               type="email"
-              placeholder="ایمیل خود را وارد کنید"
+              placeholder={getFieldTranslationByNames(
+                "register",
+                "enter your email"
+              )}
               value={formData.email}
               dispatch={setFormData}
               validation={
@@ -130,7 +139,10 @@ function Signup() {
             <Input
               name="password"
               type="password"
-              placeholder="رمز ورود"
+              placeholder={getFieldTranslationByNames(
+                "register",
+                "enter your password"
+              )}
               value={formData.password}
               dispatch={setFormData}
               validation={
@@ -143,7 +155,7 @@ function Signup() {
             <Submit text="ثبت نام" type="secondary" />
             <CheckBox value={remember} onClickHandler={setRemember} />
             <Link to="/metaverse/reset-password" className="link text-1">
-              فراموشی رمز عبور
+              {getFieldTranslationByNames("login", "forget password")}
             </Link>
           </Form>
           <p

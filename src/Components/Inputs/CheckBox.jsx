@@ -1,6 +1,7 @@
 import { memo } from "react";
 import shortid from "shortid";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   width: 100%;
@@ -40,7 +41,9 @@ function CheckBox({ value, onClickHandler }) {
         value={value}
         onClick={() => onClickHandler(!value)}
       />
-      <Label htmlhtmlFor={id}>مرا به خاطر بسپار</Label>
+      <Label htmlhtmlFor={id}>
+        {getFieldTranslationByNames("login", "remember me")}
+      </Label>
     </Container>
   );
 }

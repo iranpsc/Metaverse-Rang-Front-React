@@ -28,7 +28,6 @@ const InputField = styled.input`
         ? props.theme.inputBorderError
         : props.theme.inputBorder};
   outline: none;
-  text-align: right;
   font-family: AzarMehr-DS2;
   font-size: 16px;
   font-style: normal;
@@ -47,7 +46,7 @@ const Container = styled.div`
 
   & svg {
     position: absolute;
-    left: 12px;
+    ${(props) => (document.body.dir === "ltr" ? "right: 12px;" : "left: 12px;")}
     top: 29%;
   }
 
@@ -69,7 +68,6 @@ const Icon2 = styled(Hidden)`
 `;
 const ErrorMassage = styled.p`
   color: #f00;
-  text-align: right;
   font-size: 10px;
   font-style: normal;
   font-weight: 500;

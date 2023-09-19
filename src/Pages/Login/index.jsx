@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import LoginSwitch from "./LoginSwitch";
 import { useTheme } from "styled-components";
 import { useRecaptcha } from "../../Services/Hooks/useRecapcha";
+import { useTranslation } from "react-i18next";
+import { getFieldTranslationByNames } from "../../Services/Utility";
+import i18n from "../../i18n/i18n";
 
 export default function Login() {
   const { Request, HTTP_METHOD } = useRequest();
@@ -48,7 +51,6 @@ export default function Login() {
         setMessage(error.response.data.message);
       });
   };
-
   return (
     <Modal type="modal-section-xs">
       <LoginSwitch />
@@ -56,7 +58,10 @@ export default function Login() {
         <Input
           name="email"
           type="email"
-          placeholder="ایمیل خود را وارد کنید"
+          placeholder={getFieldTranslationByNames(
+            "login",
+            "enter username or email"
+          )}
           value={formData.email}
           dispatch={setFormData}
         />
@@ -64,7 +69,10 @@ export default function Login() {
         <Input
           name="password"
           type="password"
-          placeholder="رمز ورود "
+          placeholder={getFieldTranslationByNames(
+            "login",
+            "enter your password"
+          )}
           value={formData.password}
           dispatch={setFormData}
         />
@@ -73,12 +81,15 @@ export default function Login() {
           <p className="w-100 text-right mb-3 text-danger">{message}</p>
         )}
 
-        <Submit text={"ورود"} type="secondary" />
+        <Submit
+          text={getFieldTranslationByNames("login", "login")}
+          type="secondary"
+        />
 
         <CheckBox value={remember} onClickHandler={setRemember} />
 
         <Link to="/metaverse/reset-password" className="link text-1 ">
-          فراموشی رمز عبور
+          {getFieldTranslationByNames("login", "forget password")}
         </Link>
         <p
           className="text-information mt-1"

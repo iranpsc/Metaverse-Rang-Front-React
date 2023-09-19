@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import Modal from "../../Components/Modal";
 import styled from "styled-components";
 import useRequest from "../../Services/Hooks/useRequest";
-import { ToastError, ToastSuccess } from "../../Services/Utility";
+import {
+  ToastError,
+  ToastSuccess,
+  getFieldTranslationByNames,
+} from "../../Services/Utility";
 import Submit from "../../Components/Buttons/Submit";
 import Input from "../../Components/Inputs/Input";
 
@@ -122,13 +126,20 @@ const Ip = () => {
   };
 
   return (
-    <Modal title="سطح دسترسی">
+    <Modal title={getFieldTranslationByNames("ip-checker", "access level")}>
       <Container>
         {!isEmail ? (
           <>
-            <Header>آی پی غیر مجاز </Header>
+            <Header>
+              {getFieldTranslationByNames("ip-checker", "unauthorized ip")}
+            </Header>
             <TapIp>{ip}</TapIp>
-            <P>IP شما غیر ایرانی شناخته شده است</P>
+            <P>
+              {getFieldTranslationByNames(
+                "ip-checker",
+                "your ip appears to be non-Iranian. If you are using a VPN, please turn it off and then reload the page"
+              )}
+            </P>
             <Details style={{ marginTop: "24px" }}>
               اگر از
               <span style={{ fontWeight: 500, color: "red" }}> VPN </span>
@@ -137,7 +148,7 @@ const Ip = () => {
             <Details>سپس صفحه را مجدد بارگزاری کنید </Details>
             <Submit
               type="secondary"
-              text="مجاز سازی IP"
+              text={getFieldTranslationByNames("ip-checker", "authorize ip")}
               options={{
                 onClick: onIpSender,
                 style: {
@@ -148,30 +159,38 @@ const Ip = () => {
           </>
         ) : (
           <>
-            <Header style={{ color: "#18C08F" }}>بررسی وضعیت ip</Header>
-            <P>زمان مورد نیاز 24 ساعت</P>
+            <Header style={{ color: "#18C08F" }}>
+              {getFieldTranslationByNames("ip-checker", "check ip status")}
+            </Header>
+            <P>
+              {getFieldTranslationByNames(
+                "ip-checker",
+                "time required 24 hours"
+              )}
+            </P>
             <Details> جهت اطلاع رسانی از شرح اقدامات</Details>
             <Details>ایمیل خود را در زیر وارد کنید </Details>
             <Input
               name="email"
               type="email"
-              placeholder="ایمیل خود را وارد کنید"
+              placeholder={getFieldTranslationByNames(
+                "login",
+                "enter username or email"
+              )}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Submit
               className="mt-2"
               type="secondary"
-              text="مرا خبر کن"
+              text={getFieldTranslationByNames("ip-checker", "let me know")}
               options={{
                 onClick: onEmailSender,
                 style: {
                   marginTop: 24,
                 },
               }}
-            >
-              مرا خبر کن
-            </Submit>
+            ></Submit>
           </>
         )}
       </Container>

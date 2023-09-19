@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Member } from "../../Assets/svg/AddMember.svg";
 import { ReactComponent as Profile } from "../../Assets/svg/profile.svg";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 function LoginSwitch() {
   const navigate = useNavigate();
@@ -72,11 +73,11 @@ function LoginSwitch() {
       <Container>
         <BtnRegistry onClick={() => navigate("/metaverse/signup")}>
           <Icon />
-          ثبت نام
+          {getFieldTranslationByNames("register", "register")}
         </BtnRegistry>
         <BtnLogin onClick={() => navigate("/metaverse/login")}>
           <Icon2 />
-          ورود
+          {getFieldTranslationByNames("login", "login")}
         </BtnLogin>
       </Container>
     </>

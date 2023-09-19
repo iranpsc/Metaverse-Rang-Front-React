@@ -1,5 +1,6 @@
 import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
+import i18n from "../../i18n/i18n";
 
 export function SanitizeHTML(content) {
   return content?.replace(/<[^>]*>?/gm, "");
@@ -88,4 +89,24 @@ export const ToastSuccess = (message) => {
     },
     duration: 5000,
   });
+};
+const resources = i18n.options.resources;
+export const getFieldTranslationByNames = (modalName, fieldName) => {
+  const modal = resources[i18n.language].translation.modals.find(
+    (modal) => modal.name === modalName
+  );
+
+  if (modal) {
+    for (let i = 0; i < modal.tabs.length; i++) {
+      const tab = modal.tabs[i];
+      const field = tab.fields.find((field) => field.name === fieldName);
+
+      if (field) {
+        return field.translation;
+      }
+    }
+  }
+
+  // Return a default translation or handle missing translations as needed
+  return "Translation not found";
 };
