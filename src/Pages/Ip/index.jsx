@@ -17,6 +17,7 @@ const Container = styled.div`
   font-size: x-large;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;
 
 const Header = styled.p`
@@ -168,7 +169,10 @@ const Ip = () => {
                 "time required 24 hours"
               )}
             </P>
-            <Details> جهت اطلاع رسانی از شرح اقدامات</Details>
+            <Details style={{ marginTop: "25px" }}>
+              {" "}
+              جهت اطلاع رسانی از شرح اقدامات
+            </Details>
             <Details>ایمیل خود را در زیر وارد کنید </Details>
             <Input
               name="email"

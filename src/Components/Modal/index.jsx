@@ -68,6 +68,21 @@ function Modal({
     width: 40px;
     height: 40px;
   `;
+  const Header = styled.p`
+    ${(props) => props.theme.headerModals};
+    text-align: right;
+    font-size: 16px;
+    @media (min-width: 768px) {
+      font-size: 18px;
+    }
+    font-style: normal;
+    font-weight: 600;
+    line-height: 180%;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
   return (
     <animated.section className={"modal"} style={{ ...springs }}>
       <div
@@ -105,13 +120,7 @@ function Modal({
               onClick={() => navigation("/metaverse")}
             />
           </div>
-
-          <p
-            className="header-modal-text"
-            style={{ color: `${theme.headerModals}` }}
-          >
-            {title}
-          </p>
+          <Header>{title}</Header>
         </div>
         <div className="modal-body ">
           {children}

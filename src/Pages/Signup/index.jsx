@@ -81,8 +81,8 @@ function Signup() {
     Request("register", HTTP_METHOD.POST, formData)
       .then((res) => {
         if (res.status === 201) {
+          navigation("/metaverse/verification-email");
           setVerificationInfo({
-            emailVerification: true,
             token: res.data.data.token,
           });
         }
@@ -106,106 +106,70 @@ function Signup() {
 
   return (
     <Modal type="modal-section-xs">
-      {!verificationInfo.emailVerification ? (
-        <>
-          <LoginSwitch />
-          <Form onSubmit={onSubmitHandler}>
-            <Input
-              name="name"
-              type="text"
-              placeholder={getFieldTranslationByNames(
-                "register",
-                "username can be company or brand name"
-              )}
-              value={formData.name}
-              dispatch={setFormData}
-              validation={formData.name !== "" && formData.name.includes("hm_")}
-              Error={"نام کاربری دارای محدودیت _hm میباشد."}
-            />
-            <Input
-              name="email"
-              type="email"
-              placeholder={getFieldTranslationByNames(
-                "register",
-                "enter your email"
-              )}
-              value={formData.email}
-              dispatch={setFormData}
-              validation={
-                formData.email !== "" && !isEmailValid(formData.email)
-              }
-              Error={"ایمیل را درست وارد کنید"}
-            />
-            <Input
-              name="password"
-              type="password"
-              placeholder={getFieldTranslationByNames(
-                "register",
-                "enter your password"
-              )}
-              value={formData.password}
-              dispatch={setFormData}
-              validation={
-                formData.password !== "" && !isPasswordValid(formData.password)
-              }
-              Error={
-                "گذرواژه می‌بایست شامل اعداد، سیمبل و حروف کوچک و بزرگ انگلیسی باشد."
-              }
-            />
-            <Submit text="ثبت نام" type="secondary" />
-            <CheckBox value={remember} onClickHandler={setRemember} />
-            <Link to="/metaverse/reset-password" className="link text-1">
-              {getFieldTranslationByNames("login", "forget password")}
-            </Link>
-          </Form>
-          <p
-            className="text-information mt-2"
-            style={{ color: `${theme.checkBoxLabel}` }}
-          >
-            برای کسب اطلاعات بیشتر و پاسخ به سوالات واز <br />
-            <a
-              href="https://rgb.irpsc.com/overview"
-              target="_blank"
-              rel="noreferrer"
-              className="link text-1"
-            >
-              وبسایت
-            </a>
-            دیدن نمایید.
-          </p>
-          {isRecaptcha && !recaptchaValue ? renderRecaptcha() : null}
-        </>
-      ) : (
-        <>
-          <h2 className="mt-5">ایمیل خود را تایید کنید</h2>
-          <span className="mt-2">ما یک ایمیل به </span>
-          <span className="mt-2">{formData.email}</span>
-          <span className="mt-4">برای شروع روی لینک داخل ایمیل کلیک کنید </span>
-          <BoxEmailNavigate>
-            <img src={GmailIcon} alt="gmail" style={{ width: "40px" }} />
-            <a
-              href="https://mail.google.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              باز کردن جیمیل
-            </a>
-          </BoxEmailNavigate>
-          <span
-            className="mt-3"
-            onClick={resendEmailHandler}
-            style={{ color: "#0a58ca" }}
-          >
-            ایمیل را دوباره ارسال کن
-          </span>
-          <p className="text-information mt-5">
-            سئوالی دارید یا میخواهید بیشتر بدانید؟
-          </p>
-          <a href="https://rgb.irpsc.com/" className="link text-1 mt-2 pb-5">
-            .از وبسایت ما دیدن کنید
-          </a>
-        </>
-      )}
+      <LoginSwitch />
+      <Form onSubmit={onSubmitHandler}>
+        <Input
+          name="name"
+          type="text"
+          placeholder={getFieldTranslationByNames(
+            "register",
+            "username can be company or brand name"
+          )}
+          value={formData.name}
+          dispatch={setFormData}
+          validation={formData.name !== "" && formData.name.includes("hm_")}
+          Error={"نام کاربری دارای محدودیت _hm میباشد."}
+        />
+        <Input
+          name="email"
+          type="email"
+          placeholder={getFieldTranslationByNames(
+            "register",
+            "enter your email"
+          )}
+          value={formData.email}
+          dispatch={setFormData}
+          validation={formData.email !== "" && !isEmailValid(formData.email)}
+          Error={"ایمیل را درست وارد کنید"}
+        />
+        <Input
+          name="password"
+          type="password"
+          placeholder={getFieldTranslationByNames(
+            "register",
+            "enter your password"
+          )}
+          value={formData.password}
+          dispatch={setFormData}
+          validation={
+            formData.password !== "" && !isPasswordValid(formData.password)
+          }
+          Error={
+            "گذرواژه می‌بایست شامل اعداد، سیمبل و حروف کوچک و بزرگ انگلیسی باشد."
+          }
+        />
+        <Submit text="ثبت نام" type="secondary" />
+        <CheckBox value={remember} onClickHandler={setRemember} />
+        <Link to="/metaverse/reset-password" className="link text-1">
+          {getFieldTranslationByNames("login", "forget password")}
+        </Link>
+      </Form>
+      <p
+        className="text-information mt-2"
+        style={{ color: `${theme.checkBoxLabel}` }}
+      >
+        برای کسب اطلاعات بیشتر و پاسخ به سوالات واز <br />
+        <a
+          href="https://rgb.irpsc.com/overview"
+          target="_blank"
+          rel="noreferrer"
+          className="link text-1"
+        >
+          وبسایت
+        </a>
+        دیدن نمایید.
+      </p>
+      {isRecaptcha && !recaptchaValue ? renderRecaptcha() : null}
     </Modal>
   );
 }

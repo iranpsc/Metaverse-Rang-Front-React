@@ -18,6 +18,9 @@ const PrimaryButton = styled.button`
 const SecondaryButton = styled.button`
   display: flex;
   width: 100%;
+  @media (min-width: 768px) {
+    width: ${(props) => (props.responsive ? "71.5%" : "100%")};
+  }
   height: 50px;
   padding: 12px 8px;
   justify-content: center;
@@ -28,21 +31,21 @@ const SecondaryButton = styled.button`
   background: ${(props) => props.theme.btnSubmitBgColor};
   color: ${(props) => props.theme.btnSubmitTextColor};
   text-align: center;
-  font-family: AzarMehr-DS2;
+  font-family: AzarMehr;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
 `;
 
-function Submit({ text, type, options }) {
+function Submit({ text, type, options, responsive }) {
   const [button, setButton] = useState();
 
   useLayoutEffect(() => {
     switch (type) {
       case "secondary":
         setButton(
-          <SecondaryButton type="submit" {...options}>
+          <SecondaryButton type="submit" {...options} responsive={responsive}>
             {text}
           </SecondaryButton>
         );
@@ -50,7 +53,7 @@ function Submit({ text, type, options }) {
 
       case "primary":
         setButton(
-          <PrimaryButton type="submit" {...options}>
+          <PrimaryButton type="submit" {...options} responsive={responsive}>
             {text}
           </PrimaryButton>
         );
