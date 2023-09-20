@@ -95,6 +95,7 @@ function Input({
   Error,
 }) {
   const [show, setShow] = useState(false);
+
   const onChangeHandler = (e) => {
     if (dispatch) {
       if (typeof maxLength === "number") {
@@ -127,7 +128,7 @@ function Input({
           e.preventDefault();
           onChangeHandler(e);
         }}
-        autocomplete="off"
+        autoComplete="off"
         {...options}
       />
 
@@ -146,7 +147,7 @@ function Input({
           e.preventDefault();
           onChangeHandler(e);
         }}
-        autocomplete="off"
+        autoComplete="off"
         validation={validation}
         {...options}
       />
@@ -161,11 +162,5 @@ function Input({
     </Container>
   );
 }
-const areEqual = (prevProps, nextProps) => {
-  return (
-    prevProps.value === nextProps.value &&
-    prevProps?.options?.disabled === nextProps?.options?.disabled
-  );
-};
 
-export default memo(Input, areEqual);
+export default Input;
