@@ -158,7 +158,7 @@ function Input({
         ) : (
           <Icon2 onClick={() => setShow(true)}></Icon2>
         ))}
-      {validation || (Error && <ErrorMassage>{Error} </ErrorMassage>)}
+      {validation && Error && <ErrorMassage>{Error} </ErrorMassage>}
     </Container>
   );
 }

@@ -19,6 +19,7 @@ const Errors = styled.p`
   font-style: normal;
   font-weight: 500;
   line-height: 17px;
+  width: 100%;
 `;
 export default function Login() {
   const { Request, HTTP_METHOD } = useRequest();
@@ -56,7 +57,9 @@ export default function Login() {
         navigation("/metaverse");
       })
       .catch((error) => {
-        setMessage(error.response.data.message);
+        setMessage(
+          getFieldTranslationByNames("login", "email or password is not valid.")
+        );
       });
   };
   return (
@@ -66,10 +69,7 @@ export default function Login() {
         <Input
           name="email"
           type="email"
-          placeholder={getFieldTranslationByNames(
-            "login",
-            "enter username or email"
-          )}
+          placeholder={getFieldTranslationByNames("login", "enter-your-email")}
           value={formData.email}
           dispatch={setFormData}
           validation={message ? true : false}
@@ -78,10 +78,7 @@ export default function Login() {
         <Input
           name="password"
           type="password"
-          placeholder={getFieldTranslationByNames(
-            "login",
-            "enter your password"
-          )}
+          placeholder={getFieldTranslationByNames("login", "password")}
           value={formData.password}
           dispatch={setFormData}
           validation={message ? true : false}
@@ -94,7 +91,11 @@ export default function Login() {
           type="secondary"
         />
 
-        <CheckBox value={remember} onClickHandler={setRemember} />
+        <CheckBox
+          value={remember}
+          onClickHandler={setRemember}
+          text={getFieldTranslationByNames("login", "remember me")}
+        />
 
         <Link to="/metaverse/reset-password" className="link text-1 ">
           {getFieldTranslationByNames("login", "forget password")}
@@ -103,7 +104,10 @@ export default function Login() {
           className="text-information mt-1"
           style={{ color: `${theme.checkBoxLabel} ` }}
         >
-          با کلیک بر روی دکمه ورود
+          {getFieldTranslationByNames(
+            "login",
+            "If you click on the login button"
+          )}
           <br />
           <a
             href="https://rgb.irpsc.com/overview"
@@ -111,9 +115,9 @@ export default function Login() {
             rel="noreferrer"
             className="link text-1 "
           >
-            شرایط قرارداد خدمات{" "}
-          </a>
-          موافقت میکنید
+            {getFieldTranslationByNames("login", "terms of service contract")}
+          </a>{" "}
+          {getFieldTranslationByNames("login", "you agree")}
         </p>
 
         {isRecaptcha && !recaptchaValue ? renderRecaptcha() : null}

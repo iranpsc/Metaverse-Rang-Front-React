@@ -103,7 +103,7 @@ function Signup() {
       ToastSuccess("ایمیل تایید مجدد ارسال شد");
     });
   };
-
+  console.log(formData.password !== "" && !isPasswordValid(formData.password));
   return (
     <Modal type="modal-section-xs">
       <LoginSwitch />
@@ -111,14 +111,14 @@ function Signup() {
         <Input
           name="name"
           type="text"
-          placeholder={getFieldTranslationByNames(
-            "register",
-            "username can be company or brand name"
-          )}
+          placeholder={getFieldTranslationByNames("register", "username")}
           value={formData.name}
           dispatch={setFormData}
           validation={formData.name !== "" && formData.name.includes("hm_")}
-          Error={"نام کاربری دارای محدودیت _hm میباشد."}
+          Error={getFieldTranslationByNames(
+            "register",
+            "the user name is limited to hm-"
+          )}
         />
         <Input
           name="email"
@@ -130,44 +130,53 @@ function Signup() {
           value={formData.email}
           dispatch={setFormData}
           validation={formData.email !== "" && !isEmailValid(formData.email)}
-          Error={"ایمیل را درست وارد کنید"}
+          Error={getFieldTranslationByNames(
+            "register",
+            "your email is not valid"
+          )}
         />
         <Input
           name="password"
           type="password"
-          placeholder={getFieldTranslationByNames(
-            "register",
-            "enter your password"
-          )}
+          placeholder={getFieldTranslationByNames("register", "password")}
           value={formData.password}
           dispatch={setFormData}
           validation={
             formData.password !== "" && !isPasswordValid(formData.password)
           }
-          Error={
-            "گذرواژه می‌بایست شامل اعداد، سیمبل و حروف کوچک و بزرگ انگلیسی باشد."
-          }
+          Error={getFieldTranslationByNames(
+            "register",
+            "the password must contain"
+          )}
         />
         <Submit text="ثبت نام" type="secondary" />
-        <CheckBox value={remember} onClickHandler={setRemember} />
+        <CheckBox
+          value={remember}
+          onClickHandler={setRemember}
+          text={getFieldTranslationByNames("login", "remember me")}
+        />
         <Link to="/metaverse/reset-password" className="link text-1">
           {getFieldTranslationByNames("login", "forget password")}
         </Link>
       </Form>
       <p
-        className="text-information mt-2"
-        style={{ color: `${theme.checkBoxLabel}` }}
+        className="text-information mt-1"
+        style={{ color: `${theme.checkBoxLabel} ` }}
       >
-        برای کسب اطلاعات بیشتر و پاسخ به سوالات واز <br />
+        {getFieldTranslationByNames(
+          "login",
+          "If you click on the login button"
+        )}
+        <br />
         <a
           href="https://rgb.irpsc.com/overview"
-          target="_blank"
+          target={"_blank"}
           rel="noreferrer"
-          className="link text-1"
+          className="link text-1 "
         >
-          وبسایت
-        </a>
-        دیدن نمایید.
+          {getFieldTranslationByNames("login", "terms of service contract")}
+        </a>{" "}
+        {getFieldTranslationByNames("login", "you agree")}
       </p>
       {isRecaptcha && !recaptchaValue ? renderRecaptcha() : null}
     </Modal>

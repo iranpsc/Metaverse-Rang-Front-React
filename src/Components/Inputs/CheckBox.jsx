@@ -1,4 +1,3 @@
-import { memo } from "react";
 import shortid from "shortid";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../Services/Utility";
@@ -30,7 +29,7 @@ const Input = styled.input`
   border: 1px solid #d9d9d9;
 `;
 
-function CheckBox({ value, onClickHandler }) {
+function CheckBox({ value, onClickHandler, text }) {
   const id = shortid.generate();
 
   return (
@@ -41,11 +40,9 @@ function CheckBox({ value, onClickHandler }) {
         value={value}
         onClick={() => onClickHandler(!value)}
       />
-      <Label htmlhtmlFor={id}>
-        {getFieldTranslationByNames("login", "remember me")}
-      </Label>
+      <Label htmlhtmlFor={id}>{text}</Label>
     </Container>
   );
 }
 
-export default memo(CheckBox);
+export default CheckBox;
