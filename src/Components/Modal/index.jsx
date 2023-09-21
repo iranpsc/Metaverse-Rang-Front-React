@@ -69,7 +69,7 @@ function Modal({
     height: 40px;
   `;
   const Header = styled.p`
-    ${(props) => props.theme.headerModals};
+    color: ${(props) => props.theme.headerModals};
     text-align: right;
     font-size: 16px;
     @media (min-width: 768px) {

@@ -138,15 +138,21 @@ const Ip = () => {
             <P>
               {getFieldTranslationByNames(
                 "ip-checker",
-                "your ip appears to be non-Iranian. If you are using a VPN, please turn it off and then reload the page"
+                "your IP is known as non-iranian"
               )}
             </P>
             <Details style={{ marginTop: "24px" }}>
-              اگر از
-              <span style={{ fontWeight: 500, color: "red" }}> VPN </span>
-              استفاده میکنید آن را خاموش کرده
+              {getFieldTranslationByNames("ip-checker", "if you use a")}
+              <span style={{ fontWeight: 500, color: "red" }}>
+                {" "}
+                {getFieldTranslationByNames("ip-checker", "vpn")}
+              </span>
+              {getFieldTranslationByNames("ip-checker", "turn it off")}
             </Details>
-            <Details>سپس صفحه را مجدد بارگزاری کنید </Details>
+            <Details>
+              {" "}
+              {getFieldTranslationByNames("ip-checker", "then reload the page")}
+            </Details>
             <Submit
               type="secondary"
               text={getFieldTranslationByNames("ip-checker", "authorize ip")}
@@ -170,10 +176,15 @@ const Ip = () => {
               )}
             </P>
             <Details style={{ marginTop: "25px" }}>
-              {" "}
-              جهت اطلاع رسانی از شرح اقدامات
+              {getFieldTranslationByNames("ip-checker", "to inform about")}
             </Details>
-            <Details>ایمیل خود را در زیر وارد کنید </Details>
+            <Details>
+              {" "}
+              {getFieldTranslationByNames(
+                "ip-checker",
+                "enter your email below"
+              )}
+            </Details>
             <Input
               name="email"
               type="email"
@@ -199,12 +210,20 @@ const Ip = () => {
         )}
       </Container>
       <Information>
-        برای کسب اطلاعات بیشتر و پاسخ به سوالات، از
+        {getFieldTranslationByNames(
+          "login",
+          "If you click on the login button"
+        )}
         <br />
-        <a href="https://rgb.irpsc.com/" className="link text-1 ">
-          وبسایت ما
-        </a>
-        دیدن کنید
+        <a
+          href="https://rgb.irpsc.com/overview"
+          target={"_blank"}
+          rel="noreferrer"
+          className="link text-1 "
+        >
+          {getFieldTranslationByNames("login", "terms of service contract")}
+        </a>{" "}
+        {getFieldTranslationByNames("login", "you agree")}
       </Information>
     </Modal>
   );

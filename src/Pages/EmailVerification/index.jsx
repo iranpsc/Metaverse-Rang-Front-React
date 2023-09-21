@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "../../Components/Modal";
 import styled from "styled-components";
 import Submit from "../../Components/Buttons/Submit";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -52,17 +53,24 @@ const Link = styled.a`
 `;
 const EmailVerification = () => {
   return (
-    <Modal title={"فعالسازی حساب شهروندی"}>
+    <Modal
+      title={getFieldTranslationByNames(
+        "register",
+        "citizen account activation"
+      )}
+    >
       <Container>
         <Header>
-          <br /> یک ایمیل به آدرس
+          <br /> {getFieldTranslationByNames("register", "an email address")}
           <br /> m.s.alizadeh99@gmail.com <br />
-          ارسال شده است.
+          {getFieldTranslationByNames("register", "sent")}
         </Header>
         <Details style={{ marginTop: "11px" }}>
-          جهت تایید و فعال سازی حساب خود, بر روی لینک
+          {getFieldTranslationByNames("register", "to confirm and activate")}
         </Details>
-        <Details>بر روی لینک موجود در ایمیل کلیک کنید</Details>
+        <Details>
+          {getFieldTranslationByNames("register", "on the link in the email")}
+        </Details>
         <Submit
           type="secondary"
           text={"مشاهده ایمیل"}
@@ -73,10 +81,24 @@ const EmailVerification = () => {
             },
           }}
         />
-        <Link>ارسال مجدد ایمیل تایید حساب شهروندی</Link>
+        <Link>
+          {getFieldTranslationByNames("register", "re-send the email")}
+        </Link>
         <Information>
-          برای کسب اطلاعات بیشتر و پاسخ به سوالات، از
-          <br /> وبسایت دیدن نمایید.
+          {getFieldTranslationByNames(
+            "login",
+            "If you click on the login button"
+          )}
+          <br />
+          <a
+            href="https://rgb.irpsc.com/overview"
+            target={"_blank"}
+            rel="noreferrer"
+            className="link text-1 "
+          >
+            {getFieldTranslationByNames("login", "terms of service contract")}
+          </a>{" "}
+          {getFieldTranslationByNames("login", "you agree")}
         </Information>
       </Container>
     </Modal>

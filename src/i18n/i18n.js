@@ -75,7 +75,7 @@ const resources = {
                 {
                   id: 3477,
                   tab_id: 3,
-                  name: "terms of service contract",
+                  name: "website.",
                   translation: "website",
                 },
                 {
@@ -96,6 +96,18 @@ const resources = {
                   tab_id: 3,
                   name: "you agree",
                   translation: "You agree.",
+                },
+                {
+                  id: 3862,
+                  tab_id: 3,
+                  name: "terms of service contract",
+                  translation: "Terms of service contract",
+                },
+                {
+                  id: 3883,
+                  tab_id: 3,
+                  name: "please specify",
+                  translation: "Please specify that you are not a robot",
                 },
               ],
             },
@@ -152,12 +164,6 @@ const resources = {
                   translation: "Remember Me",
                 },
                 {
-                  id: 56,
-                  tab_id: 6,
-                  name: "forget-password",
-                  translation: "Forget Password",
-                },
-                {
                   id: 3393,
                   tab_id: 6,
                   name: "With",
@@ -166,7 +172,7 @@ const resources = {
                 {
                   id: 3400,
                   tab_id: 6,
-                  name: "terms of service contract",
+                  name: "website.",
                   translation: "website",
                 },
                 {
@@ -2615,34 +2621,62 @@ const resources = {
                 {
                   id: 3358,
                   tab_id: 290,
-                  name: "your ip appears to be non-Iranian. If you are using a VPN, please turn it off and then reload the page",
-                  translation:
-                    "Your IP appears to be non-Iranian. If you are using a VPN, please turn it off and then reload the page",
+                  name: "your IP is known",
+                  translation: "Your IP is known as non-iranian",
                 },
                 {
                   id: 3365,
                   tab_id: 290,
-                  name: "otherwise, please click on the button below",
-                  translation: "Otherwise, please click on the button below",
+                  name: "if you use a",
+                  translation: "If you use a",
                 },
                 {
                   id: 3372,
                   tab_id: 290,
-                  name: "authorize ip",
-                  translation: "Authorize IP",
+                  name: "vpn",
+                  translation: "VPN",
                 },
                 {
-                  id: 3379,
+                  id: 3603,
                   tab_id: 290,
-                  name: "do you have any questions or would you like to know more?",
-                  translation:
-                    "Do you have any questions or would you like to know more?",
+                  name: "otherwise, click",
+                  translation: "Otherwise, click on the option below",
                 },
                 {
-                  id: 3386,
+                  id: 3610,
                   tab_id: 290,
-                  name: "forget-password",
-                  translation: "Visit our website",
+                  name: "ip authorization",
+                  translation: "IP Authorization",
+                },
+                {
+                  id: 3617,
+                  tab_id: 290,
+                  name: "for more information",
+                  translation: "For more information and answers to questions.",
+                },
+                {
+                  id: 3624,
+                  tab_id: 290,
+                  name: "visit the",
+                  translation: "visit the",
+                },
+                {
+                  id: 3631,
+                  tab_id: 290,
+                  name: "website",
+                  translation: "website.",
+                },
+                {
+                  id: 3869,
+                  tab_id: 290,
+                  name: "turn it off",
+                  translation: ", turn it off",
+                },
+                {
+                  id: 3876,
+                  tab_id: 290,
+                  name: "then reload the page",
+                  translation: "Then reload the page",
                 },
               ],
             },
@@ -2661,7 +2695,7 @@ const resources = {
                   id: 3302,
                   tab_id: 297,
                   name: "check ip status",
-                  translation: "Check IP status",
+                  translation: "Check IP Status",
                 },
                 {
                   id: 3309,
@@ -2672,28 +2706,212 @@ const resources = {
                 {
                   id: 3316,
                   tab_id: 297,
-                  name: "to provide information about the description of your actions, please enter your email below",
-                  translation:
-                    "To provide information about the description of your actions, please enter your email below",
+                  name: "to inform about",
+                  translation: "To inform about the description of actions",
                 },
                 {
-                  id: 3323,
+                  id: 3638,
+                  tab_id: 297,
+                  name: "enter your email below",
+                  translation: "Enter your email below",
+                },
+                {
+                  id: 3645,
+                  tab_id: 297,
+                  name: "enter your email",
+                  translation: "Enter your email",
+                },
+                {
+                  id: 3652,
+                  tab_id: 297,
+                  name: "the email entered is not valid",
+                  translation: "The email entered is not valid",
+                },
+                {
+                  id: 3659,
                   tab_id: 297,
                   name: "let me know",
-                  translation: "let me know",
+                  translation: "Let me know",
                 },
                 {
-                  id: 3330,
+                  id: 3666,
                   tab_id: 297,
-                  name: "do you have any questions or would you like to know more?",
-                  translation:
-                    "Do you have any questions or would you like to know more?",
+                  name: "for more information",
+                  translation: "For more information and answers to questions.",
                 },
                 {
-                  id: 3337,
+                  id: 3673,
                   tab_id: 297,
-                  name: "forget-password",
-                  translation: "Visit our website",
+                  name: "visit the",
+                  translation: "visit the",
+                },
+                {
+                  id: 3680,
+                  tab_id: 297,
+                  name: "website",
+                  translation: "website",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "central-page",
+          tabs: [
+            {
+              id: 311,
+              modal_id: 117,
+              name: "central-page",
+              fields: [
+                {
+                  id: 3687,
+                  tab_id: 311,
+                  name: "meta rgb",
+                  translation: "META RGB",
+                },
+                {
+                  id: 3694,
+                  tab_id: 311,
+                  name: "metaverse rang",
+                  translation: "METAVERSE RANG",
+                },
+                {
+                  id: 3701,
+                  tab_id: 311,
+                  name: "sign out",
+                  translation: "Sign Out",
+                },
+                {
+                  id: 3708,
+                  tab_id: 311,
+                  name: "account security",
+                  translation: "Account Security",
+                },
+                {
+                  id: 3715,
+                  tab_id: 311,
+                  name: "challenges",
+                  translation: "Challenges",
+                },
+                {
+                  id: 3722,
+                  tab_id: 311,
+                  name: "central search",
+                  translation: "Central Search",
+                },
+                {
+                  id: 3729,
+                  tab_id: 311,
+                  name: "global statistics",
+                  translation: "Global Statistics",
+                },
+                {
+                  id: 3736,
+                  tab_id: 311,
+                  name: "family tree",
+                  translation: "Family Tree",
+                },
+                {
+                  id: 3743,
+                  tab_id: 311,
+                  name: "vod guide",
+                  translation: "VOD Guide",
+                },
+                {
+                  id: 3750,
+                  tab_id: 311,
+                  name: "accumulated earnings",
+                  translation: "Accumulated Earnings",
+                },
+                {
+                  id: 3757,
+                  tab_id: 311,
+                  name: "identify verification",
+                  translation: "Identify Verification",
+                },
+                {
+                  id: 3764,
+                  tab_id: 311,
+                  name: "calendar",
+                  translation: "Calender",
+                },
+                {
+                  id: 3771,
+                  tab_id: 311,
+                  name: "store",
+                  translation: "Store",
+                },
+                {
+                  id: 3778,
+                  tab_id: 311,
+                  name: "notifications",
+                  translation: "Notifications",
+                },
+                {
+                  id: 3785,
+                  tab_id: 311,
+                  name: "reports",
+                  translation: "Reports",
+                },
+                {
+                  id: 3792,
+                  tab_id: 311,
+                  name: "language",
+                  translation: "Language",
+                },
+                {
+                  id: 3799,
+                  tab_id: 311,
+                  name: "dark mode",
+                  translation: "Dark Mode",
+                },
+                {
+                  id: 3806,
+                  tab_id: 311,
+                  name: "light mode",
+                  translation: "Light Mode",
+                },
+                {
+                  id: 3813,
+                  tab_id: 311,
+                  name: "send document",
+                  translation: "Send Document",
+                },
+                {
+                  id: 3820,
+                  tab_id: 311,
+                  name: "chat",
+                  translation: "Chat",
+                },
+                {
+                  id: 3827,
+                  tab_id: 311,
+                  name: "profile",
+                  translation: "Profile",
+                },
+                {
+                  id: 3834,
+                  tab_id: 311,
+                  name: "share",
+                  translation: "Share",
+                },
+                {
+                  id: 3841,
+                  tab_id: 311,
+                  name: "dynasty",
+                  translation: "Dynasty",
+                },
+                {
+                  id: 3848,
+                  tab_id: 311,
+                  name: "unity",
+                  translation: "Unity",
+                },
+                {
+                  id: 3855,
+                  tab_id: 311,
+                  name: "visit portfolio",
+                  translation: "Visit Portfolio",
                 },
               ],
             },
@@ -2780,9 +2998,8 @@ const resources = {
                 {
                   id: 3478,
                   tab_id: 4,
-                  name: "terms of service contract",
-                  translation:
-                    "\u0634\u0631\u0627\u06cc\u0637 \u0642\u0631\u0627\u0631\u062f\u0627\u062f \u062e\u062f\u0645\u0627\u062a",
+                  name: "website.",
+                  translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
                 },
                 {
                   id: 3485,
@@ -2804,6 +3021,20 @@ const resources = {
                   name: "you agree",
                   translation:
                     "\u0634\u0645\u0627 \u0645\u0648\u0627\u0641\u0642\u06cc\u062f",
+                },
+                {
+                  id: 3863,
+                  tab_id: 4,
+                  name: "terms of service contract",
+                  translation:
+                    "\u0634\u0631\u0627\u06cc\u0637 \u0642\u0631\u0627\u0631\u062f\u0627\u062f \u062e\u062f\u0645\u0627\u062a",
+                },
+                {
+                  id: 3884,
+                  tab_id: 4,
+                  name: "please specify",
+                  translation:
+                    "\u0644\u0637\u0641\u0627\u064b \u0645\u0634\u062e\u0635 \u06a9\u0646\u06cc\u062f \u06a9\u0647 \u0631\u0628\u0627\u062a \u0646\u06cc\u0633\u062a\u06cc\u062f",
                 },
               ],
             },
@@ -2864,13 +3095,6 @@ const resources = {
                     "\u0645\u0631\u0627 \u0628\u0647 \u062e\u0627\u0637\u0631 \u0628\u0633\u067e\u0627\u0631",
                 },
                 {
-                  id: 57,
-                  tab_id: 7,
-                  name: "forget-password",
-                  translation:
-                    "\u0641\u0631\u0627\u0645\u0648\u0634\u06cc \u0631\u0645\u0632 \u0648\u0631\u0648\u062f",
-                },
-                {
                   id: 3394,
                   tab_id: 7,
                   name: "With",
@@ -2880,7 +3104,7 @@ const resources = {
                 {
                   id: 3401,
                   tab_id: 7,
-                  name: "terms of service contract",
+                  name: "website.",
                   translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
                 },
                 {
@@ -5510,37 +5734,69 @@ const resources = {
                 {
                   id: 3359,
                   tab_id: 291,
-                  name: "your ip appears to be non-Iranian. If you are using a VPN, please turn it off and then reload the page",
+                  name: "your IP is known",
                   translation:
-                    "\u0627\u06cc \u067e\u06cc \u0634\u0645\u0627 \u063a\u06cc\u0631 \u0627\u06cc\u0631\u0627\u0646\u06cc \u0634\u0646\u0627\u0633\u062e\u062a\u0647 \u0634\u062f\u0647 \u0627\u0633\u062a \u0627\u06af\u0631 \u0627\u0632 vpn \u0627\u0633\u062a\u0641\u0627\u062f\u0647 \u0645\u06cc\u06a9\u0646\u06cc\u062f \u0622\u0646 \u0631\u0627 \u062e\u0627\u0645\u0648\u0634 \u06a9\u0631\u062f\u0647 \u0633\u067e\u0633 \u0635\u0641\u062d\u0647 \u0631\u0627 \u0645\u062c\u062f\u062f \u0628\u0627\u0631\u06af\u0630\u0627\u0631\u06cc \u06a9\u0646\u06cc\u062f",
+                    "IP \u0634\u0645\u0627 \u063a\u06cc\u0631 \u0627\u06cc\u0631\u0627\u0646\u06cc \u0634\u0646\u0627\u062e\u062a\u0647 \u0634\u062f\u0647 \u0627\u0633\u062a",
                 },
                 {
                   id: 3366,
                   tab_id: 291,
-                  name: "otherwise, please click on the button below",
-                  translation:
-                    "\u062f\u0631 \u063a\u06cc\u0631 \u0627\u06cc\u0646\u0635\u0648\u0631\u062a \u0631\u0648\u06cc \u06af\u0632\u06cc\u0646\u0647 \u0632\u06cc\u0631 \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u06cc\u062f",
+                  name: "if you use a",
+                  translation: "\u0627\u06af\u0631 \u0627\u0632",
                 },
                 {
                   id: 3373,
                   tab_id: 291,
-                  name: "authorize ip",
-                  translation:
-                    "\u0645\u062c\u0627\u0632 \u0633\u0627\u0632\u06cc \u0627\u06cc \u067e\u06cc",
+                  name: "vpn",
+                  translation: "VPN",
                 },
                 {
-                  id: 3380,
+                  id: 3604,
                   tab_id: 291,
-                  name: "do you have any questions or would you like to know more?",
+                  name: "otherwise, click",
                   translation:
-                    "\u0633\u0648\u0627\u0644\u06cc \u062f\u0627\u0631\u06cc\u062f \u06cc\u0627 \u0645\u06cc\u062e\u0648\u0627\u0647\u06cc\u062f \u0628\u06cc\u0634\u062a\u0631 \u0628\u062f\u0627\u0646\u06cc\u062f \u061f",
+                    "\u062f\u0631 \u063a\u06cc\u0631\u0627\u06cc\u0646 \u0635\u0648\u0631\u062a \u0631\u0648\u06cc \u06af\u0632\u06cc\u0646\u0647 \u0632\u06cc\u0631 \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u06cc\u062f",
                 },
                 {
-                  id: 3387,
+                  id: 3611,
                   tab_id: 291,
-                  name: "forget-password",
+                  name: "ip authorization",
                   translation:
-                    "\u0627\u0632 \u0648\u0628\u0633\u0627\u06cc\u062a \u0645\u0627 \u062f\u06cc\u062f\u0646 \u06a9\u0646\u06cc\u062f",
+                    "\u0645\u062c\u0627\u0632 \u0633\u0627\u0632\u06cc IP",
+                },
+                {
+                  id: 3618,
+                  tab_id: 291,
+                  name: "for more information",
+                  translation:
+                    "\u0628\u0631\u0627\u06cc \u06a9\u0633\u0628 \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0628\u06cc\u0634\u062a\u0631 \u0648 \u067e\u0627\u0633\u062e \u0628\u0647 \u0633\u0648\u0627\u0644\u0627\u062a\u060c \u0627\u0632",
+                },
+                {
+                  id: 3625,
+                  tab_id: 291,
+                  name: "visit the",
+                  translation:
+                    "\u062f\u06cc\u062f\u0646 \u0646\u0645\u0627\u06cc\u06cc\u062f.",
+                },
+                {
+                  id: 3632,
+                  tab_id: 291,
+                  name: "website",
+                  translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
+                },
+                {
+                  id: 3870,
+                  tab_id: 291,
+                  name: "turn it off",
+                  translation:
+                    "\u0627\u0633\u062a\u0641\u0627\u062f\u0647 \u0645\u06cc\u06a9\u0646\u06cc\u062f \u0622\u0646 \u0631\u0627 \u062e\u0627\u0645\u0648\u0634 \u06a9\u0631\u062f\u0647",
+                },
+                {
+                  id: 3877,
+                  tab_id: 291,
+                  name: "then reload the page",
+                  translation:
+                    "\u0633\u067e\u0633 \u0635\u0641\u062d\u0647 \u0631\u0627 \u0645\u062c\u062f\u062f \u0628\u0627\u0631\u06af\u0630\u0627\u0631\u06cc \u06a9\u0646\u06cc\u062f",
                 },
               ],
             },
@@ -5561,7 +5817,7 @@ const resources = {
                   tab_id: 298,
                   name: "check ip status",
                   translation:
-                    "\u0628\u0631\u0631\u0633\u06cc \u0648\u0636\u0639\u06cc\u062a \u0627\u06cc \u067e\u06cc",
+                    "\u0628\u0631\u0631\u0633\u06cc \u0648\u0636\u0639\u06cc\u062a IP",
                 },
                 {
                   id: 3310,
@@ -5573,30 +5829,230 @@ const resources = {
                 {
                   id: 3317,
                   tab_id: 298,
-                  name: "to provide information about the description of your actions, please enter your email below",
+                  name: "to inform about",
                   translation:
-                    "\u062c\u0647\u062a \u0627\u0637\u0644\u0627\u0639 \u0631\u0633\u0627\u0646\u06cc \u0627\u0632 \u0634\u0631\u062d \u0627\u0642\u062f\u0627\u0645\u0627\u062a \u0627\u06cc\u0645\u06cc\u0644 \u062e\u0648\u062f \u0631\u0627 \u062f\u0631 \u0632\u06cc\u0631 \u0648\u0627\u0631\u062f \u06a9\u0646\u06cc\u062f",
+                    "\u062c\u0647\u062a \u0627\u0637\u0644\u0627\u0639 \u0631\u0633\u0627\u0646\u06cc \u0627\u0632 \u0634\u0631\u062d \u0627\u0642\u062f\u0627\u0645\u0627\u062a",
                 },
                 {
-                  id: 3324,
+                  id: 3639,
+                  tab_id: 298,
+                  name: "enter your email below",
+                  translation:
+                    "\u0627\u06cc\u0645\u06cc\u0644 \u062e\u0648\u062f \u0631\u0627 \u062f\u0631 \u06a9\u0627\u062f\u0631 \u0632\u06cc\u0631 \u0648\u0627\u0631\u062f \u06a9\u0646\u06cc\u062f",
+                },
+                {
+                  id: 3646,
+                  tab_id: 298,
+                  name: "enter your email",
+                  translation:
+                    "\u0627\u06cc\u0645\u06cc\u0644 \u062e\u0648\u062f \u0631\u0627 \u0648\u0627\u0631\u062f \u06a9\u0646\u06cc\u062f",
+                },
+                {
+                  id: 3653,
+                  tab_id: 298,
+                  name: "the email entered is not valid",
+                  translation:
+                    "\u0627\u06cc\u0645\u06cc\u0644 \u0648\u0627\u0631\u062f \u0634\u062f\u0647 \u0645\u0639\u062a\u0628\u0631 \u0646\u06cc\u0633\u062a",
+                },
+                {
+                  id: 3660,
                   tab_id: 298,
                   name: "let me know",
                   translation:
-                    "\u0645\u0631\u0627 \u062e\u0628\u0631 \u06a9\u0646",
+                    "\u0645\u0631\u0627 \u062e\u0628\u0631\u06a9\u0646",
                 },
                 {
-                  id: 3331,
+                  id: 3667,
                   tab_id: 298,
-                  name: "do you have any questions or would you like to know more?",
+                  name: "for more information",
                   translation:
-                    "\u0633\u0648\u0627\u0644\u06cc \u062f\u0627\u0631\u06cc\u062f \u06cc\u0627 \u0645\u06cc\u062e\u0648\u0627\u0647\u06cc\u062f \u0628\u06cc\u0634\u062a\u0631 \u0628\u062f\u0627\u0646\u06cc\u062f \u061f",
+                    "\u0628\u0631\u0627\u06cc \u06a9\u0633\u0628 \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0628\u06cc\u0634\u062a\u0631 \u0648 \u067e\u0627\u0633\u062e \u0628\u0647 \u0633\u0648\u0627\u0644\u0627\u062a\u060c \u0627\u0632",
                 },
                 {
-                  id: 3338,
+                  id: 3674,
                   tab_id: 298,
-                  name: "forget-password",
+                  name: "visit the",
                   translation:
-                    "\u0627\u0632 \u0648\u0628\u0633\u0627\u06cc\u062a \u0645\u0627 \u062f\u06cc\u062f\u0646 \u06a9\u0646\u06cc\u062f",
+                    "\u062f\u06cc\u062f\u0646 \u0646\u0645\u0627\u06cc\u06cc\u062f.",
+                },
+                {
+                  id: 3681,
+                  tab_id: 298,
+                  name: "website",
+                  translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "central-page",
+          tabs: [
+            {
+              id: 312,
+              modal_id: 118,
+              name: "central-page",
+              fields: [
+                {
+                  id: 3688,
+                  tab_id: 312,
+                  name: "meta rgb",
+                  translation: "\u0645\u062a\u0627 \u0631\u0646\u06af",
+                },
+                {
+                  id: 3695,
+                  tab_id: 312,
+                  name: "metaverse rang",
+                  translation:
+                    "\u0645\u062a\u0627\u0648\u0631\u0633 \u0631\u0646\u06af",
+                },
+                {
+                  id: 3702,
+                  tab_id: 312,
+                  name: "sign out",
+                  translation:
+                    "\u062e\u0631\u0648\u062c \u0627\u0632 \u062d\u0633\u0627\u0628 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                },
+                {
+                  id: 3709,
+                  tab_id: 312,
+                  name: "account security",
+                  translation:
+                    "\u0627\u0645\u0646\u06cc\u062a \u062d\u0633\u0627\u0628 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                },
+                {
+                  id: 3716,
+                  tab_id: 312,
+                  name: "challenges",
+                  translation: "\u0686\u0627\u0644\u0634 \u0647\u0627",
+                },
+                {
+                  id: 3723,
+                  tab_id: 312,
+                  name: "central search",
+                  translation:
+                    "\u062c\u0633\u062a\u062c\u0648\u06cc \u0645\u0631\u06a9\u0632\u06cc",
+                },
+                {
+                  id: 3730,
+                  tab_id: 312,
+                  name: "global statistics",
+                  translation:
+                    "\u0622\u0645\u0627\u0631 \u0633\u0631\u0627\u0633\u0631\u06cc",
+                },
+                {
+                  id: 3737,
+                  tab_id: 312,
+                  name: "family tree",
+                  translation:
+                    "\u0633\u0644\u0633\u0644\u0647 \u062e\u0627\u0646\u0648\u0627\u062f\u06af\u06cc",
+                },
+                {
+                  id: 3744,
+                  tab_id: 312,
+                  name: "vod guide",
+                  translation: "\u0631\u0627\u0647\u0646\u0645\u0627\u06cc VOD",
+                },
+                {
+                  id: 3751,
+                  tab_id: 312,
+                  name: "accumulated earnings",
+                  translation:
+                    "\u0633\u0648\u062f \u0627\u0646\u0628\u0627\u0634\u062a\u0647",
+                },
+                {
+                  id: 3758,
+                  tab_id: 312,
+                  name: "identify verification",
+                  translation:
+                    "\u0627\u062d\u0631\u0627\u0632 \u0647\u0648\u06cc\u062a",
+                },
+                {
+                  id: 3765,
+                  tab_id: 312,
+                  name: "calendar",
+                  translation: "\u062a\u0642\u0648\u06cc\u0645",
+                },
+                {
+                  id: 3772,
+                  tab_id: 312,
+                  name: "store",
+                  translation: "\u0641\u0631\u0648\u0634\u06af\u0627\u0647",
+                },
+                {
+                  id: 3779,
+                  tab_id: 312,
+                  name: "notifications",
+                  translation: "\u0627\u0639\u0644\u0627\u0646 \u0647\u0627",
+                },
+                {
+                  id: 3786,
+                  tab_id: 312,
+                  name: "reports",
+                  translation: "\u06af\u0632\u0627\u0631\u0634\u0627\u062a",
+                },
+                {
+                  id: 3793,
+                  tab_id: 312,
+                  name: "language",
+                  translation: "\u0632\u0628\u0627\u0646",
+                },
+                {
+                  id: 3800,
+                  tab_id: 312,
+                  name: "dark mode",
+                  translation: "\u062a\u06cc\u0631\u0647",
+                },
+                {
+                  id: 3807,
+                  tab_id: 312,
+                  name: "light mode",
+                  translation: "\u0631\u0648\u0634\u0646",
+                },
+                {
+                  id: 3814,
+                  tab_id: 312,
+                  name: "send document",
+                  translation:
+                    "\u0627\u0631\u0633\u0627\u0644 \u0633\u0646\u062f",
+                },
+                {
+                  id: 3821,
+                  tab_id: 312,
+                  name: "chat",
+                  translation: "\u06af\u0641\u062a\u06af\u0648",
+                },
+                {
+                  id: 3828,
+                  tab_id: 312,
+                  name: "profile",
+                  translation: "\u067e\u0631\u0648\u0641\u0627\u06cc\u0644",
+                },
+                {
+                  id: 3835,
+                  tab_id: 312,
+                  name: "share",
+                  translation:
+                    "\u0627\u0634\u062a\u0631\u0627\u06a9 \u06af\u0630\u0627\u0631\u06cc",
+                },
+                {
+                  id: 3842,
+                  tab_id: 312,
+                  name: "dynasty",
+                  translation: "\u0633\u0644\u0633\u0644\u0647",
+                },
+                {
+                  id: 3849,
+                  tab_id: 312,
+                  name: "unity",
+                  translation: "\u0627\u062a\u062d\u0627\u062f",
+                },
+                {
+                  id: 3856,
+                  tab_id: 312,
+                  name: "visit portfolio",
+                  translation:
+                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u0646\u0645\u0648\u0646\u0647 \u06a9\u0627\u0631\u0647\u0627",
                 },
               ],
             },
