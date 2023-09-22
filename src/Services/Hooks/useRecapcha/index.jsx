@@ -57,7 +57,6 @@ export function useRecaptcha() {
         <ReCAPTCHA
           sitekey="6LdqfRMoAAAAAClPNzvvB25nCmBE8jVN34glKaya"
           onChange={(value) => {
-            console.log(value);
             setRecaptchaValue(value);
           }}
           ref={captchaRef}

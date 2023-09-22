@@ -19,7 +19,7 @@ const SecondaryButton = styled.button`
   display: flex;
   width: 100%;
   @media (min-width: 768px) {
-    width: ${(props) => (props.responsive ? "71.5%" : "100%")};
+    width: ${(props) => (props.responsive ? "75%" : "100%")};
   }
   height: 50px;
   padding: 12px 8px;
@@ -36,9 +36,10 @@ const SecondaryButton = styled.button`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  gap: 5px;
 `;
 
-function Submit({ text, type, options, responsive }) {
+function Submit({ text, type, options, responsive, children }) {
   const [button, setButton] = useState();
 
   useLayoutEffect(() => {
@@ -46,6 +47,7 @@ function Submit({ text, type, options, responsive }) {
       case "secondary":
         setButton(
           <SecondaryButton type="submit" {...options} responsive={responsive}>
+            {children}
             {text}
           </SecondaryButton>
         );

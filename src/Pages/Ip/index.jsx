@@ -66,6 +66,12 @@ const Information = styled.p`
   font-weight: 500;
   line-height: 25px; /* 178.571% */
 `;
+const ContainerInput = styled.div`
+  width: 100%;
+  @media (min-width: 768px) {
+    width: 75%;
+  }
+`;
 
 const Ip = () => {
   const [isEmail, setIsEmail] = useState(false);
@@ -136,16 +142,13 @@ const Ip = () => {
             </Header>
             <TapIp>{ip}</TapIp>
             <P>
-              {getFieldTranslationByNames(
-                "ip-checker",
-                "your IP is known as non-iranian"
-              )}
+              {getFieldTranslationByNames("ip-checker", "your IP is known")}
             </P>
             <Details style={{ marginTop: "24px" }}>
               {getFieldTranslationByNames("ip-checker", "if you use a")}
               <span style={{ fontWeight: 500, color: "red" }}>
                 {" "}
-                {getFieldTranslationByNames("ip-checker", "vpn")}
+                {getFieldTranslationByNames("ip-checker", "vpn")}{" "}
               </span>
               {getFieldTranslationByNames("ip-checker", "turn it off")}
             </Details>
@@ -153,9 +156,17 @@ const Ip = () => {
               {" "}
               {getFieldTranslationByNames("ip-checker", "then reload the page")}
             </Details>
+            <Details>
+              {getFieldTranslationByNames("ip-checker", "otherwise, click")}
+            </Details>
+
             <Submit
               type="secondary"
-              text={getFieldTranslationByNames("ip-checker", "authorize ip")}
+              text={getFieldTranslationByNames(
+                "ip-checker",
+                "ip authorization"
+              )}
+              responsive
               options={{
                 onClick: onIpSender,
                 style: {
@@ -185,24 +196,32 @@ const Ip = () => {
                 "enter your email below"
               )}
             </Details>
-            <Input
-              name="email"
-              type="email"
-              placeholder={getFieldTranslationByNames(
-                "login",
-                "enter username or email"
-              )}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <ContainerInput>
+              <Input
+                name="email"
+                type="email"
+                placeholder={getFieldTranslationByNames(
+                  "ip-checker",
+                  "enter your email"
+                )}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                options={{
+                  style: {
+                    marginTop: 25,
+                  },
+                }}
+              />
+            </ContainerInput>
             <Submit
               className="mt-2"
               type="secondary"
               text={getFieldTranslationByNames("ip-checker", "let me know")}
+              responsive
               options={{
                 onClick: onEmailSender,
                 style: {
-                  marginTop: 24,
+                  marginTop: 10,
                 },
               }}
             ></Submit>
@@ -210,10 +229,7 @@ const Ip = () => {
         )}
       </Container>
       <Information>
-        {getFieldTranslationByNames(
-          "login",
-          "If you click on the login button"
-        )}
+        {getFieldTranslationByNames("ip-checker", "for more information")}
         <br />
         <a
           href="https://rgb.irpsc.com/overview"
@@ -221,9 +237,9 @@ const Ip = () => {
           rel="noreferrer"
           className="link text-1 "
         >
-          {getFieldTranslationByNames("login", "terms of service contract")}
+          {getFieldTranslationByNames("ip-checker", "website")}
         </a>{" "}
-        {getFieldTranslationByNames("login", "you agree")}
+        {getFieldTranslationByNames("ip-checker", "visit the")}
       </Information>
     </Modal>
   );

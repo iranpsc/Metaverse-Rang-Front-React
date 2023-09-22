@@ -37,10 +37,6 @@ function Signup() {
     email: "",
     password: "",
   });
-  const [verificationInfo, setVerificationInfo] = useState({
-    emailVerification: false,
-    token: "",
-  });
   const [remember, setRemember] = useState(false);
   const [isRecaptcha, setIsRecaptcha] = useState(false);
 
@@ -82,9 +78,13 @@ function Signup() {
       .then((res) => {
         if (res.status === 201) {
           navigation("/metaverse/verification-email");
-          setVerificationInfo({
-            token: res.data.data.token,
-          });
+          localStorage.setItem(
+            "email",
+            JSON.stringify({
+              email: formData.email,
+              token: res.data.data.token,
+            })
+          );
         }
       })
       .catch((error) => {
@@ -93,17 +93,6 @@ function Signup() {
       });
   };
 
-  const resendEmailHandler = () => {
-    Request(
-      "email/verification-notification",
-      HTTP_METHOD.GET,
-      {},
-      { Authorization: `Bearer ${verificationInfo.token}` }
-    ).then((res) => {
-      ToastSuccess("ایمیل تایید مجدد ارسال شد");
-    });
-  };
-  console.log(formData.password !== "" && !isPasswordValid(formData.password));
   return (
     <Modal type="modal-section-xs">
       <LoginSwitch />

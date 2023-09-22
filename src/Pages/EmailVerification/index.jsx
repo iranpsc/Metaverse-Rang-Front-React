@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../Components/Modal";
 import styled from "styled-components";
 import Submit from "../../Components/Buttons/Submit";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import gmailSvg from "../../Assets/svg/gmail.svg";
+import outlookSvg from "../../Assets/svg/outlook.svg";
+import mailSvg from "../../Assets/svg/mail.svg";
+import yahooSvg from "../../Assets/svg/yahoo.svg";
+import {
+  ToastSuccess,
+  getFieldTranslationByNames,
+} from "../../Services/Utility";
+import useRequest from "../../Services/Hooks/useRequest";
+
+const EMAIL_DOMAINS = {
+  yahoo: "https://mail.yahoo.com",
+  gmail: "https://mail.google.com",
+  outlook: "https://outlook.live.com",
+};
 
 const Container = styled.div`
   display: flex;
@@ -13,6 +27,7 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
 `;
+
 const Header = styled.p`
   color: ${(props) => props.theme.textDetails};
   text-align: center;
@@ -30,6 +45,7 @@ const Details = styled.p`
   font-style: normal;
   font-weight: 500;
   line-height: 25px;
+  margin-top: 11px;
 `;
 
 const Information = styled.p`
@@ -50,8 +66,75 @@ const Link = styled.a`
   font-weight: 500;
   line-height: 25px;
   margin-top: 10px;
+  cursor: pointer;
 `;
+
 const EmailVerification = () => {
+  const { Request, HTTP_METHOD } = useRequest();
+  const data = JSON.parse(localStorage.getItem("email"));
+  const [rerenderButton, setRerenderButton] = useState(false);
+
+  const emailDomain = data.email.split("@")[1].toLowerCase();
+  const [emailServiceText, setEmailServiceText] = useState(
+    getEmailServiceText(emailDomain)
+  );
+  const [emailServiceImageSrc, setEmailServiceImageSrc] = useState(
+    getEmailServiceImageSrc(emailDomain)
+  );
+
+  function getEmailServiceText(domain) {
+    switch (domain) {
+      case "yahoo.com":
+        return "yahoo";
+      case "gmail.com":
+        return "gmail";
+      case "outlook.com":
+      case "hotmail.com":
+        return "outlook";
+      default:
+        return "email";
+    }
+  }
+
+  function getEmailServiceImageSrc(domain) {
+    switch (domain) {
+      case "yahoo.com":
+        return yahooSvg;
+      case "gmail.com":
+        return gmailSvg;
+      case "outlook.com":
+      case "hotmail.com":
+        return outlookSvg;
+      default:
+        return mailSvg;
+    }
+  }
+
+  const resendEmailHandler = () => {
+    Request(
+      "email/verification-notification",
+      HTTP_METHOD.GET,
+      {},
+      { Authorization: `Bearer ${data.token}` }
+    ).then((res) => {
+      localStorage.removeItem("email");
+      ToastSuccess("ایمیل تایید مجدد ارسال شد");
+    });
+  };
+
+  useEffect(() => {
+    setEmailServiceImageSrc(getEmailServiceImageSrc(emailDomain));
+    setEmailServiceText(getEmailServiceText(emailDomain));
+    setRerenderButton(true);
+  }, [emailDomain]);
+
+  const openEmailService = () => {
+    const emailServiceURL = EMAIL_DOMAINS[emailServiceText];
+    if (emailServiceURL) {
+      window.open(emailServiceURL, "_blank");
+    }
+  };
+
   return (
     <Modal
       title={getFieldTranslationByNames(
@@ -62,26 +145,34 @@ const EmailVerification = () => {
       <Container>
         <Header>
           <br /> {getFieldTranslationByNames("register", "an email address")}
-          <br /> m.s.alizadeh99@gmail.com <br />
+          <br /> {data.email} <br />
           {getFieldTranslationByNames("register", "sent")}
         </Header>
-        <Details style={{ marginTop: "11px" }}>
+        <Details>
           {getFieldTranslationByNames("register", "to confirm and activate")}
         </Details>
         <Details>
           {getFieldTranslationByNames("register", "on the link in the email")}
         </Details>
-        <Submit
-          type="secondary"
-          text={"مشاهده ایمیل"}
-          responsive
-          options={{
-            style: {
-              marginTop: "30px",
-            },
-          }}
-        />
-        <Link>
+        {rerenderButton && (
+          <Submit
+            type="secondary"
+            text={getFieldTranslationByNames(
+              "register",
+              `view ${emailServiceText}`
+            )}
+            responsive
+            options={{
+              onClick: openEmailService,
+              style: {
+                marginTop: "30px",
+              },
+            }}
+          >
+            <img src={emailServiceImageSrc} alt="" width={"21px"} />
+          </Submit>
+        )}
+        <Link onClick={resendEmailHandler}>
           {getFieldTranslationByNames("register", "re-send the email")}
         </Link>
         <Information>
