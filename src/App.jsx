@@ -73,13 +73,13 @@ function App() {
               </button>
               <button
                 onClick={() => changeLanguage("en")}
-                style={{ zIndex: 1500, top: 10, position: "absolute" }}
+                style={{ zIndex: 1500, top: 30, position: "absolute" }}
               >
                 en
               </button>
               <button
                 onClick={() => changeLanguage("fa")}
-                style={{ zIndex: 1500, top: 30, position: "absolute" }}
+                style={{ zIndex: 1500, top: 60, position: "absolute" }}
               >
                 he
               </button>
