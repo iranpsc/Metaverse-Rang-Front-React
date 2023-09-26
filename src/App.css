@@ -653,6 +653,7 @@ a {
   color: #008BF8;
   text-decoration: none;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .link:hover {

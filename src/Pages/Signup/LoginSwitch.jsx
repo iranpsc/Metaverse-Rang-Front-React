@@ -15,6 +15,7 @@ function LoginSwitch() {
     justify-content: center;
     align-items: flex-start;
     gap: 10px;
+    margin-top: 5px;
   `;
   const BtnRegistry = styled.button`
     display: flex;

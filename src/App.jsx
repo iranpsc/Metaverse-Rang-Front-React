@@ -35,13 +35,6 @@ function App() {
   const [theme, setTheme] = useState("light");
   const isDarkTheme = theme === "dark";
   const toggleTheme = () => setTheme(isDarkTheme ? "light" : "dark");
-  useEffect(() => {
-    window.screen.orientation.lock("landscape");
-
-    return () => {
-      window.screen.orientation.unlock();
-    };
-  }, []);
   const { i18n } = useTranslation();
   document.body.dir = i18n.dir();
 

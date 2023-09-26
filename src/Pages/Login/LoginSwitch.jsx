@@ -15,12 +15,13 @@ function LoginSwitch() {
     justify-content: center;
     align-items: flex-start;
     gap: 10px;
+    margin-top: 5px;
   `;
   const BtnRegistry = styled.button`
     display: flex;
-    width: 53%;
+    width: 45%;
     height: 100%;
-    padding: 16px 52.5px 13px 53px;
+    padding: 16px 36.5px 13px 36px;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
@@ -39,7 +40,7 @@ function LoginSwitch() {
   `;
   const BtnLogin = styled.button`
     display: flex;
-    width: 44%;
+    width: 52%;
     height: 50px;
     padding: 14px 45.929px 13.707px 45px;
     justify-content: center;

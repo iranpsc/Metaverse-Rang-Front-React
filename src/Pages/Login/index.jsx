@@ -97,7 +97,7 @@ export default function Login() {
           text={getFieldTranslationByNames("login", "remember me")}
         />
 
-        <Link to="/metaverse/reset-password" className="link text-1 ">
+        <Link to="/metaverse/reset-password" className="link">
           {getFieldTranslationByNames("login", "forget password")}
         </Link>
         <p

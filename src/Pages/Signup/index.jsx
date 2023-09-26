@@ -144,13 +144,13 @@ function Signup() {
           onClickHandler={setRemember}
           text={getFieldTranslationByNames("login", "remember me")}
         />
-        <Link to="/metaverse/reset-password" className="link text-1">
+        <Link to="/metaverse/reset-password" className="link">
           {getFieldTranslationByNames("login", "forget password")}
         </Link>
       </Form>
       <p
-        className="text-information mt-1"
-        style={{ color: `${theme.checkBoxLabel} ` }}
+        className="text-information"
+        style={{ color: `${theme.checkBoxLabel} `, marginTop: "16px" }}
       >
         {getFieldTranslationByNames(
           "login",

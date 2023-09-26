@@ -8,7 +8,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 6px;
-  margin-top: 6%;
+  margin-top: 5%;
 `;
 
 const Label = styled.label`

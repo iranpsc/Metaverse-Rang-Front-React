@@ -27,7 +27,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 11px;
-  gap: 19px;
+  gap: 10px;
 
   & > div {
     display: flex;
@@ -44,7 +44,8 @@ const Text = styled.p`
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 25px; /* 178.571% */
+  line-height: 25px;
+  margin-top: 7px; /* 178.571% */
 `;
 export function useRecaptcha() {
   const [recaptchaValue, setRecaptchaValue] = useState(null);
@@ -55,7 +56,7 @@ export function useRecaptcha() {
       <Container>
         <Text>لطفا بررسی کنید که ربات نیستید</Text>
         <ReCAPTCHA
-          sitekey="6LdqfRMoAAAAAClPNzvvB25nCmBE8jVN34glKaya"
+          sitekey="6LdZAVYoAAAAAFrfDO0ok8FQZm7hJLZ1Y0zXvcna"
           onChange={(value) => {
             setRecaptchaValue(value);
           }}
