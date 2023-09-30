@@ -54,7 +54,7 @@ const Map = () => {
       const response = await Request("maps");
       setFlags(response.data.data);
     }
-    fetchMap();
+    // fetchMap();
   }, []);
   // A LeafletLayer component that represents the deck.gl overlay for the map.
   const deckLayer = new LeafletLayer({
@@ -114,24 +114,23 @@ const Map = () => {
         <MapContainer
           center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
           zoom={15} // The initial zoom level of the map.
-          style={{ width: "100%", height: "100vh" }}
+          className="map"
           ref={mapRef} // A reference to the map container element.
           layers={deckLayer} // The deck.gl overlay layer to be added on top of the map.
         >
           <TileLayer
             url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" // The source of the tile images for the map.
           />
-          {/* A MapPolygons component */}
+          {/* 
           <MapPolygons />
-          {/* A Main component */}
+
           <Main />
-          {/* A ContextMenu component */}
+         
           <ContextMenu />
-          {/* An AdviserIcon component */}
           <AdviserIcon />
-          <MapFlag polygons={polygons} flags={flags} />
+          <MapFlag polygons={polygons} flags={flags} /> */}
         </MapContainer>
-        <BtnFlagMap flags={flags} handleButtonClick={handleButtonClick} />
+        {/* <BtnFlagMap flags={flags} handleButtonClick={handleButtonClick} /> */}
         <Routes />
       </MapContext.Provider>
     </TransactionContext.Provider>

@@ -1,22 +1,37 @@
+import { useEffect, useLayoutEffect, useState } from "react";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-
+import {} from "react";
+import { useTranslation } from "react-i18next";
 import "./App.css";
 import "react-quill/dist/quill.snow.css";
-
-import Map from "./Layouts/Map";
-import UserProvider from "./Services/Reducers/UserContext.jsx";
-import WalletProvider from "./Services/Reducers/WalletContext";
-import FollowProvider from "./Services/Reducers/FollowContext";
-import { useEffect, useLayoutEffect } from "react";
+import styled, { ThemeProvider } from "styled-components";
 import "./i18n/i18n.js";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
-import Tutorial from "./Components/Tutorial";
-import { ThemeProvider } from "styled-components";
+import UserProvider from "./Services/Reducers/UserContext.jsx";
+import WalletProvider from "./Services/Reducers/WalletContext";
+import FollowProvider from "./Services/Reducers/FollowContext";
 import { lightTheme, darkTheme } from "./Theme/theme.js";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import Tutorial from "./Components/Tutorial";
+import Map from "./Layouts/Map";
+import Menu from "./Layouts/Menu";
+import StatusBar from "./Layouts/StatusBar";
+
+const Container = styled.section`
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  flex-direction: row;
+  gap: 5px;
+  background: #000;
+  padding: 5px;
+  @media (min-width: 768px) {
+    gap: 10px;
+    padding: 10px;
+  }
+`;
+
 function App() {
   useLayoutEffect(() => {
     window.Echo = new Echo({
@@ -49,8 +64,14 @@ function App() {
           <FollowProvider>
             <BrowserRouter>
               {/* <Tutorial /> */}
-              <Map />
-              <button
+
+              <Container>
+                <Menu />
+                <Map />
+                <StatusBar />
+              </Container>
+
+              {/* <button
                 onClick={toggleTheme}
                 style={{ zIndex: 1500, top: 0, position: "absolute" }}
               >
@@ -79,7 +100,7 @@ function App() {
               <Toaster
                 containerStyle={{ zIndex: 1000, marginBottom: 48 }}
                 position="bottom-right"
-              />
+              /> */}
             </BrowserRouter>
           </FollowProvider>
         </WalletProvider>
