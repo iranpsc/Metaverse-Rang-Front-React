@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import AssetsWallet from "./AssetsWallet";
 
 const Container = styled.div`
   display: flex;
@@ -8,7 +9,7 @@ const Container = styled.div`
   width: 16%;
   height: 100%;
   @media (min-width: 1024px) {
-    width: 10%;
+    width: 13%;
     gap: 10px;
   }
 `;
@@ -57,7 +58,9 @@ const StatusContainer = styled.div`
 const StatusBar = () => {
   return (
     <Container>
-      <WalletContainer></WalletContainer>
+      <WalletContainer>
+        <AssetsWallet />
+      </WalletContainer>
       <FlagMapContainer></FlagMapContainer>
       <StatusContainer></StatusContainer>
     </Container>

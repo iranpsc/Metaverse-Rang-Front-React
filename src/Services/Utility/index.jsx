@@ -110,3 +110,16 @@ export const getFieldTranslationByNames = (modalName, fieldName) => {
   // Return a default translation or handle missing translations as needed
   return "Translation not found";
 };
+
+export function convertEnglishToPersianNumbers(inputText) {
+  const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+
+  // استفاده از تابع replace با استفاده از نگاشت اعداد
+  for (let i = 0; i < 10; i++) {
+    const regex = new RegExp(englishNumbers[i], "g");
+    inputText = inputText.replace(regex, persianNumbers[i]);
+  }
+
+  return inputText;
+}
