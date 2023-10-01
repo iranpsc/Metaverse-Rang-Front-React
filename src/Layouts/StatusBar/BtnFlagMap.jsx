@@ -29,11 +29,20 @@ const IconLocation = styled(LocationIcon)`
 `;
 const TitleFlag = styled.p`
   color: #868b90;
-  font-size: 20px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 180%;
   text-transform: capitalize;
+  white-space: nowrap;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+`;
+const ContainerIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 const BtnFlagMap = ({ handleButtonClick }) => {
   const [flags, setFlags] = useState([]);
@@ -80,12 +89,16 @@ const BtnFlagMap = ({ handleButtonClick }) => {
     <>
       {flags.map((flag) => (
         <Btn key={flag.id} className={clickState[flag.id] ? "active" : ""}>
-          <IconFilter></IconFilter>
-          <IconLocation
-            active={clickState[flag.id]}
-            onClick={() => handleClick(flag.id)}
-          ></IconLocation>
-          <TitleFlag>{flag.name}</TitleFlag>
+          <ContainerIcon>
+            <IconFilter></IconFilter>
+            <IconLocation
+              active={clickState[flag.id]}
+              onClick={() => handleClick(flag.id)}
+            ></IconLocation>
+          </ContainerIcon>
+          <TitleFlag>
+            {flag.name.length > 4 ? "..." + flag.name.slice(0, 4) : flag.name}
+          </TitleFlag>
         </Btn>
       ))}
     </>

@@ -71,7 +71,7 @@ function App() {
                 <StatusBar />
               </Container>
 
-              {/* <button
+              <button
                 onClick={toggleTheme}
                 style={{ zIndex: 1500, top: 0, position: "absolute" }}
               >
@@ -100,7 +100,7 @@ function App() {
               <Toaster
                 containerStyle={{ zIndex: 1000, marginBottom: 48 }}
                 position="bottom-right"
-              /> */}
+              />
             </BrowserRouter>
           </FollowProvider>
         </WalletProvider>

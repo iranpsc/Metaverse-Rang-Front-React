@@ -7,10 +7,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 16%;
+  width: 30%;
   height: 100%;
   @media (min-width: 1024px) {
-    width: 13%;
+    width: 14%;
     gap: 10px;
   }
 `;
@@ -25,7 +25,7 @@ const WalletContainer = styled.div`
     height: 41%;
     border-radius: 20px;
   }
-  padding: 11px 17px 12px 15px;
+  padding: 20px 10px 15px 10px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -43,7 +43,7 @@ const FlagMapContainer = styled.div`
     height: 51%;
     border-radius: 20px;
   }
-  padding: 0 10px;
+  padding: 4px 7px;
   align-items: center;
   overflow-y: auto;
 `;

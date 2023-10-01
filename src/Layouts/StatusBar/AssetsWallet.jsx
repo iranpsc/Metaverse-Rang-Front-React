@@ -19,8 +19,8 @@ const Asset = styled.div`
 `;
 
 const ImgAsset = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   @media (min-width: 1024px) {
     width: 35px;
     height: 35px;
@@ -29,7 +29,7 @@ const ImgAsset = styled.img`
 
 const TextAsset = styled.p`
   color: #868b90;
-  font-size: 14px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 500;
   line-height: 180%; /* 25.2px */
