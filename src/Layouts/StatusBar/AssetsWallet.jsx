@@ -8,9 +8,6 @@ import YellowSpray from "../../Assets/svg/yellowSpray.svg";
 import Satisfaction from "../../Assets/svg/satisfaction.svg";
 import Psc from "../../Assets/svg/psc.svg";
 import Irr from "../../Assets/svg/irr.svg";
-
-// Import the fixNumbers function
-import { fixNumbers } from "./path-to-fixNumbers-file"; // Update the path accordingly
 import { convertEnglishToPersianNumbers } from "../../Services/Utility";
 
 const Asset = styled.div`

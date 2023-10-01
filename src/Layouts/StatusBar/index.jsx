@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import AssetsWallet from "./AssetsWallet";
+import BtnFlagMap from "./BtnFlagMap";
 
 const Container = styled.div`
   display: flex;
@@ -42,6 +43,9 @@ const FlagMapContainer = styled.div`
     height: 51%;
     border-radius: 20px;
   }
+  padding: 0 10px;
+  align-items: center;
+  overflow-y: auto;
 `;
 const StatusContainer = styled.div`
   display: flex;
@@ -61,7 +65,9 @@ const StatusBar = () => {
       <WalletContainer>
         <AssetsWallet />
       </WalletContainer>
-      <FlagMapContainer></FlagMapContainer>
+      <FlagMapContainer>
+        <BtnFlagMap />
+      </FlagMapContainer>
       <StatusContainer></StatusContainer>
     </Container>
   );

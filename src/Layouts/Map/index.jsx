@@ -123,9 +123,7 @@ const Map = () => {
           />
           {/* 
           <MapPolygons />
-
           <Main />
-         
           <ContextMenu />
           <AdviserIcon />
           <MapFlag polygons={polygons} flags={flags} /> */}
