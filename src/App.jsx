@@ -17,6 +17,7 @@ import Tutorial from "./Components/Tutorial";
 import Map from "./Layouts/Map";
 import Menu from "./Layouts/Menu";
 import StatusBar from "./Layouts/StatusBar";
+import { MapContextProvider } from "./Services/Reducers/mapContext";
 
 const Container = styled.section`
   display: flex;
@@ -62,46 +63,48 @@ function App() {
       <UserProvider>
         <WalletProvider>
           <FollowProvider>
-            <BrowserRouter>
-              {/* <Tutorial /> */}
+            <MapContextProvider>
+              <BrowserRouter>
+                {/* <Tutorial /> */}
 
-              <Container>
-                <Menu />
-                <Map />
-                <StatusBar />
-              </Container>
+                <Container>
+                  <Menu />
+                  <Map />
+                  <StatusBar />
+                </Container>
 
-              <button
-                onClick={toggleTheme}
-                style={{ zIndex: 1500, top: 0, position: "absolute" }}
-              >
-                {isDarkTheme ? (
-                  <span aria-label="Light mode" role="img">
-                    🌞
-                  </span>
-                ) : (
-                  <span aria-label="Dark mode" role="img">
-                    🌜
-                  </span>
-                )}
-              </button>
-              <button
-                onClick={() => changeLanguage("en")}
-                style={{ zIndex: 1500, top: 30, position: "absolute" }}
-              >
-                en
-              </button>
-              <button
-                onClick={() => changeLanguage("fa")}
-                style={{ zIndex: 1500, top: 60, position: "absolute" }}
-              >
-                he
-              </button>
-              <Toaster
-                containerStyle={{ zIndex: 1000, marginBottom: 48 }}
-                position="bottom-right"
-              />
-            </BrowserRouter>
+                <button
+                  onClick={toggleTheme}
+                  style={{ zIndex: 1500, top: 0, position: "absolute" }}
+                >
+                  {isDarkTheme ? (
+                    <span aria-label="Light mode" role="img">
+                      🌞
+                    </span>
+                  ) : (
+                    <span aria-label="Dark mode" role="img">
+                      🌜
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => changeLanguage("en")}
+                  style={{ zIndex: 1500, top: 30, position: "absolute" }}
+                >
+                  en
+                </button>
+                <button
+                  onClick={() => changeLanguage("fa")}
+                  style={{ zIndex: 1500, top: 60, position: "absolute" }}
+                >
+                  he
+                </button>
+                <Toaster
+                  containerStyle={{ zIndex: 1000, marginBottom: 48 }}
+                  position="bottom-right"
+                />
+              </BrowserRouter>
+            </MapContextProvider>
           </FollowProvider>
         </WalletProvider>
       </UserProvider>

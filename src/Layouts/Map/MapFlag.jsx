@@ -3,6 +3,7 @@ import L from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { renderToString } from "react-dom/server";
+import { useMapData } from "../../Services/Reducers/mapContext";
 
 const FlagIcon = styled.div`
   width: 50px;
@@ -51,9 +52,10 @@ const Div4 = styled.div`
   border-bottom-left-radius: 2px;
 `;
 
-const MapFlag = ({ polygons, flags }) => {
+const MapFlag = () => {
   const map = useMap();
   const [zoomLevel, setZoomLevel] = useState(map.getZoom());
+  const { flags, polygons, setFlags, setPolygons } = useMapData();
 
   const FitBounds = () => {
     useEffect(() => {

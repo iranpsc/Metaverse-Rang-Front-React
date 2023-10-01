@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as FilterIcon } from "../../Assets/svg/filter.svg";
 import { ReactComponent as LocationIcon } from "../../Assets/svg/location.svg";
 import useRequest from "../../Services/Hooks/useRequest";
+import { useMapData } from "../../Services/Reducers/mapContext";
 
 const Btn = styled.div`
   display: flex;
@@ -44,8 +45,8 @@ const ContainerIcon = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const BtnFlagMap = ({ handleButtonClick }) => {
-  const [flags, setFlags] = useState([]);
+const BtnFlagMap = () => {
+  const { flags, setFlags, polygons, setPolygons } = useMapData();
   const [activeMapIds, setActiveMapIds] = useState([]);
   const [clickState, setClickState] = useState({});
   const { Request } = useRequest();
@@ -56,6 +57,7 @@ const BtnFlagMap = ({ handleButtonClick }) => {
     }
     fetchMap();
   }, []);
+
   const handleClick = (flagId) => {
     const { [flagId]: currentClickState, ...updatedClickState } = clickState;
     if (!currentClickState) {
@@ -84,7 +86,27 @@ const BtnFlagMap = ({ handleButtonClick }) => {
       handleButtonClick(flagId);
     }
   };
+  const handleButtonClick = async (id) => {
+    const response = await Request(`maps/${id}/border`);
+    const parsedCoordinates = JSON.parse(response.data.data.border_coordinates);
 
+    const existingPolygonIndex = polygons.findIndex(
+      (polygon) => polygon.id === id
+    );
+    if (existingPolygonIndex !== -1) {
+      setPolygons((prevPolygons) => {
+        const updatedPolygons = [...prevPolygons];
+        updatedPolygons.splice(existingPolygonIndex, 1);
+        return updatedPolygons;
+      });
+    } else {
+      const newPolygon = {
+        id: id,
+        coordinates: parsedCoordinates,
+      };
+      setPolygons((prevPolygons) => [...prevPolygons, newPolygon]);
+    }
+  };
   return (
     <>
       {flags.map((flag) => (

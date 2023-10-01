@@ -11,7 +11,7 @@ import IrrIcon from "../../../Assets/images/coin-irr.png";
 import PscIcon from "../../../Assets/images/coin-psc.png";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { MapContext } from "../../../Layouts/Map";
+import { MapContext } from "../../../Services/Reducers/mapContext";
 import flyToPosition from "../../../Layouts/Map/FlyToGift";
 const FeatureItem = styled.div`
   padding: 8px;
@@ -74,7 +74,7 @@ const blueBoldFont = {
   color: "blue",
   cursor: "pointer",
   fontFamily: "Segoe UI",
-  textTransform:"uppercase",
+  textTransform: "uppercase",
 };
 const SpanDetails = styled.div`
   display: flex;
@@ -125,18 +125,21 @@ const FeatureContainer = ({ feature }) => {
               })
             }
           />
-          <Icons src={PropertyValueBalanceIcon}  onClick={() =>
+          <Icons
+            src={PropertyValueBalanceIcon}
+            onClick={() =>
               Navigate(`/metaverse/feature/${feature?.id}`, {
-                state: { activePageNumber: 1 ,activeTab:1},
+                state: { activePageNumber: 1, activeTab: 1 },
               })
-            } />
+            }
+          />
           <Icons
             src={PropertyLocationIcon}
             onClick={() =>
               flyToPosition({
                 latitude: center.y,
                 longitude: center.x,
-                icon:LocationPin,
+                icon: LocationPin,
                 mapRe: map,
                 zoom: 17,
               })
