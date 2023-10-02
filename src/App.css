@@ -54,6 +54,11 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "DigitalNumber";
+  src: url("/public/fonts/Digital-7\ V7.woff")format("woff"),
+
+}
 
 body {
   font-family: "AzarMehr" !important;

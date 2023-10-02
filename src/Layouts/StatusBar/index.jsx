@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import AssetsWallet from "./AssetsWallet";
 import BtnFlagMap from "./BtnFlagMap";
+import Status from "./Status";
 
 const Container = styled.div`
   display: flex;
@@ -53,7 +54,11 @@ const StatusContainer = styled.div`
   height: 7%;
   border-radius: 10px;
   background-color: #1a1a18;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
   display: flex;
+  gap: 10px;
   @media (min-width: 1024px) {
     height: 6%;
     border-radius: 20px;
@@ -68,7 +73,9 @@ const StatusBar = () => {
       <FlagMapContainer>
         <BtnFlagMap />
       </FlagMapContainer>
-      <StatusContainer></StatusContainer>
+      <StatusContainer>
+        <Status />
+      </StatusContainer>
     </Container>
   );
 };
