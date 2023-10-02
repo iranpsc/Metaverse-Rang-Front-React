@@ -51,7 +51,7 @@ const FlagMapContainer = styled.div`
 const StatusContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 7%;
+  height: 10%;
   border-radius: 10px;
   background-color: #1a1a18;
   align-items: center;
