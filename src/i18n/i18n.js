@@ -63,13 +63,13 @@ const resources = {
                 {
                   id: 3463,
                   tab_id: 3,
-                  name: "If you click on the login button",
+                  name: "for more information and answers to",
                   translation: "For more information and answers to",
                 },
                 {
                   id: 3470,
                   tab_id: 3,
-                  name: "With",
+                  name: "visit-the",
                   translation: "question, visit the",
                 },
                 {
@@ -166,7 +166,7 @@ const resources = {
                 {
                   id: 3393,
                   tab_id: 6,
-                  name: "With",
+                  name: "visit-the",
                   translation: "question, visit the",
                 },
                 {
@@ -209,8 +209,8 @@ const resources = {
                 {
                   id: 3456,
                   tab_id: 6,
-                  name: "If you click on the login button",
-                  translation: "For more information and answers to",
+                  name: "for more information and answers to",
+                  translation: "For more information and answers to questions,",
                 },
               ],
             },
@@ -284,7 +284,7 @@ const resources = {
                   id: 3575,
                   tab_id: 304,
                   name: "for more information",
-                  translation: "For more information and answers to questions.",
+                  translation: "For more information and answers to questions,",
                 },
                 {
                   id: 3582,
@@ -2737,7 +2737,7 @@ const resources = {
                   id: 3666,
                   tab_id: 297,
                   name: "for more information",
-                  translation: "For more information and answers to questions.",
+                  translation: "For more information and answers to questions,",
                 },
                 {
                   id: 3673,
@@ -2750,6 +2750,12 @@ const resources = {
                   tab_id: 297,
                   name: "website",
                   translation: "website",
+                },
+                {
+                  id: 3890,
+                  tab_id: 297,
+                  name: "your email has been registered",
+                  translation: "Your email has been registered",
                 },
               ],
             },
@@ -2985,14 +2991,14 @@ const resources = {
                 {
                   id: 3464,
                   tab_id: 4,
-                  name: "If you click on the login button",
+                  name: "for more information and answers to",
                   translation:
                     "\u0627\u06af\u0631 \u0631\u0648\u06cc \u062f\u06a9\u0645\u0647 \u0648\u0631\u0648\u062f \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u06cc\u062f",
                 },
                 {
                   id: 3471,
                   tab_id: 4,
-                  name: "With",
+                  name: "visit-the",
                   translation: "\u0628\u0627",
                 },
                 {
@@ -3097,9 +3103,9 @@ const resources = {
                 {
                   id: 3394,
                   tab_id: 7,
-                  name: "With",
+                  name: "visit-the",
                   translation:
-                    "\u0628\u0631\u0627\u06cc \u06a9\u0633\u0628 \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0628\u06cc\u0634\u062a\u0631 \u0648 \u067e\u0627\u0633\u062e \u0628\u0647 \u0633\u0648\u0627\u0644\u0627\u062a\u060c \u0627\u0632",
+                    "\u062f\u06cc\u062f\u0646 \u0646\u0645\u0627\u06cc\u06cc\u062f.",
                 },
                 {
                   id: 3401,
@@ -3145,7 +3151,7 @@ const resources = {
                 {
                   id: 3457,
                   tab_id: 7,
-                  name: "If you click on the login button",
+                  name: "for more information and answers to",
                   translation:
                     "\u0628\u0631\u0627\u06cc \u06a9\u0633\u0628 \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0628\u06cc\u0634\u062a\u0631 \u0648 \u067e\u0627\u0633\u062e \u0628\u0647 \u0633\u0648\u0627\u0644\u0627\u062a\u060c \u0627\u0632",
                 },
@@ -5729,7 +5735,7 @@ const resources = {
                   tab_id: 291,
                   name: "unauthorized ip",
                   translation:
-                    "\u0627\u06cc \u067e\u06cc \u063a\u06cc\u0631\u0645\u062c\u0627\u0632",
+                    "\u0622\u06cc \u067e\u06cc \u063a\u06cc\u0631\u0645\u062c\u0627\u0632",
                 },
                 {
                   id: 3359,
@@ -5880,6 +5886,13 @@ const resources = {
                   tab_id: 298,
                   name: "website",
                   translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
+                },
+                {
+                  id: 3891,
+                  tab_id: 298,
+                  name: "your email has been registered",
+                  translation:
+                    "\u0627\u06cc\u0645\u06cc\u0644 \u0634\u0645\u0627 \u062b\u0628\u062a \u0634\u062f\u0647 \u0627\u0633\u062a",
                 },
               ],
             },

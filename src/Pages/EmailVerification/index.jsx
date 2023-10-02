@@ -188,7 +188,7 @@ const EmailVerification = () => {
             className="link text-1 "
           >
             {getFieldTranslationByNames("login", "terms of service contract")}
-          </a>{" "}
+          </a>
           {getFieldTranslationByNames("login", "you agree")}
         </Information>
       </Container>
