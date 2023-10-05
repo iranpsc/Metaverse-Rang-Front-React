@@ -14,6 +14,7 @@ import NotifIcon from "../../Assets/svg/notif.svg";
 import ReportIcon from "../../Assets/svg/report.svg";
 import LangIcon from "../../Assets/svg/lang.svg";
 import { getFieldTranslationByNames } from "../../Services/Utility";
+import DropDownLang from "../../Components/DropDownLang";
 
 const Container = styled.div`
   display: flex;
@@ -52,7 +53,6 @@ const Text = styled.p`
   }
 `;
 const BtnsMenu = () => {
-  const [selectedLang, setSelectedLang] = useState("انگلیسی");
   return (
     <Container>
       <Btn>
@@ -115,10 +115,7 @@ const BtnsMenu = () => {
         <Icon src={ReportIcon} />
         <Text>{getFieldTranslationByNames("central-page", "reports")}</Text>
       </Btn>
-      <Btn>
-        <Icon src={LangIcon} />
-        <Text>{getFieldTranslationByNames("central-page", "language")}</Text>
-      </Btn>
+      <DropDownLang />
     </Container>
   );
 };
