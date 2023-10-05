@@ -8,10 +8,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 30%;
+  width: 18%;
   height: 100%;
   @media (min-width: 1024px) {
-    width: 14%;
+    width: 10%;
     gap: 10px;
   }
 `;

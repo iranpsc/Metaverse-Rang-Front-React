@@ -10,7 +10,7 @@ const Ping = styled.p`
   line-height: 180%; /* 36px */
   text-transform: capitalize;
   @media (min-width: 1024px) {
-    font-size: 17px;
+    font-size: 15px;
   }
   border-right: 2px solid #000;
   padding-right: 5px;
@@ -24,7 +24,7 @@ const Watch = styled.p`
   line-height: 180%; /* 36px */
   text-transform: capitalize;
   @media (min-width: 1024px) {
-    font-size: 17px;
+    font-size: 15px;
   }
 `;
 

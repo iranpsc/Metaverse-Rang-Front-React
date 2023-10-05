@@ -20,6 +20,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  overflow-y: auto;
 `;
 
 const Btn = styled.button`
@@ -51,6 +52,7 @@ const Text = styled.p`
   }
 `;
 const BtnsMenu = () => {
+  const [selectedLang, setSelectedLang] = useState("انگلیسی");
   return (
     <Container>
       <Btn>

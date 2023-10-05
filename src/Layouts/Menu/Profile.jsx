@@ -2,12 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin-top: 35px;
   display: flex;
   width: 100%;
-  height: 46px;
+  height: 100%;
   border-radius: 10px;
   background: #000;
+  @media (min-width: 1024px) {
+    margin-top: 35px;
+    height: 46px;
+  }
 `;
 const Profile = () => {
   return <Container />;

@@ -10,16 +10,20 @@ const Container = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: start;
-  width: 50%;
+  width: 54%;
   height: 100%;
   border-radius: 10px;
   gap: 12px;
   @media (min-width: 1024px) {
+    width: 32%;
+    border-radius: 10px;
+  }
+  @media (min-width: 1536px) {
     width: 23.5%;
     border-radius: 10px;
   }
   background-color: #1a1a18;
-  padding: 32px 25px;
+  padding: 20px;
 `;
 const Line = styled.div`
   width: 100%;
