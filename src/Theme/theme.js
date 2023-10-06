@@ -27,6 +27,15 @@ export const lightTheme = {
   textDetail: "#0000005C",
   textDetails: "#000000A1",
   Information: "#00000073",
+  menuBg: "#FFFFFF",
+  lineMenu: "#EFEFEF",
+  bgMain: "#CBCBCB",
+  filterMap: " none",
+  scrollBg: "#0000001F",
+  scrollColor: "#858585",
+  btnActiveTheme: "#FCFCFC",
+  btnActiveThemeText: "#2C2F32",
+  openDropDown: "#EFEFEF",
 };
 export const darkTheme = {
   body: "#121620",
@@ -57,4 +66,14 @@ export const darkTheme = {
   textDetail: "#5B5B5B",
   textDetails: "#969696",
   Information: "#898989",
+  menuBg: "#1A1A18",
+  lineMenu: "#363636",
+  bgMain: "#000",
+  filterMap:
+    " brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7)",
+  scrollBg: "#000",
+  scrollColor: "#363636",
+  btnActiveTheme: "#1A1A18",
+  btnActiveThemeText: "#f8f8f8",
+  openDropDown: "#000000",
 };

@@ -7,7 +7,7 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   padding: 5px 10px;
-  background-color: #000;
+  background-color: ${(props) => props.theme.bgMain};
   border-radius: 100px;
   align-items: center;
   justify-content: center;
@@ -19,8 +19,10 @@ const Btn = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 100px;
-  background: ${(props) => (props.active ? "#1a1a18" : "transparent")};
-  color: ${(props) => (props.active ? "#f8f8f8" : "#868B90")};
+  background: ${(props) =>
+    props.active ? props.theme.btnActiveTheme : "transparent"};
+  color: ${(props) =>
+    props.active ? props.theme.btnActiveThemeText : "#868B90"};
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -29,12 +31,14 @@ const Btn = styled.div`
   width: 50%;
   padding: 3px 0;
   cursor: pointer;
-  box-shadow: 0px 4px 11px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: ${(props) =>
+    props.active ? "0px 4px 11px 0px rgba(0, 0, 0, 0.1)" : "none"};
 `;
 const Light = styled(LightSvg)`
   width: 18.364px;
   height: 18.364px;
-  fill: ${(props) => (props.active ? "#f8f8f8" : "#868B90")};
+  fill: ${(props) =>
+    props.active ? props.theme.btnActiveThemeText : "#868B90"};
 `;
 const Dark = styled(DarkSvg)`
   width: 18.364px;

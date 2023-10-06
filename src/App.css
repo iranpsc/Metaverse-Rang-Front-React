@@ -703,30 +703,6 @@ a {
   text-align: right;
 }
 
-/* scrollbar */
-
-/* width */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  display: none;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #cccccc;
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #999;
-}
-
-/* webkit solution */
 .rtl-placeholder::-webkit-input-placeholder {
   text-align: right;
 }

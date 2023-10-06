@@ -22,13 +22,13 @@ const Container = styled.div`
     width: 23.5%;
     border-radius: 10px;
   }
-  background-color: #1a1a18;
+  background-color: ${(props) => props.theme.menuBg};
   padding: 20px;
 `;
 const Line = styled.div`
   width: 100%;
   height: 2px;
-  background-color: #363636;
+  background-color: ${(props) => props.theme.lineMenu};
 `;
 const Menu = () => {
   return (

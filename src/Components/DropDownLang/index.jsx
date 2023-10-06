@@ -16,11 +16,15 @@ const Btn = styled.button`
   display: flex;
   width: 100%;
   background-color: transparent;
-  align-items: start;
+  align-items: center;
   justify-content: start;
   gap: 16.865px;
   padding: 0 10px;
   border: none;
+  border-radius: 10px;
+  height: 46px;
+  background-color: ${(props) =>
+    props.isOpen ? props.theme.openDropDown : "none"};
 `;
 const Icon = styled.img`
   width: 18.176px;
@@ -49,7 +53,7 @@ const DropdownMenu = styled.div`
 
 const DropdownItem = styled.div`
   padding: 0 50px;
-  color: #fff;
+  color: #858585;
 `;
 const DropDownLang = () => {
   const storedLang = localStorage.getItem("selectedLanguage") || "en";
@@ -57,6 +61,9 @@ const DropDownLang = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { i18n } = useTranslation();
 
+  useEffect(() => {
+    document.body.dir = i18n.dir();
+  }, []);
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     setSelectedLanguage(lng);
@@ -64,7 +71,7 @@ const DropDownLang = () => {
     localStorage.setItem("selectedLanguage", lng);
   };
   const SelectedItem = styled(DropdownItem)`
-    color: yellow;
+    color: #ffc700;
     padding: 0 22px;
     &::before {
       content: "✓";
@@ -74,7 +81,7 @@ const DropDownLang = () => {
 
   return (
     <Container onClick={() => setIsOpen(!isOpen)}>
-      <Btn>
+      <Btn isOpen={isOpen}>
         <Icon src={LangIcon} />
         <Text>{getFieldTranslationByNames("central-page", "language")}</Text>
       </Btn>
@@ -84,7 +91,6 @@ const DropDownLang = () => {
             as={selectedLanguage === "en" ? SelectedItem : undefined}
             onClick={() => {
               changeLanguage("en"); // English
-              setIsOpen(false);
             }}
           >
             English
@@ -93,7 +99,6 @@ const DropDownLang = () => {
             as={selectedLanguage === "fa" ? SelectedItem : undefined}
             onClick={() => {
               changeLanguage("fa"); // Persian
-              setIsOpen(false);
             }}
           >
             Persian

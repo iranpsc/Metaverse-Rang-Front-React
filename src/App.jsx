@@ -24,11 +24,34 @@ const Container = styled.section`
   height: 100vh;
   flex-direction: row;
   gap: 5px;
-  background: #000;
+  background-color: ${(props) => props.theme.bgMain};
   padding: 5px;
   @media (min-width: 768px) {
     gap: 10px;
     padding: 10px;
+  }
+  .leaflet-tile {
+    filter: ${(props) => props.theme.filterMap};
+  }
+  /* Scrollbar styles for this component */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.scrollBg};
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.scrollColor};
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
   }
 `;
 
@@ -47,13 +70,7 @@ function App() {
       enabledTransports: ["wss", "ws"],
     });
   }, []);
-  const { i18n } = useTranslation();
-  document.body.dir = i18n.dir();
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    document.body.dir = i18n.dir();
-  };
   return (
     <ThemeProviderContext>
       <UserProvider>
@@ -68,18 +85,6 @@ function App() {
                   <Map />
                   <StatusBar />
                 </Container>
-                {/* <button
-                  onClick={() => changeLanguage("en")}
-                  style={{ zIndex: 1500, top: 30, position: "absolute" }}
-                >
-                  en
-                </button>
-                <button
-                  onClick={() => changeLanguage("fa")}
-                  style={{ zIndex: 1500, top: 60, position: "absolute" }}
-                >
-                  he
-                </button> */}
                 <Toaster
                   containerStyle={{ zIndex: 1000, marginBottom: 48 }}
                   position="bottom-right"

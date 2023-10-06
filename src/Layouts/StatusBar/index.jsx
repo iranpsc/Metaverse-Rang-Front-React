@@ -19,7 +19,7 @@ const WalletContainer = styled.div`
   width: 100%;
   height: 61.5%;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) => props.theme.menuBg};
   display: flex;
   flex-direction: column;
   @media (min-width: 1024px) {
@@ -37,7 +37,7 @@ const FlagMapContainer = styled.div`
   width: 100%;
   height: 29%;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) => props.theme.menuBg};
   display: flex;
   flex-direction: column;
   @media (min-width: 1024px) {
@@ -47,13 +47,33 @@ const FlagMapContainer = styled.div`
   padding: 4px 7px;
   align-items: center;
   overflow-y: auto;
+  /* Scrollbar styles for this component */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.scrollBg};
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.scrollColor};
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
 `;
 const StatusContainer = styled.div`
   display: flex;
   width: 100%;
   height: 10%;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) => props.theme.menuBg};
   align-items: center;
   justify-content: center;
   padding: 10px;
