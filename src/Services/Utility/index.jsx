@@ -90,8 +90,8 @@ export const ToastSuccess = (message) => {
     duration: 5000,
   });
 };
-const resources = i18n.options.resources;
 export const getFieldTranslationByNames = (modalName, fieldName) => {
+  const resources = i18n.options.resources;
   const modal = resources[i18n.language].translation.modals.find(
     (modal) => modal.name === modalName
   );
@@ -110,7 +110,6 @@ export const getFieldTranslationByNames = (modalName, fieldName) => {
   // Return a default translation or handle missing translations as needed
   return "Translation not found";
 };
-
 export function convertEnglishToPersianNumbers(inputText) {
   const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];

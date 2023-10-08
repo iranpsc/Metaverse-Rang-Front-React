@@ -33,29 +33,10 @@ const Container = styled.section`
   .leaflet-tile {
     filter: ${(props) => props.theme.filterMap};
   }
-  /* Scrollbar styles for this component */
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.scrollBg};
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.scrollColor};
-    border-radius: 10px;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #999;
-  }
 `;
 
 function App() {
+  console.log(useTranslation());
   useLayoutEffect(() => {
     window.Echo = new Echo({
       broadcaster: "pusher",

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import LangIcon from "../../Assets/svg/lang.svg";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import i18n from "../../i18n/i18n";
 import { useEffect } from "react";
 
 const Container = styled.div`
@@ -56,28 +56,15 @@ const DropdownItem = styled.div`
   color: #858585;
 `;
 const DropDownLang = () => {
-  const storedLang = localStorage.getItem("selectedLanguage") || "en";
-  const [selectedLanguage, setSelectedLanguage] = useState(storedLang);
   const [isOpen, setIsOpen] = useState(false);
-  const { i18n } = useTranslation();
-
   useEffect(() => {
     document.body.dir = i18n.dir();
   }, []);
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    setSelectedLanguage(lng);
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
     document.body.dir = i18n.dir();
-    localStorage.setItem("selectedLanguage", lng);
+    // console.log(i18n.language());
   };
-  const SelectedItem = styled(DropdownItem)`
-    color: #ffc700;
-    padding: 0 22px;
-    &::before {
-      content: "✓";
-      margin: 0 7px;
-    }
-  `;
 
   return (
     <Container onClick={() => setIsOpen(!isOpen)}>
@@ -87,20 +74,10 @@ const DropDownLang = () => {
       </Btn>
       {isOpen && (
         <DropdownMenu isOpen={isOpen}>
-          <DropdownItem
-            as={selectedLanguage === "en" ? SelectedItem : undefined}
-            onClick={() => {
-              changeLanguage("en"); // English
-            }}
-          >
+          <DropdownItem onClick={() => changeLanguage("en")}>
             English
           </DropdownItem>
-          <DropdownItem
-            as={selectedLanguage === "fa" ? SelectedItem : undefined}
-            onClick={() => {
-              changeLanguage("fa"); // Persian
-            }}
-          >
+          <DropdownItem onClick={() => changeLanguage("fa")}>
             Persian
           </DropdownItem>
         </DropdownMenu>
