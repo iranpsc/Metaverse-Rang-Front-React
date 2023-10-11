@@ -5,6 +5,7 @@ import { getFieldTranslationByNames } from "../../Services/Utility";
 import { useState } from "react";
 import i18n from "../../i18n/i18n";
 import { useEffect } from "react";
+import { useMenuContext } from "../../Services/Reducers/MenuContext";
 
 const Container = styled.div`
   width: 100%;
@@ -24,7 +25,7 @@ const Btn = styled.button`
   border-radius: 10px;
   height: 46px;
   background-color: ${(props) =>
-    props.isOpen ? props.theme.openDropDown : "none"};
+    props.isOpenDrop ? props.theme.openDropDown : "none"};
 `;
 const Icon = styled.img`
   width: 18.176px;
@@ -40,6 +41,7 @@ const Text = styled.p`
   font-weight: 500;
   line-height: 180%;
   font-size: 14px;
+  display: ${({ shouldHide }) => (shouldHide ? "none" : "block")};
   @media (min-width: 1024px) {
     font-size: 16px;
   }
@@ -48,7 +50,7 @@ const DropdownMenu = styled.div`
   flex-direction: column;
   width: 100%;
   z-index: 1;
-  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  display: ${({ isOpenDrop }) => (isOpenDrop ? "flex" : "none")};
 `;
 
 const DropdownItem = styled.div`
@@ -56,24 +58,26 @@ const DropdownItem = styled.div`
   color: #858585;
 `;
 const DropDownLang = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen } = useMenuContext();
+  const [isOpenDrop, setIsOpen] = useState(false);
   useEffect(() => {
     document.body.dir = i18n.dir();
   }, []);
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
     document.body.dir = i18n.dir();
-    // console.log(i18n.language());
   };
 
   return (
-    <Container onClick={() => setIsOpen(!isOpen)}>
-      <Btn isOpen={isOpen}>
+    <Container onClick={() => setIsOpen(!isOpenDrop)}>
+      <Btn isOpenDrop={isOpenDrop}>
         <Icon src={LangIcon} />
-        <Text>{getFieldTranslationByNames("central-page", "language")}</Text>
+        <Text shouldHide={!isOpen}>
+          {getFieldTranslationByNames("central-page", "language")}
+        </Text>
       </Btn>
-      {isOpen && (
-        <DropdownMenu isOpen={isOpen}>
+      {isOpenDrop && (
+        <DropdownMenu isOpenDrop={isOpenDrop}>
           <DropdownItem onClick={() => changeLanguage("en")}>
             English
           </DropdownItem>

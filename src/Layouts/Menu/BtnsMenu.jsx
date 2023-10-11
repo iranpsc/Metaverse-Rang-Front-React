@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../Services/Utility";
+import DropDownLang from "../../Components/DropDownLang";
 import SingOutIcon from "../../Assets/svg/signOut.svg";
 import AccountSecurityIcon from "../../Assets/svg/accountSecurity.svg";
 import CentralSearch from "../../Assets/svg/centralSearch.svg";
@@ -12,9 +14,7 @@ import CalendarIcon from "../../Assets/svg/calendar.svg";
 import StoreIcon from "../../Assets/svg/store.svg";
 import NotifIcon from "../../Assets/svg/notif.svg";
 import ReportIcon from "../../Assets/svg/report.svg";
-import LangIcon from "../../Assets/svg/lang.svg";
-import { getFieldTranslationByNames } from "../../Services/Utility";
-import DropDownLang from "../../Components/DropDownLang";
+import { useMenuContext } from "../../Services/Reducers/MenuContext";
 
 const Container = styled.div`
   display: flex;
@@ -22,6 +22,7 @@ const Container = styled.div`
   gap: 4px;
   width: 100%;
   overflow-y: auto;
+
   /* Scrollbar styles for this component */
   &::-webkit-scrollbar {
     width: 6px;
@@ -49,12 +50,13 @@ const Btn = styled.button`
   width: 100%;
   background-color: transparent;
   align-items: center;
-  justify-content: start;
+  justify-content: ${(props) => (props.isOpen ? "start" : "center")};
   gap: 16.865px;
   padding: 0 10px;
   border: none;
   height: 46px;
 `;
+
 const Icon = styled.img`
   width: 18.176px;
   height: 19.429px;
@@ -63,6 +65,7 @@ const Icon = styled.img`
     height: 24.771px;
   }
 `;
+
 const Text = styled.p`
   color: #868b90;
   font-style: normal;
@@ -72,70 +75,36 @@ const Text = styled.p`
   @media (min-width: 1024px) {
     font-size: 16px;
   }
+  display: ${(props) => (props.isOpen ? "block" : "none")};
 `;
+
+const menuItems = [
+  { icon: SingOutIcon, translationKey: "sign out" },
+  { icon: AccountSecurityIcon, translationKey: "account security" },
+  { icon: CentralSearch, translationKey: "central search" },
+  { icon: GlobalStatisticsIcon, translationKey: "global statistics" },
+  { icon: FamilyTreeIcon, translationKey: "family tree" },
+  { icon: RobotIcon, translationKey: "vod guide" },
+  { icon: ProfitIcon, translationKey: "accumulated earnings" },
+  { icon: KycIcon, translationKey: "identify verification" },
+  { icon: CalendarIcon, translationKey: "calendar" },
+  { icon: StoreIcon, translationKey: "store" },
+  { icon: NotifIcon, translationKey: "notifications" },
+  { icon: ReportIcon, translationKey: "reports" },
+];
+
 const BtnsMenu = () => {
+  const { isOpen } = useMenuContext();
   return (
     <Container>
-      <Btn>
-        <Icon src={SingOutIcon} />
-        <Text>{getFieldTranslationByNames("central-page", "sign out")}</Text>
-      </Btn>
-      <Btn>
-        <Icon src={AccountSecurityIcon} />
-        <Text>
-          {getFieldTranslationByNames("central-page", "account security")}
-        </Text>
-      </Btn>
-      <Btn>
-        <Icon src={CentralSearch} />
-        <Text>
-          {getFieldTranslationByNames("central-page", "central search")}
-        </Text>
-      </Btn>
-      <Btn>
-        <Icon src={GlobalStatisticsIcon} />
-        <Text>
-          {getFieldTranslationByNames("central-page", "global statistics")}
-        </Text>
-      </Btn>
-      <Btn>
-        <Icon src={FamilyTreeIcon} />
-        <Text>{getFieldTranslationByNames("central-page", "family tree")}</Text>
-      </Btn>
-      <Btn>
-        <Icon src={RobotIcon} />
-        <Text>{getFieldTranslationByNames("central-page", "vod guide")}</Text>
-      </Btn>
-      <Btn>
-        <Icon src={ProfitIcon} />
-        <Text>
-          {getFieldTranslationByNames("central-page", "accumulated earnings")}
-        </Text>
-      </Btn>
-      <Btn>
-        <Icon src={KycIcon} />
-        <Text>
-          {getFieldTranslationByNames("central-page", "identify verification")}
-        </Text>
-      </Btn>
-      <Btn>
-        <Icon src={CalendarIcon} />
-        <Text>{getFieldTranslationByNames("central-page", "calendar")}</Text>
-      </Btn>
-      <Btn>
-        <Icon src={StoreIcon} />
-        <Text>{getFieldTranslationByNames("central-page", "store")}</Text>
-      </Btn>
-      <Btn>
-        <Icon src={NotifIcon} />
-        <Text>
-          {getFieldTranslationByNames("central-page", "notifications")}
-        </Text>
-      </Btn>
-      <Btn>
-        <Icon src={ReportIcon} />
-        <Text>{getFieldTranslationByNames("central-page", "reports")}</Text>
-      </Btn>
+      {menuItems.map((item, index) => (
+        <Btn key={index} isOpen={isOpen}>
+          <Icon src={item.icon} />
+          <Text isOpen={isOpen}>
+            {getFieldTranslationByNames("central-page", item.translationKey)}
+          </Text>
+        </Btn>
+      ))}
       <DropDownLang />
     </Container>
   );

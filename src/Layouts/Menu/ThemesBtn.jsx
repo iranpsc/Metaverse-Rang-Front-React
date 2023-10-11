@@ -3,15 +3,16 @@ import styled from "styled-components";
 import { useTheme } from "../../Services/Reducers/ThemeContext";
 import { ReactComponent as LightSvg } from "../../Assets/svg/light.svg";
 import { ReactComponent as DarkSvg } from "../../Assets/svg/dark.svg";
+import { useMenuContext } from "../../Services/Reducers/MenuContext";
 const Container = styled.div`
   display: flex;
   width: 100%;
-  padding: 5px 10px;
+  padding: ${(props) => (props.isOpen ? " 5px 10px" : "0px")};
   background-color: ${(props) => props.theme.bgMain};
-  border-radius: 100px;
+  border-radius: ${(props) => (props.isOpen ? "100px" : "100%")};
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: ${(props) => (props.isOpen ? "40px" : "36px")};
 `;
 
 const Btn = styled.div`
@@ -48,6 +49,7 @@ const Dark = styled(DarkSvg)`
 const ThemesBtn = () => {
   const { themes, toggleTheme } = useTheme();
   const [isActive, setIsActive] = useState(themes === "dark");
+  const { isOpen } = useMenuContext();
 
   const handleDarkClick = () => {
     setIsActive(true);
@@ -60,15 +62,23 @@ const ThemesBtn = () => {
   };
 
   return (
-    <Container>
-      <Btn active={isActive} onClick={handleDarkClick}>
-        تیره
-        <Dark active={isActive} />
-      </Btn>
-      <Btn active={!isActive} onClick={handleLightClick}>
-        روشن
-        <Light active={!isActive} />
-      </Btn>
+    <Container isOpen={isOpen}>
+      {isOpen ? (
+        <>
+          <Btn active={isActive} onClick={handleDarkClick}>
+            {isOpen && "تیره"}
+            <Dark active={isActive} />
+          </Btn>
+          <Btn active={!isActive} onClick={handleLightClick}>
+            {isOpen && "روشن"}
+            <Light active={!isActive} />
+          </Btn>
+        </>
+      ) : (
+        <Btn onClick={isActive ? handleLightClick : handleDarkClick}>
+          {isActive ? <Dark active={true} /> : <Light active={true} />}
+        </Btn>
+      )}
     </Container>
   );
 };

@@ -17,6 +17,7 @@ import Map from "./Layouts/Map";
 import Menu from "./Layouts/Menu";
 import StatusBar from "./Layouts/StatusBar";
 import Tutorial from "./Components/Tutorial";
+import { MenuContextProvider } from "./Services/Reducers/MenuContext";
 
 const Container = styled.section`
   display: flex;
@@ -62,7 +63,9 @@ function App() {
                 {/* <Tutorial /> */}
 
                 <Container>
-                  <Menu />
+                  <MenuContextProvider>
+                    <Menu />
+                  </MenuContextProvider>
                   <Map />
                   <StatusBar />
                 </Container>

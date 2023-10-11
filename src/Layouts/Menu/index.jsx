@@ -1,25 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import Profile from "./Profile";
 import BtnsMenu from "./BtnsMenu";
 import ThemesBtn from "./ThemesBtn";
+import { useMenuContext } from "../../Services/Reducers/MenuContext";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: space-between;
-  width: 54%;
+  width: ${(props) => (props.isOpen ? "54%" : "6.1%")};
   height: 100%;
   border-radius: 10px;
   gap: 12px;
   @media (min-width: 1024px) {
-    width: 32%;
+    width: ${(props) => (props.isOpen ? "32%" : "6.1%")};
     border-radius: 10px;
   }
   @media (min-width: 1536px) {
-    width: 23.5%;
+    width: ${(props) => (props.isOpen ? "23.5%" : "4.1%")};
     border-radius: 10px;
   }
   background-color: ${(props) => props.theme.menuBg};
@@ -29,16 +30,32 @@ const Line = styled.div`
   width: 100%;
   height: 2px;
   background-color: ${(props) => props.theme.lineMenu};
+  display: ${(props) => (props.isOpen ? "block" : "none")};
+`;
+const BtnOpenCloseMenu = styled.button`
+  width: 41px;
+  height: 41px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aquamarine;
+  position: fixed;
+  right: 5.5%;
+  top: 7.3%;
+  z-index: 1200;
 `;
 const Menu = () => {
+  const { isOpen, toggleMenu } = useMenuContext();
   return (
-    <Container>
+    <Container isOpen={isOpen}>
       <Header />
       <Profile />
       <Line />
       <BtnsMenu />
       <Line />
       <ThemesBtn />
+      <BtnOpenCloseMenu onClick={toggleMenu} />
     </Container>
   );
 };
