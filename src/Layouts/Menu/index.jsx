@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: space-between;
-  width: ${(props) => (props.isOpen ? "54%" : "6.1%")};
+  width: ${(props) => (props.isOpen ? "54%" : "9%")};
   height: 100%;
   border-radius: 10px;
   gap: 12px;
@@ -24,7 +24,7 @@ const Container = styled.div`
     border-radius: 10px;
   }
   background-color: ${(props) => props.theme.menuBg};
-  padding: 20px;
+  padding: ${(props) => (props.isOpen ? "20px" : "10px")};
 `;
 const Line = styled.div`
   width: 100%;
@@ -41,8 +41,8 @@ const BtnOpenCloseMenu = styled.button`
   justify-content: center;
   background-color: aquamarine;
   position: fixed;
-  right: 5.5%;
-  top: 7.3%;
+  right: 5.12%;
+  top: 3.3%;
   z-index: 1200;
 `;
 const Menu = () => {

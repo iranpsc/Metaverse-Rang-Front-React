@@ -4,8 +4,12 @@ import Message from "../../Assets/svg/message.svg";
 import ProfileMember from "../../Assets/svg/profileMember.svg";
 import Ticket from "../../Assets/svg/ticket.svg";
 import Setting from "../../Assets/svg/setting.svg";
+import { useMenuContext } from "../../Services/Reducers/MenuContext";
+import Fallowing from "./Fallowing";
+import Dynasty from "./Dynasty";
+import Union from "./Union";
 const Container = styled.div`
-  display: none;
+  display: flex;
   flex-direction: column;
   width: 100%;
   height: fit-content;
@@ -14,24 +18,16 @@ const Container = styled.div`
 `;
 
 const Btn = styled.button`
-  display: flex;
+  display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
   align-items: center;
   justify-content: start;
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${(props) => (props.isOpen ? "#000000" : "transparent")};
+  background: ${(props) => (props.isOpenDrop ? "#000000" : "transparent")};
   height: 40px;
   border-radius: 10px;
-  color: #868b90;
-  text-align: right;
-  font-family: AzarMehr-DS2;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 180%; /* 28.8px */
-  text-transform: capitalize;
 `;
 const BtnNavigator = styled.button`
   display: flex;
@@ -41,37 +37,69 @@ const BtnNavigator = styled.button`
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${(props) => (props.isOpen ? "#000000" : "transparent")};
+  background: ${(props) =>
+    props.isOpenDrop ? props.theme.menuBg : "transparent"};
   height: 40px;
   border-radius: 10px;
   color: #868b90;
-  text-align: right;
-  font-family: AzarMehr-DS2;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 180%; /* 28.8px */
   text-transform: capitalize;
-  ::before {
-    content: url('data:image/svg+xml;utf8,<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 16.5H4.5C8.91828 16.5 12.5 12.9183 12.5 8.5V1.5" stroke="#EFEFEF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-  }
 `;
 const SubMenu = styled.div`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
+  display: ${(props) => (props.isOpenDrop ? "block" : "none")};
   padding-left: 20px;
+  position: ${(props) => (props.isOpen ? "none" : "fixed")};
+  top: ${(props) => (props.isOpen ? "0" : "10%")};
+  right: ${(props) => (props.isOpen ? "0" : "5.1%")};
+  z-index: 1200;
+  background-color: ${(props) =>
+    props.isOpen ? "transparent" : props.theme.menuBg};
+  padding: ${(props) => (props.isOpen ? "0" : " 10px 10px 8.5px 10px")};
+  border-radius: 10px;
+  width: ${(props) => (props.isOpen ? "100%" : "16.6%")};
 `;
 const Icon = styled.img`
   width: 22px;
 `;
-const Profile = () => {
-  const [isOpen, SetIsOpen] = useState(false);
+const Text = styled.p`
+  color: #868b90;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 180%;
+  text-transform: capitalize;
+  display: ${(props) => (props.isOpen ? "block" : "none")};
+`;
 
+const Profile = () => {
+  const [isOpenDrop, SetIsOpenDrop] = useState(false);
+  const { isOpen } = useMenuContext();
   return (
     <Container>
-      <Btn isOpen={isOpen} onClick={() => SetIsOpen(!isOpen)}>
-        منو اصلی
+      <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
+        <Text isOpen={isOpen}>منو اصلی</Text>
+        <img
+          src="https://s3-alpha-sig.figma.com/img/1a74/6c1c/a929cb45abf9fb338cf0492b93aca494?Expires=1698019200&Signature=q4ujsVI-NA0x4jnWOYLB~FM5lkf2lR5WxuUiDja4jy9EuTdLq7ldEfY8BguYc2ho8dk4JuoHJ~~1HzhSnTtCcirUt1m5HKyFLuQtF2O5JjcN6ps~ijnKJ0tbz-RpeViLMN3lVI4Y463N8LlalX57AyYqtMZ8t5OxwH2qehdDHyDdWKDFKonlgDXCvcxNlrlSIYseiLS0-VeHcXTWzCe0kYYnSKQiJwQulZFzYGMFCZGT1lBmEdalX9HRNMshRVTmBK-vq8ODWcpYyz10qvJ9E00L9FNSIxXCXK2mAELjg51gQ1CptT5vd5Z20w1d9P2u-Y-cn4f053XFX-29tnACGg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+          style={{ width: "30px", height: "30px" }}
+          alt=""
+        />
       </Btn>
-      <SubMenu isOpen={isOpen}>
+      <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
+        <Btn
+          isOpenDrop={isOpenDrop}
+          onClick={() => SetIsOpenDrop(!isOpenDrop)}
+          isHidden={isOpen}
+        >
+          <Text isOpen={isOpen}>منو اصلی</Text>
+          <img
+            src="https://s3-alpha-sig.figma.com/img/1a74/6c1c/a929cb45abf9fb338cf0492b93aca494?Expires=1698019200&Signature=q4ujsVI-NA0x4jnWOYLB~FM5lkf2lR5WxuUiDja4jy9EuTdLq7ldEfY8BguYc2ho8dk4JuoHJ~~1HzhSnTtCcirUt1m5HKyFLuQtF2O5JjcN6ps~ijnKJ0tbz-RpeViLMN3lVI4Y463N8LlalX57AyYqtMZ8t5OxwH2qehdDHyDdWKDFKonlgDXCvcxNlrlSIYseiLS0-VeHcXTWzCe0kYYnSKQiJwQulZFzYGMFCZGT1lBmEdalX9HRNMshRVTmBK-vq8ODWcpYyz10qvJ9E00L9FNSIxXCXK2mAELjg51gQ1CptT5vd5Z20w1d9P2u-Y-cn4f053XFX-29tnACGg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+            style={{ width: "30px", height: "30px" }}
+            alt=""
+          />
+        </Btn>
         <BtnNavigator>
           <Icon src={Ticket} />
           ارسال سند
@@ -88,6 +116,9 @@ const Profile = () => {
           <Icon src={Setting} />
           تنظیمات
         </BtnNavigator>
+        <Fallowing />
+        <Dynasty />
+        <Union />
       </SubMenu>
     </Container>
   );

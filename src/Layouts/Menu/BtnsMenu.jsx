@@ -14,6 +14,7 @@ import CalendarIcon from "../../Assets/svg/calendar.svg";
 import StoreIcon from "../../Assets/svg/store.svg";
 import NotifIcon from "../../Assets/svg/notif.svg";
 import ReportIcon from "../../Assets/svg/report.svg";
+import GiftIcon from "../../Assets/svg/gifts.svg";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 
 const Container = styled.div`
@@ -58,12 +59,8 @@ const Btn = styled.button`
 `;
 
 const Icon = styled.img`
-  width: 18.176px;
-  height: 19.429px;
-  @media (min-width: 1024px) {
-    width: 23.135px;
-    height: 24.771px;
-  }
+  width: 20px;
+  height: 40px;
 `;
 
 const Text = styled.p`
@@ -80,6 +77,7 @@ const Text = styled.p`
 
 const menuItems = [
   { icon: SingOutIcon, translationKey: "sign out" },
+  { icon: GiftIcon, translationKey: "challenges" },
   { icon: AccountSecurityIcon, translationKey: "account security" },
   { icon: CentralSearch, translationKey: "central search" },
   { icon: GlobalStatisticsIcon, translationKey: "global statistics" },

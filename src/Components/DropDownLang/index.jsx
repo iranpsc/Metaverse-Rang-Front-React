@@ -18,9 +18,9 @@ const Btn = styled.button`
   width: 100%;
   background-color: transparent;
   align-items: center;
-  justify-content: start;
+  justify-content: ${({ shouldHide }) => (shouldHide ? "center" : "start")};
   gap: 16.865px;
-  padding: 0 10px;
+  padding: ${({ shouldHide }) => (shouldHide ? " 0px" : "0 10px")};
   border: none;
   border-radius: 10px;
   height: 46px;
@@ -70,7 +70,7 @@ const DropDownLang = () => {
 
   return (
     <Container onClick={() => setIsOpen(!isOpenDrop)}>
-      <Btn isOpenDrop={isOpenDrop}>
+      <Btn isOpenDrop={isOpenDrop} shouldHide={!isOpen}>
         <Icon src={LangIcon} />
         <Text shouldHide={!isOpen}>
           {getFieldTranslationByNames("central-page", "language")}
