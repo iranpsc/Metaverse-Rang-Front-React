@@ -9,6 +9,8 @@ const resources = {
       native_name: "English",
       status: 1,
       direction: "ltr",
+      version: 1,
+      file_url: "https://play.irpsc.com/metaverse/lang/en.json",
       modals: [
         {
           name: "login",
@@ -1497,12 +1499,6 @@ const resources = {
                   translation: "META RGB",
                 },
                 {
-                  id: 1838,
-                  tab_id: 133,
-                  name: "metaverse rang",
-                  translation: "Metaverse Rang",
-                },
-                {
                   id: 1842,
                   tab_id: 133,
                   name: "home",
@@ -2203,12 +2199,6 @@ const resources = {
                   translation: "META RGB",
                 },
                 {
-                  id: 1942,
-                  tab_id: 153,
-                  name: "metaverse rang",
-                  translation: "Metaverse Rang",
-                },
-                {
                   id: 1946,
                   tab_id: 153,
                   name: "log in",
@@ -2239,118 +2229,28 @@ const resources = {
                   translation: "Language",
                 },
                 {
-                  id: 1967,
+                  id: 3918,
                   tab_id: 153,
                   name: "metaverse rang",
-                  translation: null,
+                  translation: "METAVERSE RANG",
                 },
                 {
-                  id: 1975,
+                  id: 3960,
                   tab_id: 153,
-                  name: "copyright",
-                  translation: null,
+                  name: "english",
+                  translation: "English",
                 },
                 {
-                  id: 1983,
+                  id: 3974,
                   tab_id: 153,
-                  name: "our networks",
-                  translation: null,
+                  name: "farsi",
+                  translation: "Farsi",
                 },
                 {
-                  id: 1991,
+                  id: 3988,
                   tab_id: 153,
-                  name: "instagram",
-                  translation: null,
-                },
-                {
-                  id: 1999,
-                  tab_id: 153,
-                  name: "telegram",
-                  translation: null,
-                },
-                {
-                  id: 2007,
-                  tab_id: 153,
-                  name: "twitter",
-                  translation: null,
-                },
-                {
-                  id: 2015,
-                  tab_id: 153,
-                  name: "medium",
-                  translation: null,
-                },
-                {
-                  id: 2023,
-                  tab_id: 153,
-                  name: "youtube",
-                  translation: null,
-                },
-                {
-                  id: 2031,
-                  tab_id: 153,
-                  name: "filo",
-                  translation: null,
-                },
-                {
-                  id: 2039,
-                  tab_id: 153,
-                  name: "mp4",
-                  translation: null,
-                },
-                {
-                  id: 2047,
-                  tab_id: 153,
-                  name: "aparat",
-                  translation: null,
-                },
-                {
-                  id: 2055,
-                  tab_id: 153,
-                  name: "namasha",
-                  translation: null,
-                },
-                {
-                  id: 2063,
-                  tab_id: 153,
-                  name: "dalfak",
-                  translation: null,
-                },
-                {
-                  id: 2071,
-                  tab_id: 153,
-                  name: "faq",
-                  translation: null,
-                },
-                {
-                  id: 2079,
-                  tab_id: 153,
-                  name: "uni",
-                  translation: null,
-                },
-                {
-                  id: 2087,
-                  tab_id: 153,
-                  name: "virgool",
-                  translation: null,
-                },
-                {
-                  id: 2095,
-                  tab_id: 153,
-                  name: "linkedin",
-                  translation: null,
-                },
-                {
-                  id: 2103,
-                  tab_id: 153,
-                  name: "facebook",
-                  translation: null,
-                },
-                {
-                  id: 2111,
-                  tab_id: 153,
-                  name: "namayesh",
-                  translation: null,
+                  name: "arabic",
+                  translation: "Arabic",
                 },
               ],
             },
@@ -2365,119 +2265,28 @@ const resources = {
               name: "landing",
               fields: [
                 {
-                  id: 1966,
+                  id: 3922,
                   tab_id: 157,
                   name: "metaverse rang",
-                  translation: "METAVERSE RANG",
+                  translation: null,
                 },
                 {
-                  id: 1974,
+                  id: 3964,
                   tab_id: 157,
-                  name: "copyright",
-                  translation:
-                    "The intellectual property rights of this platform's structure are registered. In case of content duplication, the source must be cited, under the protection of the judiciary and the Ministry of Cooperation.",
+                  name: "english",
+                  translation: null,
                 },
                 {
-                  id: 1982,
+                  id: 3978,
                   tab_id: 157,
-                  name: "our networks",
-                  translation: "Our Networks",
+                  name: "farsi",
+                  translation: null,
                 },
                 {
-                  id: 1990,
+                  id: 3992,
                   tab_id: 157,
-                  name: "instagram",
-                  translation: "Instagram",
-                },
-                {
-                  id: 1998,
-                  tab_id: 157,
-                  name: "telegram",
-                  translation: "Telegram",
-                },
-                {
-                  id: 2006,
-                  tab_id: 157,
-                  name: "twitter",
-                  translation: "twitter",
-                },
-                {
-                  id: 2014,
-                  tab_id: 157,
-                  name: "medium",
-                  translation: "Medium",
-                },
-                {
-                  id: 2022,
-                  tab_id: 157,
-                  name: "youtube",
-                  translation: "YouTube",
-                },
-                {
-                  id: 2030,
-                  tab_id: 157,
-                  name: "filo",
-                  translation: "Filo",
-                },
-                {
-                  id: 2038,
-                  tab_id: 157,
-                  name: "mp4",
-                  translation: "MP4",
-                },
-                {
-                  id: 2046,
-                  tab_id: 157,
-                  name: "aparat",
-                  translation: "Aparat",
-                },
-                {
-                  id: 2054,
-                  tab_id: 157,
-                  name: "namasha",
-                  translation: "Namasha",
-                },
-                {
-                  id: 2062,
-                  tab_id: 157,
-                  name: "dalfak",
-                  translation: "Dalfak",
-                },
-                {
-                  id: 2070,
-                  tab_id: 157,
-                  name: "faq",
-                  translation: "FAQ",
-                },
-                {
-                  id: 2078,
-                  tab_id: 157,
-                  name: "uni",
-                  translation: "UNI",
-                },
-                {
-                  id: 2086,
-                  tab_id: 157,
-                  name: "virgool",
-                  translation: "Virgool",
-                },
-                {
-                  id: 2094,
-                  tab_id: 157,
-                  name: "linkedin",
-                  translation: "Linkedin",
-                },
-                {
-                  id: 2102,
-                  tab_id: 157,
-                  name: "facebook",
-                  translation: "Facebook",
-                },
-                {
-                  id: 2110,
-                  tab_id: 157,
-                  name: "namayesh",
-                  translation: "Namayesh",
+                  name: "arabic",
+                  translation: null,
                 },
               ],
             },
@@ -2776,12 +2585,6 @@ const resources = {
                   translation: "META RGB",
                 },
                 {
-                  id: 3694,
-                  tab_id: 311,
-                  name: "metaverse rang",
-                  translation: "METAVERSE RANG",
-                },
-                {
                   id: 3701,
                   tab_id: 311,
                   name: "sign out",
@@ -2919,6 +2722,43 @@ const resources = {
                   name: "visit portfolio",
                   translation: "Visit Portfolio",
                 },
+                {
+                  id: 3953,
+                  tab_id: 311,
+                  name: "citizenship profile",
+                  translation: "Citizenship profile",
+                },
+              ],
+            },
+            {
+              id: 318,
+              modal_id: 117,
+              name: "before-login",
+              fields: [
+                {
+                  id: 3897,
+                  tab_id: 318,
+                  name: "complete list",
+                  translation: "complete list",
+                },
+                {
+                  id: 3904,
+                  tab_id: 318,
+                  name: "people online",
+                  translation: "People online",
+                },
+                {
+                  id: 3911,
+                  tab_id: 318,
+                  name: "entrance fee",
+                  translation: "entrance fee",
+                },
+                {
+                  id: 4002,
+                  tab_id: 318,
+                  name: "complete list",
+                  translation: "complete list",
+                },
               ],
             },
           ],
@@ -2930,9 +2770,11 @@ const resources = {
     translation: {
       code: "fa",
       name: "Persian",
-      native_name: "\u0641\u0627\u0631\u0633\u06cc",
+      native_name: "فارسی",
       status: 1,
       direction: "rtl",
+      version: 0,
+      file_url: null,
       modals: [
         {
           name: "login",
@@ -2946,101 +2788,92 @@ const resources = {
                   id: 6,
                   tab_id: 4,
                   name: "login to metargb",
-                  translation:
-                    "\u0648\u0627\u0631\u062f \u0645\u062a\u0627\u0648\u0631\u0633 \u0631\u0646\u06af \u0634\u0648\u06cc\u062f",
+                  translation: "وارد متاورس رنگ شوید",
                 },
                 {
                   id: 9,
                   tab_id: 4,
                   name: "enter-your-email",
-                  translation:
-                    "\u0627\u06cc\u0645\u06cc\u0644 \u062e\u0648\u062f \u0631\u0627 \u0648\u0627\u0631\u062f \u06a9\u0646\u06cc\u062f",
+                  translation: "ایمیل خود را وارد کنید",
                 },
                 {
                   id: 12,
                   tab_id: 4,
                   name: "password",
-                  translation: "\u0631\u0645\u0632 \u0648\u0631\u0648\u062f",
+                  translation: "رمز ورود",
                 },
                 {
                   id: 15,
                   tab_id: 4,
                   name: "login",
-                  translation: "\u0648\u0631\u0648\u062f",
+                  translation: "ورود",
                 },
                 {
                   id: 18,
                   tab_id: 4,
                   name: "remember me",
-                  translation:
-                    "\u0645\u0631\u0627 \u0628\u0647 \u062e\u0627\u0637\u0631 \u0628\u0633\u067e\u0627\u0631",
+                  translation: "مرا به خاطر بسپار",
                 },
                 {
                   id: 21,
                   tab_id: 4,
                   name: "forget password",
-                  translation:
-                    "\u0641\u0631\u0627\u0645\u0648\u0634\u06cc \u0631\u0645\u0632 \u0639\u0628\u0648\u0631",
+                  translation: "فراموشی رمز عبور",
                 },
                 {
                   id: 3450,
                   tab_id: 4,
                   name: "register",
-                  translation: "\u062b\u0628\u062a \u0646\u0627\u0645",
+                  translation: "ثبت نام",
                 },
                 {
                   id: 3464,
                   tab_id: 4,
                   name: "for more information and answers to",
-                  translation:
-                    "\u0627\u06af\u0631 \u0631\u0648\u06cc \u062f\u06a9\u0645\u0647 \u0648\u0631\u0648\u062f \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u06cc\u062f",
+                  translation: "اگر روی دکمه ورود کلیک کنید",
                 },
                 {
                   id: 3471,
                   tab_id: 4,
                   name: "visit-the",
-                  translation: "\u0628\u0627",
+                  translation: "با",
                 },
                 {
                   id: 3478,
                   tab_id: 4,
                   name: "website.",
-                  translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
+                  translation: "وبسایت",
                 },
                 {
                   id: 3485,
                   tab_id: 4,
                   name: "email or password is not valid.",
-                  translation:
-                    "\u0627\u06cc\u0645\u06cc\u0644 \u06cc\u0627 \u0631\u0645\u0632 \u0648\u0631\u0648\u062f \u0645\u0639\u062a\u0628\u0631 \u0646\u06cc\u0633\u062a.",
+                  translation: "ایمیل یا رمز ورود معتبر نیست.",
                 },
                 {
                   id: 3492,
                   tab_id: 4,
                   name: "accounts are for single",
                   translation:
-                    "\u062d\u0633\u0627\u0628 \u0647\u0627\u06cc \u0634\u0647\u0631\u0648\u0646\u062f\u06cc \u0645\u062a\u0627\u0631\u0646\u06af \u062a\u06a9 \u0646\u0641\u0631\u0647 \u0627\u0633\u062a \u0648 \u062f\u0648 \u0646\u0641\u0631 \u0646\u0645\u06cc \u062a\u0648\u0627\u0646\u0646\u062f \u0647\u0645\u0632\u0645\u0627\u0646 \u0648\u0627\u0631\u062f \u0634\u0648\u0646\u062f.",
+                    "حساب های شهروندی متارنگ تک نفره است و دو نفر نمی توانند همزمان وارد شوند.",
                 },
                 {
                   id: 3498,
                   tab_id: 4,
                   name: "you agree",
-                  translation:
-                    "\u0634\u0645\u0627 \u0645\u0648\u0627\u0641\u0642\u06cc\u062f",
+                  translation: "شما موافقید",
                 },
                 {
                   id: 3863,
                   tab_id: 4,
                   name: "terms of service contract",
-                  translation:
-                    "\u0634\u0631\u0627\u06cc\u0637 \u0642\u0631\u0627\u0631\u062f\u0627\u062f \u062e\u062f\u0645\u0627\u062a",
+                  translation: "شرایط قرارداد خدمات",
                 },
                 {
                   id: 3884,
                   tab_id: 4,
                   name: "please specify",
-                  translation:
-                    "\u0644\u0637\u0641\u0627\u064b \u0645\u0634\u062e\u0635 \u06a9\u0646\u06cc\u062f \u06a9\u0647 \u0631\u0628\u0627\u062a \u0646\u06cc\u0633\u062a\u06cc\u062f",
+                  translation: "لطفاً مشخص کنید که ربات نیستید",
                 },
               ],
             },
@@ -3058,102 +2891,93 @@ const resources = {
                   id: 30,
                   tab_id: 7,
                   name: "register in meta rgb",
-                  translation:
-                    "\u062f\u0631 \u0645\u062a\u0627\u0631\u0646\u06af \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0646\u06cc\u062f",
+                  translation: "در متارنگ ثبت نام کنید",
                 },
                 {
                   id: 33,
                   tab_id: 7,
                   name: "username",
-                  translation:
-                    "\u0646\u0627\u0645 \u06a9\u0627\u0631\u0628\u0631\u06cc",
+                  translation: "نام کاربری",
                 },
                 {
                   id: 36,
                   tab_id: 7,
                   name: "enter your email",
-                  translation:
-                    "\u0627\u06cc\u0645\u06cc\u0644 \u062e\u0648\u062f \u0631\u0627 \u0648\u0627\u0631\u062f \u06a9\u0646\u06cc\u062f",
+                  translation: "ایمیل خود را وارد کنید",
                 },
                 {
                   id: 42,
                   tab_id: 7,
                   name: "password",
-                  translation: "\u0631\u0645\u0632 \u0648\u0631\u0648\u062f",
+                  translation: "رمز ورود",
                 },
                 {
                   id: 45,
                   tab_id: 7,
                   name: "register",
-                  translation: "\u062b\u0628\u062a \u0646\u0627\u0645",
+                  translation: "ثبت نام",
                 },
                 {
                   id: 48,
                   tab_id: 7,
                   name: "log-in",
-                  translation: "\u0648\u0631\u0648\u062f",
+                  translation: "ورود",
                 },
                 {
                   id: 54,
                   tab_id: 7,
                   name: "remember-me",
-                  translation:
-                    "\u0645\u0631\u0627 \u0628\u0647 \u062e\u0627\u0637\u0631 \u0628\u0633\u067e\u0627\u0631",
+                  translation: "مرا به خاطر بسپار",
                 },
                 {
                   id: 3394,
                   tab_id: 7,
                   name: "visit-the",
-                  translation:
-                    "\u062f\u06cc\u062f\u0646 \u0646\u0645\u0627\u06cc\u06cc\u062f.",
+                  translation: "دیدن نمایید.",
                 },
                 {
                   id: 3401,
                   tab_id: 7,
                   name: "website.",
-                  translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
+                  translation: "وبسایت",
                 },
                 {
                   id: 3408,
                   tab_id: 7,
                   name: "the password must contain",
                   translation:
-                    "\u0631\u0645\u0632 \u0648\u0631\u0648\u062f \u0645\u06cc\u0628\u0627\u06cc\u0633\u062a \u0634\u0627\u0645\u0644 \u0627\u0639\u062f\u0627\u062f\u060c \u0633\u06cc\u0645\u0628\u0644 \u0648 \u062d\u0631\u0648\u0641 \u06a9\u0648\u0686\u06a9 \u0648 \u0628\u0632\u0631\u06af \u0627\u0646\u06af\u0644\u06cc\u0633\u06cc \u0628\u0627\u0634\u062f.",
+                    "رمز ورود میبایست شامل اعداد، سیمبل و حروف کوچک و بزرگ انگلیسی باشد.",
                 },
                 {
                   id: 3415,
                   tab_id: 7,
                   name: "the user name is limited to hm-",
                   translation:
-                    "\u0646\u0627\u0645 \u06a9\u0627\u0631\u0628\u0631\u06cc \u062f\u0627\u0631\u0627\u06cc \u0645\u062d\u062f\u0648\u062f\u06cc\u062a \u0627\u0633\u062a\u0641\u0627\u062f\u0647 \u0627\u0632 hm- \u0645\u06cc\u0628\u0627\u0634\u062f.",
+                    "نام کاربری دارای محدودیت استفاده از hm- میباشد.",
                 },
                 {
                   id: 3422,
                   tab_id: 7,
                   name: "your email is not valid",
-                  translation:
-                    "\u0627\u06cc\u0645\u06cc\u0644 \u0634\u0645\u0627 \u0645\u0639\u062a\u0628\u0631 \u0646\u06cc\u0633\u062a.",
+                  translation: "ایمیل شما معتبر نیست.",
                 },
                 {
                   id: 3429,
                   tab_id: 7,
                   name: "this email has already been registered",
-                  translation:
-                    "\u0627\u06cc\u0646 \u0627\u06cc\u0645\u06cc\u0644 \u0642\u0628\u0644\u0627 \u062b\u0628\u062a \u0634\u062f\u0647 \u0627\u0633\u062a.",
+                  translation: "این ایمیل قبلا ثبت شده است.",
                 },
                 {
                   id: 3436,
                   tab_id: 7,
                   name: "this username is already registered",
-                  translation:
-                    "\u0627\u06cc\u0646 \u0646\u0627\u0645 \u06a9\u0627\u0631\u0628\u0631\u06cc \u0642\u0628\u0644\u0627 \u062b\u0628\u062a \u0634\u062f\u0647 \u0627\u0633\u062a.",
+                  translation: "این نام کاربری قبلا ثبت شده است.",
                 },
                 {
                   id: 3457,
                   tab_id: 7,
                   name: "for more information and answers to",
-                  translation:
-                    "\u0628\u0631\u0627\u06cc \u06a9\u0633\u0628 \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0628\u06cc\u0634\u062a\u0631 \u0648 \u067e\u0627\u0633\u062e \u0628\u0647 \u0633\u0648\u0627\u0644\u0627\u062a\u060c \u0627\u0632",
+                  translation: "برای کسب اطلاعات بیشتر و پاسخ به سوالات، از",
                 },
               ],
             },
@@ -3166,91 +2990,79 @@ const resources = {
                   id: 3506,
                   tab_id: 305,
                   name: "citizen account activation",
-                  translation:
-                    "\u0641\u0639\u0627\u0644\u0633\u0627\u0632\u06cc \u062d\u0633\u0627\u0628 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "فعالسازی حساب شهروندی",
                 },
                 {
                   id: 3513,
                   tab_id: 305,
                   name: "an email address",
-                  translation:
-                    "\u06cc\u06a9 \u0627\u06cc\u0645\u06cc\u0644 \u0628\u0647 \u0622\u062f\u0631\u0633",
+                  translation: "یک ایمیل به آدرس",
                 },
                 {
                   id: 3520,
                   tab_id: 305,
                   name: "sent",
-                  translation:
-                    "\u0627\u0631\u0633\u0627\u0644 \u0634\u062f\u0647 \u0627\u0633\u062a.",
+                  translation: "ارسال شده است.",
                 },
                 {
                   id: 3527,
                   tab_id: 305,
                   name: "to confirm and activate",
-                  translation:
-                    "\u062c\u0647\u062a \u062a\u0627\u06cc\u06cc\u062f \u0648 \u0641\u0639\u0627\u0644 \u0633\u0627\u0632\u06cc \u062d\u0633\u0627\u0628 \u062e\u0648\u062f. \u0628\u0631\u0631\u0648\u06cc \u0644\u06cc\u0646\u06a9",
+                  translation: "جهت تایید و فعال سازی حساب خود. برروی لینک",
                 },
                 {
                   id: 3534,
                   tab_id: 305,
                   name: "on the link in the email",
-                  translation:
-                    "\u0645\u0648\u062c\u0648\u062f \u062f\u0631 \u0627\u06cc\u0645\u06cc\u0644 \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u06cc\u062f",
+                  translation: "موجود در ایمیل کلیک کنید",
                 },
                 {
                   id: 3541,
                   tab_id: 305,
                   name: "view gmail",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u062c\u06cc\u0645\u06cc\u0644",
+                  translation: "مشاهده جیمیل",
                 },
                 {
                   id: 3548,
                   tab_id: 305,
                   name: "view email",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u0627\u06cc\u0645\u06cc\u0644",
+                  translation: "مشاهده ایمیل",
                 },
                 {
                   id: 3555,
                   tab_id: 305,
                   name: "view yahoo",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u06cc\u0627\u0647\u0648 \u0645\u06cc\u0644",
+                  translation: "مشاهده یاهو میل",
                 },
                 {
                   id: 3562,
                   tab_id: 305,
                   name: "view outlook",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u0627\u0648\u062a \u0644\u0648\u06a9",
+                  translation: "مشاهده اوت لوک",
                 },
                 {
                   id: 3569,
                   tab_id: 305,
                   name: "re-send the email",
-                  translation:
-                    "\u0627\u0631\u0633\u0627\u0644 \u0645\u062c\u062f\u062f \u0627\u06cc\u0645\u06cc\u0644 \u062a\u0627\u06cc\u06cc\u062f \u062d\u0633\u0627\u0628 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "ارسال مجدد ایمیل تایید حساب شهروندی",
                 },
                 {
                   id: 3576,
                   tab_id: 305,
                   name: "for more information",
-                  translation:
-                    "\u0628\u0631\u0627\u06cc \u06a9\u0633\u0628 \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0628\u06cc\u0634\u062a\u0631 \u0648 \u067e\u0627\u0633\u062e \u0628\u0647 \u0633\u0648\u0627\u0644\u0627\u062a\u060c \u0627\u0632",
+                  translation: "برای کسب اطلاعات بیشتر و پاسخ به سوالات، از",
                 },
                 {
                   id: 3583,
                   tab_id: 305,
                   name: "visit the",
-                  translation:
-                    "\u062f\u06cc\u062f\u0646 \u0646\u0645\u0627\u06cc\u06cc\u062f.",
+                  translation: "دیدن نمایید.",
                 },
                 {
                   id: 3590,
                   tab_id: 305,
                   name: "website",
-                  translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
+                  translation: "وبسایت",
                 },
               ],
             },
@@ -3269,56 +3081,50 @@ const resources = {
                   tab_id: 138,
                   name: "description",
                   translation:
-                    "\u0622\u0645\u0648\u0632\u0634\u06af\u0627\u0647\u06cc \u06a9\u0647 \u0647\u0631 \u0631\u0648\u0632 \u0628\u0627 \u0648\u06cc\u0698\u06af\u06cc\u200c\u0647\u0627\u06cc \u0645\u062a\u0627\u0648\u0631\u0633\u06cc \u0645\u062d\u062a\u0648\u0627\u0647\u0627\u06cc \u062a\u0627\u0632\u0647\u200c\u0627\u06cc \u0631\u0627 \u0627\u0631\u0627\u0626\u0647 \u0645\u06cc\u200c\u062f\u0647\u062f\u060c \u062c\u0647\u062a \u062a\u062c\u0631\u0628\u0647\u200c\u06cc \u0622\u0645\u0648\u0632\u0634\u06cc \u0645\u062a\u0641\u0627\u0648\u062a \u0648 \u062c\u0630\u0627\u0628.",
+                    "آموزشگاهی که هر روز با ویژگی‌های متاورسی محتواهای تازه‌ای را ارائه می‌دهد، جهت تجربه‌ی آموزشی متفاوت و جذاب.",
                 },
                 {
                   id: 2123,
                   tab_id: 138,
                   name: "key phrase",
-                  translation:
-                    "\u0622\u0645\u0648\u0632\u0634 \u0645\u062a\u0627\u0648\u0631\u0633",
+                  translation: "آموزش متاورس",
                 },
                 {
                   id: 2127,
                   tab_id: 138,
                   name: "page title",
                   translation:
-                    "\u0622\u0645\u0648\u0632\u0634\u200c\u0647\u0627\u06cc \u0648\u06cc\u062f\u06cc\u0648\u06cc\u06cc \u0645\u062a\u0627\u0648\u0631\u0633: \u062c\u0647\u0627\u0646\u06cc \u062c\u062f\u06cc\u062f \u0627\u0632 \u06cc\u0627\u062f\u06af\u06cc\u0631\u06cc \u062a\u062c\u0631\u0628\u06cc",
+                    "آموزش‌های ویدیویی متاورس: جهانی جدید از یادگیری تجربی",
                 },
                 {
                   id: 2131,
                   tab_id: 138,
                   name: "search for your desired tutorial",
-                  translation:
-                    "\u0622\u0645\u0648\u0632\u0634 \u0645\u0648\u0631\u062f \u0646\u0638\u0631 \u062e\u0648\u062f \u0631\u0627 \u062c\u0633\u062a\u062c\u0648 \u06a9\u0646\u06cc\u062f",
+                  translation: "آموزش مورد نظر خود را جستجو کنید",
                 },
                 {
                   id: 2135,
                   tab_id: 138,
                   name: "top coaches",
-                  translation:
-                    "\u0645\u0631\u0628\u06cc\u0627\u0646 \u0628\u0631\u062a\u0631",
+                  translation: "مربیان برتر",
                 },
                 {
                   id: 2139,
                   tab_id: 138,
                   name: "view more coaches",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u062f\u06cc\u06af\u0631 \u0645\u0631\u0628\u06cc\u0627\u0646",
+                  translation: "مشاهده دیگر مربیان",
                 },
                 {
                   id: 2143,
                   tab_id: 138,
                   name: "explore more categories",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u062f\u06cc\u06af\u0631 \u062f\u0633\u062a\u0647 \u0628\u0646\u062f\u06cc \u0647\u0627",
+                  translation: "مشاهده دیگر دسته بندی ها",
                 },
                 {
                   id: 2147,
                   tab_id: 138,
                   name: "see more",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u0628\u06cc\u0634\u062a\u0631",
+                  translation: "مشاهده بیشتر",
                 },
               ],
             },
@@ -3343,43 +3149,37 @@ const resources = {
                   id: 2223,
                   tab_id: 166,
                   name: "latest tutorials",
-                  translation:
-                    "\u062c\u062f\u06cc\u062f\u062a\u0631\u06cc\u0646 \u0622\u0645\u0648\u0632\u0634 \u0647\u0627",
+                  translation: "جدیدترین آموزش ها",
                 },
                 {
                   id: 2227,
                   tab_id: 166,
                   name: "publication date",
-                  translation:
-                    "\u062a\u0627\u0631\u06cc\u062e \u0627\u0646\u062a\u0634\u0627\u0631",
+                  translation: "تاریخ انتشار",
                 },
                 {
                   id: 2231,
                   tab_id: 166,
                   name: "enter your comment",
-                  translation:
-                    "\u062f\u06cc\u062f\u06af\u0627\u0647 \u062e\u0648\u062f \u0631\u0627 \u0648\u0627\u0631\u062f \u06a9\u0646\u06cc\u062f",
+                  translation: "دیدگاه خود را وارد کنید",
                 },
                 {
                   id: 2235,
                   tab_id: 166,
                   name: "submit report",
-                  translation:
-                    "\u0627\u0631\u0633\u0627\u0644 \u06af\u0630\u0627\u0631\u0634",
+                  translation: "ارسال گذارش",
                 },
                 {
                   id: 2239,
                   tab_id: 166,
                   name: "see more",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u0628\u06cc\u0634\u062a\u0631",
+                  translation: "مشاهده بیشتر",
                 },
                 {
                   id: 2243,
                   tab_id: 166,
                   name: "related tutorials",
-                  translation:
-                    "\u0622\u0645\u0648\u0632\u0634 \u0647\u0627\u06cc \u0645\u0631\u062a\u0628\u0637",
+                  translation: "آموزش های مرتبط",
                 },
               ],
             },
@@ -3403,49 +3203,49 @@ const resources = {
                   id: 60,
                   tab_id: 13,
                   name: "toman",
-                  translation: "\u062a\u0648\u0645\u0627\u0646",
+                  translation: "تومان",
                 },
                 {
                   id: 63,
                   tab_id: 13,
                   name: "yellow",
-                  translation: "\u0632\u0631\u062f",
+                  translation: "زرد",
                 },
                 {
                   id: 66,
                   tab_id: 13,
                   name: "red",
-                  translation: "\u0642\u0631\u0645\u0632",
+                  translation: "قرمز",
                 },
                 {
                   id: 69,
                   tab_id: 13,
                   name: "blue",
-                  translation: "\u0622\u0628\u06cc",
+                  translation: "آبی",
                 },
                 {
                   id: 72,
                   tab_id: 13,
                   name: "number",
-                  translation: "\u0639\u062f\u062f",
+                  translation: "عدد",
                 },
                 {
                   id: 162,
                   tab_id: 13,
                   name: "store",
-                  translation: "\u0641\u0631\u0648\u0634\u06af\u0627\u0647",
+                  translation: "فروشگاه",
                 },
                 {
                   id: 723,
                   tab_id: 13,
                   name: "tools",
-                  translation: "\u0627\u0628\u0632\u0627\u0631 \u0647\u0627",
+                  translation: "ابزار ها",
                 },
                 {
                   id: 727,
                   tab_id: 13,
                   name: "currencies",
-                  translation: "\u0627\u0631\u0632 \u0647\u0627",
+                  translation: "ارز ها",
                 },
               ],
             },
@@ -3458,49 +3258,49 @@ const resources = {
                   id: 75,
                   tab_id: 16,
                   name: "toman",
-                  translation: "\u062a\u0648\u0645\u0627\u0646",
+                  translation: "تومان",
                 },
                 {
                   id: 78,
                   tab_id: 16,
                   name: "yellow",
-                  translation: "\u0632\u0631\u062f",
+                  translation: "زرد",
                 },
                 {
                   id: 81,
                   tab_id: 16,
                   name: "red",
-                  translation: "\u0642\u0631\u0645\u0632",
+                  translation: "قرمز",
                 },
                 {
                   id: 84,
                   tab_id: 16,
                   name: "blue",
-                  translation: "\u0622\u0628\u06cc",
+                  translation: "آبی",
                 },
                 {
                   id: 87,
                   tab_id: 16,
                   name: "number",
-                  translation: "\u0639\u062f\u062f",
+                  translation: "عدد",
                 },
                 {
                   id: 165,
                   tab_id: 16,
                   name: "store",
-                  translation: "\u0641\u0631\u0648\u0634\u06af\u0627\u0647",
+                  translation: "فروشگاه",
                 },
                 {
                   id: 731,
                   tab_id: 16,
                   name: "tools",
-                  translation: "\u0627\u0628\u0632\u0627\u0631 \u0647\u0627",
+                  translation: "ابزار ها",
                 },
                 {
                   id: 735,
                   tab_id: 16,
                   name: "currencies",
-                  translation: "\u0627\u0631\u0632 \u0647\u0627",
+                  translation: "ارز ها",
                 },
               ],
             },
@@ -3518,15 +3318,13 @@ const resources = {
                   id: 90,
                   tab_id: 19,
                   name: "incoming notifications",
-                  translation:
-                    "\u0627\u0639\u0644\u0627\u0646 \u0647\u0627\u06cc \u062f\u0631\u06cc\u0627\u0641\u062a\u06cc",
+                  translation: "اعلان های دریافتی",
                 },
                 {
                   id: 93,
                   tab_id: 19,
                   name: "change the notification status to viewed",
-                  translation:
-                    "\u0648\u0636\u0639\u06cc\u062a \u0627\u0639\u0644\u0627\u0646 \u0631\u0627 \u0628\u0647 \u0645\u0634\u0627\u0647\u062f\u0647 \u0634\u062f\u0647 \u062a\u063a\u06cc\u06cc\u0631 \u062f\u0647\u06cc\u062f",
+                  translation: "وضعیت اعلان را به مشاهده شده تغییر دهید",
                 },
               ],
             },
@@ -3544,106 +3342,98 @@ const resources = {
                   id: 96,
                   tab_id: 22,
                   name: "choose a topic",
-                  translation:
-                    "\u0645\u0648\u0636\u0648\u0639\u06cc \u0631\u0627 \u0627\u0646\u062a\u062e\u0627\u0628 \u06a9\u0646\u06cc\u062f",
+                  translation: "موضوعی را انتخاب کنید",
                 },
                 {
                   id: 99,
                   tab_id: 22,
                   name: "display error",
-                  translation:
-                    "\u062e\u0637\u0627\u06cc \u0646\u0645\u0627\u06cc\u0634",
+                  translation: "خطای نمایش",
                 },
                 {
                   id: 102,
                   tab_id: 22,
                   name: "error in spelling",
-                  translation:
-                    "\u0627\u0634\u062a\u0628\u0627\u0647 \u062f\u0631 \u0627\u0645\u0644\u0627\u0621",
+                  translation: "اشتباه در املاء",
                 },
                 {
                   id: 105,
                   tab_id: 22,
                   name: "error in coding",
-                  translation:
-                    "\u062e\u0637\u0627 \u062f\u0631 \u06a9\u062f\u0646\u0648\u06cc\u0633\u06cc",
+                  translation: "خطا در کدنویسی",
                 },
                 {
                   id: 108,
                   tab_id: 22,
                   name: "slow system fps",
-                  translation:
-                    "\u0641\u0631\u06cc\u0645 \u0628\u0631 \u062b\u0627\u0646\u06cc\u0647 \u06a9\u0646\u062f \u0633\u06cc\u0633\u062a\u0645",
+                  translation: "فریم بر ثانیه کند سیستم",
                 },
                 {
                   id: 111,
                   tab_id: 22,
                   name: "respectful",
-                  translation: "\u0627\u062d\u062a\u0631\u0627\u0645",
+                  translation: "احترام",
                 },
                 {
                   id: 114,
                   tab_id: 22,
                   name: "title",
-                  translation: "\u0639\u0646\u0648\u0627\u0646",
+                  translation: "عنوان",
                 },
                 {
                   id: 117,
                   tab_id: 22,
                   name: "the text of the report",
-                  translation:
-                    "\u0645\u062a\u0646 \u06af\u0632\u0627\u0631\u0634",
+                  translation: "متن گزارش",
                 },
                 {
                   id: 120,
                   tab_id: 22,
                   name: "drop files here or click to upload",
                   translation:
-                    "\u0641\u0627\u06cc\u0644 \u0647\u0627 \u0631\u0627 \u0627\u06cc\u0646\u062c\u0627 \u0631\u0647\u0627 \u06a9\u0646\u06cc\u062f \u06cc\u0627 \u0628\u0631\u0627\u06cc \u0628\u0627\u0631\u06af\u0630\u0627\u0631\u06cc \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u06cc\u062f",
+                    "فایل ها را اینجا رها کنید یا برای بارگذاری کلیک کنید",
                 },
                 {
                   id: 123,
                   tab_id: 22,
                   name: "submit",
-                  translation: "\u0627\u0631\u0633\u0627\u0644",
+                  translation: "ارسال",
                 },
                 {
                   id: 126,
                   tab_id: 22,
                   name: "list of reports",
-                  translation:
-                    "\u0644\u06cc\u0633\u062a \u06af\u0632\u0627\u0631\u0634 \u0647\u0627",
+                  translation: "لیست گزارش ها",
                 },
                 {
                   id: 129,
                   tab_id: 22,
                   name: "title",
-                  translation: "\u0639\u0646\u0648\u0627\u0646",
+                  translation: "عنوان",
                 },
                 {
                   id: 132,
                   tab_id: 22,
                   name: "reports",
-                  translation: "\u06af\u0632\u0627\u0631\u0634 \u0647\u0627",
+                  translation: "گزارش ها",
                 },
                 {
                   id: 135,
                   tab_id: 22,
                   name: "issue",
-                  translation: "\u0645\u0648\u0636\u0648\u0639",
+                  translation: "موضوع",
                 },
                 {
                   id: 138,
                   tab_id: 22,
                   name: "date of release",
-                  translation:
-                    "\u062a\u0627\u0631\u06cc\u062e \u0627\u0646\u062a\u0634\u0627\u0631",
+                  translation: "تاریخ انتشار",
                 },
                 {
                   id: 141,
                   tab_id: 22,
                   name: "the operation",
-                  translation: "\u0639\u0645\u0644\u06cc\u0627\u062a",
+                  translation: "عملیات",
                 },
               ],
             },
@@ -3661,28 +3451,25 @@ const resources = {
                   id: 150,
                   tab_id: 28,
                   name: "hourly profit absorption",
-                  translation:
-                    "\u062c\u0630\u0628 \u0633\u0648\u062f \u0633\u0627\u0639\u062a\u06cc",
+                  translation: "جذب سود ساعتی",
                 },
                 {
                   id: 153,
                   tab_id: 28,
                   name: "property interest",
-                  translation:
-                    "\u0628\u0647\u0631\u0647 \u0645\u0644\u06a9\u06cc",
+                  translation: "بهره ملکی",
                 },
                 {
                   id: 156,
                   tab_id: 28,
                   name: "account type",
-                  translation: "\u0646\u0648\u0639 \u062d\u0633\u0627\u0628",
+                  translation: "نوع حساب",
                 },
                 {
                   id: 159,
                   tab_id: 28,
                   name: "last collection",
-                  translation:
-                    "\u0622\u062e\u0631\u06cc\u0646 \u0645\u062c\u0645\u0648\u0639\u0647",
+                  translation: "آخرین مجموعه",
                 },
               ],
             },
@@ -3700,41 +3487,39 @@ const resources = {
                   id: 168,
                   tab_id: 31,
                   name: "account security",
-                  translation:
-                    "\u0627\u0645\u0646\u06cc\u062a \u062d\u0633\u0627\u0628",
+                  translation: "امنیت حساب",
                 },
                 {
                   id: 171,
                   tab_id: 31,
                   name: "how long you want your wallet to be off",
-                  translation:
-                    "\u0686\u0647 \u0645\u062f\u062a \u0645\u06cc \u062e\u0648\u0627\u0647\u06cc\u062f \u06a9\u06cc\u0641 \u0634\u0645\u0627 \u062e\u0627\u0645\u0648\u0634 \u0628\u0627\u0634\u062f",
+                  translation: "چه مدت می خواهید کیف شما خاموش باشد",
                 },
                 {
                   id: 174,
                   tab_id: 31,
                   name: "minutes",
-                  translation: "\u062f\u0642\u0627\u06cc\u0642",
+                  translation: "دقایق",
                 },
                 {
                   id: 177,
                   tab_id: 31,
                   name: "if you have not received the confirmation code, you can send the confirmation code again in 00:00  minutes",
                   translation:
-                    "\u0627\u06af\u0631 \u06a9\u062f \u062a\u0627\u06cc\u06cc\u062f \u0631\u0627 \u062f\u0631\u06cc\u0627\u0641\u062a \u0646\u06a9\u0631\u062f\u0647 \u0627\u06cc\u062f\u060c \u0645\u06cc \u062a\u0648\u0627\u0646\u06cc\u062f \u062a\u0627 \u0633\u0627\u0639\u062a 00:00 \u062f\u0642\u06cc\u0642\u0647 \u062f\u06cc\u06af\u0631 \u06a9\u062f \u062a\u0627\u06cc\u06cc\u062f \u0631\u0627 \u0627\u0631\u0633\u0627\u0644 \u06a9\u0646\u06cc\u062f",
+                    "اگر کد تایید را دریافت نکرده اید، می توانید تا ساعت 00:00 دقیقه دیگر کد تایید را ارسال کنید",
                 },
                 {
                   id: 180,
                   tab_id: 31,
                   name: "confirmation",
-                  translation: "\u062a\u0627\u0626\u06cc\u062f\u06cc\u0647",
+                  translation: "تائیدیه",
                 },
                 {
                   id: 183,
                   tab_id: 31,
                   name: "minutes left to relock user account security",
                   translation:
-                    "\u0686\u0646\u062f \u062f\u0642\u06cc\u0642\u0647 \u0628\u0627\u0642\u06cc \u0645\u0627\u0646\u062f\u0647 \u0627\u0633\u062a \u062a\u0627 \u0627\u0645\u0646\u06cc\u062a \u062d\u0633\u0627\u0628 \u06a9\u0627\u0631\u0628\u0631\u06cc \u062f\u0648\u0628\u0627\u0631\u0647 \u0642\u0641\u0644 \u0634\u0648\u062f",
+                    "چند دقیقه باقی مانده است تا امنیت حساب کاربری دوباره قفل شود",
                 },
               ],
             },
@@ -3752,69 +3537,61 @@ const resources = {
                   id: 186,
                   tab_id: 34,
                   name: "search in metaverse rang",
-                  translation:
-                    "\u062c\u0633\u062a\u062c\u0648 \u062f\u0631 \u0645\u062a\u0627\u0648\u0631\u0633 \u0631\u0646\u06af",
+                  translation: "جستجو در متاورس رنگ",
                 },
                 {
                   id: 189,
                   tab_id: 34,
                   name: "search for citizen name or id",
-                  translation:
-                    "\u0646\u0627\u0645 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc \u06cc\u0627 \u0634\u0646\u0627\u0633\u0647 \u0631\u0627 \u062c\u0633\u062a\u062c\u0648 \u06a9\u0646\u06cc\u062f",
+                  translation: "نام شهروندی یا شناسه را جستجو کنید",
                 },
                 {
                   id: 192,
                   tab_id: 34,
                   name: "there is no information, search",
-                  translation:
-                    "\u0647\u06cc\u0686 \u0627\u0637\u0644\u0627\u0639\u0627\u062a\u06cc \u0648\u062c\u0648\u062f \u0646\u062f\u0627\u0631\u062f\u060c \u062c\u0633\u062a\u062c\u0648 \u06a9\u0646\u06cc\u062f",
+                  translation: "هیچ اطلاعاتی وجود ندارد، جستجو کنید",
                 },
                 {
                   id: 195,
                   tab_id: 34,
                   name: "citizen id",
-                  translation:
-                    "\u0634\u0646\u0627\u0633\u0647 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "شناسه شهروندی",
                 },
                 {
                   id: 198,
                   tab_id: 34,
                   name: "name of the citizen",
-                  translation:
-                    "\u0646\u0627\u0645 \u0634\u0647\u0631\u0648\u0646\u062f",
+                  translation: "نام شهروند",
                 },
                 {
                   id: 201,
                   tab_id: 34,
                   name: "level",
-                  translation: "\u0633\u0637\u062d",
+                  translation: "سطح",
                 },
                 {
                   id: 204,
                   tab_id: 34,
                   name: "followers",
-                  translation:
-                    "\u062f\u0646\u0628\u0627\u0644 \u06a9\u0646\u0646\u062f\u06af\u0627\u0646",
+                  translation: "دنبال کنندگان",
                 },
                 {
                   id: 207,
                   tab_id: 34,
                   name: "unity",
-                  translation: "\u0627\u062a\u062d\u0627\u062f",
+                  translation: "اتحاد",
                 },
                 {
                   id: 213,
                   tab_id: 34,
                   name: "citizen search",
-                  translation:
-                    "\u062c\u0633\u062a\u062c\u0648\u06cc \u0634\u0647\u0631\u0648\u0646\u062f\u0627\u0646",
+                  translation: "جستجوی شهروندان",
                 },
                 {
                   id: 363,
                   tab_id: 34,
                   name: "property search",
-                  translation:
-                    "\u062c\u0633\u062a\u062c\u0648\u06cc \u0645\u0644\u06a9",
+                  translation: "جستجوی ملک",
                 },
               ],
             },
@@ -3827,76 +3604,67 @@ const resources = {
                   id: 210,
                   tab_id: 37,
                   name: "search in metaverse rang",
-                  translation:
-                    "\u062c\u0633\u062a\u062c\u0648 \u062f\u0631 \u0645\u062a\u0627\u0648\u0631\u0633 \u0631\u0646\u06af",
+                  translation: "جستجو در متاورس رنگ",
                 },
                 {
                   id: 216,
                   tab_id: 37,
                   name: "citizen search",
-                  translation:
-                    "\u062c\u0633\u062a\u062c\u0648\u06cc \u0634\u0647\u0631\u0648\u0646\u062f\u0627\u0646",
+                  translation: "جستجوی شهروندان",
                 },
                 {
                   id: 219,
                   tab_id: 37,
                   name: "property search",
-                  translation:
-                    "\u062c\u0633\u062a\u062c\u0648\u06cc \u0645\u0644\u06a9",
+                  translation: "جستجوی ملک",
                 },
                 {
                   id: 222,
                   tab_id: 37,
                   name: "search for property address or id",
-                  translation:
-                    "\u0622\u062f\u0631\u0633 \u06cc\u0627 \u0634\u0646\u0627\u0633\u0647 \u0645\u0644\u06a9 \u0631\u0627 \u062c\u0633\u062a\u062c\u0648 \u06a9\u0646\u06cc\u062f",
+                  translation: "آدرس یا شناسه ملک را جستجو کنید",
                 },
                 {
                   id: 225,
                   tab_id: 37,
                   name: "there is no information, search",
-                  translation:
-                    "\u0647\u06cc\u0686 \u0627\u0637\u0644\u0627\u0639\u0627\u062a\u06cc \u0648\u062c\u0648\u062f \u0646\u062f\u0627\u0631\u062f\u060c \u062c\u0633\u062a\u062c\u0648 \u06a9\u0646\u06cc\u062f",
+                  translation: "هیچ اطلاعاتی وجود ندارد، جستجو کنید",
                 },
                 {
                   id: 228,
                   tab_id: 37,
                   name: "property id",
-                  translation:
-                    "\u0634\u0646\u0627\u0633\u0647 \u0645\u0644\u06a9",
+                  translation: "شناسه ملک",
                 },
                 {
                   id: 231,
                   tab_id: 37,
                   name: "usage",
-                  translation: "\u06a9\u0627\u0631\u0628\u0631\u06cc",
+                  translation: "کاربری",
                 },
                 {
                   id: 234,
                   tab_id: 37,
                   name: "owner id",
-                  translation:
-                    "\u0634\u0646\u0627\u0633\u0647 \u0645\u0627\u0644\u06a9",
+                  translation: "شناسه مالک",
                 },
                 {
                   id: 237,
                   tab_id: 37,
                   name: "irr pricing",
-                  translation:
-                    "\u0642\u06cc\u0645\u062a \u06af\u0630\u0627\u0631\u06cc \u0631\u06cc\u0627\u0644",
+                  translation: "قیمت گذاری ریال",
                 },
                 {
                   id: 240,
                   tab_id: 37,
                   name: "psc pricing",
-                  translation:
-                    "\u0642\u06cc\u0645\u062a \u06af\u0630\u0627\u0631\u06cc PSC",
+                  translation: "قیمت گذاری PSC",
                 },
                 {
                   id: 243,
                   tab_id: 37,
                   name: "property address",
-                  translation: "\u0627\u062f\u0631\u0633 \u0645\u0644\u06a9",
+                  translation: "ادرس ملک",
                 },
               ],
             },
@@ -3914,96 +3682,91 @@ const resources = {
                   id: 246,
                   tab_id: 43,
                   name: "collection of assets",
-                  translation:
-                    "\u0645\u062c\u0645\u0648\u0639 \u062f\u0627\u0631\u0627\u06cc\u06cc \u0647\u0627",
+                  translation: "مجموع دارایی ها",
                 },
                 {
                   id: 249,
                   tab_id: 43,
                   name: "psc",
-                  translation: "\u067e\u06cc \u0627\u0633 \u0633\u06cc",
+                  translation: "پی اس سی",
                 },
                 {
                   id: 252,
                   tab_id: 43,
                   name: "rial",
-                  translation: "\u0631\u06cc\u0627\u0644",
+                  translation: "ریال",
                 },
                 {
                   id: 255,
                   tab_id: 43,
                   name: "blue color",
-                  translation: "\u0631\u0646\u06af \u0622\u0628\u06cc",
+                  translation: "رنگ آبی",
                 },
                 {
                   id: 258,
                   tab_id: 43,
                   name: "red color",
-                  translation: "\u0631\u0646\u06af \u0642\u0631\u0645\u0632",
+                  translation: "رنگ قرمز",
                 },
                 {
                   id: 261,
                   tab_id: 43,
                   name: "yellow color",
-                  translation: "\u0631\u0646\u06af \u0632\u0631\u062f",
+                  translation: "رنگ زرد",
                 },
                 {
                   id: 264,
                   tab_id: 43,
                   name: "satisfaction",
-                  translation: "\u0631\u0636\u0627\u06cc\u062a",
+                  translation: "رضایت",
                 },
                 {
                   id: 267,
                   tab_id: 43,
                   name: "Membership from",
-                  translation: "\u0639\u0636\u0648\u06cc\u062a \u0627\u0632",
+                  translation: "عضویت از",
                 },
                 {
                   id: 270,
                   tab_id: 43,
                   name: "information",
-                  translation: "\u0627\u0637\u0644\u0627\u0639\u0627\u062a",
+                  translation: "اطلاعات",
                 },
                 {
                   id: 273,
                   tab_id: 43,
                   name: "level",
-                  translation: "\u0633\u0637\u062d",
+                  translation: "سطح",
                 },
                 {
                   id: 276,
                   tab_id: 43,
                   name: "followers",
-                  translation:
-                    "\u062f\u0646\u0628\u0627\u0644 \u06a9\u0646\u0646\u062f\u06af\u0627\u0646",
+                  translation: "دنبال کنندگان",
                 },
                 {
                   id: 279,
                   tab_id: 43,
                   name: "following",
-                  translation:
-                    "\u062f\u0646\u0628\u0627\u0644 \u0634\u0648\u0646\u062f\u06af\u0627\u0646",
+                  translation: "دنبال شوندگان",
                 },
                 {
                   id: 282,
                   tab_id: 43,
                   name: "citizenship account",
-                  translation:
-                    "\u062d\u0633\u0627\u0628 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "حساب شهروندی",
                 },
                 {
                   id: 312,
                   tab_id: 43,
                   name: "transactions",
-                  translation:
-                    "\u062a\u0631\u0627\u06a9\u0646\u0634 \u0647\u0627",
+                  translation: "تراکنش ها",
                 },
                 {
                   id: 315,
                   tab_id: 43,
                   name: "general",
-                  translation: "\u06a9\u0644\u06cc\u0627\u062a",
+                  translation: "کلیات",
                 },
               ],
             },
@@ -4016,67 +3779,61 @@ const resources = {
                   id: 285,
                   tab_id: 46,
                   name: "search",
-                  translation:
-                    "\u062c\u0633\u062a\u062c\u0648 \u06a9\u0646\u06cc\u062f",
+                  translation: "جستجو کنید",
                 },
                 {
                   id: 288,
                   tab_id: 46,
                   name: "real estates",
-                  translation:
-                    "\u0627\u0645\u0644\u0627\u06a9 \u0648 \u0645\u0633\u062a\u063a\u0644\u0627\u062a",
+                  translation: "املاک و مستغلات",
                 },
                 {
                   id: 291,
                   tab_id: 46,
                   name: "followers",
-                  translation:
-                    "\u062f\u0646\u0628\u0627\u0644 \u06a9\u0646\u0646\u062f\u06af\u0627\u0646",
+                  translation: "دنبال کنندگان",
                 },
                 {
                   id: 294,
                   tab_id: 46,
                   name: "following",
-                  translation:
-                    "\u062f\u0646\u0628\u0627\u0644 \u0634\u0648\u0646\u062f\u06af\u0627\u0646",
+                  translation: "دنبال شوندگان",
                 },
                 {
                   id: 297,
                   tab_id: 46,
                   name: "address",
-                  translation: "\u0622\u062f\u0631\u0633",
+                  translation: "آدرس",
                 },
                 {
                   id: 303,
                   tab_id: 46,
                   name: "price",
-                  translation: "\u0642\u06cc\u0645\u062a",
+                  translation: "قیمت",
                 },
                 {
                   id: 306,
                   tab_id: 46,
                   name: "usage",
-                  translation: "\u06a9\u0627\u0631\u0628\u0631\u06cc",
+                  translation: "کاربری",
                 },
                 {
                   id: 318,
                   tab_id: 46,
                   name: "citizenship account",
-                  translation:
-                    "\u062d\u0633\u0627\u0628 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "حساب شهروندی",
                 },
                 {
                   id: 324,
                   tab_id: 46,
                   name: "transactions",
-                  translation:
-                    "\u062a\u0631\u0627\u06a9\u0646\u0634 \u0647\u0627",
+                  translation: "تراکنش ها",
                 },
                 {
                   id: 327,
                   tab_id: 46,
                   name: "general",
-                  translation: "\u06a9\u0644\u06cc\u0627\u062a",
+                  translation: "کلیات",
                 },
               ],
             },
@@ -4089,66 +3846,61 @@ const resources = {
                   id: 330,
                   tab_id: 49,
                   name: "transaction id",
-                  translation:
-                    "\u0634\u0646\u0627\u0633\u0647 \u062a\u0631\u0627\u06a9\u0646\u0634",
+                  translation: "شناسه تراکنش",
                 },
                 {
                   id: 333,
                   tab_id: 49,
                   name: "date and time of sending",
-                  translation:
-                    "\u062a\u0627\u0631\u06cc\u062e \u0648 \u0632\u0645\u0627\u0646 \u0627\u0631\u0633\u0627\u0644",
+                  translation: "تاریخ و زمان ارسال",
                 },
                 {
                   id: 336,
                   tab_id: 49,
                   name: "condition",
-                  translation: "\u0648\u0636\u0639\u06cc\u062a",
+                  translation: "وضعیت",
                 },
                 {
                   id: 339,
                   tab_id: 49,
                   name: "title",
-                  translation: "\u0639\u0646\u0648\u0627\u0646",
+                  translation: "عنوان",
                 },
                 {
                   id: 342,
                   tab_id: 49,
                   name: "issue",
-                  translation: "\u0645\u0648\u0636\u0648\u0639",
+                  translation: "موضوع",
                 },
                 {
                   id: 345,
                   tab_id: 49,
                   name: "the amount of",
-                  translation: "\u0645\u0642\u062f\u0627\u0631",
+                  translation: "مقدار",
                 },
                 {
                   id: 348,
                   tab_id: 49,
                   name: "view-print",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647-\u0686\u0627\u067e",
+                  translation: "مشاهده-چاپ",
                 },
                 {
                   id: 351,
                   tab_id: 49,
                   name: "citizenship account",
-                  translation:
-                    "\u062d\u0633\u0627\u0628 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "حساب شهروندی",
                 },
                 {
                   id: 357,
                   tab_id: 49,
                   name: "transactions",
-                  translation:
-                    "\u062a\u0631\u0627\u06a9\u0646\u0634 \u0647\u0627",
+                  translation: "تراکنش ها",
                 },
                 {
                   id: 360,
                   tab_id: 49,
                   name: "general",
-                  translation: "\u06a9\u0644\u06cc\u0627\u062a",
+                  translation: "کلیات",
                 },
               ],
             },
@@ -4166,302 +3918,272 @@ const resources = {
                   id: 543,
                   tab_id: 66,
                   name: "developer",
-                  translation:
-                    "\u062a\u0648\u0633\u0639\u0647 \u062f\u0647\u0646\u062f\u0647",
+                  translation: "توسعه دهنده",
                 },
                 {
                   id: 547,
                   tab_id: 66,
                   name: "inspector",
-                  translation: "\u0628\u0627\u0632\u0631\u0633",
+                  translation: "بازرس",
                 },
                 {
                   id: 551,
                   tab_id: 66,
                   name: "businessman",
-                  translation: "\u062a\u0627\u062c\u0631",
+                  translation: "تاجر",
                 },
                 {
                   id: 555,
                   tab_id: 66,
                   name: "lawyer",
-                  translation: "\u0648\u06a9\u06cc\u0644",
+                  translation: "وکیل",
                 },
                 {
                   id: 559,
                   tab_id: 66,
                   name: "city council",
-                  translation:
-                    "\u0634\u0648\u0631\u0627\u06cc \u0634\u0647\u0631",
+                  translation: "شورای شهر",
                 },
                 {
                   id: 563,
                   tab_id: 66,
                   name: "the mayor",
-                  translation: "\u0634\u0647\u0631\u062f\u0627\u0631",
+                  translation: "شهردار",
                 },
                 {
                   id: 567,
                   tab_id: 66,
                   name: "governor",
-                  translation:
-                    "\u0641\u0631\u0645\u0627\u0646\u062f\u0627\u0631",
+                  translation: "فرماندار",
                 },
                 {
                   id: 571,
                   tab_id: 66,
                   name: "minister",
-                  translation: "\u0648\u0632\u06cc\u0631",
+                  translation: "وزیر",
                 },
                 {
                   id: 575,
                   tab_id: 66,
                   name: "judge",
-                  translation: "\u0642\u0627\u0636\u06cc",
+                  translation: "قاضی",
                 },
                 {
                   id: 579,
                   tab_id: 66,
                   name: "legislator",
-                  translation:
-                    "\u0642\u0627\u0646\u0648\u0646 \u06af\u0630\u0627\u0631",
+                  translation: "قانون گذار",
                 },
                 {
                   id: 583,
                   tab_id: 66,
                   name: "citizenship id",
-                  translation:
-                    "\u0634\u0646\u0627\u0633\u0647 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "شناسه شهروندی",
                 },
                 {
                   id: 587,
                   tab_id: 66,
                   name: "citizenship name",
-                  translation:
-                    "\u0646\u0627\u0645 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "نام شهروندی",
                 },
                 {
                   id: 591,
                   tab_id: 66,
                   name: "entry date",
-                  translation:
-                    "\u062a\u0627\u0631\u06cc\u062e \u0648\u0631\u0648\u062f",
+                  translation: "تاریخ ورود",
                 },
                 {
                   id: 595,
                   tab_id: 66,
                   name: "responsibility",
-                  translation: "\u0645\u0633\u0626\u0648\u0644\u06cc\u062a",
+                  translation: "مسئولیت",
                 },
                 {
                   id: 599,
                   tab_id: 66,
                   name: "achieved score",
-                  translation:
-                    "\u0627\u0645\u062a\u06cc\u0627\u0632 \u06a9\u0633\u0628 \u0634\u062f\u0647",
+                  translation: "امتیاز کسب شده",
                 },
                 {
                   id: 603,
                   tab_id: 66,
                   name: "date of birth",
-                  translation:
-                    "\u062a\u0627\u0631\u06cc\u062e \u062a\u0648\u0644\u062f",
+                  translation: "تاریخ تولد",
                 },
                 {
                   id: 607,
                   tab_id: 66,
                   name: "phone number",
-                  translation:
-                    "\u0634\u0645\u0627\u0631\u0647 \u062a\u0645\u0627\u0633",
+                  translation: "شماره تماس",
                 },
                 {
                   id: 611,
                   tab_id: 66,
                   name: "email",
-                  translation:
-                    "\u067e\u0633\u062a \u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc",
+                  translation: "پست الکترونیکی",
                 },
                 {
                   id: 615,
                   tab_id: 66,
                   name: "address",
-                  translation: "\u0622\u062f\u0631\u0633",
+                  translation: "آدرس",
                 },
                 {
                   id: 619,
                   tab_id: 66,
                   name: "job",
-                  translation: "\u0634\u063a\u0644",
+                  translation: "شغل",
                 },
                 {
                   id: 623,
                   tab_id: 66,
                   name: "education",
-                  translation: "\u062a\u062d\u0635\u06cc\u0644\u0627\u062a",
+                  translation: "تحصیلات",
                 },
                 {
                   id: 627,
                   tab_id: 66,
                   name: "i love this city",
-                  translation:
-                    "\u0627\u06cc\u0646 \u0634\u0647\u0631 \u0631\u0627 \u062f\u0648\u0633\u062a \u062f\u0627\u0631\u0645",
+                  translation: "این شهر را دوست دارم",
                 },
                 {
                   id: 631,
                   tab_id: 66,
                   name: "i am interested in this country",
-                  translation:
-                    "\u0628\u0647 \u0627\u06cc\u0646 \u06a9\u0634\u0648\u0631 \u0639\u0644\u0627\u0642\u0647 \u062f\u0627\u0631\u0645",
+                  translation: "به این کشور علاقه دارم",
                 },
                 {
                   id: 635,
                   tab_id: 66,
                   name: "i am interested in this language",
-                  translation:
-                    "\u0628\u0647 \u0627\u06cc\u0646 \u0632\u0628\u0627\u0646 \u0639\u0644\u0627\u0642\u0647 \u062f\u0627\u0631\u0645",
+                  translation: "به این زبان علاقه دارم",
                 },
                 {
                   id: 639,
                   tab_id: 66,
                   name: "if you had the ability to solve a problem, what would it be?",
                   translation:
-                    "\u0627\u06af\u0631 \u062a\u0648\u0627\u0646\u0627\u06cc\u06cc \u062d\u0644 \u06cc\u06a9 \u0645\u0634\u06a9\u0644 \u0631\u0627 \u062f\u0627\u0634\u062a\u06cc\u062f \u0622\u0646 \u0645\u0634\u06a9\u0644 \u0686\u06cc\u0633\u062a \u061f",
+                    "اگر توانایی حل یک مشکل را داشتید آن مشکل چیست ؟",
                 },
                 {
                   id: 643,
                   tab_id: 66,
                   name: "forecast 2022",
-                  translation:
-                    "\u067e\u06cc\u0634 \u0628\u06cc\u0646\u06cc 1401",
+                  translation: "پیش بینی 1401",
                 },
                 {
                   id: 647,
                   tab_id: 66,
                   name: "pleasant memory",
-                  translation:
-                    "\u062e\u0627\u0637\u0631\u0647 \u062e\u0648\u0634",
+                  translation: "خاطره خوش",
                 },
                 {
                   id: 651,
                   tab_id: 66,
                   name: "favorites",
-                  translation: "\u0639\u0644\u0627\u06cc\u0642",
+                  translation: "علایق",
                 },
                 {
                   id: 655,
                   tab_id: 66,
                   name: "about me",
-                  translation:
-                    "\u062f\u0631\u0628\u0627\u0631\u0647 \u0645\u0646",
+                  translation: "درباره من",
                 },
                 {
                   id: 667,
                   tab_id: 66,
                   name: "art",
-                  translation: "\u0647\u0646\u0631",
+                  translation: "هنر",
                 },
                 {
                   id: 671,
                   tab_id: 66,
                   name: "music",
-                  translation:
-                    "\u0633\u0627\u0632 \u0648 \u0645\u0648\u0633\u06cc\u0642\u06cc",
+                  translation: "ساز و موسیقی",
                 },
                 {
                   id: 675,
                   tab_id: 66,
                   name: "sport health",
-                  translation:
-                    "\u0648\u0631\u0632\u0634 \u0648 \u0633\u0644\u0627\u0645\u062a",
+                  translation: "ورزش و سلامت",
                 },
                 {
                   id: 679,
                   tab_id: 66,
                   name: "language culture",
-                  translation:
-                    "\u0632\u0628\u0627\u0646 \u0648 \u0641\u0631\u0647\u0646\u06af",
+                  translation: "زبان و فرهنگ",
                 },
                 {
                   id: 683,
                   tab_id: 66,
                   name: "philosophy",
-                  translation: "\u0641\u0644\u0633\u0641\u0647",
+                  translation: "فلسفه",
                 },
                 {
                   id: 687,
                   tab_id: 66,
                   name: "animals nature",
-                  translation:
-                    "\u062d\u06cc\u0648\u0627\u0646\u0627\u062a \u0648 \u0637\u0628\u06cc\u0639\u062a",
+                  translation: "حیوانات و طبیعت",
                 },
                 {
                   id: 691,
                   tab_id: 66,
                   name: "aliens",
-                  translation:
-                    "\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0628\u06cc\u06af\u0627\u0646\u0647",
+                  translation: "موجودات بیگانه",
                 },
                 {
                   id: 695,
                   tab_id: 66,
                   name: "food cooking",
-                  translation:
-                    "\u063a\u0630\u0627 \u0648 \u0622\u0634\u067e\u0632\u06cc",
+                  translation: "غذا و آشپزی",
                 },
                 {
                   id: 699,
                   tab_id: 66,
                   name: "travel leature",
-                  translation:
-                    "\u0633\u0641\u0631 \u0648 \u062a\u0641\u0631\u06cc\u062d",
+                  translation: "سفر و تفریح",
                 },
                 {
                   id: 703,
                   tab_id: 66,
                   name: "manufacturing",
-                  translation:
-                    "\u0633\u0627\u062e\u062a \u0648 \u062a\u0648\u0644\u06cc\u062f",
+                  translation: "ساخت و تولید",
                 },
                 {
                   id: 707,
                   tab_id: 66,
                   name: "science technology",
-                  translation:
-                    "\u0639\u0644\u0648\u0645 \u0648 \u062a\u06a9\u0646\u0648\u0644\u0648\u0698\u06cc",
+                  translation: "علوم و تکنولوژی",
                 },
                 {
                   id: 711,
                   tab_id: 66,
                   name: "space time",
-                  translation:
-                    "\u0641\u0636\u0627 \u0648 \u0632\u0645\u0627\u0646",
+                  translation: "فضا و زمان",
                 },
                 {
                   id: 715,
                   tab_id: 66,
                   name: "history and civilization",
-                  translation:
-                    "\u062a\u0627\u0631\u06cc\u062e \u0648 \u062a\u0645\u062f\u0646",
+                  translation: "تاریخ و تمدن",
                 },
                 {
                   id: 719,
                   tab_id: 66,
                   name: "politics economy",
-                  translation:
-                    "\u0633\u06cc\u0627\u0633\u062a \u0648 \u0627\u0642\u062a\u0635\u0627\u062f",
+                  translation: "سیاست و اقتصاد",
                 },
                 {
                   id: 2592,
                   tab_id: 66,
                   name: "read more",
-                  translation:
-                    "\u0645\u0637\u0627\u0644\u0639\u0647 \u0628\u06cc\u0634\u062a\u0631",
+                  translation: "مطالعه بیشتر",
                 },
                 {
                   id: 2597,
                   tab_id: 66,
                   name: "view",
-                  translation: "\u0645\u0634\u0627\u0647\u062f\u0647",
+                  translation: "مشاهده",
                 },
               ],
             },
@@ -4540,119 +4262,109 @@ const resources = {
                   id: 1835,
                   tab_id: 134,
                   name: "meta rgb",
-                  translation: "\u0645\u062a\u0627\u0631\u0646\u06af",
-                },
-                {
-                  id: 1839,
-                  tab_id: 134,
-                  name: "metaverse rang",
-                  translation:
-                    "\u0645\u062a\u0627\u0648\u0631\u0633 \u0631\u0646\u06af",
+                  translation: "متارنگ",
                 },
                 {
                   id: 1843,
                   tab_id: 134,
                   name: "home",
-                  translation: "\u062e\u0627\u0646\u0647",
+                  translation: "خانه",
                 },
                 {
                   id: 1847,
                   tab_id: 134,
                   name: "property",
-                  translation: "\u062f\u0627\u0631\u0627\u06cc\u06cc",
+                  translation: "دارایی",
                 },
                 {
                   id: 1851,
                   tab_id: 134,
                   name: "real estate",
-                  translation: "\u0627\u0645\u0644\u0627\u06a9",
+                  translation: "املاک",
                 },
                 {
                   id: 1855,
                   tab_id: 134,
                   name: "structures",
-                  translation: "\u0633\u0627\u0632\u0647 \u0647\u0627",
+                  translation: "سازه ها",
                 },
                 {
                   id: 1859,
                   tab_id: 134,
                   name: "belongings",
-                  translation: "\u0645\u062a\u0639\u0644\u0642\u0627\u062a",
+                  translation: "متعلقات",
                 },
                 {
                   id: 1863,
                   tab_id: 134,
                   name: "permissions",
-                  translation: "\u0645\u062c\u0648\u0632 \u0647\u0627",
+                  translation: "مجوز ها",
                 },
                 {
                   id: 1867,
                   tab_id: 134,
                   name: "invitations",
-                  translation: "\u062f\u0639\u0648\u062a\u06cc \u0647\u0627",
+                  translation: "دعوتی ها",
                 },
                 {
                   id: 1871,
                   tab_id: 134,
                   name: "transaction",
-                  translation: "\u062a\u0631\u0627\u06a9\u0646\u0634",
+                  translation: "تراکنش",
                 },
                 {
                   id: 1875,
                   tab_id: 134,
                   name: "reward",
-                  translation: "\u067e\u0627\u062f\u0627\u0634",
+                  translation: "پاداش",
                 },
                 {
                   id: 1879,
                   tab_id: 134,
                   name: "dynasty",
-                  translation: "\u0633\u0644\u0633\u0644\u0647",
+                  translation: "سلسله",
                 },
                 {
                   id: 1883,
                   tab_id: 134,
                   name: "connections",
-                  translation:
-                    "\u0627\u0631\u062a\u0628\u0627\u0637\u0627\u062a",
+                  translation: "ارتباطات",
                 },
                 {
                   id: 1887,
                   tab_id: 134,
                   name: "crimes",
-                  translation: "\u062c\u0631\u0627\u06cc\u0645",
+                  translation: "جرایم",
                 },
                 {
                   id: 1891,
                   tab_id: 134,
                   name: "log in",
-                  translation: "\u0648\u0631\u0648\u062f",
+                  translation: "ورود",
                 },
                 {
                   id: 1895,
                   tab_id: 134,
                   name: "logout",
-                  translation: "\u062e\u0631\u0648\u062c",
+                  translation: "خروج",
                 },
                 {
                   id: 1899,
                   tab_id: 134,
                   name: "citizenship page",
-                  translation:
-                    "\u0645\u0634\u062e\u0635\u0627\u062a \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "مشخصات شهروندی",
                 },
                 {
                   id: 1903,
                   tab_id: 134,
                   name: "enter the metaverse",
-                  translation:
-                    "\u0648\u0631\u0648\u062f \u0628\u0647 \u0645\u062a\u0627\u0648\u0631\u0633",
+                  translation: "ورود به متاورس",
                 },
                 {
                   id: 1906,
                   tab_id: 134,
                   name: "language",
-                  translation: "\u0632\u0628\u0627\u0646",
+                  translation: "زبان",
                 },
               ],
             },
@@ -4670,117 +4382,111 @@ const resources = {
                   id: 1555,
                   tab_id: 114,
                   name: "family dynasty",
-                  translation:
-                    "\u0633\u0644\u0633\u0644\u0647 \u062e\u0627\u0646\u0648\u0627\u062f\u06af\u06cc",
+                  translation: "سلسله خانوادگی",
                 },
                 {
                   id: 1567,
                   tab_id: 114,
                   name: "establishment of a dynasty",
-                  translation:
-                    "\u062a\u0623\u0633\u06cc\u0633 \u06cc\u06a9 \u0633\u0644\u0633\u0644\u0647",
+                  translation: "تأسیس یک سلسله",
                 },
                 {
                   id: 1571,
                   tab_id: 114,
                   name: "members",
-                  translation: "\u0627\u0639\u0636\u0627\u0621",
+                  translation: "اعضاء",
                 },
                 {
                   id: 1575,
                   tab_id: 114,
                   name: "submitted request",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u0627\u0631\u0633\u0627\u0644 \u0634\u062f\u0647",
+                  translation: "درخواست ارسال شده",
                 },
                 {
                   id: 1579,
                   tab_id: 114,
                   name: "request received",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u062f\u0631\u06cc\u0627\u0641\u062a \u0634\u062f\u0647",
+                  translation: "درخواست دریافت شده",
                 },
                 {
                   id: 1583,
                   tab_id: 114,
                   name: "establishment of dynasty and its characteristics",
-                  translation:
-                    "\u062a\u0623\u0633\u06cc\u0633 \u0633\u0644\u0633\u0644\u0647 \u0648 \u0648\u06cc\u0698\u06af\u06cc \u0647\u0627\u06cc \u0622\u0646",
+                  translation: "تأسیس سلسله و ویژگی های آن",
                 },
                 {
                   id: 1587,
                   tab_id: 114,
                   name: "by building a chain, enjoy huge rewards and outputs. The amount of increase in each entry.",
                   translation:
-                    "\u0628\u0627 \u0633\u0627\u062e\u062a\u0646 \u06cc\u06a9 \u0632\u0646\u062c\u06cc\u0631\u0647\u060c \u0627\u0632 \u067e\u0627\u062f\u0627\u0634 \u0647\u0627 \u0648 \u062e\u0631\u0648\u062c\u06cc \u0647\u0627\u06cc \u0639\u0638\u06cc\u0645 \u0644\u0630\u062a \u0628\u0628\u0631\u06cc\u062f. \u0645\u06cc\u0632\u0627\u0646 \u0627\u0641\u0632\u0627\u06cc\u0634 \u062f\u0631 \u0647\u0631 \u0648\u0631\u0648\u062f\u06cc.",
+                    "با ساختن یک زنجیره، از پاداش ها و خروجی های عظیم لذت ببرید. میزان افزایش در هر ورودی.",
                 },
                 {
                   id: 1591,
                   tab_id: 114,
                   name: "father",
-                  translation: "\u067e\u062f\u0631",
+                  translation: "پدر",
                 },
                 {
                   id: 1595,
                   tab_id: 114,
                   name: "mother",
-                  translation: "\u0645\u0627\u062f\u0631",
+                  translation: "مادر",
                 },
                 {
                   id: 1599,
                   tab_id: 114,
                   name: "sister",
-                  translation: "\u062e\u0648\u0627\u0647\u0631",
+                  translation: "خواهر",
                 },
                 {
                   id: 1603,
                   tab_id: 114,
                   name: "brother",
-                  translation: "\u0628\u0631\u0627\u062f\u0631",
+                  translation: "برادر",
                 },
                 {
                   id: 1607,
                   tab_id: 114,
                   name: "child",
-                  translation: "\u0641\u0631\u0632\u0646\u062f",
+                  translation: "فرزند",
                 },
                 {
                   id: 1611,
                   tab_id: 114,
                   name: "husband",
-                  translation: "\u0634\u0648\u0647\u0631",
+                  translation: "شوهر",
                 },
                 {
                   id: 1615,
                   tab_id: 114,
                   name: "female",
-                  translation: "\u0632\u0646",
+                  translation: "زن",
                 },
                 {
                   id: 1619,
                   tab_id: 114,
                   name: "choose a residential property to establish your dynasty.",
                   translation:
-                    "\u06cc\u06a9 \u0645\u0644\u06a9 \u0645\u0633\u06a9\u0648\u0646\u06cc \u0631\u0627 \u0628\u0631\u0627\u06cc \u0627\u06cc\u062c\u0627\u062f \u0633\u0644\u0633\u0644\u0647 \u062e\u0648\u062f \u0627\u0646\u062a\u062e\u0627\u0628 \u06a9\u0646\u06cc\u062f.",
+                    "یک ملک مسکونی را برای ایجاد سلسله خود انتخاب کنید.",
                 },
                 {
                   id: 1623,
                   tab_id: 114,
                   name: "vod id",
-                  translation: "\u0634\u0646\u0627\u0633\u0647 VOD",
+                  translation: "شناسه VOD",
                 },
                 {
                   id: 1627,
                   tab_id: 114,
                   name: "total area",
-                  translation: "\u0645\u0633\u0627\u062d\u062a \u06a9\u0644",
+                  translation: "مساحت کل",
                 },
                 {
                   id: 1631,
                   tab_id: 114,
                   name: "selection and establishment",
-                  translation:
-                    "\u0627\u0646\u062a\u062e\u0627\u0628 \u0648 \u0627\u0633\u062a\u0642\u0631\u0627\u0631",
+                  translation: "انتخاب و استقرار",
                 },
               ],
             },
@@ -4793,186 +4499,169 @@ const resources = {
                   id: 1635,
                   tab_id: 118,
                   name: "citizenship id",
-                  translation:
-                    "\u0634\u0646\u0627\u0633\u0647 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "شناسه شهروندی",
                 },
                 {
                   id: 1639,
                   tab_id: 118,
                   name: "father",
-                  translation: "\u067e\u062f\u0631",
+                  translation: "پدر",
                 },
                 {
                   id: 1643,
                   tab_id: 118,
                   name: "mother",
-                  translation: "\u0645\u0627\u062f\u0631",
+                  translation: "مادر",
                 },
                 {
                   id: 1647,
                   tab_id: 118,
                   name: "sister",
-                  translation: "\u062e\u0648\u0627\u0647\u0631",
+                  translation: "خواهر",
                 },
                 {
                   id: 1651,
                   tab_id: 118,
                   name: "brother",
-                  translation: "\u0628\u0631\u0627\u062f\u0631",
+                  translation: "برادر",
                 },
                 {
                   id: 1655,
                   tab_id: 118,
                   name: "child",
-                  translation: "\u0641\u0631\u0632\u0646\u062f",
+                  translation: "فرزند",
                 },
                 {
                   id: 1659,
                   tab_id: 118,
                   name: "husband",
-                  translation: "\u0634\u0648\u0647\u0631",
+                  translation: "شوهر",
                 },
                 {
                   id: 1663,
                   tab_id: 118,
                   name: "female",
-                  translation: "\u0632\u0646",
+                  translation: "زن",
                 },
                 {
                   id: 1667,
                   tab_id: 118,
                   name: "search for the name or id of the desired citizen",
-                  translation:
-                    "\u0646\u0627\u0645 \u06cc\u0627 \u0634\u0646\u0627\u0633\u0647 \u0634\u0647\u0631\u0648\u0646\u062f \u0645\u0648\u0631\u062f \u0646\u0638\u0631 \u0631\u0627 \u062c\u0633\u062a\u062c\u0648 \u06a9\u0646\u06cc\u062f",
+                  translation: "نام یا شناسه شهروند مورد نظر را جستجو کنید",
                 },
                 {
                   id: 1671,
                   tab_id: 118,
                   name: "ability to buy from metargb store",
-                  translation:
-                    "\u0627\u0645\u06a9\u0627\u0646 \u062e\u0631\u06cc\u062f \u0627\u0632 \u0641\u0631\u0648\u0634\u06af\u0627\u0647 \u0645\u062a\u0627\u0631\u0646\u06af",
+                  translation: "امکان خرید از فروشگاه متارنگ",
                 },
                 {
                   id: 1675,
                   tab_id: 118,
                   name: "the possibility of selling real estate in meta rgb",
-                  translation:
-                    "\u0627\u0645\u06a9\u0627\u0646 \u0641\u0631\u0648\u0634 \u0627\u0645\u0644\u0627\u06a9 \u0648 \u0645\u0633\u062a\u063a\u0644\u0627\u062a \u062f\u0631 \u0645\u062a\u0627\u0631\u0646\u06af",
+                  translation: "امکان فروش املاک و مستغلات در متارنگ",
                 },
                 {
                   id: 1679,
                   tab_id: 118,
                   name: "condition",
-                  translation: "\u0648\u0636\u0639\u06cc\u062a",
+                  translation: "وضعیت",
                 },
                 {
                   id: 1683,
                   tab_id: 118,
                   name: "the possibility of withdrawing capital from meta rgb",
-                  translation:
-                    "\u0627\u0645\u06a9\u0627\u0646 \u0628\u0631\u062f\u0627\u0634\u062a \u0633\u0631\u0645\u0627\u06cc\u0647 \u0627\u0632 \u0645\u062a\u0627\u0631\u0646\u06af",
+                  translation: "امکان برداشت سرمایه از متارنگ",
                 },
                 {
                   id: 1687,
                   tab_id: 118,
                   name: "the possibility of joining the unity",
-                  translation:
-                    "\u0627\u0645\u06a9\u0627\u0646 \u067e\u06cc\u0648\u0633\u062a\u0646 \u0628\u0647 \u0627\u062a\u062d\u0627\u062f",
+                  translation: "امکان پیوستن به اتحاد",
                 },
                 {
                   id: 1691,
                   tab_id: 118,
                   name: "dynasty management capability",
-                  translation:
-                    "\u062a\u0648\u0627\u0646\u0627\u06cc\u06cc \u0645\u062f\u06cc\u0631\u06cc\u062a \u0633\u0644\u0633\u0644\u0647",
+                  translation: "توانایی مدیریت سلسله",
                 },
                 {
                   id: 1695,
                   tab_id: 118,
                   name: "ability to participate in joint unity projects",
-                  translation:
-                    "\u062a\u0648\u0627\u0646\u0627\u06cc\u06cc \u0645\u0634\u0627\u0631\u06a9\u062a \u062f\u0631 \u067e\u0631\u0648\u0698\u0647 \u0647\u0627\u06cc \u0627\u062a\u062d\u0627\u062f\u06cc",
+                  translation: "توانایی مشارکت در پروژه های اتحادی",
                 },
                 {
                   id: 1699,
                   tab_id: 118,
                   name: "ability to participate in challenges",
-                  translation:
-                    "\u062a\u0648\u0627\u0646\u0627\u06cc\u06cc \u0634\u0631\u06a9\u062a \u062f\u0631 \u0686\u0627\u0644\u0634 \u0647\u0627",
+                  translation: "توانایی شرکت در چالش ها",
                 },
                 {
                   id: 1703,
                   tab_id: 118,
                   name: "ability to participate in competitions",
-                  translation:
-                    "\u062a\u0648\u0627\u0646\u0627\u06cc\u06cc \u0634\u0631\u06a9\u062a \u062f\u0631 \u0645\u0633\u0627\u0628\u0642\u0627\u062a",
+                  translation: "توانایی شرکت در مسابقات",
                 },
                 {
                   id: 1707,
                   tab_id: 118,
                   name: "ability to establish a store or office",
-                  translation:
-                    "\u062a\u0648\u0627\u0646\u0627\u06cc\u06cc \u0627\u06cc\u062c\u0627\u062f \u06cc\u06a9 \u0641\u0631\u0648\u0634\u06af\u0627\u0647 \u06cc\u0627 \u062f\u0641\u062a\u0631",
+                  translation: "توانایی ایجاد یک فروشگاه یا دفتر",
                 },
                 {
                   id: 1711,
                   tab_id: 118,
                   name: "ability to cooperate in construction",
-                  translation:
-                    "\u062a\u0648\u0627\u0646\u0627\u06cc\u06cc \u0647\u0645\u06a9\u0627\u0631\u06cc \u062f\u0631 \u0633\u0627\u062e\u062a \u0648 \u0633\u0627\u0632",
+                  translation: "توانایی همکاری در ساخت و ساز",
                 },
                 {
                   id: 1715,
                   tab_id: 118,
                   name: "level",
-                  translation: "\u0633\u0637\u062d",
+                  translation: "سطح",
                 },
                 {
                   id: 1719,
                   tab_id: 118,
                   name: "family dynasty",
-                  translation:
-                    "\u0633\u0644\u0633\u0644\u0647 \u062e\u0627\u0646\u0648\u0627\u062f\u06af\u06cc",
+                  translation: "سلسله خانوادگی",
                 },
                 {
                   id: 1723,
                   tab_id: 118,
                   name: "dynasty property",
-                  translation:
-                    "\u062f\u0627\u0631\u0627\u06cc\u06cc \u0633\u0644\u0633\u0644\u0647",
+                  translation: "دارایی سلسله",
                 },
                 {
                   id: 1727,
                   tab_id: 118,
                   name: "members",
-                  translation: "\u0627\u0639\u0636\u0627\u0621",
+                  translation: "اعضاء",
                 },
                 {
                   id: 1731,
                   tab_id: 118,
                   name: "submitted request",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u0627\u0631\u0633\u0627\u0644 \u0634\u062f\u0647",
+                  translation: "درخواست ارسال شده",
                 },
                 {
                   id: 1735,
                   tab_id: 118,
                   name: "request received",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u062f\u0631\u06cc\u0627\u0641\u062a \u0634\u062f",
+                  translation: "درخواست دریافت شد",
                 },
                 {
                   id: 1739,
                   tab_id: 118,
                   name: "establishment of a dynasty",
-                  translation:
-                    "\u062a\u0623\u0633\u06cc\u0633 \u06cc\u06a9 \u0633\u0644\u0633\u0644\u0647",
+                  translation: "تأسیس یک سلسله",
                 },
                 {
                   id: 1742,
                   tab_id: 118,
                   name: "search",
-                  translation: "\u062c\u0633\u062a\u062c\u0648",
+                  translation: "جستجو",
                 },
               ],
             },
@@ -4985,75 +4674,67 @@ const resources = {
                   id: 1747,
                   tab_id: 122,
                   name: "family dynasty",
-                  translation:
-                    "\u0633\u0644\u0633\u0644\u0647 \u062e\u0627\u0646\u0648\u0627\u062f\u06af\u06cc",
+                  translation: "سلسله خانوادگی",
                 },
                 {
                   id: 1751,
                   tab_id: 122,
                   name: "dynasty property",
-                  translation:
-                    "\u062f\u0627\u0631\u0627\u06cc\u06cc \u0633\u0644\u0633\u0644\u0647",
+                  translation: "دارایی سلسله",
                 },
                 {
                   id: 1755,
                   tab_id: 122,
                   name: "members",
-                  translation: "\u0627\u0639\u0636\u0627\u0621",
+                  translation: "اعضاء",
                 },
                 {
                   id: 1759,
                   tab_id: 122,
                   name: "submitted request",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u0627\u0631\u0633\u0627\u0644 \u0634\u062f\u0647",
+                  translation: "درخواست ارسال شده",
                 },
                 {
                   id: 1763,
                   tab_id: 122,
                   name: "request received",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u062f\u0631\u06cc\u0627\u0641\u062a \u0634\u062f",
+                  translation: "درخواست دریافت شد",
                 },
                 {
                   id: 1767,
                   tab_id: 122,
                   name: "establishment of a dynasty",
-                  translation:
-                    "\u062a\u0623\u0633\u06cc\u0633 \u06cc\u06a9 \u0633\u0644\u0633\u0644\u0647",
+                  translation: "تأسیس یک سلسله",
                 },
                 {
                   id: 1771,
                   tab_id: 122,
                   name: "send to",
-                  translation: "\u0627\u0631\u0633\u0627\u0644 \u0628\u0647",
+                  translation: "ارسال به",
                 },
                 {
                   id: 1775,
                   tab_id: 122,
                   name: "date and time of sending",
-                  translation:
-                    "\u062a\u0627\u0631\u06cc\u062e \u0648 \u0632\u0645\u0627\u0646 \u0627\u0631\u0633\u0627\u0644",
+                  translation: "تاریخ و زمان ارسال",
                 },
                 {
                   id: 1779,
                   tab_id: 122,
                   name: "family relationship",
-                  translation:
-                    "\u0646\u0633\u0628\u062a \u062e\u0627\u0646\u0648\u0627\u062f\u06af\u06cc",
+                  translation: "نسبت خانوادگی",
                 },
                 {
                   id: 1783,
                   tab_id: 122,
                   name: "application status",
-                  translation:
-                    "\u0648\u0636\u0639\u06cc\u062a \u062f\u0631\u062e\u0648\u0627\u0633\u062a",
+                  translation: "وضعیت درخواست",
                 },
                 {
                   id: 1787,
                   tab_id: 122,
                   name: "view",
-                  translation: "\u0645\u0634\u0627\u0647\u062f\u0647",
+                  translation: "مشاهده",
                 },
               ],
             },
@@ -5066,76 +4747,67 @@ const resources = {
                   id: 1791,
                   tab_id: 126,
                   name: "family dynasty",
-                  translation:
-                    "\u0633\u0644\u0633\u0644\u0647 \u062e\u0627\u0646\u0648\u0627\u062f\u06af\u06cc",
+                  translation: "سلسله خانوادگی",
                 },
                 {
                   id: 1795,
                   tab_id: 126,
                   name: "dynasty property",
-                  translation:
-                    "\u062f\u0627\u0631\u0627\u06cc\u06cc \u0633\u0644\u0633\u0644\u0647",
+                  translation: "دارایی سلسله",
                 },
                 {
                   id: 1799,
                   tab_id: 126,
                   name: "members",
-                  translation: "\u0627\u0639\u0636\u0627\u0621",
+                  translation: "اعضاء",
                 },
                 {
                   id: 1803,
                   tab_id: 126,
                   name: "submitted request",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u0627\u0631\u0633\u0627\u0644 \u0634\u062f\u0647",
+                  translation: "درخواست ارسال شده",
                 },
                 {
                   id: 1807,
                   tab_id: 126,
                   name: "request received",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u062f\u0631\u06cc\u0627\u0641\u062a \u0634\u062f",
+                  translation: "درخواست دریافت شد",
                 },
                 {
                   id: 1811,
                   tab_id: 126,
                   name: "establishment of a dynasty",
-                  translation:
-                    "\u062a\u0623\u0633\u06cc\u0633 \u06cc\u06a9 \u0633\u0644\u0633\u0644\u0647",
+                  translation: "تأسیس یک سلسله",
                 },
                 {
                   id: 1815,
                   tab_id: 126,
                   name: "send to",
-                  translation:
-                    "\u062f\u0631\u06cc\u0627\u0641\u062a \u0627\u0632",
+                  translation: "دریافت از",
                 },
                 {
                   id: 1819,
                   tab_id: 126,
                   name: "date and time of sending",
-                  translation:
-                    "\u062a\u0627\u0631\u06cc\u062e \u0648 \u0632\u0645\u0627\u0646 \u0627\u0631\u0633\u0627\u0644",
+                  translation: "تاریخ و زمان ارسال",
                 },
                 {
                   id: 1823,
                   tab_id: 126,
                   name: "family relationship",
-                  translation:
-                    "\u0646\u0633\u0628\u062a \u062e\u0627\u0646\u0648\u0627\u062f\u06af\u06cc",
+                  translation: "نسبت خانوادگی",
                 },
                 {
                   id: 1827,
                   tab_id: 126,
                   name: "application status",
-                  translation:
-                    "\u0648\u0636\u0639\u06cc\u062a \u062f\u0631\u062e\u0648\u0627\u0633\u062a",
+                  translation: "وضعیت درخواست",
                 },
                 {
                   id: 1831,
                   tab_id: 126,
                   name: "view",
-                  translation: "\u0645\u0634\u0627\u0647\u062f\u0647",
+                  translation: "مشاهده",
                 },
               ],
             },
@@ -5148,94 +4820,85 @@ const resources = {
                   id: 1499,
                   tab_id: 130,
                   name: "family dynasty",
-                  translation:
-                    "\u0633\u0644\u0633\u0644\u0647 \u062e\u0627\u0646\u0648\u0627\u062f\u06af\u06cc",
+                  translation: "سلسله خانوادگی",
                 },
                 {
                   id: 1503,
                   tab_id: 130,
                   name: "dynasty property",
-                  translation:
-                    "\u062f\u0627\u0631\u0627\u06cc\u06cc \u0633\u0644\u0633\u0644\u0647",
+                  translation: "دارایی سلسله",
                 },
                 {
                   id: 1507,
                   tab_id: 130,
                   name: "members",
-                  translation: "\u0627\u0639\u0636\u0627\u0621",
+                  translation: "اعضاء",
                 },
                 {
                   id: 1511,
                   tab_id: 130,
                   name: "submitted request",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u0627\u0631\u0633\u0627\u0644 \u0634\u062f\u0647",
+                  translation: "درخواست ارسال شده",
                 },
                 {
                   id: 1515,
                   tab_id: 130,
                   name: "request received",
-                  translation:
-                    "\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u062f\u0631\u06cc\u0627\u0641\u062a \u0634\u062f\u0647",
+                  translation: "درخواست دریافت شده",
                 },
                 {
                   id: 1519,
                   tab_id: 130,
                   name: "dynasty characteristics",
-                  translation:
-                    "\u062e\u0635\u0648\u0635\u06cc\u0627\u062a \u0633\u0644\u0633\u0644\u0647",
+                  translation: "خصوصیات سلسله",
                 },
                 {
                   id: 1523,
                   tab_id: 130,
                   name: "total area",
-                  translation: "\u0645\u0633\u0627\u062d\u062a \u06a9\u0644",
+                  translation: "مساحت کل",
                 },
                 {
                   id: 1527,
                   tab_id: 130,
                   name: "density",
-                  translation: "\u062a\u0631\u0627\u06a9\u0645",
+                  translation: "تراکم",
                 },
                 {
                   id: 1531,
                   tab_id: 130,
                   name: "increased profit from residential real estate",
-                  translation:
-                    "\u0627\u0641\u0632\u0627\u06cc\u0634 \u0633\u0648\u062f \u0627\u0632 \u0627\u0645\u0644\u0627\u06a9 \u0645\u0633\u06a9\u0648\u0646\u06cc",
+                  translation: "افزایش سود از املاک مسکونی",
                 },
                 {
                   id: 1535,
                   tab_id: 130,
                   name: "number of family members",
-                  translation:
-                    "\u062a\u0639\u062f\u0627\u062f \u0627\u0639\u0636\u0627\u06cc \u062e\u0627\u0646\u0648\u0627\u062f\u0647",
+                  translation: "تعداد اعضای خانواده",
                 },
                 {
                   id: 1539,
                   tab_id: 130,
                   name: "ability to transfer property",
-                  translation:
-                    "\u0642\u0627\u0628\u0644\u06cc\u062a \u0627\u0646\u062a\u0642\u0627\u0644 \u0645\u0644\u06a9",
+                  translation: "قابلیت انتقال ملک",
                 },
                 {
                   id: 1543,
                   tab_id: 130,
                   name: "vod id",
-                  translation: "\u0634\u0646\u0627\u0633\u0647 VOD",
+                  translation: "شناسه VOD",
                 },
                 {
                   id: 1547,
                   tab_id: 130,
                   name: "total area",
-                  translation: "\u0645\u0633\u0627\u062d\u062a \u06a9\u0644",
+                  translation: "مساحت کل",
                 },
                 {
                   id: 1551,
                   tab_id: 130,
                   name: "dynasty transfer",
-                  translation:
-                    "\u0627\u0646\u062a\u0642\u0627\u0644 \u0633\u0644\u0633\u0644\u0647",
+                  translation: "انتقال سلسله",
                 },
               ],
             },
@@ -5253,199 +4916,103 @@ const resources = {
                   id: 1911,
                   tab_id: 154,
                   name: "home",
-                  translation: null,
+                  translation: "صفحه نخست",
                 },
                 {
                   id: 1915,
                   tab_id: 154,
                   name: "news",
-                  translation: null,
+                  translation: "اخبار",
                 },
                 {
                   id: 1919,
                   tab_id: 154,
                   name: "articles",
-                  translation: null,
+                  translation: "مقالات",
                 },
                 {
                   id: 1923,
                   tab_id: 154,
                   name: "competitions",
-                  translation: null,
+                  translation: "مسابقات",
                 },
                 {
                   id: 1927,
                   tab_id: 154,
                   name: "trainings",
-                  translation: null,
+                  translation: "آموزش",
                 },
                 {
                   id: 1931,
                   tab_id: 154,
                   name: "about",
-                  translation: null,
+                  translation: "درباره ما",
                 },
                 {
                   id: 1935,
                   tab_id: 154,
                   name: "contact us",
-                  translation: null,
+                  translation: "تماس با ما",
                 },
                 {
                   id: 1939,
                   tab_id: 154,
                   name: "meta rgb",
-                  translation: null,
-                },
-                {
-                  id: 1943,
-                  tab_id: 154,
-                  name: "metaverse rang",
-                  translation: null,
+                  translation: "متارنگ",
                 },
                 {
                   id: 1947,
                   tab_id: 154,
                   name: "log in",
-                  translation: null,
+                  translation: "ورود",
                 },
                 {
                   id: 1951,
                   tab_id: 154,
                   name: "logout",
-                  translation: null,
+                  translation: "خروج",
                 },
                 {
                   id: 1955,
                   tab_id: 154,
                   name: "citizenship page",
-                  translation: null,
+                  translation: "مشخصات شهروندی",
                 },
                 {
                   id: 1959,
                   tab_id: 154,
                   name: "enter the metaverse",
-                  translation: null,
+                  translation: "ورود به متاورس",
                 },
                 {
                   id: 1963,
                   tab_id: 154,
                   name: "language",
-                  translation: null,
+                  translation: "زبان",
                 },
                 {
-                  id: 1968,
+                  id: 3919,
                   tab_id: 154,
                   name: "metaverse rang",
-                  translation: null,
+                  translation: "متاورس رنگ",
                 },
                 {
-                  id: 1976,
+                  id: 3961,
                   tab_id: 154,
-                  name: "copyright",
-                  translation: null,
+                  name: "english",
+                  translation: "انگلیسی",
                 },
                 {
-                  id: 1984,
+                  id: 3975,
                   tab_id: 154,
-                  name: "our networks",
-                  translation: null,
+                  name: "farsi",
+                  translation: "فارسی",
                 },
                 {
-                  id: 1992,
+                  id: 3989,
                   tab_id: 154,
-                  name: "instagram",
-                  translation: null,
-                },
-                {
-                  id: 2000,
-                  tab_id: 154,
-                  name: "telegram",
-                  translation: null,
-                },
-                {
-                  id: 2008,
-                  tab_id: 154,
-                  name: "twitter",
-                  translation: null,
-                },
-                {
-                  id: 2016,
-                  tab_id: 154,
-                  name: "medium",
-                  translation: null,
-                },
-                {
-                  id: 2024,
-                  tab_id: 154,
-                  name: "youtube",
-                  translation: null,
-                },
-                {
-                  id: 2032,
-                  tab_id: 154,
-                  name: "filo",
-                  translation: null,
-                },
-                {
-                  id: 2040,
-                  tab_id: 154,
-                  name: "mp4",
-                  translation: null,
-                },
-                {
-                  id: 2048,
-                  tab_id: 154,
-                  name: "aparat",
-                  translation: null,
-                },
-                {
-                  id: 2056,
-                  tab_id: 154,
-                  name: "namasha",
-                  translation: null,
-                },
-                {
-                  id: 2064,
-                  tab_id: 154,
-                  name: "dalfak",
-                  translation: null,
-                },
-                {
-                  id: 2072,
-                  tab_id: 154,
-                  name: "faq",
-                  translation: null,
-                },
-                {
-                  id: 2080,
-                  tab_id: 154,
-                  name: "uni",
-                  translation: null,
-                },
-                {
-                  id: 2088,
-                  tab_id: 154,
-                  name: "virgool",
-                  translation: null,
-                },
-                {
-                  id: 2096,
-                  tab_id: 154,
-                  name: "linkedin",
-                  translation: null,
-                },
-                {
-                  id: 2104,
-                  tab_id: 154,
-                  name: "facebook",
-                  translation: null,
-                },
-                {
-                  id: 2112,
-                  tab_id: 154,
-                  name: "namayesh",
-                  translation: null,
+                  name: "arabic",
+                  translation: "عربی",
                 },
               ],
             },
@@ -5460,124 +5027,28 @@ const resources = {
               name: "landing",
               fields: [
                 {
-                  id: 1971,
+                  id: 3923,
                   tab_id: 158,
                   name: "metaverse rang",
-                  translation:
-                    "\u0645\u062a\u0627\u0648\u0631\u0633 \u0631\u0646\u06af",
+                  translation: null,
                 },
                 {
-                  id: 1979,
+                  id: 3965,
                   tab_id: 158,
-                  name: "copyright",
-                  translation:
-                    "\u062d\u0642\u0648\u0642 \u0633\u0627\u062e\u062a\u0627\u0631 \u0627\u06cc\u0646 \u0628\u0633\u062a\u0631 \u062b\u0628\u062a \u0634\u062f\u0647 \u0627\u0633\u062a . \u062f\u0631\u0635\u0648\u0631\u062a \u06a9\u067e\u06cc \u0645\u0637\u0627\u0644\u0628 \u0645\u06cc\u0628\u0627\u06cc\u0633\u062a \u0645\u0646\u0628\u0639 \u0631\u0627 \u0630\u06a9\u0631 \u06a9\u0646\u06cc\u062f \u060c \u062a\u062d\u062a \u062d\u0645\u0627\u06cc\u062a \u0642\u0648\u0647 \u0642\u0636\u0627\u06cc\u06cc\u0647 \u060c \u0648\u0632\u0627\u0631\u062a \u062a\u0639\u0627\u0648\u0646 .",
+                  name: "english",
+                  translation: null,
                 },
                 {
-                  id: 1987,
+                  id: 3979,
                   tab_id: 158,
-                  name: "our networks",
-                  translation:
-                    "\u0634\u0628\u06a9\u0647 \u0647\u0627\u06cc \u0645\u0627",
+                  name: "farsi",
+                  translation: null,
                 },
                 {
-                  id: 1995,
+                  id: 3993,
                   tab_id: 158,
-                  name: "instagram",
-                  translation:
-                    "\u0627\u06cc\u0646\u0633\u062a\u0627\u06af\u0631\u0627\u0645",
-                },
-                {
-                  id: 2003,
-                  tab_id: 158,
-                  name: "telegram",
-                  translation: "\u062a\u0644\u06af\u0631\u0627\u0645",
-                },
-                {
-                  id: 2011,
-                  tab_id: 158,
-                  name: "twitter",
-                  translation: "\u062a\u0648\u06cc\u062a\u0631",
-                },
-                {
-                  id: 2019,
-                  tab_id: 158,
-                  name: "medium",
-                  translation: "\u0645\u062f\u06cc\u0648\u0645",
-                },
-                {
-                  id: 2027,
-                  tab_id: 158,
-                  name: "youtube",
-                  translation: "\u06cc\u0648\u062a\u0648\u0628",
-                },
-                {
-                  id: 2035,
-                  tab_id: 158,
-                  name: "filo",
-                  translation: "\u0641\u06cc\u0644\u0648",
-                },
-                {
-                  id: 2043,
-                  tab_id: 158,
-                  name: "mp4",
-                  translation: "\u0627\u0645 \u067e\u06cc \u0641\u0648\u0631",
-                },
-                {
-                  id: 2051,
-                  tab_id: 158,
-                  name: "aparat",
-                  translation: "\u0622\u067e\u0627\u0631\u0627\u062a",
-                },
-                {
-                  id: 2059,
-                  tab_id: 158,
-                  name: "namasha",
-                  translation: "\u0646\u0645\u0627\u0634\u0627",
-                },
-                {
-                  id: 2067,
-                  tab_id: 158,
-                  name: "dalfak",
-                  translation: "\u062f\u0627\u0644\u0641\u06a9",
-                },
-                {
-                  id: 2075,
-                  tab_id: 158,
-                  name: "faq",
-                  translation:
-                    "\u0627\u0646\u062c\u0645\u0646 \u0645\u062a\u0627\u0648\u0631\u0633",
-                },
-                {
-                  id: 2083,
-                  tab_id: 158,
-                  name: "uni",
-                  translation:
-                    "\u062f\u0627\u0646\u0634\u06af\u0627\u0647 \u0645\u062a\u0627\u0648\u0631\u0633",
-                },
-                {
-                  id: 2091,
-                  tab_id: 158,
-                  name: "virgool",
-                  translation: "\u0648\u06cc\u0631\u06af\u0648\u0644",
-                },
-                {
-                  id: 2099,
-                  tab_id: 158,
-                  name: "linkedin",
-                  translation: "\u0644\u06cc\u0646\u06a9\u062f\u06cc\u0646",
-                },
-                {
-                  id: 2107,
-                  tab_id: 158,
-                  name: "facebook",
-                  translation: "\u0641\u06cc\u0633\u0628\u0648\u06a9",
-                },
-                {
-                  id: 2115,
-                  tab_id: 158,
-                  name: "namayesh",
-                  translation: "\u0646\u0645\u0627\u06cc\u0634",
+                  name: "arabic",
+                  translation: null,
                 },
               ],
             },
@@ -5590,126 +5061,109 @@ const resources = {
                   id: 2151,
                   tab_id: 162,
                   name: "ministry of cooperation license",
-                  translation:
-                    "\u0645\u062c\u0648\u0632 \u0648\u0632\u0627\u0631\u062a \u062a\u0639\u0627\u0648\u0646",
+                  translation: "مجوز وزارت تعاون",
                 },
                 {
                   id: 2155,
                   tab_id: 162,
                   name: "judiciary authority license",
-                  translation:
-                    "\u0645\u062c\u0648\u0632 \u0627\u0632 \u0642\u0648\u0647 \u0642\u0636\u0627\u067e\u06cc\u0647",
+                  translation: "مجوز از قوه قضاپیه",
                 },
                 {
                   id: 2159,
                   tab_id: 162,
                   name: "video training center",
-                  translation:
-                    "\u0645\u0631\u06a9\u0632 \u0622\u0645\u0648\u0632\u0634 \u0648\u06cc\u062f\u06cc\u0648\u06cc\u06cc",
+                  translation: "مرکز آموزش ویدیویی",
                 },
                 {
                   id: 2163,
                   tab_id: 162,
                   name: "q&q forum",
-                  translation:
-                    "\u0627\u0646\u062c\u0645\u0646 \u067e\u0631\u0633\u0634 \u0648 \u067e\u0627\u0633\u062e",
+                  translation: "انجمن پرسش و پاسخ",
                 },
                 {
                   id: 2167,
                   tab_id: 162,
                   name: "national store",
-                  translation:
-                    "\u0641\u0631\u0648\u0634\u06af\u0627\u0647 \u0645\u0644\u06cc",
+                  translation: "فروشگاه ملی",
                 },
                 {
                   id: 2171,
                   tab_id: 162,
                   name: "iranian producers",
-                  translation:
-                    "\u062a\u0648\u0644\u06cc\u062f \u06a9\u0646\u0646\u062f\u06af\u0627\u0646 \u0627\u06cc\u0631\u0627\u0646",
+                  translation: "تولید کنندگان ایران",
                 },
                 {
                   id: 2175,
                   tab_id: 162,
                   name: "management system for managers",
-                  translation:
-                    "\u0633\u0627\u0645\u0627\u0646\u0647 \u0645\u062f\u06cc\u0631\u06cc\u062a \u0628\u0631 \u0645\u062f\u06cc\u0631\u0627\u0646",
+                  translation: "سامانه مدیریت بر مدیران",
                 },
                 {
                   id: 2179,
                   tab_id: 162,
                   name: "target system",
-                  translation:
-                    "\u0633\u0627\u0645\u0627\u0646\u0647 \u0647\u062f\u0641",
+                  translation: "سامانه هدف",
                 },
                 {
                   id: 2183,
                   tab_id: 162,
                   name: "animal system",
-                  translation:
-                    "\u0633\u0627\u0645\u0627\u0646\u0647 \u062d\u06cc\u0648\u0627\u0646\u0627\u062a",
+                  translation: "سامانه حیوانات",
                 },
                 {
                   id: 2187,
                   tab_id: 162,
                   name: "structure center",
-                  translation:
-                    "\u0645\u0631\u06a9\u0632 \u0633\u0627\u062e\u062a\u0627\u0631",
+                  translation: "مرکز ساختار",
                 },
                 {
                   id: 2191,
                   tab_id: 162,
                   name: "meta news",
-                  translation:
-                    "\u0627\u062e\u0628\u0627\u0631 \u0645\u062a\u0627",
+                  translation: "اخبار متا",
                 },
                 {
                   id: 2195,
                   tab_id: 162,
                   name: "metaverse university",
-                  translation:
-                    "\u062f\u0627\u0646\u0634\u06af\u0627\u0647 \u0645\u062a\u0627\u0648\u0631\u0633",
+                  translation: "دانشگاه متاورس",
                 },
                 {
                   id: 2199,
                   tab_id: 162,
                   name: "knowledge-centric system",
-                  translation:
-                    "\u0633\u0627\u0645\u0627\u0646\u0647 \u062f\u0627\u0646\u0634 \u0645\u062d\u0648\u0631",
+                  translation: "سامانه دانش محور",
                 },
                 {
                   id: 2203,
                   tab_id: 162,
                   name: "it services system",
-                  translation:
-                    "\u0633\u0627\u0645\u0627\u0646\u0647 \u062e\u062f\u0645\u0627\u062a IT",
+                  translation: "سامانه خدمات IT",
                 },
                 {
                   id: 2207,
                   tab_id: 162,
                   name: "national advertising",
-                  translation:
-                    "\u062a\u0628\u0644\u06cc\u063a\u0627\u062a \u0645\u0644\u06cc",
+                  translation: "تبلیغات ملی",
                 },
                 {
                   id: 2211,
                   tab_id: 162,
                   name: "nft marketplace",
-                  translation: "\u0628\u0627\u0632\u0627\u0631 NFT",
+                  translation: "بازار NFT",
                 },
                 {
                   id: 2215,
                   tab_id: 162,
                   name: "metaverse color",
-                  translation:
-                    "\u0645\u062a\u0627\u0648\u0631\u0633 \u0631\u0646\u06af",
+                  translation: "متاورس رنگ",
                 },
                 {
                   id: 2219,
                   tab_id: 162,
                   name: "real estate and properties",
-                  translation:
-                    "\u0627\u0645\u0644\u0627\u06a9 \u0648 \u0645\u0633\u062a\u063a\u0644\u0627\u062a",
+                  translation: "املاک و مستغلات",
                 },
               ],
             },
@@ -5727,28 +5181,25 @@ const resources = {
                   id: 3345,
                   tab_id: 291,
                   name: "access level",
-                  translation:
-                    "\u0633\u0637\u062d \u062f\u0633\u062a\u0631\u0633\u06cc",
+                  translation: "سطح دسترسی",
                 },
                 {
                   id: 3352,
                   tab_id: 291,
                   name: "unauthorized ip",
-                  translation:
-                    "\u0622\u06cc \u067e\u06cc \u063a\u06cc\u0631\u0645\u062c\u0627\u0632",
+                  translation: "آی پی غیرمجاز",
                 },
                 {
                   id: 3359,
                   tab_id: 291,
                   name: "your IP is known",
-                  translation:
-                    "IP \u0634\u0645\u0627 \u063a\u06cc\u0631 \u0627\u06cc\u0631\u0627\u0646\u06cc \u0634\u0646\u0627\u062e\u062a\u0647 \u0634\u062f\u0647 \u0627\u0633\u062a",
+                  translation: "IP شما غیر ایرانی شناخته شده است",
                 },
                 {
                   id: 3366,
                   tab_id: 291,
                   name: "if you use a",
-                  translation: "\u0627\u06af\u0631 \u0627\u0632",
+                  translation: "اگر از",
                 },
                 {
                   id: 3373,
@@ -5760,49 +5211,43 @@ const resources = {
                   id: 3604,
                   tab_id: 291,
                   name: "otherwise, click",
-                  translation:
-                    "\u062f\u0631 \u063a\u06cc\u0631\u0627\u06cc\u0646 \u0635\u0648\u0631\u062a \u0631\u0648\u06cc \u06af\u0632\u06cc\u0646\u0647 \u0632\u06cc\u0631 \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u06cc\u062f",
+                  translation: "در غیراین صورت روی گزینه زیر کلیک کنید",
                 },
                 {
                   id: 3611,
                   tab_id: 291,
                   name: "ip authorization",
-                  translation:
-                    "\u0645\u062c\u0627\u0632 \u0633\u0627\u0632\u06cc IP",
+                  translation: "مجاز سازی IP",
                 },
                 {
                   id: 3618,
                   tab_id: 291,
                   name: "for more information",
-                  translation:
-                    "\u0628\u0631\u0627\u06cc \u06a9\u0633\u0628 \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0628\u06cc\u0634\u062a\u0631 \u0648 \u067e\u0627\u0633\u062e \u0628\u0647 \u0633\u0648\u0627\u0644\u0627\u062a\u060c \u0627\u0632",
+                  translation: "برای کسب اطلاعات بیشتر و پاسخ به سوالات، از",
                 },
                 {
                   id: 3625,
                   tab_id: 291,
                   name: "visit the",
-                  translation:
-                    "\u062f\u06cc\u062f\u0646 \u0646\u0645\u0627\u06cc\u06cc\u062f.",
+                  translation: "دیدن نمایید.",
                 },
                 {
                   id: 3632,
                   tab_id: 291,
                   name: "website",
-                  translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
+                  translation: "وبسایت",
                 },
                 {
                   id: 3870,
                   tab_id: 291,
                   name: "turn it off",
-                  translation:
-                    "\u0627\u0633\u062a\u0641\u0627\u062f\u0647 \u0645\u06cc\u06a9\u0646\u06cc\u062f \u0622\u0646 \u0631\u0627 \u062e\u0627\u0645\u0648\u0634 \u06a9\u0631\u062f\u0647",
+                  translation: "استفاده میکنید آن را خاموش کرده",
                 },
                 {
                   id: 3877,
                   tab_id: 291,
                   name: "then reload the page",
-                  translation:
-                    "\u0633\u067e\u0633 \u0635\u0641\u062d\u0647 \u0631\u0627 \u0645\u062c\u062f\u062f \u0628\u0627\u0631\u06af\u0630\u0627\u0631\u06cc \u06a9\u0646\u06cc\u062f",
+                  translation: "سپس صفحه را مجدد بارگذاری کنید",
                 },
               ],
             },
@@ -5815,84 +5260,73 @@ const resources = {
                   id: 3296,
                   tab_id: 298,
                   name: "access level",
-                  translation:
-                    "\u0633\u0637\u062d \u062f\u0633\u062a\u0631\u0633\u06cc",
+                  translation: "سطح دسترسی",
                 },
                 {
                   id: 3303,
                   tab_id: 298,
                   name: "check ip status",
-                  translation:
-                    "\u0628\u0631\u0631\u0633\u06cc \u0648\u0636\u0639\u06cc\u062a IP",
+                  translation: "بررسی وضعیت IP",
                 },
                 {
                   id: 3310,
                   tab_id: 298,
                   name: "time required 24 hours",
-                  translation:
-                    "\u0632\u0645\u0627\u0646 \u0645\u0648\u0631\u062f \u0646\u06cc\u0627\u0632 24 \u0633\u0627\u0639\u062a",
+                  translation: "زمان مورد نیاز 24 ساعت",
                 },
                 {
                   id: 3317,
                   tab_id: 298,
                   name: "to inform about",
-                  translation:
-                    "\u062c\u0647\u062a \u0627\u0637\u0644\u0627\u0639 \u0631\u0633\u0627\u0646\u06cc \u0627\u0632 \u0634\u0631\u062d \u0627\u0642\u062f\u0627\u0645\u0627\u062a",
+                  translation: "جهت اطلاع رسانی از شرح اقدامات",
                 },
                 {
                   id: 3639,
                   tab_id: 298,
                   name: "enter your email below",
-                  translation:
-                    "\u0627\u06cc\u0645\u06cc\u0644 \u062e\u0648\u062f \u0631\u0627 \u062f\u0631 \u06a9\u0627\u062f\u0631 \u0632\u06cc\u0631 \u0648\u0627\u0631\u062f \u06a9\u0646\u06cc\u062f",
+                  translation: "ایمیل خود را در کادر زیر وارد کنید",
                 },
                 {
                   id: 3646,
                   tab_id: 298,
                   name: "enter your email",
-                  translation:
-                    "\u0627\u06cc\u0645\u06cc\u0644 \u062e\u0648\u062f \u0631\u0627 \u0648\u0627\u0631\u062f \u06a9\u0646\u06cc\u062f",
+                  translation: "ایمیل خود را وارد کنید",
                 },
                 {
                   id: 3653,
                   tab_id: 298,
                   name: "the email entered is not valid",
-                  translation:
-                    "\u0627\u06cc\u0645\u06cc\u0644 \u0648\u0627\u0631\u062f \u0634\u062f\u0647 \u0645\u0639\u062a\u0628\u0631 \u0646\u06cc\u0633\u062a",
+                  translation: "ایمیل وارد شده معتبر نیست",
                 },
                 {
                   id: 3660,
                   tab_id: 298,
                   name: "let me know",
-                  translation:
-                    "\u0645\u0631\u0627 \u062e\u0628\u0631\u06a9\u0646",
+                  translation: "مرا خبرکن",
                 },
                 {
                   id: 3667,
                   tab_id: 298,
                   name: "for more information",
-                  translation:
-                    "\u0628\u0631\u0627\u06cc \u06a9\u0633\u0628 \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0628\u06cc\u0634\u062a\u0631 \u0648 \u067e\u0627\u0633\u062e \u0628\u0647 \u0633\u0648\u0627\u0644\u0627\u062a\u060c \u0627\u0632",
+                  translation: "برای کسب اطلاعات بیشتر و پاسخ به سوالات، از",
                 },
                 {
                   id: 3674,
                   tab_id: 298,
                   name: "visit the",
-                  translation:
-                    "\u062f\u06cc\u062f\u0646 \u0646\u0645\u0627\u06cc\u06cc\u062f.",
+                  translation: "دیدن نمایید.",
                 },
                 {
                   id: 3681,
                   tab_id: 298,
                   name: "website",
-                  translation: "\u0648\u0628\u0633\u0627\u06cc\u062a",
+                  translation: "وبسایت",
                 },
                 {
                   id: 3891,
                   tab_id: 298,
                   name: "your email has been registered",
-                  translation:
-                    "\u0627\u06cc\u0645\u06cc\u0644 \u0634\u0645\u0627 \u062b\u0628\u062a \u0634\u062f\u0647 \u0627\u0633\u062a",
+                  translation: "ایمیل شما ثبت شده است",
                 },
               ],
             },
@@ -5910,162 +5344,182 @@ const resources = {
                   id: 3688,
                   tab_id: 312,
                   name: "meta rgb",
-                  translation: "\u0645\u062a\u0627 \u0631\u0646\u06af",
-                },
-                {
-                  id: 3695,
-                  tab_id: 312,
-                  name: "metaverse rang",
-                  translation:
-                    "\u0645\u062a\u0627\u0648\u0631\u0633 \u0631\u0646\u06af",
+                  translation: "متا رنگ",
                 },
                 {
                   id: 3702,
                   tab_id: 312,
                   name: "sign out",
-                  translation:
-                    "\u062e\u0631\u0648\u062c \u0627\u0632 \u062d\u0633\u0627\u0628 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "خروج از حساب شهروندی",
                 },
                 {
                   id: 3709,
                   tab_id: 312,
                   name: "account security",
-                  translation:
-                    "\u0627\u0645\u0646\u06cc\u062a \u062d\u0633\u0627\u0628 \u0634\u0647\u0631\u0648\u0646\u062f\u06cc",
+                  translation: "امنیت حساب شهروندی",
                 },
                 {
                   id: 3716,
                   tab_id: 312,
                   name: "challenges",
-                  translation: "\u0686\u0627\u0644\u0634 \u0647\u0627",
+                  translation: "چالش ها",
                 },
                 {
                   id: 3723,
                   tab_id: 312,
                   name: "central search",
-                  translation:
-                    "\u062c\u0633\u062a\u062c\u0648\u06cc \u0645\u0631\u06a9\u0632\u06cc",
+                  translation: "جستجوی مرکزی",
                 },
                 {
                   id: 3730,
                   tab_id: 312,
                   name: "global statistics",
-                  translation:
-                    "\u0622\u0645\u0627\u0631 \u0633\u0631\u0627\u0633\u0631\u06cc",
+                  translation: "آمار سراسری",
                 },
                 {
                   id: 3737,
                   tab_id: 312,
                   name: "family tree",
-                  translation:
-                    "\u0633\u0644\u0633\u0644\u0647 \u062e\u0627\u0646\u0648\u0627\u062f\u06af\u06cc",
+                  translation: "سلسله خانوادگی",
                 },
                 {
                   id: 3744,
                   tab_id: 312,
                   name: "vod guide",
-                  translation: "\u0631\u0627\u0647\u0646\u0645\u0627\u06cc VOD",
+                  translation: "راهنمای VOD",
                 },
                 {
                   id: 3751,
                   tab_id: 312,
                   name: "accumulated earnings",
-                  translation:
-                    "\u0633\u0648\u062f \u0627\u0646\u0628\u0627\u0634\u062a\u0647",
+                  translation: "سود انباشته",
                 },
                 {
                   id: 3758,
                   tab_id: 312,
                   name: "identify verification",
-                  translation:
-                    "\u0627\u062d\u0631\u0627\u0632 \u0647\u0648\u06cc\u062a",
+                  translation: "احراز هویت",
                 },
                 {
                   id: 3765,
                   tab_id: 312,
                   name: "calendar",
-                  translation: "\u062a\u0642\u0648\u06cc\u0645",
+                  translation: "تقویم",
                 },
                 {
                   id: 3772,
                   tab_id: 312,
                   name: "store",
-                  translation: "\u0641\u0631\u0648\u0634\u06af\u0627\u0647",
+                  translation: "فروشگاه",
                 },
                 {
                   id: 3779,
                   tab_id: 312,
                   name: "notifications",
-                  translation: "\u0627\u0639\u0644\u0627\u0646 \u0647\u0627",
+                  translation: "اعلان ها",
                 },
                 {
                   id: 3786,
                   tab_id: 312,
                   name: "reports",
-                  translation: "\u06af\u0632\u0627\u0631\u0634\u0627\u062a",
+                  translation: "گزارشات",
                 },
                 {
                   id: 3793,
                   tab_id: 312,
                   name: "language",
-                  translation: "\u0632\u0628\u0627\u0646",
+                  translation: "زبان",
                 },
                 {
                   id: 3800,
                   tab_id: 312,
                   name: "dark mode",
-                  translation: "\u062a\u06cc\u0631\u0647",
+                  translation: "تیره",
                 },
                 {
                   id: 3807,
                   tab_id: 312,
                   name: "light mode",
-                  translation: "\u0631\u0648\u0634\u0646",
+                  translation: "روشن",
                 },
                 {
                   id: 3814,
                   tab_id: 312,
                   name: "send document",
-                  translation:
-                    "\u0627\u0631\u0633\u0627\u0644 \u0633\u0646\u062f",
+                  translation: "ارسال سند",
                 },
                 {
                   id: 3821,
                   tab_id: 312,
                   name: "chat",
-                  translation: "\u06af\u0641\u062a\u06af\u0648",
+                  translation: "گفتگو",
                 },
                 {
                   id: 3828,
                   tab_id: 312,
                   name: "profile",
-                  translation: "\u067e\u0631\u0648\u0641\u0627\u06cc\u0644",
+                  translation: "پروفایل",
                 },
                 {
                   id: 3835,
                   tab_id: 312,
                   name: "share",
-                  translation:
-                    "\u0627\u0634\u062a\u0631\u0627\u06a9 \u06af\u0630\u0627\u0631\u06cc",
+                  translation: "اشتراک گذاری",
                 },
                 {
                   id: 3842,
                   tab_id: 312,
                   name: "dynasty",
-                  translation: "\u0633\u0644\u0633\u0644\u0647",
+                  translation: "سلسله",
                 },
                 {
                   id: 3849,
                   tab_id: 312,
                   name: "unity",
-                  translation: "\u0627\u062a\u062d\u0627\u062f",
+                  translation: "اتحاد",
                 },
                 {
                   id: 3856,
                   tab_id: 312,
                   name: "visit portfolio",
-                  translation:
-                    "\u0645\u0634\u0627\u0647\u062f\u0647 \u0646\u0645\u0648\u0646\u0647 \u06a9\u0627\u0631\u0647\u0627",
+                  translation: "مشاهده نمونه کارها",
+                },
+                {
+                  id: 3954,
+                  tab_id: 312,
+                  name: "citizenship profile",
+                  translation: "مشخصات شهروندی",
+                },
+              ],
+            },
+            {
+              id: 319,
+              modal_id: 118,
+              name: "before-login",
+              fields: [
+                {
+                  id: 3898,
+                  tab_id: 319,
+                  name: "complete list",
+                  translation: "لیست کامل",
+                },
+                {
+                  id: 3905,
+                  tab_id: 319,
+                  name: "people online",
+                  translation: "نفرات آنلاین",
+                },
+                {
+                  id: 3912,
+                  tab_id: 319,
+                  name: "entrance fee",
+                  translation: "هزینه ورودی",
+                },
+                {
+                  id: 4003,
+                  tab_id: 319,
+                  name: "complete list",
+                  translation: "لیست کامل",
                 },
               ],
             },

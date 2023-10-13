@@ -7,6 +7,8 @@ import Ticket from "../../../Assets/svg/ticket.svg";
 import Setting from "../../../Assets/svg/setting.svg";
 import { ReactComponent as FollowingIcon } from "../../../Assets/svg/following.svg";
 import { useState } from "react";
+import useRequest from "../../../Services/Hooks/useRequest";
+import { useLayoutEffect } from "react";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
@@ -61,32 +63,65 @@ const Text = styled.p`
   text-transform: capitalize;
 `;
 const Follower = () => {
-  const [isOpenDrop, SetIsOpenDrop] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState({});
+  const [following, setFollowing] = useState([]);
+  const { Request, HTTP_METHOD } = useRequest();
   const { isOpen } = useMenuContext();
+
+  useLayoutEffect(() => {
+    Request("following", HTTP_METHOD.GET)
+      .then((response) => {
+        setFollowing(response.data.data);
+        // Initialize dropdown states
+        const initialDropdowns = {};
+        response.data.data.forEach((user) => {
+          initialDropdowns[user.id] = false; // Assuming user has an 'id' property
+        });
+        setOpenDropdowns(initialDropdowns);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch following data:", error);
+      });
+  }, []);
+
+  const toggleDropdown = (userId) => {
+    setOpenDropdowns((prevState) => ({
+      ...prevState,
+      [userId]: !prevState[userId],
+    }));
+  };
+
   return (
     <>
-      <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
-        <IconHeader isOpenDrop={isOpenDrop} />
-        <Text isOpen={isOpen}>دنبال شوندگان</Text>
-      </Btn>
-      <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
-        <BtnNavigator>
-          <Icon src={Ticket} />
-          ارسال سند
-        </BtnNavigator>
-        <BtnNavigator>
-          <Icon src={Message} />
-          گفتگو
-        </BtnNavigator>
-        <BtnNavigator>
-          <Icon src={ProfileMember} />
-          پروفایل
-        </BtnNavigator>
-        <BtnNavigator>
-          <Icon src={Setting} />
-          تنظیمات
-        </BtnNavigator>
-      </SubMenu>
+      {following.map((user) => (
+        <React.Fragment key={user.id}>
+          <Btn
+            isOpenDrop={openDropdowns[user.id]}
+            onClick={() => toggleDropdown(user.id)}
+          >
+            <IconHeader isOpenDrop={openDropdowns[user.id]} />
+            <Text isOpen={isOpen}>{user?.name}</Text>
+          </Btn>
+          <SubMenu isOpenDrop={openDropdowns[user.id]} isOpen={isOpen}>
+            <BtnNavigator>
+              <Icon src={Ticket} />
+              ارسال سند
+            </BtnNavigator>
+            <BtnNavigator>
+              <Icon src={Message} />
+              گفتگو
+            </BtnNavigator>
+            <BtnNavigator>
+              <Icon src={ProfileMember} />
+              پروفایل
+            </BtnNavigator>
+            <BtnNavigator>
+              <Icon src={Setting} />
+              تنظیمات
+            </BtnNavigator>
+          </SubMenu>
+        </React.Fragment>
+      ))}
     </>
   );
 };

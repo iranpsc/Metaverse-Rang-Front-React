@@ -7,6 +7,7 @@ import Ticket from "../../../Assets/svg/ticket.svg";
 import Setting from "../../../Assets/svg/setting.svg";
 import { ReactComponent as FollowingIcon } from "../../../Assets/svg/following.svg";
 import { useState } from "react";
+import Follower from "./Follower";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
@@ -86,6 +87,7 @@ const Fallowing = () => {
           <Icon src={Setting} />
           تنظیمات
         </BtnNavigator>
+        <Follower />
       </SubMenu>
     </>
   );

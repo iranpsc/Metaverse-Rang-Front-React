@@ -12,9 +12,30 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: fit-content;
+  height: ${(props) => (props.isOpenDrop ? "170%" : "fit-content")};
   text-decoration: none;
   transition: all 0.5s ease-out;
+  padding: 10px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.scrollBg};
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.scrollColor};
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
 `;
 
 const Btn = styled.button`
@@ -78,7 +99,7 @@ const Profile = () => {
   const [isOpenDrop, SetIsOpenDrop] = useState(false);
   const { isOpen } = useMenuContext();
   return (
-    <Container>
+    <Container isOpenDrop={isOpenDrop}>
       <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
         <Text isOpen={isOpen}>منو اصلی</Text>
         <img

@@ -64,7 +64,7 @@ const Dynasty = () => {
   const { isOpen } = useMenuContext();
   return (
     <>
-      <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
+      <Btn isOpenDrop={isOpenDrop}>
         <IconHeader isOpenDrop={isOpenDrop} />
         <Text isOpen={isOpen}>سلسله</Text>
       </Btn>

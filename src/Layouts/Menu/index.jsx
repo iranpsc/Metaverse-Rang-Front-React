@@ -5,6 +5,9 @@ import Profile from "./Profile";
 import BtnsMenu from "./BtnsMenu";
 import ThemesBtn from "./ThemesBtn";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
+import PrivateComponent from "../../Middleware/PrivateComponent";
+import PublicComponent from "../../Middleware/PublicComponent";
+import BtnsAfterLogin from "./BtnsAfterLogin";
 
 const Container = styled.div`
   display: flex;
@@ -50,9 +53,16 @@ const Menu = () => {
   return (
     <Container isOpen={isOpen}>
       <Header />
-      <Profile />
+      <PrivateComponent>
+        <Profile />
+      </PrivateComponent>
       <Line />
-      <BtnsMenu />
+      <PublicComponent>
+        <BtnsAfterLogin />
+      </PublicComponent>
+      <PrivateComponent>
+        <BtnsMenu />
+      </PrivateComponent>
       <Line />
       <ThemesBtn />
       <BtnOpenCloseMenu onClick={toggleMenu} />
