@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { useMenuContext } from "../../Services/Reducers/MenuContext";
-import Message from "../../Assets/svg/message.svg";
-import ProfileMember from "../../Assets/svg/profileMember.svg";
-import Ticket from "../../Assets/svg/ticket.svg";
-import Setting from "../../Assets/svg/setting.svg";
+import { useMenuContext } from "../../../Services/Reducers/MenuContext";
+import Message from "../../../Assets/svg/message.svg";
+import ProfileMember from "../../../Assets/svg/profileMember.svg";
+import Ticket from "../../../Assets/svg/ticket.svg";
+import Setting from "../../../Assets/svg/setting.svg";
+import { ReactComponent as DynastyIcon } from "../../../Assets/svg/dynasty.svg";
 import { useState } from "react";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
@@ -52,14 +53,20 @@ const Text = styled.p`
   line-height: 180%;
   text-transform: capitalize;
 `;
-const Fallowing = () => {
+const IconHeader = styled(DynastyIcon)`
+  width: 22px;
+  height: 22px;
+  fill: ${(props) =>
+    props.isOpenDrop ? "white" : props.theme.btnActiveThemeText};
+`;
+const Dynasty = () => {
   const [isOpenDrop, SetIsOpenDrop] = useState(false);
   const { isOpen } = useMenuContext();
   return (
     <>
       <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
-        <Text isOpen={isOpen}>دنبال شوندگان</Text>
-        <Icon src={Ticket} />
+        <IconHeader isOpenDrop={isOpenDrop} />
+        <Text isOpen={isOpen}>سلسله</Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
         <BtnNavigator>
@@ -83,4 +90,4 @@ const Fallowing = () => {
   );
 };
 
-export default Fallowing;
+export default Dynasty;

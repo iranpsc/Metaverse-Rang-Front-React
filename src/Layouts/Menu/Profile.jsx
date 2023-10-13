@@ -5,9 +5,9 @@ import ProfileMember from "../../Assets/svg/profileMember.svg";
 import Ticket from "../../Assets/svg/ticket.svg";
 import Setting from "../../Assets/svg/setting.svg";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
-import Fallowing from "./Fallowing";
-import Dynasty from "./Dynasty";
-import Union from "./Union";
+import Fallowing from "./Following/Fallowing";
+import Dynasty from "./Dynasty/Dynasty";
+import Union from "./Union/Union";
 const Container = styled.div`
   display: flex;
   flex-direction: column;

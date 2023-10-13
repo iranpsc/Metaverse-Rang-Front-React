@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { useMenuContext } from "../../Services/Reducers/MenuContext";
-import Message from "../../Assets/svg/message.svg";
-import ProfileMember from "../../Assets/svg/profileMember.svg";
-import Ticket from "../../Assets/svg/ticket.svg";
-import Setting from "../../Assets/svg/setting.svg";
+import { useMenuContext } from "../../../Services/Reducers/MenuContext";
+import Message from "../../../Assets/svg/message.svg";
+import ProfileMember from "../../../Assets/svg/profileMember.svg";
+import Ticket from "../../../Assets/svg/ticket.svg";
+import Setting from "../../../Assets/svg/setting.svg";
+import { ReactComponent as FollowingIcon } from "../../../Assets/svg/following.svg";
 import { useState } from "react";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
@@ -43,6 +44,13 @@ const SubMenu = styled.div`
 `;
 const Icon = styled.img`
   width: 22px;
+  height: 22px;
+`;
+const IconHeader = styled(FollowingIcon)`
+  width: 22px;
+  height: 22px;
+  fill: ${(props) =>
+    props.isOpenDrop ? "white" : props.theme.btnActiveThemeText};
 `;
 const Text = styled.p`
   color: #868b90;
@@ -52,14 +60,14 @@ const Text = styled.p`
   line-height: 180%;
   text-transform: capitalize;
 `;
-const Dynasty = () => {
+const Follower = () => {
   const [isOpenDrop, SetIsOpenDrop] = useState(false);
   const { isOpen } = useMenuContext();
   return (
     <>
       <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
+        <IconHeader isOpenDrop={isOpenDrop} />
         <Text isOpen={isOpen}>دنبال شوندگان</Text>
-        <Icon src={Ticket} />
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
         <BtnNavigator>
@@ -83,4 +91,4 @@ const Dynasty = () => {
   );
 };
 
-export default Dynasty;
+export default Follower;
