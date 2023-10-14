@@ -8,6 +8,8 @@ import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import PrivateComponent from "../../Middleware/PrivateComponent";
 import PublicComponent from "../../Middleware/PublicComponent";
 import BtnsAfterLogin from "./BtnsAfterLogin";
+import BtnLogin from "./BtnAction/BtnLogin";
+import BtnAction from "./BtnAction/BtnAction";
 
 const Container = styled.div`
   display: flex;
@@ -64,6 +66,12 @@ const Menu = () => {
         <BtnsMenu />
       </PrivateComponent>
       <Line />
+      <PublicComponent>
+        <BtnLogin />
+      </PublicComponent>
+      <PrivateComponent>
+        <BtnAction />
+      </PrivateComponent>
       <ThemesBtn />
       <BtnOpenCloseMenu onClick={toggleMenu} />
     </Container>

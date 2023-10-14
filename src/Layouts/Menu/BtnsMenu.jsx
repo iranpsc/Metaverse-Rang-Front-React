@@ -76,7 +76,6 @@ const Text = styled.p`
 `;
 
 const menuItems = [
-  { icon: SingOutIcon, translationKey: "sign out" },
   { icon: GiftIcon, translationKey: "challenges" },
   { icon: AccountSecurityIcon, translationKey: "account security" },
   { icon: CentralSearch, translationKey: "central search" },

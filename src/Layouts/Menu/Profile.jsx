@@ -8,11 +8,14 @@ import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import Fallowing from "./Following/Fallowing";
 import Dynasty from "./Dynasty/Dynasty";
 import Union from "./Union/Union";
+import { useLayoutEffect } from "react";
+import useAuth from "../../Services/Hooks/useAuth";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: ${(props) => (props.isOpenDrop ? "170%" : "fit-content")};
+  height: ${(props) =>
+    props.isOpenDrop && !!props.isOpen ? "170%" : "fit-content"};
   text-decoration: none;
   transition: all 0.5s ease-out;
   padding: 10px;
@@ -46,7 +49,7 @@ const Btn = styled.button`
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${(props) => (props.isOpenDrop ? "#000000" : "transparent")};
+  background: ${(props) => (props.isOpenDrop ? "#000" : "transparent")};
   height: 40px;
   border-radius: 10px;
 `;
@@ -94,19 +97,26 @@ const Text = styled.p`
   text-transform: capitalize;
   display: ${(props) => (props.isOpen ? "block" : "none")};
 `;
-
+const ImgUser = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 1px solid white;
+`;
 const Profile = () => {
   const [isOpenDrop, SetIsOpenDrop] = useState(false);
   const { isOpen } = useMenuContext();
+  const { getUser } = useAuth();
+  const [user, setUser] = useState();
+
+  useLayoutEffect(() => {
+    setUser(getUser());
+  }, []);
   return (
-    <Container isOpenDrop={isOpenDrop}>
+    <Container isOpenDrop={isOpenDrop} isOpen={isOpen}>
       <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
-        <Text isOpen={isOpen}>منو اصلی</Text>
-        <img
-          src="https://s3-alpha-sig.figma.com/img/1a74/6c1c/a929cb45abf9fb338cf0492b93aca494?Expires=1698019200&Signature=q4ujsVI-NA0x4jnWOYLB~FM5lkf2lR5WxuUiDja4jy9EuTdLq7ldEfY8BguYc2ho8dk4JuoHJ~~1HzhSnTtCcirUt1m5HKyFLuQtF2O5JjcN6ps~ijnKJ0tbz-RpeViLMN3lVI4Y463N8LlalX57AyYqtMZ8t5OxwH2qehdDHyDdWKDFKonlgDXCvcxNlrlSIYseiLS0-VeHcXTWzCe0kYYnSKQiJwQulZFzYGMFCZGT1lBmEdalX9HRNMshRVTmBK-vq8ODWcpYyz10qvJ9E00L9FNSIxXCXK2mAELjg51gQ1CptT5vd5Z20w1d9P2u-Y-cn4f053XFX-29tnACGg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-          style={{ width: "30px", height: "30px" }}
-          alt=""
-        />
+        <ImgUser src={user?.image} />
+        <Text isOpen={isOpen}>{user?.name}</Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
         <Btn
@@ -114,12 +124,8 @@ const Profile = () => {
           onClick={() => SetIsOpenDrop(!isOpenDrop)}
           isHidden={isOpen}
         >
-          <Text isOpen={isOpen}>منو اصلی</Text>
-          <img
-            src="https://s3-alpha-sig.figma.com/img/1a74/6c1c/a929cb45abf9fb338cf0492b93aca494?Expires=1698019200&Signature=q4ujsVI-NA0x4jnWOYLB~FM5lkf2lR5WxuUiDja4jy9EuTdLq7ldEfY8BguYc2ho8dk4JuoHJ~~1HzhSnTtCcirUt1m5HKyFLuQtF2O5JjcN6ps~ijnKJ0tbz-RpeViLMN3lVI4Y463N8LlalX57AyYqtMZ8t5OxwH2qehdDHyDdWKDFKonlgDXCvcxNlrlSIYseiLS0-VeHcXTWzCe0kYYnSKQiJwQulZFzYGMFCZGT1lBmEdalX9HRNMshRVTmBK-vq8ODWcpYyz10qvJ9E00L9FNSIxXCXK2mAELjg51gQ1CptT5vd5Z20w1d9P2u-Y-cn4f053XFX-29tnACGg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-            style={{ width: "30px", height: "30px" }}
-            alt=""
-          />
+          <ImgUser src={user?.image} />
+          <Text isOpen={isOpen}>{user?.name}</Text>
         </Btn>
         <BtnNavigator>
           <Icon src={Ticket} />
