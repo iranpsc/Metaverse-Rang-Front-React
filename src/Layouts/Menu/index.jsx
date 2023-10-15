@@ -30,6 +30,7 @@ const Container = styled.div`
   }
   background-color: ${(props) => props.theme.menuBg};
   padding: ${(props) => (props.isOpen ? "20px" : "10px")};
+  transition: width 0.3s ease 0s;
 `;
 const Line = styled.div`
   width: 100%;
@@ -62,9 +63,6 @@ const Menu = () => {
       <PublicComponent>
         <BtnsAfterLogin />
       </PublicComponent>
-      <PrivateComponent>
-        <BtnsMenu />
-      </PrivateComponent>
       <Line />
       <PublicComponent>
         <BtnLogin />

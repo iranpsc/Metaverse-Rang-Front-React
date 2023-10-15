@@ -10,37 +10,18 @@ import Dynasty from "./Dynasty/Dynasty";
 import Union from "./Union/Union";
 import { useLayoutEffect } from "react";
 import useAuth from "../../Services/Hooks/useAuth";
+import BtnsMenu from "./BtnsMenu";
+import PublicComponent from "../../Middleware/PublicComponent";
+import PrivateComponent from "../../Middleware/PrivateComponent";
+import BtnsAfterLogin from "./BtnsAfterLogin";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: ${(props) =>
-    props.isOpenDrop && !!props.isOpen ? "170%" : "fit-content"};
+  height: fit-content;
   text-decoration: none;
   transition: all 0.5s ease-out;
-  padding: 10px;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.scrollBg};
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.scrollColor};
-    border-radius: 10px;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #999;
-  }
 `;
-
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
@@ -50,7 +31,7 @@ const Btn = styled.button`
   padding: 0 10px;
   border: none;
   background: ${(props) => (props.isOpenDrop ? "#000" : "transparent")};
-  height: 40px;
+  height: 49px;
   border-radius: 10px;
 `;
 const BtnNavigator = styled.button`
@@ -103,6 +84,34 @@ const ImgUser = styled.img`
   border-radius: 100%;
   border: 1px solid white;
 `;
+const ContainerMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  overflow-y: auto;
+  max-height: 72%;
+  /* Scrollbar styles for this component */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.scrollBg};
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.scrollColor};
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
+`;
 const Profile = () => {
   const [isOpenDrop, SetIsOpenDrop] = useState(false);
   const { isOpen } = useMenuContext();
@@ -113,41 +122,49 @@ const Profile = () => {
     setUser(getUser());
   }, []);
   return (
-    <Container isOpenDrop={isOpenDrop} isOpen={isOpen}>
+    <>
       <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
         <ImgUser src={user?.image} />
         <Text isOpen={isOpen}>{user?.name}</Text>
       </Btn>
-      <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
-        <Btn
-          isOpenDrop={isOpenDrop}
-          onClick={() => SetIsOpenDrop(!isOpenDrop)}
-          isHidden={isOpen}
-        >
-          <ImgUser src={user?.image} />
-          <Text isOpen={isOpen}>{user?.name}</Text>
-        </Btn>
-        <BtnNavigator>
-          <Icon src={Ticket} />
-          ارسال سند
-        </BtnNavigator>
-        <BtnNavigator>
-          <Icon src={Message} />
-          گفتگو
-        </BtnNavigator>
-        <BtnNavigator>
-          <Icon src={ProfileMember} />
-          پروفایل
-        </BtnNavigator>
-        <BtnNavigator>
-          <Icon src={Setting} />
-          تنظیمات
-        </BtnNavigator>
-        <Fallowing />
-        <Dynasty />
-        <Union />
-      </SubMenu>
-    </Container>
+      <ContainerMain>
+        <Container isOpenDrop={isOpenDrop} isOpen={isOpen}>
+          <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
+            <Btn
+              isOpenDrop={isOpenDrop}
+              onClick={() => SetIsOpenDrop(!isOpenDrop)}
+              isHidden={isOpen}
+            >
+              <ImgUser src={user?.image} />
+              <Text isOpen={isOpen}>{user?.name}</Text>
+            </Btn>
+            <BtnNavigator>
+              <Icon src={Ticket} />
+              ارسال سند
+            </BtnNavigator>
+            <BtnNavigator>
+              <Icon src={Message} />
+              گفتگو
+            </BtnNavigator>
+            <BtnNavigator>
+              <Icon src={ProfileMember} />
+              پروفایل
+            </BtnNavigator>
+            <BtnNavigator>
+              <Icon src={Setting} />
+              تنظیمات
+            </BtnNavigator>
+            <Fallowing />
+            <Dynasty />
+            <Union />
+          </SubMenu>
+        </Container>
+
+        <PrivateComponent>
+          <BtnsMenu />
+        </PrivateComponent>
+      </ContainerMain>
+    </>
   );
 };
 

@@ -95,8 +95,8 @@ const Map = () => {
           */}
         <MapFlag />
       </MapContainer>
-      {/* <BtnFlagMap flags={flags} handleButtonClick={handleButtonClick} /> */}
       <Routes />
+      {/* <BtnFlagMap flags={flags} handleButtonClick={handleButtonClick} /> */}
     </TransactionContext.Provider>
   );
 };

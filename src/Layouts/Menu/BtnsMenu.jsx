@@ -17,35 +17,6 @@ import ReportIcon from "../../Assets/svg/report.svg";
 import GiftIcon from "../../Assets/svg/gifts.svg";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 100%;
-  overflow-y: auto;
-
-  /* Scrollbar styles for this component */
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.scrollBg};
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.scrollColor};
-    border-radius: 10px;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #999;
-  }
-`;
-
 const Btn = styled.button`
   display: flex;
   width: 100%;
@@ -93,7 +64,7 @@ const menuItems = [
 const BtnsMenu = () => {
   const { isOpen } = useMenuContext();
   return (
-    <Container>
+    <>
       {menuItems.map((item, index) => (
         <Btn key={index} isOpen={isOpen}>
           <Icon src={item.icon} />
@@ -103,7 +74,7 @@ const BtnsMenu = () => {
         </Btn>
       ))}
       <DropDownLang />
-    </Container>
+    </>
   );
 };
 
