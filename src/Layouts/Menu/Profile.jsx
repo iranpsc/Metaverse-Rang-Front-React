@@ -30,7 +30,8 @@ const Btn = styled.button`
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${(props) => (props.isOpenDrop ? "#000" : "transparent")};
+  background: ${(props) =>
+    props.isOpenDrop ? props.theme.openDropDown : "transparent"};
   height: 49px;
   border-radius: 10px;
 `;
@@ -112,6 +113,26 @@ const ContainerMain = styled.div`
     background-color: #999;
   }
 `;
+const Line = styled.div`
+  width: 100%;
+  height: 2px;
+  background-color: ${(props) => props.theme.lineMenu};
+  display: ${(props) => (props.isOpen ? "block" : "none")};
+`;
+const Level = styled.div`
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  background: #2a85ff;
+  color: #fcfcfc;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 180%;
+  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  align-items: center;
+  justify-content: center;
+`;
 const Profile = () => {
   const [isOpenDrop, SetIsOpenDrop] = useState(false);
   const { isOpen } = useMenuContext();
@@ -125,8 +146,10 @@ const Profile = () => {
     <>
       <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
         <ImgUser src={user?.image} />
+        <Level isOpen={isOpen}>{user?.level?.slug}</Level>
         <Text isOpen={isOpen}>{user?.name}</Text>
       </Btn>
+      <Line isOpen={isOpen} />
       <ContainerMain>
         <Container isOpenDrop={isOpenDrop} isOpen={isOpen}>
           <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
@@ -159,10 +182,8 @@ const Profile = () => {
             <Union />
           </SubMenu>
         </Container>
-
-        <PrivateComponent>
-          <BtnsMenu />
-        </PrivateComponent>
+        <Line isOpen={isOpen} />
+        <BtnsMenu />
       </ContainerMain>
     </>
   );

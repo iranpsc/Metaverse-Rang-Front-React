@@ -16,7 +16,8 @@ const Btn = styled.button`
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${(props) => (props.isOpenDrop ? "#000000" : "transparent")};
+  background: ${(props) =>
+    props.isOpenDrop ? props.theme.openDropDown : "transparent"};
   height: 40px;
   border-radius: 10px;
 `;
@@ -38,6 +39,7 @@ const BtnNavigator = styled.button`
   font-weight: 500;
   line-height: 180%; /* 28.8px */
   text-transform: capitalize;
+  filter: ${(props) => (props.disabled ? "opacity(0.5)" : "none")};
 `;
 const SubMenu = styled.div`
   display: ${(props) => (props.isOpenDrop ? "block" : "none")};
@@ -75,7 +77,7 @@ const Fallowing = () => {
           <Icon src={Ticket} />
           ارسال سند
         </BtnNavigator>
-        <BtnNavigator>
+        <BtnNavigator disabled>
           <Icon src={Message} />
           گفتگو
         </BtnNavigator>

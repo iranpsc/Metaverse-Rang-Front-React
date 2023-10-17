@@ -15,9 +15,11 @@ const Btn = styled.button`
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${(props) => (props.isOpenDrop ? "#000000" : "transparent")};
+  background: ${(props) =>
+    props.isOpenDrop ? props.theme.openDropDown : "transparent"};
   height: 40px;
   border-radius: 10px;
+  filter: opacity(0.5);
 `;
 const BtnNavigator = styled.button`
   display: flex;

@@ -34,6 +34,7 @@ const Container = styled.section`
   .leaflet-tile {
     filter: ${(props) => props.theme.filterMap};
   }
+  transition: all 0.3s ease 0s;
 `;
 
 function App() {

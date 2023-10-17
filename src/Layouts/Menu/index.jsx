@@ -30,40 +30,21 @@ const Container = styled.div`
   }
   background-color: ${(props) => props.theme.menuBg};
   padding: ${(props) => (props.isOpen ? "20px" : "10px")};
-  transition: width 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
 `;
-const Line = styled.div`
-  width: 100%;
-  height: 2px;
-  background-color: ${(props) => props.theme.lineMenu};
-  display: ${(props) => (props.isOpen ? "block" : "none")};
-`;
-const BtnOpenCloseMenu = styled.button`
-  width: 41px;
-  height: 41px;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: aquamarine;
-  position: fixed;
-  right: 5.12%;
-  top: 3.3%;
-  z-index: 1200;
-`;
+
 const Menu = () => {
-  const { isOpen, toggleMenu } = useMenuContext();
+  const { isOpen } = useMenuContext();
   return (
     <Container isOpen={isOpen}>
       <Header />
       <PrivateComponent>
         <Profile />
       </PrivateComponent>
-      <Line />
+
       <PublicComponent>
         <BtnsAfterLogin />
       </PublicComponent>
-      <Line />
       <PublicComponent>
         <BtnLogin />
       </PublicComponent>
@@ -71,7 +52,6 @@ const Menu = () => {
         <BtnAction />
       </PrivateComponent>
       <ThemesBtn />
-      <BtnOpenCloseMenu onClick={toggleMenu} />
     </Container>
   );
 };

@@ -31,6 +31,7 @@ const WalletContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 6px;
+  transition: all 0.3s ease 0s;
 `;
 const FlagMapContainer = styled.div`
   display: flex;
@@ -67,6 +68,7 @@ const FlagMapContainer = styled.div`
   &::-webkit-scrollbar-thumb:hover {
     background-color: #999;
   }
+  transition: all 0.3s ease 0s;
 `;
 const StatusContainer = styled.div`
   display: flex;
@@ -83,6 +85,7 @@ const StatusContainer = styled.div`
     height: 6%;
     border-radius: 20px;
   }
+  transition: all 0.3s ease 0s;
 `;
 const StatusBar = () => {
   return (

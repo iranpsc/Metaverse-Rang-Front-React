@@ -36,6 +36,7 @@ export const lightTheme = {
   btnActiveTheme: "#FCFCFC",
   btnActiveThemeText: "#2C2F32",
   openDropDown: "#EFEFEF",
+  headerMenuColor: "#272727",
 };
 export const darkTheme = {
   body: "#121620",
@@ -76,4 +77,5 @@ export const darkTheme = {
   btnActiveTheme: "#1A1A18",
   btnActiveThemeText: "#f8f8f8",
   openDropDown: "#000000",
+  headerMenuColor: "#FFF",
 };

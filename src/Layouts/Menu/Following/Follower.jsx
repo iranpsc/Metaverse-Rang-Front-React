@@ -5,6 +5,8 @@ import Message from "../../../Assets/svg/message.svg";
 import ProfileMember from "../../../Assets/svg/profileMember.svg";
 import Ticket from "../../../Assets/svg/ticket.svg";
 import Setting from "../../../Assets/svg/setting.svg";
+import CitizenProfile from "../../../Assets/svg/citizenProfile.svg";
+import Share from "../../../Assets/svg/share.svg";
 import { ReactComponent as FollowingIcon } from "../../../Assets/svg/following.svg";
 import { useState } from "react";
 import useRequest from "../../../Services/Hooks/useRequest";
@@ -17,7 +19,8 @@ const Btn = styled.button`
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${(props) => (props.isOpenDrop ? "#000000" : "transparent")};
+  background: ${(props) =>
+    props.isOpenDrop ? props.theme.openDropDown : "transparent"};
   height: 40px;
   border-radius: 10px;
 `;
@@ -39,10 +42,12 @@ const BtnNavigator = styled.button`
   font-weight: 500;
   line-height: 180%; /* 28.8px */
   text-transform: capitalize;
+  filter: ${(props) => (props.disabled ? "opacity(0.5)" : "none")};
 `;
 const SubMenu = styled.div`
   display: ${(props) => (props.isOpenDrop ? "block" : "none")};
   width: 100%;
+  padding: 0 20px;
 `;
 const Icon = styled.img`
   width: 22px;
@@ -107,7 +112,7 @@ const Follower = () => {
               <Icon src={Ticket} />
               ارسال سند
             </BtnNavigator>
-            <BtnNavigator>
+            <BtnNavigator disabled>
               <Icon src={Message} />
               گفتگو
             </BtnNavigator>
@@ -116,8 +121,12 @@ const Follower = () => {
               پروفایل
             </BtnNavigator>
             <BtnNavigator>
-              <Icon src={Setting} />
-              تنظیمات
+              <Icon src={CitizenProfile} />
+              مشخصات شهروندی
+            </BtnNavigator>
+            <BtnNavigator>
+              <Icon src={Share} />
+              اشتراک
             </BtnNavigator>
           </SubMenu>
         </React.Fragment>

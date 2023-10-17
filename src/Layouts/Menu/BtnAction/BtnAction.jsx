@@ -36,7 +36,6 @@ const BtnAction = () => {
   useLayoutEffect(() => {
     setUser(getUser());
   }, []);
-  console.log(user);
   return (
     <Btn isOpen={isOpen}>
       <Text isOpen={isOpen}>{user?.code}</Text>
