@@ -108,7 +108,6 @@ export default function Login() {
             "login",
             "If you click on the login button"
           )}
-          <br />
           <a
             href="https://rgb.irpsc.com/overview"
             target={"_blank"}
@@ -116,7 +115,7 @@ export default function Login() {
             className="link text-1 "
           >
             {getFieldTranslationByNames("login", "terms of service contract")}
-          </a>{" "}
+          </a>
           {getFieldTranslationByNames("login", "you agree")}
         </p>
 

@@ -1029,3 +1029,7 @@ button {
     display: none;
   }
 }
+
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  margin: 5px;
+}

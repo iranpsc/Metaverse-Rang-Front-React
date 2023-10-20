@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { useLayoutEffect } from "react";
 const Btn = styled.div`
   width: 100%;
-  height: 49px;
+  min-height: 49px;
   background-color: ${(props) => props.theme.btnPrimary};
   color: ${(props) => props.theme.btnPrimaryTextColor};
   display: flex;

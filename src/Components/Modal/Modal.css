@@ -13,7 +13,12 @@
 
 .modal-section {
   background: #F9F9F9;
-  padding: 15px 10px;
+  padding: 10px;
+
+  @media (min-width: 1024px) {
+    padding: 15px 10px;
+  }
+
   border-radius: 10px;
   position: relative;
 }

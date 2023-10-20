@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -38,6 +38,41 @@ const Container = styled.section`
 `;
 
 function App() {
+  const [isFullScreen, setFullScreen] = useState(false);
+
+  useEffect(() => {
+    if (isFullScreen && screen.orientation) {
+      screen.orientation.lock("landscape").catch((error) => {
+        console.error("Failed to change to landscape mode:", error);
+      });
+    }
+  }, [isFullScreen]);
+
+  const toggleFullScreen = () => {
+    if (!isFullScreen) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen();
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+    setFullScreen(!isFullScreen);
+  };
+
   console.log(useTranslation());
   useLayoutEffect(() => {
     window.Echo = new Echo({
@@ -69,7 +104,19 @@ function App() {
                   </MenuContextProvider>
                   <Map />
                   <StatusBar />
+                  <button
+                    onClick={toggleFullScreen}
+                    style={{
+                      width: "20px",
+                      position: "absolute",
+                      top: 0,
+                      right: "10px",
+                    }}
+                  >
+                    +++
+                  </button>
                 </Container>
+
                 <Toaster
                   containerStyle={{ zIndex: 1000, marginBottom: 48 }}
                   position="bottom-right"

@@ -11,9 +11,6 @@ import Union from "./Union/Union";
 import { useLayoutEffect } from "react";
 import useAuth from "../../Services/Hooks/useAuth";
 import BtnsMenu from "./BtnsMenu";
-import PublicComponent from "../../Middleware/PublicComponent";
-import PrivateComponent from "../../Middleware/PrivateComponent";
-import BtnsAfterLogin from "./BtnsAfterLogin";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,6 +63,27 @@ const SubMenu = styled.div`
   padding: ${(props) => (props.isOpen ? "0" : " 10px 10px 8.5px 10px")};
   border-radius: 10px;
   width: ${(props) => (props.isOpen ? "100%" : "16.6%")};
+  max-height: ${(props) => (props.isOpen ? "none" : " 88vh")};
+  overflow-y: ${(props) => (props.isOpen ? "none" : "auto")};
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.scrollBg};
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.scrollColor};
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
 `;
 const Icon = styled.img`
   width: 22px;

@@ -10,18 +10,23 @@ function LoginSwitch() {
   const Container = styled.div`
     width: 100%;
     display: flex;
-    height: 66px;
-    padding: 8px 0px;
+    height: 40px;
+    @media (min-width: 1024px) {
+      height: 50px;
+    }
     justify-content: center;
     align-items: flex-start;
     gap: 10px;
-    margin-top: 5px;
+    margin: 5px 0;
+    @media (min-width: 1024px) {
+      margin: 5px 0 8px 0;
+    }
   `;
   const BtnRegistry = styled.button`
     display: flex;
-    width: 53%;
+    width: 48.5%;
     height: 100%;
-    padding: 16px 52.5px 13px 53px;
+
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
@@ -30,7 +35,7 @@ function LoginSwitch() {
     background: ${(props) => props.theme.btnPrimary};
     color: ${(props) => props.theme.btnPrimaryTextColor};
     text-align: center;
-    font-family: AzarMehr-DS2;
+
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
@@ -39,9 +44,9 @@ function LoginSwitch() {
   `;
   const BtnLogin = styled.button`
     display: flex;
-    width: 44%;
-    height: 50px;
-    padding: 14px 45.929px 13.707px 45px;
+    width: 48.5%;
+    height: 100%;
+
     justify-content: center;
     gap: 3px;
     align-items: center;
@@ -51,7 +56,7 @@ function LoginSwitch() {
     background: ${(props) => props.theme.btnScenery};
     color: ${(props) => props.theme.btnSceneryTextColor};
     text-align: center;
-    font-family: AzarMehr-DS2;
+
     font-size: 14px;
     font-style: normal;
     font-weight: 700;

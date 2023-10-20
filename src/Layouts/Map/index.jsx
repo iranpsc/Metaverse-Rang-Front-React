@@ -35,7 +35,16 @@ const IconFlyTo = styled.img`
     top: 50%;
   }
 `;
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 10px;
 
+  @media (min-width: 1024px) {
+    border-radius: 20px;
+  }
+`;
 export const TransactionContext = createContext();
 // This is a functional component named Map.
 const Map = () => {
@@ -77,26 +86,27 @@ const Map = () => {
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
     >
-      <MapContainer
-        center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
-        zoom={15} // The initial zoom level of the map.
-        className="map"
-        ref={mapRef} // A reference to the map container element.
-        layers={deckLayer} // The deck.gl overlay layer to be added on top of the map.
-      >
-        <TileLayer
-          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" // The source of the tile images for the map.
-        />
-        {/* 
+      <Container>
+        <MapContainer
+          center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
+          zoom={15} // The initial zoom level of the map.
+          className="map"
+          ref={mapRef} // A reference to the map container element.
+          layers={deckLayer} // The deck.gl overlay layer to be added on top of the map.
+        >
+          <TileLayer
+            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" // The source of the tile images for the map.
+          />
+          {/* 
           <MapPolygons />
           <Main />
           <ContextMenu />
           <AdviserIcon />
           */}
-        <MapFlag />
-      </MapContainer>
-      <Routes />
-      {/* <BtnFlagMap flags={flags} handleButtonClick={handleButtonClick} /> */}
+          <MapFlag />
+        </MapContainer>
+        <Routes />
+      </Container>
     </TransactionContext.Provider>
   );
 };

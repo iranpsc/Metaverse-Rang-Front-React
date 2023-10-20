@@ -5,7 +5,10 @@ import { useMenuContext } from "../../../Services/Reducers/MenuContext";
 import { useNavigate } from "react-router-dom";
 const Btn = styled.div`
   width: 100%;
-  height: 49px;
+  min-height: 39px;
+  @media (min-width: 1024px) {
+    min-height: 49px;
+  }
   background-color: ${(props) => props.theme.btnPrimary};
   color: ${(props) => props.theme.btnPrimaryTextColor};
   display: flex;

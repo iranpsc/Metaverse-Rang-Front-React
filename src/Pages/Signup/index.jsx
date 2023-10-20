@@ -10,23 +10,21 @@ import Submit from "../../Components/Buttons/Submit.jsx";
 import CheckBox from "../../Components/Inputs/CheckBox";
 import LoginSwitch from "./LoginSwitch";
 import { useRecaptcha } from "../../Services/Hooks/useRecapcha";
-import {
-  ToastSuccess,
-  getFieldTranslationByNames,
-} from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
-const BoxEmailNavigate = styled.div`
-  height: 40px;
+const ContainerInputs = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 88%;
-  background-color: #e9e9e9;
-  border-radius: 5px;
-  gap: 5px;
-  margin-top: 1rem;
+  gap: 10px;
+  @media (min-width: 1024px) {
+    flex-direction: column;
+  }
+  width: 100%;
 `;
-
+const Div = styled.div`
+  width: 50%;
+`;
 function Signup() {
   const navigation = useNavigate();
   const theme = useTheme();
@@ -97,33 +95,41 @@ function Signup() {
     <Modal type="modal-section-xs">
       <LoginSwitch />
       <Form onSubmit={onSubmitHandler}>
-        <Input
-          name="name"
-          type="text"
-          placeholder={getFieldTranslationByNames("register", "username")}
-          value={formData.name}
-          dispatch={setFormData}
-          validation={formData.name !== "" && formData.name.includes("hm_")}
-          Error={getFieldTranslationByNames(
-            "register",
-            "the user name is limited to hm-"
-          )}
-        />
-        <Input
-          name="email"
-          type="email"
-          placeholder={getFieldTranslationByNames(
-            "register",
-            "enter your email"
-          )}
-          value={formData.email}
-          dispatch={setFormData}
-          validation={formData.email !== "" && !isEmailValid(formData.email)}
-          Error={getFieldTranslationByNames(
-            "register",
-            "your email is not valid"
-          )}
-        />
+        <ContainerInputs>
+          <Div>
+            <Input
+              name="name"
+              type="text"
+              placeholder={getFieldTranslationByNames("register", "username")}
+              value={formData.name}
+              dispatch={setFormData}
+              validation={formData.name !== "" && formData.name.includes("hm_")}
+              Error={getFieldTranslationByNames(
+                "register",
+                "the user name is limited to hm-"
+              )}
+            />
+          </Div>
+          <Div>
+            <Input
+              name="email"
+              type="email"
+              placeholder={getFieldTranslationByNames(
+                "register",
+                "enter your email"
+              )}
+              value={formData.email}
+              dispatch={setFormData}
+              validation={
+                formData.email !== "" && !isEmailValid(formData.email)
+              }
+              Error={getFieldTranslationByNames(
+                "register",
+                "your email is not valid"
+              )}
+            />
+          </Div>
+        </ContainerInputs>
         <Input
           name="password"
           type="password"
@@ -150,13 +156,12 @@ function Signup() {
       </Form>
       <p
         className="text-information"
-        style={{ color: `${theme.checkBoxLabel} `, marginTop: "16px" }}
+        style={{ color: `${theme.checkBoxLabel} ` }}
       >
         {getFieldTranslationByNames(
           "login",
           "If you click on the login button"
         )}
-        <br />
         <a
           href="https://rgb.irpsc.com/overview"
           target={"_blank"}

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Ping = styled.p`
   color: #c1c1c1;
   font-family: DigitalNumber;
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 180%; /* 36px */
@@ -18,7 +18,7 @@ const Ping = styled.p`
 const Watch = styled.p`
   color: #c1c1c1;
   font-family: DigitalNumber;
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 180%; /* 36px */

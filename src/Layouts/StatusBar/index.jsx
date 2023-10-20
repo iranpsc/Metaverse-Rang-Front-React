@@ -3,6 +3,9 @@ import styled from "styled-components";
 import AssetsWallet from "./AssetsWallet";
 import BtnFlagMap from "./BtnFlagMap";
 import Status from "./Status";
+import PrivateComponent from "../../Middleware/PrivateComponent";
+import PublicComponent from "../../Middleware/PublicComponent";
+import ListPositions from "./ListPositions";
 
 const Container = styled.div`
   display: flex;
@@ -91,7 +94,12 @@ const StatusBar = () => {
   return (
     <Container>
       <WalletContainer>
-        <AssetsWallet />
+        <PrivateComponent>
+          <AssetsWallet />
+        </PrivateComponent>
+        <PublicComponent>
+          <ListPositions />
+        </PublicComponent>
       </WalletContainer>
       <FlagMapContainer>
         <BtnFlagMap />

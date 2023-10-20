@@ -15,7 +15,10 @@ const Label = styled.label`
 
 const InputField = styled.input`
   width: 100%;
-  height: 50px;
+  height: 40px;
+  @media (min-width: 1024px) {
+    height: 50px;
+  }
   padding: 10px;
   border-radius: 5px;
   background-color: ${(props) =>
@@ -28,7 +31,7 @@ const InputField = styled.input`
         ? props.theme.inputBorderError
         : props.theme.inputBorder};
   outline: none;
-  font-family: AzarMehr-DS2;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -37,6 +40,7 @@ const InputField = styled.input`
     props.validation ? props.theme.inputTextError : props.theme.inputText};
   ::placeholder {
     color: ${(props) => props.theme.placeholder};
+    font-size: 15px;
   }
 `;
 

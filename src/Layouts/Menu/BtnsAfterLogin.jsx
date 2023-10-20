@@ -43,6 +43,7 @@ const Container = styled.div`
   &::-webkit-scrollbar-thumb:hover {
     background-color: #999;
   }
+  margin-bottom: auto;
 `;
 
 const Btn = styled.button`
@@ -96,7 +97,7 @@ const BtnsAfterLogin = () => {
         <Btn key={index} isOpen={isOpen}>
           <Icon src={item.icon} />
           <Text isOpen={isOpen}>
-            {getFieldTranslationByNames("head-menu", item.translationKey)}
+            {getFieldTranslationByNames("central-page", item.translationKey)}
           </Text>
         </Btn>
       ))}

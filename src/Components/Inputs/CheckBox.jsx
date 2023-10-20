@@ -8,7 +8,10 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 6px;
-  margin-top: 5%;
+  margin-top: 1%;
+  @media (min-width: 1024px) {
+    margin-top: 5%;
+  }
 `;
 
 const Label = styled.label`

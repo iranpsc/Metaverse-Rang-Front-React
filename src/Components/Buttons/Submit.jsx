@@ -21,7 +21,10 @@ const SecondaryButton = styled.button`
   @media (min-width: 768px) {
     width: ${(props) => (props.responsive ? "75%" : "100%")};
   }
-  height: 50px;
+  height: 40px;
+  @media (min-width: 1024px) {
+    height: 50px;
+  }
   padding: 12px 8px;
   justify-content: center;
   align-items: center;
