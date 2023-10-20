@@ -147,13 +147,11 @@ const Ip = () => {
             <Details style={{ marginTop: "24px" }}>
               {getFieldTranslationByNames("ip-checker", "if you use a")}
               <span style={{ fontWeight: 500, color: "red" }}>
-                {" "}
                 {getFieldTranslationByNames("ip-checker", "vpn")}{" "}
               </span>
               {getFieldTranslationByNames("ip-checker", "turn it off")}
             </Details>
             <Details>
-              {" "}
               {getFieldTranslationByNames("ip-checker", "then reload the page")}
             </Details>
             <Details>
@@ -190,7 +188,6 @@ const Ip = () => {
               {getFieldTranslationByNames("ip-checker", "to inform about")}
             </Details>
             <Details>
-              {" "}
               {getFieldTranslationByNames(
                 "ip-checker",
                 "enter your email below"

@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import one from "../../Assets/images/Frame 3801.png";
 import Tow from "../../Assets/images/Frame 3802.png";
+import Tippy from "@tippyjs/react";
+import "tippy.js/animations/scale.css";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -46,7 +49,31 @@ const Line = styled.div`
   height: 2px;
   background-color: #000; // این رنگ را به یک رنگ با کنتراست بیشتر مثل مشکی تغییر دهید
 `;
-
+const Tooltip = styled.div`
+  width: 262px;
+  height: 161px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #434343;
+  border-radius: 10px;
+  color: #868b90;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%; /* 36px */
+  text-transform: capitalize;
+`;
+const Text = styled.p``;
+const ContainerTextTooltip = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+`;
 const BtnAllList = styled.div`
   display: flex;
   align-items: center;
@@ -69,7 +96,28 @@ const ListPositions = () => {
   return (
     <Container>
       <ContainerList>
-        <ImgPosition src={one} />
+        <Tippy
+          content={
+            <Tooltip>
+              مزار شهدای گمنام قزوین
+              <ContainerTextTooltip>
+                {getFieldTranslationByNames("central-page", "people online")}
+                <Text>200 نفر آنلاین</Text>
+              </ContainerTextTooltip>
+              <ContainerTextTooltip>
+                {getFieldTranslationByNames("central-page", "entrance fee")}
+                <Text> 300.000</Text>
+              </ContainerTextTooltip>
+            </Tooltip>
+          }
+          zIndex={10000}
+          placement="right-end"
+          interactive={true}
+          delay={50}
+          animation="scale"
+        >
+          <ImgPosition src={one} />
+        </Tippy>
         <Line />
         <ImgPosition src={Tow} />
         <Line />
