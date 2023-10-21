@@ -24,6 +24,9 @@ const ContainerInputs = styled.div`
 `;
 const Div = styled.div`
   width: 50%;
+  @media (min-width: 1024px) {
+    width: 100%;
+  }
 `;
 function Signup() {
   const navigation = useNavigate();

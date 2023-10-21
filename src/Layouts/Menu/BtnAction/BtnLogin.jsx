@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as LoginIcon } from "../../../Assets/svg/login.svg";
 import { useMenuContext } from "../../../Services/Reducers/MenuContext";
 import { useNavigate } from "react-router-dom";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 const Btn = styled.div`
   width: 100%;
   min-height: 39px;
@@ -31,7 +32,9 @@ const BtnLogin = () => {
   const navigate = useNavigate();
   return (
     <Btn isOpen={isOpen} onClick={() => navigate("/metaverse/login")}>
-      <Text isOpen={isOpen}>ورود</Text>
+      <Text isOpen={isOpen}>
+        {getFieldTranslationByNames("menu", "log in")}
+      </Text>
       <Icon src={LoginIcon} />
     </Btn>
   );

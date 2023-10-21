@@ -37,6 +37,10 @@ export const lightTheme = {
   btnActiveThemeText: "#2C2F32",
   openDropDown: "#EFEFEF",
   headerMenuColor: "#272727",
+  tooltipBg: "#FFFFFF",
+  tooltipBadge: "#EFEFEF",
+  tooltipSmBg: "#FFFFFF",
+  btnListPosition: "#EFEFEF",
 };
 export const darkTheme = {
   body: "#121620",
@@ -78,4 +82,8 @@ export const darkTheme = {
   btnActiveThemeText: "#f8f8f8",
   openDropDown: "#000000",
   headerMenuColor: "#FFF",
+  tooltipBg: "#434343",
+  tooltipBadge: "#212121",
+  tooltipSmBg: "#434343",
+  btnListPosition: "#00000054",
 };

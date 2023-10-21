@@ -57,7 +57,7 @@ const Tooltip = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: #434343;
+  background-color: ${(props) => props.theme.tooltipBg};
   border-radius: 10px;
   color: #868b90;
   text-align: right;
@@ -66,8 +66,14 @@ const Tooltip = styled.div`
   font-weight: 400;
   line-height: 180%; /* 36px */
   text-transform: capitalize;
+  gap: 3px;
 `;
-const Text = styled.p``;
+const Text = styled.p`
+  background-color: ${(props) => props.theme.tooltipBadge};
+  font-size: 12px;
+  padding: 0px 8px;
+  border-radius: 78px;
+`;
 const ContainerTextTooltip = styled.div`
   display: flex;
   width: 100%;
@@ -80,15 +86,15 @@ const BtnAllList = styled.div`
   justify-content: center;
   width: 100%;
   border-radius: 10px;
-  background-color: #efefef;
+  background-color: ${(props) => props.theme.btnListPosition};
   min-height: 36px;
   color: #868b90;
 `;
 const ImgPosition = styled.img`
-  width: 114px;
+  width: 100%;
   height: 114px;
   @media (min-width: 1024px) {
-    width: 126px;
+    width: 100%;
     height: 126px;
   }
 `;
@@ -126,7 +132,9 @@ const ListPositions = () => {
         <ImgPosition src={Tow} />
         <Line />
       </ContainerList>
-      <BtnAllList>لیست کامل</BtnAllList>
+      <BtnAllList>
+        {getFieldTranslationByNames("central-page", "complete list")}
+      </BtnAllList>
     </Container>
   );
 };

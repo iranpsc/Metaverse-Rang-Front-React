@@ -6,7 +6,8 @@ import { useState } from "react";
 import i18n from "../../i18n/i18n";
 import { useEffect } from "react";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
-
+import Tippy from "@tippyjs/react";
+import "tippy.js/animations/scale.css";
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -57,6 +58,24 @@ const DropdownItem = styled.div`
   padding: 0 50px;
   color: #858585;
 `;
+const Tooltip = styled.div`
+  width: 146px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: ${(props) => props.theme.tooltipSmBg};
+  border-radius: 10px;
+  color: #868b90;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%; /* 36px */
+  text-transform: capitalize;
+`;
 const DropDownLang = () => {
   const { isOpen } = useMenuContext();
   const [isOpenDrop, setIsOpen] = useState(false);
@@ -69,24 +88,37 @@ const DropDownLang = () => {
   };
 
   return (
-    <Container onClick={() => setIsOpen(!isOpenDrop)}>
-      <Btn isOpenDrop={isOpenDrop} shouldHide={!isOpen}>
-        <Icon src={LangIcon} />
-        <Text shouldHide={!isOpen}>
+    <Tippy
+      content={
+        <Tooltip>
           {getFieldTranslationByNames("central-page", "language")}
-        </Text>
-      </Btn>
-      {isOpenDrop && (
-        <DropdownMenu isOpenDrop={isOpenDrop}>
-          <DropdownItem onClick={() => changeLanguage("en")}>
-            English
-          </DropdownItem>
-          <DropdownItem onClick={() => changeLanguage("fa")}>
-            Persian
-          </DropdownItem>
-        </DropdownMenu>
-      )}
-    </Container>
+        </Tooltip>
+      }
+      zIndex={10000}
+      placement="left"
+      interactive={true}
+      delay={50}
+      animation="scale"
+    >
+      <Container onClick={() => setIsOpen(!isOpenDrop)}>
+        <Btn isOpenDrop={isOpenDrop} shouldHide={!isOpen}>
+          <Icon src={LangIcon} />
+          <Text shouldHide={!isOpen}>
+            {getFieldTranslationByNames("central-page", "language")}
+          </Text>
+        </Btn>
+        {isOpenDrop && (
+          <DropdownMenu isOpenDrop={isOpenDrop}>
+            <DropdownItem onClick={() => changeLanguage("en")}>
+              English
+            </DropdownItem>
+            <DropdownItem onClick={() => changeLanguage("fa")}>
+              Persian
+            </DropdownItem>
+          </DropdownMenu>
+        )}
+      </Container>
+    </Tippy>
   );
 };
 

@@ -4,6 +4,7 @@ import { useTheme } from "../../Services/Reducers/ThemeContext";
 import { ReactComponent as LightSvg } from "../../Assets/svg/light.svg";
 import { ReactComponent as DarkSvg } from "../../Assets/svg/dark.svg";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -12,7 +13,7 @@ const Container = styled.div`
   border-radius: ${(props) => (props.isOpen ? "100px" : "100%")};
   align-items: center;
   justify-content: center;
-  height: ${(props) => (props.isOpen ? "40px" : "36px")};
+  min-height: ${(props) => (props.isOpen ? "40px" : "45px")};
 `;
 
 const Btn = styled.div`
@@ -66,11 +67,11 @@ const ThemesBtn = () => {
       {isOpen ? (
         <>
           <Btn active={isActive} onClick={handleDarkClick}>
-            {isOpen && "تیره"}
+            {isOpen && getFieldTranslationByNames("central-page", "dark")}
             <Dark active={isActive} />
           </Btn>
           <Btn active={!isActive} onClick={handleLightClick}>
-            {isOpen && "روشن"}
+            {isOpen && getFieldTranslationByNames("central-page", "light")}
             <Light active={!isActive} />
           </Btn>
         </>

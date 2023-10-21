@@ -4,7 +4,8 @@ import { ReactComponent as FilterIcon } from "../../Assets/svg/filter.svg";
 import { ReactComponent as LocationIcon } from "../../Assets/svg/location.svg";
 import useRequest from "../../Services/Hooks/useRequest";
 import { useMapData } from "../../Services/Reducers/mapContext";
-
+import Tippy from "@tippyjs/react";
+import "tippy.js/animations/scale.css";
 const Btn = styled.div`
   display: flex;
   align-items: center;
@@ -44,6 +45,24 @@ const ContainerIcon = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+`;
+const Tooltip = styled.div`
+  width: 146px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: ${(props) => props.theme.tooltipSmBg};
+  border-radius: 10px;
+  color: #868b90;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%; /* 36px */
+  text-transform: capitalize;
 `;
 const BtnFlagMap = () => {
   const { flags, setFlags, polygons, setPolygons } = useMapData();
@@ -110,18 +129,27 @@ const BtnFlagMap = () => {
   return (
     <>
       {flags.map((flag) => (
-        <Btn key={flag.id} className={clickState[flag.id] ? "active" : ""}>
-          <ContainerIcon>
-            <IconFilter></IconFilter>
-            <IconLocation
-              active={clickState[flag.id]}
-              onClick={() => handleClick(flag.id)}
-            ></IconLocation>
-          </ContainerIcon>
-          <TitleFlag>
-            {flag.name.length > 4 ? "..." + flag.name.slice(0, 4) : flag.name}
-          </TitleFlag>
-        </Btn>
+        <Tippy
+          content={<Tooltip>{flag.name}</Tooltip>}
+          zIndex={10000}
+          placement="right"
+          interactive={true}
+          delay={50}
+          animation="scale"
+        >
+          <Btn key={flag.id} className={clickState[flag.id] ? "active" : ""}>
+            <ContainerIcon>
+              <IconFilter></IconFilter>
+              <IconLocation
+                active={clickState[flag.id]}
+                onClick={() => handleClick(flag.id)}
+              ></IconLocation>
+            </ContainerIcon>
+            <TitleFlag>
+              {flag.name.length > 4 ? "..." + flag.name.slice(0, 4) : flag.name}
+            </TitleFlag>
+          </Btn>
+        </Tippy>
       ))}
     </>
   );
