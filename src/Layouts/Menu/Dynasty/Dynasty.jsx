@@ -70,7 +70,7 @@ const Dynasty = () => {
         <IconHeader isOpenDrop={isOpenDrop} />
         <Text isOpen={isOpen}>سلسله</Text>
       </Btn>
-      <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
+      {/* <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
         <BtnNavigator>
           <Icon src={Ticket} />
           ارسال سند
@@ -87,7 +87,7 @@ const Dynasty = () => {
           <Icon src={Setting} />
           تنظیمات
         </BtnNavigator>
-      </SubMenu>
+      </SubMenu> */}
     </>
   );
 };

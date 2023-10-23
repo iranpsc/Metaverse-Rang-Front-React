@@ -84,6 +84,27 @@ const SubMenu = styled.div`
   &::-webkit-scrollbar-thumb:hover {
     background-color: #999;
   }
+  > button::before {
+    content: "";
+    display: block;
+    width: 14px;
+    height: 117%;
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 14 56' fill='none'><path d='M1.5 55H4.5C8.91828 55 12.5 51.4183 12.5 47L12.5 1' stroke='%23363636' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+      no-repeat center;
+    margin-bottom: 20%;
+  }
+  > button:first-child::before {
+    display: none;
+  }
+  > button:nth-child(2)::before {
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 13 17' fill='none'><path d='M1 16H4C8.41828 16 12 12.4183 12 8V1' stroke='%23363636' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+      no-repeat center;
+    content: "";
+    display: block;
+    width: 14px;
+    height: 117%;
+    margin-bottom: 4% !important;
+  }
 `;
 const Icon = styled.img`
   width: 22px;

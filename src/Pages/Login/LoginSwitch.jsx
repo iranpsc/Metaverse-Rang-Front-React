@@ -19,7 +19,7 @@ function LoginSwitch() {
     gap: 10px;
     margin: 5px 0;
     @media (min-width: 1024px) {
-      margin: 5px 0 8px 0;
+      margin: 10px 0 10px 0;
     }
   `;
   const BtnRegistry = styled.button`

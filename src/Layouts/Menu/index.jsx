@@ -19,7 +19,7 @@ const Container = styled.div`
   width: ${(props) => (props.isOpen ? "54%" : "9%")};
   height: 100%;
   border-radius: 10px;
-  gap: 12px;
+
   @media (min-width: 1024px) {
     width: ${(props) => (props.isOpen ? "32%" : "6.1%")};
     border-radius: 10px;

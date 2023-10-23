@@ -78,7 +78,7 @@ const Text = styled.p`
 const Tooltip = styled.div`
   width: 146px;
   height: 40px;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -92,6 +92,9 @@ const Tooltip = styled.div`
   font-weight: 400;
   line-height: 180%; /* 36px */
   text-transform: capitalize;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
 `;
 const menuItems = [
   { icon: HomeIcon, translationKey: "home", link: "https://rgb.irpsc.com/" },
