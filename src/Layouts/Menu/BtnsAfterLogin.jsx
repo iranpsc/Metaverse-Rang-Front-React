@@ -16,6 +16,7 @@ import CalendarIcon from "../../Assets/svg/calendar.svg";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -75,6 +76,11 @@ const Text = styled.p`
   }
   display: ${(props) => (props.isOpen ? "block" : "none")};
 `;
+const createSVG = (color) =>
+  `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill="${color.replace(
+    "#",
+    "%23"
+  )}"/></svg>`;
 const Tooltip = styled.div`
   width: 146px;
   height: 40px;
@@ -94,6 +100,16 @@ const Tooltip = styled.div`
   text-transform: capitalize;
   @media (min-width: 1024px) {
     display: flex;
+  }
+  ::after {
+    content: "";
+    position: absolute;
+    background: ${(props) => `url('${createSVG(props.theme.tooltipBg)}')`};
+    width: 9px;
+    height: 40px;
+    right: -8px;
+    left: -8px;
+    rotate: ${(props) => (props.lang == "en" ? "0" : "180deg")};
   }
 `;
 const menuItems = [
@@ -152,12 +168,13 @@ const menuItems = [
 
 const BtnsAfterLogin = () => {
   const { isOpen } = useMenuContext();
+  const lang = useTranslation();
   return (
     <Container>
       {menuItems.map((item, index) => (
         <Tippy
           content={
-            <Tooltip>
+            <Tooltip lang={lang.i18n.language}>
               {getFieldTranslationByNames("central-page", item.translationKey)}
             </Tooltip>
           }

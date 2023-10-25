@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Message from "../../Assets/svg/message.svg";
 import ProfileMember from "../../Assets/svg/profileMember.svg";
@@ -51,6 +51,7 @@ const BtnNavigator = styled.button`
   line-height: 180%; /* 28.8px */
   text-transform: capitalize;
 `;
+
 const SubMenu = styled.div`
   display: ${(props) => (props.isOpenDrop ? "block" : "none")};
   padding-left: 20px;
@@ -97,6 +98,15 @@ const SubMenu = styled.div`
     display: none;
   }
   > button:nth-child(2)::before {
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 13 17' fill='none'><path d='M1 16H4C8.41828 16 12 12.4183 12 8V1' stroke='%23363636' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+      no-repeat center;
+    content: "";
+    display: block;
+    width: 14px;
+    height: 117%;
+    margin-bottom: 4% !important;
+  }
+  button:nth-child(8)::before {
     background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 13 17' fill='none'><path d='M1 16H4C8.41828 16 12 12.4183 12 8V1' stroke='%23363636' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>")
       no-repeat center;
     content: "";

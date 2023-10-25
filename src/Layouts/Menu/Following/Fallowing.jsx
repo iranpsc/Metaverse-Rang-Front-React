@@ -20,6 +20,13 @@ const Btn = styled.button`
     props.isOpenDrop ? props.theme.openDropDown : "transparent"};
   height: 40px;
   border-radius: 10px;
+  ::before {
+    display: block;
+    width: 2px;
+    height: 20px;
+    margin-bottom: 10px;
+    background-color: #000;
+  }
 `;
 const BtnNavigator = styled.button`
   display: flex;
@@ -83,35 +90,45 @@ const Text = styled.p`
   line-height: 180%;
   text-transform: capitalize;
 `;
+const Main = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid #000;
+  flex-direction: column;
+`;
 const Fallowing = () => {
   const [isOpenDrop, SetIsOpenDrop] = useState(false);
   const { isOpen } = useMenuContext();
   return (
-    <>
-      <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
-        <IconHeader isOpenDrop={isOpenDrop} />
-        <Text isOpen={isOpen}>دنبال شوندگان</Text>
-      </Btn>
-      <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
-        <BtnNavigator>
-          <Icon src={Ticket} />
-          ارسال سند
-        </BtnNavigator>
-        <BtnNavigator disabled>
-          <Icon src={Message} />
-          گفتگو
-        </BtnNavigator>
-        <BtnNavigator>
-          <Icon src={ProfileMember} />
-          پروفایل
-        </BtnNavigator>
-        <BtnNavigator>
-          <Icon src={Setting} />
-          تنظیمات
-        </BtnNavigator>
-        <Follower />
-      </SubMenu>
-    </>
+    <Main>
+      <div>
+        <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
+          <IconHeader isOpenDrop={isOpenDrop} />
+          <Text isOpen={isOpen}>دنبال شوندگان</Text>
+        </Btn>
+        <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
+          <BtnNavigator>
+            <Icon src={Ticket} />
+            ارسال سند
+          </BtnNavigator>
+          <BtnNavigator disabled>
+            <Icon src={Message} />
+            گفتگو
+          </BtnNavigator>
+          <BtnNavigator>
+            <Icon src={ProfileMember} />
+            پروفایل
+          </BtnNavigator>
+          <BtnNavigator>
+            <Icon src={Setting} />
+            تنظیمات
+          </BtnNavigator>
+          <Follower />
+        </SubMenu>
+      </div>
+    </Main>
   );
 };
 

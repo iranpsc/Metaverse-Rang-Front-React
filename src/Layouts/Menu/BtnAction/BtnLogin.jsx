@@ -18,6 +18,7 @@ const Btn = styled.div`
   border-radius: 10px;
   padding: 0 10px;
   cursor: pointer;
+  margin-bottom: 10px;
 `;
 const Text = styled.p`
   display: ${(props) => (props.isOpen ? "block" : "none")};
@@ -33,7 +34,7 @@ const BtnLogin = () => {
   return (
     <Btn isOpen={isOpen} onClick={() => navigate("/metaverse/login")}>
       <Text isOpen={isOpen}>
-        {getFieldTranslationByNames("menu", "log in")}
+        {getFieldTranslationByNames("login", "login")}
       </Text>
       <Icon src={LoginIcon} />
     </Btn>

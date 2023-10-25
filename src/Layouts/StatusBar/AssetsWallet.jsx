@@ -45,13 +45,13 @@ const Line = styled.div`
   background-color: #efefef;
 `;
 
-const AssetItem = ({ title, value, img }) => (
+const AssetItem = ({ title, value, img, index, totalAssets }) => (
   <>
     <Asset>
       <TextAsset>{convertEnglishToPersianNumbers(value || "0.000")}</TextAsset>
       <ImgAsset src={img} />
     </Asset>
-    <Line />
+    {index !== totalAssets - 1 && <Line />}
   </>
 );
 
@@ -69,12 +69,14 @@ const AssetsWallet = () => {
 
   return (
     <>
-      {assets.map((asset) => (
+      {assets.map((asset, index) => (
         <AssetItem
           key={asset.title}
           title={asset.title}
           value={asset.value}
           img={asset.img}
+          index={index}
+          totalAssets={assets.length}
         />
       ))}
     </>
