@@ -61,7 +61,6 @@ export default function RequestReceived() {
     Request("dynasty/requests/recieved").then((response) => {
       setRecived(response.data.data);
     });
-   
   }, []);
   const [show, setShowMessage] = useState(false);
   const [items, setItems] = useState({});
@@ -98,11 +97,11 @@ export default function RequestReceived() {
                       color: "blue",
                       cursor: "pointer",
                       fontFamily: "Segoe UI",
-                      textTransform:"uppercase",
+                      textTransform: "uppercase",
                     }}
                     onClick={() =>
                       window.open(
-                        `https://rgb.irpsc.com/citizen/${item?.from_user?.code}`,
+                        `https://rgb.irpsc.com/fa/citizen/${item?.from_user?.code}`,
                         "_blank"
                       )
                     }

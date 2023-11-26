@@ -28,7 +28,6 @@ import HourMeterProfit from "../../Pages/HourMeterProfit/Index";
 import TransactionPayments from "../../Pages/Payments/Verification/transactionPayments";
 import VerificationEmail from "../../Pages/VerificationEmail";
 import Ip from "../../Pages/Ip";
-import EmailVerification from "../../Pages/EmailVerification";
 
 export default function Routers() {
   return (
@@ -77,14 +76,7 @@ export default function Routers() {
             </PublicRoute>
           }
         />
-        <Route
-          path="verification-email"
-          element={
-            <PublicRoute>
-              <EmailVerification />
-            </PublicRoute>
-          }
-        />
+
         <Route
           path="confirmation"
           element={

@@ -207,7 +207,7 @@
   border-top-width: 60px;
   border-right-width: 100px;
   border-bottom-width: 60px;
-
+  border-left: 0;
   border-color: rgb(147 51 234);
   border-top-color: transparent;
   border-bottom-color: transparent;
@@ -299,7 +299,7 @@
   border-top-width: 60px;
   border-right-width: 100px;
   border-bottom-width: 60px;
-
+  border-left: 0;
   border-color: rgb(147 51 234);
   border-top-color: transparent;
   border-bottom-color: transparent;
@@ -330,7 +330,7 @@
   border-top-width: 60px;
   border-right-width: 100px;
   border-bottom-width: 60px;
-
+  border-left: 0;
   border-color: rgb(147 51 234);
   border-top-color: transparent;
   border-bottom-color: transparent;
@@ -349,7 +349,7 @@
   border-top-width: 60px;
   border-right-width: 100px;
   border-bottom-width: 60px;
-
+  border-left: 0;
   border-color: rgb(147 51 234);
   border-top-color: transparent;
   border-bottom-color: transparent;
@@ -358,7 +358,7 @@
 
 .hidden-box {
   position: absolute;
-  left:8.5%;
+  left: 8.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -367,14 +367,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box {
-    left:7%;
+    left: 7%;
     bottom: 6px;
   }
 }
 
 .hidden-box-1 {
   position: absolute;
-  left:18.5%;
+  left: 18.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -390,7 +390,7 @@
 
 .hidden-box-2 {
   position: absolute;
-  left:29%;
+  left: 29%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -399,7 +399,7 @@
 
 @media (min-width: 1536px) {
   .hidden-box-2 {
-    left:27%;
+    left: 27%;
     bottom: 6px;
   }
 }
@@ -415,7 +415,7 @@
 
 @media (min-width: 1536px) {
   .hidden-box-3 {
-    left:47%;
+    left: 47%;
     bottom: 6px;
   }
 }
@@ -438,7 +438,7 @@
 
 .hidden-box-5 {
   position: absolute;
-  left:32.5%;
+  left: 32.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -447,7 +447,7 @@
 
 @media (min-width: 1536px) {
   .hidden-box-5 {
-    left:46.5%;
+    left: 46.5%;
     bottom: 10px;
   }
 }
@@ -470,7 +470,7 @@
 
 .hidden-box-7 {
   position: absolute;
-  left:58.5%;
+  left: 58.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -479,14 +479,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-7 {
-    left:57%;
+    left: 57%;
     bottom: 6px;
   }
 }
 
 .hidden-box-8 {
   position: absolute;
-  left:39%;
+  left: 39%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -495,14 +495,14 @@
 
 @media (min-width: 1536px) {
   .hidden-box-8 {
-    left:37%;
+    left: 37%;
     bottom: 6px;
   }
 }
 
 .hidden-box-9 {
   position: absolute;
-  left:49.5%;
+  left: 49.5%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -518,7 +518,7 @@
 
 .hidden-box-16 {
   position: absolute;
-  left:42%;
+  left: 42%;
   bottom: 3px;
   display: flex;
   flex-direction: column;
@@ -527,7 +527,7 @@
 
 @media (min-width: 1536px) {
   .hidden-box-16 {
-    left:57.5%;
+    left: 57.5%;
     bottom: 6px;
   }
 }
@@ -560,7 +560,7 @@
 @media (min-width: 1536px) {
   .hidden-box-11 {
     right: 7rem;
-    top:43%;
+    top: 43%;
   }
 }
 
@@ -608,7 +608,7 @@
 @media (min-width: 1536px) {
   .hidden-box-14 {
     left: 5rem;
-    top: 1%;
+    top: 12%;
   }
 }
 
@@ -762,7 +762,7 @@
   justify-content: center;
   border-radius: 0.375rem;
   border-width: 3px;
-height: 30px;
+  height: 30px;
   border-color: rgb(255 255 255);
 
   background-color: rgb(241 245 249);

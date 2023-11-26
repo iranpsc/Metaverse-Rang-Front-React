@@ -122,7 +122,7 @@ const UserContainer = ({ user }) => {
           <span
             onClick={() =>
               window.open(
-                `https://rgb.irpsc.com/citizen/${user.code}`,
+                `https://rgb.irpsc.com/fa/citizen/${user.code}`,
                 "_blank"
               )
             }

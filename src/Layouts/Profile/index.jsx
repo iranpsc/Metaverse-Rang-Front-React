@@ -52,7 +52,21 @@ export default function Profile() {
               }%`,
             }}
           />
-          <p style={{ textTransform:"uppercase",fontFamily:"Segoe UI"}}>{user?.code}</p>
+          <p
+            style={{
+              textTransform: "uppercase",
+              fontFamily: "Segoe UI",
+              cursor: "pointer",
+            }}
+            onClick={() =>
+              window.open(
+                `https://rgb.irpsc.com/fa/citizen/${user?.code}`,
+                "_blank"
+              )
+            }
+          >
+            {user?.code}
+          </p>
         </ProfileId>
 
         <ProfileLevel className="white-box-shadow">

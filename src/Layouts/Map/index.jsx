@@ -22,7 +22,6 @@ import useRequest from "../../Services/Hooks/useRequest";
 
 import LocationPin from "../../Assets/gif/location-pin.gif";
 import BtnFlagMap from "./BtnFlagMap";
-
 const IconFlyTo = styled.img`
   position: absolute;
   z-index: 500;
@@ -35,16 +34,8 @@ const IconFlyTo = styled.img`
     top: 50%;
   }
 `;
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  border-radius: 10px;
 
-  @media (min-width: 1024px) {
-    border-radius: 20px;
-  }
-`;
+export const MapContext = createContext();
 export const TransactionContext = createContext();
 // This is a functional component named Map.
 const Map = () => {
@@ -53,10 +44,17 @@ const Map = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   // A custom hook to get user authentication details. setUserWithToken function is being destructured from useAuth.
   const { setUserWithToken } = useAuth();
+  const [flags, setFlags] = useState([]);
+  const [polygons, setPolygons] = useState([]);
   // useEffect hook to set the user with token when the component mounts. An empty dependency array is passed to avoid multiple calls.
   const { Request } = useRequest();
   useEffect(() => {
     setUserWithToken();
+    async function fetchMap() {
+      const response = await Request("maps");
+      setFlags(response.data.data);
+    }
+    fetchMap();
   }, []);
   // A LeafletLayer component that represents the deck.gl overlay for the map.
   const deckLayer = new LeafletLayer({
@@ -82,31 +80,57 @@ const Map = () => {
     ],
   });
 
+  const handleButtonClick = async (id) => {
+    const response = await Request(`maps/${id}/border`);
+    const parsedCoordinates = JSON.parse(response.data.data.border_coordinates);
+
+    const existingPolygonIndex = polygons.findIndex(
+      (polygon) => polygon.id === id
+    );
+
+    if (existingPolygonIndex !== -1) {
+      setPolygons((prevPolygons) => {
+        const updatedPolygons = [...prevPolygons];
+        updatedPolygons.splice(existingPolygonIndex, 1);
+        return updatedPolygons;
+      });
+    } else {
+      const newPolygon = {
+        id: id,
+        coordinates: parsedCoordinates,
+      };
+      setPolygons((prevPolygons) => [...prevPolygons, newPolygon]);
+    }
+  };
+
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
     >
-      <Container>
+      <MapContext.Provider value={mapRef}>
         <MapContainer
           center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
           zoom={15} // The initial zoom level of the map.
-          className="map"
+          style={{ width: "100%", height: "100vh" }}
           ref={mapRef} // A reference to the map container element.
           layers={deckLayer} // The deck.gl overlay layer to be added on top of the map.
         >
           <TileLayer
             url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" // The source of the tile images for the map.
           />
-          {/* 
+          {/* A MapPolygons component */}
           <MapPolygons />
+          {/* A Main component */}
           <Main />
+          {/* A ContextMenu component */}
           <ContextMenu />
+          {/* An AdviserIcon component */}
           <AdviserIcon />
-          */}
-          <MapFlag />
+          <MapFlag polygons={polygons} flags={flags} />
         </MapContainer>
+        <BtnFlagMap flags={flags} handleButtonClick={handleButtonClick} />
         <Routes />
-      </Container>
+      </MapContext.Provider>
     </TransactionContext.Provider>
   );
 };

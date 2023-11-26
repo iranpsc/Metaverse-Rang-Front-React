@@ -37,7 +37,7 @@ const PercentText = styled.p`
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  font-family: "AzarMehr" !important;
+  font-family: iransans !important;
   font-size: 12px;
   font-weight: bold;
 `;
@@ -53,7 +53,7 @@ export default function PercentageIcon({ onClick }) {
   // Define updatePercentage function to be called on click
   const updatePercentage = () => {
     // Update the Percentage state to a new value here if needed
-    setPercentage(0);
+    // setPercentage(0);
   };
 
   return (

@@ -97,7 +97,7 @@ export default function PlayerCard({
         <ContainerTextPlayer>
           <IdPlayer
             onClick={() =>
-              window.open(`https://rgb.irpsc.com/citizen/${Id}`, "_blank")
+              window.open(`https://rgb.irpsc.com/fa/citizen/${Id}`, "_blank")
             }
           >
             {Code}

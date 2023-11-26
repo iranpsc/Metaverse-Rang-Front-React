@@ -1,9 +1,8 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
-import { ReactComponent as Show } from "../../Assets/svg/passShowIcon.svg";
-import { ReactComponent as Hidden } from "../../Assets/svg/passIcon.svg";
+
 const Label = styled.label`
-  color: ${(props) => props.theme.inputLabelColor};
+  color: #707070 !important;
   position: absolute;
   top: 16px;
   right: 16px;
@@ -14,33 +13,33 @@ const Label = styled.label`
 `;
 
 const InputField = styled.input`
+  padding: 8px 16px;
   width: 100%;
-  height: 40px;
-  @media (min-width: 1024px) {
-    height: 50px;
+  margin-bottom: 32px;
+  font-size: 1.2rem !important;
+  font-family: "AzarMehr";
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
-  padding: 10px;
-  border-radius: 5px;
-  background-color: ${(props) =>
-    props.validation
-      ? props.theme.inputBgColorError
-      : props.theme.inputBgColor};
-  border: 1px solid
-    ${(props) =>
-      props.validation
-        ? props.theme.inputBorderError
-        : props.theme.inputBorder};
-  outline: none;
 
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  color: ${(props) =>
-    props.validation ? props.theme.inputTextError : props.theme.inputText};
-  ::placeholder {
-    color: ${(props) => props.theme.placeholder};
-    font-size: 15px;
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  &:not([value=""]) {
+    direction: ltr !important;
+  }
+
+  &:not([value=""]) + i {
+    display: block;
+  }
+
+  @media screen and (max-height: 840px) {
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding: 8px 16px;
   }
 `;
 
@@ -48,41 +47,38 @@ const Container = styled.div`
   position: relative;
   width: 100%;
 
-  & svg {
+  & i {
+    color: #555;
     position: absolute;
-    ${(props) => (document.body.dir === "ltr" ? "right: 12px;" : "left: 12px;")}
-    top: 29%;
+    right: 16px;
+    top: 22%;
+    font-size: 20px;
+    display: none;
   }
 
-  & svg:hover {
+  & i:hover {
     cursor: pointer;
   }
+
+  ${InputField}[value='']:focus + ${Label} {
+    top: -26px;
+    right: 16px;
+    background: white;
+    padding-right: 8px;
+    padding-left: 8px;
+    font-size: 16px;
+  }
+
+  ${InputField}:not([value='']) + ${Label} {
+    top: -26px;
+    right: 16px;
+    background: white;
+    padding-right: 8px;
+    padding-left: 8px;
+    font-size: 16px;
+  }
 `;
-const Icon = styled(Show)`
-  width: 20.8px;
-  height: 20.8px;
-  flex-shrink: 0;
-  stroke: ${(props) => props.theme.inputText};
-`;
-const Icon2 = styled(Hidden)`
-  width: 20.8px;
-  height: 20.8px;
-  flex-shrink: 0;
-  stroke: ${(props) => props.theme.inputText};
-`;
-const ErrorMassage = styled.p`
-  color: #f00;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 25px;
-  display: flex;
-  width: 298px;
-  height: 16px;
-  flex-direction: column;
-  justify-content: center;
-  flex-shrink: 0;
-`;
+
 function Input({
   placeholder,
   className,
@@ -95,11 +91,8 @@ function Input({
   type = "text",
   nextSibling = false,
   floatLabel = false,
-  validation,
-  Error,
 }) {
   const [show, setShow] = useState(false);
-
   const onChangeHandler = (e) => {
     if (dispatch) {
       if (typeof maxLength === "number") {
@@ -132,7 +125,6 @@ function Input({
           e.preventDefault();
           onChangeHandler(e);
         }}
-        autoComplete="off"
         {...options}
       />
 
@@ -151,20 +143,28 @@ function Input({
           e.preventDefault();
           onChangeHandler(e);
         }}
-        autoComplete="off"
-        validation={validation}
         {...options}
       />
 
       {type === "password" &&
         (show ? (
-          <Icon onClick={() => setShow(false)}></Icon>
+          <i
+            className="fa-solid fa-eye-slash"
+            onClick={() => setShow(false)}
+          ></i>
         ) : (
-          <Icon2 onClick={() => setShow(true)}></Icon2>
+          <i className="fa-solid fa-eye" onClick={() => setShow(true)}></i>
         ))}
-      {validation && Error && <ErrorMassage>{Error} </ErrorMassage>}
     </Container>
   );
 }
+// fa-solid fa-eye
+// fa-solid fa-eye-slash
+const areEqual = (prevProps, nextProps) => {
+  return (
+    prevProps.value === nextProps.value &&
+    prevProps?.options?.disabled === nextProps?.options?.disabled
+  );
+};
 
-export default Input;
+export default memo(Input, areEqual);

@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BtnHourProfitAll from "../Components/BtnHourProfitAll";
 import FeatureHourProfit from "../Components/FeatureHourProfit";
 import useRequest from "../../../Services/Hooks/useRequest";
+import useAuth from "../../../Services/Hooks/useAuth";
 
 const BtnContainer = styled.div`
   width: 100%;
@@ -26,77 +27,125 @@ const HourProfit = () => {
   const { Request, HTTP_METHOD } = useRequest();
   const [data, setData] = useState([]);
   const [filterOptions, setFilterOptions] = useState({
-    m: false,
-    t: false,
-    a: false,
+    m: true,
+    t: true,
+    a: true,
+  });
+  const { setUserWithToken } = useAuth();
+  const [link, setLink] = useState("hourly-profits?page=1");
+  const [additionalProfit, setAdditionalProfit] = useState({
+    total_maskoni_profit: "0.00",
+    total_tejari_profit: "0.00",
+    total_amozeshi_profit: "0.00",
   });
 
+  async function fetchHourlyProfits() {
+    const response = await Request(link, HTTP_METHOD.GET);
+    const newData = response?.data?.data || [];
+    if (newData.length > 0) {
+      setData((prevData) => [...prevData, ...newData]);
+    }
+    const nextLink = response?.data?.links?.next;
+    if (nextLink) {
+      setLink(nextLink.replace("https://api.rgb.irpsc.com/api/", ""));
+    } else {
+      setLink(null);
+    }
+
+    if (response?.data?.additional) {
+      setAdditionalProfit(response.data.additional);
+    }
+  }
+
   useEffect(() => {
-    Request("hourly-profits", HTTP_METHOD.GET)
-      .then(({ data }) => setData(data.data))
-      .catch((error) => console.error(error));
+    fetchHourlyProfits();
+    return () => {
+      setUserWithToken();
+    };
   }, []);
 
-  const calculateTotalAmount = useMemo(() => {
-    return (karbari) =>
-      data
-        .reduce((totalAmount, item) => {
-          if (item.karbari === karbari) {
-            totalAmount += parseFloat(item.amount);
-          }
-          return totalAmount;
-        }, 0)
-        .toFixed(3);
-  }, [data]);
+  const handleScroll = (event) => {
+    const element = event.target;
+    if (
+      element.scrollHeight - element.scrollTop === element.clientHeight &&
+      link
+    ) {
+      fetchHourlyProfits();
+    }
+  };
 
   const handleFilterOptionClick = (option) => {
+    // switch (option) {
+    //   case "m":
+    //     if (additionalProfit.total_maskoni_profit === "0.00") return;
+    //     break;
+    //   case "t":
+    //     if (additionalProfit.total_tejari_profit === "0.00") return;
+    //     break;
+    //   case "a":
+    //     if (additionalProfit.total_amozeshi_profit === "0.00") return;
+    //     break;
+    //   default:
+    //     break;
+    // }
+
     Request("hourly-profits", HTTP_METHOD.POST, { karbari: option })
-      .then(({ data }) => {
-        setData(data.data.filter(item => item.karbari !== option));
-        setFilterOptions({ ...filterOptions, [option]: true });
+      .then(() => {
+        setData(data.filter((item) => item.karbari !== option));
+        setFilterOptions((prev) => ({
+          ...prev,
+          [option]: false,
+        }));
+
+        if (option === "t") {
+          setAdditionalProfit((prev) => ({
+            ...prev,
+            total_tejari_profit: "0.00",
+          }));
+        } else if (option === "a") {
+          setAdditionalProfit((prev) => ({
+            ...prev,
+            total_amozeshi_profit: "0.00",
+          }));
+        } else if (option === "m") {
+          setAdditionalProfit((prev) => ({
+            ...prev,
+            total_maskoni_profit: "0.00",
+          }));
+        }
       })
       .catch((error) => console.error(error));
   };
 
   return (
-    <Container>
+    <Container onScroll={handleScroll}>
       <BtnContainer>
         <BtnHourProfitAll
           color={"red"}
-          value={calculateTotalAmount("t")}
-          onClick={() => {
-            if(calculateTotalAmount("t") !== "0.000"){
-              handleFilterOptionClick("t");
-            }
-          }}
+          value={additionalProfit.total_tejari_profit}
+          onClick={() => handleFilterOptionClick("t")}
         />
         <BtnHourProfitAll
           color={"blue"}
-          value={calculateTotalAmount("a")}
-          onClick={() => {
-            if(calculateTotalAmount("a") !== "0.000"){
-              handleFilterOptionClick("a");
-            }
-          }}
+          value={additionalProfit.total_amozeshi_profit}
+          onClick={() => handleFilterOptionClick("a")}
         />
         <BtnHourProfitAll
           color={"#d5d504"}
-          value={calculateTotalAmount("m")}
-          onClick={() => {
-            if(calculateTotalAmount("m") !== "0.000"){
-              handleFilterOptionClick("m");
-            }
-          }}
+          value={additionalProfit.total_maskoni_profit}
+          onClick={() => handleFilterOptionClick("m")}
         />
       </BtnContainer>
 
       {data.length > 0 &&
-        data.map(
-          (featureData) =>
-            !filterOptions[featureData.karbari] && (
+        data.map((featureData) => {
+          if (filterOptions[featureData.karbari]) {
+            return (
               <FeatureHourProfit data={featureData} key={featureData?.id} />
-            )
-        )}
+            );
+          }
+          return null;
+        })}
     </Container>
   );
 };

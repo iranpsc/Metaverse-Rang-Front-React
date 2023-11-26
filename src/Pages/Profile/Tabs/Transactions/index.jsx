@@ -94,7 +94,7 @@ const Transactions = () => {
         </HeaderTable>
         <tbody>
           {transactions.map((transaction, index) => (
-            <Tr key={index} >
+            <Tr key={index}>
               <td>{transaction.id}</td>
               <td>
                 {transaction.time} {transaction.date}
@@ -104,6 +104,8 @@ const Transactions = () => {
                   ? "موفق"
                   : transaction.status === -1
                   ? "ناموفق"
+                  : transaction.status === 0
+                  ? "معلق"
                   : ""}
               </td>
 
@@ -111,7 +113,10 @@ const Transactions = () => {
               <td>{transaction.asset}</td>
               <td>{transaction.amount}</td>
               <td>
-                <Icon src={SeenICoin} onClick={() => handleRowClick(transaction)}/>
+                <Icon
+                  src={SeenICoin}
+                  onClick={() => handleRowClick(transaction)}
+                />
               </td>
             </Tr>
           ))}

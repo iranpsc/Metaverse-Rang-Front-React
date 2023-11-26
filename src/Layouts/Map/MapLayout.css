@@ -4,6 +4,18 @@
     box-sizing: border-box;
 }
 
+:root {
+    --leaflet-tile-filter: brightness(0.6) invert(1) contrast(3)
+      hue-rotate(200deg) saturate(0.3) brightness(0.7);
+}
+
+.leaflet-tile {
+    filter: var(--leaflet-tile-filter, none);
+}
+
+.leaflet-container {
+    background: #303030;
+}
 
 .leaflet-control-attribution.leaflet-control {
     display: none;

@@ -105,11 +105,11 @@ export default function RequestSent() {
                       color: "blue",
                       cursor: "pointer",
                       fontFamily: "Segoe UI",
-                      textTransform:"uppercase",
+                      textTransform: "uppercase",
                     }}
                     onClick={() =>
                       window.open(
-                        `https://rgb.irpsc.com/citizen/${item?.to_user.code}`,
+                        `https://rgb.irpsc.com/fa/citizen/${item?.to_user.code}`,
                         "_blank"
                       )
                     }

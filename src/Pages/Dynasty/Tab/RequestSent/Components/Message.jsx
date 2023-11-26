@@ -88,7 +88,7 @@ export default function Message({ items, handleBack }) {
               }}
               onClick={() =>
                 window.open(
-                  `https://rgb.irpsc.com/citizen/${data?.to_user.code}`,
+                  `https://rgb.irpsc.com/fa/citizen/${data?.to_user.code}`,
                   "_blank"
                 )
               }
