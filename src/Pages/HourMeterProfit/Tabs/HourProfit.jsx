@@ -4,6 +4,8 @@ import BtnHourProfitAll from "../Components/BtnHourProfitAll";
 import FeatureHourProfit from "../Components/FeatureHourProfit";
 import useRequest from "../../../Services/Hooks/useRequest";
 import useAuth from "../../../Services/Hooks/useAuth";
+import { useContext } from "react";
+import { WalletContext } from "../../../Services/Reducers/WalletContext";
 
 const BtnContainer = styled.div`
   width: 100%;
@@ -33,6 +35,7 @@ const HourProfit = () => {
   });
   const { setUserWithToken } = useAuth();
   const [link, setLink] = useState("hourly-profits?page=1");
+  const [walletContext, dispatchWallet] = useContext(WalletContext);
   const [additionalProfit, setAdditionalProfit] = useState({
     total_maskoni_profit: "0.00",
     total_tejari_profit: "0.00",
@@ -75,20 +78,6 @@ const HourProfit = () => {
   };
 
   const handleFilterOptionClick = (option) => {
-    // switch (option) {
-    //   case "m":
-    //     if (additionalProfit.total_maskoni_profit === "0.00") return;
-    //     break;
-    //   case "t":
-    //     if (additionalProfit.total_tejari_profit === "0.00") return;
-    //     break;
-    //   case "a":
-    //     if (additionalProfit.total_amozeshi_profit === "0.00") return;
-    //     break;
-    //   default:
-    //     break;
-    // }
-
     Request("hourly-profits", HTTP_METHOD.POST, { karbari: option })
       .then(() => {
         setData(data.filter((item) => item.karbari !== option));
@@ -98,16 +87,28 @@ const HourProfit = () => {
         }));
 
         if (option === "t") {
+          dispatchWallet({
+            type: "blue",
+            payload: additionalProfit.total_tejari_profit,
+          });
           setAdditionalProfit((prev) => ({
             ...prev,
             total_tejari_profit: "0.00",
           }));
         } else if (option === "a") {
+          dispatchWallet({
+            type: "red",
+            payload: additionalProfit.total_amozeshi_profit,
+          });
           setAdditionalProfit((prev) => ({
             ...prev,
             total_amozeshi_profit: "0.00",
           }));
         } else if (option === "m") {
+          dispatchWallet({
+            type: "#d5d504",
+            payload: additionalProfit.total_maskoni_profit,
+          });
           setAdditionalProfit((prev) => ({
             ...prev,
             total_maskoni_profit: "0.00",

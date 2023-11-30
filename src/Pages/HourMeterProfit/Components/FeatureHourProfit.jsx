@@ -5,6 +5,8 @@ import YellowHouseIcon from "../../../Assets/images/yellowHouse.png";
 import BlueHouseIcon from "../../../Assets/images/blueHouse.png";
 import { useNavigate } from "react-router-dom";
 import useRequest from "../../../Services/Hooks/useRequest";
+import { WalletContext } from "../../../Services/Reducers/WalletContext";
+import { useContext } from "react";
 
 const FeatureContainer = styled.div`
   width: 100%;
@@ -79,11 +81,12 @@ const FeatureHourProfit = ({ data }) => {
   const Navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
   const [isSuccessful, setIsSuccessful] = useState(false);
-
-  const handelClick = (id) => {
+  const [walletContext, dispatchWallet] = useContext(WalletContext);
+  const handelClick = (id, type, amount) => {
     Request(`hourly-profits/${id}`, HTTP_METHOD.POST)
       .then(() => {
         setIsSuccessful(true);
+        dispatchWallet({ type: type, payload: amount });
       })
       .catch((error) => {
         console.log(error);
@@ -91,9 +94,9 @@ const FeatureHourProfit = ({ data }) => {
   };
 
   const IconSpan = styled.img`
-  width: 18px;
-  aspect-ratio: 1/1;
-`;
+    width: 18px;
+    aspect-ratio: 1/1;
+  `;
   return (
     <Container>
       {!isSuccessful && (
@@ -101,7 +104,9 @@ const FeatureHourProfit = ({ data }) => {
           <FeatureContainer>
             <Btn
               color={karbariColor[data?.karbari]}
-              onClick={() => handelClick(data.id)}
+              onClick={() =>
+                handelClick(data.id, karbariColor[data?.karbari], data?.amount)
+              }
               disabled={data?.amount === "0.000"}
             >
               {data?.amount}
@@ -109,9 +114,12 @@ const FeatureHourProfit = ({ data }) => {
             <DetaileContainer>
               <FeatureDetaile>
                 <OrangeBoldFont
-                  onClick={() => Navigate(`/metaverse/feature/${data?.feature_db_id}`)}
+                  onClick={() =>
+                    Navigate(`/metaverse/feature/${data?.feature_db_id}`)
+                  }
                 >
-                 <IconSpan src={karbariIcons[data?.karbari]} />  {data?.feature_id}
+                  <IconSpan src={karbariIcons[data?.karbari]} />{" "}
+                  {data?.feature_id}
                 </OrangeBoldFont>
                 <span>:نوع کاربری </span>
               </FeatureDetaile>
