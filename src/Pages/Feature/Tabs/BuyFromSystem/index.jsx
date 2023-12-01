@@ -5,7 +5,7 @@ import { FeatureContext } from "../../Context/FeatureProvider";
 import BuySystem from "./Tabs/BuySystem";
 
 export default function BuyFromSystem() {
-  const [feature, ] = useContext(FeatureContext);
+  const [feature] = useContext(FeatureContext);
 
   const tabs = [
     {
@@ -16,6 +16,7 @@ export default function BuyFromSystem() {
           price={feature.properties.area * feature.properties.density}
           image={FeatureColor(feature.properties.rgb)}
           id={feature.id}
+          type={feature.properties.karbari}
         />
       ),
     },

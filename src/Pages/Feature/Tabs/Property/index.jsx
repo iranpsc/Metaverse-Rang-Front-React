@@ -65,13 +65,10 @@ const Input = styled.input`
 `;
 
 export default function Property() {
-  const [user, ] = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const [feature, setFeature] = useContext(FeatureContext);
-  // (feature);
   const Navigate = useNavigate();
-
   const inputRef = useRef();
-
   const { Request, HTTP_METHOD } = useRequest();
 
   const uploadHandler = (e) => {
@@ -89,18 +86,25 @@ export default function Property() {
           const formData = new FormData();
           formData.append("file", result, result.name);
 
-          Request(`my-features/${user?.id}/add-image/${feature?.id}`, HTTP_METHOD.POST, {"images[]": [formData.get("file")]}, {"Content-Type": "multipart/form-data"}).then(response => {
-            setFeature({...feature, images: [...response.data.data]}); 
-            ToastSuccess("آپلود عکس با موفقیت انجام شد.")
-          }).catch(error => {
-            if (error.response.status === 410) {
-              ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
-              return Navigate("/metaverse/confirmation");
-            } else {
-              ToastError(error.response.data.message)
-            }
-          })
-        }
+          Request(
+            `my-features/${user?.id}/add-image/${feature?.id}`,
+            HTTP_METHOD.POST,
+            { "images[]": [formData.get("file")] },
+            { "Content-Type": "multipart/form-data" }
+          )
+            .then((response) => {
+              setFeature({ ...feature, images: [...response.data.data] });
+              ToastSuccess("آپلود عکس با موفقیت انجام شد.");
+            })
+            .catch((error) => {
+              if (error.response.status === 410) {
+                ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+                return Navigate("/metaverse/confirmation");
+              } else {
+                ToastError(error.response.data.message);
+              }
+            });
+        },
       });
     } else {
       ToastError("باید حجم فایل انتخابی کمتر از 1024 کیلوبایت باشد.");
@@ -110,10 +114,10 @@ export default function Property() {
   return (
     <Container>
       <ContainerGallery>
-        {feature?.images?.map(image => (
+        {feature?.images?.map((image) => (
           <ImgProperty key={shortid.generate()} src={image.url} />
         ))}
-        {parseInt(feature.owner_id) === parseInt(user.id) &&
+        {parseInt(feature.owner_id) === parseInt(user.id) && (
           <UploadContainer onClick={() => inputRef.current.click()}>
             <p>+</p>
 
@@ -125,14 +129,23 @@ export default function Property() {
               multiple={false}
             />
           </UploadContainer>
-        }
-
+        )}
       </ContainerGallery>
 
       <PropertyContainer>
-        <Specification title="صاحب ملک " value={feature?.properties?.owner === "rgb" ? "سیستم" : feature?.properties?.owner} />
+        <Specification
+          title="صاحب ملک "
+          value={
+            feature?.properties?.owner === "rgb"
+              ? "سیستم"
+              : feature?.properties?.owner
+          }
+        />
         <Specification title="آدرس" value={feature?.properties?.address} />
-        <Specification title="وضعیت" value={COMBINE_FEATURE[feature?.properties?.rgb]} />
+        <Specification
+          title="وضعیت"
+          value={COMBINE_FEATURE[feature?.properties?.rgb]}
+        />
         <Specification
           title="متراژ | مترمربع"
           value={feature?.properties?.area}

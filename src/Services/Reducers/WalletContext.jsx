@@ -4,6 +4,7 @@ export const WalletContext = createContext({});
 
 export const WalletContextTypes = {
   ADD_WALLET: "ADD_WALLET",
+  SUBTRACT_WALLET: "SUBTRACT_WALLET",
 };
 
 const reducer = (state, action) => {
@@ -38,10 +39,20 @@ const reducer = (state, action) => {
     case WalletContextTypes.ADD_WALLET:
       return action.payload;
 
+    case WalletContextTypes.SUBTRACT_WALLET:
+      const subtractedAmount = (
+        parseFloat(state[action.color]) - parseFloat(action.payload)
+      ).toFixed(3);
+      return {
+        ...state,
+        [action.color]: parseFloat(subtractedAmount).toString(),
+      };
+
     default:
       return state;
   }
 };
+
 export default function WalletProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, {});
 

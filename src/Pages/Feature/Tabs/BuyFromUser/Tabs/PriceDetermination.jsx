@@ -14,6 +14,10 @@ import PriceInput from "../../../Components/PriceInput";
 import Specification from "../../../Components/Specification";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { Container, Text, Title } from "../../../Styles";
+import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../../../Services/Reducers/WalletContext";
 
 const TextOffer = styled.textarea`
   border: 1px solid #c2c2c2;
@@ -34,32 +38,28 @@ const TextOffer = styled.textarea`
 
 export default function PriceDetermination() {
   const [feature] = useContext(FeatureContext);
-
+  const [walletState, dispatch] = useContext(WalletContext);
   const { Request, HTTP_METHOD } = useRequest();
-
   const Navigate = useNavigate();
-
   const totalArea = feature?.properties?.density * feature?.properties?.area;
   const totalIrr =
     totalArea *
     FeaturePrice(feature?.properties?.rgb) *
-    (feature?.properties?.minimum_price_percentage / 100);
-
+    (feature?.properties?.minimum_price_percentage / 100).toFixed(2);
   const [formData, setFormData] = useState({
     price_irr:
       (totalArea *
         FeaturePrice(feature?.properties?.rgb) *
-        (feature?.properties?.minimum_price_percentage / 100)) /
+        (feature?.properties?.minimum_price_percentage / 100).toFixed(2)) /
       2,
     price_psc:
       (totalArea *
         FeaturePrice(feature?.properties?.rgb) *
-        (feature?.properties?.minimum_price_percentage / 100)) /
+        (feature?.properties?.minimum_price_percentage / 100).toFixed(2)) /
       2 /
       900,
     note: "",
   });
-
   const [errors, setErrors] = useState({
     price_irr: "",
     price_psc: "",
@@ -69,6 +69,16 @@ export default function PriceDetermination() {
     if (formData.price_irr + formData.price_psc * 900 >= totalIrr) {
       Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST)
         .then(() => {
+          dispatch({
+            type: WalletContextTypes.SUBTRACT_WALLET,
+            color: "psc",
+            payload: formData.price_psc,
+          });
+          dispatch({
+            type: WalletContextTypes.SUBTRACT_WALLET,
+            color: "irr",
+            payload: formData.price_irr,
+          });
           ToastSuccess("پیشنهاد شما با موفقیت ارسال گردید.");
         })
         .catch((error) => {
@@ -98,7 +108,7 @@ export default function PriceDetermination() {
         <PriceInput
           onChange={setFormData}
           text="ریال"
-          value={formData.price_irr}
+          value={formData.price_irr.toFixed(2)}
           name="price_irr"
           errors={errors}
         />
@@ -107,7 +117,7 @@ export default function PriceDetermination() {
         <PriceInput
           onChange={setFormData}
           text="PSC"
-          value={formData.price_psc}
+          value={formData.price_psc.toFixed(2)}
           name="price_psc"
           errors={errors}
         />
@@ -135,15 +145,19 @@ export default function PriceDetermination() {
           <Specification title={"کارمزد"} value={"5%"} />
           <Specification
             title={"مانده"}
-            value={totalIrr - formData.price_irr - formData.price_psc * 900}
+            value={
+              totalIrr -
+              formData.price_irr.toFixed(2) -
+              formData.price_psc.toFixed(2) * 900
+            }
           />
           <Specification
             title={"قیمت نهایی"}
             value={`${calculateFee(
-              formData.price_irr ? formData.price_irr : 0,
+              formData.price_irr ? formData.price_irr.toFixed(2) : 0,
               5
             )} IRR / ${calculateFee(
-              formData.price_irr ? formData.price_irr : 0,
+              formData.price_irr ? formData.price_irr.toFixed(2) : 0,
               5
             )} PSC`}
           />

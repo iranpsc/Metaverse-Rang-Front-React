@@ -6,14 +6,18 @@ import IconIrr from "../../../../../Assets/images/coin-irr.png";
 import IconPsc from "../../../../../Assets/images/coin-psc.png";
 import Specification from "../../../Components/Specification";
 import { FeatureContext } from "../../../Context/FeatureProvider";
-import { calculateFee, ToastError } from "../../../../../Services/Utility"
+import { calculateFee, ToastError } from "../../../../../Services/Utility";
 import Form from "../../../../../Components/Form";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import { FeatureSvg } from "../../../../../Services/Constants/FeatureType";
+import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../../../Services/Reducers/WalletContext";
 
 const ContainerPrice = styled.div`
-  width:65%;
+  width: 65%;
   background-color: #e9e9e9;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
@@ -38,30 +42,43 @@ const TextValue = styled.p`
 `;
 
 export default function BuyUser() {
-  const [feature, ] = useContext(FeatureContext);
-
+  const [feature] = useContext(FeatureContext);
+  const [walletState, dispatch] = useContext(WalletContext);
+  console.log(parseFloat(walletState.psc));
   const Navigate = useNavigate();
 
-  const [formData, ] = useState({
+  const [formData] = useState({
     price_irr: feature?.properties?.price_irr,
-    price_psc: feature?.properties?.price_psc
+    price_psc: feature?.properties?.price_psc,
   });
 
   const { Request, HTTP_METHOD } = useRequest();
 
   const onSubmit = () => {
-    Request(`features/buy/${feature?.id}`, HTTP_METHOD.POST).then(response => {
-      Navigate(FeatureSvg(feature?.properties?.rgb));
-    }).catch(error => {
-      if (error.response.status === 410) {
-        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
-        return Navigate("/metaverse/confirmation");
-      } else {
-        ToastError(error.response.data.message)
-      }
-    });
-  }
-  
+    Request(`features/buy/${feature?.id}`, HTTP_METHOD.POST)
+      .then((response) => {
+        dispatch({
+          type: WalletContextTypes.SUBTRACT_WALLET,
+          color: "psc",
+          payload: formData.price_psc,
+        });
+        dispatch({
+          type: WalletContextTypes.SUBTRACT_WALLET,
+          color: "irr",
+          payload: formData.price_irr,
+        });
+        Navigate(FeatureSvg(feature?.properties?.rgb));
+      })
+      .catch((error) => {
+        if (error.response.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          return Navigate("/metaverse/confirmation");
+        } else {
+          ToastError(error.response.data.message);
+        }
+      });
+  };
+
   return (
     <Container style={{ gap: "50px" }}>
       <Text style={{ fontWeight: "700" }}>
@@ -79,16 +96,23 @@ export default function BuyUser() {
           <TextValue>PSC</TextValue>
         </ContainerPrice>
         <Container style={{ flexDirection: "row", gap: "10px", width: "50%" }}>
-          <Specification title={"کارمزد"} value={"5%"}  />
+          <Specification title={"کارمزد"} value={"5%"} />
           <Specification
             title={"قیمت نهایی"}
-            value={`${calculateFee(formData.price_irr, 5)} IRR / ${calculateFee(formData.price_psc, 5)} PSC`}
+            value={`${calculateFee(formData.price_irr, 5)} IRR / ${calculateFee(
+              formData.price_psc,
+              5
+            )} PSC`}
           />
         </Container>
       </Container>
 
       <Form onSubmit={onSubmit}>
-        <Submit type="primary" text="خرید" options={{ style: { width: 150 } }} />
+        <Submit
+          type="primary"
+          text="خرید"
+          options={{ style: { width: 150 } }}
+        />
       </Form>
     </Container>
   );
