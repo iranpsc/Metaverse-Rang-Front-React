@@ -7,45 +7,61 @@ export const WalletContextTypes = {
   SUBTRACT_WALLET: "SUBTRACT_WALLET",
 };
 
+function convert(value) {
+  if (value.endsWith("K")) {
+    return parseFloat(value) * 1000;
+  } else if (value.endsWith("M")) {
+    return parseFloat(value) * 1000000;
+  }
+  return parseFloat(value);
+}
+
+function reformat(value) {
+  if (value >= 1000000) {
+    return value / 1000000 + "M";
+  } else if (value >= 1000) {
+    return value / 1000 + "K";
+  }
+  return value;
+}
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "#d5d504":
       const newYellow = (
-        parseFloat(state.yellow) + parseFloat(action.payload)
+        convert(state.yellow) + convert(action.payload)
       ).toFixed(3);
       return {
         ...state,
-        yellow: parseFloat(newYellow).toString(),
+        yellow: reformat(newYellow),
       };
 
     case "red":
-      const newRed = (
-        parseFloat(state.red) + parseFloat(action.payload)
-      ).toFixed(3);
+      const newRed = (convert(state.red) + convert(action.payload)).toFixed(3);
       return {
         ...state,
-        red: parseFloat(newRed).toString(),
+        red: reformat(newRed),
       };
 
     case "blue":
-      const newBlue = (
-        parseFloat(state.blue) + parseFloat(action.payload)
-      ).toFixed(3);
+      const newBlue = (convert(state.blue) + convert(action.payload)).toFixed(
+        3
+      );
       return {
         ...state,
-        blue: parseFloat(newBlue).toString(),
+        blue: reformat(newBlue),
       };
 
     case WalletContextTypes.ADD_WALLET:
       return action.payload;
 
     case WalletContextTypes.SUBTRACT_WALLET:
-      const subtractedAmount = (
-        parseFloat(state[action.color]) - parseFloat(action.payload)
-      ).toFixed(3);
+      const convertedSubtractAmount = convert(action.payload);
+      const subtractedAmount =
+        convert(state[action.color]) - convertedSubtractAmount;
       return {
         ...state,
-        [action.color]: parseFloat(subtractedAmount).toString(),
+        [action.color]: reformat(subtractedAmount),
       };
 
     default:
@@ -58,7 +74,7 @@ export default function WalletProvider({ children }) {
 
   useEffect(() => {
     if (!children) {
-      throw Error("You must use WalletContext provider ...");
+      throw Error("You must use WalletContext provider...");
     }
   }, [children]);
 

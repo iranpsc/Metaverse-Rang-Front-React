@@ -88,7 +88,7 @@ const HourProfit = () => {
 
         if (option === "t") {
           dispatchWallet({
-            type: "blue",
+            type: "red",
             payload: additionalProfit.total_amozeshi_profit,
           });
           setAdditionalProfit((prev) => ({
@@ -97,7 +97,7 @@ const HourProfit = () => {
           }));
         } else if (option === "a") {
           dispatchWallet({
-            type: "red",
+            type: "blue",
             payload: additionalProfit.total_tejari_profit,
           });
           setAdditionalProfit((prev) => ({
