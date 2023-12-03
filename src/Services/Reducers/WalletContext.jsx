@@ -8,7 +8,9 @@ export const WalletContextTypes = {
 };
 
 function convert(value) {
-  if (value.endsWith("K")) {
+  if (!isNaN(value)) {
+    return parseFloat(value);
+  } else if (value.endsWith("K")) {
     return parseFloat(value) * 1000;
   } else if (value.endsWith("M")) {
     return parseFloat(value) * 1000000;
@@ -57,8 +59,9 @@ const reducer = (state, action) => {
 
     case WalletContextTypes.SUBTRACT_WALLET:
       const convertedSubtractAmount = convert(action.payload);
-      const subtractedAmount =
-        convert(state[action.color]) - convertedSubtractAmount;
+      const subtractedAmount = (
+        convert(state[action.color]) - convertedSubtractAmount
+      ).toFixed(3);
       return {
         ...state,
         [action.color]: reformat(subtractedAmount),

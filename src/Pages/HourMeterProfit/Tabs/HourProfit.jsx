@@ -89,7 +89,7 @@ const HourProfit = () => {
         if (option === "t") {
           dispatchWallet({
             type: "red",
-            payload: additionalProfit.total_amozeshi_profit,
+            payload: additionalProfit.total_tejari_profit,
           });
           setAdditionalProfit((prev) => ({
             ...prev,
@@ -98,7 +98,7 @@ const HourProfit = () => {
         } else if (option === "a") {
           dispatchWallet({
             type: "blue",
-            payload: additionalProfit.total_tejari_profit,
+            payload: additionalProfit.total_amozeshi_profit,
           });
           setAdditionalProfit((prev) => ({
             ...prev,
@@ -117,7 +117,6 @@ const HourProfit = () => {
       })
       .catch((error) => console.error(error));
   };
-
   return (
     <Container onScroll={handleScroll}>
       <BtnContainer>

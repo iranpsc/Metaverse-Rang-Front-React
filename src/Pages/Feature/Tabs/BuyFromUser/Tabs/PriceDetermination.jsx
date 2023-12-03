@@ -45,17 +45,17 @@ export default function PriceDetermination() {
   const totalIrr =
     totalArea *
     FeaturePrice(feature?.properties?.rgb) *
-    (feature?.properties?.minimum_price_percentage / 100).toFixed(2);
+    (feature?.properties?.minimum_price_percentage / 100);
   const [formData, setFormData] = useState({
     price_irr:
       (totalArea *
         FeaturePrice(feature?.properties?.rgb) *
-        (feature?.properties?.minimum_price_percentage / 100).toFixed(2)) /
+        (feature?.properties?.minimum_price_percentage / 100)) /
       2,
     price_psc:
       (totalArea *
         FeaturePrice(feature?.properties?.rgb) *
-        (feature?.properties?.minimum_price_percentage / 100).toFixed(2)) /
+        (feature?.properties?.minimum_price_percentage / 100)) /
       2 /
       900,
     note: "",

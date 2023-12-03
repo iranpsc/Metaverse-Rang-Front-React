@@ -44,7 +44,6 @@ const TextValue = styled.p`
 export default function BuyUser() {
   const [feature] = useContext(FeatureContext);
   const [walletState, dispatch] = useContext(WalletContext);
-  console.log(parseFloat(walletState.psc));
   const Navigate = useNavigate();
 
   const [formData] = useState({
