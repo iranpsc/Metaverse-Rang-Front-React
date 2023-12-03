@@ -67,7 +67,7 @@ export default function PriceDetermination() {
 
   const onSubmit = () => {
     if (formData.price_irr + formData.price_psc * 900 >= totalIrr) {
-      Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST)
+      Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST, formData)
         .then(() => {
           dispatch({
             type: WalletContextTypes.SUBTRACT_WALLET,
@@ -108,7 +108,7 @@ export default function PriceDetermination() {
         <PriceInput
           onChange={setFormData}
           text="ریال"
-          value={formData.price_irr.toFixed(2)}
+          value={formData.price_irr}
           name="price_irr"
           errors={errors}
         />
@@ -117,7 +117,7 @@ export default function PriceDetermination() {
         <PriceInput
           onChange={setFormData}
           text="PSC"
-          value={formData.price_psc.toFixed(2)}
+          value={formData.price_psc}
           name="price_psc"
           errors={errors}
         />
@@ -145,19 +145,15 @@ export default function PriceDetermination() {
           <Specification title={"کارمزد"} value={"5%"} />
           <Specification
             title={"مانده"}
-            value={
-              totalIrr -
-              formData.price_irr.toFixed(2) -
-              formData.price_psc.toFixed(2) * 900
-            }
+            value={totalIrr - formData.price_irr - formData.price_psc * 900}
           />
           <Specification
             title={"قیمت نهایی"}
             value={`${calculateFee(
-              formData.price_irr ? formData.price_irr.toFixed(2) : 0,
+              formData.price_irr ? formData.price_irr : 0,
               5
             )} IRR / ${calculateFee(
-              formData.price_irr ? formData.price_irr.toFixed(2) : 0,
+              formData.price_irr ? formData.price_irr : 0,
               5
             )} PSC`}
           />
