@@ -66,41 +66,28 @@ export default function PriceDetermination() {
   });
   console.log(formData.price_psc);
   const onSubmit = () => {
-    const remainingValue =
-      totalIrr - formData.price_irr - formData.price_psc * 900;
-
-    if (remainingValue >= 0) {
-      Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST, formData)
-        .then(() => {
-          dispatch({
-            type: WalletContextTypes.SUBTRACT_WALLET,
-            color: "psc",
-            payload: formData.price_psc,
-          });
-          dispatch({
-            type: WalletContextTypes.SUBTRACT_WALLET,
-            color: "irr",
-            payload: formData.price_irr,
-          });
-          ToastSuccess("پیشنهاد شما با موفقیت ارسال گردید.");
-        })
-        .catch((error) => {
-          if (error.response.status === 410) {
-            ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-            return Navigate("/metaverse/confirmation");
-          } else {
-            ToastError(error.response.data.message);
-          }
+    Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST, formData)
+      .then(() => {
+        dispatch({
+          type: WalletContextTypes.SUBTRACT_WALLET,
+          color: "psc",
+          payload: formData.price_psc,
         });
-    } else {
-      setErrors({
-        ...errors,
-        price_irr:
-          "مقدار باقی‌مانده نمی‌تواند کمتر از صفر باشد , مقادیر  وارد شده را کم کنید",
-        price_psc:
-          "مقدار باقی‌مانده نمی‌تواند کمتر از صفر باشد , مقادیر  وارد شده را کم کنید",
+        dispatch({
+          type: WalletContextTypes.SUBTRACT_WALLET,
+          color: "irr",
+          payload: formData.price_irr,
+        });
+        ToastSuccess("پیشنهاد شما با موفقیت ارسال گردید.");
+      })
+      .catch((error) => {
+        if (error.response.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          return Navigate("/metaverse/confirmation");
+        } else {
+          ToastError(error.response.data.message);
+        }
       });
-    }
   };
 
   return (
@@ -151,7 +138,10 @@ export default function PriceDetermination() {
           <Specification title={"کارمزد"} value={"5%"} />
           <Specification
             title={"مانده"}
-            value={totalIrr - formData.price_irr - formData.price_psc * 900}
+            value={Math.max(
+              totalIrr - formData.price_irr - formData.price_psc * 900,
+              0
+            )}
           />
           <Specification
             title={"قیمت نهایی"}
