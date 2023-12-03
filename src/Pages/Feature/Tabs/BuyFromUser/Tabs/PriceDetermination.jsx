@@ -64,9 +64,12 @@ export default function PriceDetermination() {
     price_irr: "",
     price_psc: "",
   });
-
+  console.log(formData.price_psc);
   const onSubmit = () => {
-    if (formData.price_irr + formData.price_psc * 900 >= totalIrr) {
+    const remainingValue =
+      totalIrr - formData.price_irr - formData.price_psc * 900;
+
+    if (remainingValue >= 0) {
       Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST, formData)
         .then(() => {
           dispatch({
@@ -92,7 +95,10 @@ export default function PriceDetermination() {
     } else {
       setErrors({
         ...errors,
-        price_irr: `حداقل ارزش معامله ${feature?.properties?.minimum_price_percentage}% قیمت اولیه میباشد`,
+        price_irr:
+          "مقدار باقی‌مانده نمی‌تواند کمتر از صفر باشد , مقادیر  وارد شده را کم کنید",
+        price_psc:
+          "مقدار باقی‌مانده نمی‌تواند کمتر از صفر باشد , مقادیر  وارد شده را کم کنید",
       });
     }
   };
@@ -153,7 +159,7 @@ export default function PriceDetermination() {
               formData.price_irr ? formData.price_irr : 0,
               5
             )} IRR / ${calculateFee(
-              formData.price_irr ? formData.price_irr : 0,
+              formData.price_psc ? formData.price_psc : 0,
               5
             )} PSC`}
           />

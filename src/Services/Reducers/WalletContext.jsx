@@ -58,7 +58,8 @@ const reducer = (state, action) => {
       return action.payload;
 
     case WalletContextTypes.SUBTRACT_WALLET:
-      const convertedSubtractAmount = convert(action.payload);
+      const convertedSubtractAmount = convert(action.payload).toFixed(2);
+      console.log(convertedSubtractAmount);
       const subtractedAmount = (
         convert(state[action.color]) - convertedSubtractAmount
       ).toFixed(3);
