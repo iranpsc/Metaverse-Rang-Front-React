@@ -18,7 +18,7 @@ const FeatureItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: end;
-  height: 200px;
+  height: 240px;
   width: 100%;
   border-bottom: 1px solid #777;
   padding: 0 10px;
@@ -74,7 +74,7 @@ const blueBoldFont = {
   color: "blue",
   cursor: "pointer",
   fontFamily: "Segoe UI",
-  textTransform:"uppercase",
+  textTransform: "uppercase",
 };
 const SpanDetails = styled.div`
   display: flex;
@@ -125,18 +125,21 @@ const FeatureContainer = ({ feature }) => {
               })
             }
           />
-          <Icons src={PropertyValueBalanceIcon}  onClick={() =>
+          <Icons
+            src={PropertyValueBalanceIcon}
+            onClick={() =>
               Navigate(`/metaverse/feature/${feature?.id}`, {
-                state: { activePageNumber: 1 ,activeTab:1},
+                state: { activePageNumber: 1, activeTab: 1 },
               })
-            } />
+            }
+          />
           <Icons
             src={PropertyLocationIcon}
             onClick={() =>
               flyToPosition({
                 latitude: center.y,
                 longitude: center.x,
-                icon:LocationPin,
+                icon: LocationPin,
                 mapRe: map,
                 zoom: 17,
               })
