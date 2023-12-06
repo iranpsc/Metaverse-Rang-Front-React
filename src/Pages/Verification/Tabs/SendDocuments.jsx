@@ -1,7 +1,6 @@
-/* eslint-disable no-mixed-operators */
-import Compressor from "compressorjs";
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import Compressor from "compressorjs";
 import Submit from "../../../Components/Buttons/Submit";
 import ErrorMessage from "../../../Components/ErrorMessage";
 import Form from "../../../Components/Form";
@@ -49,6 +48,7 @@ const ContainerUploader = styled.div`
   align-items: center;
   cursor: pointer;
   position: relative;
+
   & p {
     font-size: 48px;
   }
@@ -84,26 +84,24 @@ const ErrorContainer = styled.div`
 const errorHandler = (errors, fieldName) => {
   try {
     return errors?.filter((error) => error?.name === fieldName)[0]?.message;
-  } catch {}
+  } catch {
+    return null;
+  }
 };
 
-export default function SendDocuments({ setDefaultTab }) {
+const SendDocuments = ({ setDefaultTab }) => {
   const [kyc, setKyc] = useContext(KycContext);
-
   const [formData, setFormData] = useState({
     melli_card: null,
     prove_picture: null,
     resume: null,
   });
-
   const [preview, setPreview] = useState({
     melli_card: null,
     prove_picture: null,
     resume: null,
   });
-
   const [errors, setErrors] = useState([]);
-
   const { Request, HTTP_METHOD } = useRequest();
 
   const provePicRef = useRef();
@@ -116,14 +114,11 @@ export default function SendDocuments({ setDefaultTab }) {
 
   const onChangeHandler = (e) => {
     const file = e.target.files[0];
-    if (file.size < 1000000) {
+    if (file.size < 3000000) {
       new Compressor(file, {
         quality: 0.6,
         width: 512,
         height: 512,
-
-        // The compression process is asynchronous,
-        // which means you have to access the `result` in the `success` hook function.
         success(result) {
           setPreview({
             ...preview,
@@ -160,6 +155,7 @@ export default function SendDocuments({ setDefaultTab }) {
     if (!formData?.resume) {
       return setErrors(["عکس کارت بانکی موجود ندارد."]);
     }
+
     const requestData = {
       fname: kyc?.fname,
       lname: kyc?.lname,
@@ -174,52 +170,32 @@ export default function SendDocuments({ setDefaultTab }) {
       site: kyc?.site,
       ...formData,
     };
-    if (kyc?.status === -1) {
-      Request(
-        `kyc/${kyc?.id}`,
-        HTTP_METHOD.POST,
-        { ...requestData, _method: "PUT" },
-        { "Content-Type": "multipart/form-data" }
-      )
-        .then((response) => {
-          ToastSuccess(
-            "مشخصات با موفقیت بروزرسانی شد ، کارشناسان ما در کمترین زمان آنها را برسی میکنند و به شما اطلاع میدهند."
-          );
-        })
-        .catch((error) => {
-          setKyc({
-            ...kyc,
-            errors: [
-              ...Object.keys(errors).map((key) => ({
-                name: key,
-                message: errors?.[key][0],
-              })),
-            ],
-          });
-          ToastError(error.response.data.message);
-        });
-    } else {
-      Request("kyc", HTTP_METHOD.POST, requestData, {
-        "Content-Type": "multipart/form-data",
+
+    const endpoint = kyc?.status === -1 ? `kyc/${kyc?.id}` : "kyc";
+
+    Request(endpoint, HTTP_METHOD.POST, requestData, {
+      "Content-Type": "multipart/form-data",
+    })
+      .then((response) => {
+        const successMessage =
+          kyc?.status === -1
+            ? "مشخصات با موفقیت بروزرسانی شد ، کارشناسان ما در کمترین زمان آنها را برسی میکنند و به شما اطلاع میدهند."
+            : "مشخصات با موفقیت ارسال شد ، کارشناسان ما در کمترین زمان آنها را برسی میکنند و به شما اطلاع میدهند.";
+
+        ToastSuccess(successMessage);
       })
-        .then((response) => {
-          ToastSuccess(
-            "مشخصات با موفقیت ارسال شد ، کارشناسان ما در کمترین زمان آنها را برسی میکنند و به شما اطلاع میدهند."
-          );
-        })
-        .catch((error) => {
-          setKyc({
-            ...kyc,
-            errors: [
-              ...Object.keys(errors).map((key) => ({
-                name: key,
-                message: errors?.[key][0],
-              })),
-            ],
-          });
-          ToastError(error.response.data.message);
+      .catch((error) => {
+        setKyc({
+          ...kyc,
+          errors: [
+            ...Object.keys(errors).map((key) => ({
+              name: key,
+              message: errors?.[key][0],
+            })),
+          ],
         });
-    }
+        ToastError(error.response.data.message);
+      });
   };
 
   return (
@@ -244,7 +220,7 @@ export default function SendDocuments({ setDefaultTab }) {
               kyc?.status === 1 ? null : bankCardRef.current.click()
             }
           >
-            {!preview?.resume && kyc?.status !== 1 && <p>+</p>}
+            {!preview?.resume && !kyc?.resume && <p>+</p>}
 
             {preview?.resume && (
               <>
@@ -255,15 +231,17 @@ export default function SendDocuments({ setDefaultTab }) {
               </>
             )}
 
-            {kyc?.status === 1 && <PreviewImage src={kyc?.resume} />}
+            {kyc?.resume && <PreviewImage src={kyc?.resume} />}
 
-            <input
-              ref={bankCardRef}
-              name="resume"
-              accept="image/jpeg"
-              type="file"
-              onChange={onChangeHandler}
-            />
+            {!kyc?.resume && (
+              <input
+                ref={bankCardRef}
+                name="resume"
+                accept="image"
+                type="file"
+                onChange={onChangeHandler}
+              />
+            )}
           </ContainerUploader>
         </ParentUploadImg>
 
@@ -279,7 +257,7 @@ export default function SendDocuments({ setDefaultTab }) {
               kyc?.status === 1 ? null : meliCardRef.current.click()
             }
           >
-            {!preview?.melli_card && kyc?.status !== 1 && <p>+</p>}
+            {!preview?.melli_card && !kyc?.melli_card && <p>+</p>}
 
             {preview?.melli_card && (
               <>
@@ -290,15 +268,17 @@ export default function SendDocuments({ setDefaultTab }) {
               </>
             )}
 
-            {kyc?.status === 1 && <PreviewImage src={kyc?.melli_card} />}
+            {kyc?.melli_card && <PreviewImage src={kyc?.melli_card} />}
 
-            <input
-              ref={meliCardRef}
-              name="melli_card"
-              accept="image/jpeg"
-              type="file"
-              onChange={onChangeHandler}
-            />
+            {!kyc?.melli_card && (
+              <input
+                ref={meliCardRef}
+                name="melli_card"
+                accept="image"
+                type="file"
+                onChange={onChangeHandler}
+              />
+            )}
           </ContainerUploader>
         </ParentUploadImg>
 
@@ -314,7 +294,7 @@ export default function SendDocuments({ setDefaultTab }) {
               kyc?.status === 1 ? null : provePicRef.current.click()
             }
           >
-            {!preview?.prove_picture && kyc?.status !== 1 && <p>+</p>}
+            {!preview?.prove_picture && !kyc?.prove_picture && <p>+</p>}
 
             {preview?.prove_picture && (
               <>
@@ -327,15 +307,17 @@ export default function SendDocuments({ setDefaultTab }) {
               </>
             )}
 
-            {kyc?.status === 1 && <PreviewImage src={kyc?.prove_picture} />}
+            {kyc?.prove_picture && <PreviewImage src={kyc?.prove_picture} />}
 
-            <input
-              ref={provePicRef}
-              name="prove_picture"
-              accept="image/jpeg"
-              type="file"
-              onChange={onChangeHandler}
-            />
+            {!kyc?.prove_picture && (
+              <input
+                ref={provePicRef}
+                name="prove_picture"
+                accept="image"
+                type="file"
+                onChange={onChangeHandler}
+              />
+            )}
           </ContainerUploader>
         </ParentUploadImg>
       </Container>
@@ -365,4 +347,6 @@ export default function SendDocuments({ setDefaultTab }) {
       </a>
     </Form>
   );
-}
+};
+
+export default SendDocuments;

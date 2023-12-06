@@ -9,11 +9,16 @@ import KycProvider from "./Context/KycProvider";
 
 export default function Verification() {
   const [defaultTab, setDefaultTab] = useState(0);
-
   const tabs = [
-    { title: "احراز فردی", content: <PersonalVerification setDefaultTab={setDefaultTab} /> },
-    { title: "ارسال مدارک", content: <SendDocuments setDefaultTab={setDefaultTab}/> },
-    { title: "احراز بانکی", content: <BankVerification /> }
+    {
+      title: "احراز فردی",
+      content: <PersonalVerification setDefaultTab={setDefaultTab} />,
+    },
+    {
+      title: "ارسال مدارک",
+      content: <SendDocuments setDefaultTab={setDefaultTab} />,
+    },
+    { title: "احراز بانکی", content: <BankVerification /> },
   ];
 
   const TabPanel = useTabs(tabs, defaultTab);

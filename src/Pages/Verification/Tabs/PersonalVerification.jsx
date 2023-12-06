@@ -89,7 +89,6 @@ export default function PersonalVerification({ setDefaultTab }) {
       birthdate: kyc?.birthdate === undefined ? "" : kyc?.birthdate,
       site: kyc?.site === undefined ? "" : kyc?.site,
     });
- 
   }, [kyc, VerificationErrors]);
   const onSubmit = () => {
     if (!formData?.fname) {
@@ -291,7 +290,12 @@ export default function PersonalVerification({ setDefaultTab }) {
               src={Error}
               onClick={() => setShowModal((showModal) => !showModal)}
             />
-            {showModal && <ErrorVerification errors={VerificationErrors} setShowModal={setShowModal}/>}
+            {showModal && (
+              <ErrorVerification
+                errors={VerificationErrors}
+                setShowModal={setShowModal}
+              />
+            )}
           </InputContainer>
         </Container>
         <Submit

@@ -6,12 +6,12 @@ import styled from "styled-components";
 // Create a styled TabContainer component
 const TabContainer = styled.section`
   width: 99%;
-  height: ${props => props.fullHeight ? '93%' : '500px'};
-  margin-top: ${props => props.fullHeight ? '0' : '24px'};;
+  height: ${(props) => (props.fullHeight ? "93%" : "500px")};
+  margin-top: ${(props) => (props.fullHeight ? "0" : "24px")};
   position: relative;
   background: #f6f6f6;
   border-radius: 8px;
-  margin-bottom:${props => props.fullHeight ? '0' : '16px'};;
+  margin-bottom: ${(props) => (props.fullHeight ? "0" : "16px")};
 `;
 
 // Create a styled TabList component
@@ -59,14 +59,14 @@ const Tab = styled.button`
 
 // Create a styled TabPanel component
 const TabPanel = styled.div`
-  margin-top: ${props => props.fullHeight ? '20px' : '40px'};
-  padding-top: ${props => props.fullHeight ? '2.8rem' : '0'}; ;
+  margin-top: ${(props) => (props.fullHeight ? "20px" : "40px")};
+  padding-top: ${(props) => (props.fullHeight ? "2.8rem" : "0")};
   width: 100%;
   height: 90%;
 `;
 
 // Create a function that uses the tabs and current index
-function useTabs(tabs, current,fullHeight) {
+function useTabs(tabs, current, fullHeight) {
   // Set active tab to current index or 0
   const [activeTab, setActiveTab] = useState(current || 0);
   // Get current location
@@ -78,6 +78,9 @@ function useTabs(tabs, current,fullHeight) {
   Location.state = { ...Location.state, locationPage };
   useEffect(() => {
     setLocationPage(newStr + (activeTab + 1));
+    if (current) {
+      setActiveTab(current);
+    }
   }, [activeTab, Location, current]);
   useEffect(() => {
     if (Location.state && Location.state.activePageNumber) {
