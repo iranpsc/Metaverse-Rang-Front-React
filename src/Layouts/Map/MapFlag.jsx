@@ -1,10 +1,8 @@
-import { Marker, Polygon, useMap } from "react-leaflet";
-import L from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { renderToString } from "react-dom/server";
 import { useMapData } from "../../Services/Reducers/mapContext";
-
+import { Layer, Marker, Source, useMap } from "react-map-gl";
+import L from "leaflet";
 const FlagIcon = styled.div`
   width: 50px;
   display: flex;
@@ -54,68 +52,121 @@ const Div4 = styled.div`
 
 const MapFlag = () => {
   const map = useMap();
-  const [zoomLevel, setZoomLevel] = useState(map.getZoom());
-  const { flags, polygons, setFlags, setPolygons } = useMapData();
+  const [zoomLevel, setZoomLevel] = useState(map.current.getZoom());
+  const { flags, polygons } = useMapData();
 
-  const FitBounds = () => {
-    useEffect(() => {
-      if (polygons.length > 0 && polygons.length <= 2) {
-        const bounds = polygons.reduce((acc, polygon) => {
-          const polygonBounds = L.latLngBounds(polygon.coordinates);
-          return acc.extend(polygonBounds);
-        }, L.latLngBounds(polygons[0].coordinates));
-        map.fitBounds(bounds);
-      }
-    }, [map, polygons]);
+  useEffect(() => {
+    const handleViewportChange = () => {
+      setZoomLevel(map.current.getZoom());
+    };
 
-    return null;
-  };
+    map.current.on("zoomend", handleViewportChange);
 
+    return () => {
+      map.current.off("zoomend", handleViewportChange);
+    };
+  }, [map]);
   const mappedFlags = useMemo(
     () =>
-      zoomLevel < 17
+      zoomLevel < 14
         ? flags.map((flag, index) => {
-            const icon = L.divIcon({
-              className: "custom-marker",
-              html: renderToString(
+            const coordinates = JSON.parse(flag.central_point_coordinates);
+            const [latitude, longitude] = coordinates;
+            return (
+              <Marker
+                key={index}
+                longitude={longitude}
+                latitude={latitude}
+                style={{ top: "-50px" }}
+              >
                 <FlagIcon>
                   <Div2 color={flag.color} />
                   <Div3 color={flag.color}> {flag.name}</Div3>
                   <Div4 color={flag.color} />
                 </FlagIcon>
-              ),
-              iconSize: [40, 80],
-              iconAnchor: [25, 90],
-            });
-            return (
-              <Marker
-                key={index}
-                position={JSON.parse(flag.central_point_coordinates)}
-                icon={icon}
-              ></Marker>
+              </Marker>
             );
           })
         : [],
     [flags, zoomLevel]
   );
-
   const mappedPolygons = useMemo(
-    () =>
-      polygons.map((polygon, index) => (
-        <Polygon
-          key={index}
-          positions={polygon.coordinates}
-          fillColor={polygon.color}
-        />
-      )),
+    () => (
+      <>
+        <Source
+          id="area"
+          type="geojson"
+          data={{
+            type: "FeatureCollection",
+            features: polygons.map(
+              (polygon) => (
+                console.log(polygon),
+                {
+                  type: "Feature",
+                  properties: {
+                    id: polygon.id,
+                  },
+                  geometry: {
+                    type: "Polygon",
+                    coordinates: [
+                      polygon.coordinates.map((coordArray) =>
+                        coordArray.reverse()
+                      ),
+                    ],
+                  },
+                }
+              )
+            ),
+          }}
+        >
+          <Layer
+            id="polygon-fill"
+            type="fill"
+            paint={{
+              "fill-color": "blue",
+              "fill-opacity": 0.4,
+            }}
+          />
+        </Source>
+      </>
+    ),
     [polygons]
   );
+  useEffect(() => {
+    if (polygons.length > 0 && polygons.length <= 2) {
+      let minLat = Infinity,
+        minLng = Infinity,
+        maxLat = -Infinity,
+        maxLng = -Infinity;
 
+      polygons.forEach((polygon) => {
+        polygon.coordinates.forEach(([lat, lng]) => {
+          minLat = Math.min(minLat, lat);
+          minLng = Math.min(minLng, lng);
+          maxLat = Math.max(maxLat, lat);
+          maxLng = Math.max(maxLng, lng);
+        });
+      });
+
+      const bounds = [
+        [minLat, minLng],
+        [maxLat, maxLng],
+      ];
+
+      // If reversing is needed for the second data
+      if (polygons.length === 2 /* or any other condition */) {
+        bounds.forEach((coordinate) => {
+          coordinate.reverse();
+        });
+      }
+
+      map.current.fitBounds(bounds);
+    }
+  }, [map, polygons]);
   return (
     <>
       {mappedPolygons}
       {mappedFlags}
-      {polygons.length > 0 && polygons.length <= 2 && <FitBounds />}
     </>
   );
 };

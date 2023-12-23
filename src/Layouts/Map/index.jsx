@@ -1,12 +1,17 @@
-import "leaflet/dist/leaflet.css";
-import "./MapLayout.css";
-import { MapContainer, Polygon, TileLayer, useMap } from "react-leaflet";
-import { ScenegraphLayer } from "@deck.gl/mesh-layers";
-import { LeafletLayer } from "deck.gl-leaflet";
-import { MapView } from "@deck.gl/core";
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { createContext } from "react";
+import { useFrame, useLoader } from "react-three-fiber";
+import { Canvas } from "react-three-map/maplibre";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { HemisphereLight } from "three";
 
 import MapPolygons from "./MapPolygons";
 import Main from "../Main";
@@ -14,7 +19,6 @@ import useAuth from "../../Services/Hooks/useAuth";
 import MapFlag from "./MapFlag";
 import AdviserIcon from "./Adviser";
 import flyToPosition from "./FlyToGift";
-import flyToGif from "../../Assets/gif/Flyto.gif";
 import ContextMenu from "./ContextMenu/ContextMenu";
 import ToolTip from "../../Components/Tooltip";
 import Routes from "./Routers";
@@ -22,6 +26,9 @@ import useRequest from "../../Services/Hooks/useRequest";
 
 import LocationPin from "../../Assets/gif/location-pin.gif";
 import BtnFlagMap from "./BtnFlagMap";
+import Map from "react-map-gl/maplibre";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { useNavigate } from "react-router-dom";
 
 const IconFlyTo = styled.img`
   position: absolute;
@@ -46,69 +53,93 @@ const Container = styled.div`
   }
 `;
 export const TransactionContext = createContext();
-// This is a functional component named Map.
-const Map = () => {
-  // A reference to the map container element.
-  const mapRef = useRef();
+
+const FBXModel = ({ url, position, rotation }) => {
+  const fbx = useLoader(FBXLoader, url);
+  const fbxRef = useRef();
+
+  return (
+    <group ref={fbxRef} position={position} rotation={rotation}>
+      <primitive object={fbx} />
+    </group>
+  );
+};
+
+const MapTreeD = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
-  // A custom hook to get user authentication details. setUserWithToken function is being destructured from useAuth.
+  const [cursor, setCursor] = useState("-webkit-grab");
   const { setUserWithToken } = useAuth();
-  // useEffect hook to set the user with token when the component mounts. An empty dependency array is passed to avoid multiple calls.
   const { Request } = useRequest();
   useEffect(() => {
     setUserWithToken();
   }, []);
-  // A LeafletLayer component that represents the deck.gl overlay for the map.
-  const deckLayer = new LeafletLayer({
-    views: [
-      // A MapView instance is created with controller property set to true.
-      new MapView({
-        controller: true,
-      }),
-    ],
-
-    layers: [
-      // A ScenegraphLayer instance that displays a glTF model on the map.
-      new ScenegraphLayer({
-        id: "scenegraph-layer",
-        data: [0],
-        pickable: false,
-        scenegraph: "house.gltf", // The source of the glTF model file.
-        getOrientation: (d) => [0, 0, 90],
-        getPosition: (d) => [50.0639, 36.32746], // The longitude and latitude coordinates where the model should be placed.
-        sizeScale: 1,
-        _lighting: "pbr", // The type of lighting to apply to the model.
-      }),
-    ],
-  });
+  const navigator = useNavigate();
+  const onMouseEnter = useCallback(() => setCursor("pointer"), []);
+  const onMouseLeave = useCallback(() => setCursor("-webkit-grab"), []);
 
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
     >
       <Container>
-        <MapContainer
-          center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
-          zoom={15} // The initial zoom level of the map.
-          className="map"
-          ref={mapRef} // A reference to the map container element.
-          layers={deckLayer} // The deck.gl overlay layer to be added on top of the map.
-        >
-          <TileLayer
-            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" // The source of the tile images for the map.
-          />
-          {/* 
-          <MapPolygons />
+        {/* 
           <Main />
           <ContextMenu />
-          <AdviserIcon />
-          */}
+          <AdviserIcon />  
+    */}
+        <Map
+          className="map"
+          antialias
+          initialViewState={{
+            latitude: 36.32,
+            longitude: 50.02,
+            zoom: 13,
+            pitch: 40,
+          }}
+          mapStyle="/styleMap.json"
+          interactiveLayerIds={["polygon-fill-layer"]}
+          cursor={cursor}
+          onClick={(event) => {
+            const feature = event.features[0];
+            if (feature.properties.id) {
+              navigator(`/metaverse/feature/${feature.properties.id}`);
+            }
+          }}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
+          {/* <Canvas latitude={36.3264686} longitude={50.0641598}>
+            <hemisphereLight
+              args={["#ffffff", "#60666C"]}
+              position={[1, 4.5, 3]}
+            />
+            <group scale={[0.1, 0.1, 0.1]}>
+              <FBXModel
+                url="../../../public/shahid.fbx"
+                position={[0, 0.3, 0]}
+              />
+            </group>
+          </Canvas> */}
+          <Canvas latitude={36.306433581761794} longitude={50.028722140674027}>
+            <hemisphereLight
+              args={["#ffffff", "#60666C"]}
+              position={[1, 4.5, 3]}
+            />
+            <group scale={[0.005, 0.005, 0.005]}>
+              <FBXModel
+                url="/office.fbx"
+                // position={[10, 100, 100]}
+                rotation={[0, 5.6, 0]} // Rotate 90 degrees around the y-axis
+              />
+            </group>
+          </Canvas>
+          <MapPolygons />
           <MapFlag />
-        </MapContainer>
+        </Map>
         <Routes />
       </Container>
     </TransactionContext.Provider>
   );
 };
 
-export default Map;
+export default MapTreeD;

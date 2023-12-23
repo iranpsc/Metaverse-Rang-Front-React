@@ -13,11 +13,12 @@ import WalletProvider from "./Services/Reducers/WalletContext";
 import FollowProvider from "./Services/Reducers/FollowContext";
 import { MapContextProvider } from "./Services/Reducers/mapContext";
 import { ThemeProviderContext } from "./Services/Reducers/ThemeContext";
-import Map from "./Layouts/Map";
+import MapTreeD from "./Layouts/Map";
 import Menu from "./Layouts/Menu";
 import StatusBar from "./Layouts/StatusBar";
 import Tutorial from "./Components/Tutorial";
 import { MenuContextProvider } from "./Services/Reducers/MenuContext";
+import { MapProvider } from "react-map-gl";
 
 const Container = styled.section`
   display: flex;
@@ -90,43 +91,45 @@ function App() {
   }, []);
 
   return (
-    <ThemeProviderContext>
-      <UserProvider>
-        <WalletProvider>
-          <FollowProvider>
-            <MapContextProvider>
-              <BrowserRouter>
-                {/* <Tutorial /> */}
+    <MapProvider>
+      <ThemeProviderContext>
+        <UserProvider>
+          <WalletProvider>
+            <FollowProvider>
+              <MapContextProvider>
+                <BrowserRouter>
+                  {/* <Tutorial /> */}
 
-                <Container>
-                  <MenuContextProvider>
-                    <Menu />
-                  </MenuContextProvider>
-                  <Map />
-                  <StatusBar />
-                  <button
-                    onClick={toggleFullScreen}
-                    style={{
-                      width: "20px",
-                      position: "absolute",
-                      top: 0,
-                      right: "10px",
-                    }}
-                  >
-                    +++
-                  </button>
-                </Container>
+                  <Container>
+                    {/* <MenuContextProvider>
+                      <Menu />
+                    </MenuContextProvider> */}
+                    <MapTreeD />
+                    {/* <StatusBar />
+                    <button
+                      onClick={toggleFullScreen}
+                      style={{
+                        width: "20px",
+                        position: "absolute",
+                        top: 0,
+                        right: "10px",
+                      }}
+                    >
+                      +++
+                    </button> */}
+                  </Container>
 
-                <Toaster
-                  containerStyle={{ zIndex: 1000, marginBottom: 48 }}
-                  position="bottom-right"
-                />
-              </BrowserRouter>
-            </MapContextProvider>
-          </FollowProvider>
-        </WalletProvider>
-      </UserProvider>
-    </ThemeProviderContext>
+                  <Toaster
+                    containerStyle={{ zIndex: 1000, marginBottom: 48 }}
+                    position="bottom-right"
+                  />
+                </BrowserRouter>
+              </MapContextProvider>
+            </FollowProvider>
+          </WalletProvider>
+        </UserProvider>
+      </ThemeProviderContext>
+    </MapProvider>
   );
 }
 

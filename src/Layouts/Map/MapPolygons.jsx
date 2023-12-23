@@ -1,39 +1,32 @@
 //Importing required modules and components
 import { memo, useEffect, useState } from "react";
-import { Polygon, useMapEvents } from "react-leaflet";
-import { useNavigate } from "react-router";
 import { BORDER_COLORS } from "../../Services/Constants/BorderColors";
 import { POLYGON_COLORS } from "../../Services/Constants/PolygonColors";
 import useRequest from "../../Services/Hooks/useRequest";
+import { Layer, Source, useMap } from "react-map-gl";
 
 //Defining a component MapPolygons as a memoized function
 const MapPolygons = memo(() => {
   //Declaring state variables using useState hook
+  const map = useMap();
+  const bounds = map.current.getBounds();
   const [features, setFeatures] = useState([]); //An array of features on the map
-  const [zoom, setZoom] = useState(15); //The zoom level of the map
-  const [bounds, setBounds] = useState(null); //The bounds of the map
-
+  const [zoom, setZoom] = useState(map.current.getZoom()); //The zoom level of the map
   //Custom hook for handling API requests
   const { Request } = useRequest();
 
-  //Custom hook for handling navigation
-  const Navigate = useNavigate();
+  useEffect(() => {
+    const handleViewportChange = () => {
+      setZoom(map.current.getZoom());
+    };
 
-  //Custom hook for listening to map events
-  const MapEvents = useMapEvents({
-    //Updating the zoom level on zoomend event
-    zoomend: () => {
-      setZoom(MapEvents.getZoom());
-    },
-    //Updating the bounds if current zoom is greater or equal to 16
-    moveend: () => {
-      if (zoom >= 16) {
-        setBounds(MapEvents.getBounds());
-      }
-    },
-  });
+    map.current.on("zoomend", handleViewportChange);
 
-  //A side effect hook for updating the features state whenever feature status changes
+    return () => {
+      map.current.off("zoomend", handleViewportChange);
+    };
+  }, [map]);
+
   useEffect(() => {
     window.Echo.channel("feature-status").listen(
       ".feature-status-changed",
@@ -51,10 +44,12 @@ const MapPolygons = memo(() => {
     );
   }, [features]);
 
-  //A side effect hook for updating the features state whenever bounds changes
+  // //A side effect hook for updating the features state whenever bounds changes
   useEffect(() => {
-    if (bounds) { //Checking if bounds is not null
-      Request( //Sending API request to get features data
+    if (bounds.getSouthWest().lng) {
+      //Checking if bounds is not null
+      Request(
+        //Sending API request to get features data
         `features?points[]=${bounds.getSouthWest().lng},${
           bounds.getSouthWest().lat
         }&points[]=${bounds.getSouthEast().lng},${
@@ -69,8 +64,8 @@ const MapPolygons = memo(() => {
             id: feature?.geometry?.feature_id,
             rgb: feature?.properties?.rgb,
             coordinates: feature?.geometry?.coordinates.map((coordinate) => [
-              coordinate.y,
-              coordinate.x,
+              parseFloat(coordinate.x),
+              parseFloat(coordinate.y),
             ]),
           }); //Parsing and formatting the features data and pushing it into the array
         }
@@ -78,25 +73,47 @@ const MapPolygons = memo(() => {
         setFeatures(features); //Updating the features state with new data
       });
     }
-  }, [bounds]);
+  }, []);
 
   return (
     <>
-      {zoom >= 17 && //Rendering a Polygon component for each feature in the features array if zoom level is greater or equal to 17
-        features.map((feature) => (
-          <Polygon
-            eventHandlers={{
-              click: () => Navigate(`/metaverse/feature/${feature.id}`), //Handling click event and navigating to the feature detail page
+      {zoom >= 17 && (
+        <Source
+          id="polygons"
+          type="geojson"
+          data={{
+            type: "FeatureCollection",
+            features: features.map((polygon) => ({
+              type: "Feature",
+              properties: {
+                id: polygon.id,
+                fill: POLYGON_COLORS[polygon.rgb],
+                border: BORDER_COLORS[polygon.rgb],
+              },
+              geometry: {
+                type: "Polygon",
+                coordinates: [polygon.coordinates],
+              },
+            })),
+          }}
+        >
+          <Layer
+            id="polygon-fill-layer"
+            type="fill"
+            paint={{
+              "fill-color": ["get", "fill"],
             }}
-            key={feature.id}
-            pathOptions={{
-              color: BORDER_COLORS[feature.rgb], //Setting border color based on rgb value of the feature
-              fillColor: POLYGON_COLORS[feature.rgb], //Setting fill color based on rgb value of the feature
-              fillOpacity: 0.5, //Setting fill opacity to 0.5
-            }}
-            positions={feature.coordinates} //Passing an array of coordinates to the Polygon component
           />
-        ))}
+          <Layer
+            id="polygon-outline-layer"
+            type="line"
+            paint={{
+              "line-color": ["get", "border"],
+              "line-width": 3,
+            }}
+          />
+        </Source>
+      )}
     </>
   );
 });
