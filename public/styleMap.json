@@ -9,7 +9,7 @@
     }
   },
   "sprite": "",
-  "glyphs": "https://tiles.basemaps.cartocdn.com/fonts/{fontstack}/{range}.pbf",
+  "glyphs": "https://map.irpsc.com/fonts/{fontstack}/{range}",
   "layers": [
     {
       "id": "background",

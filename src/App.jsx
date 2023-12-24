@@ -101,11 +101,11 @@ function App() {
                   {/* <Tutorial /> */}
 
                   <Container>
-                    {/* <MenuContextProvider>
+                    <MenuContextProvider>
                       <Menu />
-                    </MenuContextProvider> */}
+                    </MenuContextProvider>
                     <MapTreeD />
-                    {/* <StatusBar />
+                    <StatusBar />
                     <button
                       onClick={toggleFullScreen}
                       style={{
@@ -116,7 +116,7 @@ function App() {
                       }}
                     >
                       +++
-                    </button> */}
+                    </button>
                   </Container>
 
                   <Toaster

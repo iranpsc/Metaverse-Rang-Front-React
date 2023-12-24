@@ -76,6 +76,7 @@ const MapTreeD = () => {
   const navigator = useNavigate();
   const onMouseEnter = useCallback(() => setCursor("pointer"), []);
   const onMouseLeave = useCallback(() => setCursor("-webkit-grab"), []);
+  const [zoomLevel, setZoomLevel] = useState(18);
 
   return (
     <TransactionContext.Provider
@@ -107,6 +108,7 @@ const MapTreeD = () => {
           }}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
+          onZoomEnd={setZoomLevel}
         >
           {/* <Canvas latitude={36.3264686} longitude={50.0641598}>
             <hemisphereLight
@@ -120,19 +122,25 @@ const MapTreeD = () => {
               />
             </group>
           </Canvas> */}
-          <Canvas latitude={36.306433581761794} longitude={50.028722140674027}>
-            <hemisphereLight
-              args={["#ffffff", "#60666C"]}
-              position={[1, 4.5, 3]}
-            />
-            <group scale={[0.005, 0.005, 0.005]}>
-              <FBXModel
-                url="/office.fbx"
-                // position={[10, 100, 100]}
-                rotation={[0, 5.6, 0]} // Rotate 90 degrees around the y-axis
+          {zoomLevel.viewState && zoomLevel.viewState.zoom > 18 && (
+            <Canvas
+              latitude={36.306433581761794}
+              longitude={50.028722140674028}
+              zoom={16}
+            >
+              <hemisphereLight
+                args={["#ffffff", "#60666C"]}
+                position={[1, 4.5, 3]}
               />
-            </group>
-          </Canvas>
+              <group scale={[0.005, 0.005, 0.005]}>
+                <FBXModel
+                  url="/office.fbx"
+                  // position={[10, 100, 100]}
+                  rotation={[0, 5.6, 0]} // Rotate 90 degrees around the y-axis
+                />
+              </group>
+            </Canvas>
+          )}
           <MapPolygons />
           <MapFlag />
         </Map>
