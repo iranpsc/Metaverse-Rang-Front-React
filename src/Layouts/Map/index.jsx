@@ -8,10 +8,6 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import { createContext } from "react";
-import { useFrame, useLoader } from "react-three-fiber";
-import { Canvas } from "react-three-map/maplibre";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
-import { HemisphereLight } from "three";
 
 import MapPolygons from "./MapPolygons";
 import Main from "../Main";
@@ -29,6 +25,8 @@ import BtnFlagMap from "./BtnFlagMap";
 import Map from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
+import Shahid from "./3dModelMap/Shahid";
+import Office from "./3dModelMap/office";
 
 const IconFlyTo = styled.img`
   position: absolute;
@@ -53,17 +51,6 @@ const Container = styled.div`
   }
 `;
 export const TransactionContext = createContext();
-
-const FBXModel = ({ url, position, rotation }) => {
-  const fbx = useLoader(FBXLoader, url);
-  const fbxRef = useRef();
-
-  return (
-    <group ref={fbxRef} position={position} rotation={rotation}>
-      <primitive object={fbx} />
-    </group>
-  );
-};
 
 const MapTreeD = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
@@ -94,7 +81,7 @@ const MapTreeD = () => {
           initialViewState={{
             latitude: 36.32,
             longitude: 50.02,
-            zoom: 13,
+            zoom: 12,
             pitch: 40,
           }}
           mapStyle="/styleMap.json"
@@ -109,37 +96,19 @@ const MapTreeD = () => {
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           onZoomEnd={setZoomLevel}
+          // RTLTextPlugin={{
+          //   workerUrl: "https://map.irpsc.com/rtl.js",
+          // }}
         >
-          {/* <Canvas latitude={36.3264686} longitude={50.0641598}>
-            <hemisphereLight
-              args={["#ffffff", "#60666C"]}
-              position={[1, 4.5, 3]}
-            />
-            <group scale={[0.1, 0.1, 0.1]}>
-              <FBXModel
-                url="../../../public/shahid.fbx"
-                position={[0, 0.3, 0]}
-              />
-            </group>
-          </Canvas> */}
-          {zoomLevel.viewState && zoomLevel.viewState.zoom > 18 && (
-            <Canvas
-              latitude={36.306433581761794}
-              longitude={50.028722140674028}
-              zoom={16}
-            >
-              <hemisphereLight
-                args={["#ffffff", "#60666C"]}
-                position={[1, 4.5, 3]}
-              />
-              <group scale={[0.005, 0.005, 0.005]}>
-                <FBXModel
-                  url="/office.fbx"
-                  // position={[10, 100, 100]}
-                  rotation={[0, 5.6, 0]} // Rotate 90 degrees around the y-axis
-                />
-              </group>
-            </Canvas>
+          {zoomLevel.viewState && zoomLevel.viewState.zoom > 16 && (
+            <>
+              <Office />
+            </>
+          )}
+          {zoomLevel.viewState && zoomLevel.viewState.zoom > 16.5 && (
+            <>
+              <Shahid />
+            </>
           )}
           <MapPolygons />
           <MapFlag />

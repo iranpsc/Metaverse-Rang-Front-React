@@ -6,7 +6,7 @@ import useRequest from "../../Services/Hooks/useRequest";
 import { Layer, Source, useMap } from "react-map-gl";
 
 //Defining a component MapPolygons as a memoized function
-const MapPolygons = memo(() => {
+const MapPolygons = () => {
   //Declaring state variables using useState hook
   const map = useMap();
   const bounds = map.current.getBounds();
@@ -46,7 +46,7 @@ const MapPolygons = memo(() => {
 
   // //A side effect hook for updating the features state whenever bounds changes
   useEffect(() => {
-    if (bounds.getSouthWest().lng) {
+    if (bounds.getSouthWest().lng && zoom >= 15) {
       //Checking if bounds is not null
       Request(
         //Sending API request to get features data
@@ -73,11 +73,11 @@ const MapPolygons = memo(() => {
         setFeatures(features); //Updating the features state with new data
       });
     }
-  }, []);
+  }, [bounds.getSouthWest().lng]);
 
   return (
     <>
-      {zoom >= 17 && (
+      {zoom >= 15 && (
         <Source
           id="polygons"
           type="geojson"
@@ -116,6 +116,6 @@ const MapPolygons = memo(() => {
       )}
     </>
   );
-});
+};
 
 export default MapPolygons;
