@@ -52,7 +52,7 @@ export default function Routers() {
         />
 
         <Route
-          path="sanad"
+          path="ticket"
           element={
             <PrivateRoute>
               <Sanad />

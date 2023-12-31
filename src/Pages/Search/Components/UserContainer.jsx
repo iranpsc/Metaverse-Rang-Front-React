@@ -111,7 +111,7 @@ const UserContainer = ({ user }) => {
         <Icons
           src={MessageIcon}
           onClick={() =>
-            Navigate("/metaverse/sanad", {
+            Navigate("/metaverse/ticket", {
               state: { code: user?.code, user: user?.id },
             })
           }
@@ -147,7 +147,7 @@ const UserContainer = ({ user }) => {
         </SpanDetails>
         <SpanDetails>
           <span>{user.followers}</span> <span>:</span>
-          <span>دنبال کنندگان </span>
+          <span>پیروان </span>
         </SpanDetails>
         <SpanDetails>
           <span> - </span>

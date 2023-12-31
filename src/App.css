@@ -1177,3 +1177,10 @@ button {
     display: none;
   }
 }
+
+.error_message {
+  color: red;
+  font-size: 15px;
+  text-align: right;
+  direction: rtl;
+}

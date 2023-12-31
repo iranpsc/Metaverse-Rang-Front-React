@@ -8,7 +8,7 @@ export default function Property() {
   const tabs = [
       {name: 'املاک و مستغلات', component: <Features/>},
       {name: 'دنبال شوندگان', component: <Following/>},
-      {name: 'دنبال کنندگان', component: <Followers/>},
+      {name: 'پیروان', component: <Followers/>},
   ]
 
   const activity = useActivity(tabs)

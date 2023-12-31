@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import FloatingModal from '../../Components/FloatingModal';
-import useRequest from '../../Services/Hooks/useRequest';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import FloatingModal from "../../Components/FloatingModal";
+import useRequest from "../../Services/Hooks/useRequest";
 
-import SeenImage from '../../Assets/images/seen.png';
-import BellGif from '../../Assets/gif/bell.gif';
-import { useNavigate } from 'react-router-dom';
-import { TextShorter } from '../../Services/Utility';
-
+import SeenImage from "../../Assets/images/seen.png";
+import BellGif from "../../Assets/gif/bell.gif";
+import { useNavigate } from "react-router-dom";
+import { TextShorter } from "../../Services/Utility";
 
 const Notification = styled.div`
   display: flex;
@@ -45,7 +44,7 @@ const DateContainer = styled.p`
 
 const Gif = styled.img`
   width: 350px;
-`
+`;
 const AnimateContainer = styled.div`
   width: 100%;
   height: 80%;
@@ -60,12 +59,11 @@ const AnimateContainer = styled.div`
     margin-top: -32px;
     font-weight: bold;
   }
-`
+`;
 
 const Pages = {
-  tickets: '/metaverse/sanad'
-}
-
+  tickets: "/metaverse/ticket",
+};
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState([]);
@@ -74,61 +72,61 @@ export default function Notifications() {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    Request('notifications').then(response => {
+    Request("notifications").then((response) => {
       setNotifications(response.data.data);
-    })
- 
+    });
   }, []);
 
   const ReadClickHandler = (id) => {
     Request(`notifications/${id}`).then(() => {
-      setNotifications(notifications.filter(notification => 
-        notification.id !== id
-      ))
-    })
-  }
+      setNotifications(
+        notifications.filter((notification) => notification.id !== id)
+      );
+    });
+  };
 
   return (
     <FloatingModal title={"اعلان ها "}>
-        {notifications?.map(notification => (
-          <Notification key={notification.id} onClick={() => Navigate(Pages[notification.data["related-to"]])}>
-            <img
-              style={{ marginLeft: 16, borderRadius: 100, height: '75%' }}
-              src={notification?.data?.["sender-image"]}
-              width={60}
-              alt={notification?.data?.["sender-name"]}
-            />
+      {notifications?.map((notification) => (
+        <Notification
+          key={notification.id}
+          onClick={() => Navigate(Pages[notification.data["related-to"]])}
+        >
+          <img
+            style={{ marginLeft: 16, borderRadius: 100, height: "75%" }}
+            src={notification?.data?.["sender-image"]}
+            width={60}
+            alt={notification?.data?.["sender-name"]}
+          />
 
-            <DateContainer>{
-              notification?.date
-            }</DateContainer>
-            
-            <Information>
-              <h4 className='link' onClick={() => Navigate(`/metaverse/player/`)}>
-                {notification?.data?.["sender-name"]}
-              </h4>
+          <DateContainer>{notification?.date}</DateContainer>
 
-              <p className='text-information rtl'>
-                {TextShorter(notification?.data?.["message"], 68)}
-              </p>
-            </Information>
+          <Information>
+            <h4 className="link" onClick={() => Navigate(`/metaverse/player/`)}>
+              {notification?.data?.["sender-name"]}
+            </h4>
 
-            <img
-              src={SeenImage}
-              width={40}
-              alt='seen'
-              className='cursor-pointer'
-              onClick={() => ReadClickHandler(notification.id)}
-            />
-          </Notification>
-        ))}
+            <p className="text-information rtl">
+              {TextShorter(notification?.data?.["message"], 68)}
+            </p>
+          </Information>
 
-        {notifications?.length === 0 &&
-          <AnimateContainer>
-            <Gif src={BellGif} alt=''/>
-            <p>پیامی موجود نیست !</p>
-          </AnimateContainer>
-        }
+          <img
+            src={SeenImage}
+            width={40}
+            alt="seen"
+            className="cursor-pointer"
+            onClick={() => ReadClickHandler(notification.id)}
+          />
+        </Notification>
+      ))}
+
+      {notifications?.length === 0 && (
+        <AnimateContainer>
+          <Gif src={BellGif} alt="" />
+          <p>پیامی موجود نیست !</p>
+        </AnimateContainer>
+      )}
     </FloatingModal>
-  )
+  );
 }

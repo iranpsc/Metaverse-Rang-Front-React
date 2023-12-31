@@ -81,7 +81,7 @@ export default function Profile() {
                 src={SanadImage}
                 alt=""
                 className="cursor-pointer"
-                onClick={() => navigate("/metaverse/sanad")}
+                onClick={() => navigate("/metaverse/ticket")}
               />
             }
             TitleToltip={"اسناد"}

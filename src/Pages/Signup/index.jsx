@@ -40,6 +40,7 @@ export default function Signup() {
   const [searchParams] = useSearchParams();
   const [emailVerification, setEmailVerification] = useState(false);
   const [token, setToken] = useState("");
+  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -59,7 +60,18 @@ export default function Signup() {
       })
       .catch((error) => {
         if (error?.response?.status === 422) {
-          setMessage(error?.response?.data?.message);
+          const errorData = error.response.data;
+          let errorMessage = "";
+
+          if (errorData?.errors?.email) {
+            errorMessage += `${errorData.errors.email.join(" ")} `;
+          }
+
+          if (errorData?.errors?.password) {
+            errorMessage += `${errorData.errors.password.join(" ")}`;
+          }
+
+          setMessage(errorMessage.trim());
         }
       });
   };
@@ -102,6 +114,7 @@ export default function Signup() {
             value={formData.password}
             dispatch={setFormData}
           />
+          {message && <p className="">{message}</p>}
           <Submit text="ثبت نام" type="secondary" />
 
           <Link to="/metaverse/login" className="link text-2 mt-3 ">

@@ -237,7 +237,7 @@ export default function General() {
               alt=""
               width={32}
               onClick={() =>
-                Navigate("/metaverse/sanad", {
+                Navigate("/metaverse/ticket", {
                   state: { code: player?.code, id },
                 })
               }

@@ -105,7 +105,7 @@ function PlayerProfile({ image, code, level, id, Online }) {
             alt=""
             width={34}
             onClick={() =>
-              Navigate("/metaverse/sanad", { state: { code, id } })
+              Navigate("/metaverse/ticket", { state: { code, id } })
             }
           />
           <img
