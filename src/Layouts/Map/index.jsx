@@ -100,12 +100,12 @@ const MapTreeD = () => {
           //   workerUrl: "https://map.irpsc.com/rtl.js",
           // }}
         >
-          {zoomLevel.viewState && zoomLevel.viewState.zoom > 16 && (
+          {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16 && (
             <>
               <Office />
             </>
           )}
-          {zoomLevel.viewState && zoomLevel.viewState.zoom > 16.5 && (
+          {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16.5 && (
             <>
               <Shahid />
             </>
