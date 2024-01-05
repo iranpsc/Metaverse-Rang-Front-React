@@ -19,8 +19,8 @@ const Shahid = () => {
   return (
     <Canvas latitude={36.3264686} longitude={50.0641598}>
       <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
-      <group scale={[0.005, 0.005, 0.005]}>
-        <FBXModel url="./shahid.fbx" position={[0, 0.3, 0]} />
+      <group scale={0.0099}>
+        <FBXModel url="./shahid.fbx" />
       </group>
     </Canvas>
   );
