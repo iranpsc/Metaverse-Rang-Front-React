@@ -86,15 +86,15 @@ const MapTreeD = () => {
           }}
           mapStyle="/styleMap.json"
           interactiveLayerIds={["polygon-fill-layer"]}
-          cursor={cursor}
-          onClick={(event) => {
-            const feature = event.features[0];
-            if (feature.properties.id) {
-              navigator(`/metaverse/feature/${feature.properties.id}`);
-            }
-          }}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+          // cursor={cursor}
+          // onClick={(event) => {
+          //   const feature = event.features[0];
+          //   if (feature.properties.id) {
+          //     navigator(`/metaverse/feature/${feature.properties.id}`);
+          //   }
+          // }}
+          // onMouseEnter={onMouseEnter}
+          // onMouseLeave={onMouseLeave}
           onZoomEnd={setZoomLevel}
           // RTLTextPlugin={{
           //   workerUrl: "https://map.irpsc.com/rtl.js",

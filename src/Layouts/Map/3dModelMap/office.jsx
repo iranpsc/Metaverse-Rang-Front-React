@@ -19,7 +19,7 @@ const Office = () => {
   return (
     <Canvas latitude={36.306433581761794} longitude={50.028722140674028}>
       <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
-      <group scale={[0.005, 0.005, 0.005]}>
+      <group scale={0.0099}>
         <FBXModel
           url="/office.fbx"
           rotation={[0, 5.6, 0]} // Rotate 90 degrees around the y-axis
