@@ -96,9 +96,7 @@ const MapTreeD = () => {
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           onZoomEnd={setZoomLevel}
-          // RTLTextPlugin={{
-          //   workerUrl: "https://map.irpsc.com/rtl.js",
-          // }}
+          RTLTextPlugin="https://map.irpsc.com/rtl.js"
         >
           {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16 && (
             <>
