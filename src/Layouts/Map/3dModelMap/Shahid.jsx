@@ -17,7 +17,7 @@ const FBXModel = ({ url, position, rotation }) => {
 
 const Shahid = () => {
   return (
-    <Canvas latitude={36.3264686} longitude={50.0641598}>
+    <Canvas latitude={36.327383} longitude={50.063924}>
       <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
       <group scale={0.0099}>
         <FBXModel url="./shahid.fbx" />
