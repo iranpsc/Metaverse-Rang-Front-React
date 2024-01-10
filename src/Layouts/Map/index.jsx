@@ -25,8 +25,7 @@ import BtnFlagMap from "./BtnFlagMap";
 import Map from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
-import Shahid from "./3dModelMap/Shahid";
-import Office from "./3dModelMap/office";
+import Models from "./3dModelMap/Models";
 
 const IconFlyTo = styled.img`
   position: absolute;
@@ -96,18 +95,11 @@ const MapTreeD = () => {
           // onMouseEnter={onMouseEnter}
           // onMouseLeave={onMouseLeave}
           onZoomEnd={setZoomLevel}
-          // RTLTextPlugin={{
-          //   workerUrl: "https://map.irpsc.com/rtl.js",
-          // }}
+          RTLTextPlugin="https://map.irpsc.com/rtl.js"
         >
           {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16 && (
             <>
-              <Office />
-            </>
-          )}
-          {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16.5 && (
-            <>
-              <Shahid />
+              <Models />
             </>
           )}
           <MapPolygons />
