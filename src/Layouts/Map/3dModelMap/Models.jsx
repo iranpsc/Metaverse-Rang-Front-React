@@ -17,19 +17,20 @@ const FBXModel = ({ url, position, rotation }) => {
 
 const Models = () => {
   return (
-    <Canvas latitude={36.3264686} longitude={50.0641598}>
-      <Coordinates latitude={36.3264686} longitude={50.0641598}>
+    <Canvas latitude={36.327383} longitude={50.063924}>
+      <Coordinates latitude={36.327383} longitude={50.063924}>
         <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
         <group scale={0.0099}>
           <FBXModel url="./shahid.fbx" />
         </group>
       </Coordinates>
-      <Coordinates latitude={36.306433581761794} longitude={50.028722140674028}>
+      <Coordinates latitude={36.306468} longitude={50.028717}>
         <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
         <group scale={0.0099}>
           <FBXModel
             url="/office.fbx"
-            rotation={[0, 5.6, 0]} // Rotate 90 degrees around the y-axis
+            rotation={[0, 5.6, 0]}
+            // Rotate 90 degrees around the y-axis
           />
         </group>
       </Coordinates>
