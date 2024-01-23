@@ -1,6 +1,5 @@
 import shortid from "shortid";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   width: 100%;

@@ -41,6 +41,8 @@ export const lightTheme = {
   tooltipBadge: "#EFEFEF",
   tooltipSmBg: "#FFFFFF",
   btnListPosition: "#EFEFEF",
+  arrowMenu: "#2C2F32",
+  btnArrowMenu: "#EFEFEF",
 };
 export const darkTheme = {
   body: "#121620",
@@ -86,4 +88,6 @@ export const darkTheme = {
   tooltipBadge: "#212121",
   tooltipSmBg: "#434343",
   btnListPosition: "#00000054",
+  arrowMenu: "#868B90",
+  btnArrowMenu: " #000",
 };

@@ -20,13 +20,6 @@ const Btn = styled.button`
     props.isOpenDrop ? props.theme.openDropDown : "transparent"};
   height: 40px;
   border-radius: 10px;
-  ::before {
-    display: block;
-    width: 2px;
-    height: 20px;
-    margin-bottom: 10px;
-    background-color: #000;
-  }
 `;
 const BtnNavigator = styled.button`
   display: flex;
@@ -52,25 +45,6 @@ const SubMenu = styled.div`
   display: ${(props) => (props.isOpenDrop ? "block" : "none")};
   width: 100%;
   padding: ${(props) => (props.isOpenDrop ? " 0 10px" : "0")};
-  button::before {
-    content: "";
-    display: block;
-    width: 13px;
-    height: 117%;
-    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 14 56' fill='none'><path d='M1.5 55H4.5C8.91828 55 12.5 51.4183 12.5 47L12.5 1' stroke='%23363636' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>")
-      no-repeat center;
-    margin-bottom: 20%;
-    filter: opacity(1) !important;
-  }
-  button:first-child::before {
-    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='13' height='17' viewBox='0 0 13 17' fill='none'><path d='M1 16H4C8.41828 16 12 12.4183 12 8V1' stroke='%23363636' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>")
-      no-repeat center;
-    content: "";
-    display: block;
-    width: 14px;
-    height: 117%;
-    margin-bottom: 4% !important;
-  }
 `;
 const Icon = styled.img`
   width: 22px;
@@ -95,40 +69,37 @@ const Main = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
-  border-right: 2px solid #000;
   flex-direction: column;
 `;
 const Fallowing = () => {
   const [isOpenDrop, SetIsOpenDrop] = useState(false);
   const { isOpen } = useMenuContext();
   return (
-    <Main>
-      <div>
-        <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
-          <IconHeader isOpenDrop={isOpenDrop} />
-          <Text isOpen={isOpen}>دنبال شوندگان</Text>
-        </Btn>
-        <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
-          <BtnNavigator>
-            <Icon src={Ticket} />
-            ارسال سند
-          </BtnNavigator>
-          <BtnNavigator disabled>
-            <Icon src={Message} />
-            گفتگو
-          </BtnNavigator>
-          <BtnNavigator>
-            <Icon src={ProfileMember} />
-            پروفایل
-          </BtnNavigator>
-          <BtnNavigator>
-            <Icon src={Setting} />
-            تنظیمات
-          </BtnNavigator>
-          <Follower />
-        </SubMenu>
-      </div>
-    </Main>
+    <>
+      <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
+        <IconHeader isOpenDrop={isOpenDrop} />
+        <Text isOpen={isOpen}>دنبال شوندگان</Text>
+      </Btn>
+      <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
+        <BtnNavigator>
+          <Icon src={Ticket} />
+          ارسال سند
+        </BtnNavigator>
+        <BtnNavigator disabled>
+          <Icon src={Message} />
+          گفتگو
+        </BtnNavigator>
+        <BtnNavigator>
+          <Icon src={ProfileMember} />
+          پروفایل
+        </BtnNavigator>
+        <BtnNavigator>
+          <Icon src={Setting} />
+          تنظیمات
+        </BtnNavigator>
+        <Follower />
+      </SubMenu>
+    </>
   );
 };
 

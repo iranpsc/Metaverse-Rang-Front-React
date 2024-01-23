@@ -84,6 +84,7 @@ const MapTreeD = () => {
             pitch: 40,
           }}
           mapStyle="/styleMap.json"
+          style={{ borderRadius: "15px" }}
           interactiveLayerIds={["polygon-fill-layer"]}
           cursor={cursor}
           onClick={(event) => {

@@ -92,22 +92,24 @@ export const ToastSuccess = (message) => {
 };
 export const getFieldTranslationByNames = (modalName, fieldName) => {
   const resources = i18n.options.resources;
-  const modal = resources[i18n.language].translation.modals.find(
-    (modal) => modal.name === modalName
-  );
+  if (resources) {
+    const modal = resources[i18n.language].translation.modals.find(
+      (modal) => modal.name === modalName
+    );
 
-  if (modal) {
-    for (let i = 0; i < modal.tabs.length; i++) {
-      const tab = modal.tabs[i];
-      const field = tab.fields.find((field) => field.name === fieldName);
+    if (modal) {
+      for (let i = 0; i < modal.tabs.length; i++) {
+        const tab = modal.tabs[i];
+        const field = tab.fields.find((field) => field.name === fieldName);
 
-      if (field) {
-        return field.translation;
+        if (field) {
+          return field.translation;
+        }
       }
     }
-  }
 
-  // Return a default translation or handle missing translations as needed
+    // Return a default translation or handle missing translations as needed
+  }
   return "Translation not found";
 };
 export function convertEnglishToPersianNumbers(inputText) {
