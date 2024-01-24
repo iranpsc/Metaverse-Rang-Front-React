@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
 import Compressor from "compressorjs";
+import { useContext, useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 import Submit from "../../../Components/Buttons/Submit";
 import ErrorMessage from "../../../Components/ErrorMessage";
 import Form from "../../../Components/Form";
 import useRequest from "../../../Services/Hooks/useRequest";
 import { ToastError, ToastSuccess } from "../../../Services/Utility";
 import { KycContext } from "../Context/KycProvider";
-
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -15,7 +14,6 @@ const Container = styled.div`
   justify-content: space-around;
   height: 100%;
 `;
-
 const ParentUploadImg = styled.div`
   position: relative;
   aspect-ratio: 16 / 9;
@@ -27,7 +25,6 @@ const ParentUploadImg = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 const LabelBorder = styled.label`
   padding: 0.2em;
   color: gray;
@@ -37,7 +34,6 @@ const LabelBorder = styled.label`
   background: #f6f6f6;
   top: -5%;
 `;
-
 const ContainerUploader = styled.div`
   width: 280px;
   height: 180px;
@@ -48,21 +44,17 @@ const ContainerUploader = styled.div`
   align-items: center;
   cursor: pointer;
   position: relative;
-
   & p {
     font-size: 48px;
   }
-
   & input {
     display: none;
   }
 `;
-
 const PreviewImage = styled.img`
   width: 100%;
   height: 100%;
 `;
-
 const RemoveImage = styled.span`
   position: absolute;
   top: 8px;
@@ -73,89 +65,84 @@ const RemoveImage = styled.span`
   padding: 0px 6px;
   color: red;
 `;
-
 const ErrorContainer = styled.div`
   width: 95%;
   background-color: #df2e38;
   border-radius: 32px;
   margin-top: 16px;
 `;
-
 const errorHandler = (errors, fieldName) => {
   try {
     return errors?.filter((error) => error?.name === fieldName)[0]?.message;
-  } catch {
-    return null;
-  }
+  } catch {}
 };
 
-const SendDocuments = ({ setDefaultTab }) => {
+export default function SendDocuments({ setDefaultTab }) {
   const [kyc, setKyc] = useContext(KycContext);
+
   const [formData, setFormData] = useState({
     melli_card: null,
     prove_picture: null,
     resume: null,
   });
+
   const [preview, setPreview] = useState({
     melli_card: null,
     prove_picture: null,
     resume: null,
   });
+
   const [errors, setErrors] = useState([]);
+
   const { Request, HTTP_METHOD } = useRequest();
 
   const provePicRef = useRef();
   const meliCardRef = useRef();
   const bankCardRef = useRef();
-
   useEffect(() => {
     setDefaultTab(null);
   }, []);
 
   const onChangeHandler = (e) => {
     const file = e.target.files[0];
-    if (file.size < 3000000) {
+    if (file.size < 4300000) {
       new Compressor(file, {
         quality: 0.6,
         width: 512,
         height: 512,
+
+        // The compression process is asynchronous,
+        // which means you have to access the `result` in the `success` hook function.
         success(result) {
           setPreview({
             ...preview,
             [e.target.name]: URL.createObjectURL(result),
           });
-
           const doc = new FormData();
           doc.append(e.target.name, result, result.name);
           setFormData({ ...formData, [e.target.name]: doc.get(e.target.name) });
         },
       });
     } else {
-      ToastError("باید حجم فایل انتخابی کمتر از 1024 کیلوبایت باشد.");
+      ToastError("باید حجم فایل انتخابی کمتر از 4 مگابایت باشد.");
     }
   };
-
   const onDeleteHandler = (e, name) => {
     e.preventDefault();
     e.stopPropagation();
-
     setPreview({ ...preview, [name]: null });
     setFormData({ ...formData, [name]: null });
   };
-
   const onSubmit = () => {
     if (!formData?.melli_card) {
       return setErrors(["کارت ملی وجود ندارد."]);
     }
-
     if (!formData?.prove_picture) {
       return setErrors(["عکس صورت همراه با کارت ملی وجود ندارد."]);
     }
-
     if (!formData?.resume) {
       return setErrors(["عکس کارت بانکی موجود ندارد."]);
     }
-
     const requestData = {
       fname: kyc?.fname,
       lname: kyc?.lname,
@@ -170,32 +157,52 @@ const SendDocuments = ({ setDefaultTab }) => {
       site: kyc?.site,
       ...formData,
     };
-
-    const endpoint = kyc?.status === -1 ? `kyc/${kyc?.id}` : "kyc";
-
-    Request(endpoint, HTTP_METHOD.POST, requestData, {
-      "Content-Type": "multipart/form-data",
-    })
-      .then((response) => {
-        const successMessage =
-          kyc?.status === -1
-            ? "مشخصات با موفقیت بروزرسانی شد ، کارشناسان ما در کمترین زمان آنها را برسی میکنند و به شما اطلاع میدهند."
-            : "مشخصات با موفقیت ارسال شد ، کارشناسان ما در کمترین زمان آنها را برسی میکنند و به شما اطلاع میدهند.";
-
-        ToastSuccess(successMessage);
-      })
-      .catch((error) => {
-        setKyc({
-          ...kyc,
-          errors: [
-            ...Object.keys(errors).map((key) => ({
-              name: key,
-              message: errors?.[key][0],
-            })),
-          ],
+    if (kyc?.status === -1) {
+      Request(
+        `kyc/${kyc?.id}`,
+        HTTP_METHOD.POST,
+        { ...requestData, _method: "PUT" },
+        { "Content-Type": "multipart/form-data" }
+      )
+        .then((response) => {
+          ToastSuccess(
+            "مشخصات با موفقیت بروزرسانی شد ، کارشناسان ما در کمترین زمان آنها را برسی میکنند و به شما اطلاع میدهند."
+          );
+        })
+        .catch((error) => {
+          setKyc({
+            ...kyc,
+            errors: [
+              ...Object.keys(errors).map((key) => ({
+                name: key,
+                message: errors?.[key][0],
+              })),
+            ],
+          });
+          ToastError(error.response.data.message);
         });
-        ToastError(error.response.data.message);
-      });
+    } else {
+      Request("kyc", HTTP_METHOD.POST, requestData, {
+        "Content-Type": "multipart/form-data",
+      })
+        .then((response) => {
+          ToastSuccess(
+            "مشخصات با موفقیت ارسال شد ، کارشناسان ما در کمترین زمان آنها را برسی میکنند و به شما اطلاع میدهند."
+          );
+        })
+        .catch((error) => {
+          setKyc({
+            ...kyc,
+            errors: [
+              ...Object.keys(errors).map((key) => ({
+                name: key,
+                message: errors?.[key][0],
+              })),
+            ],
+          });
+          ToastError(error.response.data.message);
+        });
+    }
   };
 
   return (
@@ -214,13 +221,12 @@ const SendDocuments = ({ setDefaultTab }) => {
           }`}
         >
           <LabelBorder>تصویر کارت بانکی</LabelBorder>
-
           <ContainerUploader
             onClick={() =>
               kyc?.status === 1 ? null : bankCardRef.current.click()
             }
           >
-            {!preview?.resume && !kyc?.resume && <p>+</p>}
+            {!preview?.resume && kyc?.status !== 1 && <p>+</p>}
 
             {preview?.resume && (
               <>
@@ -231,17 +237,15 @@ const SendDocuments = ({ setDefaultTab }) => {
               </>
             )}
 
-            {kyc?.resume && <PreviewImage src={kyc?.resume} />}
+            {kyc?.status === 1 && <PreviewImage src={kyc?.resume} />}
 
-            {!kyc?.resume && (
-              <input
-                ref={bankCardRef}
-                name="resume"
-                accept="image"
-                type="file"
-                onChange={onChangeHandler}
-              />
-            )}
+            <input
+              ref={bankCardRef}
+              name="resume"
+              accept="image/jpeg"
+              type="file"
+              onChange={onChangeHandler}
+            />
           </ContainerUploader>
         </ParentUploadImg>
 
@@ -251,13 +255,12 @@ const SendDocuments = ({ setDefaultTab }) => {
           }`}
         >
           <LabelBorder> تصویر کارت ملی</LabelBorder>
-
           <ContainerUploader
             onClick={() =>
               kyc?.status === 1 ? null : meliCardRef.current.click()
             }
           >
-            {!preview?.melli_card && !kyc?.melli_card && <p>+</p>}
+            {!preview?.melli_card && kyc?.status !== 1 && <p>+</p>}
 
             {preview?.melli_card && (
               <>
@@ -268,17 +271,15 @@ const SendDocuments = ({ setDefaultTab }) => {
               </>
             )}
 
-            {kyc?.melli_card && <PreviewImage src={kyc?.melli_card} />}
+            {kyc?.status === 1 && <PreviewImage src={kyc?.melli_card} />}
 
-            {!kyc?.melli_card && (
-              <input
-                ref={meliCardRef}
-                name="melli_card"
-                accept="image"
-                type="file"
-                onChange={onChangeHandler}
-              />
-            )}
+            <input
+              ref={meliCardRef}
+              name="melli_card"
+              accept="image/jpeg"
+              type="file"
+              onChange={onChangeHandler}
+            />
           </ContainerUploader>
         </ParentUploadImg>
 
@@ -288,13 +289,12 @@ const SendDocuments = ({ setDefaultTab }) => {
           }`}
         >
           <LabelBorder>تصویر چهره به همراه فرم قوانین و مدارک </LabelBorder>
-
           <ContainerUploader
             onClick={() =>
               kyc?.status === 1 ? null : provePicRef.current.click()
             }
           >
-            {!preview?.prove_picture && !kyc?.prove_picture && <p>+</p>}
+            {!preview?.prove_picture && kyc?.status !== 1 && <p>+</p>}
 
             {preview?.prove_picture && (
               <>
@@ -307,21 +307,18 @@ const SendDocuments = ({ setDefaultTab }) => {
               </>
             )}
 
-            {kyc?.prove_picture && <PreviewImage src={kyc?.prove_picture} />}
+            {kyc?.status === 1 && <PreviewImage src={kyc?.prove_picture} />}
 
-            {!kyc?.prove_picture && (
-              <input
-                ref={provePicRef}
-                name="prove_picture"
-                accept="image"
-                type="file"
-                onChange={onChangeHandler}
-              />
-            )}
+            <input
+              ref={provePicRef}
+              name="prove_picture"
+              accept="image/jpeg"
+              type="file"
+              onChange={onChangeHandler}
+            />
           </ContainerUploader>
         </ParentUploadImg>
       </Container>
-
       {!(kyc?.status === 1) && (
         <Submit
           type="primary"
@@ -347,6 +344,4 @@ const SendDocuments = ({ setDefaultTab }) => {
       </a>
     </Form>
   );
-};
-
-export default SendDocuments;
+}
