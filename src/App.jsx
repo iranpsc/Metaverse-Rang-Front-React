@@ -74,7 +74,6 @@ function App() {
       <WalletProvider>
         <FollowProvider>
           <BrowserRouter>
-            {/* <Tutorial /> */}
             <Map />
 
             <Massage>
@@ -133,6 +132,7 @@ function App() {
               containerStyle={{ zIndex: 1000, marginBottom: 48 }}
               position="bottom-right"
             />
+            {/* <Tutorial /> */}
           </BrowserRouter>
         </FollowProvider>
       </WalletProvider>
