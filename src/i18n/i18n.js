@@ -4,44 +4,36 @@ import axios from "axios";
 
 const fetchTranslations = async () => {
   try {
-    const translationsResponse = await axios.get(
+    const response = await axios.get(
       "https://admin.rgb.irpsc.com/api/translations"
     );
-    const translations = translationsResponse.data.data;
+    const translations = response.data.data;
 
-    const resources = {}; // Initialize resources as an empty object
-
-    const promises = [];
-
-    for (const translation of translations) {
+    translations.forEach((translation) => {
       const { code, file_url } = translation;
-      const response = await axios.get(file_url);
-      const translationData = response.data;
-      resources[code] = resources[code] || { translation: {} };
 
-      resources[code].translation = {
-        ...resources[code].translation,
-        ...translationData,
-      };
-      promises.push(response);
-    }
+      // اگر زبانی با این کد در resources وجود نداشته باشد، آن را اضافه کنید
+      if (!i18n.hasResourceBundle(code, "translation")) {
+        i18n.addResourceBundle(code, "translation", {});
+      }
 
-    i18n.use(initReactI18next).init({
-      resources,
-      lng: "fa",
-      interpolation: {
-        escapeValue: false,
-      },
+      // درخواست برای دریافت فایل ترجمه و اضافه کردن به resources
+      axios.get(file_url).then((fileResponse) => {
+        i18n.addResourceBundle(code, "translation", fileResponse.data);
+      });
     });
-
-    // Optional: You can return the responses if needed
-    return Promise.all(promises);
   } catch (error) {
     console.error("Error fetching translations:", error);
   }
 };
 
-// Call the function to fetch and update translations
 fetchTranslations();
+
+i18n.use(initReactI18next).init({
+  lng: "fa",
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 export default i18n;

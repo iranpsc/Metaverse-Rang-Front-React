@@ -91,27 +91,31 @@ export const ToastSuccess = (message) => {
   });
 };
 export const getFieldTranslationByNames = (modalName, fieldName) => {
-  const resources = i18n.options.resources;
-  if (resources) {
+  const resources = i18n.services.resourceStore.data;
+  if (
+    resources &&
+    resources[i18n.language] &&
+    resources[i18n.language].translation &&
+    resources[i18n.language].translation.modals
+  ) {
     const modal = resources[i18n.language].translation.modals.find(
       (modal) => modal.name === modalName
     );
 
-    if (modal) {
-      for (let i = 0; i < modal.tabs.length; i++) {
-        const tab = modal.tabs[i];
-        const field = tab.fields.find((field) => field.name === fieldName);
+    if (modal && modal.tabs) {
+      const field = modal.tabs
+        .flatMap((tab) => tab.fields)
+        .find((field) => field.name === fieldName);
 
-        if (field) {
-          return field.translation;
-        }
+      if (field) {
+        return field.translation || " "; // Provide a default value if translation is undefined
       }
     }
-
-    // Return a default translation or handle missing translations as needed
   }
-  return "Translation not found";
+
+  return " ";
 };
+
 export function convertEnglishToPersianNumbers(inputText) {
   const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
