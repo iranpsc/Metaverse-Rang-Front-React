@@ -1,6 +1,6 @@
 import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
-import i18n from "../../i18n/i18n";
+import i18n, { useTranslation } from "../../i18n/i18n.jsx";
 
 export function SanitizeHTML(content) {
   return content?.replace(/<[^>]*>?/gm, "");
@@ -90,13 +90,16 @@ export const ToastSuccess = (message) => {
     duration: 5000,
   });
 };
-export const getFieldTranslationByNames = (modalName, fieldName) => {
+export const getFieldTranslationByNames = (modalName, fieldName, callback) => {
   const resources = i18n.services.resourceStore.data;
+  const { loading, success, error } = useTranslation();
+
   if (
     resources &&
     resources[i18n.language] &&
     resources[i18n.language].translation &&
-    resources[i18n.language].translation.modals
+    resources[i18n.language].translation.modals &&
+    !loading
   ) {
     const modal = resources[i18n.language].translation.modals.find(
       (modal) => modal.name === modalName
@@ -112,7 +115,6 @@ export const getFieldTranslationByNames = (modalName, fieldName) => {
       }
     }
   }
-
   return " ";
 };
 
