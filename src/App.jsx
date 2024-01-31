@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import "./App.css";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
-import "./i18n/i18n.jsx";
+import "./i18n/i18n.js";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 import UserProvider from "./Services/Reducers/UserContext.jsx";

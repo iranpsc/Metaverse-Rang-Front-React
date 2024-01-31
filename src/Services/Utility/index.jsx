@@ -1,6 +1,6 @@
 import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
-import i18n, { useTranslation } from "../../i18n/i18n.jsx";
+import i18n from "../../i18n/i18n";
 
 export function SanitizeHTML(content) {
   return content?.replace(/<[^>]*>?/gm, "");
@@ -90,32 +90,25 @@ export const ToastSuccess = (message) => {
     duration: 5000,
   });
 };
-export const getFieldTranslationByNames = (modalName, fieldName, callback) => {
-  const resources = i18n.services.resourceStore.data;
-  const { loading, success, error } = useTranslation();
+export const getFieldTranslationByNames = (modalName, fieldName) => {
+  const resources = i18n.options.resources;
+  const modal = resources[i18n.language].translation.modals.find(
+    (modal) => modal.name === modalName
+  );
 
-  if (
-    resources &&
-    resources[i18n.language] &&
-    resources[i18n.language].translation &&
-    resources[i18n.language].translation.modals &&
-    !loading
-  ) {
-    const modal = resources[i18n.language].translation.modals.find(
-      (modal) => modal.name === modalName
-    );
-
-    if (modal && modal.tabs) {
-      const field = modal.tabs
-        .flatMap((tab) => tab.fields)
-        .find((field) => field.name === fieldName);
+  if (modal) {
+    for (let i = 0; i < modal.tabs.length; i++) {
+      const tab = modal.tabs[i];
+      const field = tab.fields.find((field) => field.name === fieldName);
 
       if (field) {
-        return field.translation || " "; // Provide a default value if translation is undefined
+        return field.translation;
       }
     }
   }
-  return " ";
+
+  // Return a default translation or handle missing translations as needed
+  return " not found";
 };
 
 export function convertEnglishToPersianNumbers(inputText) {
