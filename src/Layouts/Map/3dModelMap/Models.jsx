@@ -24,7 +24,7 @@ const Models = () => {
           <FBXModel url="./shahid.fbx" />
         </group>
       </Coordinates>
-      <Coordinates latitude={36.306433581761794} longitude={50.028722140674028}>
+      <Coordinates latitude={36.3065335817618} longitude={50.028722140674028}>
         <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
         <group scale={0.0099}>
           <FBXModel

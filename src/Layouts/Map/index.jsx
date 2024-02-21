@@ -26,6 +26,8 @@ import Map from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
 import Models from "./3dModelMap/Models";
+import Office from "./3dModelMap/office";
+import Mark from "./3dModelMap/Mark";
 
 const IconFlyTo = styled.img`
   position: absolute;
@@ -98,11 +100,18 @@ const MapTreeD = () => {
           onZoomEnd={setZoomLevel}
           RTLTextPlugin="https://map.irpsc.com/rtl.js"
         >
-          {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16.5 && (
+          {/* {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16.5 && (
             <>
               <Models />
             </>
+          )} */}
+          {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16 && (
+            <>
+              <Office />
+            </>
           )}
+
+          <Mark />
           <MapPolygons />
           <MapFlag />
         </Map>
