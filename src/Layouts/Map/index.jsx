@@ -110,8 +110,12 @@ const MapTreeD = () => {
               <Office />
             </>
           )}
+          {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16 && (
+            <>
+              <Mark />
+            </>
+          )}
 
-          <Mark />
           <MapPolygons />
           <MapFlag />
         </Map>
