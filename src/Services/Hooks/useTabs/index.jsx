@@ -6,12 +6,11 @@ import styled from "styled-components";
 // Create a styled TabContainer component
 const TabContainer = styled.section`
   width: 99%;
-  height: ${props => props.fullHeight ? '93%' : '500px'};
-  margin-top: ${props => props.fullHeight ? '0' : '24px'};;
+  height: ${(props) => (props.fullHeight ? "93%" : "690px")};
+  margin-top: ${(props) => (props.fullHeight ? "0" : "24px")};
   position: relative;
-  background: #f6f6f6;
   border-radius: 8px;
-  margin-bottom:${props => props.fullHeight ? '0' : '16px'};;
+  margin-bottom: ${(props) => (props.fullHeight ? "0" : "16px")};
 `;
 
 // Create a styled TabList component
@@ -20,37 +19,26 @@ const TabList = styled.div`
   width: 100%;
   height: 40px;
   display: flex;
-  flex-direction: row-reverse;
-  background: #fff;
   top: 0;
-  border-bottom: 2px solid var(--bs-orange);
+  border-bottom: 2px solid ${(props) => props.theme.inputBorder};
 `;
 
 // Create a styled Tab component
 const Tab = styled.button`
   border: none;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 600;
   width: 150px;
   border-radius: 8px 8px 0px 0px;
-  background: #fff;
   color: #999;
-
-  &:hover {
-    color: var(--bs-orange);
-  }
-
+  background: none;
   &.active {
-    background: #f6f6f6;
-    color: var(--bs-orange);
+    background: none;
+    border-bottom: ${(props) => props.theme.activeButton} 2px solid;
+    color: ${(props) => props.theme.activeButton};
     height: 40px;
-    border: 2px solid var(--bs-orange);
-    border-bottom: none;
 
     &:hover {
-      border: none;
-      border: 2px solid var(--bs-orange);
-      border-bottom: none;
       filter: none;
       cursor: auto;
     }
@@ -59,14 +47,14 @@ const Tab = styled.button`
 
 // Create a styled TabPanel component
 const TabPanel = styled.div`
-  margin-top: ${props => props.fullHeight ? '20px' : '40px'};
-  padding-top: ${props => props.fullHeight ? '2.8rem' : '0'}; ;
+  margin-top: ${(props) => (props.fullHeight ? "20px" : "7%")};
+  padding-top: ${(props) => (props.fullHeight ? "2.8rem" : "0")};
   width: 100%;
   height: 90%;
 `;
 
 // Create a function that uses the tabs and current index
-function useTabs(tabs, current,fullHeight) {
+function useTabs(tabs, current, fullHeight) {
   // Set active tab to current index or 0
   const [activeTab, setActiveTab] = useState(current || 0);
   // Get current location

@@ -84,10 +84,10 @@ function Modal({
     align-items: center;
   `;
   return (
-    <animated.section className={"modal"} style={{ ...springs }}>
+    <animated.section className={"modal  "} style={{ ...springs }}>
       <div
         className={`modal-section modal-border ${type}`}
-        style={{ background: `${theme.bg}` }}
+        style={{ background: `${theme.bgModal}` }}
       >
         <div className="modal-header modal-border">
           <div className="container-icon">

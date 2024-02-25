@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
-import shortid from 'shortid';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import shortid from "shortid";
+import styled from "styled-components";
 
 const Container = styled.div`
-  height: 90%;
+  height: 90.5%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const BtnContainer = styled.div`
-  width: 20%;
+  width: 17.6%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  background-color: ${(props) => props.theme.bgSection};
+  border-radius: 5px;
+  padding: 15px 0;
 `;
 
 const MainContainer = styled.div`
@@ -31,12 +34,14 @@ const MainContainer = styled.div`
 const BtnProperty = styled.button`
   border: none;
   width: 80%;
-  height: 60px;
+  height: 48px;
   background-color: transparent;
-  border-left: 1px #b8b8b8 solid;
-
+  font-weight: 600;
+  font-size: 18px;
+  color: ${(props) => props.theme.textTab};
   &.active {
-    border-left: 4px solid var(--bs-orange);
+    border-right: 2px solid ${(props) => props.theme.activeButton};
+    color: ${(props) => props.theme.activeButton};
   }
 `;
 
@@ -50,7 +55,7 @@ const BtnProperty = styled.button`
 
 export default function useActivity(tabs, style) {
   const location = useLocation();
-  const [activity, setActivity] = useState(location.state?.activeTab  || 0);
+  const [activity, setActivity] = useState(location.state?.activeTab || 0);
   const [current, setCurrent] = useState(tabs[activity]?.component);
 
   useEffect(() => {
@@ -58,17 +63,18 @@ export default function useActivity(tabs, style) {
   }, [activity]);
   return (
     <Container>
-      <MainContainer style={{...style}}>
-        { current }
-      </MainContainer>
-
       <BtnContainer>
-        {
-            tabs.map((tab, index) => (
-                <BtnProperty key={shortid.generate()} onClick={() => setActivity(index)} className={`${activity === index && "active"}`}>{tab.name}</BtnProperty>
-            ))
-        }
+        {tabs.map((tab, index) => (
+          <BtnProperty
+            key={shortid.generate()}
+            onClick={() => setActivity(index)}
+            className={`${activity === index && "active"}`}
+          >
+            {tab.name}
+          </BtnProperty>
+        ))}
       </BtnContainer>
+      <MainContainer style={{ ...style }}>{current}</MainContainer>
     </Container>
   );
 }

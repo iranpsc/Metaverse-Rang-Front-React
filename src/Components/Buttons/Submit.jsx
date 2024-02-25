@@ -6,13 +6,14 @@ import { useState } from "react";
 import { memo } from "react";
 
 const PrimaryButton = styled.button`
-  --bs-bg-opacity: 1;
-  background-color: var(--bs-orange) !important;
+  background-color: ${(props) => props.theme.activeButton}!important;
   border: none;
   border-radius: 8px;
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-light-rgb), var(--bs-text-opacity)) !important;
+  color: ${(props) => props.theme.textButtonPrimary};
   padding: 8px 24px 8px 24px;
+  font-size: 14px;
+  font-weight: 600;
 `;
 
 const SecondaryButton = styled.button`

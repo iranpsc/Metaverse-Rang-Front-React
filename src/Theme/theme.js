@@ -43,6 +43,14 @@ export const lightTheme = {
   btnListPosition: "#EFEFEF",
   arrowMenu: "#2C2F32",
   btnArrowMenu: "#EFEFEF",
+  ///
+  activeButton: "#008BF8",
+  inputBorder: "#BABABA",
+  bgSection: "#FCFCFC",
+  bgModal: "#F6F6F6",
+  textTab: "#868B90",
+  TextTitle: "#33353B",
+  textButtonPrimary: "#D7DDFE",
 };
 export const darkTheme = {
   body: "#121620",
@@ -90,4 +98,12 @@ export const darkTheme = {
   btnListPosition: "#00000054",
   arrowMenu: "#868B90",
   btnArrowMenu: " #000",
+  ///
+  activeButton: "#FFC700",
+  inputBorder: "#454545",
+  bgSection: "#1A1A18",
+  bgModal: "#000000",
+  textTab: "#DEDEE9",
+  TextTitle: "#FFFFFF",
+  textButtonPrimary: "#191B21",
 };

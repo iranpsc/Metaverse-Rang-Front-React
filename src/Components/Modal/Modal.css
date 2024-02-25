@@ -11,6 +11,12 @@
   background-color: #0000009e;
 }
 
+.modal-preview {
+  position: absolute !important;
+  left: 0px;
+  top: 0px;
+}
+
 .modal-section {
   background: #F9F9F9;
   padding: 10px;
@@ -48,7 +54,7 @@
 }
 
 .modal-section-xl {
-  width: 90% !important;
+  width: 85% !important;
 }
 
 .modal-icon {
