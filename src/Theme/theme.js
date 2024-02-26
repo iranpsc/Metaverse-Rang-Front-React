@@ -51,6 +51,7 @@ export const lightTheme = {
   textTab: "#868B90",
   TextTitle: "#33353B",
   textButtonPrimary: "#D7DDFE",
+  detailText: "#84858F",
 };
 export const darkTheme = {
   body: "#121620",
@@ -106,4 +107,5 @@ export const darkTheme = {
   textTab: "#DEDEE9",
   TextTitle: "#FFFFFF",
   textButtonPrimary: "#191B21",
+  detailText: "#A0A0AB",
 };

@@ -66,7 +66,7 @@ const ChoosingEnvironment = () => {
               <Img src={data.image[0].url} alt="" key={index} />
               <ViweHolder
                 onClick={() => {
-                  setPreview(data);
+                  setPreview([data]);
                 }}
               >
                 <ViweIcon />
@@ -75,7 +75,7 @@ const ChoosingEnvironment = () => {
           );
         })}
       </Container>
-      {preview && <PreviewModel />}
+      {preview.length > 0 && <PreviewModel data={preview} />}
     </>
   );
 };

@@ -15,6 +15,7 @@
   position: absolute !important;
   left: 0px;
   top: 0px;
+  width: 83.6% !important;
 }
 
 .modal-section {
@@ -106,4 +107,11 @@
   font-weight: 500;
   line-height: 180%;
   text-transform: capitalize;
+}
+
+.modal-preview {
+  position: absolute !important;
+  left: 6%;
+  top: 2%;
+  width: 83.6% !important;
 }

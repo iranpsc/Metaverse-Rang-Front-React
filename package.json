@@ -27,6 +27,7 @@
     "axios": "^1.2.1",
     "compressorjs": "^1.2.1",
     "deck.gl-leaflet": "^1.2.1",
+    "drei": "^2.2.21",
     "esbuild": "^0.19.2",
     "fscreen": "^1.2.0",
     "html2pdf.js": "^0.9.3",

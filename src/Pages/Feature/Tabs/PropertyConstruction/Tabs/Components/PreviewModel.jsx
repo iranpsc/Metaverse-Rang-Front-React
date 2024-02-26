@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../../../../../Components/Modal/Modal.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAdviserData from "../../../../../../Services/Hooks/useAdviserData";
@@ -7,7 +7,43 @@ import styled, { useTheme } from "styled-components";
 import { ReactComponent as Help } from "../../../../../../Assets/svg/exclamation.svg";
 import { ReactComponent as Exit } from "../../../../../../Assets/svg/close.svg";
 import { ReactComponent as Report } from "../../../../../../Assets/svg/question.svg";
-const PreviewModel = () => {
+import CanvasPreview from "./CanvasPreview";
+
+const ContainerDetail = styled.div`
+  width: 28.7%;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  background-color: ${(props) => props.theme.bgSection};
+  gap: 20px;
+  padding: 25px 20px;
+`;
+const CanvasContainer = styled.div`
+  width: 71.3%;
+  height: 480px;
+`;
+const Container = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 10px;
+`;
+const TextTitle = styled.p`
+  color: ${(props) => props.theme.TextTitle};
+  font-size: 18px;
+  font-weight: 600;
+`;
+const TextDetail = styled.p`
+  color: ${(props) => props.theme.detailText};
+  font-size: 16px;
+  font-weight: 600;
+`;
+const PHolder = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+const PreviewModel = ({ data }) => {
   const navigation = useNavigate();
   const Location = useLocation();
   const [showModal, setShowModal] = useState(false);
@@ -58,6 +94,10 @@ const PreviewModel = () => {
     justify-content: center;
     align-items: center;
   `;
+
+  useEffect(() => {
+    setHidden(false);
+  }, [data]);
   return (
     <div
       className={`modal-section modal-border modal-section-md modal-preview`}
@@ -90,9 +130,45 @@ const PreviewModel = () => {
             onClick={() => setHidden(true)}
           />
         </div>
-        <Header>fddsf</Header>
+        <Header>نمایشگر مدل ۳ بعدی</Header>
       </div>
       <div className="modal-body ">
+        <Container>
+          <ContainerDetail>
+            <TextTitle>جزییات بنا</TextTitle>
+            <PHolder>
+              <TextTitle>متراژ کل بنا</TextTitle>
+              <TextDetail>۲۱۰</TextDetail>
+            </PHolder>
+            <PHolder>
+              <TextTitle>تعداد تراکم</TextTitle>
+              <TextDetail>۲</TextDetail>
+            </PHolder>
+            <PHolder>
+              <TextTitle>زیر زمین</TextTitle>
+              <TextDetail>ندارد</TextDetail>
+            </PHolder>
+            <PHolder>
+              <TextTitle>حجم دیتای ذخیره</TextTitle>
+              <TextDetail>۱۰۰MB</TextDetail>
+            </PHolder>
+            <PHolder>
+              <TextTitle>ظرفیت ورودی</TextTitle>
+              <TextDetail>۲۰</TextDetail>
+            </PHolder>
+            <PHolder>
+              <TextTitle>امتیاز دریافتی</TextTitle>
+              <TextDetail></TextDetail>
+            </PHolder>
+            <PHolder>
+              <TextTitle>زمان ساخت</TextTitle>
+              <TextDetail>۳۲۰۰ ساعت</TextDetail>
+            </PHolder>
+          </ContainerDetail>
+          <CanvasContainer>
+            <CanvasPreview link={data[0].file.url} />
+          </CanvasContainer>
+        </Container>
         {showModal && (
           <Amozesh
             creator={adviserData?.creator_code}
