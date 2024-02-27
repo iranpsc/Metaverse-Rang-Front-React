@@ -6,6 +6,8 @@ import useRequest from "../../../../../../Services/Hooks/useRequest";
 import { ReactComponent as Eye } from "../../../../../../Assets/svg/eye.svg";
 import Modal from "../../../../../../Components/Modal";
 import PreviewModel from "./PreviewModel";
+import { useSelectedEnvironment } from "../../../../../../Services/Reducers/SelectedEnvironmentContext";
+
 const Container = styled.div`
   gap: 10px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -14,14 +16,17 @@ const Container = styled.div`
   width: 40%;
   height: 60%;
 `;
+
 const Img = styled.img`
   width: 100%;
   height: 180px;
   border-radius: 10px;
 `;
+
 const ViweIcon = styled(Eye)`
   stroke: ${(props) => props.theme.textButtonPrimary};
 `;
+
 const ViweHolder = styled.button`
   background-color: ${(props) => props.theme.activeButton};
   width: 30px;
@@ -35,6 +40,7 @@ const ViweHolder = styled.button`
   justify-content: center;
   border: none;
 `;
+
 const ImgHolder = styled.div`
   width: 100%;
   height: 180px;
@@ -42,12 +48,32 @@ const ImgHolder = styled.div`
   position: relative;
 `;
 
+const SelectorEnvironment = styled.button`
+  background-color: ${(props) => props.theme.bgSection};
+  width: 25px;
+  height: 25px;
+  border-radius: 60px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid ${(props) => props.theme.inputBorder};
+  padding: 4px;
+  &.active {
+    background-color: ${(props) => props.theme.activeButton};
+  }
+`;
+
 const ChoosingEnvironment = () => {
   const [feature] = useContext(FeatureContext);
-  const Navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
   const [data, setData] = useState([]);
   const [preview, setPreview] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const { addSelectedEnvironment } = useSelectedEnvironment();
+
   useEffect(() => {
     Request(`features/${feature.id}/build/package`, HTTP_METHOD.GET)
       .then((res) => {
@@ -57,13 +83,19 @@ const ChoosingEnvironment = () => {
         console.log(err);
       });
   }, []);
+
+  const handleSelectorClick = (index) => {
+    setActiveIndex(index);
+    // Add the selected environment data to selectedEnvironment array
+    addSelectedEnvironment(data[index]);
+  };
   return (
     <>
       <Container>
         {data.map((data, index) => {
           return (
-            <ImgHolder>
-              <Img src={data.image[0].url} alt="" key={index} />
+            <ImgHolder key={index}>
+              <Img src={data.images[0].url} alt="" />
               <ViweHolder
                 onClick={() => {
                   setPreview([data]);
@@ -71,6 +103,10 @@ const ChoosingEnvironment = () => {
               >
                 <ViweIcon />
               </ViweHolder>
+              <SelectorEnvironment
+                onClick={() => handleSelectorClick(index)}
+                className={activeIndex === index ? "active" : ""}
+              />
             </ImgHolder>
           );
         })}

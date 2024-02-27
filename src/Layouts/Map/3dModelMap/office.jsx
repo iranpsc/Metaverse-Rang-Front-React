@@ -19,33 +19,11 @@ const FBXModel = ({ url, position, rotation }) => {
 };
 
 const Models = () => {
-  const {
-    rotationX,
-    setRotationX,
-    positionControl, // اضافه کردن موقعیت کنترل به leva
-  } = useControls({
-    rotationX: {
-      value: 0,
-      min: -180,
-      max: 180,
-      step: 1,
-    },
-    positionControl: {
-      value: [36.306433581761794, 50.028722140674028],
-    },
-  });
-  const map = useMap();
   return (
     <>
       <Canvas latitude={36.306433581761794} longitude={50.028722140674028}>
-        <Coordinates
-          latitude={positionControl[0]}
-          longitude={positionControl[1]}
-        >
-          <FBXModel
-            url="/office.fbx"
-            rotation={[0, (rotationX * Math.PI) / 180, 0]}
-          />
+        <Coordinates latitude={306433581761794} longitude={50.028722140674028}>
+          <FBXModel url="/office.fbx" />
         </Coordinates>
         <Coordinates
           latitude={36.306133581761785}

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Input from "../../../../../../Components/Inputs/Input";
 import Submit from "../../../../../../Components/Buttons/Submit";
+import { useSelectedEnvironment } from "../../../../../../Services/Reducers/SelectedEnvironmentContext";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -26,6 +28,13 @@ const P = styled.p`
   font-weight: 400;
 `;
 const InputsGeneralDefault = () => {
+  const { toggleConfirmation } = useSelectedEnvironment();
+  const Navigate = useNavigate();
+  const handleButtonClick = () => {
+    toggleConfirmation(); // فراخوانی toggleConfirmation
+    Navigate("/metaverse"); // انتقال به "/metaverse"
+  };
+
   return (
     <Container>
       <DivHeader>
@@ -53,6 +62,7 @@ const InputsGeneralDefault = () => {
             width: "190px",
             alignSelf: "start",
           },
+          onClick: handleButtonClick,
         }}
       />
     </Container>

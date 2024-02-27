@@ -28,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 import Models from "./3dModelMap/Models";
 import Office from "./3dModelMap/office";
 import Mark from "./3dModelMap/Mark";
+import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
 
 const IconFlyTo = styled.img`
   position: absolute;
@@ -65,7 +66,7 @@ const MapTreeD = () => {
   const onMouseEnter = useCallback(() => setCursor("pointer"), []);
   const onMouseLeave = useCallback(() => setCursor("-webkit-grab"), []);
   const [zoomLevel, setZoomLevel] = useState(18);
-
+  const { confirmation, selectedEnvironment } = useSelectedEnvironment();
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
@@ -110,11 +111,8 @@ const MapTreeD = () => {
               <Office />
             </>
           )}
-          {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16 && (
-            <>
-              <Mark />
-            </>
-          )}
+
+          {confirmation && selectedEnvironment && <Mark />}
 
           <MapPolygons />
           <MapFlag />

@@ -19,6 +19,7 @@ import StatusBar from "./Layouts/StatusBar";
 import Tutorial from "./Components/Tutorial";
 import { MenuContextProvider } from "./Services/Reducers/MenuContext";
 import { MapProvider } from "react-map-gl";
+import { SelectedEnvironmentProvider } from "./Services/Reducers/SelectedEnvironmentContext.jsx";
 
 const Container = styled.section`
   display: flex;
@@ -104,7 +105,9 @@ function App() {
                     <MenuContextProvider>
                       <Menu />
                     </MenuContextProvider>
-                    <MapTreeD />
+                    <SelectedEnvironmentProvider>
+                      <MapTreeD />
+                    </SelectedEnvironmentProvider>
                     <StatusBar />
                     <button
                       onClick={toggleFullScreen}

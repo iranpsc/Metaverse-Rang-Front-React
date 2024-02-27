@@ -6,6 +6,8 @@ import { Canvas, Coordinates } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { HemisphereLight } from "three";
 import { Suspense } from "react";
+import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvironmentContext";
+import styled from "styled-components";
 
 const FBXModel = ({ url, position, rotation }) => {
   const fbx = useLoader(FBXLoader, url);
@@ -18,13 +20,28 @@ const FBXModel = ({ url, position, rotation }) => {
     </group>
   );
 };
-
+const BtnOpenCloseMenu = styled.button`
+  width: 41px;
+  height: 41px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.inputBorder};
+  position: absolute;
+  right: 0;
+  top: -150px;
+  z-index: 100;
+  border: none;
+`;
 const Mark = () => {
+  const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
+  console.log(selectedEnvironment);
   const { rotationX, setRotationX } = useControls({
     rotationX: {
       value: 0,
-      min: -180,
-      max: 180,
+      min: 0,
+      max: 360,
       step: 1,
     },
   });
@@ -55,13 +72,16 @@ const Mark = () => {
       latitude={markerPosition.latitude}
       longitude={markerPosition.longitude}
     >
+      <BtnOpenCloseMenu onClick={() => toggleConfirmation()}>
+        1
+      </BtnOpenCloseMenu>
       <Suspense fallback={null}>
         <Canvas
           latitude={markerPosition.latitude}
           longitude={markerPosition.longitude}
         >
           <FBXModel
-            url="./5.fbx"
+            url={selectedEnvironment[0].file.url}
             key={2}
             rotation={[0, (rotationX * Math.PI) / 180, 0]}
           />
