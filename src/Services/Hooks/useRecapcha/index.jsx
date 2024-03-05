@@ -48,7 +48,7 @@ const Text = styled.p`
   margin-top: 7px; /* 178.571% */
 `;
 export function useRecaptcha() {
-  const [recaptchaValue, setRecaptchaValue] = useState(null);
+  const [recaptchaValue, setRecaptchaValue] = useState(false);
   const captchaRef = useRef(null);
   const theme = useTheme();
   const renderRecaptcha = () => (

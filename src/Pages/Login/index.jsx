@@ -50,18 +50,26 @@ export default function Login() {
       setIsRecaptcha(true);
       return;
     }
-    setMessage("");
-    Request("login", HTTP_METHOD.POST, formData)
-      .then((res) => {
-        setUser(res.data);
-        navigation("/metaverse");
-      })
-      .catch((error) => {
-        setMessage(
-          getFieldTranslationByNames("login", "email or password is not valid.")
-        );
-      });
   };
+  useEffect(() => {
+    if (recaptchaValue) {
+      console.log(isRecaptcha);
+      setMessage("");
+      Request("login", HTTP_METHOD.POST, formData)
+        .then((res) => {
+          setUser(res.data);
+          navigation("/metaverse");
+        })
+        .catch((error) => {
+          setMessage(
+            getFieldTranslationByNames(
+              "login",
+              "email or password is not valid."
+            )
+          );
+        });
+    }
+  }, [recaptchaValue]);
   return (
     <Modal type="modal-section-xs">
       <LoginSwitch />
