@@ -86,7 +86,7 @@ const MapTreeD = () => {
             zoom: 12,
             pitch: 40,
           }}
-          mapStyle="/styleMap.json"
+          mapStyle="./styleMap.json"
           style={{ borderRadius: "15px" }}
           interactiveLayerIds={["polygon-fill-layer"]}
           cursor={cursor}
