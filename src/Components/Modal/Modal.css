@@ -11,12 +11,21 @@
   background-color: #0000009e;
 }
 
-.modal-preview {
-  position: absolute !important;
-  left: 0px;
-  top: 0px;
-  width: 83.6% !important;
+.modal-preview-base {
+  top: 0;
+  position: fixed;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  background-color: #0000009e;
+  left: 0;
 }
+
+
 
 .modal-section {
   background: #F9F9F9;
@@ -107,11 +116,4 @@
   font-weight: 500;
   line-height: 180%;
   text-transform: capitalize;
-}
-
-.modal-preview {
-  position: absolute !important;
-  left: 6%;
-  top: 2%;
-  width: 83.6% !important;
 }

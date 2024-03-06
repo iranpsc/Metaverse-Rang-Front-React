@@ -25,7 +25,7 @@ const Model = ({ link }) => {
     controls.dampingFactor = 0.25;
     controls.enableZoom = true;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.5;
+    controls.autoRotateSpeed = 0.09;
     controls.rotateSpeed = 0.5;
     controls.maxPolarAngle = Math.PI / 2; // Limit vertical rotation
     controls.minDistance = 1; // Minimum zoom distance

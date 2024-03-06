@@ -109,7 +109,7 @@ function App() {
                       <MapTreeD />
                     </SelectedEnvironmentProvider>
                     <StatusBar />
-                    <button
+                    {/* <button
                       onClick={toggleFullScreen}
                       style={{
                         width: "20px",
@@ -119,7 +119,7 @@ function App() {
                       }}
                     >
                       +++
-                    </button>
+                    </button> */}
                   </Container>
 
                   <Toaster

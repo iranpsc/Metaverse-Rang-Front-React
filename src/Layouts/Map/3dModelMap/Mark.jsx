@@ -36,13 +36,12 @@ const BtnOpenCloseMenu = styled.button`
 `;
 const Mark = () => {
   const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
-  console.log(selectedEnvironment);
   const { rotationX, setRotationX } = useControls({
     rotationX: {
       value: 0,
       min: 0,
       max: 360,
-      step: 1,
+      step: 0.001,
     },
   });
   const map = useMap();
@@ -50,6 +49,7 @@ const Mark = () => {
     latitude: 36.3065335817618,
     longitude: 50.026222140673994,
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const onMapMove = () => {
@@ -67,26 +67,34 @@ const Mark = () => {
     };
   }, [map]);
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, [selectedEnvironment]);
+
   return (
     <Marker
       latitude={markerPosition.latitude}
       longitude={markerPosition.longitude}
     >
       <BtnOpenCloseMenu onClick={() => toggleConfirmation()}>
-        1
+        ✔
       </BtnOpenCloseMenu>
-      <Suspense fallback={null}>
-        <Canvas
-          latitude={markerPosition.latitude}
-          longitude={markerPosition.longitude}
-        >
-          <FBXModel
-            url={selectedEnvironment[0].file.url}
-            key={2}
-            rotation={[0, (rotationX * Math.PI) / 180, 0]}
-          />
-        </Canvas>
-      </Suspense>
+      {isLoading ? (
+        <div>🔃</div>
+      ) : (
+        <Suspense fallback={null}>
+          <Canvas
+            latitude={markerPosition.latitude}
+            longitude={markerPosition.longitude}
+          >
+            <FBXModel
+              url={selectedEnvironment[0].file.url}
+              key={2}
+              rotation={[0, (rotationX * Math.PI) / 180, 0]}
+            />
+          </Canvas>
+        </Suspense>
+      )}
     </Marker>
   );
 };

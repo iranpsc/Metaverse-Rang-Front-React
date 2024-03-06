@@ -95,93 +95,100 @@ const PreviewModel = ({ data }) => {
     align-items: center;
   `;
 
-  useEffect(() => {
-    setHidden(false);
-  }, [data]);
+  // useEffect(() => {
+  //   setHidden(false);
+  // }, [data]);
+  console.log(data);
   return (
     <div
-      className={`modal-section modal-border modal-section-md modal-preview`}
+      className="modal-preview-base"
       style={{
-        background: `${theme.bgModal}`,
         display: `${hidden ? "none" : ""}`,
       }}
     >
-      <div className="modal-header modal-border">
-        <div className="container-icon">
-          <Icon
-            className=" cursor-pointer"
-            alt="help"
-            onClick={() => setShowModal((showModal) => !showModal)}
-          />
-          <Icon2
-            className="cursor-pointer"
-            alt="report"
-            onClick={() =>
-              navigation("/metaverse/report", {
-                state: {
-                  href: window.location.href.split("/").slice(3).join("/"),
-                },
-              })
-            }
-          />
-          <Icon3
-            className=" cursor-pointer"
-            alt="exit"
-            onClick={() => setHidden(true)}
-          />
+      <div
+        className={`modal-section modal-border modal-section-md modal-preview`}
+        style={{
+          background: `${theme.bgModal}`,
+        }}
+      >
+        <div className="modal-header modal-border">
+          <div className="container-icon">
+            <Icon
+              className=" cursor-pointer"
+              alt="help"
+              onClick={() => setShowModal((showModal) => !showModal)}
+            />
+            <Icon2
+              className="cursor-pointer"
+              alt="report"
+              onClick={() =>
+                navigation("/metaverse/report", {
+                  state: {
+                    href: window.location.href.split("/").slice(3).join("/"),
+                  },
+                })
+              }
+            />
+            <Icon3
+              className=" cursor-pointer"
+              alt="exit"
+              onClick={() => setHidden(true)}
+            />
+          </div>
+          <Header>نمایشگر مدل ۳ بعدی</Header>
         </div>
-        <Header>نمایشگر مدل ۳ بعدی</Header>
-      </div>
-      <div className="modal-body ">
-        <Container>
-          <ContainerDetail>
-            <TextTitle>جزییات بنا</TextTitle>
-            <PHolder>
-              <TextTitle>متراژ کل بنا</TextTitle>
-              <TextDetail>۲۱۰</TextDetail>
-            </PHolder>
-            <PHolder>
-              <TextTitle>تعداد تراکم</TextTitle>
-              <TextDetail>۲</TextDetail>
-            </PHolder>
-            <PHolder>
-              <TextTitle>زیر زمین</TextTitle>
-              <TextDetail>ندارد</TextDetail>
-            </PHolder>
-            <PHolder>
-              <TextTitle>حجم دیتای ذخیره</TextTitle>
-              <TextDetail>۱۰۰MB</TextDetail>
-            </PHolder>
-            <PHolder>
-              <TextTitle>ظرفیت ورودی</TextTitle>
-              <TextDetail>۲۰</TextDetail>
-            </PHolder>
-            <PHolder>
-              <TextTitle>امتیاز دریافتی</TextTitle>
-              <TextDetail></TextDetail>
-            </PHolder>
-            <PHolder>
-              <TextTitle>زمان ساخت</TextTitle>
-              <TextDetail>۳۲۰۰ ساعت</TextDetail>
-            </PHolder>
-          </ContainerDetail>
-          <CanvasContainer>
-            <CanvasPreview link={data[0].file.url} />
-          </CanvasContainer>
-        </Container>
-        {showModal && (
-          <Amozesh
-            creator={adviserData?.creator_code}
-            title={adviserData?.title}
-            video={adviserData?.video}
-            description={adviserData?.description}
-            setShowModal={setShowModal}
-            dislikes={adviserData?.dislikes}
-            likes={adviserData?.likes}
-            views={adviserData?.views}
-            id={adviserData?.id}
-          />
-        )}
+        <div className="modal-body ">
+          <Container>
+            <ContainerDetail>
+              <TextTitle>جزییات بنا</TextTitle>
+              <PHolder>
+                <TextTitle>{data[0].attributes[16].name}</TextTitle>
+                <TextDetail>{data[0].attributes[16].value}</TextDetail>
+              </PHolder>
+              <PHolder>
+                <TextTitle>{data[0].attributes[15].name}</TextTitle>
+                <TextDetail>{data[0].attributes[15].value}</TextDetail>
+              </PHolder>
+              <PHolder>
+                <TextTitle>{data[0].attributes[14].name}</TextTitle>
+                <TextDetail>{data[0].attributes[14].value}</TextDetail>
+              </PHolder>
+              <PHolder>
+                <TextTitle>{data[0].attributes[13].name}</TextTitle>
+                <TextDetail>{data[0].attributes[13].value}</TextDetail>
+              </PHolder>
+              <PHolder>
+                <TextTitle>{data[0].attributes[12].name}</TextTitle>
+                <TextDetail>{data[0].attributes[12].value}</TextDetail>
+              </PHolder>
+              <PHolder>
+                <TextTitle>{data[0].attributes[11].name}</TextTitle>
+                <TextDetail>{data[0].attributes[11].value}</TextDetail>
+              </PHolder>
+              <PHolder>
+                <TextTitle>{data[0].attributes[10].name}</TextTitle>
+                <TextDetail>{data[0].attributes[10].value}</TextDetail>
+              </PHolder>
+            </ContainerDetail>
+            <CanvasContainer>
+              <CanvasPreview link={data[0].file.url} />
+            </CanvasContainer>
+          </Container>
+          {showModal && (
+            <Amozesh
+              creator={adviserData?.creator_code}
+              title={adviserData?.title}
+              video={adviserData?.video}
+              description={adviserData?.description}
+              setShowModal={setShowModal}
+              dislikes={adviserData?.dislikes}
+              likes={adviserData?.likes}
+              views={adviserData?.views}
+              id={adviserData?.id}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
