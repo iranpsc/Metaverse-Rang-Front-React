@@ -65,7 +65,6 @@ const Mark = () => {
       map.current.off("move", onMapMove);
     };
   }, [map]);
-
   return (
     <Marker
       latitude={markerPosition.latitude}
