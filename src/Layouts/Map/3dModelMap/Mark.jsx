@@ -49,7 +49,6 @@ const Mark = () => {
     latitude: 36.3065335817618,
     longitude: 50.026222140673994,
   });
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const onMapMove = () => {
@@ -67,10 +66,6 @@ const Mark = () => {
     };
   }, [map]);
 
-  useEffect(() => {
-    setIsLoading(false);
-  }, [selectedEnvironment]);
-
   return (
     <Marker
       latitude={markerPosition.latitude}
@@ -79,22 +74,18 @@ const Mark = () => {
       <BtnOpenCloseMenu onClick={() => toggleConfirmation()}>
         ✔
       </BtnOpenCloseMenu>
-      {isLoading ? (
-        <div>🔃</div>
-      ) : (
-        <Suspense fallback={null}>
-          <Canvas
-            latitude={markerPosition.latitude}
-            longitude={markerPosition.longitude}
-          >
-            <FBXModel
-              url={selectedEnvironment[0].file.url}
-              key={2}
-              rotation={[0, (rotationX * Math.PI) / 180, 0]}
-            />
-          </Canvas>
-        </Suspense>
-      )}
+      <Suspense fallback={null}>
+        <Canvas
+          latitude={markerPosition.latitude}
+          longitude={markerPosition.longitude}
+        >
+          <FBXModel
+            url={selectedEnvironment[0].file.url}
+            key={2}
+            rotation={[0, (rotationX * Math.PI) / 180, 0]}
+          />
+        </Canvas>
+      </Suspense>
     </Marker>
   );
 };
