@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as Member } from "../../Assets/svg/AddMember.svg";
+import { ReactComponent as Member } from "../../Assets/svg/addMember.svg";
 import { ReactComponent as Profile } from "../../Assets/svg/profile.svg";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 

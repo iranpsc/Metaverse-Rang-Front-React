@@ -24,7 +24,7 @@ import Educational from "../../Components/Lottie/Educational";
 import SignupLottie from "../../Components/Lottie/SignupLottie";
 import Player from "../../Pages/Player";
 import Dynasty from "../../Pages/Dynasty";
-import HourMeterProfit from "../../Pages/HourMeterProfit/Index";
+import HourMeterProfit from "../../Pages/HourMeterProfit";
 import TransactionPayments from "../../Pages/Payments/Verification/transactionPayments";
 import VerificationEmail from "../../Pages/VerificationEmail";
 import Ip from "../../Pages/Ip";

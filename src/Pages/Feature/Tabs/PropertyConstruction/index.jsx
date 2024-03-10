@@ -1,6 +1,6 @@
 import React from "react";
 import useActivity from "../../../../Services/Hooks/useActivity";
-import GeneralDefault from "./Tabs/Generaldefault";
+import GeneralDefault from "./Tabs/GeneralDefault";
 import SpecialOrder from "./Tabs/SpecialOrder";
 
 const PropertyConstruction = () => {
