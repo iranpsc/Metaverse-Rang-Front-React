@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Marker, useMap } from "react-map-gl";
+import { Marker, useMap, Source, Layer } from "react-map-gl";
 import { levaStore, useControls } from "leva";
 import { useFrame, useLoader } from "react-three-fiber";
 import { Canvas, Coordinates } from "react-three-map/maplibre";
@@ -20,6 +20,7 @@ const FBXModel = ({ url, position, rotation }) => {
     </group>
   );
 };
+
 const BtnOpenCloseMenu = styled.button`
   width: 41px;
   height: 41px;
@@ -34,6 +35,19 @@ const BtnOpenCloseMenu = styled.button`
   z-index: 100;
   border: none;
 `;
+
+const getPolygonCoordinates = (markerPosition, radius) => {
+  const { latitude, longitude } = markerPosition;
+  const polygonCoordinates = [
+    [longitude - radius, latitude - radius],
+    [longitude + radius, latitude - radius],
+    [longitude + radius, latitude + radius],
+    [longitude - radius, latitude + radius],
+    [longitude - radius, latitude - radius],
+  ];
+  return polygonCoordinates;
+};
+
 const Mark = () => {
   const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
   const { rotationX, setRotationX } = useControls({
@@ -65,27 +79,57 @@ const Mark = () => {
       map.current.off("move", onMapMove);
     };
   }, [map]);
+
+  // Define the polygon data dynamically
+  const polygonData = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "Polygon",
+          coordinates: [getPolygonCoordinates(markerPosition, 0.00003)],
+        },
+      },
+    ],
+  };
+
   return (
-    <Marker
-      latitude={markerPosition.latitude}
-      longitude={markerPosition.longitude}
-    >
-      <BtnOpenCloseMenu onClick={() => toggleConfirmation()}>
-        ✔
-      </BtnOpenCloseMenu>
-      <Suspense fallback={null}>
-        <Canvas
-          latitude={markerPosition.latitude}
-          longitude={markerPosition.longitude}
-        >
-          <FBXModel
-            url={selectedEnvironment[0].file.url}
-            key={2}
-            rotation={[0, (rotationX * Math.PI) / 180, 0]}
-          />
-        </Canvas>
-      </Suspense>
-    </Marker>
+    <>
+      <Marker
+        latitude={markerPosition.latitude}
+        longitude={markerPosition.longitude}
+      >
+        <BtnOpenCloseMenu onClick={() => toggleConfirmation()}>
+          ✔
+        </BtnOpenCloseMenu>
+        <Suspense fallback={null}>
+          <Canvas
+            latitude={markerPosition.latitude}
+            longitude={markerPosition.longitude}
+          >
+            <FBXModel
+              url={selectedEnvironment[0].file.url}
+              key={2}
+              rotation={[0, (rotationX * Math.PI) / 180, 0]}
+            />
+          </Canvas>
+        </Suspense>
+      </Marker>
+
+      {/* Add the polygon source and layer */}
+      <Source id="polygon-source" type="geojson" data={polygonData}>
+        <Layer
+          id="polygon-layer"
+          type="fill"
+          paint={{
+            "fill-color": "rgba(255, 0, 0, 0.5)",
+            "fill-outline-color": "black",
+          }}
+        />
+      </Source>
+    </>
   );
 };
 
