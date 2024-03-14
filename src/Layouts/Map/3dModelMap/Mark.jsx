@@ -36,8 +36,9 @@ const BtnOpenCloseMenu = styled.button`
   border: none;
 `;
 
-const getPolygonCoordinates = (markerPosition, radius) => {
+const getPolygonCoordinates = (markerPosition, environmentArea) => {
   const { latitude, longitude } = markerPosition;
+  const radius = Math.sqrt(environmentArea) * 0.0000065;
   const polygonCoordinates = [
     [longitude - radius, latitude - radius],
     [longitude + radius, latitude - radius],
@@ -50,6 +51,7 @@ const getPolygonCoordinates = (markerPosition, radius) => {
 
 const Mark = () => {
   const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
+  console.log(selectedEnvironment);
   const { rotationX, setRotationX } = useControls({
     rotationX: {
       value: 0,
@@ -89,7 +91,12 @@ const Mark = () => {
         properties: {},
         geometry: {
           type: "Polygon",
-          coordinates: [getPolygonCoordinates(markerPosition, 0.00003)],
+          coordinates: [
+            getPolygonCoordinates(
+              markerPosition,
+              parseFloat(selectedEnvironment[0].attributes[14].value)
+            ),
+          ],
         },
       },
     ],

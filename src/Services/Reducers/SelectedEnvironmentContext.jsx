@@ -10,7 +10,7 @@ export const SelectedEnvironmentProvider = ({ children }) => {
   const [confirmation, setConfirmation] = useState(false); // تاییدیه
 
   const addSelectedEnvironment = (data) => {
-    setSelectedEnvironment([...selectedEnvironment, data]);
+    setSelectedEnvironment([data]);
   };
 
   const toggleConfirmation = () => {
