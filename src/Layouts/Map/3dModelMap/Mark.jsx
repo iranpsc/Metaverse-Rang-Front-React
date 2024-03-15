@@ -108,6 +108,17 @@ const Mark = () => {
         latitude={markerPosition.latitude}
         longitude={markerPosition.longitude}
       >
+        <Source id="polygon-source" type="geojson" data={polygonData}>
+          <Layer
+            id="polygon-layer"
+            type="fill"
+            paint={{
+              "fill-color": "rgba(255, 0, 0, 0.5)",
+              "fill-outline-color": "black",
+            }}
+          />
+        </Source>
+
         <BtnOpenCloseMenu onClick={() => toggleConfirmation()}>
           ✔
         </BtnOpenCloseMenu>
@@ -126,16 +137,6 @@ const Mark = () => {
       </Marker>
 
       {/* Add the polygon source and layer */}
-      <Source id="polygon-source" type="geojson" data={polygonData}>
-        <Layer
-          id="polygon-layer"
-          type="fill"
-          paint={{
-            "fill-color": "rgba(255, 0, 0, 0.5)",
-            "fill-outline-color": "black",
-          }}
-        />
-      </Source>
     </>
   );
 };
