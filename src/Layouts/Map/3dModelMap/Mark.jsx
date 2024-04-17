@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useCallback,
+  useMemo,
+  memo,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 import { Marker, useMap, Source, Layer } from "react-map-gl";
 import { levaStore, useControls } from "leva";
 import { useFrame, useLoader } from "react-three-fiber";
@@ -9,7 +16,7 @@ import { Suspense } from "react";
 import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvironmentContext";
 import styled from "styled-components";
 
-const FBXModel = ({ url, position, rotation }) => {
+const FBXModel = memo(({ url, position, rotation }) => {
   const fbx = useLoader(FBXLoader, url);
   const fbxRef = useRef();
 
@@ -19,7 +26,7 @@ const FBXModel = ({ url, position, rotation }) => {
       <primitive object={fbx} />
     </group>
   );
-};
+});
 
 const BtnOpenCloseMenu = styled.button`
   width: 41px;
@@ -36,22 +43,30 @@ const BtnOpenCloseMenu = styled.button`
   border: none;
 `;
 
-const getPolygonCoordinates = (markerPosition, environmentArea) => {
-  const { latitude, longitude } = markerPosition;
+const getRotatedPolygonCoordinates = (
+  markerPosition,
+  environmentArea,
+  rotationX
+) => {
   const radius = Math.sqrt(environmentArea) * 0.0000065;
-  const polygonCoordinates = [
-    [longitude - radius, latitude - radius],
-    [longitude + radius, latitude - radius],
-    [longitude + radius, latitude + radius],
-    [longitude - radius, latitude + radius],
-    [longitude - radius, latitude - radius],
-  ];
-  return polygonCoordinates;
+  const center = [markerPosition.longitude, markerPosition.latitude];
+  const points = [
+    [-radius, -radius],
+    [radius, -radius],
+    [radius, radius],
+    [-radius, radius],
+  ].map(([x, y]) => {
+    const theta = (rotationX * Math.PI) / 180;
+    console.log(theta);
+    const rotatedX = x * Math.cos(theta) - y * Math.sin(theta);
+    const rotatedY = x * Math.sin(theta) + y * Math.cos(theta);
+    return [rotatedX, rotatedY];
+  });
+  return points.map(([x, y]) => [center[0] + x, center[1] + y]);
 };
 
-const Mark = () => {
+const Mark = memo(() => {
   const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
-  console.log(selectedEnvironment);
   const { rotationX, setRotationX } = useControls({
     rotationX: {
       value: 0,
@@ -66,41 +81,44 @@ const Mark = () => {
     longitude: 50.026222140673994,
   });
 
-  useEffect(() => {
-    const onMapMove = () => {
-      const center = map.current.getCenter();
-      setMarkerPosition({
-        latitude: center.lat,
-        longitude: center.lng,
-      });
-    };
+  const onMapMove = useCallback(() => {
+    const center = map.current.getCenter();
+    setMarkerPosition({
+      latitude: center.lat,
+      longitude: center.lng,
+    });
+  }, [map]);
 
+  useEffect(() => {
     map.current.on("move", onMapMove);
 
     return () => {
       map.current.off("move", onMapMove);
     };
-  }, [map]);
+  }, [map, onMapMove]);
 
-  // Define the polygon data dynamically
-  const polygonData = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        properties: {},
-        geometry: {
-          type: "Polygon",
-          coordinates: [
-            getPolygonCoordinates(
-              markerPosition,
-              parseFloat(selectedEnvironment[0].attributes[14].value)
-            ),
-          ],
+  const polygonData = useMemo(() => {
+    // Define the polygon data dynamically
+    return {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              getRotatedPolygonCoordinates(
+                markerPosition,
+                parseFloat(selectedEnvironment[0].attributes[14].value),
+                rotationX
+              ),
+            ],
+          },
         },
-      },
-    ],
-  };
+      ],
+    };
+  }, [markerPosition, selectedEnvironment, rotationX]);
 
   return (
     <>
@@ -135,10 +153,8 @@ const Mark = () => {
           </Canvas>
         </Suspense>
       </Marker>
-
-      {/* Add the polygon source and layer */}
     </>
   );
-};
+});
 
 export default Mark;
