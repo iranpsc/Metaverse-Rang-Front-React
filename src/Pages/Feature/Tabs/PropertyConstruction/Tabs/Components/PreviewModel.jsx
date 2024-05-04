@@ -10,13 +10,14 @@ import { ReactComponent as Report } from "../../../../../../Assets/svg/question.
 import CanvasPreview from "./CanvasPreview";
 
 const ContainerDetail = styled.div`
-  width: 28.7%;
+  width: 40%;
   height: 480px;
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.bgSection};
   gap: 20px;
   padding: 25px 20px;
+  overflow-y: auto;
 `;
 const CanvasContainer = styled.div`
   width: 71.3%;
@@ -95,10 +96,9 @@ const PreviewModel = ({ data }) => {
     align-items: center;
   `;
 
-  // useEffect(() => {
-  //   setHidden(false);
-  // }, [data]);
-  console.log(data);
+  useEffect(() => {
+    setHidden(false);
+  }, [data]);
   return (
     <div
       className="modal-preview-base"
@@ -142,34 +142,12 @@ const PreviewModel = ({ data }) => {
           <Container>
             <ContainerDetail>
               <TextTitle>جزییات بنا</TextTitle>
-              <PHolder>
-                <TextTitle>{data[0].attributes[16].name}</TextTitle>
-                <TextDetail>{data[0].attributes[16].value}</TextDetail>
-              </PHolder>
-              <PHolder>
-                <TextTitle>{data[0].attributes[15].name}</TextTitle>
-                <TextDetail>{data[0].attributes[15].value}</TextDetail>
-              </PHolder>
-              <PHolder>
-                <TextTitle>{data[0].attributes[14].name}</TextTitle>
-                <TextDetail>{data[0].attributes[14].value}</TextDetail>
-              </PHolder>
-              <PHolder>
-                <TextTitle>{data[0].attributes[13].name}</TextTitle>
-                <TextDetail>{data[0].attributes[13].value}</TextDetail>
-              </PHolder>
-              <PHolder>
-                <TextTitle>{data[0].attributes[12].name}</TextTitle>
-                <TextDetail>{data[0].attributes[12].value}</TextDetail>
-              </PHolder>
-              <PHolder>
-                <TextTitle>{data[0].attributes[11].name}</TextTitle>
-                <TextDetail>{data[0].attributes[11].value}</TextDetail>
-              </PHolder>
-              <PHolder>
-                <TextTitle>{data[0].attributes[10].name}</TextTitle>
-                <TextDetail>{data[0].attributes[10].value}</TextDetail>
-              </PHolder>
+              {data[0].attributes.map((attribute, index) => (
+                <PHolder key={index}>
+                  <TextTitle>{attribute.name}</TextTitle>
+                  <TextDetail>{attribute.value}</TextDetail>
+                </PHolder>
+              ))}
             </ContainerDetail>
             <CanvasContainer>
               <CanvasPreview link={data[0].file.url} />

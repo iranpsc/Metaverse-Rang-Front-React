@@ -7,14 +7,16 @@ import React, {
   useRef,
 } from "react";
 import { Marker, useMap, Source, Layer } from "react-map-gl";
-import { levaStore, useControls } from "leva";
+import { button, levaStore, useControls } from "leva";
 import { useFrame, useLoader } from "react-three-fiber";
 import { Canvas, Coordinates } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { HemisphereLight } from "three";
 import { Suspense } from "react";
 import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvironmentContext";
-import styled from "styled-components";
+import { point, booleanPointInPolygon } from "@turf/turf";
+import * as turf from "@turf/turf";
+import { ToastError, ToastSuccess } from "../../../Services/Utility";
 
 const FBXModel = memo(({ url, position, rotation }) => {
   const fbx = useLoader(FBXLoader, url);
@@ -28,45 +30,9 @@ const FBXModel = memo(({ url, position, rotation }) => {
   );
 });
 
-const BtnOpenCloseMenu = styled.button`
-  width: 41px;
-  height: 41px;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) => props.theme.inputBorder};
-  position: absolute;
-  right: 0;
-  top: -150px;
-  z-index: 100;
-  border: none;
-`;
-
-const getRotatedPolygonCoordinates = (
-  markerPosition,
-  environmentArea,
-  rotationX
-) => {
-  const radius = Math.sqrt(environmentArea) * 0.0000065;
-  const center = [markerPosition.longitude, markerPosition.latitude];
-  const points = [
-    [-radius, -radius],
-    [radius, -radius],
-    [radius, radius],
-    [-radius, radius],
-  ].map(([x, y]) => {
-    const theta = (rotationX * Math.PI) / 180;
-    console.log(theta);
-    const rotatedX = x * Math.cos(theta) - y * Math.sin(theta);
-    const rotatedY = x * Math.sin(theta) + y * Math.cos(theta);
-    return [rotatedX, rotatedY];
-  });
-  return points.map(([x, y]) => [center[0] + x, center[1] + y]);
-};
-
 const Mark = memo(() => {
   const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
+
   const { rotationX, setRotationX } = useControls({
     rotationX: {
       value: 0,
@@ -97,8 +63,27 @@ const Mark = memo(() => {
     };
   }, [map, onMapMove]);
 
+  const getRotatedPolygonCoordinates = useCallback(
+    (markerPosition, environmentArea, rotationX) => {
+      const radius = Math.sqrt(environmentArea) * 0.0000065;
+      const center = [markerPosition.longitude, markerPosition.latitude];
+      const points = [
+        [-radius, -radius],
+        [radius, -radius],
+        [radius, radius],
+        [-radius, radius],
+      ].map(([x, y]) => {
+        const theta = (rotationX * Math.PI) / 180;
+        const rotatedX = x * Math.cos(theta) - y * Math.sin(theta);
+        const rotatedY = x * Math.sin(theta) + y * Math.cos(theta);
+        return [rotatedX, rotatedY];
+      });
+      return points.map(([x, y]) => [center[0] + x, center[1] + y]);
+    },
+    []
+  );
+
   const polygonData = useMemo(() => {
-    // Define the polygon data dynamically
     return {
       type: "FeatureCollection",
       features: [
@@ -118,7 +103,46 @@ const Mark = memo(() => {
         },
       ],
     };
-  }, [markerPosition, selectedEnvironment, rotationX]);
+  }, [
+    markerPosition,
+    selectedEnvironment,
+    rotationX,
+    getRotatedPolygonCoordinates,
+  ]);
+  const environmentCoordinates = selectedEnvironment[0].coordinates.map(
+    (coord) => {
+      const [longitude, latitude] = coord.split(",");
+      return [parseFloat(longitude), parseFloat(latitude)];
+    }
+  );
+  const environmentPolygon = turf.polygon([environmentCoordinates]);
+  const rotatedPolygonCoordinates = getRotatedPolygonCoordinates(
+    markerPosition,
+    parseFloat(selectedEnvironment[0].attributes[14].value),
+    rotationX
+  );
+
+  const isRotatedPolygonInside = rotatedPolygonCoordinates.every((coord) => {
+    const point = turf.point(coord);
+    return turf.booleanPointInPolygon(point, environmentPolygon);
+  });
+
+  const { openCloseMenu } = useControls(
+    {
+      foo: button(() => handleConfirmation()),
+    },
+    [isRotatedPolygonInside] // Move useControls hook after isRotatedPolygonInside
+  );
+  const handleConfirmation = useCallback(() => {
+    if (!isRotatedPolygonInside) {
+      ToastError("محیط شما در محدوده زمین شما نیست");
+    } else {
+      toggleConfirmation();
+      ToastSuccess("محیط با موفقیت در محدوده زمین شما ثبت شد");
+    }
+  }, [isRotatedPolygonInside, toggleConfirmation]);
+
+  console.log(isRotatedPolygonInside);
 
   return (
     <>
@@ -137,9 +161,6 @@ const Mark = memo(() => {
           />
         </Source>
 
-        <BtnOpenCloseMenu onClick={() => toggleConfirmation()}>
-          ✔
-        </BtnOpenCloseMenu>
         <Suspense fallback={null}>
           <Canvas
             latitude={markerPosition.latitude}

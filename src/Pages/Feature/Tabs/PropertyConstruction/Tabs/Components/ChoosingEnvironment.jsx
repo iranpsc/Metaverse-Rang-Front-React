@@ -77,7 +77,7 @@ const ChoosingEnvironment = () => {
   useEffect(() => {
     Request(`features/${feature.id}/build/package`, HTTP_METHOD.GET)
       .then((res) => {
-        setData(res.data.data);
+        setData(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -86,32 +86,35 @@ const ChoosingEnvironment = () => {
 
   const handleSelectorClick = (index) => {
     setActiveIndex(index);
-    // Add the selected environment data to selectedEnvironment array
-    addSelectedEnvironment(data[index]);
+    addSelectedEnvironment({
+      ...data.data[index],
+      coordinates: data.feature.coordinates,
+    });
   };
   return (
     <>
       <Container>
-        {data.map((data, index) => {
-          return (
-            <ImgHolder key={index}>
-              <Img src={data.images[0].url} alt="" />
-              <ViweHolder
-                onClick={() => {
-                  setPreview([data]);
-                }}
-              >
-                <ViweIcon />
-              </ViweHolder>
-              <SelectorEnvironment
-                onClick={() => handleSelectorClick(index)}
-                className={activeIndex === index ? "active" : ""}
-              />
-            </ImgHolder>
-          );
-        })}
+        {data.data &&
+          data.data.map((data, index) => {
+            return (
+              <ImgHolder key={index}>
+                <Img src={data.images[0].url} alt="" />
+                <ViweHolder
+                  onClick={() => {
+                    setPreview([data]);
+                  }}
+                >
+                  <ViweIcon />
+                </ViweHolder>
+                <SelectorEnvironment
+                  onClick={() => handleSelectorClick(index)}
+                  className={activeIndex === index ? "active" : ""}
+                />
+              </ImgHolder>
+            );
+          })}
       </Container>
-      {preview.length > 0 && <PreviewModel data={preview} />}
+      {preview.length == 1 && <PreviewModel data={preview} />}
     </>
   );
 };
