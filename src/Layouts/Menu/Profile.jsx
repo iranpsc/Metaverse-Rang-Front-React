@@ -161,7 +161,7 @@ const Profile = () => {
       <Btn isOpenDrop={isOpenDrop} onClick={() => setIsOpenDrop(!isOpenDrop)}>
         <ImgUser src={user?.image || Anonymous} />
         <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
-        <Text isOpen={isOpen}>{user?.name}</Text>
+        <Text isOpen={isOpen}>{user?.code}</Text>
       </Btn>
 
       <ContainerMain>
@@ -174,7 +174,7 @@ const Profile = () => {
             >
               <ImgUser src={user?.image || Anonymous} />
               <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
-              <Text isOpen={!isOpen}>{user?.name}</Text>
+              <Text isOpen={!isOpen}>{user?.code}</Text>
             </Btn>
             <BtnNavigator>
               <Icon src={Ticket} />

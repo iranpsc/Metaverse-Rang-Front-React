@@ -96,8 +96,8 @@ const MapTreeD = () => {
               navigator(`/metaverse/feature/${feature.properties.id}`);
             }
           }}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+          // onMouseEnter={onMouseEnter}
+          // onMouseLeave={onMouseLeave}
           onZoomEnd={setZoomLevel}
           RTLTextPlugin="https://map.irpsc.com/rtl.js"
         >
@@ -106,11 +106,11 @@ const MapTreeD = () => {
               <Models />
             </>
           )} */}
-          {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16 && (
+          {/* {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16 && (
             <>
               <Office />
             </>
-          )}
+          )} */}
 
           {confirmation && selectedEnvironment && <Mark />}
 

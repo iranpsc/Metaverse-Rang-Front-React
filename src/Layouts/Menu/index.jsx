@@ -48,9 +48,7 @@ const Menu = () => {
       <PublicComponent>
         <BtnLogin />
       </PublicComponent>
-      <PrivateComponent>
-        <BtnAction />
-      </PrivateComponent>
+
       <ThemesBtn />
     </Container>
   );

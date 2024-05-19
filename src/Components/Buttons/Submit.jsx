@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import propTypes from "prop-types";
-import { useLayoutEffect } from "react";
-import { useState } from "react";
-import { memo } from "react";
 
 const PrimaryButton = styled.button`
   background-color: ${(props) => props.theme.activeButton}!important;
@@ -44,13 +41,13 @@ const SecondaryButton = styled.button`
 `;
 
 function Submit({ text, type, options, responsive, children }) {
-  const [button, setButton] = useState();
+  const [button, setButton] = useState(null);
 
   useLayoutEffect(() => {
     switch (type) {
       case "secondary":
         setButton(
-          <SecondaryButton type="submit" {...options} responsive={responsive}>
+          <SecondaryButton type="button" {...options} responsive={responsive}>
             {children}
             {text}
           </SecondaryButton>
@@ -59,7 +56,7 @@ function Submit({ text, type, options, responsive, children }) {
 
       case "primary":
         setButton(
-          <PrimaryButton type="submit" {...options} responsive={responsive}>
+          <PrimaryButton type="button" {...options} responsive={responsive}>
             {text}
           </PrimaryButton>
         );
@@ -68,7 +65,7 @@ function Submit({ text, type, options, responsive, children }) {
       default:
         return;
     }
-  }, []);
+  }, [type, options, responsive, children, text]);
 
   return button;
 }
@@ -77,10 +74,8 @@ Submit.propTypes = {
   text: propTypes.string.isRequired,
   type: propTypes.string.isRequired,
   options: propTypes.object,
+  responsive: propTypes.bool,
+  children: propTypes.node,
 };
 
-const areEqual = (prevProps, nextProps) => {
-  return prevProps.text === nextProps.text;
-};
-
-export default memo(Submit, areEqual);
+export default Submit;

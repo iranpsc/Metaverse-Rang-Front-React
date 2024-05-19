@@ -4,6 +4,7 @@ import Input from "../../../../../../Components/Inputs/Input";
 import Submit from "../../../../../../Components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../../../../Services/Reducers/SelectedEnvironmentContext";
 import { useNavigate } from "react-router-dom";
+import { ToastError } from "../../../../../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -28,11 +29,15 @@ const P = styled.p`
   font-weight: 400;
 `;
 const InputsGeneralDefault = () => {
-  const { toggleConfirmation } = useSelectedEnvironment();
+  const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
   const Navigate = useNavigate();
   const handleButtonClick = () => {
-    toggleConfirmation(); // فراخوانی toggleConfirmation
-    Navigate("/metaverse"); // انتقال به "/metaverse"
+    if (!selectedEnvironment) {
+      ToastError("محیطی انتخاب نکردید");
+    } else {
+      toggleConfirmation();
+      Navigate("/metaverse");
+    }
   };
 
   return (
