@@ -125,7 +125,7 @@ const ContainerMain = styled.div`
   gap: 4px;
   width: 100%;
   overflow-y: auto;
-  max-height: 72%;
+  max-height: 78%;
   border-top: 2px solid ${({ theme }) => theme.lineMenu};
   border-bottom: 2px solid ${({ theme }) => theme.lineMenu};
   ${commonScrollbarStyles}

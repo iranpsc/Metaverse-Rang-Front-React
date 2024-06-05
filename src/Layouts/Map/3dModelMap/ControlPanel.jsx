@@ -72,7 +72,6 @@ const ControlPanel = ({
   handleConfirmation,
   status,
 }) => {
-  console.log(status);
   const handleRotationChange = (e) => {
     setRotationX(parseFloat(e.target.value));
   };

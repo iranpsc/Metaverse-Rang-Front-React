@@ -47,7 +47,7 @@ function Submit({ text, type, options, responsive, children }) {
     switch (type) {
       case "secondary":
         setButton(
-          <SecondaryButton type="button" {...options} responsive={responsive}>
+          <SecondaryButton type="submit" {...options} responsive={responsive}>
             {children}
             {text}
           </SecondaryButton>
@@ -56,7 +56,7 @@ function Submit({ text, type, options, responsive, children }) {
 
       case "primary":
         setButton(
-          <PrimaryButton type="button" {...options} responsive={responsive}>
+          <PrimaryButton type="submit" {...options} responsive={responsive}>
             {text}
           </PrimaryButton>
         );

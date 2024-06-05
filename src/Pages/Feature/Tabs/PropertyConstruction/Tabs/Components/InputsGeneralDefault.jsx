@@ -31,6 +31,7 @@ const P = styled.p`
 const InputsGeneralDefault = () => {
   const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
   const Navigate = useNavigate();
+
   const handleButtonClick = () => {
     if (!selectedEnvironment) {
       ToastError("محیطی انتخاب نکردید");

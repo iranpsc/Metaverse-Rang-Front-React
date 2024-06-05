@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { useSpring, animated } from "@react-spring/web";
-import { Header, Container, Title } from "./Styles";
+import { Header, Container, Title, ContainerIcon } from "./Styles";
 import Amozesh from "../ModalAmozash";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
 import { Icon, Icon2, Icon3 } from "../Icons/IconsHeader";
@@ -40,30 +40,32 @@ export default function ModalPosition({ children, title, position }) {
         <Container position={position} style={springs} theme={theme}>
           <Header>
             <Title>{title}</Title>
-            <Icon
-              className="cursor-pointer"
-              alt="help"
-              onClick={() => setShowModal((showModal) => !showModal)}
-              theme={theme}
-            />
-            <Icon2
-              className="cursor-pointer"
-              alt="report"
-              onClick={() =>
-                navigation("/metaverse/report", {
-                  state: {
-                    href: window.location.href.split("/").slice(3).join("/"),
-                  },
-                })
-              }
-              theme={theme}
-            />
-            <Icon3
-              className="cursor-pointer"
-              alt="exit"
-              onClick={handleExitClick} // Call handleExitClick function when exit is clicked
-              theme={theme}
-            />
+            <ContainerIcon>
+              <Icon
+                className="cursor-pointer"
+                alt="help"
+                onClick={() => setShowModal((showModal) => !showModal)}
+                theme={theme}
+              />
+              <Icon2
+                className="cursor-pointer"
+                alt="report"
+                onClick={() =>
+                  navigation("/metaverse/report", {
+                    state: {
+                      href: window.location.href.split("/").slice(3).join("/"),
+                    },
+                  })
+                }
+                theme={theme}
+              />
+              <Icon3
+                className="cursor-pointer"
+                alt="exit"
+                onClick={handleExitClick} // Call handleExitClick function when exit is clicked
+                theme={theme}
+              />
+            </ContainerIcon>
           </Header>
           {children}
           {showModal && (

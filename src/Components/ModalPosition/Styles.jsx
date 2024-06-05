@@ -1,9 +1,7 @@
-// StyledComponents.js
-
 import { animated } from "react-spring";
 import styled from "styled-components";
 
-export const Header = styled.p`
+export const Header = styled.div`
   color: ${(props) => props.theme.headerModals};
   text-align: right;
   font-size: 16px;
@@ -15,8 +13,9 @@ export const Header = styled.p`
   line-height: 180%;
   text-transform: capitalize;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
 `;
 
 export const Container = styled(animated.div)`
@@ -34,21 +33,14 @@ export const Container = styled(animated.div)`
     width: 25%;
   }
 `;
-
-export const Title = styled.div`
+export const ContainerIcon = styled.div`
   display: flex;
-  align-items: start;
-  justify-content: start;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const Title = styled.p`
   padding: 10px;
   font-weight: 700;
   color: ${(props) => props.theme.TextTitle};
-  @media (min-width: 1024px) {
-    width: 50%;
-  }
-  @media (min-width: 1280px) {
-    width: 60%;
-  }
-  @media (min-width: 1536px) {
-    width: 67%;
-  }
 `;

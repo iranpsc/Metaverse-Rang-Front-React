@@ -15,10 +15,16 @@ import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvir
 import * as turf from "@turf/turf";
 import { ToastError, ToastSuccess } from "../../../Services/Utility";
 import ControlPanel from "./ControlPanel";
+import { ClipLoader } from "react-spinners";
+import SatisfactionLunch from "./SatisfactionLunch";
 
-const FBXModel = memo(({ url, rotation }) => {
-  const fbx = useLoader(FBXLoader, url);
+const FBXModel = memo(({ url, rotation, setLoading }) => {
+  const fbx = useLoader(FBXLoader, url, () => setLoading(false));
   const fbxRef = useRef();
+
+  useEffect(() => {
+    setLoading(true);
+  }, [url, setLoading]);
 
   return (
     <group ref={fbxRef} rotation={rotation} scale={0.0099}>
@@ -29,25 +35,17 @@ const FBXModel = memo(({ url, rotation }) => {
 });
 
 const Mark = memo(() => {
-  const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
+  const { selectedEnvironment } = useSelectedEnvironment();
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [rotationX, setRotationX] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); // State for loading indicator
 
   const map = useMap();
+  const center = map.current.getCenter();
   const [markerPosition, setMarkerPosition] = useState({
-    latitude: 36.3065335817618,
-    longitude: 50.026222140673994,
+    latitude: center.lat,
+    longitude: center.lng,
   });
-
-  const onMapMove = useCallback(() => {
-    if (!isConfirmed) {
-      const center = map.current.getCenter();
-      setMarkerPosition({
-        latitude: center.lat,
-        longitude: center.lng,
-      });
-    }
-  }, [map, isConfirmed]);
 
   useEffect(() => {
     const handleMove = () => {
@@ -163,13 +161,13 @@ const Mark = memo(() => {
               id="polygon-layer"
               type="fill"
               paint={{
-                "fill-color": "rgba(255, 0, 0, 0.5)",
+                "fill-color": isRotatedPolygonInside ? "green" : "red",
                 "fill-outline-color": "black",
               }}
             />
           </Source>
         )}
-
+        {!isLoading && <ClipLoader color="#36d7b7" />}
         <Canvas
           latitude={markerPosition.latitude}
           longitude={markerPosition.longitude}
@@ -178,6 +176,7 @@ const Mark = memo(() => {
             url={selectedEnvironment[0].file.url}
             key={2}
             rotation={[0, (rotationX * Math.PI) / 180, 0]}
+            setLoading={setIsLoading}
           />
         </Canvas>
       </Marker>
@@ -189,6 +188,7 @@ const Mark = memo(() => {
           status={isRotatedPolygonInside}
         />
       )}
+      {isConfirmed && isRotatedPolygonInside && <SatisfactionLunch />}
     </>
   );
 });
