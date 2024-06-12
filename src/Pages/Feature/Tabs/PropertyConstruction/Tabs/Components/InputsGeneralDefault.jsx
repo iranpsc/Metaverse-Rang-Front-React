@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../../../../../../Components/Inputs/Input";
 import Submit from "../../../../../../Components/Buttons/Submit";
@@ -28,16 +28,36 @@ const P = styled.p`
   font-size: 16px;
   font-weight: 400;
 `;
+
 const InputsGeneralDefault = () => {
-  const { selectedEnvironment, toggleConfirmation } = useSelectedEnvironment();
-  const Navigate = useNavigate();
+  const {
+    updateFormState,
+    selectedEnvironment,
+    toggleConfirmation,
+    formState,
+  } = useSelectedEnvironment();
+  const navigate = useNavigate();
+  const [inputs, setInputs] = useState({
+    activityField: "",
+    collectionName: "",
+    physicalAddress: "",
+    postalCode: "",
+    website: "",
+    establishmentGoal: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputs((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleButtonClick = () => {
-    if (!selectedEnvironment) {
+    if (!selectedEnvironment.attributes[14].value) {
       ToastError("محیطی انتخاب نکردید");
     } else {
+      updateFormState(inputs); // Update form state with inputs
       toggleConfirmation();
-      Navigate("/metaverse");
+      navigate("/metaverse");
     }
   };
 
@@ -45,17 +65,53 @@ const InputsGeneralDefault = () => {
     <Container>
       <DivHeader>
         <InputSize>
-          <Input placeholder={"رشته فعالیت "} />
+          <Input
+            name="activityField"
+            placeholder={"رشته فعالیت "}
+            value={inputs.activityField}
+            onChange={handleChange}
+            dispatch={setInputs}
+          />
         </InputSize>
-        <Input placeholder={"نام مجموعه "} />
+        <Input
+          name="collectionName"
+          placeholder={"نام مجموعه "}
+          value={inputs.collectionName}
+          onChange={handleChange}
+          dispatch={setInputs}
+        />
       </DivHeader>
-      <Input placeholder={"آدرس فیزیکی مجموعه  "} />
+      <Input
+        name="physicalAddress"
+        placeholder={"آدرس فیزیکی مجموعه  "}
+        value={inputs.physicalAddress}
+        onChange={handleChange}
+        dispatch={setInputs}
+      />
       <DivHeader>
-        <Input placeholder={"کد پستی فیزیکی مجموعه"} />
-
-        <Input placeholder={"آدرس وب سایت"} />
+        <Input
+          name="postalCode"
+          placeholder={"کد پستی فیزیکی مجموعه"}
+          value={inputs.postalCode}
+          onChange={handleChange}
+          dispatch={setInputs}
+        />
+        <Input
+          name="website"
+          placeholder={"آدرس وب سایت"}
+          value={inputs.website}
+          onChange={handleChange}
+          dispatch={setInputs}
+        />
       </DivHeader>
-      <Input placeholder={"هدف تاسیس"} style={{ height: "220px" }} />
+      <Input
+        name="establishmentGoal"
+        placeholder={"هدف تاسیس"}
+        style={{ height: "220px" }}
+        value={inputs.establishmentGoal}
+        onChange={handleChange}
+        dispatch={setInputs}
+      />
       <P>
         در هنگام ساخت یک سازه بر روی ملک امکان قیمت گداری ملک بسته و تا پایان
         ساخت شما قادر به فروش ملک نخواهید بود.

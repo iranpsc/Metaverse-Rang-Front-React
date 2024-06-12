@@ -21,7 +21,7 @@ const SatisfactionLunch = () => {
   const [error, setError] = useState(false);
 
   const changedAttributes = useMemo(() => {
-    return selectedEnvironment[0].attributes
+    return selectedEnvironment.attributes
       .map((attr) => {
         let newValue;
         if (attr.slug === "density") {
@@ -65,7 +65,7 @@ const SatisfactionLunch = () => {
 
     if (densityAttr && karbariAttr) {
       return (
-        (parseFloat(selectedEnvironment[0].attributes[14].value) *
+        (parseFloat(selectedEnvironment.attributes[14].value) *
           parseFloat(karbariAttr.transformedValue) *
           parseFloat(densityAttr.transformedValue)) /
         100
@@ -100,7 +100,8 @@ const SatisfactionLunch = () => {
   const handleSubmit = () => {
     // Handle form submission logic here
   };
-
+  const { formState } = useSelectedEnvironment();
+  console.log(formState);
   return (
     <ModalXs title="ثبت رضایت">
       <InputNumber

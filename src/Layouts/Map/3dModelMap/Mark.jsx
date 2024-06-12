@@ -106,7 +106,7 @@ const Mark = memo(() => {
             coordinates: [
               getRotatedPolygonCoordinates(
                 markerPosition,
-                parseFloat(selectedEnvironment[0].attributes[14].value),
+                parseFloat(selectedEnvironment.attributes[14].value),
                 rotationX
               ),
             ],
@@ -121,7 +121,7 @@ const Mark = memo(() => {
     getRotatedPolygonCoordinates,
   ]);
 
-  const environmentCoordinates = selectedEnvironment[0].coordinates.map(
+  const environmentCoordinates = selectedEnvironment.coordinates.map(
     (coord) => {
       const [longitude, latitude] = coord.split(",");
       return [parseFloat(longitude), parseFloat(latitude)];
@@ -131,7 +131,7 @@ const Mark = memo(() => {
   const environmentPolygon = turf.polygon([environmentCoordinates]);
   const rotatedPolygonCoordinates = getRotatedPolygonCoordinates(
     markerPosition,
-    parseFloat(selectedEnvironment[0].attributes[14].value),
+    parseFloat(selectedEnvironment.attributes[14].value),
     rotationX
   );
 
@@ -173,7 +173,7 @@ const Mark = memo(() => {
           longitude={markerPosition.longitude}
         >
           <FBXModel
-            url={selectedEnvironment[0].file.url}
+            url={selectedEnvironment.file.url}
             key={2}
             rotation={[0, (rotationX * Math.PI) / 180, 0]}
             setLoading={setIsLoading}

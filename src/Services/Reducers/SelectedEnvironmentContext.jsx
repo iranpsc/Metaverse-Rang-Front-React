@@ -6,11 +6,16 @@ export const useSelectedEnvironment = () =>
   useContext(SelectedEnvironmentContext);
 
 export const SelectedEnvironmentProvider = ({ children }) => {
-  const [selectedEnvironment, setSelectedEnvironment] = useState([]);
+  const [selectedEnvironment, setSelectedEnvironment] = useState({});
   const [confirmation, setConfirmation] = useState(false); // تاییدیه
+  const [formState, setFormState] = useState({}); // استیت جدید برای فرم
 
   const addSelectedEnvironment = (data) => {
-    setSelectedEnvironment([data]);
+    setSelectedEnvironment((prev) => ({ ...prev, ...data }));
+  };
+
+  const updateFormState = (data) => {
+    setFormState((prev) => ({ ...prev, ...data }));
   };
 
   const toggleConfirmation = () => {
@@ -24,6 +29,8 @@ export const SelectedEnvironmentProvider = ({ children }) => {
         addSelectedEnvironment,
         confirmation,
         toggleConfirmation,
+        formState,
+        updateFormState,
       }}
     >
       {children}
