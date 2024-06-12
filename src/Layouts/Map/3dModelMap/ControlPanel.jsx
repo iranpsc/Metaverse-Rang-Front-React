@@ -71,10 +71,12 @@ const ControlPanel = ({
   setRotationX,
   handleConfirmation,
   status,
+  position,
 }) => {
   const handleRotationChange = (e) => {
     setRotationX(parseFloat(e.target.value));
   };
+
   return (
     <ModalPosition title={"تنظیمات بنا"} position={"right"}>
       <Container>

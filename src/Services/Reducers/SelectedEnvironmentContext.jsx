@@ -7,8 +7,8 @@ export const useSelectedEnvironment = () =>
 
 export const SelectedEnvironmentProvider = ({ children }) => {
   const [selectedEnvironment, setSelectedEnvironment] = useState({});
-  const [confirmation, setConfirmation] = useState(false); // تاییدیه
-  const [formState, setFormState] = useState({}); // استیت جدید برای فرم
+  const [confirmation, setConfirmation] = useState(false);
+  const [formState, setFormState] = useState({});
 
   const addSelectedEnvironment = (data) => {
     setSelectedEnvironment((prev) => ({ ...prev, ...data }));

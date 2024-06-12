@@ -188,7 +188,12 @@ const Mark = memo(() => {
           status={isRotatedPolygonInside}
         />
       )}
-      {isConfirmed && isRotatedPolygonInside && <SatisfactionLunch />}
+      {isConfirmed && isRotatedPolygonInside && (
+        <SatisfactionLunch
+          position={[markerPosition.latitude, markerPosition.longitude]}
+          rotation={(rotationX * Math.PI) / 180}
+        />
+      )}
     </>
   );
 });

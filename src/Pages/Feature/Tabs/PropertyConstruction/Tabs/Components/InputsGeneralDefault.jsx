@@ -38,12 +38,12 @@ const InputsGeneralDefault = () => {
   } = useSelectedEnvironment();
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
-    activityField: "",
-    collectionName: "",
-    physicalAddress: "",
-    postalCode: "",
+    activity_line: "",
+    name: "",
+    address: "",
+    postal_code: "",
     website: "",
-    establishmentGoal: "",
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -68,7 +68,7 @@ const InputsGeneralDefault = () => {
           <Input
             name="activityField"
             placeholder={"رشته فعالیت "}
-            value={inputs.activityField}
+            value={inputs.activity_line}
             onChange={handleChange}
             dispatch={setInputs}
           />
@@ -76,7 +76,7 @@ const InputsGeneralDefault = () => {
         <Input
           name="collectionName"
           placeholder={"نام مجموعه "}
-          value={inputs.collectionName}
+          value={inputs.name}
           onChange={handleChange}
           dispatch={setInputs}
         />
@@ -84,7 +84,7 @@ const InputsGeneralDefault = () => {
       <Input
         name="physicalAddress"
         placeholder={"آدرس فیزیکی مجموعه  "}
-        value={inputs.physicalAddress}
+        value={inputs.address}
         onChange={handleChange}
         dispatch={setInputs}
       />
@@ -92,7 +92,7 @@ const InputsGeneralDefault = () => {
         <Input
           name="postalCode"
           placeholder={"کد پستی فیزیکی مجموعه"}
-          value={inputs.postalCode}
+          value={inputs.postal_code}
           onChange={handleChange}
           dispatch={setInputs}
         />
@@ -108,7 +108,7 @@ const InputsGeneralDefault = () => {
         name="establishmentGoal"
         placeholder={"هدف تاسیس"}
         style={{ height: "220px" }}
-        value={inputs.establishmentGoal}
+        value={inputs.description}
         onChange={handleChange}
         dispatch={setInputs}
       />

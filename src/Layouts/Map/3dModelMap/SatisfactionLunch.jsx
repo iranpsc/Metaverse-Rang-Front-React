@@ -12,14 +12,13 @@ const Icon = styled(WatchIcon)`
   stroke: ${(props) => props.theme.arrowMenu};
 `;
 
-const SatisfactionLunch = () => {
-  const { selectedEnvironment } = useSelectedEnvironment();
+const SatisfactionLunch = ({ position, rotation }) => {
+  const { selectedEnvironment, formState } = useSelectedEnvironment();
   const [wallet] = useContext(WalletContext);
   const initialSatisfaction =
     wallet && wallet.satisfaction ? parseFloat(wallet.satisfaction) : 0;
   const [inputValue, setInputValue] = useState(initialSatisfaction.toString());
   const [error, setError] = useState(false);
-
   const changedAttributes = useMemo(() => {
     return selectedEnvironment.attributes
       .map((attr) => {
@@ -100,7 +99,6 @@ const SatisfactionLunch = () => {
   const handleSubmit = () => {
     // Handle form submission logic here
   };
-  const { formState } = useSelectedEnvironment();
   console.log(formState);
   return (
     <ModalXs title="ثبت رضایت">
