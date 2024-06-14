@@ -7,6 +7,9 @@ import { ReactComponent as WatchIcon } from "../../../Assets/svg/watch.svg";
 import Submit from "../../../Components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvironmentContext";
 import { WalletContext } from "../../../Services/Reducers/WalletContext";
+import { FeatureContext } from "../../../Pages/Feature/Context/FeatureProvider";
+import useRequest from "../../../Services/Hooks/useRequest";
+import { ToastSuccess } from "../../../Services/Utility";
 
 const Icon = styled(WatchIcon)`
   stroke: ${(props) => props.theme.arrowMenu};
@@ -14,11 +17,37 @@ const Icon = styled(WatchIcon)`
 
 const SatisfactionLunch = ({ position, rotation }) => {
   const { selectedEnvironment, formState } = useSelectedEnvironment();
+  const { Request, HTTP_METHOD } = useRequest();
   const [wallet] = useContext(WalletContext);
   const initialSatisfaction =
     wallet && wallet.satisfaction ? parseFloat(wallet.satisfaction) : 0;
   const [inputValue, setInputValue] = useState(initialSatisfaction.toString());
   const [error, setError] = useState(false);
+  const [formData, setFormData] = useState({
+    activity_line: "",
+    address: "",
+    description: "",
+    name: "",
+    postal_code: "",
+    website: "",
+    launched_satisfaction: 0,
+    rotation: 0,
+    position: "",
+  });
+  useEffect(() => {
+    setFormData({
+      activity_line: formState.activity_line,
+      address: formState.address,
+      description: formState.description,
+      name: formState.name,
+      postal_code: formState.postal_code,
+      website: formState.website,
+      launched_satisfaction: inputValue,
+      rotation: rotation,
+      position: position,
+    });
+  }, []);
+  console.log(formData);
   const changedAttributes = useMemo(() => {
     return selectedEnvironment.attributes
       .map((attr) => {
@@ -97,9 +126,18 @@ const SatisfactionLunch = ({ position, rotation }) => {
   }, [intSatisfaction, inputValue]);
 
   const handleSubmit = () => {
-    // Handle form submission logic here
+    Request(
+      `features/${formState.featureId}/build/${selectedEnvironment.id}`,
+      HTTP_METHOD.POST,
+      formData
+    )
+      .then((res) => {
+       ToastSuccess(res.data.message);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  console.log(formState);
   return (
     <ModalXs title="ثبت رضایت">
       <InputNumber
