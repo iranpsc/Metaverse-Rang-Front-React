@@ -34,6 +34,7 @@ const SatisfactionLunch = ({ position, rotation }) => {
     rotation: 0,
     position: "",
   });
+
   useEffect(() => {
     setFormData({
       activity_line: formState.activity_line,
@@ -44,10 +45,10 @@ const SatisfactionLunch = ({ position, rotation }) => {
       website: formState.website,
       launched_satisfaction: inputValue,
       rotation: rotation,
-      position: position,
+      position: `${position[0]}, ${position[1]}`,
     });
-  }, []);
-  console.log(formData);
+  }, [formState, inputValue, position, rotation]);
+
   const changedAttributes = useMemo(() => {
     return selectedEnvironment.attributes
       .map((attr) => {
@@ -125,6 +126,10 @@ const SatisfactionLunch = ({ position, rotation }) => {
       : 0;
   }, [intSatisfaction, inputValue]);
 
+  const handleExitClick = () => {
+    console.log("Exit clicked!");
+  };
+
   const handleSubmit = () => {
     Request(
       `features/${formState.featureId}/build/${selectedEnvironment.id}`,
@@ -132,14 +137,16 @@ const SatisfactionLunch = ({ position, rotation }) => {
       formData
     )
       .then((res) => {
-       ToastSuccess(res.data.message);
+        ToastSuccess(res.data.message);
+        handleExitClick(); // Call handleExitClick after successful request
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   return (
-    <ModalXs title="ثبت رضایت">
+    <ModalXs title="ثبت رضایت" handleExitClick={handleExitClick}>
       <InputNumber
         placeholder="ثبت رضایت"
         value={inputValue}

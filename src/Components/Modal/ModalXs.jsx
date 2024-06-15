@@ -17,6 +17,7 @@ const Container = styled.div`
   flex-direction: column;
   background-color: #0000009e;
 `;
+
 const ContainerModal = styled.div`
   width: 515px;
   height: 100%;
@@ -31,18 +32,22 @@ const ContainerModal = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-const ModalXs = ({ title, children }) => {
+
+const ModalXs = ({ title, children, handleExitClick }) => {
   const navigation = useNavigate();
   const Location = useLocation();
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
   const adviserData = useAdviserData(newStr, Location?.state?.locationPage);
   const [showModal, setShowModal] = useState(false);
-  const [showContainer, setShowContainer] = useState(true); // New state for controlling the main container visibility
+  const [showContainer, setShowContainer] = useState(true);
   const theme = useTheme();
 
-  const handleExitClick = () => {
-    setShowContainer(false); // Hide the main container when exit is clicked
+  const internalHandleExitClick = () => {
+    setShowContainer(false);
     navigation("/metaverse");
+    if (handleExitClick) {
+      handleExitClick();
+    }
   };
 
   return (
@@ -77,7 +82,7 @@ const ModalXs = ({ title, children }) => {
                 <Icon3
                   className="cursor-pointer"
                   alt="exit"
-                  onClick={handleExitClick} // Call handleExitClick function when exit is clicked
+                  onClick={internalHandleExitClick}
                   theme={theme}
                 />
               </ContainerIcon>
