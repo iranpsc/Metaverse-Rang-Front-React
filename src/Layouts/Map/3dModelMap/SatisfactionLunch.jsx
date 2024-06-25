@@ -9,7 +9,7 @@ import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvir
 import { WalletContext } from "../../../Services/Reducers/WalletContext";
 import { FeatureContext } from "../../../Pages/Feature/Context/FeatureProvider";
 import useRequest from "../../../Services/Hooks/useRequest";
-import { ToastSuccess } from "../../../Services/Utility";
+import { ToastError, ToastSuccess } from "../../../Services/Utility";
 
 const Icon = styled(WatchIcon)`
   stroke: ${(props) => props.theme.arrowMenu};
@@ -137,11 +137,11 @@ const SatisfactionLunch = ({ position, rotation }) => {
       formData
     )
       .then((res) => {
-        ToastSuccess(res.data.message);
+        ToastSuccess(res.response.data.message);
         handleExitClick(); // Call handleExitClick after successful request
       })
       .catch((err) => {
-        console.log(err);
+        ToastError(err.response.data.message);
       });
   };
 

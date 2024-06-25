@@ -12,11 +12,11 @@ import { Canvas } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { HemisphereLight } from "three";
 import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvironmentContext";
-import * as turf from "@turf/turf";
 import { ToastError, ToastSuccess } from "../../../Services/Utility";
 import ControlPanel from "./ControlPanel";
 import { ClipLoader } from "react-spinners";
 import SatisfactionLunch from "./SatisfactionLunch";
+import * as turf from "@turf/turf";
 
 const FBXModel = memo(({ url, rotation, setLoading }) => {
   const fbx = useLoader(FBXLoader, url, () => setLoading(false));
@@ -34,6 +34,24 @@ const FBXModel = memo(({ url, rotation, setLoading }) => {
   );
 });
 
+const calculateSquareCoordinates = (center, size) => {
+  const R = 6378137; // Radius of the Earth in meters
+  const halfSize = size / 9.2; // Half size in meters
+
+  const deltaLat = (halfSize / R) * (180 / Math.PI);
+  const deltaLng =
+    (halfSize / (R * Math.cos((Math.PI * center.latitude) / 180))) *
+    (180 / Math.PI);
+
+  return [
+    [center.longitude - deltaLng, center.latitude + deltaLat],
+    [center.longitude + deltaLng, center.latitude + deltaLat],
+    [center.longitude + deltaLng, center.latitude - deltaLat],
+    [center.longitude - deltaLng, center.latitude - deltaLat],
+    [center.longitude - deltaLng, center.latitude + deltaLat],
+  ];
+};
+
 const Mark = memo(() => {
   const { selectedEnvironment } = useSelectedEnvironment();
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -42,10 +60,39 @@ const Mark = memo(() => {
 
   const map = useMap();
   const center = map.current.getCenter();
+  const size = parseFloat(selectedEnvironment.attributes[14].value); // Size in meters
   const [markerPosition, setMarkerPosition] = useState({
     latitude: center.lat,
     longitude: center.lng,
   });
+
+  const polygonCoordinates = useMemo(
+    () => calculateSquareCoordinates(markerPosition, size),
+    [markerPosition, size]
+  );
+
+  const rotatedPolygonCoordinates = useMemo(() => {
+    const polygon = turf.polygon([polygonCoordinates]);
+    const rotatedPolygon = turf.transformRotate(polygon, 90 - rotationX, {
+      pivot: [markerPosition.longitude, markerPosition.latitude],
+    });
+    return rotatedPolygon.geometry.coordinates[0];
+  }, [polygonCoordinates, markerPosition, rotationX]);
+
+  const environmentCoordinates = useMemo(
+    () =>
+      selectedEnvironment.coordinates.map((coord) => {
+        const [longitude, latitude] = coord.split(",");
+        return [parseFloat(longitude), parseFloat(latitude)];
+      }),
+    [selectedEnvironment.coordinates]
+  );
+
+  const isRotatedPolygonInside = useMemo(() => {
+    const environmentPolygon = turf.polygon([environmentCoordinates]);
+    const rotatedPolygon = turf.polygon([rotatedPolygonCoordinates]);
+    return turf.booleanContains(environmentPolygon, rotatedPolygon);
+  }, [environmentCoordinates, rotatedPolygonCoordinates]);
 
   useEffect(() => {
     const handleMove = () => {
@@ -65,81 +112,6 @@ const Mark = memo(() => {
     };
   }, [map, isConfirmed]);
 
-  const getRotatedPolygonCoordinates = useCallback(
-    (markerPosition, environmentArea, rotationX) => {
-      const center = [markerPosition.longitude, markerPosition.latitude];
-      const radius = Math.sqrt(environmentArea) * 0.000006;
-
-      // Define the square with four corner points
-      const squareCoords = [
-        [center[0] - radius, center[1] - radius], // NW
-        [center[0] + radius, center[1] - radius], // NE
-        [center[0] + radius, center[1] + radius], // SE
-        [center[0] - radius, center[1] + radius], // SW
-        [center[0] - radius, center[1] - radius], // Closing NW
-      ];
-
-      // Rotate the square
-      const squareFeature = turf.polygon([squareCoords]);
-      const rotatedSquare = turf.transformRotate(
-        squareFeature,
-        90 - rotationX,
-        {
-          pivot: center,
-        }
-      );
-
-      return rotatedSquare.geometry.coordinates[0];
-    },
-    []
-  );
-
-  const polygonData = useMemo(() => {
-    return {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "Polygon",
-            coordinates: [
-              getRotatedPolygonCoordinates(
-                markerPosition,
-                parseFloat(selectedEnvironment.attributes[14].value),
-                rotationX
-              ),
-            ],
-          },
-        },
-      ],
-    };
-  }, [
-    markerPosition,
-    selectedEnvironment,
-    rotationX,
-    getRotatedPolygonCoordinates,
-  ]);
-
-  const environmentCoordinates = selectedEnvironment.coordinates.map(
-    (coord) => {
-      const [longitude, latitude] = coord.split(",");
-      return [parseFloat(longitude), parseFloat(latitude)];
-    }
-  );
-
-  const environmentPolygon = turf.polygon([environmentCoordinates]);
-  const rotatedPolygonCoordinates = getRotatedPolygonCoordinates(
-    markerPosition,
-    parseFloat(selectedEnvironment.attributes[14].value),
-    rotationX
-  );
-
-  const isRotatedPolygonInside = rotatedPolygonCoordinates.every((coord) => {
-    const point = turf.point(coord);
-    return turf.booleanPointInPolygon(point, environmentPolygon);
-  });
-
   const handleConfirmation = useCallback(() => {
     if (!isRotatedPolygonInside) {
       ToastError("محیط شما در محدوده زمین شما نیست");
@@ -148,26 +120,40 @@ const Mark = memo(() => {
       ToastSuccess("محیط با موفقیت در محدوده زمین شما ثبت شد");
     }
   }, [isRotatedPolygonInside]);
-
   return (
     <>
+      <Source
+        id="polygon"
+        type="geojson"
+        data={{
+          type: "Feature",
+          geometry: {
+            type: "Polygon",
+            coordinates: [rotatedPolygonCoordinates],
+          },
+        }}
+      >
+        <Layer
+          id="polygon-layer"
+          type="fill"
+          paint={{
+            "fill-color": isRotatedPolygonInside ? "green" : "red",
+          }}
+        />
+        <Layer
+          id="polygon-outline-layer"
+          type="line"
+          paint={{
+            "line-color": "#000000",
+            "line-width": 2,
+          }}
+        />
+      </Source>
       <Marker
         latitude={markerPosition.latitude}
         longitude={markerPosition.longitude}
       >
-        {!isConfirmed && (
-          <Source id="polygon-source" type="geojson" data={polygonData}>
-            <Layer
-              id="polygon-layer"
-              type="fill"
-              paint={{
-                "fill-color": isRotatedPolygonInside ? "green" : "red",
-                "fill-outline-color": "black",
-              }}
-            />
-          </Source>
-        )}
-        {!isLoading && <ClipLoader color="#36d7b7" />}
+        {isLoading && <ClipLoader color="#36d7b7" />}
         <Canvas
           latitude={markerPosition.latitude}
           longitude={markerPosition.longitude}
@@ -180,15 +166,15 @@ const Mark = memo(() => {
           />
         </Canvas>
       </Marker>
+
       {!isConfirmed && (
         <ControlPanel
           rotationX={rotationX}
           setRotationX={setRotationX}
           handleConfirmation={handleConfirmation}
-          status={isRotatedPolygonInside}
         />
       )}
-      {isConfirmed && isRotatedPolygonInside && (
+      {isConfirmed && (
         <SatisfactionLunch
           position={[markerPosition.latitude, markerPosition.longitude]}
           rotation={(rotationX * Math.PI) / 180}

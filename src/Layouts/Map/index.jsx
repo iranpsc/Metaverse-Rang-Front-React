@@ -22,7 +22,10 @@ import useRequest from "../../Services/Hooks/useRequest";
 
 import LocationPin from "../../Assets/gif/location-pin.gif";
 import BtnFlagMap from "./BtnFlagMap";
-import Map from "react-map-gl/maplibre";
+import Map, {
+  FullscreenControl,
+  NavigationControl,
+} from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
 import Models from "./3dModelMap/Models";
@@ -101,6 +104,8 @@ const MapTreeD = () => {
           onZoomEnd={setZoomLevel}
           RTLTextPlugin="https://map.irpsc.com/rtl.js"
         >
+          <FullscreenControl position="top-left" />
+          <NavigationControl position="top-left" />
           {/* {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16.5 && (
             <>
               <Models />
