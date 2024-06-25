@@ -20,7 +20,7 @@ import * as turf from "@turf/turf";
 const calculateSquareCoordinates = (center, area) => {
   const R = 6378137; // Radius of the Earth in meters
   const sideLength = Math.sqrt(area); // طول ضلع مربع از ریشه دوم مساحت
-  const halfSideLength = sideLength / 1.9; // نصف طول ضلع به متر
+  const halfSideLength = sideLength / 2; // نصف طول ضلع به متر
   const deltaLat = (halfSideLength / R) * (180 / Math.PI);
   const deltaLng =
     (halfSideLength / (R * Math.cos((Math.PI * center.latitude) / 180))) *
