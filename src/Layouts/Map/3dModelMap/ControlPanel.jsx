@@ -88,7 +88,7 @@ const ControlPanel = ({
             <RangeInput
               type="range"
               min="0"
-              max="180"
+              max="360"
               step="0.1"
               value={rotationX}
               onChange={handleRotationChange}

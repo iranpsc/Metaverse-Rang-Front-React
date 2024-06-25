@@ -46,7 +46,7 @@ const FBXModel = memo(({ url, rotation, setLoading }) => {
   const fbxRef = useRef();
   console.log(fbxRef);
   return (
-    <group ref={fbxRef} rotation={rotation} scale={0.009}>
+    <group ref={fbxRef} rotation={rotation} scale={0.0097}>
       <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
       <primitive object={fbx} />
     </group>
