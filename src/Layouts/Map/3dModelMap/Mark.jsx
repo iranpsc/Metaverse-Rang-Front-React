@@ -17,23 +17,24 @@ import ControlPanel from "./ControlPanel";
 import { ClipLoader } from "react-spinners";
 import SatisfactionLunch from "./SatisfactionLunch";
 import * as turf from "@turf/turf";
-
-const calculateSquareCoordinates = (center, size) => {
+const calculateSquareCoordinates = (center, area) => {
   const R = 6378137; // Radius of the Earth in meters
-  const halfSize = size / 9.2; // Half size in meters
-
-  const deltaLat = (halfSize / R) * (180 / Math.PI);
+  const sideLength = Math.sqrt(area); // طول ضلع مربع از ریشه دوم مساحت
+  const halfSideLength = sideLength / 1.9; // نصف طول ضلع به متر
+  const deltaLat = (halfSideLength / R) * (180 / Math.PI);
   const deltaLng =
-    (halfSize / (R * Math.cos((Math.PI * center.latitude) / 180))) *
+    (halfSideLength / (R * Math.cos((Math.PI * center.latitude) / 180))) *
     (180 / Math.PI);
 
-  return [
+  const coordinates = [
     [center.longitude - deltaLng, center.latitude + deltaLat],
     [center.longitude + deltaLng, center.latitude + deltaLat],
     [center.longitude + deltaLng, center.latitude - deltaLat],
     [center.longitude - deltaLng, center.latitude - deltaLat],
     [center.longitude - deltaLng, center.latitude + deltaLat],
   ];
+
+  return coordinates;
 };
 
 const FBXModel = memo(({ url, rotation, setLoading }) => {
@@ -43,9 +44,9 @@ const FBXModel = memo(({ url, rotation, setLoading }) => {
     loader.manager.onError = () => setLoading(false);
   });
   const fbxRef = useRef();
-
+  console.log(fbxRef);
   return (
-    <group ref={fbxRef} rotation={rotation} scale={0.0099}>
+    <group ref={fbxRef} rotation={rotation} scale={0.0095}>
       <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
       <primitive object={fbx} />
     </group>
