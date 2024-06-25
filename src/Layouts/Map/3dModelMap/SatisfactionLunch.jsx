@@ -136,9 +136,8 @@ const SatisfactionLunch = ({ position, rotation }) => {
       HTTP_METHOD.POST,
       formData
     )
-      .then((res) => {
-        ToastSuccess(res.response.data.message);
-        handleExitClick(); // Call handleExitClick after successful request
+      .then(() => {
+        handleExitClick();
       })
       .catch((err) => {
         ToastError(err.response.data.message);
