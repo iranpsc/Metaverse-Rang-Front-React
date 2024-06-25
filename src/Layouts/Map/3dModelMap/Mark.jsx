@@ -123,33 +123,35 @@ const Mark = memo(() => {
 
   return (
     <>
-      <Source
-        id="polygon"
-        type="geojson"
-        data={{
-          type: "Feature",
-          geometry: {
-            type: "Polygon",
-            coordinates: [rotatedPolygonCoordinates],
-          },
-        }}
-      >
-        <Layer
-          id="polygon-layer"
-          type="fill"
-          paint={{
-            "fill-color": isRotatedPolygonInside ? "green" : "red",
+      {!isConfirmed && (
+        <Source
+          id="polygon"
+          type="geojson"
+          data={{
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              coordinates: [rotatedPolygonCoordinates],
+            },
           }}
-        />
-        <Layer
-          id="polygon-outline-layer"
-          type="line"
-          paint={{
-            "line-color": "#000000",
-            "line-width": 2,
-          }}
-        />
-      </Source>
+        >
+          <Layer
+            id="polygon-layer"
+            type="fill"
+            paint={{
+              "fill-color": isRotatedPolygonInside ? "green" : "red",
+            }}
+          />
+          <Layer
+            id="polygon-outline-layer"
+            type="line"
+            paint={{
+              "line-color": "#000000",
+              "line-width": 2,
+            }}
+          />
+        </Source>
+      )}
       <Marker
         latitude={markerPosition.latitude}
         longitude={markerPosition.longitude}
@@ -167,7 +169,6 @@ const Mark = memo(() => {
           />
         </Canvas>
       </Marker>
-
       {!isConfirmed && (
         <ControlPanel
           rotationX={rotationX}
