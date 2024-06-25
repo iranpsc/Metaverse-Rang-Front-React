@@ -18,22 +18,6 @@ import { ClipLoader } from "react-spinners";
 import SatisfactionLunch from "./SatisfactionLunch";
 import * as turf from "@turf/turf";
 
-const FBXModel = memo(({ url, rotation, setLoading }) => {
-  const fbx = useLoader(FBXLoader, url, () => setLoading(false));
-  const fbxRef = useRef();
-
-  useEffect(() => {
-    setLoading(true);
-  }, [url, setLoading]);
-
-  return (
-    <group ref={fbxRef} rotation={rotation} scale={0.0099}>
-      <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
-      <primitive object={fbx} />
-    </group>
-  );
-});
-
 const calculateSquareCoordinates = (center, size) => {
   const R = 6378137; // Radius of the Earth in meters
   const halfSize = size / 9.2; // Half size in meters
@@ -52,11 +36,27 @@ const calculateSquareCoordinates = (center, size) => {
   ];
 };
 
+const FBXModel = memo(({ url, rotation, setLoading }) => {
+  const fbx = useLoader(FBXLoader, url, (loader) => {
+    loader.manager.onStart = () => setLoading(true);
+    loader.manager.onLoad = () => setLoading(false);
+    loader.manager.onError = () => setLoading(false);
+  });
+  const fbxRef = useRef();
+
+  return (
+    <group ref={fbxRef} rotation={rotation} scale={0.0099}>
+      <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
+      <primitive object={fbx} />
+    </group>
+  );
+});
+
 const Mark = memo(() => {
   const { selectedEnvironment } = useSelectedEnvironment();
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [rotationX, setRotationX] = useState(0);
-  const [isLoading, setIsLoading] = useState(true); // State for loading indicator
+  const [isLoading, setIsLoading] = useState(false); // Initialize as false
 
   const map = useMap();
   const center = map.current.getCenter();
@@ -120,6 +120,7 @@ const Mark = memo(() => {
       ToastSuccess("محیط با موفقیت در محدوده زمین شما ثبت شد");
     }
   }, [isRotatedPolygonInside]);
+
   return (
     <>
       <Source
