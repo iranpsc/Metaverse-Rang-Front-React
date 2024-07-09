@@ -3,7 +3,7 @@ import styled, { useTheme } from "styled-components";
 import { ContainerIcon, Header, Title } from "../ModalPosition/Styles";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
-import { Icon, Icon2, Icon3 } from "../Icons/IconsHeader";
+import { HelpIcon, ReportIcon, ExitIcon } from "../Icons/IconsHeader";
 
 const Container = styled.div`
   top: 0;
@@ -58,13 +58,13 @@ const ModalXs = ({ title, children, handleExitClick }) => {
             <Header>
               <Title>{title}</Title>
               <ContainerIcon>
-                <Icon
+                <HelpIcon
                   className="cursor-pointer"
                   alt="help"
                   onClick={() => setShowModal((showModal) => !showModal)}
                   theme={theme}
                 />
-                <Icon2
+                <ReportIcon
                   className="cursor-pointer"
                   alt="report"
                   onClick={() =>
@@ -79,7 +79,7 @@ const ModalXs = ({ title, children, handleExitClick }) => {
                   }
                   theme={theme}
                 />
-                <Icon3
+                <ExitIcon
                   className="cursor-pointer"
                   alt="exit"
                   onClick={internalHandleExitClick}

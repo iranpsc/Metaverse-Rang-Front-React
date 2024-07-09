@@ -28,23 +28,9 @@ import Map, {
 } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
-import Models from "./3dModelMap/Models";
-import Office from "./3dModelMap/office";
 import Mark from "./3dModelMap/Mark";
 import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
 
-const IconFlyTo = styled.img`
-  position: absolute;
-  z-index: 500;
-  top: 56%;
-  right: 0px;
-  width: 100px;
-  aspect-ratio: 1/1;
-  cursor: pointer;
-  @media (min-width: 1536px) {
-    top: 50%;
-  }
-`;
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -61,15 +47,13 @@ const MapTreeD = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   const [cursor, setCursor] = useState("-webkit-grab");
   const { setUserWithToken } = useAuth();
-  const { Request } = useRequest();
   useEffect(() => {
     setUserWithToken();
   }, []);
   const navigator = useNavigate();
-  const onMouseEnter = useCallback(() => setCursor("pointer"), []);
-  const onMouseLeave = useCallback(() => setCursor("-webkit-grab"), []);
   const [zoomLevel, setZoomLevel] = useState(18);
-  const { confirmation, selectedEnvironment } = useSelectedEnvironment();
+  const { confirmation, selectedEnvironment, hiddenModel } =
+    useSelectedEnvironment();
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
@@ -99,25 +83,13 @@ const MapTreeD = () => {
               navigator(`/metaverse/feature/${feature.properties.id}`);
             }
           }}
-          // onMouseEnter={onMouseEnter}
-          // onMouseLeave={onMouseLeave}
           onZoomEnd={setZoomLevel}
           RTLTextPlugin="https://map.irpsc.com/rtl.js"
         >
           <FullscreenControl position="top-left" />
           <NavigationControl position="top-left" />
-          {/* {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16.5 && (
-            <>
-              <Models />
-            </>
-          )} */}
-          {/* {zoomLevel.viewState && zoomLevel.viewState.zoom >= 16 && (
-            <>
-              <Office />
-            </>
-          )} */}
 
-          {confirmation && selectedEnvironment && <Mark />}
+          {confirmation && selectedEnvironment && !hiddenModel && <Mark />}
 
           <MapPolygons />
           <MapFlag />

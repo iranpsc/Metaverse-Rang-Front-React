@@ -1,11 +1,9 @@
-// Icons.js
-
 import styled from "styled-components";
 import { ReactComponent as Help } from "../../Assets/svg/exclamation.svg";
 import { ReactComponent as Exit } from "../../Assets/svg/close.svg";
 import { ReactComponent as Report } from "../../Assets/svg/question.svg";
 
-export const Icon = styled(Help)`
+export const HelpIcon = styled(Help)`
   width: 40px;
   height: 40px;
   & > :first-child {
@@ -17,7 +15,7 @@ export const Icon = styled(Help)`
   }
 `;
 
-export const Icon2 = styled(Report)`
+export const ReportIcon = styled(Report)`
   width: 40px;
   height: 40px;
   & > :first-child {
@@ -29,7 +27,7 @@ export const Icon2 = styled(Report)`
   }
 `;
 
-export const Icon3 = styled(Exit)`
+export const ExitIcon = styled(Exit)`
   width: 40px;
   height: 40px;
 `;

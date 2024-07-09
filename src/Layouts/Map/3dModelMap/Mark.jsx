@@ -61,7 +61,11 @@ const Mark = memo(() => {
 
   const map = useMap();
   const center = map.current.getCenter();
-  const size = parseFloat(selectedEnvironment.attributes[14].value); // Size in meters
+  const desiredSlug = "area";
+  const attributeObject = selectedEnvironment.attributes.find(
+    (attribute) => attribute.slug === desiredSlug
+  );
+  const size = parseFloat(attributeObject.value);
   const [markerPosition, setMarkerPosition] = useState({
     latitude: center.lat,
     longitude: center.lng,

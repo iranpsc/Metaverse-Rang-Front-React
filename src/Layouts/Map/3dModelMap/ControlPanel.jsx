@@ -78,7 +78,11 @@ const ControlPanel = ({
   };
 
   return (
-    <ModalPosition title={"تنظیمات بنا"} position={"right"}>
+    <ModalPosition
+      title={"تنظیمات بنا"}
+      position={"right"}
+      action={"ChangeHiddenState"}
+    >
       <Container>
         <ContainerHeader>
           <Diver />

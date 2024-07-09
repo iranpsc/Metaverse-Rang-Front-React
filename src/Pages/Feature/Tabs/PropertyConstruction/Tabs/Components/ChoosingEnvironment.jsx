@@ -72,7 +72,8 @@ const ChoosingEnvironment = () => {
   const [data, setData] = useState([]);
   const [preview, setPreview] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
-  const { addSelectedEnvironment } = useSelectedEnvironment();
+  const { addSelectedEnvironment, hiddenModel, setHiddenModel } =
+    useSelectedEnvironment();
 
   useEffect(() => {
     Request(`features/${feature.id}/build/package`, HTTP_METHOD.GET)
@@ -90,6 +91,9 @@ const ChoosingEnvironment = () => {
       ...data.data[index],
       coordinates: data.feature.coordinates,
     });
+    if (hiddenModel == true) {
+      setHiddenModel(false);
+    }
   };
   return (
     <>

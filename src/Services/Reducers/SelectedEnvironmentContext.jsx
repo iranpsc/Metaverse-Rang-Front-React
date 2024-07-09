@@ -8,6 +8,7 @@ export const useSelectedEnvironment = () =>
 export const SelectedEnvironmentProvider = ({ children }) => {
   const [selectedEnvironment, setSelectedEnvironment] = useState({});
   const [confirmation, setConfirmation] = useState(false);
+  const [hiddenModel, setHiddenModel] = useState(false);
   const [formState, setFormState] = useState({});
 
   const addSelectedEnvironment = (data) => {
@@ -31,6 +32,8 @@ export const SelectedEnvironmentProvider = ({ children }) => {
         toggleConfirmation,
         formState,
         updateFormState,
+        hiddenModel,
+        setHiddenModel,
       }}
     >
       {children}
