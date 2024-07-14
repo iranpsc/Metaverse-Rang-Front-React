@@ -23,11 +23,11 @@ const Img = styled.img`
   border-radius: 10px;
 `;
 
-const ViweIcon = styled(Eye)`
+const ViewIcon = styled(Eye)`
   stroke: ${(props) => props.theme.textButtonPrimary};
 `;
 
-const ViweHolder = styled.button`
+const ViewHolder = styled.button`
   background-color: ${(props) => props.theme.activeButton};
   width: 30px;
   height: 30px;
@@ -103,13 +103,13 @@ const ChoosingEnvironment = () => {
             return (
               <ImgHolder key={index}>
                 <Img src={data.images[0].url} alt="" />
-                <ViweHolder
+                <ViewHolder
                   onClick={() => {
                     setPreview([data]);
                   }}
                 >
-                  <ViweIcon />
-                </ViweHolder>
+                  <ViewIcon />
+                </ViewHolder>
                 <SelectorEnvironment
                   onClick={() => handleSelectorClick(index)}
                   className={activeIndex === index ? "active" : ""}
