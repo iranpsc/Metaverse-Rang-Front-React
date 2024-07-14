@@ -10,7 +10,7 @@ import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironm
 
 const ModalPosition = ({ children, title, position, action }) => {
   const navigation = useNavigate();
-  const { hiddenModel, setHiddenModel } = useSelectedEnvironment();
+  const { hiddenModel, setHiddenModel, resetStates } = useSelectedEnvironment();
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
   const [showContainer, setShowContainer] = useState(true);
@@ -29,7 +29,7 @@ const ModalPosition = ({ children, title, position, action }) => {
     setShowContainer(false);
     navigation(-1);
     if (action === "ChangeHiddenState") {
-      setHiddenModel(!hiddenModel);
+      resetStates(); // Reset all states
     }
   };
 

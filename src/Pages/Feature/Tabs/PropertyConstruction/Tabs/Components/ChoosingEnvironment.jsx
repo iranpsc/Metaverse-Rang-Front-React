@@ -72,7 +72,7 @@ const ChoosingEnvironment = () => {
   const [data, setData] = useState([]);
   const [preview, setPreview] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
-  const { addSelectedEnvironment, hiddenModel, setHiddenModel } =
+  const { addSelectedEnvironment, hiddenModel, setHiddenModel, isSelectable } =
     useSelectedEnvironment();
 
   useEffect(() => {
@@ -87,38 +87,39 @@ const ChoosingEnvironment = () => {
 
   const handleSelectorClick = (index) => {
     setActiveIndex(index);
+    // Prevent selection if not selectable
     addSelectedEnvironment({
       ...data.data[index],
       coordinates: data.feature.coordinates,
     });
-    if (hiddenModel == true) {
+    if (!isSelectable) return;
+    if (hiddenModel) {
       setHiddenModel(false);
     }
   };
+
   return (
     <>
       <Container>
         {data.data &&
-          data.data.map((data, index) => {
-            return (
-              <ImgHolder key={index}>
-                <Img src={data.images[0].url} alt="" />
-                <ViewHolder
-                  onClick={() => {
-                    setPreview([data]);
-                  }}
-                >
-                  <ViewIcon />
-                </ViewHolder>
-                <SelectorEnvironment
-                  onClick={() => handleSelectorClick(index)}
-                  className={activeIndex === index ? "active" : ""}
-                />
-              </ImgHolder>
-            );
-          })}
+          data.data.map((data, index) => (
+            <ImgHolder key={index}>
+              <Img src={data.images[0].url} alt="" />
+              <ViewHolder
+                onClick={() => {
+                  setPreview([data]);
+                }}
+              >
+                <ViewIcon />
+              </ViewHolder>
+              <SelectorEnvironment
+                onClick={() => handleSelectorClick(index)}
+                className={activeIndex === index ? "active" : ""}
+              />
+            </ImgHolder>
+          ))}
       </Container>
-      {preview.length == 1 && <PreviewModel data={preview} />}
+      {preview.length === 1 && <PreviewModel data={preview} />}
     </>
   );
 };

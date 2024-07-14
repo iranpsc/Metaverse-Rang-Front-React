@@ -36,6 +36,8 @@ const InputsGeneralDefault = () => {
     selectedEnvironment,
     toggleConfirmation,
     formState,
+    toggleIsSelectable,
+    isSelectable,
   } = useSelectedEnvironment();
   const [feature] = useContext(FeatureContext);
   const navigate = useNavigate();
@@ -54,17 +56,17 @@ const InputsGeneralDefault = () => {
     setInputs((prev) => ({
       ...prev,
       [name]: value,
-      // Optionally update featureId if necessary
       ...(name === "featureId" && { featureId: value }),
     }));
   };
-
+  console.log(selectedEnvironment);
   const handleButtonClick = () => {
-    if (!selectedEnvironment.attributes[14].value) {
+    if (isSelectable) {
       ToastError("محیطی انتخاب نکردید");
     } else {
       updateFormState(inputs); // Update form state with inputs
       toggleConfirmation();
+      toggleIsSelectable(); // Allow selection
       navigate("/metaverse");
     }
   };
