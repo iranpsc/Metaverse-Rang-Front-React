@@ -17,6 +17,7 @@ import ControlPanel from "./ControlPanel";
 import { ClipLoader } from "react-spinners";
 import SatisfactionLunch from "./SatisfactionLunch";
 import * as turf from "@turf/turf";
+
 const calculateSquareCoordinates = (center, area) => {
   const R = 6378137; // Radius of the Earth in meters
   const sideLength = Math.sqrt(area); // طول ضلع مربع از ریشه دوم مساحت
@@ -125,6 +126,10 @@ const Mark = memo(() => {
     }
   }, [isRotatedPolygonInside]);
 
+  const handleExit = useCallback(() => {
+    setIsConfirmed(false);
+  }, []);
+
   return (
     <>
       {!isConfirmed && (
@@ -184,6 +189,7 @@ const Mark = memo(() => {
         <SatisfactionLunch
           position={[markerPosition.latitude, markerPosition.longitude]}
           rotation={(rotationX * Math.PI) / 180}
+          handleExitClick={handleExit}
         />
       )}
     </>

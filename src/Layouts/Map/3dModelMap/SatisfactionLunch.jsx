@@ -7,7 +7,6 @@ import { ReactComponent as WatchIcon } from "../../../Assets/svg/watch.svg";
 import Submit from "../../../Components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvironmentContext";
 import { WalletContext } from "../../../Services/Reducers/WalletContext";
-import { FeatureContext } from "../../../Pages/Feature/Context/FeatureProvider";
 import useRequest from "../../../Services/Hooks/useRequest";
 import { ToastError, ToastSuccess } from "../../../Services/Utility";
 
@@ -15,7 +14,7 @@ const Icon = styled(WatchIcon)`
   stroke: ${(props) => props.theme.arrowMenu};
 `;
 
-const SatisfactionLunch = ({ position, rotation }) => {
+const SatisfactionLunch = ({ position, rotation, handleExitClick }) => {
   const { selectedEnvironment, formState } = useSelectedEnvironment();
   const { Request, HTTP_METHOD } = useRequest();
   const [wallet] = useContext(WalletContext);
@@ -125,10 +124,6 @@ const SatisfactionLunch = ({ position, rotation }) => {
       ? (intSatisfaction * 288000) / inputNumberValue
       : 0;
   }, [intSatisfaction, inputValue]);
-
-  const handleExitClick = () => {
-    console.log("Exit clicked!");
-  };
 
   const handleSubmit = () => {
     Request(

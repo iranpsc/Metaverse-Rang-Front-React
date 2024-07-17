@@ -35,7 +35,6 @@ const InputsGeneralDefault = () => {
     updateFormState,
     selectedEnvironment,
     toggleConfirmation,
-    formState,
     toggleIsSelectable,
     isSelectable,
   } = useSelectedEnvironment();
@@ -59,7 +58,6 @@ const InputsGeneralDefault = () => {
       ...(name === "featureId" && { featureId: value }),
     }));
   };
-  console.log(selectedEnvironment);
   const handleButtonClick = () => {
     if (isSelectable) {
       ToastError("محیطی انتخاب نکردید");
