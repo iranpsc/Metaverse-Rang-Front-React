@@ -44,7 +44,6 @@ const ModalXs = ({ title, children, handleExitClick }) => {
 
   const internalHandleExitClick = () => {
     setShowContainer(false);
-    navigation("/metaverse");
     if (handleExitClick) {
       handleExitClick();
     }

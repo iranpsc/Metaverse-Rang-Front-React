@@ -58,6 +58,7 @@ const Mark = memo(() => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [rotationX, setRotationX] = useState(0);
   const [isLoading, setIsLoading] = useState(false); // Initialize as false
+  const [showCanvas, setShowCanvas] = useState(true); // New state to control canvas rendering
 
   const map = useMap();
   const center = map.current.getCenter();
@@ -128,6 +129,8 @@ const Mark = memo(() => {
 
   const handleExit = useCallback(() => {
     setIsConfirmed(false);
+    setShowCanvas(false); // Hide canvas before rendering polygon
+    setTimeout(() => setShowCanvas(true), 0); // Show canvas after a brief delay
   }, []);
 
   return (
@@ -166,17 +169,19 @@ const Mark = memo(() => {
         longitude={markerPosition.longitude}
       >
         {isLoading && <ClipLoader color="#36d7b7" />}
-        <Canvas
-          latitude={markerPosition.latitude}
-          longitude={markerPosition.longitude}
-        >
-          <FBXModel
-            url={selectedEnvironment.file.url}
-            key={2}
-            rotation={[0, (rotationX * Math.PI) / 180, 0]}
-            setLoading={setIsLoading}
-          />
-        </Canvas>
+        {showCanvas && (
+          <Canvas
+            latitude={markerPosition.latitude}
+            longitude={markerPosition.longitude}
+          >
+            <FBXModel
+              url={selectedEnvironment.file.url}
+              key={2}
+              rotation={[0, (rotationX * Math.PI) / 180, 0]}
+              setLoading={setIsLoading}
+            />
+          </Canvas>
+        )}
       </Marker>
       {!isConfirmed && (
         <ControlPanel
