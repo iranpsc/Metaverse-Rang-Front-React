@@ -14,7 +14,7 @@ const Container = styled.div`
   display: grid;
   overflow-y: scroll;
   width: 40%;
-  height: 60%;
+  height: 500px;
 `;
 
 const Img = styled.img`
