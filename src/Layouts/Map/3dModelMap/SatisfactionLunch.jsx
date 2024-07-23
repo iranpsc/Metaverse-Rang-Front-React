@@ -14,7 +14,12 @@ const Icon = styled(WatchIcon)`
   stroke: ${(props) => props.theme.arrowMenu};
 `;
 
-const SatisfactionLunch = ({ position, rotation, handleExitClick }) => {
+const SatisfactionLunch = ({
+  position,
+  rotation,
+  handleExitClick,
+  handelSubmitEnvironment,
+}) => {
   const { selectedEnvironment, formState } = useSelectedEnvironment();
   const { Request, HTTP_METHOD } = useRequest();
   const [wallet] = useContext(WalletContext);
@@ -132,8 +137,8 @@ const SatisfactionLunch = ({ position, rotation, handleExitClick }) => {
       formData
     )
       .then(() => {
-        handleExitClick();
-        ToastError(err.response.data.message);
+        handelSubmitEnvironment(); // Hide polygon when form is submitted
+        ToastSuccess("موفقیت ثبت شد");
       })
       .catch((err) => {
         ToastError(err.response.data.message);
@@ -141,7 +146,11 @@ const SatisfactionLunch = ({ position, rotation, handleExitClick }) => {
   };
 
   return (
-    <ModalXs title="ثبت رضایت" handleExitClick={handleExitClick}>
+    <ModalXs
+      title="ثبت رضایت"
+      handleExitClick={handleExitClick}
+      handelSubmitEnvironment={handelSubmitEnvironment}
+    >
       <InputNumber
         placeholder="ثبت رضایت"
         value={inputValue}

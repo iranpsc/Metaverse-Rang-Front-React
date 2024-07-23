@@ -59,7 +59,8 @@ const Mark = memo(() => {
   const [rotationX, setRotationX] = useState(0);
   const [isLoading, setIsLoading] = useState(false); // Initialize as false
   const [showCanvas, setShowCanvas] = useState(true); // New state to control canvas rendering
-  console.log(selectedEnvironment);
+  const [showPolygon, setShowPolygon] = useState(true); // New state to control polygon visibility
+  const [environmentFixed, setEnvironmentFixed] = useState(false); // New state to control environment fixing
   const map = useMap();
   const center = map.current.getCenter();
   const desiredSlug = "area";
@@ -102,7 +103,7 @@ const Mark = memo(() => {
 
   useEffect(() => {
     const handleMove = () => {
-      if (!isConfirmed) {
+      if (!isConfirmed && !environmentFixed) {
         const center = map.current.getCenter();
         setMarkerPosition({
           latitude: center.lat,
@@ -116,7 +117,7 @@ const Mark = memo(() => {
     return () => {
       map.current.off("move", handleMove);
     };
-  }, [map, isConfirmed]);
+  }, [map, isConfirmed, environmentFixed]);
 
   const handleConfirmation = useCallback(() => {
     if (!isRotatedPolygonInside) {
@@ -133,9 +134,15 @@ const Mark = memo(() => {
     setTimeout(() => setShowCanvas(true), 0); // Show canvas after a brief delay
   }, []);
 
+  const handelSubmitEnvironment = useCallback(() => {
+    setIsConfirmed(false);
+    setShowPolygon(false); // Hide polygon when environment is submitted
+    setEnvironmentFixed(true); // Fix the environment
+  }, []);
+
   return (
     <>
-      {!isConfirmed && (
+      {showPolygon && !isConfirmed && (
         <Source
           id="polygon"
           type="geojson"
@@ -183,7 +190,7 @@ const Mark = memo(() => {
           </Canvas>
         )}
       </Marker>
-      {!isConfirmed && (
+      {showPolygon && !isConfirmed && (
         <ControlPanel
           rotationX={rotationX}
           setRotationX={setRotationX}
@@ -195,6 +202,7 @@ const Mark = memo(() => {
           position={[markerPosition.latitude, markerPosition.longitude]}
           rotation={(rotationX * Math.PI) / 180}
           handleExitClick={handleExit}
+          handelSubmitEnvironment={handelSubmitEnvironment}
         />
       )}
     </>
