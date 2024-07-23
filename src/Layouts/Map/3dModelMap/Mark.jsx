@@ -59,7 +59,7 @@ const Mark = memo(() => {
   const [rotationX, setRotationX] = useState(0);
   const [isLoading, setIsLoading] = useState(false); // Initialize as false
   const [showCanvas, setShowCanvas] = useState(true); // New state to control canvas rendering
-
+  console.log(selectedEnvironment);
   const map = useMap();
   const center = map.current.getCenter();
   const desiredSlug = "area";

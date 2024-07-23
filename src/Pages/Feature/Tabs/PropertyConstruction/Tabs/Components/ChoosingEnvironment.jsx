@@ -14,7 +14,7 @@ const Container = styled.div`
   display: grid;
   overflow-y: scroll;
   width: 40%;
-  height: 500px;
+  height: 60%;
 `;
 
 const Img = styled.img`
@@ -71,6 +71,7 @@ const ChoosingEnvironment = () => {
   const { Request, HTTP_METHOD } = useRequest();
   const [data, setData] = useState([]);
   const [preview, setPreview] = useState([]);
+  const [coordinates, setCoordinates] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const { addSelectedEnvironment, hiddenModel, setHiddenModel, isSelectable } =
     useSelectedEnvironment();
@@ -86,6 +87,7 @@ const ChoosingEnvironment = () => {
           HTTP_METHOD.GET
         );
         setData((prevData) => [...prevData, ...res.data.data]);
+        setCoordinates([res.data.feature.coordinates]);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -94,7 +96,7 @@ const ChoosingEnvironment = () => {
     };
     fetchData();
   }, [page]);
-
+  console.log(coordinates);
   useEffect(() => {
     const handleScroll = (e) => {
       if (
@@ -114,7 +116,7 @@ const ChoosingEnvironment = () => {
     // Prevent selection if not selectable
     addSelectedEnvironment({
       ...data[index],
-      coordinates: data.feature.coordinates,
+      coordinates: coordinates[0],
     });
     if (!isSelectable) return;
     if (hiddenModel) {
