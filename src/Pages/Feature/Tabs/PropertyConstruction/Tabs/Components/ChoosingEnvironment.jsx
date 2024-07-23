@@ -14,7 +14,7 @@ const Container = styled.div`
   display: grid;
   overflow-y: scroll;
   width: 40%;
-  height: 60%;
+  height: 500px;
 `;
 
 const Img = styled.img`
@@ -74,22 +74,46 @@ const ChoosingEnvironment = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const { addSelectedEnvironment, hiddenModel, setHiddenModel, isSelectable } =
     useSelectedEnvironment();
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    Request(`features/${feature.id}/build/package`, HTTP_METHOD.GET)
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await Request(
+          `features/${feature.id}/build/package?page=${page}`,
+          HTTP_METHOD.GET
+        );
+        setData((prevData) => [...prevData, ...res.data.data]);
+        setLoading(false);
+      } catch (err) {
         console.log(err);
-      });
-  }, []);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [page]);
+
+  useEffect(() => {
+    const handleScroll = (e) => {
+      if (
+        e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight &&
+        !loading
+      ) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    };
+    const container = document.querySelector("#scrollable-container");
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [loading]);
 
   const handleSelectorClick = (index) => {
     setActiveIndex(index);
     // Prevent selection if not selectable
     addSelectedEnvironment({
-      ...data.data[index],
+      ...data[index],
       coordinates: data.feature.coordinates,
     });
     if (!isSelectable) return;
@@ -100,9 +124,9 @@ const ChoosingEnvironment = () => {
 
   return (
     <>
-      <Container>
-        {data.data &&
-          data.data.map((data, index) => (
+      <Container id="scrollable-container">
+        {data &&
+          data.map((data, index) => (
             <ImgHolder key={index}>
               <Img src={data.images[0].url} alt="" />
               <ViewHolder

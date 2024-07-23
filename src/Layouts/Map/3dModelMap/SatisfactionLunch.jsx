@@ -133,6 +133,7 @@ const SatisfactionLunch = ({ position, rotation, handleExitClick }) => {
     )
       .then(() => {
         handleExitClick();
+        ToastError(err.response.data.message);
       })
       .catch((err) => {
         ToastError(err.response.data.message);

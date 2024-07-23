@@ -55,7 +55,7 @@ export default function ConditionalPage() {
       return UnityTabPanel;
     } else if (feature.id == 6221) {
       return UnityTabPanel;
-    } else if (feature?.owner_id === 1) {
+    } else if (feature?.owner_id === 1 && !userId === 1) {
       return BuySystemTabPanel;
     } else if (feature?.owner_id !== 1 && feature?.owner_id !== userId) {
       return BuyUserTabPanel;
