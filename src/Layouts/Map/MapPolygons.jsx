@@ -1,18 +1,42 @@
-//Importing required modules and components
-import { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState, useRef, useCallback } from "react";
+import { Layer, Source, useMap, Marker } from "react-map-gl";
+import { useLoader } from "@react-three/fiber";
+import { Canvas } from "react-three-map/maplibre";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { HemisphereLight } from "three";
 import { BORDER_COLORS } from "../../Services/Constants/BorderColors";
 import { POLYGON_COLORS } from "../../Services/Constants/PolygonColors";
 import useRequest from "../../Services/Hooks/useRequest";
-import { Layer, Source, useMap } from "react-map-gl";
 
-//Defining a component MapPolygons as a memoized function
+const FBXModel = memo(({ url, rotation, setLoading, uniqueKey }) => {
+  const fbx = useLoader(FBXLoader, url, (loader) => {
+    loader.manager.onStart = () => setLoading(true);
+    loader.manager.onLoad = () => setLoading(false);
+    loader.manager.onError = () => setLoading(false);
+  });
+
+  const fbxRef = useRef();
+  return (
+    <>
+      <hemisphereLight
+        args={["#ffffff", "#60666C"]}
+        position={[1, 4.5, 3]}
+        intensity={10}
+        key={`${uniqueKey}-light`}
+      />
+      <primitive object={fbx} key={`${uniqueKey}-primitive`} />
+    </>
+  );
+});
+
 const MapPolygons = () => {
-  //Declaring state variables using useState hook
   const map = useMap();
   const bounds = map.current.getBounds();
-  const [features, setFeatures] = useState([]); //An array of features on the map
-  const [zoom, setZoom] = useState(map.current.getZoom()); //The zoom level of the map
-  //Custom hook for handling API requests
+  const [features, setFeatures] = useState([]);
+  const [buildingModels, setBuildingModels] = useState([]);
+  const [zoom, setZoom] = useState(map.current.getZoom());
+  const [isLoading, setIsLoading] = useState(false);
+  const [showCanvas, setShowCanvas] = useState(true);
   const { Request } = useRequest();
 
   useEffect(() => {
@@ -39,45 +63,56 @@ const MapPolygons = () => {
           data.push(feature);
         }
 
-        setFeatures(data); //Updating the features state with new data
+        setFeatures(data);
       }
     );
   }, [features]);
 
-  // //A side effect hook for updating the features state whenever bounds changes
   useEffect(() => {
-    if (bounds.getSouthWest().lng && zoom >= 15) {
-      //Checking if bounds is not null
+    if (bounds.getSouthWest().lng && zoom >= 14) {
+      const loadBuildings = zoom >= 15 ? "&load_buildings=1" : "";
       Request(
-        //Sending API request to get features data
         `features?points[]=${bounds.getSouthWest().lng},${
           bounds.getSouthWest().lat
         }&points[]=${bounds.getSouthEast().lng},${
           bounds.getSouthEast().lat
         }&points[]=${bounds.getNorthWest().lng},${
           bounds.getNorthWest().lat
-        }&points[]=${bounds.getNorthEast().lng},${bounds.getNorthEast().lat}`
+        }&points[]=${bounds.getNorthEast().lng},${
+          bounds.getNorthEast().lat
+        }${loadBuildings}`
       ).then((response) => {
-        const features = []; //An empty array for storing features data
+        const newFeatures = [];
+        const newBuildingModels = [];
         for (const feature of response?.data?.data) {
-          features.push({
+          newFeatures.push({
             id: feature?.geometry?.feature_id,
             rgb: feature?.properties?.rgb,
             coordinates: feature?.geometry?.coordinates.map((coordinate) => [
               parseFloat(coordinate.x),
               parseFloat(coordinate.y),
             ]),
-          }); //Parsing and formatting the features data and pushing it into the array
+          });
+
+          if (feature.building_models) {
+            for (const model of feature.building_models) {
+              newBuildingModels.push(model);
+            }
+          }
         }
 
-        setFeatures(features); //Updating the features state with new data
+        setFeatures((prevFeatures) => [...prevFeatures, ...newFeatures]);
+        setBuildingModels((prevModels) => [
+          ...prevModels,
+          ...newBuildingModels,
+        ]);
       });
     }
-  }, [bounds.getSouthWest().lng]);
+  }, [bounds.getSouthWest().lng, zoom]);
 
   return (
     <>
-      {zoom >= 15 && (
+      {zoom >= 14 && (
         <Source
           id="polygons"
           type="geojson"
@@ -114,6 +149,25 @@ const MapPolygons = () => {
           />
         </Source>
       )}
+      {zoom >= 15 &&
+        buildingModels.length > 0 &&
+        buildingModels.map((model) => {
+          console.log("Model URL:", model.file.url);
+          return (
+            <>
+              {isLoading && <div>Loading...</div>}
+              {showCanvas && (
+                <Canvas
+                  latitude={parseFloat(model.building.position.split(", ")[0])}
+                  longitude={parseFloat(model.building.position.split(", ")[1])}
+                  key={`${model.id}-canvas`}
+                >
+                  <primitive object={model.file.url} />
+                </Canvas>
+              )}
+            </>
+          );
+        })}
     </>
   );
 };

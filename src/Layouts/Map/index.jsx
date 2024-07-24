@@ -85,6 +85,7 @@ const MapTreeD = () => {
           }}
           onZoomEnd={setZoomLevel}
           RTLTextPlugin="https://map.irpsc.com/rtl.js"
+          maxPitch={78}
         >
           <FullscreenControl position="top-left" />
           <NavigationControl position="top-left" />
