@@ -7,6 +7,7 @@ import { HemisphereLight } from "three";
 import { BORDER_COLORS } from "../../Services/Constants/BorderColors";
 import { POLYGON_COLORS } from "../../Services/Constants/PolygonColors";
 import useRequest from "../../Services/Hooks/useRequest";
+import { ClipLoader } from "react-spinners";
 
 const FBXModel = memo(({ url, rotation, setLoading, uniqueKey }) => {
   const fbx = useLoader(FBXLoader, url, (loader) => {
@@ -36,7 +37,7 @@ const MapPolygons = () => {
   const [buildingModels, setBuildingModels] = useState([]);
   const [zoom, setZoom] = useState(map.current.getZoom());
   const [isLoading, setIsLoading] = useState(false);
-  const [showCanvas, setShowCanvas] = useState(true);
+
   const { Request } = useRequest();
 
   useEffect(() => {
@@ -152,24 +153,21 @@ const MapPolygons = () => {
       {zoom >= 15 &&
         buildingModels.length > 0 &&
         buildingModels.map((model) => {
-          console.log("Model URL:", model.file.url);
           return (
             <>
-              {isLoading && <div>Loading...</div>}
-              {showCanvas && (
-                <Canvas
-                  latitude={parseFloat(model.building.position.split(", ")[0])}
-                  longitude={parseFloat(model.building.position.split(", ")[1])}
-                  key={`${model.id}-canvas`}
-                >
-                  <FBXModel
-                    url={model.file.url}
-                    rotation={[0, 0, 0]}
-                    setLoading={setIsLoading}
-                    uniqueKey={`${model.id}-model`}
-                  />
-                </Canvas>
-              )}
+              {isLoading && <ClipLoader color="#36d7b7" />}
+              <Canvas
+                latitude={parseFloat(model.building.position.split(", ")[0])}
+                longitude={parseFloat(model.building.position.split(", ")[1])}
+                key={`${model.id}-canvas`}
+              >
+                <FBXModel
+                  url={model.file.url}
+                  rotation={[0, 0, 0]}
+                  setLoading={setIsLoading}
+                  uniqueKey={`${model.id}-model`}
+                />
+              </Canvas>
             </>
           );
         })}
