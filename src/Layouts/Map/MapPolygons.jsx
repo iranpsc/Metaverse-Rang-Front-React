@@ -17,7 +17,7 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey }) => {
 
   const fbxRef = useRef();
   return (
-    <>
+    <group ref={fbxRef} rotation={rotation} scale={0.0097} key={uniqueKey}>
       <hemisphereLight
         args={["#ffffff", "#60666C"]}
         position={[1, 4.5, 3]}
@@ -25,7 +25,7 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey }) => {
         key={`${uniqueKey}-light`}
       />
       <primitive object={fbx} key={`${uniqueKey}-primitive`} />
-    </>
+    </group>
   );
 });
 
@@ -162,7 +162,12 @@ const MapPolygons = () => {
                   longitude={parseFloat(model.building.position.split(", ")[1])}
                   key={`${model.id}-canvas`}
                 >
-                  <primitive object={model.file.url} />
+                  <FBXModel
+                    url={model.file.url}
+                    rotation={[0, 0, 0]}
+                    setLoading={setIsLoading}
+                    uniqueKey={`${model.id}-model`}
+                  />
                 </Canvas>
               )}
             </>
