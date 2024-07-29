@@ -21,8 +21,7 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey }) => {
     <group ref={fbxRef} rotation={rotation} scale={0.0097} key={uniqueKey}>
       <hemisphereLight
         args={["#ffffff", "#60666C"]}
-        position={[1, 4.5, 3]}
-        intensity={10}
+        intensity={12}
         key={`${uniqueKey}-light`}
       />
       <primitive object={fbx} key={`${uniqueKey}-primitive`} />
