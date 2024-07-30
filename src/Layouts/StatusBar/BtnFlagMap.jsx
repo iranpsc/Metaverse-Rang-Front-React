@@ -48,9 +48,7 @@ const ContainerIcon = styled.div`
   gap: 10px;
 `;
 const createSVG = (color) =>
-  `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill="${color.replace(
-    "#",
-    "%23"
+  `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill=
   )}"/></svg>`;
 const Tooltip = styled.div`
   width: 146px;
@@ -60,7 +58,7 @@ const Tooltip = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: ${(props) => props.theme.tooltipSmBg};
+  background-color: ${(props) => props.theme.colors.primary};
   border-radius: 10px;
   color: #868b90;
   text-align: right;

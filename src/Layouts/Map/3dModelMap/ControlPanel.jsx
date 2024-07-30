@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 const Title = styled.p`
   font-size: 18px;
-  color: ${(props) => props.theme.headerModals};
+  color: ${(props) => props.theme.colors.primary};
 `;
 
 const Label = styled.label`
@@ -48,8 +48,8 @@ const RangeInput = styled.input`
 const RotationCounter = styled.div`
   width: 80px;
   height: 40px;
-  border: 1px solid ${(props) => props.theme.inputBorder};
-  background-color: 1 ${(props) => props.theme.inputBorder};
+  border: 1px solid ${(props) => props.theme.colors.primary};
+  background-color: 1 ${(props) => props.theme.colors.primary};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,7 +64,7 @@ const ContainerHeader = styled.div`
 const Diver = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${(props) => props.theme.inputBorder};
+  background-color: ${(props) => props.theme.colors.primary};
 `;
 const ControlPanel = ({
   rotationX,

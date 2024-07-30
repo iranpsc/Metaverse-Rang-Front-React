@@ -2,7 +2,7 @@ import { animated } from "react-spring";
 import styled from "styled-components";
 
 export const Header = styled.div`
-  color: ${(props) => props.theme.headerModals};
+  color: ${(props) => props.theme.colors.primary};
   text-align: right;
   font-size: 16px;
   @media (min-width: 768px) {
@@ -23,7 +23,7 @@ export const Container = styled(animated.div)`
   position: fixed;
   z-index: 1500;
   padding: 10px;
-  background-color: ${(props) => props.theme.bgModal};
+  background-color: ${(props) => props.theme.colors.primary};
   ${(props) => props.position === "right" && "right: 0;"}
   top: 0;
   @media (min-width: 1024px) {
@@ -42,5 +42,5 @@ export const ContainerIcon = styled.div`
 export const Title = styled.p`
   padding: 10px;
   font-weight: 700;
-  color: ${(props) => props.theme.TextTitle};
+  color: ${(props) => props.theme.colors.primary};
 `;

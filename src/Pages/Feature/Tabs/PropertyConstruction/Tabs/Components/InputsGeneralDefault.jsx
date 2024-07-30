@@ -25,7 +25,7 @@ const InputSize = styled.div`
   width: 139%;
 `;
 const P = styled.p`
-  color: ${(props) => props.theme.TextTitle};
+  color: ${(props) => props.theme.colors.primary};
   font-size: 16px;
   font-weight: 400;
 `;

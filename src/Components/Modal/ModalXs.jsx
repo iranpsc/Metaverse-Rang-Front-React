@@ -24,7 +24,7 @@ const ContainerModal = styled.div`
   @media (min-width: 1024px) {
     height: 325px;
   }
-  background-color: ${(props) => props.theme.bgModal};
+  background-color: ${(props) => props.theme.colors.primary};
   border-radius: 10px;
   padding: 20px;
   display: flex;

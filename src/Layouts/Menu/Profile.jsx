@@ -31,12 +31,12 @@ const commonScrollbarStyles = `
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.scrollBg};
+    background-color: ${(props) => props.theme.colors.primary};
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.scrollColor};
+    background-color: ${(props) => props.theme.colors.primary};
     border-radius: 10px;
   }
 

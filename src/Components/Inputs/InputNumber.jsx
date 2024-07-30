@@ -18,7 +18,7 @@ const StyledInput = styled.input`
   color: ${(props) =>
     props.error ? props.theme.inputTextError : props.theme.inputText};
   ::placeholder {
-    color: ${(props) => props.theme.placeholder};
+    color: ${(props) => props.theme.colors.primary};
     font-size: 15px;
   }
   &::-webkit-inner-spin-button,

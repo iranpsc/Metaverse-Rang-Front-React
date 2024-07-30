@@ -20,7 +20,7 @@ export function ThemeProviderContext({ children }) {
   };
 
   const themeMode = theme === "dark" ? darkTheme : lightTheme;
-
+console.log(theme);
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <ThemeProvider theme={themeMode}>{children}</ThemeProvider>

@@ -22,7 +22,7 @@ const WalletContainer = styled.div`
   width: 100%;
   height: 61.5%;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.menuBg};
+  background-color: ${(props) => props.theme.colors.primary};
   display: flex;
   flex-direction: column;
   @media (min-width: 1024px) {
@@ -41,7 +41,7 @@ const FlagMapContainer = styled.div`
   width: 100%;
   height: 29%;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.menuBg};
+  background-color: ${(props) => props.theme.colors.primary};
   display: flex;
   flex-direction: column;
   @media (min-width: 1024px) {
@@ -58,12 +58,12 @@ const FlagMapContainer = styled.div`
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.scrollBg};
+    background-color: ${(props) => props.theme.colors.primary};
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.scrollColor};
+    background-color: ${(props) => props.theme.colors.primary};
     border-radius: 10px;
   }
 
@@ -78,7 +78,7 @@ const StatusContainer = styled.div`
   width: 100%;
   height: 10%;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.menuBg};
+  background-color: ${(props) => props.theme.colors.primary};
   align-items: center;
   justify-content: center;
   padding: 10px;

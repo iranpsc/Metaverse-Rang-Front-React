@@ -27,15 +27,13 @@ const Container = styled.section`
   height: 100vh;
   flex-direction: row;
   gap: 5px;
-  background-color: ${(props) => props.theme.bgMain};
+  background-color: ${(props) => props.theme.colors.newColors.shades[100]};
   padding: 5px;
   @media (min-width: 768px) {
     gap: 10px;
     padding: 10px;
   }
-  .leaflet-tile {
-    filter: ${(props) => props.theme.filterMap};
-  }
+
   transition: all 0.3s ease 0s;
 `;
 

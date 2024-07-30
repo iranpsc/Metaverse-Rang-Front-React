@@ -31,7 +31,7 @@ const Header = styled.p`
 `;
 
 const TapIp = styled.p`
-  color: ${(props) => props.theme.textIp};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   font-size: 25px;
   font-style: normal;
@@ -40,7 +40,7 @@ const TapIp = styled.p`
 `;
 
 const P = styled.p`
-  color: ${(props) => props.theme.textDetail};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   font-size: 16px;
   font-style: normal;
@@ -49,7 +49,7 @@ const P = styled.p`
 `;
 
 const Details = styled.p`
-  color: ${(props) => props.theme.textDetails};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   font-size: 16px;
   font-style: normal;
@@ -58,7 +58,7 @@ const Details = styled.p`
 `;
 
 const Information = styled.p`
-  color: ${(props) => props.theme.Information};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   margin-top: 29px;
   font-size: 14px;

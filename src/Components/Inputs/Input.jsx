@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as Show } from "../../Assets/svg/passShowIcon.svg";
 import { ReactComponent as Hidden } from "../../Assets/svg/passIcon.svg";
 const Label = styled.label`
-  color: ${(props) => props.theme.inputLabelColor};
+  color: ${(props) => props.theme.colors.primary};
   position: absolute;
   top: 16px;
   right: 16px;
@@ -39,7 +39,7 @@ const InputField = styled.input`
   color: ${(props) =>
     props.validation ? props.theme.inputTextError : props.theme.inputText};
   ::placeholder {
-    color: ${(props) => props.theme.placeholder};
+    color: ${(props) => props.theme.colors.primary};
     font-size: 15px;
   }
 `;
@@ -62,13 +62,13 @@ const Icon = styled(Show)`
   width: 20.8px;
   height: 20.8px;
   flex-shrink: 0;
-  stroke: ${(props) => props.theme.inputText};
+  stroke: ${(props) => props.theme.colors.primary};
 `;
 const Icon2 = styled(Hidden)`
   width: 20.8px;
   height: 20.8px;
   flex-shrink: 0;
-  stroke: ${(props) => props.theme.inputText};
+  stroke: ${(props) => props.theme.colors.primary};
 `;
 const ErrorMassage = styled.p`
   color: #f00;

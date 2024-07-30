@@ -20,7 +20,7 @@ const TabList = styled.div`
   height: 40px;
   display: flex;
   top: 0;
-  border-bottom: 2px solid ${(props) => props.theme.inputBorder};
+  border-bottom: 2px solid ${(props) => props.theme.colors.primary};
 `;
 
 // Create a styled Tab component
@@ -34,8 +34,8 @@ const Tab = styled.button`
   background: none;
   &.active {
     background: none;
-    border-bottom: ${(props) => props.theme.activeButton} 2px solid;
-    color: ${(props) => props.theme.activeButton};
+    border-bottom: ${(props) => props.theme.colors.primary} 2px solid;
+    color: ${(props) => props.theme.colors.primary};
     height: 40px;
 
     &:hover {

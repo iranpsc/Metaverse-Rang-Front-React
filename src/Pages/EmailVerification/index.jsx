@@ -29,7 +29,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.p`
-  color: ${(props) => props.theme.textDetails};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   font-size: 20px;
   font-style: normal;
@@ -39,7 +39,7 @@ const Header = styled.p`
 `;
 
 const Details = styled.p`
-  color: ${(props) => props.theme.textDetails};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   font-size: 16px;
   font-style: normal;
@@ -49,7 +49,7 @@ const Details = styled.p`
 `;
 
 const Information = styled.p`
-  color: ${(props) => props.theme.Information};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   margin-top: 5px;
   font-size: 14px;

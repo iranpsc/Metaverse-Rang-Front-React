@@ -33,8 +33,8 @@ function LoginSwitch() {
     border-radius: 10px;
     border: none;
 
-    background: ${(props) => props.theme.btnScenery};
-    color: ${(props) => props.theme.btnSceneryTextColor};
+    background: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.primary};
     text-align: center;
 
     font-size: 14px;
@@ -54,8 +54,8 @@ function LoginSwitch() {
     flex-shrink: 0;
     border: none;
     border-radius: 10px;
-    background: ${(props) => props.theme.btnPrimary};
-    color: ${(props) => props.theme.btnPrimaryTextColor};
+    background: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.primary};
     text-align: center;
 
     font-size: 14px;
@@ -66,12 +66,12 @@ function LoginSwitch() {
   const Icon = styled(Member)`
     width: 13.335px;
     height: 19.81px;
-    stroke: ${(props) => props.theme.btnSceneryTextColor};
+    stroke: ${(props) => props.theme.colors.primary};
   `;
   const Icon2 = styled(Profile)`
     width: 13.335px;
     height: 19.81px;
-    stroke: ${(props) => props.theme.btnPrimaryTextColor};
+    stroke: ${(props) => props.theme.colors.primary};
   `;
 
   return (

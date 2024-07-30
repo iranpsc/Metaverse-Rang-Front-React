@@ -31,12 +31,12 @@ const ContainerList = styled.div`
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.scrollBg};
+    background-color: ${(props) => props.theme.colors.primary};
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.scrollColor};
+    background-color: ${(props) => props.theme.colors.primary};
     border-radius: 10px;
   }
 
@@ -51,10 +51,7 @@ const Line = styled.div`
   background-color: #000; // این رنگ را به یک رنگ با کنتراست بیشتر مثل مشکی تغییر دهید
 `;
 const createSVG = (color) =>
-  `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill="${color.replace(
-    "#",
-    "%23"
-  )}"/></svg>`;
+  `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill="/></svg>`;
 
 const Tooltip = styled.div`
   width: 262px;
@@ -64,7 +61,7 @@ const Tooltip = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: ${(props) => props.theme.tooltipBg};
+  background-color: ${(props) => props.theme.colors.primary};
   border-radius: 10px;
   color: #868b90;
   text-align: right;
@@ -89,7 +86,7 @@ const Tooltip = styled.div`
 `;
 
 const Text = styled.p`
-  background-color: ${(props) => props.theme.tooltipBadge};
+  background-color: ${(props) => props.theme.colors.primary};
   font-size: 12px;
   padding: 0px 8px;
   border-radius: 78px;
@@ -106,7 +103,7 @@ const BtnAllList = styled.div`
   justify-content: center;
   width: 100%;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.btnListPosition};
+  background-color: ${(props) => props.theme.colors.primary};
   min-height: 36px;
   color: #868b90;
 `;

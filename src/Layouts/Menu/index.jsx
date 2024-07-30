@@ -28,7 +28,7 @@ const Container = styled.div`
     width: ${(props) => (props.isOpen ? "23.5%" : "4.1%")};
     border-radius: 10px;
   }
-  background-color: ${(props) => props.theme.menuBg};
+  background-color: ${(props) => props.theme.colors.primary};
   padding: ${(props) => (props.isOpen ? "20px" : "10px")};
   transition: all 0.3s ease 0s;
 `;

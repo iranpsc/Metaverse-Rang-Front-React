@@ -7,11 +7,11 @@ export const HelpIcon = styled(Help)`
   width: 40px;
   height: 40px;
   & > :first-child {
-    fill: ${(props) => props.theme.headerIconFill};
+    fill: ${(props) => props.theme.colors.primary};
   }
 
   & > :nth-child(2) {
-    fill: ${(props) => props.theme.headerIconStroke};
+    fill: ${(props) => props.theme.colors.primary};
   }
 `;
 
@@ -19,11 +19,11 @@ export const ReportIcon = styled(Report)`
   width: 40px;
   height: 40px;
   & > :first-child {
-    fill: ${(props) => props.theme.headerIconFill};
+    fill: ${(props) => props.theme.colors.primary};
   }
 
   & > :nth-child(2) {
-    fill: ${(props) => props.theme.headerIconStroke};
+    fill: ${(props) => props.theme.colors.primary};
   }
 `;
 

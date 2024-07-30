@@ -9,7 +9,7 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   padding: ${(props) => (props.isOpen ? " 5px 10px" : "0px")};
-  background-color: ${(props) => props.theme.bgMain};
+  background-color: ${(props) => props.theme.colors.primary}!;
   border-radius: ${(props) => (props.isOpen ? "100px" : "100%")};
   align-items: center;
   justify-content: center;
@@ -48,10 +48,9 @@ const Dark = styled(DarkSvg)`
   stroke: ${(props) => (props.active ? "#f8f8f8" : "#868B90")};
 `;
 const ThemesBtn = () => {
-  const { themes, toggleTheme } = useTheme();
-  const [isActive, setIsActive] = useState(themes === "dark");
+  const { toggleTheme } = useTheme();
+  const [isActive, setIsActive] = useState(false);
   const { isOpen } = useMenuContext();
-
   const handleDarkClick = () => {
     setIsActive(true);
     toggleTheme();

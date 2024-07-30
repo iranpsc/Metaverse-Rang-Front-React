@@ -17,7 +17,7 @@ const BtnContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  background-color: ${(props) => props.theme.bgSection};
+  background-color: ${(props) => props.theme.colors.primary};
   border-radius: 5px;
   padding: 15px 0;
 `;
@@ -38,10 +38,10 @@ const BtnProperty = styled.button`
   background-color: transparent;
   font-weight: 600;
   font-size: 18px;
-  color: ${(props) => props.theme.textTab};
+  color: ${(props) => props.theme.colors.primary};
   &.active {
-    border-right: 2px solid ${(props) => props.theme.activeButton};
-    color: ${(props) => props.theme.activeButton};
+    border-right: 2px solid ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.primary};
   }
 `;
 

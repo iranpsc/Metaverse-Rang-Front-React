@@ -11,7 +11,7 @@ import useRequest from "../../../Services/Hooks/useRequest";
 import { ToastError, ToastSuccess } from "../../../Services/Utility";
 
 const Icon = styled(WatchIcon)`
-  stroke: ${(props) => props.theme.arrowMenu};
+  stroke: ${(props) => props.theme.colors.primary};
 `;
 
 const SatisfactionLunch = ({

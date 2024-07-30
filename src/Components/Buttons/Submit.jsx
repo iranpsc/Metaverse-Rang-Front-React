@@ -3,11 +3,11 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 
 const PrimaryButton = styled.button`
-  background-color: ${(props) => props.theme.activeButton}!important;
+  background-color: ${(props) => props.theme.colors.primary}!important;
   border: none;
   border-radius: 8px;
   --bs-text-opacity: 1;
-  color: ${(props) => props.theme.textButtonPrimary};
+  color: ${(props) => props.theme.colors.primary};
   padding: 8px 24px 8px 24px;
   font-size: 14px;
   font-weight: 600;
@@ -29,8 +29,8 @@ const SecondaryButton = styled.button`
   flex-shrink: 0;
   border-radius: 5px;
   border: 1px solid rgba(24, 192, 143, 0.5);
-  background: ${(props) => props.theme.btnSubmitBgColor};
-  color: ${(props) => props.theme.btnSubmitTextColor};
+  background: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   font-family: AzarMehr;
   font-size: 16px;

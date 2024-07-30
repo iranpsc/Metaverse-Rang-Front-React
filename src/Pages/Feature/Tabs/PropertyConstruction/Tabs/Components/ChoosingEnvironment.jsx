@@ -24,11 +24,11 @@ const Img = styled.img`
 `;
 
 const ViewIcon = styled(Eye)`
-  stroke: ${(props) => props.theme.textButtonPrimary};
+  stroke: ${(props) => props.theme.colors.primary};
 `;
 
 const ViewHolder = styled.button`
-  background-color: ${(props) => props.theme.activeButton};
+  background-color: ${(props) => props.theme.colors.primary};
   width: 30px;
   height: 30px;
   border-radius: 60px;
@@ -49,7 +49,7 @@ const ImgHolder = styled.div`
 `;
 
 const SelectorEnvironment = styled.button`
-  background-color: ${(props) => props.theme.bgSection};
+  background-color: ${(props) => props.theme.colors.primary};
   width: 25px;
   height: 25px;
   border-radius: 60px;
@@ -59,10 +59,10 @@ const SelectorEnvironment = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid ${(props) => props.theme.inputBorder};
+  border: 2px solid ${(props) => props.theme.colors.primary};
   padding: 4px;
   &.active {
-    background-color: ${(props) => props.theme.activeButton};
+    background-color: ${(props) => props.theme.colors.primary};
   }
 `;
 

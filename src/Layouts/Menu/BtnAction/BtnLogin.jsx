@@ -10,8 +10,8 @@ const Btn = styled.div`
   @media (min-width: 1024px) {
     min-height: 49px;
   }
-  background-color: ${(props) => props.theme.btnPrimary};
-  color: ${(props) => props.theme.btnPrimaryTextColor};
+  background-color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   display: flex;
   align-items: center;
   justify-content: ${(props) => (props.isOpen ? "space-between" : "center")};
@@ -24,7 +24,7 @@ const Text = styled.p`
   display: ${(props) => (props.isOpen ? "block" : "none")};
 `;
 const Icon = styled(LoginIcon)`
-  stroke: ${(props) => props.theme.btnPrimaryTextColor};
+  stroke: ${(props) => props.theme.colors.primary};
   width: 24px;
   height: 24px;
 `;

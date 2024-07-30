@@ -14,7 +14,7 @@ const ContainerDetail = styled.div`
   height: 480px;
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.bgSection};
+  background-color: ${(props) => props.theme.colors.primary};
   gap: 20px;
   padding: 25px 20px;
   overflow-y: auto;
@@ -29,12 +29,12 @@ const Container = styled.div`
   padding: 10px;
 `;
 const TextTitle = styled.p`
-  color: ${(props) => props.theme.TextTitle};
+  color: ${(props) => props.theme.colors.primary};
   font-size: 18px;
   font-weight: 600;
 `;
 const TextDetail = styled.p`
-  color: ${(props) => props.theme.detailText};
+  color: ${(props) => props.theme.colors.primary};
   font-size: 16px;
   font-weight: 600;
 `;
@@ -81,7 +81,7 @@ const PreviewModel = ({ data }) => {
     height: 40px;
   `;
   const Header = styled.p`
-    color: ${(props) => props.theme.headerModals};
+    color: ${(props) => props.theme.colors.primary};
     text-align: right;
     font-size: 16px;
     @media (min-width: 768px) {
