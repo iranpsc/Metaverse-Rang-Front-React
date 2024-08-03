@@ -19,19 +19,15 @@ export const Header = styled.div`
 `;
 
 export const Container = styled(animated.div)`
-  height: 100vh;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg1};
+  width: 450px;
   position: fixed;
-  z-index: 1500;
-  padding: 10px;
-  background-color: ${(props) => props.theme.colors.primary};
-  ${(props) => props.position === "right" && "right: 0;"}
   top: 0;
-  @media (min-width: 1024px) {
-    width: 30%;
-  }
-  @media (min-width: 1536px) {
-    width: 25%;
-  }
+  left: ${(props) => props.position === "left" && "0"};
+  right: ${(props) => props.position === "right" && "0"};
+  bottom: 0;
+  padding: 15px 20px;
+  z-index: 10;
 `;
 export const ContainerIcon = styled.div`
   display: flex;

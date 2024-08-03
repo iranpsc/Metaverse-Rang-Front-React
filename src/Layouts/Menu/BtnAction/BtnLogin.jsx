@@ -11,7 +11,7 @@ const Btn = styled.div`
     min-height: 49px;
   }
   background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.primaryText};
   display: flex;
   align-items: center;
   justify-content: ${(props) => (props.isOpen ? "space-between" : "center")};
@@ -24,7 +24,7 @@ const Text = styled.p`
   display: ${(props) => (props.isOpen ? "block" : "none")};
 `;
 const Icon = styled(LoginIcon)`
-  stroke: ${(props) => props.theme.colors.primary};
+  stroke: ${(props) => props.theme.colors.newColors.primaryText};
   width: 24px;
   height: 24px;
 `;

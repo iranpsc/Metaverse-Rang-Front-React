@@ -58,7 +58,8 @@ const Tooltip = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   border-radius: 10px;
   color: #868b90;
   text-align: right;

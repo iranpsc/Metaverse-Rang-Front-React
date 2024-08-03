@@ -29,14 +29,13 @@ const ContainerList = styled.div`
     width: 6px;
   }
 
-  /* Track */
   &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: "#DDDDDD";
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: "#858585";
     border-radius: 10px;
   }
 

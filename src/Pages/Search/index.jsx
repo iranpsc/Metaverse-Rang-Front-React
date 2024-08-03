@@ -10,5 +10,9 @@ export default function Search() {
   ];
 
   const TabPanel = useTabs(tabs, 0, true);
-  return <ModalPosition title={"جستجوی در متارنگ"}>{TabPanel}</ModalPosition>;
+  return (
+    <ModalPosition title={"جستجوی در متارنگ"} position={"left"}>
+      {TabPanel}
+    </ModalPosition>
+  );
 }

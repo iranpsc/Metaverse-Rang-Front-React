@@ -7,7 +7,7 @@ const PrimaryButton = styled.button`
   border: none;
   border-radius: 8px;
   --bs-text-opacity: 1;
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.primaryText};
   padding: 8px 24px 8px 24px;
   font-size: 14px;
   font-weight: 600;

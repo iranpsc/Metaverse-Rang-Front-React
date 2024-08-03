@@ -62,7 +62,9 @@ export const persianNumbers = [
     }
     return str;
   };
-
+export const convertToPersian = (number) => {
+  return number.toLocaleString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+};
 export const ToastError = (message) => {
   return toast.error(message, {
     style: {

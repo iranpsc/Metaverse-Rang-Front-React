@@ -9,7 +9,6 @@ import PrivateComponent from "../../Middleware/PrivateComponent";
 import PublicComponent from "../../Middleware/PublicComponent";
 import BtnsAfterLogin from "./BtnsAfterLogin";
 import BtnLogin from "./BtnAction/BtnLogin";
-import BtnAction from "./BtnAction/BtnAction";
 
 const Container = styled.div`
   display: flex;
@@ -28,7 +27,8 @@ const Container = styled.div`
     width: ${(props) => (props.isOpen ? "23.5%" : "4.1%")};
     border-radius: 10px;
   }
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   padding: ${(props) => (props.isOpen ? "20px" : "10px")};
   transition: all 0.3s ease 0s;
 `;

@@ -24,7 +24,7 @@ const ContainerText = styled.div`
 `;
 
 const Title = styled.p`
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
@@ -45,7 +45,8 @@ const BtnOpenCloseMenu = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.themeBtn};
   position: ${(props) => (props.isOpen ? "inherit" : "absolute")};
   right: 5.12%;
   top: 3.3%;
@@ -57,7 +58,7 @@ const ContainerMain = styled.div`
   gap: 12px;
 `;
 const Icon = styled(ArowMenu)`
-  stroke: ${(props) => props.theme.colors.primary};
+  stroke: ${(props) => props.theme.colors.newColors.shades[90]};
   rotate: ${(props) => (props.isOpen ? "0" : "180deg")};
 `;
 const Header = () => {
