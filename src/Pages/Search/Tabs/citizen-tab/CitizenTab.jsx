@@ -1,8 +1,9 @@
 import ResultCard from "./ResultCard";
-import SearchInput from "./SearchInput";
+
 import styled from "styled-components";
 import { useState, useCallback } from "react";
 import useRequest from "../../../Services/Hooks/useRequest";
+import SearchInput from "../../Components/SearchInput";
 
 const Wrapper = styled.div`
   display: flex;

@@ -1,7 +1,6 @@
 import ModalPosition from "../../Components/ModalPosition";
 import useTabs from "../../Services/Hooks/useTabs";
-import CitizenTab from "./citizen-tab/CitizenTab";
-import CitizenSearch from "./Tabs/Citizensearch";
+import CitizenTab from "./Tabs/citizen-tab/CitizenTab";
 import PropertySearch from "./Tabs/PropertySearch";
 
 export default function Search() {
