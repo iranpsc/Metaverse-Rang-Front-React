@@ -87,7 +87,7 @@ export const darkTheme = {
       primaryText: "#000000",
       shades: {
         100: "#DEDEE9",
-        bg1: "#BEBFC9",
+        bg1: "#000000",
         bgOn: "#A0A0AB",
         bg2: "#84858F",
         90: "#6A6B74",
@@ -98,7 +98,7 @@ export const darkTheme = {
         50: "#191B21",
         40: "#989a9c",
         title: "#101215",
-        30: "#0C0E11",
+        30: "#DEDEE9",
         20: "#08090A",
       },
       otherColors: {

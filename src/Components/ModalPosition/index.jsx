@@ -38,7 +38,6 @@ const ModalPosition = ({ children, title, position, action }) => {
       },
     });
   };
-  console.log(title);
   return (
     showContainer && (
       <Container position={position} style={springs}>

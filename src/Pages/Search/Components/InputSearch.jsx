@@ -7,24 +7,31 @@ import useRequest from "../../../Services/Hooks/useRequest";
 import FeatureContainer from "./FeatureContainer";
 import UserContainer from "./UserContainer";
 
-const ParentInput = styled.div`
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px;
-`;
-
-const InputSearch = styled.input`
-  width: 100%;
-  text-align: right;
+const Container = styled.div`
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #454545;
+  padding: 10px 12px;
+  color: #84858f;
   direction: rtl;
-  padding: 8px 16px;
+  background-color: #2c2c2c;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 5px 1fr;
   width: 100%;
-  margin-bottom: 16px;
-  font-size: 1rem !important;
-  font-family: "AzarMehr";
+  gap: 50px;
+  svg {
+    color: white;
+  }
+  input {
+    height: 100%;
+    background-color: transparent;
+    font-size: 18px;
+    width: 100% !important;
+    outline: none;
+    border: none;
+    color: white;
+  }
 `;
 
 const IconSearch = styled.img`
@@ -72,8 +79,8 @@ export default function Search({
   }, [setCurrentUser, setCurrentUserId]);
 
   return (
-    <ParentInput>
-      <InputSearch
+    <Container>
+      <input
         disabled={currentUser}
         type="text"
         placeholder={`${
@@ -113,7 +120,7 @@ export default function Search({
       ) : (
         <IconSearch src={SearchIcon} onClick={searchHandler} />
       )}
-    </ParentInput>
+    </Container>
   );
 }
 

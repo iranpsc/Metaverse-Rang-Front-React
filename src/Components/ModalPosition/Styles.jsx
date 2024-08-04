@@ -20,7 +20,7 @@ export const Header = styled.div`
 
 export const Container = styled(animated.div)`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg1};
-  width: 450px;
+  width: 490px;
   position: fixed;
   top: 0;
   left: ${(props) => props.position === "left" && "0"};
