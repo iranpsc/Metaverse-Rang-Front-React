@@ -2,8 +2,9 @@ import ResultCard from "./ResultCard";
 
 import styled from "styled-components";
 import { useState, useCallback } from "react";
-import useRequest from "../../../Services/Hooks/useRequest";
+
 import SearchInput from "../../Components/SearchInput";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Wrapper = styled.div`
   display: flex;
@@ -54,7 +55,13 @@ const Container = styled.div`
     height: 755px;
   }
 `;
-
+const P = styled.p`
+  color: ${(props) => props.theme.colors.newColors.shades[30]};
+  font-weight: 500;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+`;
 const CitizenTab = () => {
   const [searched, setSearched] = useState("");
   const [data, setData] = useState([]);
@@ -79,29 +86,9 @@ const CitizenTab = () => {
         onSearch={searchHandler} // New prop to handle the search trigger
       />
       {isLoading ? (
-        <p
-          style={{
-            color: "#DEDEE9",
-            fontWeight: "500",
-            textAlign: "center",
-            marginTop: "20px",
-            fontSize: "18px",
-          }}
-        >
-          درحال دریافت اطلاعات
-        </p>
+        <P>درحال دریافت اطلاعات</P>
       ) : data.length === 0 ? (
-        <p
-          style={{
-            color: "#DEDEE9",
-            fontWeight: "500",
-            textAlign: "center",
-            marginTop: "20px",
-            fontSize: "18px",
-          }}
-        >
-          اطلاعات موجود نمی باشد جستجو کنید
-        </p>
+        <P>اطلاعات موجود نمی باشد جستجو کنید</P>
       ) : (
         <Wrapper>
           {data.map((item, i) => (
@@ -113,8 +100,8 @@ const CitizenTab = () => {
   );
 };
 
-function searchAPI(request, method, query, isCitizen) {
-  const url = isCitizen ? "search/users" : "search/features";
+function searchAPI(request, method, query) {
+  const url = "search/users";
   const body = { searchTerm: query };
   return request(url, method.POST, body);
 }

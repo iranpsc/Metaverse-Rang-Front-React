@@ -3,7 +3,8 @@ import Buttons from "./Buttons";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   border-radius: 5px;
   direction: rtl;
   padding: 20px;
@@ -15,12 +16,12 @@ const Container = styled.div`
     background-image: linear-gradient(to right, #dadada00, #b3b3b3, #dadada00);
   }
 `;
-const ResultCard = () => {
+const ResultCard = ({item}) => {
   return (
     <Container>
-      <Bio />
+      <Bio item={item} />
       <hr />
-      <Buttons />
+      <Buttons item={item} />
     </Container>
   );
 };

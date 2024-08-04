@@ -1,8 +1,9 @@
 import ResultCard from "./ResultCard";
 
 import styled from "styled-components";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import SearchInput from "../../Components/SearchInput";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Wrapper = styled.div`
   display: flex;
@@ -49,11 +50,30 @@ const Container = styled.div`
     height: 590px;
   }
   @media (min-width: 1920px) {
-    height: 725px;
+    height: 755px;
   }
+`;
+const P = styled.p`
+  color: ${(props) => props.theme.colors.newColors.shades[30]};
+  font-weight: 500;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
 `;
 const PropertyTab = () => {
   const [searched, setSearched] = useState("");
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { Request, HTTP_METHOD } = useRequest();
+
+  const searchHandler = useCallback(() => {
+    if (searched.trim() === "") return;
+    setIsLoading(true);
+    searchAPI(Request, HTTP_METHOD, searched, true).then((response) => {
+      setData(response.data.data);
+      setIsLoading(false);
+    });
+  }, [searched, Request, HTTP_METHOD]);
 
   return (
     <Container>
@@ -61,23 +81,16 @@ const PropertyTab = () => {
         onchange={(e) => setSearched(e.target.value)}
         value={searched}
         placeholder="شناسه ملک یا آدرس را جستجو کنید"
+        onSearch={searchHandler} // New prop to handle the search trigger
       />
-      {searched === "" ? (
-        <p
-          style={{
-            color: "#DEDEE9",
-            fontWeight: "500",
-            textAlign: "center",
-            marginTop: "20px",
-            fontSize: "18px",
-          }}
-        >
-          اطلاعات موجود نمی باشد جستجو کنید
-        </p>
+      {isLoading ? (
+        <P>درحال دریافت اطلاعات</P>
+      ) : data.length === 0 ? (
+        <P>اطلاعات موجود نمی باشد جستجو کنید</P>
       ) : (
         <Wrapper>
-          {[...Array(4)].map((result, i) => (
-            <ResultCard key={i} />
+          {data.map((item, i) => (
+            <ResultCard key={i} item={item} />
           ))}
         </Wrapper>
       )}
@@ -85,4 +98,9 @@ const PropertyTab = () => {
   );
 };
 
+function searchAPI(request, method, query) {
+  const url = "search/features";
+  const body = { searchTerm: query };
+  return request(url, method.POST, body);
+}
 export default PropertyTab;

@@ -29,7 +29,7 @@ const Info = styled.div`
   }
 `;
 
-const Profile = () => {
+const Profile = ({ item }) => {
   return (
     <Container>
       <IconWrapper>
@@ -37,7 +37,7 @@ const Profile = () => {
       </IconWrapper>
       <Info>
         <h2>شناسه VOD</h2>
-        <p>TO11-1</p>
+        <p>{item?.feature_properties_id}</p>
       </Info>
     </Container>
   );

@@ -4,13 +4,9 @@ import {
 } from "react-icons/hi";
 
 import { LuShoppingCart } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const items = [
-  { id: 1, label: "خرید", icon: <LuShoppingCart /> },
-  { id: 2, label: "پیشنهاد", icon: <HiOutlineCurrencyDollar /> },
-  { id: 3, label: "لوکیشن", icon: <HiOutlineLocationMarker /> },
-];
 const IconWrapper = styled.div`
   border-radius: 60px;
   background-color: #ffc700;
@@ -38,11 +34,39 @@ const Container = styled.div`
   margin-top: 15px;
   gap: 15px;
 `;
-const Buttons = () => {
+const Buttons = ({ item }) => {
+  const Navigate = useNavigate();
+  const items = [
+    {
+      id: 1,
+      label: "خرید",
+      icon: <LuShoppingCart />,
+      onClick: () =>
+        Navigate(`/metaverse/feature/${item?.id}`, {
+          state: { activePageNumber: 1 },
+        }),
+    },
+    {
+      id: 2,
+      label: "پیشنهاد",
+      icon: <HiOutlineCurrencyDollar />,
+      onClick: () => {
+        Navigate(`/metaverse/feature/${item?.id}`, {
+          state: { activePageNumber: 1, activeTab: 1 },
+        });
+      },
+    },
+    {
+      id: 3,
+      label: "لوکیشن",
+      icon: <HiOutlineLocationMarker />,
+      onClick: () => {},
+    },
+  ];
   return (
     <Container>
       {items.map((item) => (
-        <IconWrapper key={item.id}>
+        <IconWrapper key={item.id} onClick={item.onClick}>
           <span>{item.icon}</span>
           <h2>{item.label}</h2>
         </IconWrapper>

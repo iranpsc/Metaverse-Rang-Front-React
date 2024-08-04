@@ -5,11 +5,11 @@ import styled from "styled-components";
 const Container = styled.div`
   padding-bottom: 15px;
 `;
-const Bio = () => {
+const Bio = ({ item }) => {
   return (
     <Container>
-      <Profile />
-      <Info />
+      <Profile item={item} />
+      <Info item={item} />
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import { HiOutlineUser } from "react-icons/hi";
 import styled from "styled-components";
-import AnonymousIcon from "../../../Assets/images/anonymous.png";
+import AnonymousIcon from "../../../../Assets/images/anonymous.png";
 const Container = styled.div`
   display: flex;
   align-items: center;

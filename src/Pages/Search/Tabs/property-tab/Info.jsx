@@ -1,17 +1,8 @@
-import psc from "../../../assets/images/profile/psc.gif";
-import rial from "../../../assets/images/profile/rial.gif";
+import psc from "../../../../Assets/gif/psc.gif";
+import rial from "../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
 
-const items = [
-  {
-    id: 1,
-    title: "آدرس vod",
-    value: "قزوین, پونک, خیابان پیروزی, روبه روی درماگاه محمدزاده, طبقه چهارم",
-  },
-  { id: 2, title: "شناسه مالک", value: "HM-2000000" },
-  { id: 3, title: "قیمت گذاری (PSC)", value: "4000" },
-  { id: 4, title: "قیمت گذاری (ریال)", value: "3000000" },
-];
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -49,7 +40,17 @@ const Wrapper = styled.div`
   }
 `;
 
-const Info = () => {
+const Info = ({item}) => {
+  const items = [
+    {
+      id: 1,
+      title: "آدرس vod",
+      value: item?.address,
+    },
+    { id: 2, title: "شناسه مالک", value: item?.owner_code },
+    { id: 3, title: "قیمت گذاری (PSC)", value:item?.price_psc },
+    { id: 4, title: "قیمت گذاری (ریال)", value: item?.price_irr },
+  ];
   return (
     <Container>
       {items.map((item) => (
@@ -91,7 +92,7 @@ const Info = () => {
             </h2>
           )}
           {item.id == 2 && (
-            <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">
+            <a href={`https://rgb.irpsc.com/citizen/${item?.owner_code}`} target="_blank">
               {item.value}
             </a>
           )}

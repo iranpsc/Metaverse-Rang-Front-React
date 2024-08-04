@@ -5,8 +5,8 @@ import { TiUserAddOutline } from "react-icons/ti";
 import { RiUserUnfollowLine } from "react-icons/ri";
 import styled from "styled-components";
 import { useContext } from "react";
-import { FollowContext } from "../../../Services/Reducers/FollowContext";
-import useRequest from "../../../Services/Hooks/useRequest";
+import { FollowContext } from "../../../../Services/Reducers/FollowContext";
+import useRequest from "../../../../Services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 
