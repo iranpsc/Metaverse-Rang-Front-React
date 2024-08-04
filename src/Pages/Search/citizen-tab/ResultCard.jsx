@@ -3,7 +3,8 @@ import Buttons from "./Buttons";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   border-radius: 5px;
   padding: 20px;
   direction: rtl;

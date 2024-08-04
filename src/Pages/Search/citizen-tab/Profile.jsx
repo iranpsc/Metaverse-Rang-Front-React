@@ -10,7 +10,7 @@ const Container = styled.div`
 const Info = styled.div`
   h2 {
     font-weight: 500;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
   }
   a {

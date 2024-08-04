@@ -2,6 +2,7 @@ import { BiCommentDots } from "react-icons/bi";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { TiUserAddOutline } from "react-icons/ti";
+import { RiUserUnfollowLine } from "react-icons/ri";
 import styled from "styled-components";
 import { useContext } from "react";
 import { FollowContext } from "../../../Services/Reducers/FollowContext";
@@ -62,7 +63,7 @@ const Buttons = ({ user }) => {
   const items = [
     {
       id: 1,
-      icon: isFollowed ? <TiUserAddOutline /> : <TiUserAddOutline />,
+      icon: isFollowed ? <TiUserAddOutline /> : <RiUserUnfollowLine />,
       label: isFollowed ? "لغو درخواست" : "درخواست دوستی",
       onClick: isFollowed
         ? () => onUnFollowHandler(user?.id)
