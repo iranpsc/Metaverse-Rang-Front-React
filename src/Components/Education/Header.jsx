@@ -8,7 +8,8 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 100%;
-  background-color: #3b3b3b;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconBg};
   svg {
     transform: scale(0.7);
     cursor: pointer;
@@ -26,7 +27,7 @@ const HeaderWrapper = styled.div`
 `;
 
 const Text = styled.h2`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-weight: 600;
   font-size: ${(props) => (props.long ? "14px" : "16px")};
   @media (min-width: 998px) {
@@ -40,7 +41,7 @@ const Icons = styled.div`
   justify-content: space-between;
   gap: 10px;
   svg {
-    color: #3b3b3b;
+    color: ${(props) => props.theme.colors.newColors.otherColors.iconText};
     width: 30px;
     height: 30px;
     z-index: 999;
@@ -69,12 +70,12 @@ const CloseWrapper = styled.div`
 
 const Header = ({ show, setOpenEducation, setSize }) => {
   const handleMinimizeClick = (event) => {
-    event.stopPropagation(); 
+    event.stopPropagation();
     setSize(true);
   };
 
   const handleCloseClick = (event) => {
-    event.stopPropagation(); 
+    event.stopPropagation();
     setOpenEducation(false);
   };
   return (
@@ -84,9 +85,7 @@ const Header = ({ show, setOpenEducation, setSize }) => {
         <Div onClick={handleMinimizeClick}>
           <TbMinimize style={{ color: "#949494" }} />
         </Div>
-        <CloseWrapper
-          onClick={handleCloseClick}
-        >
+        <CloseWrapper onClick={handleCloseClick}>
           <IoIosClose />
         </CloseWrapper>
       </Icons>

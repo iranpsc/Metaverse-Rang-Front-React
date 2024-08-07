@@ -6,13 +6,9 @@ import { TfiWrite } from "react-icons/tfi";
 
 import styled from "styled-components";
 import { convertToPersian } from "../../Services/Utility";
+import { useState } from "react";
+import useRequest from "../../Services/Hooks/useRequest";
 
-const actions = [
-  { id: 1, icon: <FaRegComment />, value: "42" },
-  { id: 2, icon: <BiLike />, value: "125" },
-  { id: 3, icon: <BiDislike />, value: "10" },
-  { id: 4, icon: <IoEyeOutline />, value: "607" },
-];
 const Left = styled.div`
   display: flex;
   align-items: end;
@@ -41,6 +37,7 @@ const Container = styled.div`
     font-size: 19px;
     font-weight: 500;
     padding-top: 2px;
+    cursor: pointer;
   }
   @media (max-width: 1400px) {
     display: ${(props) => (props.show ? "none" : "flex")};
@@ -60,11 +57,64 @@ const Right = styled.div`
   }
 `;
 
-const Footer = ({ show }) => {
+const Footer = ({ show, data }) => {
+  const { Request, HTTP_METHOD } = useRequest();
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
+  const [likeCount, setLikeCount] = useState(data?.likes);
+  const [dislikeCount, setDislikeCount] = useState(data?.dislikes);
+
+  const handleLike = async () => {
+    if (!isLiked) {
+      try {
+        await Request(`tutorials/like/${data.id}`, HTTP_METHOD.POST);
+        setLikeCount(likeCount + 1);
+        setIsLiked(true);
+        setIsDisliked(false);
+      } catch (error) {
+        ToastError("خطا در ارسال درخواست به سرور برای لایک:");
+      }
+    }
+  };
+
+  const handleDislike = async () => {
+    if (!isDisliked) {
+      try {
+        await Request(`tutorials/dislike/${data.id}`, HTTP_METHOD.POST);
+        setDislikeCount(dislikeCount + 1);
+        setIsLiked(false);
+        setIsDisliked(true);
+      } catch (error) {
+        ToastError("خطا در ارسال درخواست به سرور برای دیسلایک:");
+      }
+    }
+  };
+  const actions = [
+    { id: 1, icon: <FaRegComment />, value: "0" },
+    {
+      id: 2,
+      icon: <BiLike />,
+      value: likeCount,
+      onClick: () => {
+        handleLike();
+      },
+    },
+    {
+      id: 3,
+      icon: <BiDislike />,
+      value: dislikeCount,
+      onClick: () => {
+        handleDislike();
+      },
+    },
+    { id: 4, icon: <IoEyeOutline />, value: data?.views },
+  ];
   return (
     <Container show={show}>
       <Right>
-        <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">HM-2000003</a>
+        <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">
+          {data?.creator_code}
+        </a>
         <span>
           <TfiWrite />
         </span>
@@ -73,7 +123,7 @@ const Footer = ({ show }) => {
         {actions.map((item) => (
           <div key={item.id}>
             <h3>{convertToPersian(item.value)} </h3>
-            <span>{item.icon}</span>
+            <span onClick={item.onClick}>{item.icon}</span>
           </div>
         ))}
       </Left>

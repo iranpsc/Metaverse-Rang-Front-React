@@ -13,8 +13,9 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #3b3b3b;
-  color: #949494;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconBg};
+  color: ${(props) => props.theme.colors.newColors.otherColors.iconText};
 `;
 const Info = styled.div`
   h2 {

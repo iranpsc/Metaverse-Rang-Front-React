@@ -41,7 +41,7 @@ const Icon = styled.div`
   }
 `;
 
-const Video = ({ show, size, setSize }) => {
+const Video = ({ show, size, setSize, video }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1369);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const Video = ({ show, size, setSize }) => {
         }}
         controls
       >
-        <source type="video/mp4" />{" "}
+        <source type="video/mp4" src={video} />
       </video>
     </Container>
   );

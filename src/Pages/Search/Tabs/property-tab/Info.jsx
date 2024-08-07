@@ -2,7 +2,6 @@ import psc from "../../../../Assets/gif/psc.gif";
 import rial from "../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,14 +18,14 @@ const Wrapper = styled.div`
     gap: 5px;
   }
   h3 {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 14px;
     font-weight: 500;
   }
   h2 {
     font-weight: 400;
     font-size: 16px;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     max-width: 280px;
     cursor: ${(props) => props.textId === 2 && "pointer"};
   }
@@ -40,7 +39,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Info = ({item}) => {
+const Info = ({ item }) => {
   const items = [
     {
       id: 1,
@@ -48,7 +47,7 @@ const Info = ({item}) => {
       value: item?.address,
     },
     { id: 2, title: "شناسه مالک", value: item?.owner_code },
-    { id: 3, title: "قیمت گذاری (PSC)", value:item?.price_psc },
+    { id: 3, title: "قیمت گذاری (PSC)", value: item?.price_psc },
     { id: 4, title: "قیمت گذاری (ریال)", value: item?.price_irr },
   ];
   return (
@@ -92,7 +91,10 @@ const Info = ({item}) => {
             </h2>
           )}
           {item.id == 2 && (
-            <a href={`https://rgb.irpsc.com/citizen/${item?.owner_code}`} target="_blank">
+            <a
+              href={`https://rgb.irpsc.com/citizen/${item?.owner_code}`}
+              target="_blank"
+            >
               {item.value}
             </a>
           )}

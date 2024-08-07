@@ -8,6 +8,8 @@ import { BiExitFullscreen } from "react-icons/bi";
 import { PiGearSixFill } from "react-icons/pi";
 import { TiWarning } from "react-icons/ti";
 import Education from "../Education/Education";
+import useAdviserData from "../../Services/Hooks/useAdviserData";
+import { useLocation } from "react-router-dom";
 
 const HelpIcon = styled(Help)`
   width: 40px;
@@ -19,6 +21,7 @@ const HelpIcon = styled(Help)`
   & > :nth-child(2) {
     fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
   }
+  cursor: pointer;
 `;
 
 const ReportIcon = styled(Report)`
@@ -31,11 +34,13 @@ const ReportIcon = styled(Report)`
   & > :nth-child(2) {
     fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
   }
+  cursor: pointer;
 `;
 
 const ExitIcon = styled(Exit)`
   width: 40px;
   height: 40px;
+  cursor: pointer;
 `;
 
 const IconWrapper = styled.div`
@@ -47,6 +52,7 @@ const IconWrapper = styled.div`
   justify-content: center;
   background-color: #3b3b3b;
   padding: 10px;
+  cursor: pointer;
   svg {
     transform: scale(1.7);
     color: #949494 !important;
@@ -122,7 +128,10 @@ const Header = ({
   onExitClick,
 }) => {
   const [openEducation, setOpenEducation] = useState(false);
-
+  const location = useLocation();
+  const newStr = location.pathname.replace(/\/metaverse\//g, "") + "-";
+  const locationPage = location?.state?.locationPage;
+  const adviserData = useAdviserData(newStr, locationPage);
   return (
     <HeaderWrapper>
       <Text long={long}>{title}</Text>
@@ -149,7 +158,12 @@ const Header = ({
 
         <ExitIcon onClick={onExitClick} />
       </Icons>
-      {openEducation && <Education setOpenEducation={setOpenEducation} />}
+      {openEducation && (
+        <Education
+          setOpenEducation={setOpenEducation}
+          adviserData={adviserData}
+        />
+      )}
     </HeaderWrapper>
   );
 };

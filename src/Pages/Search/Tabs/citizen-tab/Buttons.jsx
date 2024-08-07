@@ -14,14 +14,15 @@ const IconWrapper = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 100%;
-  background-color: #ffc700;
+  background-color: ${(props) => props.theme.colors.primary};
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   svg {
     font-size: 20px;
-    color: #191b21;
+    color: ${(props) =>
+      props.theme.colors.newColors.otherColors.buttonPrimaryText};
   }
 `;
 const Container = styled.div`

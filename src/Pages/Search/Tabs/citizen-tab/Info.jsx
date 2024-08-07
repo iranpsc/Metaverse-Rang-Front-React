@@ -12,10 +12,10 @@ const Container = styled.div`
     h3 {
       font-size: 14px;
       font-weight: 500;
-      color: #a0a0ab;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
     }
     p {
-      color: #dedee9;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-size: 16px;
     }
   }

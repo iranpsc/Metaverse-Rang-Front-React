@@ -1,12 +1,25 @@
 import { useRef, useState } from "react";
-
+import styled from "styled-components";
 import Content from "./Content";
 import Footer from "./Footer";
 import Header from "./Header";
 import Video from "./Video";
 import { useLocation } from "react-router-dom";
 
-const Education = ({ setOpenEducation }) => {
+const DraggableContainer = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
+  border-radius: 10px;
+  padding: ${(props) => (props.size ? "0" : "15px 20px 8px 20px")};
+  z-index: 999;
+  position: absolute;
+  top: ${(props) => props.position.y}px;
+  left: ${(props) => props.position.x}px;
+  width: 550px;
+  cursor: ${(props) => (props.dragging ? "grabbing" : "grab")};
+`;
+
+const Education = ({ setOpenEducation, adviserData }) => {
   const [size, setSize] = useState(false);
   const [show, setShow] = useState(false);
   const location = useLocation();
@@ -18,6 +31,7 @@ const Education = ({ setOpenEducation }) => {
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const draggableRef = useRef(null);
+
   const handleMouseDown = (e) => {
     setDragging(true);
     const offsetX = e.clientX - draggableRef.current.offsetLeft;
@@ -63,21 +77,11 @@ const Education = ({ setOpenEducation }) => {
     setDragging(false);
   };
 
-  const style = {
-    backgroundColor: "#1A1A18",
-    borderRadius: "10px",
-    padding: `${size ? "0" : "15px 20px 8px 20px"}`,
-    zIndex: "999",
-    position: "absolute",
-    top: position.y,
-    left: position.x,
-    width: "550px",
-    cursor: dragging ? "grabbing" : "grab",
-  };
-
   return (
-    <div
-      style={style}
+    <DraggableContainer
+      size={size}
+      position={position}
+      dragging={dragging}
       ref={draggableRef}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
@@ -93,14 +97,19 @@ const Education = ({ setOpenEducation }) => {
           setOpenEducation={setOpenEducation}
         />
       )}
-      <Video setSize={setSize} size={size} show={show} />
+      <Video
+        setSize={setSize}
+        size={size}
+        show={show}
+        video={adviserData?.video}
+      />
       {!size && (
         <>
-          <Content show={show} setShow={setShow} />
-          <Footer show={show} />
+          <Content show={show} setShow={setShow} data={adviserData} />
+          <Footer show={show} data={adviserData} />
         </>
       )}
-    </div>
+    </DraggableContainer>
   );
 };
 
