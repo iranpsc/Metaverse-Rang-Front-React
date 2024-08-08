@@ -50,7 +50,7 @@ const BtnOpenCloseMenu = styled.button`
   position: ${(props) => (props.isOpen ? "inherit" : "absolute")};
   right: 5.12%;
   top: 3.3%;
-  z-index: 100;
+  z-index: 10;
   border: none;
 `;
 const ContainerMain = styled.div`

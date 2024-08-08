@@ -42,6 +42,7 @@
     "maplibre-gl": "^3.6.2",
     "pusher-js": "^8.0.1",
     "react": "^18.2.0",
+    "react-confetti-explosion": "^2.1.2",
     "react-countdown": "^2.3.5",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.5",

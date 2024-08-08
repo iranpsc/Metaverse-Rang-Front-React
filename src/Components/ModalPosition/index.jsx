@@ -6,17 +6,14 @@ import { Container } from "./Styles";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
 import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
 import Header from "../Header/Header";
+import PromiseModal from "../../Middleware/PromiseModal";
+import axios from "axios";
 
 const ModalPosition = ({ children, title, position, action }) => {
   const navigation = useNavigate();
   const { resetStates } = useSelectedEnvironment();
   const location = useLocation();
-  const [showModal, setShowModal] = useState(false);
   const [showContainer, setShowContainer] = useState(true);
-  const adviserData = useAdviserData(
-    location.pathname.replace(/\/metaverse\//g, "") + "-",
-    location?.state?.locationPage
-  );
   const springs = useSpring({
     from: { opacity: 0, transform: "scale(0.8)" },
     to: { opacity: 1, transform: "scale(1)" },
@@ -52,4 +49,4 @@ const ModalPosition = ({ children, title, position, action }) => {
   );
 };
 
-export default ModalPosition;
+export default PromiseModal(ModalPosition, axios);
