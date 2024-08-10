@@ -95,7 +95,6 @@ const MapTreeD = () => {
           <MapPolygons />
           <MapFlag />
         </Map>
-        <Routes />
       </Container>
     </TransactionContext.Provider>
   );

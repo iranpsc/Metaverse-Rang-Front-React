@@ -10,9 +10,6 @@ import PromiseModal from "../../Middleware/PromiseModal";
 import axios from "axios";
 
 const ModalPosition = ({ children, title, position, action }) => {
-  const navigation = useNavigate();
-  const { resetStates } = useSelectedEnvironment();
-  const location = useLocation();
   const [showContainer, setShowContainer] = useState(true);
   const springs = useSpring({
     from: { opacity: 0, transform: "scale(0.8)" },
@@ -20,29 +17,10 @@ const ModalPosition = ({ children, title, position, action }) => {
     config: { duration: 200 },
   });
 
-  const handleExitClick = () => {
-    setShowContainer(false);
-    navigation(-1);
-    if (action === "ChangeHiddenState") {
-      resetStates(); // Reset all states
-    }
-  };
-
-  const handleReportClick = () => {
-    navigation("/metaverse/report", {
-      state: {
-        href: window.location.href.split("/").slice(3).join("/"),
-      },
-    });
-  };
   return (
     showContainer && (
       <Container position={position} style={springs}>
-        <Header
-          title={title}
-          onReportClick={handleReportClick}
-          onExitClick={handleExitClick}
-        />
+        <Header title={title} />
         {children}
       </Container>
     )

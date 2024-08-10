@@ -20,6 +20,8 @@ import Tutorial from "./Components/Tutorial";
 import { MenuContextProvider } from "./Services/Reducers/MenuContext";
 import { MapProvider } from "react-map-gl";
 import { SelectedEnvironmentProvider } from "./Services/Reducers/SelectedEnvironmentContext.jsx";
+import { AlertProvider } from "./Services/Reducers/AlertContext.jsx";
+import Routers from "./Layouts/Map/Routers.jsx";
 
 const Container = styled.section`
   display: flex;
@@ -96,35 +98,37 @@ function App() {
           <WalletProvider>
             <FollowProvider>
               <MapContextProvider>
-                <BrowserRouter>
-                  {/* <Tutorial /> */}
+                <AlertProvider>
+                  <BrowserRouter>
+                    {/* <Tutorial /> */}
+                    <Routers />
+                    <Container>
+                      <MenuContextProvider>
+                        <Menu />
+                      </MenuContextProvider>
+                      <SelectedEnvironmentProvider>
+                        <MapTreeD />
+                      </SelectedEnvironmentProvider>
+                      <StatusBar />
+                      <button
+                        onClick={toggleFullScreen}
+                        style={{
+                          width: "20px",
+                          position: "absolute",
+                          top: 0,
+                          right: "10px",
+                        }}
+                      >
+                        +++
+                      </button>
+                    </Container>
 
-                  <Container>
-                    <MenuContextProvider>
-                      <Menu />
-                    </MenuContextProvider>
-                    <SelectedEnvironmentProvider>
-                      <MapTreeD />
-                    </SelectedEnvironmentProvider>
-                    <StatusBar />
-                    <button
-                      onClick={toggleFullScreen}
-                      style={{
-                        width: "20px",
-                        position: "absolute",
-                        top: 0,
-                        right: "10px",
-                      }}
-                    >
-                      +++
-                    </button>
-                  </Container>
-
-                  <Toaster
-                    containerStyle={{ zIndex: 1000, marginBottom: 48 }}
-                    position="bottom-right"
-                  />
-                </BrowserRouter>
+                    <Toaster
+                      containerStyle={{ zIndex: 1000, marginBottom: 48 }}
+                      position="bottom-right"
+                    />
+                  </BrowserRouter>
+                </AlertProvider>
               </MapContextProvider>
             </FollowProvider>
           </WalletProvider>

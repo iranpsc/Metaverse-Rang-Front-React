@@ -1,21 +1,23 @@
 import React from "react";
-import Modal from "../../Components/Modal";
-import useTabs from "../../Services/Hooks/useTabs";
-import Currency from "./Tabs/Currency";
-import Tools from "./Tabs/Tools";
 
+import useTabs from "../../Services/Hooks/useTabs";
+import ToolTab from "./shop/tool-tab/ToolTab";
+import CurrencyTab from "./shop/currency-tab/CurrencyTab";
+import ShopInfo from "./shop/ShopInfo";
+import Modal from "../../Components/Modal/Modal";
 
 export default function Store() {
   const tabs = [
-    { title: "ابزار ها", content: <Tools /> },
-    { title: "ارز ها", content: <Currency /> }
+    { title: "ابزار ها", content: <ToolTab /> },
+    { title: "ارز ها", content: <CurrencyTab /> },
   ];
 
   const TabPanel = useTabs(tabs);
 
   return (
-    <Modal title="فروشگاه" type="modal-section-md">
+    <Modal title="فروشگاه">
       {TabPanel}
+      <ShopInfo />
     </Modal>
   );
 }

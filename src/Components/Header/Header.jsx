@@ -9,7 +9,8 @@ import { PiGearSixFill } from "react-icons/pi";
 import { TiWarning } from "react-icons/ti";
 import Education from "../Education/Education";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
 
 const HelpIcon = styled(Help)`
   width: 40px;
@@ -119,19 +120,31 @@ const FullWrapper = styled.div`
   }
 `;
 
-const Header = ({
-  title,
-  long,
-  loading,
-  profile,
-  onReportClick,
-  onExitClick,
-}) => {
+const Header = ({ title, long, loading, profile }) => {
   const [openEducation, setOpenEducation] = useState(false);
   const location = useLocation();
+  const navigation = useNavigate();
+  // const { resetStates } = useSelectedEnvironment();
+
   const newStr = location.pathname.replace(/\/metaverse\//g, "") + "-";
   const locationPage = location?.state?.locationPage;
   const adviserData = useAdviserData(newStr, locationPage);
+  const handleReportClick = () => {
+    navigation("/metaverse/report", {
+      state: {
+        href: window.location.href.split("/").slice(3).join("/"),
+      },
+    });
+  };
+  const handleExitClick = () => {
+    navigation(-1);
+    if (setShowContainer) {
+      setShowContainer(false);
+    }
+    // if (action === "ChangeHiddenState") {
+    //   resetStates(); // Reset all states
+    // }
+  };
   return (
     <HeaderWrapper>
       <Text long={long}>{title}</Text>
@@ -154,9 +167,9 @@ const Header = ({
 
         <HelpIcon onClick={() => setOpenEducation(true)} />
 
-        <ReportIcon onClick={onReportClick} />
+        <ReportIcon onClick={handleReportClick} />
 
-        <ExitIcon onClick={onExitClick} />
+        <ExitIcon onClick={handleExitClick} />
       </Icons>
       {openEducation && (
         <Education
