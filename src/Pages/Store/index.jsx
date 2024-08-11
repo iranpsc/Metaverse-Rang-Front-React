@@ -4,7 +4,7 @@ import useTabs from "../../Services/Hooks/useTabs";
 import ToolTab from "./shop/tool-tab/ToolTab";
 import CurrencyTab from "./shop/currency-tab/CurrencyTab";
 import ShopInfo from "./shop/ShopInfo";
-import Modal from "../../Components/Modal/Modal";
+import Modal from "../../Components/Modal/index";
 
 export default function Store() {
   const tabs = [

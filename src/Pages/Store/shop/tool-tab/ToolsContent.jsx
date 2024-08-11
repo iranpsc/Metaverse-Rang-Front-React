@@ -45,7 +45,6 @@ const ToolsContent = ({ option, tools }) => {
           <InfoRow shop type="ابزار" key={item.id} data={item} />
         ))}
       </Wrapper>
-      ;
     </Container>
   );
 };

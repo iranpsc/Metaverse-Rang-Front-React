@@ -15,7 +15,8 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   div:first-of-type {
     display: flex;
     align-items: center;
@@ -49,7 +50,7 @@ const PhotoContainer = styled.div`
   height: 80px;
   border-radius: 5px;
   padding: 2px;
-  background-color: #000000;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bgOne};
   position: relative;
   display: flex;
   align-items: center;

@@ -1,108 +1,50 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useSpring, animated } from "@react-spring/web";
-import styled, { useTheme } from "styled-components";
-import PromiseModal from "../../Middleware/PromiseModal";
+import styled from "styled-components";
+import Header from "../Header/Header";
 
-import { HelpIcon, ReportIcon, ExitIcon } from "../Icons/IconsHeader";
-import useAdviserData from "../../Services/Hooks/useAdviserData";
-import "./Modal.css";
-import Amozesh from "../ModalAmozash";
+const ModalContainer = styled.div`
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
+  width: 80%;
 
-const Modal = ({
-  children,
-  title,
-  disabled = false,
-  type = "modal-section-sm",
-}) => {
-  const navigation = useNavigate();
-  const location = useLocation();
-  const [showModal, setShowModal] = useState(false);
-  const adviserData = useAdviserData(
-    location.pathname.replace(/\/metaverse\//g, "") + "-",
-    location?.state?.locationPage
-  );
-  const theme = useTheme();
-  const springs = useSpring({
-    from: { opacity: 0, transform: "scale(0.8)" },
-    to: { opacity: 1, transform: "scale(1)" },
-    config: { duration: 200 },
-  });
+  padding: 15px 20px;
+  max-width: 800px;
+  z-index: 2000;
+  @media (min-width: 1023px) {
+    border-radius: 10px;
+    height: 94%;
+    max-width: 1330px;
+    max-height: 782px;
+  }
 
-  const Header = styled.p`
-    color: ${theme.headerModals};
-    text-align: right;
-    font-size: 16px;
-    @media (min-width: 768px) {
-      font-size: 18px;
-    }
-    font-weight: 600;
-    line-height: 180%;
-    text-transform: capitalize;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
+  @media (min-width: 1024px) and (max-width: 1180px) {
+    width: 85%;
+  }
 
+  @media (min-width: 1400px) {
+    overflow: hidden;
+  }
+
+  @media (min-width: 1920px) {
+    max-width: 70%;
+    max-height: 782px;
+  }
+`;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+`;
+const Modal = ({ children, title }) => {
   return (
-    <animated.section className="modal" style={springs}>
-      <div
-        className={`modal-section modal-border ${type}`}
-        style={{ background: theme.bgModal }}
-      >
-        <div className="modal-header modal-border">
-          <div className="container-icon">
-            {!disabled && (
-              <>
-                <HelpIcon
-                  className="cursor-pointer"
-                  alt="help"
-                  onClick={() => setShowModal(!showModal)}
-                />
-                <ReportIcon
-                  className="cursor-pointer"
-                  alt="report"
-                  onClick={() =>
-                    navigation("/metaverse/report", {
-                      state: {
-                        href: window.location.href
-                          .split("/")
-                          .slice(3)
-                          .join("/"),
-                      },
-                    })
-                  }
-                />
-              </>
-            )}
-            <ExitIcon
-              className="cursor-pointer"
-              alt="exit"
-              onClick={() => navigation("/metaverse")}
-            />
-          </div>
-          <Header>{title}</Header>
-        </div>
-        <div className="modal-body">
-          {children}
-          {showModal && (
-            <Amozesh
-              creator={adviserData?.creator_code}
-              title={adviserData?.title}
-              video={adviserData?.video}
-              description={adviserData?.description}
-              setShowModal={setShowModal}
-              dislikes={adviserData?.dislikes}
-              likes={adviserData?.likes}
-              views={adviserData?.views}
-              id={adviserData?.id}
-            />
-          )}
-        </div>
-      </div>
-    </animated.section>
+    <Container>
+      <ModalContainer>
+        <Header title={title} />
+        {children}
+      </ModalContainer>
+    </Container>
   );
 };
 
-export default PromiseModal(Modal, axios);
+export default Modal;

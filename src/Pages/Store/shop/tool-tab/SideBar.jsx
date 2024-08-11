@@ -21,9 +21,10 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   border-radius: 5px;
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.otherColors.title};
   width: 100%;
   margin-top: 20px;
 `;
@@ -35,9 +36,14 @@ const Option = styled.h2`
   white-space: nowrap;
   cursor: pointer;
   direction: rtl;
-  color: ${(props) => (props.option ? "#FFC700" : "#dedee9")};
+  color: ${(props) =>
+    props.option
+      ? props.theme.colors.primary
+      : props.theme.colors.newColors.otherColors.title};
   border-right: ${(props) =>
-    props.option ? "2px solid #FFC700" : "2px solid transparent"};
+    props.option
+      ? `2px solid ${props.theme.colors.primary}`
+      : "2px solid transparent"};
   @media (max-width: 850px) {
     font-size: 16px;
   }
