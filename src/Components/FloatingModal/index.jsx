@@ -7,7 +7,6 @@ import HelpImage from "../../Assets/images/help.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
-import Amozesh from "../ModalAmozash";
 
 const Container = styled.section`
   z-index: 501;
@@ -99,15 +98,15 @@ export default function FloatingModal({ children, title }) {
 
       <Body>
         {children}
-        {showModal && (
-          <Amozesh
-            creator={adviserData?.creator}
-            title={adviserData?.title}
-            video={adviserData?.video}
-            description={adviserData?.description}
-            setShowModal={setShowModal}
-          />
-        )}
+        {/* {showModal && (
+          // <Amozesh
+          //   creator={adviserData?.creator}
+          //   title={adviserData?.title}
+          //   video={adviserData?.video}
+          //   description={adviserData?.description}
+          //   setShowModal={setShowModal}
+          // />
+        )} */}
       </Body>
     </Container>
   );

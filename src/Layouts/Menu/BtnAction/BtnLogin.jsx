@@ -4,6 +4,8 @@ import { ReactComponent as LoginIcon } from "../../../Assets/svg/login.svg";
 import { useMenuContext } from "../../../Services/Reducers/MenuContext";
 import { useNavigate } from "react-router-dom";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
+import useRequest from "../../../Services/Hooks/useRequest";
+
 const Btn = styled.div`
   width: 100%;
   min-height: 39px;
@@ -28,11 +30,27 @@ const Icon = styled(LoginIcon)`
   width: 24px;
   height: 24px;
 `;
+
 const BtnLogin = () => {
   const { isOpen } = useMenuContext();
-  const navigate = useNavigate();
+  const { Request } = useRequest();
+
+  const handleClick = () => {
+    Request("auth/redirect")
+      .then((response) => {
+        if (response && response.data.url) {
+          window.location.href = response.data.url;
+        } else {
+          console.error("No link found in response");
+        }
+      })
+      .catch((error) => {
+        console.error("Request failed", error);
+      });
+  };
+
   return (
-    <Btn isOpen={isOpen} onClick={() => navigate("/metaverse/login")}>
+    <Btn isOpen={isOpen} onClick={handleClick}>
       <Text isOpen={isOpen}>
         {getFieldTranslationByNames("login", "login")}
       </Text>

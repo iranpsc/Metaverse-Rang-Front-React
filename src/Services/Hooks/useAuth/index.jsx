@@ -33,32 +33,38 @@ export default function useAuth() {
   };
 
   const setUser = async (response) => {
-    const user = response.data;
+    const user = response;
     const expire = Date.now() + user.automatic_logout * 60 * 1000;
+
     const LocalStorageData = { token: user.token, expire };
     setItem("user", LocalStorageData);
-
-    const [walletResponse, followingResponse] = await Promise.all([
-      Request(
-        "user/wallet",
-        HTTP_METHOD.GET,
-        {},
-        { Authorization: `Bearer ${user?.token}` }
-      ),
-      Request(
-        "following",
-        HTTP_METHOD.GET,
-        {},
-        { Authorization: `Bearer ${user?.token}` }
-      ),
-    ]);
-
+    const [walletResponse, followingResponse, profileResponse] =
+      await Promise.all([
+        Request(
+          "user/wallet",
+          HTTP_METHOD.GET,
+          {},
+          { Authorization: `Bearer ${user?.token}` }
+        ),
+        Request(
+          "following",
+          HTTP_METHOD.GET,
+          {},
+          { Authorization: `Bearer ${user?.token}` }
+        ),
+        Request(
+          "auth/me",
+          HTTP_METHOD.POST,
+          {},
+          { Authorization: `Bearer ${user?.token}` }
+        ),
+      ]);
     setWallet({
       type: WalletContextTypes.ADD_WALLET,
       payload: walletResponse.data.data,
     });
     setFollow(followingResponse.data.data);
-    setUserState(AddUserAction(response.data));
+    setUserState(AddUserAction(profileResponse.data.data));
   };
 
   const getUser = () => {
@@ -66,8 +72,8 @@ export default function useAuth() {
   };
 
   const setUserWithToken = async () => {
-    if (LocalStorage?.expire > Date.now() && !userState?.id) {
-      const userProfileResponse = await Request("user/profile");
+    if (LocalStorage?.expire > Date.now()) {
+      const userProfileResponse = await Request("auth/me", HTTP_METHOD.POST);
       setUserState(AddUserAction(userProfileResponse.data.data));
 
       const [walletResponse, followingResponse] = await Promise.all([

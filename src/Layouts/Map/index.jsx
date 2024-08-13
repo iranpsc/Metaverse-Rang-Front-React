@@ -45,15 +45,26 @@ export const TransactionContext = createContext();
 
 const MapTreeD = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
-  const [cursor, setCursor] = useState("-webkit-grab");
-  const { setUserWithToken } = useAuth();
+  const { setUserWithToken, setUser } = useAuth();
+
   useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    if (queryParams.has("token") && queryParams.has("expires_at")) {
+      const queryParamsObject = {
+        token: queryParams.get("token"),
+        automatic_logout: queryParams.get("expires_at"),
+      };
+      setUser(queryParamsObject);
+      navigator("/metaverse");
+    }
     setUserWithToken();
   }, []);
   const navigator = useNavigate();
   const [zoomLevel, setZoomLevel] = useState(18);
   const { confirmation, selectedEnvironment, hiddenModel } =
     useSelectedEnvironment();
+
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
@@ -76,7 +87,6 @@ const MapTreeD = () => {
           mapStyle="./styleMap.json"
           style={{ borderRadius: "15px" }}
           interactiveLayerIds={["polygon-fill-layer"]}
-          cursor={cursor}
           onClick={(event) => {
             const feature = event.features[0];
             if (feature.properties.id) {

@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom"; // Import useNavigate
 import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import "./App.css";
@@ -75,7 +75,6 @@ function App() {
     setFullScreen(!isFullScreen);
   };
 
-  console.log(useTranslation());
   useLayoutEffect(() => {
     window.Echo = new Echo({
       broadcaster: "pusher",
