@@ -1,9 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 
-import Tutorial from "../../Components/Tutorial";
 import Search from "../../Pages/Search";
-import Login from "../../Pages/Login";
-import Signup from "../../Pages/Signup";
 import Security from "../../Pages/Security";
 import PrivateRoute from "../../Routes/PrivateRoute";
 import Report from "../../Pages/Report";
@@ -34,24 +31,6 @@ export default function Routers() {
   return (
     <Routes>
       <Route path="/metaverse" element={<Outlet />}>
-        <Route
-          path="login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-
-        <Route
-          path="signup"
-          element={
-            <PublicRoute>
-              <Signup />
-            </PublicRoute>
-          }
-        />
-
         <Route
           path="sanad"
           element={
