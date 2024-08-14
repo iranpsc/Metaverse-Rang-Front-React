@@ -6,6 +6,8 @@ import { AlertContext } from "../../../Services/Reducers/AlertContext";
 import Button from "../../../Components/Button";
 import InfoModal from "./InfoModal";
 import TitleValue from "./TitleValue";
+import { addCommas } from "@persian-tools/persian-tools";
+import useRequest from "../../../Services/Hooks/useRequest";
 
 const Wrapper = styled.div`
   border-radius: 5px;
@@ -75,6 +77,15 @@ const InfoRow = ({ data, type, shop }) => {
       setAlert(false);
     }, 3000);
   };
+  const { Request, HTTP_METHOD } = useRequest();
+
+  const paymentHandler = (asset, amount) => {
+    console.log(1);
+    Request("order", HTTP_METHOD.POST, { asset, amount }).then((response) => {
+      window.location.href = response?.data?.link;
+    });
+  };
+
   return (
     <>
       <Wrapper openModal={openModal}>
@@ -95,7 +106,7 @@ const InfoRow = ({ data, type, shop }) => {
           <TitleValue
             shop={shop}
             title={`نوع ${type}`}
-            value={`${type === "ابزار" ? "رنگ" : ""} ${data.type}`}
+            value={`${type === "ابزار" ? "رنگ" : ""} ${data.asset}`}
           />
         </div>
         <TitleValue
@@ -108,11 +119,15 @@ const InfoRow = ({ data, type, shop }) => {
         <TitleValue
           shop={shop}
           title="مبلغ(تومان)"
-          value={`${data.price
+          value={`${addCommas((data.amount * data.unitPrice) / 10)
             .toLocaleString()
             .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])} تومان`}
         />
-        <Button row label="خرید" onclick={buyHandler} />
+        <Button
+          row
+          label="خرید"
+          onClick={paymentHandler(data.asset, data.amount)}
+        />
       </Wrapper>
       {openModal && (
         <InfoModal data={data} type={type} setOpenModal={setOpenModal} />

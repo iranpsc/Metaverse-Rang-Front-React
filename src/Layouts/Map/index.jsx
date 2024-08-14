@@ -55,11 +55,15 @@ const MapTreeD = () => {
         token: queryParams.get("token"),
         automatic_logout: queryParams.get("expires_at"),
       };
-      setUser(queryParamsObject);
-      navigator("/metaverse");
+      setUser(queryParamsObject).then(() => {
+        navigator("/metaverse");
+        setUserWithToken();
+      });
+    } else {
+      setUserWithToken();
     }
-    setUserWithToken();
   }, []);
+
   const navigator = useNavigate();
   const [zoomLevel, setZoomLevel] = useState(18);
   const { confirmation, selectedEnvironment, hiddenModel } =

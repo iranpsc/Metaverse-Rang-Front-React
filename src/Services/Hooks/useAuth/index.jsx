@@ -19,7 +19,6 @@ export default function useAuth() {
   const { Request, HTTP_METHOD } = useRequest();
 
   const LocalStorage = getItem("user");
-
   const isLoggedIn = () => {
     if (LocalStorage?.expire > Date.now() && userState?.id) {
       return true;
@@ -34,9 +33,9 @@ export default function useAuth() {
 
   const setUser = async (response) => {
     const user = response;
-    const expire = Date.now() + user.automatic_logout * 60 * 1000;
+    const expire = Date.now() + parseInt(user.automatic_logout) * 60 * 1000;
+    const LocalStorageData = { token: user.token, expire: expire };
 
-    const LocalStorageData = { token: user.token, expire };
     setItem("user", LocalStorageData);
     const [walletResponse, followingResponse, profileResponse] =
       await Promise.all([
@@ -72,7 +71,7 @@ export default function useAuth() {
   };
 
   const setUserWithToken = async () => {
-    if (LocalStorage?.expire > Date.now()) {
+    if (true) {
       const userProfileResponse = await Request("auth/me", HTTP_METHOD.POST);
       setUserState(AddUserAction(userProfileResponse.data.data));
 

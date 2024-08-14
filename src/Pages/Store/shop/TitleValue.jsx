@@ -18,7 +18,7 @@ const Title = styled.h3`
   }
 `;
 const Value = styled.h3`
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: ${(props) => (props.small ? "10px" : "14px")};
   font-weight: 400;
   @media (min-width: 998px) {
@@ -28,7 +28,9 @@ const Value = styled.h3`
 const TitleValue = ({ title, value, small, shop }) => {
   return (
     <Container shop={shop}>
-      <Title history={history} small={small}>{title}</Title>
+      <Title history={history} small={small}>
+        {title}
+      </Title>
       <Value small={small}>{value}</Value>
     </Container>
   );
