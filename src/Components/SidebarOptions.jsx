@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   max-width: 171px !important;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   border-radius: 5px;
   color: #dedee9;
-  margin-top: 20px;  
+  margin-top: 20px;
 `;
 
 const Option = styled.h2`
@@ -14,9 +15,15 @@ const Option = styled.h2`
   padding: 10px 20px;
   white-space: nowrap;
   cursor: pointer;
-  color: ${(props) => (props.option ? "#FFC700" : "#dedee9")};
+  color: ${(props) =>
+    props.option
+      ? props.theme.colors.primary
+      : props.theme.colors.newColors.shades.title};
   border-right: ${(props) =>
-    props.option ? "2px solid #FFC700" : "2px solid transparent"};
+    props.option
+      ? `2px solid ${(props) =>
+          props.theme.colors.newColors.otherColors.inputBorder}`
+      : "2px solid transparent"};
 `;
 
 const SidebarOptions = ({ option, setOption, seller }) => {

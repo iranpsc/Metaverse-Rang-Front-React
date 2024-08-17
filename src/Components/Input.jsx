@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   position: relative;
-  background-color: #2c2c2c;
-  border: 1px solid #454545;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   overflow: hidden;
   border-radius: 5px;
   height: 40px;
@@ -18,8 +19,9 @@ const Wrapper = styled.div`
 const InputElement = styled.input`
   outline: none;
   border: none;
-  color: #84858f;
-  background-color: #2c2c2c;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   width: 100%;
   height: 100%;
   font-size: 16px;
@@ -36,7 +38,7 @@ const Span = styled.span`
   gap: 5px;
   left: 10px;
   top: 5px;
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (min-width: 998px) {
     top: 10px;
   }

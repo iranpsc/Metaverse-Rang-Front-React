@@ -7,7 +7,8 @@ import Result from "../../../Components/Result";
 
 const Wrapper = styled.div`
   border-radius: 5px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   padding: 15px;
   display: grid;
   direction: rtl;
@@ -45,7 +46,7 @@ const ActionWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ffc700;
+  background-color: ${(props) => props.theme.colors.newColors.primary};
   cursor: pointer;
 `;
 
@@ -60,13 +61,13 @@ const ResultWrapper = styled.div`
 `;
 
 const Title = styled.h3`
-  color: #a0a0ab;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 14px;
   font-weight: 500;
 `;
 
 const Value = styled.p`
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 400;
 `;

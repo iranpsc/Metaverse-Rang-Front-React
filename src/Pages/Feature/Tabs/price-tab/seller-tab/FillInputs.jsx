@@ -2,9 +2,17 @@ import styled from "styled-components";
 import Rial from "../../../../../Components/Rial";
 import Psc from "../../../../../Components/Psc";
 import Input from "../../../../../Components/Input";
-import { convertToPersian } from "../../../../../Services/Utility";
+import {
+  calculateFee,
+  convertToPersian,
+  TimeAgo,
+  ToastError,
+} from "../../../../../Services/Utility";
 import TitleValue from "../../../../../Components/TitleValue";
 import Button from "../../../../../Components/Button";
+import { useContext, useState } from "react";
+import { UserContext } from "../../../../../Services/Reducers/UserContext";
+import { FeatureContext } from "../../../Context/FeatureProvider";
 
 const Div = styled.div`
   display: flex;
@@ -12,6 +20,7 @@ const Div = styled.div`
   direction: rtl;
   gap: 23px;
 `;
+
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,9 +51,10 @@ const Wrapper = styled.div`
   display: flex;
   border-radius: 5px;
   height: 40px;
-  border: 1px solid #454545;
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   font-weight: 400;
-  color: #dedee9;
+  ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   overflow: hidden;
   @media (min-width: 998px) {
     height: 48px;
@@ -55,7 +65,8 @@ const Title = styled.h3`
   font-size: 16px;
   font-weight: 400;
   height: fit-content;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   padding: 5px 20px;
   @media (min-width: 998px) {
     padding: 8px 20px;
@@ -71,9 +82,44 @@ const Value = styled.p`
 `;
 
 const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
+  const [user] = useContext(UserContext);
+  const [feature] = useContext(FeatureContext);
+  const [errors, setErrors] = useState({ rial: "", psc: "" });
+
   const priceHandler = () => {
-    if (rial > 0 && psc > 0) {
+    let isValid = true;
+    const userAge = TimeAgo(user?.birthdate);
+
+    const minPriceIRR =
+      userAge >= 18
+        ? calculateFee(feature.properties.price_irr, 80)
+        : calculateFee(feature.properties.price_irr, 110);
+
+    const minPricePSC =
+      userAge >= 18
+        ? calculateFee(feature.properties.price_psc, 80)
+        : calculateFee(feature.properties.price_psc, 100);
+
+    if (rial < minPriceIRR) {
+      setErrors((prev) => ({
+        ...prev,
+        rial: `حداقل ارزش معامله ${minPriceIRR} ریال می‌باشد`,
+      }));
+      isValid = false;
+    }
+
+    if (psc < minPricePSC) {
+      setErrors((prev) => ({
+        ...prev,
+        psc: `حداقل ارزش معامله ${minPricePSC} PSC می‌باشد`,
+      }));
+      isValid = false;
+    }
+
+    if (isValid) {
       setAssign(true);
+    } else {
+      ToastError("لطفاً خطاها را اصلاح کنید");
     }
   };
 
@@ -86,6 +132,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           type="number"
           placeholder="قیمت فروش (ریال)"
           insideText={<Rial />}
+          errorMessage={errors.rial}
         />
         <Input
           value={psc}
@@ -93,6 +140,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           type="number"
           placeholder="قیمت فروش (PSC)"
           insideText={<Psc />}
+          errorMessage={errors.psc}
         />
       </InputsWrapper>
       <ResultWrapper>

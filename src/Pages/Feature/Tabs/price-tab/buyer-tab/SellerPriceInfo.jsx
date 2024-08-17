@@ -3,9 +3,13 @@ import Psc from "../../../../../Components/Psc";
 import Input from "../../../../../Components/Input";
 
 import styled from "styled-components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../../../../../Components/Button";
 import TitleValue from "../../../../../Components/TitleValue";
+import { FeatureContext } from "../../../Context/FeatureProvider";
+import { useNavigate } from "react-router-dom";
+import useRequest from "../../../../../Services/Hooks/useRequest";
+import { FeatureSvg } from "../../../../../Services/Constants/FeatureType";
 
 const InputsWrapper = styled.div`
   display: flex;
@@ -33,9 +37,27 @@ const ResultWrapper = styled.div`
 `;
 
 const SellerPriceInfo = () => {
-  const [rial, setRial] = useState(50);
-  const [psc, setPsc] = useState(57);
+  const [feature] = useContext(FeatureContext);
+  const [rial, setRial] = useState(feature?.properties?.price_irr);
+  const [psc, setPsc] = useState(feature?.properties?.price_psc);
+  const Navigate = useNavigate();
 
+  const { Request, HTTP_METHOD } = useRequest();
+
+  const onSubmit = () => {
+    Request(`features/buy/${feature?.id}`, HTTP_METHOD.POST)
+      .then((response) => {
+        Navigate(FeatureSvg(feature?.properties?.rgb));
+      })
+      .catch((error) => {
+        if (error.response.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          return Navigate("/metaverse/confirmation");
+        } else {
+          ToastError(error.response.data.message);
+        }
+      });
+  };
   return (
     <>
       <InputsWrapper>
@@ -57,11 +79,11 @@ const SellerPriceInfo = () => {
         />
       </InputsWrapper>
       <ResultWrapper>
-        <TitleValue title="قیمت نهایی" value="50 IRR / 57 PSC" />
+        <TitleValue title="قیمت نهایی" value={`${rial} IRR / ${psc} PSC`} />
         <TitleValue title="کارمزد" value="5%" />
       </ResultWrapper>
       <div dir="rtl">
-        <Button label="خرید" onclick={() => {}} />
+        <Button label="خرید" onclick={onSubmit} />
       </div>
     </>
   );
