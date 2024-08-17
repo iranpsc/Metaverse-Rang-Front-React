@@ -9,6 +9,7 @@ import BuyFromUser from "./Tabs/BuyFromUser";
 import Property from "./Tabs/Property";
 import Sell from "./Tabs/Sell";
 import PropertyConstruction from "./Tabs/PropertyConstruction";
+import { InfoTab } from "./Tabs";
 
 export default function ConditionalPage() {
   const { getUser } = useAuth();
@@ -16,29 +17,29 @@ export default function ConditionalPage() {
   const [feature] = useContext(FeatureContext);
 
   const SellTabs = [
-    { title: "خصوصیات", content: <Property /> },
+    { title: "خصوصیات", content: <InfoTab /> },
     { title: "قیمت گذاری", content: <Sell /> },
     { title: "ساخت بنا", content: <PropertyConstruction /> },
   ];
   const SellTabPanel = useTabs(SellTabs);
 
   const BuySystemTabs = [
-    { title: "خصوصیات", content: <Property /> },
+    { title: "خصوصیات", content: <InfoTab /> },
     { title: "خرید", content: <BuyFromSystem /> },
   ];
   const BuySystemTabPanel = useTabs(BuySystemTabs);
 
   const BuyUserTabs = [
-    { title: "خصوصیات", content: <Property /> },
+    { title: "خصوصیات", content: <InfoTab /> },
     { title: "خرید", content: <BuyFromUser /> },
   ];
   const BuyUserTabPanel = useTabs(BuyUserTabs);
 
-  const AnonymousTabs = [{ title: "خصوصیات", content: <Property /> }];
+  const AnonymousTabs = [{ title: "خصوصیات", content: <InfoTab /> }];
   const AnonymousTabPanel = useTabs(AnonymousTabs);
 
   const UnityTabs = [
-    { title: "خصوصیات", content: <Property /> },
+    { title: "خصوصیات", content: <InfoTab /> },
     { title: "ورود به ملک", content: <UnityTab /> },
   ];
   const UnityTabPanel = useTabs(UnityTabs);
@@ -55,7 +56,7 @@ export default function ConditionalPage() {
       return UnityTabPanel;
     } else if (feature.id == 6221) {
       return UnityTabPanel;
-    } else if (feature?.owner_id === 1 && !userId === 1) {
+    } else if (feature?.owner_id === 1) {
       return BuySystemTabPanel;
     } else if (feature?.owner_id !== 1 && feature?.owner_id !== userId) {
       return BuyUserTabPanel;
