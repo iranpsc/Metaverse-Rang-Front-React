@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { FeatureContext } from "../../Context/FeatureProvider";
 import { Album, FirstRow, SecondRow, ThirdRow } from "../index";
 
 import styled from "styled-components";
@@ -34,14 +36,15 @@ const Div = styled.div`
 `;
 
 const InfoTab = () => {
+  const [feature, setFeature] = useContext(FeatureContext);
   return (
     <RowsWrapper>
       <Div>
-        <FirstRow />
-        <SecondRow />
-        <ThirdRow />
+        <FirstRow feature={feature} />
+        <SecondRow feature={feature} />
+        <ThirdRow feature={feature} />
       </Div>
-      <Album />
+      <Album feature={feature} setFeature={setFeature} />
     </RowsWrapper>
   );
 };

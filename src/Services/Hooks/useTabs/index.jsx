@@ -5,7 +5,8 @@ import styled from "styled-components";
 
 // Create a styled TabsWrapper component
 const TabsWrapper = styled.div`
-  border-bottom: 1px solid #454545;
+  border-bottom: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   justify-content: flex-start;
   display: flex;
   flex-direction: column;
@@ -24,7 +25,10 @@ const Tab = styled.h3`
   padding: 8px 26px;
   cursor: pointer;
   border-bottom: 2px solid
-    ${(props) => (props.active ? props.theme.colors.primary : "#454545")};
+    ${(props) =>
+      props.active
+        ? props.theme.colors.primary
+        : props.theme.colors.newColors.otherColors.inputBorder};
   @media (min-width: 998px) {
     font-size: 18px;
   }
@@ -39,7 +43,8 @@ const Tab = styled.h3`
 `;
 const TabContainer = styled.div`
   display: flex;
-  border-bottom: 1px solid #454545;
+  border-bottom: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   margin-bottom: 10px;
 `;
 // Create a function that uses the tabs and current index

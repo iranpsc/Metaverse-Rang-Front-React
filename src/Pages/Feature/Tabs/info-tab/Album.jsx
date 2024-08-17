@@ -1,25 +1,14 @@
 import { HiOutlineTrash } from "react-icons/hi";
 import { IoWarningOutline } from "react-icons/io5";
 import Slider from "./Slider";
-
-import slide1 from "../../../../Assets/images/test/slide1.png";
-import slide2 from "../../../../Assets/images/test/slide2.png";
-import slide3 from "../../../../Assets/images/test/slide3.png";
-import slide4 from "../../../../Assets/images/test/slide4.png";
-import slide5 from "../../../../Assets/images/test/slide5.png";
-import slide6 from "../../../../Assets/images/test/slide6.png";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useRef, useContext } from "react";
+import Compressor from "compressorjs";
 
-const images_array = [
-  { id: 1, image: slide1 },
-  { id: 2, image: slide2 },
-  { id: 3, image: slide3 },
-  { id: 4, image: slide4 },
-  { id: 5, image: slide5 },
-  { id: 6, image: slide6 },
-  { id: 7, image: slide4 },
-];
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../../Services/Reducers/UserContext";
+import { FeatureContext } from "../../Context/FeatureProvider";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const AlbumWrapper = styled.div`
   direction: rtl;
@@ -35,12 +24,6 @@ const AlbumWrapper = styled.div`
   }
   @media (min-width: 1024px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
-  @media (max-width: 1024px) and (min-height: 600px) {
-    gap: 19px;
-  }
-  @media (max-width: 1024px) and (max-height: 600px) {
-    gap: 18px;
   }
   @media (min-width: 1200px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -69,21 +52,6 @@ const UploadMore = styled.div`
     cursor: pointer;
     position: absolute;
   }
-  @media (min-width: 390px) {
-    height: 146px !important;
-  }
-  @media (min-width: 1024px) {
-    height: 137px !important;
-  }
-  @media (min-width: 1180px) {
-    height: 155px !important;
-  }
-  @media (min-width: 1500px) {
-    height: 188px !important;
-  }
-  @media (min-width: 2500px) {
-    height: 27vh !important;
-  }
 `;
 
 const ImageWrapper = styled.div`
@@ -92,24 +60,6 @@ const ImageWrapper = styled.div`
   border-radius: 10px;
   width: 100%;
   height: 100%;
-  @media (min-width: 390px) {
-    height: 149px;
-  }
-  @media (min-width: 1024px) {
-    height: 144px;
-  }
-  @media (min-width: 1180px) {
-    height: 160px;
-  }
-  @media (min-width: 1500px) {
-    height: 190px;
-    &:hover img {
-      transform: scale(1.1);
-    }
-  }
-  @media (min-width: 2500px) {
-    height: 28vh !important;
-  }
   img {
     width: 100% !important;
     height: 100% !important;
@@ -139,56 +89,68 @@ const IconWrapper = styled.div`
     font-size: 17px;
     cursor: pointer;
   }
-  @media (min-width: 998px) {
-    width: 30px;
-    height: 30px;
-    &:nth-of-type(2) {
-      margin-top: 8px;
-    }
-    svg {
-      font-size: 20px !important;
-    }
-  }
 `;
 
-const Album = () => {
+const Album = ({ feature, setFeature }) => {
+  const [user] = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  const [images, setImages] = useState(images_array);
-  const [activeImage, setActiveImage] = useState(images[0]);
-  const deleteHandler = (id) => {
-    const filteredImages = images.filter((item) => item.id !== id);
-    setImages(filteredImages);
-    if (activeImage.id !== 1) {
-      setActiveImage(images[0]);
-    } else {
-      setActiveImage(images[images.length - 1]);
-    }
-  };
+  const [activeImage, setActiveImage] = useState(feature?.images?.[0] || null);
+  const { Request, HTTP_METHOD } = useRequest();
+  const inputRef = useRef();
+  const Navigate = useNavigate();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    const reader = new FileReader();
+    if (file.size < 1000000) {
+      new Compressor(file, {
+        quality: 0.6,
+        width: 512,
+        height: 512,
+        success(result) {
+          const formData = new FormData();
+          formData.append("file", result, result.name);
 
-    reader.onload = (upload) => {
-      const image = upload.target.result;
-      const newImage = { id: images.length + 1, image: image };
-      setImages([...images, newImage]);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
+          Request(
+            `my-features/${user?.id}/add-image/${feature?.id}`,
+            HTTP_METHOD.POST,
+            { "images[]": [formData.get("file")] },
+            { "Content-Type": "multipart/form-data" }
+          )
+            .then((response) => {
+              setFeature({ ...feature, images: [...response.data.data] });
+              ToastSuccess("آپلود عکس با موفقیت انجام شد.");
+            })
+            .catch((error) => {
+              if (error.response.status === 410) {
+                ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+                return Navigate("/metaverse/confirmation");
+              } else {
+                ToastError(error.response.data.message);
+              }
+            });
+        },
+      });
+    } else {
+      ToastError("باید حجم فایل انتخابی کمتر از 1024 کیلوبایت باشد.");
     }
+  };
+
+  const deleteHandler = (id) => {
+    // Implement API call to delete the image
+    const filteredImages = feature?.images?.filter((item) => item.id !== id);
+    setFeature({ ...feature, images: filteredImages });
+    setActiveImage(filteredImages.length > 0 ? filteredImages[0] : null);
   };
 
   return (
     <div>
       <AlbumWrapper>
-        {images.map((item) => (
+        {feature?.images?.map((item) => (
           <ImageWrapper key={item.id}>
             <img
               onClick={() => setOpen(true)}
-              src={item.image}
-              alt={item.image}
+              src={item.url}
+              alt={item.url}
               loading="lazy"
             />
             <Actions>
@@ -201,15 +163,23 @@ const Album = () => {
             </Actions>
           </ImageWrapper>
         ))}
-        <UploadMore>
-          <span>+</span>
-          <input type="file" onChange={handleImageUpload} />
-        </UploadMore>
+        {parseInt(feature.owner_id) === parseInt(user.id) && (
+          <UploadMore>
+            <span>+</span>
+            <input
+              type="file"
+              ref={inputRef}
+              onChange={handleImageUpload}
+              accept="image/jpeg"
+              multiple={false}
+            />
+          </UploadMore>
+        )}
       </AlbumWrapper>
       {open && (
         <Slider
           deleteHandler={deleteHandler}
-          images={images}
+          images={feature?.images}
           setOpen={setOpen}
           activeImage={activeImage}
           setActiveImage={setActiveImage}

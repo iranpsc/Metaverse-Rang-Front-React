@@ -1,11 +1,11 @@
 import { GrLocation } from "react-icons/gr";
 import TextValueIcon from "../../../../Components/TextValueIcon";
 
-const ThirdRow = () => {
+const ThirdRow = ({ feature }) => {
   return (
     <TextValueIcon
       title="آدرس"
-      value="تهران، خیابان انقلاب، کوی گلها، ساختمان بهاران "
+      value={feature?.properties?.address}
       icon={<GrLocation />}
     />
   );

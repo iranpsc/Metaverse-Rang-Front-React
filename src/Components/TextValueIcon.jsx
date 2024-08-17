@@ -3,7 +3,8 @@ import { convertToPersian } from "../Services/Utility";
 
 const Item = styled.div`
   border-radius: 5px;
-  border: 1px solid #454545;
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   display: flex;
   flex-grow: 1;
   align-items: center;
@@ -18,7 +19,8 @@ const InfoIcon = styled.div`
   border-bottom-right-radius: 5px;
   gap: 10px;
   border-left: 1px solid #454545;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   padding: 10px;
   height: 100%;
   @media (min-width: 1024px) and (min-height: 600px) {
@@ -28,12 +30,12 @@ const InfoIcon = styled.div`
   }
   svg {
     font-size: 20px;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 
 const Title = styled.p`
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 400;
   white-space: nowrap;
@@ -44,7 +46,7 @@ const Title = styled.p`
 `;
 
 const Value = styled.span`
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 12px;
   font-weight: 400;
   padding: 10px 15px;
@@ -68,7 +70,7 @@ const TextValueIcon = ({ icon, title, value, long, smallValue, very_long }) => {
         <Title long={long}>{title}</Title>
       </InfoIcon>
       <Value very_long={very_long} smallValue={smallValue}>
-        {convertToPersian(value)}
+        {value}
       </Value>
     </Item>
   );

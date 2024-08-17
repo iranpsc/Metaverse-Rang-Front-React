@@ -4,12 +4,9 @@ import { MdOutlineHome } from "react-icons/md";
 
 import styled from "styled-components";
 import TextValueIcon from "../../../../Components/TextValueIcon";
-
-const first_row_info = [
-  { id: 1, title: "شناسه ملک", value: "QA31-10789", icon: <MdOutlineHome /> },
-  { id: 2, title: "صاحب ملک", value: "QA31-10789", icon: <HiOutlineUser /> },
-  { id: 3, title: "وضعیت", value: "QA31-10789", icon: <BsCardChecklist /> },
-];
+import { COMBINE_FEATURE } from "../../../../Services/Constants/FeatureType";
+import { useContext } from "react";
+import { FeatureContext } from "../../Context/FeatureProvider";
 
 const RowWrapper = styled.div`
   display: flex;
@@ -29,7 +26,25 @@ const RowWrapper = styled.div`
   }
 `;
 
-const FirstRow = () => {
+const FirstRow = ({ feature }) => {
+  const first_row_info = [
+    { id: 1, title: "شناسه ملک", value: "QA31-10789", icon: <MdOutlineHome /> },
+    {
+      id: 2,
+      title: "صاحب ملک",
+      value:
+        feature?.properties?.owner === "rgb"
+          ? "سیستم"
+          : feature?.properties?.owner,
+      icon: <HiOutlineUser />,
+    },
+    {
+      id: 3,
+      title: "وضعیت",
+      value: COMBINE_FEATURE[feature?.properties?.rgb],
+      icon: <BsCardChecklist />,
+    },
+  ];
   return (
     <RowWrapper>
       {first_row_info.map((item) => (
