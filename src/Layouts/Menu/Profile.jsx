@@ -12,6 +12,7 @@ import Message from "../../Assets/svg/message.svg";
 import ProfileMember from "../../Assets/svg/profileMember.svg";
 import Ticket from "../../Assets/svg/ticket.svg";
 import Setting from "../../Assets/svg/setting.svg";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -151,7 +152,7 @@ const Profile = () => {
   const { isOpen } = useMenuContext();
   const { getUser } = useAuth();
   const [user, setUser] = useState();
-
+  const navigate = useNavigate();
   useEffect(() => {
     setUser(getUser());
   }, []);
@@ -184,11 +185,11 @@ const Profile = () => {
               <Icon src={Message} />
               گفتگو
             </BtnNavigator>
-            <BtnNavigator>
+            <BtnNavigator onClick={() => navigate("/metaverse/profile")}>
               <Icon src={ProfileMember} />
               پروفایل
             </BtnNavigator>
-            <BtnNavigator>
+            <BtnNavigator onClick={() => navigate("/metaverse/settings")}>
               <Icon src={Setting} />
               تنظیمات
             </BtnNavigator>

@@ -6,16 +6,12 @@ import Transactions from "./Tabs/Transactions";
 
 export default function Profile() {
   const tabs = [
-    { title: 'کلیات', content: <General /> },
-    { title: 'دارایی', content: <Property /> },
-    { title: 'تراکنش ها', content: <Transactions /> },
+    { title: "کلیات", content: <TotalTab /> },
+    { title: "دارایی", content: <Property /> },
+    { title: "تراکنش ها", content: <Transactions /> },
   ];
 
   const TabPanel = useTabs(tabs);
 
-  return (
-    <Modal type="modal-section-md" title='حساب کاربری'>
-      {TabPanel}
-    </Modal>
-  );
+  return <Modal title="حساب کاربری">{TabPanel}</Modal>;
 }
