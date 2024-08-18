@@ -8,7 +8,7 @@ const Container = styled.div`
   padding-right: 20px;
   overflow-y: auto;
   direction: ltr;
-  height: 69% !important;
+  height: 69%;
   @media (min-width: 840px) {
     height: 65%;
   }
@@ -22,11 +22,11 @@ const Container = styled.div`
     padding-right: 0;
   }
 `;
-const PhysicInfo = ({ inputs, setEdit }) => {
+const PhysicInfo = ({ inputs, setEdit, edit }) => {
   return (
     <Container>
       <Inputs inputs={inputs} />
-      <Info inputs={inputs} setEdit={setEdit} />
+      <Info inputs={inputs} setEdit={setEdit} edit={edit} />
     </Container>
   );
 };

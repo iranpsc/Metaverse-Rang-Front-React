@@ -5,7 +5,7 @@ import { MdOutlineHome } from "react-icons/md";
 import PhysicEdit from "./PhysicEdit";
 import PhysicInfo from "./PhysicInfo";
 import { TbPhoto } from "react-icons/tb";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const rows_inputs = {
   first_row_info: [
@@ -45,11 +45,12 @@ const rows_inputs = {
   target:
     "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد",
 };
-const PhysicTab = () => {
+const PhysicTab = ({ owner }) => {
   const [edit, setEdit] = useState(false);
   const [inputs, setInputs] = useState(rows_inputs);
 
-  if (!edit) return <PhysicInfo inputs={inputs} setEdit={setEdit} />;
+  if (!edit)
+    return <PhysicInfo inputs={inputs} setEdit={setEdit} edit={owner} />;
   if (edit)
     return (
       <PhysicEdit setEdit={setEdit} inputs={inputs} setInputs={setInputs} />

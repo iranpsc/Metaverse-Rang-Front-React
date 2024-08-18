@@ -1,4 +1,4 @@
-import { Button, Icon, Toolbar } from "../../RichTextTools";
+import { Button, Icon, Toolbar } from "../../../../Components/RichTextTools";
 import { Editable, Slate, useSlate, withReact } from "slate-react";
 import {
   Editor,
@@ -32,11 +32,11 @@ const RichText = () => {
   return (
     <Slate editor={editor} initialValue={initialValue}>
       <Toolbar>
-        <MarkButton format="bold" icon=<FaBold /> />
-        <MarkButton format="italic" icon=<FaItalic /> />
-        <MarkButton format="underline" icon=<FaUnderline /> />
-        <MarkButton format="code" icon=<FaCode /> />
-        <BlockButton format="bulleted-list" icon=<MdFormatListBulleted /> />
+        <MarkButton format="bold" icon={<FaBold />} />
+        <MarkButton format="italic" icon={<FaItalic />} />
+        <MarkButton format="underline" icon={<FaUnderline />} />
+        <MarkButton format="code" icon={<FaCode />} />
+        <BlockButton format="bulleted-list" icon={<MdFormatListBulleted />} />
       </Toolbar>
       <Editable
         renderElement={renderElement}

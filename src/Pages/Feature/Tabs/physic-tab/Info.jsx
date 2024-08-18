@@ -48,15 +48,17 @@ const Edit = styled.span`
     font-size: 12px;
   }
 `;
-const Info = ({ inputs, setEdit }) => {
+const Info = ({ inputs, setEdit, edit }) => {
   return (
     <Container>
       <Title title="هدف تاسیس" />
       <Text>{inputs.target}</Text>
-      <Button onClick={() => setEdit(true)}>
-        <BiEditAlt />
-        <Edit>ویرایش اطلاعات</Edit>
-      </Button>
+      {edit && (
+        <Button onClick={() => setEdit(true)}>
+          <BiEditAlt />
+          <Edit>ویرایش اطلاعات</Edit>
+        </Button>
+      )}
     </Container>
   );
 };

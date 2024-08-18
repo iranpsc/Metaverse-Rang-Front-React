@@ -27,14 +27,15 @@ const Field = styled.div`
   outline: none;
   flex-grow: 1;
   border: none;
-  color: #84858f;
-  background-color: #2c2c2c;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   display: flex;
   align-items: center;
   justify-content: space-between;
   span {
     font-size: 18px;
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     cursor: pointer;
   }
   div {
@@ -43,7 +44,7 @@ const Field = styled.div`
     gap: 10px;
     width: 100%;
     svg {
-      color: white;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-size: 24px;
     }
     input {
@@ -52,7 +53,7 @@ const Field = styled.div`
       background-color: transparent;
       border: none;
       outline: none;
-      color: #84858f;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-size: 16px;
       font-weight: 400;
     }
@@ -74,13 +75,14 @@ const TextArea = styled.textarea`
   outline: none;
   flex-grow: 1;
   border: none;
-  color: #84858f;
-  background-color: #2c2c2c;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   font-size: 16px;
 `;
 
 const Text = styled.p`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   line-height: 1.5rem;
   margin-top: 5px;
   @media (max-width: 1023px) {

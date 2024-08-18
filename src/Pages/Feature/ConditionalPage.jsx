@@ -11,6 +11,7 @@ import Sell from "./Tabs/Sell";
 import PropertyConstruction from "./Tabs/PropertyConstruction";
 import { BuyerTab, InfoTab, SellerTab } from "./Tabs";
 import EnterTab from "./Tabs/enter-tab/EnterTab";
+import PhysicTab from "./Tabs/physic-tab/PhysicTab";
 
 export default function ConditionalPage() {
   const { getUser } = useAuth();
@@ -22,6 +23,7 @@ export default function ConditionalPage() {
     { title: "قیمت گذاری", content: <SellerTab /> },
     { title: "ساخت بنا", content: <PropertyConstruction /> },
     { title: "ورود به ملک", content: <EnterTab owner /> },
+    { title: "اطلاعات فیزیکی", content: <PhysicTab owner /> },
   ];
   const SellTabPanel = useTabs(SellTabs);
 
@@ -35,6 +37,7 @@ export default function ConditionalPage() {
     { title: "خصوصیات", content: <InfoTab /> },
     { title: "خرید", content: <BuyerTab /> },
     { title: "ورود به ملک", content: <EnterTab /> },
+    { title: "اطلاعات فیزیکی", content: <PhysicTab /> },
   ];
   const BuyUserTabPanel = useTabs(BuyUserTabs);
 
