@@ -25,10 +25,11 @@ const CodeCard = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   svg {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     cursor: pointer;
   }
 `;
@@ -42,7 +43,8 @@ const CodeCards = styled.div`
 `;
 
 const AddCode = styled.div`
-  background-color: #3b3b3b;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   padding: 10px 14px 10px 14px;
   display: flex;
@@ -50,7 +52,7 @@ const AddCode = styled.div`
   justify-content: center;
   gap: 8px;
   height: 30px;
-  color: white;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   cursor: pointer;
   white-space: nowrap;
   @media (max-width: 900px) {
@@ -76,16 +78,20 @@ const Summary = styled.div`
 
 const Input = styled.input`
   border-radius: 5px;
-  border: 1px solid #454545;
+
   display: flex;
   flex-grow: 1;
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  background-color: #2c2c2c;
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   height: 48px;
   padding: 0 10px;
-  color: white;
+
   width: 100%;
   height: 100%;
   outline: none;

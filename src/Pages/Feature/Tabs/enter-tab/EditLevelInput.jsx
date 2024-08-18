@@ -10,21 +10,25 @@ const Wrapper = styled.div`
 
 const Select = styled.select`
   border-radius: 5px;
-  border: 1px solid #454545;
+
   display: flex;
   flex-grow: 1;
   align-items: center;
   outline: none;
   justify-content: space-between;
   overflow: hidden;
-  background-color: #2c2c2c;
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   height: 48px !important;
   padding: 0 10px;
-  color: #84858f !important;
+
   option {
     width: 100%;
     border: transparent !important;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     background-color: transparent !important;
   }
 `;

@@ -29,13 +29,14 @@ const TextArea = styled.textarea`
   resize: none;
   flex-grow: 1;
   border: none;
-  color: #84858f;
-  background-color: #2c2c2c;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   font-size: 16px;
 `;
 const Title = styled.h3`
   font-weight: 600;
-  color: white;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (max-width: 1024px) {
     font-size: 14px;
     margin-top: 8px;
@@ -43,8 +44,8 @@ const Title = styled.h3`
 `;
 const Button = styled.button`
   border-radius: 10px;
-  background-color: #FFC700;
-  color: #191b21;
+  background-color: ${(props) => props.theme.colors.newColors.primary};
+  color: ${(props) => props.theme.colors.newColors.primaryText};
   border: none;
   padding: 0 14px;
   width: fit-content;
@@ -52,15 +53,17 @@ const Button = styled.button`
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
-  color: #191b21;
+
   font-family: inherit;
   margin-top: 10px;
 `;
 const Wrapper = styled.div`
   border-radius: 5px;
-  border: 1px solid #454545;
-  color: #ffffff;
-  background-color: #2c2c2c;
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   overflow: hidden;
   height: 205px;
 `;

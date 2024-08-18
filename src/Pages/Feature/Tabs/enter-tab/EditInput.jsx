@@ -6,18 +6,25 @@ const Container = styled.div`
   border-radius: 5px;
   border: 1px solid
     ${(props) =>
-      props.identityError && props.value === "" ? "red" : "#454545"};
-  border: 1px solid ${(props) => (props.error ? "red" : "#454545")};
+      props.identityError && props.value === ""
+        ? "red"
+        : props.theme.colors.newColors.otherColors.inputBorder};
+  border: 1px solid
+    ${(props) =>
+      props.error
+        ? "red"
+        : props.theme.colors.newColors.otherColors.inputBorder};
   display: flex;
   flex-grow: 1;
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   height: 48px;
   padding: 0 10px;
   input {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     width: 100%;
     height: 100%;
     background-color: transparent;
