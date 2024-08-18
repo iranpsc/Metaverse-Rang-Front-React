@@ -6,4 +6,10 @@ import svgr from "vite-plugin-svgr";
 export default defineConfig({
   base: "/metaverse",
   plugins: [react(), svgr()],
+  resolve: {
+    alias: {
+      "swiper/react": "swiper/react",
+      swiper: "swiper",
+    },
+  },
 });

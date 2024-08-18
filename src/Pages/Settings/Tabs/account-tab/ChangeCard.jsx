@@ -6,12 +6,7 @@ import Button from "../../../../Components/Button";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import {
-  phoneNumberNormalizer,
-  phoneNumberValidator,
-  ToastError,
-  ToastSuccess,
-} from "../../../../Services/Utility";
+import { ToastError, ToastSuccess } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px;
