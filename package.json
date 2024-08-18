@@ -67,6 +67,7 @@
     "react-spring": "^9.7.2",
     "react-three-fiber": "^6.0.13",
     "react-three-map": "^0.7.2",
+    "react-toastify": "^10.0.5",
     "react-tooltip": "^5.27.1",
     "react-unity-webgl": "^9.4.0",
     "shortid": "^2.2.16",

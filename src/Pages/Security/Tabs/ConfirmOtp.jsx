@@ -9,9 +9,11 @@ import useRequest from "../../../Services/Hooks/useRequest";
 import { setItem } from "../../../Services/Utility/LocalStorage";
 
 const renderer = ({ hours, minutes, seconds, completed }) => {
-    return (
-        <span>{minutes}:{seconds}</span>
-    );
+  return (
+    <span>
+      {minutes}:{seconds}
+    </span>
+  );
 };
 export default function ConfirmOtp({ paginate }) {
   const [otp, setOtp] = useState({
@@ -53,10 +55,12 @@ export default function ConfirmOtp({ paginate }) {
   };
 
   const onResendCode = () => {
-    Request('account/security', HTTP_METHOD.POST, {time: paginate.options.data.time}).then(() => {
-        setResend(false);
-    })
-  }
+    Request("account/security", HTTP_METHOD.POST, {
+      time: paginate.options.data.time,
+    }).then(() => {
+      setResend(false);
+    });
+  };
   return (
     <Form onSubmit={onConfirmHandler}>
       <div className="account-security-section">
@@ -131,21 +135,21 @@ export default function ConfirmOtp({ paginate }) {
           value={otp.otp_6}
         />
       </div>
-      {
-        !resend ? (
-            <p className="text-information w-75 mt-2 mb-5 text-center text-1 rtl">
-                اگر کد تایید را دریافت نکرده اید میتوانید
-                <Countdown
-                date={Date.now() + 120000}
-                onComplete={() => setResend(true)}
-                renderer={renderer}
-                />
-                دقیقه دیگر مجددا کد تایید را ارسال کنید.
-            </p>
-        ) : <p className="link cursor-pointer mb-5" onClick={() => onResendCode()}>ارسال مجدد</p>
-      }
-
-
+      {!resend ? (
+        <p className="text-information w-75 mt-2 mb-5 text-center text-1 rtl">
+          اگر کد تایید را دریافت نکرده اید میتوانید
+          <Countdown
+            date={Date.now() + 120000}
+            onComplete={() => setResend(true)}
+            renderer={renderer}
+          />
+          دقیقه دیگر مجددا کد تایید را ارسال کنید.
+        </p>
+      ) : (
+        <p className="link cursor-pointer mb-5" onClick={() => onResendCode()}>
+          ارسال مجدد
+        </p>
+      )}
 
       <Submit text="تایید" type="primary" options={{ className: "w-100" }} />
     </Form>

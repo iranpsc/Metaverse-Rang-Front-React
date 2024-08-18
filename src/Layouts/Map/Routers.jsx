@@ -26,6 +26,7 @@ import TransactionPayments from "../../Pages/Payments/Verification/transactionPa
 import VerificationEmail from "../../Pages/VerificationEmail";
 import Ip from "../../Pages/Ip";
 import EmailVerification from "../../Pages/EmailVerification";
+import AccountSecurityModal from "../../Pages/accountsecurity";
 
 export default function Routers() {
   return (
@@ -68,7 +69,7 @@ export default function Routers() {
           path="confirmation"
           element={
             <PrivateRoute>
-              <Security />
+              <AccountSecurityModal />
             </PrivateRoute>
           }
         />
