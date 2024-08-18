@@ -4,7 +4,7 @@ import FailedTransactionImage from "../../../../Assets/images/transaction-1.png"
 import SuccessTransactionImage from "../../../../Assets/images/transaction-2.png";
 import factorImage from "../../../../Assets/images/factor-1.png";
 import PrintImage from "../../../../Assets/images/print.png";
-import html2pdf from "html2pdf.js";
+// import html2pdf from "html2pdf.js";
 
 const Container = styled.div`
   width: 100%;
@@ -91,7 +91,7 @@ const handleDownload = () => {
     jsPDF: { unit: "mm", format: "a5" },
   };
 
-  html2pdf().set(opt).from(content).save();
+  // html2pdf().set(opt).from(content).save();
 };
 
 const SuccessTransaction = ({ data }) => {
@@ -140,9 +140,7 @@ const SuccessTransaction = ({ data }) => {
         <Div>
           <Cell>عنوان پرداختی</Cell>
           <Cell>تعداد</Cell>
-          <Cell>
-            مبلغ{getActionLabel()}ی
-          </Cell>
+          <Cell>مبلغ{getActionLabel()}ی</Cell>
         </Div>
         <Border></Border>
         <Div>
@@ -218,7 +216,12 @@ const SuccessTransaction = ({ data }) => {
             {renderPaymentDetails()}
             <Image
               src={PrintImage}
-              style={{ position: "absolute", width: "90px", bottom: "0" ,cursor:"pointer"}}
+              style={{
+                position: "absolute",
+                width: "90px",
+                bottom: "0",
+                cursor: "pointer",
+              }}
               onClick={handleDownload}
             />
           </Body>

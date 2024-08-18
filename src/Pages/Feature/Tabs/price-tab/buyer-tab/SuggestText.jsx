@@ -19,8 +19,8 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   border-radius: 5px;
   border-bottom: 1px solid wheat;
-  color: #ffffff;
-  background-color: #2c2c2c;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  background-color: #${(props) => props.theme.colors.newColors.otherColors.inputBg};
   overflow: hidden;
   height: 250px !important;
 `;

@@ -1,8 +1,16 @@
-import FillInputs from "./FillInputs";
-
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import FillInputs from "./FillInputs";
 import ResultInfo from "../../../Components/ResultInfo";
+import { FeatureContext } from "../../../Context/FeatureProvider";
+import { FeaturePrice } from "../../../../../Services/Constants/FeatureType";
+import {
+  calculateFee,
+  ToastSuccess,
+  ToastError,
+} from "../../../../../Services/Utility";
+import useRequest from "../../../../../Services/Hooks/useRequest";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,19 +38,65 @@ const Text = styled.p`
 `;
 
 const SuggestPrice = () => {
+  const [feature] = useContext(FeatureContext);
+  const { Request, HTTP_METHOD } = useRequest();
+  const navigate = useNavigate();
+
   const [assign, setAssign] = useState(false);
   const [rial, setRial] = useState("");
   const [psc, setPsc] = useState("");
+  const [suggestText, setSuggestText] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const totalArea = feature?.properties?.density * feature?.properties?.area;
+  const totalIrr =
+    totalArea *
+    FeaturePrice(feature?.properties?.rgb) *
+    (feature?.properties?.minimum_price_percentage / 100);
+
+  const handleSubmit = () => {
+    const totalPrice = parseFloat(rial) + parseFloat(psc) * 900;
+
+    if (totalPrice >= totalIrr) {
+      Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST, {
+        price_irr: parseFloat(rial),
+        price_psc: parseFloat(psc),
+        note: suggestText,
+      })
+        .then(() => {
+          ToastSuccess("پیشنهاد شما با موفقیت ارسال گردید.");
+          setAssign(true);
+        })
+        .catch((error) => {
+          if (error.response.status === 410) {
+            ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+            navigate("/metaverse/confirmation");
+          } else {
+            ToastError(error.response.data.message);
+          }
+        });
+    } else {
+      setErrors({
+        price: `حداقل ارزش معامله ${feature?.properties?.minimum_price_percentage}% قیمت اولیه میباشد`,
+      });
+    }
+  };
+
   return (
     <Wrapper>
-      <Text>قیمت پیشنهادی شما </Text>
+      <Text>قیمت پیشنهادی شما</Text>
       {!assign && (
         <FillInputs
           rial={rial}
           psc={psc}
           setRial={setRial}
           setPsc={setPsc}
-          setAssign={setAssign}
+          suggestText={suggestText}
+          setSuggestText={setSuggestText}
+          onSubmit={handleSubmit}
+          errors={errors}
+          totalIrr={totalIrr}
+          remainingAmount={totalIrr - rial - psc * 900}
         />
       )}
       {assign && <ResultInfo rial={rial} psc={psc} setAssign={setAssign} />}

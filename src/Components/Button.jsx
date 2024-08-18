@@ -7,7 +7,7 @@ const ButtonElement = styled.button`
       ? props.color
       : props.disabled === "pending"
       ? "#3B3B3B"
-      : "#ffc700"};
+      : props.theme.colors.primary};
   border: none;
   padding: ${(props) => (props.large ? "0 20px" : "10px 22px")};
   width: ${(props) =>
@@ -24,7 +24,10 @@ const ButtonElement = styled.button`
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
-  color: ${(props) => (props.disabled === "pending" ? "#949494" : "#191b21")};
+  color: ${(props) =>
+    props.disabled === "pending"
+      ? "#949494"
+      : props.theme.colors.newColors.primaryText};
   color: ${(props) => (props.textColor ? props.textColor : "")};
   font-family: inherit;
   @media (max-width: 840px) {
