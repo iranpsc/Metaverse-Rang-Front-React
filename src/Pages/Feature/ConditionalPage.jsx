@@ -10,6 +10,7 @@ import { BuyerTab, InfoTab, SellerTab } from "./Tabs";
 import EnterTab from "./Tabs/enter-tab/EnterTab";
 import PhysicTab from "./Tabs/physic-tab/PhysicTab";
 import HistoryTab from "./Tabs/history-tab/HistoryTab";
+import ParticipationTab from "./Tabs/participation-tab/ParticipationTab";
 
 export default function ConditionalPage() {
   const { getUser } = useAuth();
@@ -36,6 +37,7 @@ export default function ConditionalPage() {
     { title: "خرید", content: <BuyerTab /> },
     { title: "ورود به ملک", content: <EnterTab /> },
     { title: "اطلاعات فیزیکی", content: <PhysicTab /> },
+    { title: "مشارکت در ساخت", content: <ParticipationTab /> },
     { title: "تاریخچه خرید", content: <HistoryTab /> },
   ];
   const BuyUserTabPanel = useTabs(BuyUserTabs);
