@@ -5,8 +5,9 @@ import business from "../../../../Assets/images/building.png";
 import education from "../../../../Assets/images/courthouse.png";
 import house from "../../../../Assets/images/house.png";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Title from "../../../../Components/Title";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const List = styled.div`
   display: flex;
@@ -53,15 +54,17 @@ const Container = styled.div`
     height: 619px;
   }
 `;
+
 const Provider = styled.div`
   position: relative;
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   padding: 4px 10px;
   cursor: pointer;
   border-radius: 10px;
   transition: all 0.2s linear;
   &:hover {
-    background: #fdfdfd21;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
   }
   h1 {
     font-size: 16px;
@@ -85,7 +88,8 @@ const Filter = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px;
   padding: 5px;
   @media (min-width: 1400px) {
@@ -102,10 +106,11 @@ const Wrapper = styled.div`
 `;
 const Select = styled.div`
   border-radius: 5px;
-  border: 1px solid #454545;
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   padding: 10px 12px;
   display: flex;
   cursor: pointer;
@@ -132,9 +137,10 @@ const Search = styled.div`
   position: relative;
   height: 50px;
   border-radius: 5px;
-  border: 1px solid #454545;
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   padding: 10px 12px;
-  color: #84858f;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   direction: rtl;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
@@ -142,7 +148,7 @@ const Search = styled.div`
   align-items: center;
   gap: 50px;
   svg {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
   input {
     position: absolute;
@@ -154,122 +160,110 @@ const Search = styled.div`
     font-size: 18px;
     outline: none;
     border: none;
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
-const cards_items = [
-  {
-    id: 1,
-    name: "ساختمان تجاری",
-    photo: business,
-    code: "QA91-85749",
-    color: "#ff000021",
-    address: "میرمیران، نوروزیان، پونک، شهر قزوین، بزرگراه آذری، خیابان گنجوی",
-    meter: 180,
-    slug: "industry",
-    psc: 3000,
-    rial: 3000000,
-  },
-  {
-    id: 2,
-    name: "املاک مسکونی",
-    photo: house,
-    code: "QA76-85273",
-    color: "#ffc80021",
-    address: "میرمیران، نوروزیان، پونک، شهر قزوین، بزرگراه آذری، خیابان گنجوی",
-    meter: 120,
-    slug: "house",
-    psc: 3000,
-    rial: 3000000,
-  },
-  {
-    id: 3,
-    name: "ساختمان تجاری",
-    photo: business,
-    code: "QA84-79462",
-    color: "#ff000021",
-    address: "میرمیران، نوروزیان، پونک، شهر قزوین، بزرگراه آذری، خیابان گنجوی",
-    meter: 200,
-    slug: "industry",
-    psc: 3000,
-    rial: 3000000,
-  },
-  {
-    id: 4,
-    name: "املاک مسکونی",
-    photo: house,
-    code: "QA34-201497",
-    color: "#ffc80021",
-    address: "والفجر، نوروزیان، پونک، شهر قزوین، بزرگراه آذری، خیابان گنجوی",
-    meter: 120,
-    slug: "house",
-    psc: 3000,
-    rial: 3000000,
-  },
-  {
-    id: 5,
-    name: "املاک آموزشی",
-    photo: education,
-    code: "QA81-89462",
-    color: "#0066ff21",
-    address: "والفجر، نوروزیان، پونک، شهر قزوین، بزرگراه آذری، خیابان گنجوی",
-    meter: 180,
-    slug: "education",
-    psc: 3000,
-    rial: 3000000,
-  },
-  {
-    id: 6,
-    name: "ساختمان تجاری",
-    photo: business,
-    code: "QA71-79543",
-    color: "#ff000021",
-    address: "میرمیران، میثم، پونک، شهر قزوین، بزرگراه آذری، خیابان گنجوی",
-    meter: 200,
-    slug: "industry",
-    psc: 3000,
-    rial: 3000000,
-  },
-  {
-    id: 7,
-    name: "املاک آموزشی",
-    photo: education,
-    code: "QA46-96524",
-    color: "#0066ff21",
-    address: "میرمیران، میثم، پونک، شهر قزوین، بزرگراه آذری، خیابان گنجوی",
-    meter: 180,
-    slug: "education",
-    psc: 3000,
-    rial: 3000000,
-  },
-];
 
 const Houses = () => {
   const [searched, setSearched] = useState("");
-  const [cards, setCards] = useState(cards_items);
+  const [cards, setCards] = useState([]);
   const [open, setOpen] = useState(false);
   const [property, setProperty] = useState({
     industry: false,
     house: false,
     education: false,
   });
+  const { Request } = useRequest();
+  const [features, setFeatures] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  const filteredItems = cards.filter((item) => {
+  const loadMoreFeatures = useCallback(() => {
+    if (loading) return;
+
+    setLoading(true);
+    Request(`my-features?page=${page}`).then((response) => {
+      const enhancedFeatures = response.data.data.map((feature) => {
+        let newProperties = { ...feature.properties };
+
+        if (feature.properties.karbari === "m") {
+          newProperties = {
+            ...newProperties,
+            name: "املاک مسکونی",
+            photo: "/metaverse/src/Assets/images/house.png",
+            color: "#ffc80021",
+            slug: "house",
+          };
+        } else if (feature.properties.karbari === "t") {
+          newProperties = {
+            ...newProperties,
+            name: "ساختمان تجاری",
+            photo: "/metaverse/src/Assets/images/building.png",
+            color: "#ff000021",
+            slug: "industry",
+          };
+        } else if (feature.properties.karbari === "a") {
+          newProperties = {
+            ...newProperties,
+            name: "املاک آموزشی",
+            photo: "/metaverse/src/Assets/images/courthouse.png",
+            color: "#0066ff21",
+            slug: "education",
+          };
+        }
+
+        return {
+          ...feature,
+          properties: newProperties,
+        };
+      });
+      setFeatures((prevFeatures) => [...prevFeatures, ...enhancedFeatures]);
+      setPage((prevPage) => prevPage + 1);
+      setLoading(false);
+    });
+  }, [page, loading]);
+
+  useEffect(() => {
+    loadMoreFeatures(); // Initial load
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = (e) => {
+      const bottom =
+        e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+      if (bottom) {
+        loadMoreFeatures();
+      }
+    };
+
+    const container = document.querySelector("#scrollable-container");
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [loadMoreFeatures]);
+
+  const filteredItems = features.filter((item) => {
     const query = searched.toUpperCase().trim();
-    const codeMatch = item.code.includes(query);
-    const addressMatch = item.address.includes(query);
-    const meterMatch = item.meter.toString().includes(query);
+    const codeMatch = item.properties.id.includes(query);
+    const addressMatch = item.properties.address.includes(query);
+    const meterMatch = item.properties.area.toString().includes(query);
     const propertyMatch =
       (!property.education && !property.house && !property.industry) ||
-      (property.education && item.slug === "education") ||
-      (property.house && item.slug === "house") ||
-      (property.industry && item.slug === "industry");
+      (property.education && item.properties.slug === "education") ||
+      (property.house && item.properties.slug === "house") ||
+      (property.industry && item.properties.slug === "industry");
 
     return (codeMatch || addressMatch || meterMatch) && propertyMatch;
   });
 
   return (
-    <Container>
+    <Container id="scrollable-container">
       <div dir="rtl">
         <Title title="املاک و مستغلات" />
       </div>
@@ -290,7 +284,7 @@ const Houses = () => {
               {property.industry
                 ? "تجاری"
                 : property.education
-                ? "آمورشی"
+                ? "آمورشی  "
                 : "مسکونی"}
             </span>
             <MdKeyboardArrowDown
@@ -379,9 +373,10 @@ const Houses = () => {
       </Div>
       <List>
         {filteredItems.map((card) => (
-          <CardItem {...card} key={card.id} />
+          <CardItem {...card.properties} key={card.id} />
         ))}
       </List>
+      {loading && <div>Loading...</div>}
     </Container>
   );
 };

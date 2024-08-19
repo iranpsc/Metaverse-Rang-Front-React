@@ -1,9 +1,10 @@
 import FollowingCard from "./FollowingCard";
 
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Title from "../../../../Components/Title";
 import SearchInput from "../../../Search/Components/SearchInput";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   direction: ltr;
@@ -59,17 +60,16 @@ const List = styled.div`
   gap: 20px;
 `;
 
-const following_items = [
-  { id: 1, code: "HM-230120", name: "Ali Madani Far" },
-  { id: 2, code: "HM-208020", name: "Amir Madani Far" },
-  { id: 3, code: "HM-220420", name: "nader Madani Far" },
-  { id: 4, code: "HM-200020", name: "mohammad Madani Far" },
-  { id: 5, code: "HM-220620", name: "yusef Madani Far" },
-  { id: 6, code: "HM-204020", name: "shahin Madani Far" },
-];
 const Following = () => {
-  const [followings, setFollowings] = useState(following_items);
   const [searched, setSearched] = useState("");
+  const [followings, setFollowings] = useState([]);
+  const { Request, HTTP_METHOD } = useRequest();
+
+  useEffect(() => {
+    Request("following", HTTP_METHOD.GET).then((response) => {
+      setFollowings(response.data.data);
+    });
+  }, []);
 
   const filteredItems = followings.filter((item) => {
     const query = searched.toLowerCase().trim();

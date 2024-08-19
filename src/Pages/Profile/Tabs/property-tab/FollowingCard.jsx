@@ -1,6 +1,7 @@
 import avatar from "../../../../Assets/images/slide.png";
 import styled from "styled-components";
 import { useState } from "react";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Button = styled.div`
   font-size: 16px;
@@ -53,23 +54,34 @@ const Card = styled.div`
   border-radius: 10px;
   padding: 15px;
 `;
-const FollowingCard = ({ name, code }) => {
+const FollowingCard = ({ name, code, id, profile_photos }) => {
   const [follow, setFollow] = useState(true);
+  const { Request, HTTP_METHOD } = useRequest();
+  const unFollowHandler = () => {
+    Request(`unfollow/${id}`).then(() => {
+      setFollow(false);
+    });
+  };
+  const onFollowHandler = () => {
+    Request(`follow/${id}`).then(() => {
+      setFollow(true);
+    });
+  };
   return (
     <Card>
       <Profile>
-        <img src={avatar} width={80} height={80} />
+        <img src={profile_photos} width={80} height={80} />
         <div>
           <h3>{name}</h3>
           <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">{code}</a>
         </div>
       </Profile>
       {follow ? (
-        <Button gray onClick={() => setFollow(false)}>
+        <Button gray onClick={unFollowHandler}>
           آنفالو کردن
         </Button>
       ) : (
-        <Button onClick={() => setFollow(true)}>فالو کردن</Button>
+        <Button onClick={onFollowHandler}>فالو کردن</Button>
       )}
     </Card>
   );

@@ -1,7 +1,8 @@
 import { TiUserAddOutline } from "react-icons/ti";
-import avatar from "../../../../Assets/images/slide.png";
+
 import styled from "styled-components";
 import { useState } from "react";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Button = styled.div`
   font-size: 16px;
@@ -73,7 +74,7 @@ const Container = styled.div`
   align-items: center;
   gap: 10px;
   background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.newColors.shades.title};
+  color: ${(props) => props.theme.colors.newColors.primaryText};
   border-radius: 7px;
   font-size: 16px;
   cursor: pointer;
@@ -99,15 +100,36 @@ const Container = styled.div`
   }
 `;
 
-const Follower = ({ id, followers, setFollowers, name, code }) => {
+const Follower = ({
+  id,
+  followers,
+  setFollowers,
+  name,
+  code,
+  profile_photos,
+}) => {
   const [follow, setFollow] = useState(true);
+  const { Request } = useRequest();
   const deleteHandler = () => {
-    setFollowers(followers.filter((item) => item.id !== id));
+    Request(`remove/${id}`).then(() => {
+      setFollowers(followers.filter((item) => item.id !== id));
+    });
   };
+  const unFollowHandler = () => {
+    Request(`unfollow/${id}`).then(() => {
+      setFollow(false);
+    });
+  };
+  const onFollowHandler = () => {
+    Request(`follow/${id}`).then(() => {
+      setFollow(true);
+    });
+  };
+
   return (
     <Card>
       <Profile>
-        <img src={avatar} width={80} height={80} />
+        <img src={profile_photos} width={80} height={80} />
         <div>
           <h3>{name}</h3>
           <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">{code}</a>
@@ -115,11 +137,11 @@ const Follower = ({ id, followers, setFollowers, name, code }) => {
       </Profile>
       <Buttons>
         {follow ? (
-          <Button onClick={() => setFollow(false)} gray>
+          <Button onClick={unFollowHandler} gray>
             آنفالو کردن
           </Button>
         ) : (
-          <Container onClick={() => setFollow(true)}>
+          <Container onClick={onFollowHandler}>
             <span>
               <TiUserAddOutline />
             </span>

@@ -2,8 +2,9 @@ import Follower from "./Follower";
 import SearchInput from "../../../Search/Components/SearchInput";
 
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Title from "../../../../Components/Title";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   direction: ltr;
@@ -52,25 +53,24 @@ const List = styled.div`
   gap: 20px;
 `;
 
-const followers_items = [
-  { id: 1, code: "HM-230120", name: "Ali Madani Far" },
-  { id: 2, code: "HM-208020", name: "Amir Madani Far" },
-  { id: 3, code: "HM-220420", name: "nader Madani Far" },
-  { id: 4, code: "HM-200020", name: "mohammad Madani Far" },
-  { id: 5, code: "HM-220620", name: "yusef Madani Far" },
-  { id: 6, code: "HM-204020", name: "shahin Madani Far" },
-];
-
 const Followers = () => {
-  const [followers, setFollowers] = useState(followers_items);
   const [searched, setSearched] = useState("");
+  const [followers, setFollowers] = useState([]);
+  const { Request, HTTP_METHOD } = useRequest();
+
+  useEffect(() => {
+    Request("followers", HTTP_METHOD.GET).then((response) => {
+      setFollowers(response.data.data);
+    });
+  }, []);
+
   const filteredItems = followers.filter((item) => {
     const query = searched.toLowerCase().trim();
     const codeMatch = item.code.toLowerCase().includes(query);
     const nameMatch = item.name.toLowerCase().includes(query);
-
     return codeMatch || nameMatch;
   });
+  console.log(followers);
   return (
     <Container>
       <div dir="rtl" style={{ marginBottom: "20px" }}>
