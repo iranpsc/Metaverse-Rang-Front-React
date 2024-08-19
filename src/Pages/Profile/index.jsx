@@ -2,7 +2,7 @@ import Modal from "../../Components/Modal";
 import useTabs from "../../Services/Hooks/useTabs";
 import General from "./Tabs/General";
 import Property from "./Tabs/Property";
-import TotalTab from "./Tabs/total-tab copy/TotalTab";
+import TotalTab from "./Tabs/total-tab/TotalTab";
 import Transactions from "./Tabs/Transactions";
 
 export default function Profile() {

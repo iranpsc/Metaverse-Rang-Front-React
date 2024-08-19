@@ -3,7 +3,8 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   align-items: center;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px;
   padding: 20px;
   gap: 15px;
@@ -12,12 +13,12 @@ const Container = styled.div`
     flex-direction: column;
     gap: 2px;
     span {
-      color: #dedee9;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       white-space: nowrap;
       font-size: 11px;
     }
     h3 {
-      color: #ffffff;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-size: 12px;
       font-weight: 600;
     }
@@ -32,7 +33,7 @@ const Container = styled.div`
   }
   @media (min-width: 1024px) {
     flex-direction: row;
-    div{
+    div {
       align-items: flex-start;
     }
   }
@@ -40,7 +41,7 @@ const Container = styled.div`
 const PropertyCard = ({ image, label, value }) => {
   return (
     <Container>
-      <img width={40} height={40} loading="lazy" alt={label} src={image}/>
+      <img width={40} height={40} loading="lazy" alt={label} src={image} />
       <div>
         <span>{label}</span>
         <h3>{value}</h3>

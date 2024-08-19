@@ -19,7 +19,8 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   label {
     display: flex;
     align-items: center;

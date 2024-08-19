@@ -40,7 +40,7 @@ const Container = styled.div`
   }
 `;
 const Title = styled.h2`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-weight: 600;
   font-size: 14px;
   @media (min-width: 1024px) {
@@ -53,7 +53,7 @@ const Icons = styled.div`
   align-items: center;
   gap: 15px;
   svg {
-    color: #949494;
+    color: ${(props) => props.theme.colors.newColors.otherColors.iconText};
   }
 `;
 const IconWrapper = styled.div`
@@ -63,7 +63,10 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ isActive }) => (isActive ? "#ff000029" : "#1a1a18")};
+  background-color: ${(props) =>
+    props.isActive
+      ? "#ff000029"
+      : props.theme.colors.newColors.otherColors.iconBg};
   &:hover {
     background-color: #ff000029;
     svg {
@@ -72,7 +75,10 @@ const IconWrapper = styled.div`
   }
   svg {
     font-size: 20px;
-    color: ${({ isActive }) => (isActive ? "#f44545ab" : "#949494")};
+    color: ${(props) =>
+      props.isActive
+        ? "#f44545ab"
+        : props.theme.colors.newColors.otherColors.iconText};
   }
   cursor: pointer;
 `;

@@ -12,22 +12,23 @@ const Container = styled.div`
     width: fit-content;
     margin-top: -4px;
     h3 {
-      color: #a0a0ab;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-size: 13px;
     }
     svg {
-      color: #dedee9;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
     }
   }
 `;
 const Info = styled.textarea`
   resize: none;
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   padding: 10px 12px;
   border: 1px solid
     ${(props) => (props.value.length === 250 ? "red" : "#dedee9")};
-  background-color: #454545;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   outline: none;
   width: 95%;

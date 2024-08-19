@@ -9,7 +9,8 @@ import ButtonIcon from "../../../../Components/ButtonIcon";
 
 const Container = styled.div`
   padding: 15px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-bottom-left-radius: 10px;
   @media (min-width: 840px) {
     padding: 12px;
@@ -29,13 +30,13 @@ const Header = styled.div`
   padding-bottom: 10px;
   border-bottom: 1px solid #454545;
   span {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 13px;
     font-weight: 500;
   }
 `;
 const Title = styled.h2`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 20px;
   font-weight: 600;
 `;
@@ -57,12 +58,12 @@ const Follow = styled.div`
   align-items: center;
   flex-grow: 1;
   span {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 12px;
   }
 `;
 const Count = styled.h2`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 20px;
   font-weight: 500;
 `;

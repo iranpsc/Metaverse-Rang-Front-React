@@ -5,8 +5,14 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  background-color: ${(props) => (props.fill ? "#FFC700" : "#3B3B3B")};
-  color: ${(props) => (props.fill ? "#191B21" : "#949494")};
+  background-color: ${(props) =>
+    props.fill
+      ? props.theme.colors.primary
+      : props.theme.colors.newColors.otherColors.btnIconBg};
+  color: ${(props) =>
+    props.fill
+      ? props.theme.colors.newColors.primaryText
+      : props.theme.colors.newColors.otherColors.btnIconText};
   border-radius: 7px;
   font-size: 16px;
   cursor: pointer;

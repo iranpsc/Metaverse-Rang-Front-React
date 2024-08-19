@@ -24,7 +24,7 @@ const BackGround = styled.div`
 `;
 const Modal = styled.div`
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border: 1px solid gray;
   direction: rtl;
   overflow-y: auto;
@@ -47,7 +47,7 @@ const Header = styled.div`
 
   align-items: center;
   justify-content: space-between;
-  color: white;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   margin-bottom: 20px;
 `;
 
@@ -65,26 +65,9 @@ const Socials = styled.div`
     }
   }
 `;
-const Icon = styled.div`
-  color: ${(props) => props.color};
-  position: relative;
-  z-index: 11;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  div {
-    width: 33px;
-    height: 35px;
-    border-radius: 100%;
-    background-color: wheat;
-    position: absolute;
-    z-index: -5;
-  }
-`;
 
 const Copy = styled.div`
-  background-color: black;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 10px;
   margin-top: 40px;
   padding: 5px 5px 5px 20px;
@@ -93,13 +76,13 @@ const Copy = styled.div`
   justify-content: space-between;
   span {
     border-radius: 20px;
-    background-color: #ffc700;
+    background-color: ${(props) => props.theme.colors.primary};
     padding: 0 20px;
     cursor: pointer;
-    color: black;
+    color: ${(props) => props.theme.colors.newColors.primaryText};
   }
   p {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 
@@ -110,7 +93,7 @@ const Social = styled.div`
   align-items: center;
   justify-content: center;
   span {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 
@@ -139,7 +122,7 @@ const ShareModal = ({ setOpenShare }) => {
         <Socials>
           <Social>
             <WhatsappShare
-            size={52}
+              size={52}
               borderRadius={100}
               url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
             />
@@ -147,7 +130,7 @@ const ShareModal = ({ setOpenShare }) => {
           </Social>
           <Social>
             <TelegramShare
-            size={52}
+              size={52}
               borderRadius={100}
               url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
             />
@@ -155,7 +138,7 @@ const ShareModal = ({ setOpenShare }) => {
           </Social>
           <Social>
             <FacebookShare
-            size={52}
+              size={52}
               borderRadius={100}
               url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
             />
@@ -163,7 +146,7 @@ const ShareModal = ({ setOpenShare }) => {
           </Social>
           <Social>
             <TwitterShare
-            size={52}
+              size={52}
               borderRadius={100}
               url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
             />
@@ -171,7 +154,7 @@ const ShareModal = ({ setOpenShare }) => {
           </Social>
           <Social>
             <LinkedinShare
-            size={52}
+              size={52}
               borderRadius={100}
               url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
             />

@@ -4,7 +4,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px;
   padding: 14px 24px;
   gap: 20px;
@@ -18,11 +19,11 @@ const Container = styled.div`
     align-items: center;
     gap: 2px;
     span {
-      color: #dedee9;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-size: 11px;
     }
     h3 {
-      color: #ffffff;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-size: 12px;
       font-weight: 600;
     }
