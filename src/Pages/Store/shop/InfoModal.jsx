@@ -1,5 +1,6 @@
 import { IoIosClose } from "react-icons/io";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -16,7 +17,7 @@ const BackGround = styled.div`
 `;
 const Modal = styled.div`
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   direction: ltr;
   overflow-y: auto;
   padding: 20px;
@@ -46,13 +47,13 @@ const Title = styled.h3`
   font-size: 24px;
   font-weight: 600;
   text-align: right;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (max-width: 1023px) {
     font-size: 18px;
   }
 `;
 const Info = styled.p`
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-weight: 400;
   text-align: justify;
   direction: rtl;
@@ -99,9 +100,9 @@ const InfoModal = ({ data, type, setOpenModal }) => {
         </Header>
         <div>
           <Title>
-            {type === "ابزار" ? `رنگ ${data.type}` : `${data.type}`}
+            {type === "ابزار" ? `رنگ ${data.asset}` : `${data.asset}`}
           </Title>
-          <Info>{data.info}</Info>
+          <Info>{data.asset}</Info>
         </div>
       </Modal>
     </BackGround>

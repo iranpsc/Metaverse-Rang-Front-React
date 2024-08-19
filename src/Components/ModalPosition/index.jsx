@@ -6,8 +6,6 @@ import { Container } from "./Styles";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
 import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
 import Header from "../Header/Header";
-import PromiseModal from "../../Middleware/PromiseModal";
-import axios from "axios";
 
 const ModalPosition = ({ children, title, position, action }) => {
   const [showContainer, setShowContainer] = useState(true);
@@ -27,4 +25,4 @@ const ModalPosition = ({ children, title, position, action }) => {
   );
 };
 
-export default PromiseModal(ModalPosition, axios);
+export default ModalPosition;
