@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Bio from "./Bio";
 import Details from "./Details";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   padding-top: 20px;
@@ -30,7 +32,6 @@ const Container = styled.div`
 `;
 const TotalTab = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1400);
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1400);

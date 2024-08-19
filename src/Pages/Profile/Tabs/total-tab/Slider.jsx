@@ -9,7 +9,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { TiWarningOutline } from "react-icons/ti";
 import slidePic from "../../../../Assets/images/slide.png";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const IconWrapper = styled.div`
   width: 34px;
@@ -31,7 +32,7 @@ const IconWrapper = styled.div`
   }
   svg {
     font-size: 20px;
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 const Icons = styled.div`
@@ -54,22 +55,21 @@ const Icons = styled.div`
     bottom: 10px;
   }
 `;
-const slides = [
-  { id: 1, image: slidePic },
-  { id: 2, image: slidePic },
-  { id: 3, image: slidePic },
-  { id: 4, image: slidePic },
-  { id: 5, image: slidePic },
-  { id: 6, image: slidePic },
-];
+
 export default function Slider() {
-  const [images, setImages] = useState(slides);
-  const removeHandler = (id) => {
-    const indexToRemove = images.findIndex((image) => image.id === id);
-    if (indexToRemove !== -1) {
-      const slidesAfterRemove = images.filter((image) => image.id !== id);
-      setImages(slidesAfterRemove);
-    }
+  const [profileImage, setProfileImage] = useState([]);
+  const { Request, HTTP_METHOD } = useRequest();
+
+  useEffect(() => {
+    Request("profilePhotos").then((response) => {
+      setProfileImage(response?.data?.data.reverse());
+    });
+  }, []);
+
+  const deleteProfileImage = (id) => {
+    Request(`profilePhotos/${id}`, HTTP_METHOD.DELETE).then(() => {
+      setProfileImage(profileImage.filter((image) => image.id !== id));
+    });
   };
 
   const handleImageChange = (e) => {
@@ -86,7 +86,7 @@ export default function Slider() {
 
         const updatedImages = [...images];
         updatedImages.push(newImage);
-        setImages(updatedImages);
+        setProfileImage(updatedImages);
       };
 
       reader.readAsDataURL(file);
@@ -106,11 +106,11 @@ export default function Slider() {
         modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
-        {images.map((image) => (
+        {profileImage.map((image) => (
           <SwiperSlide key={image.id}>
-            <img src={image.image} alt="image" />
+            <img src={image.url} alt="image" />
             <Icons>
-              <IconWrapper onClick={() => removeHandler(image.id)}>
+              <IconWrapper onClick={() => deleteProfileImage(image.id)}>
                 <LuImageMinus />
               </IconWrapper>
               <IconWrapper>

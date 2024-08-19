@@ -6,15 +6,10 @@ import gif4 from "../../../../Assets/gif/blue-color.gif";
 import gif5 from "../../../../Assets/gif/rial.gif";
 import gif6 from "../../../../Assets/gif/psc.gif";
 import styled from "styled-components";
+import { useContext, useEffect, useState } from "react";
+import useRequest from "../../../../Services/Hooks/useRequest";
+import { WalletContext } from "../../../../Services/Reducers/WalletContext";
 
-const colors = [
-  { id: 1, gif: gif1, label: "حد تاثیر", value: "۰.۲" },
-  { id: 2, gif: gif2, label: "رنگ زرد", value: "۶۶ K" },
-  { id: 3, gif: gif3, label: "رنگ قرمز", value: "۹۵.۰۴۸" },
-  { id: 4, gif: gif4, label: "رنگ آبی", value: "۱۵۰" },
-  { id: 5, gif: gif5, label: "ریال", value: "۹۸.۰۴۸" },
-  { id: 6, gif: gif6, label: "PSC", value: "۱۱.۰۴۹ K" },
-];
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -24,6 +19,15 @@ const Container = styled.div`
   }
 `;
 const Colors = () => {
+  const [wallet] = useContext(WalletContext);
+  const colors = [
+    { id: 1, gif: gif1, label: "حد تاثیر", value: wallet?.effect },
+    { id: 2, gif: gif2, label: "رنگ زرد", value: wallet?.yellow },
+    { id: 3, gif: gif3, label: "رنگ قرمز", value: wallet?.red },
+    { id: 4, gif: gif4, label: "رنگ آبی", value: wallet?.blue },
+    { id: 5, gif: gif5, label: "ریال", value: wallet?.irr },
+    { id: 6, gif: gif6, label: "PSC", value: wallet?.psc },
+  ];
   return (
     <Container>
       {colors.map((color) => (

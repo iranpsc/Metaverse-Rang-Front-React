@@ -1,6 +1,9 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import level from "../../../../Assets/images/level.png";
 import styled from "styled-components";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../../Services/Reducers/UserContext";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   border-radius: 10px;
@@ -62,6 +65,20 @@ const LevelCount = styled.div`
 `;
 
 const Level = () => {
+  const [levels, setLevels] = useState({});
+  const { Request, HTTP_METHOD } = useRequest();
+  const [user] = useContext(UserContext);
+  useEffect(() => {
+    Request(
+      `users/${user?.id}/level`,
+      HTTP_METHOD.GET,
+      {},
+      {},
+      "development"
+    ).then((response) => {
+      setLevels(response.data.data);
+    });
+  }, []);
   return (
     <Container>
       <Percent>

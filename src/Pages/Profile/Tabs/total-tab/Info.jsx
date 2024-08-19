@@ -4,7 +4,7 @@ import { LuShare2 } from "react-icons/lu";
 import ShareModal from "./ShareModal";
 import { TiUserAddOutline } from "react-icons/ti";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonIcon from "../../../../Components/ButtonIcon";
 
 const Container = styled.div`
@@ -76,6 +76,7 @@ const Upper = styled.div`
 `;
 const Info = () => {
   const [openShare, setOpenShare] = useState(false);
+
   return (
     <Container>
       <Header>
