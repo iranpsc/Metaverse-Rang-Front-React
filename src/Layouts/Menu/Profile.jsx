@@ -70,7 +70,7 @@ const BtnNavigator = styled.button`
   padding: 0 10px;
   border: none;
   background: ${({ isOpenDrop, theme }) =>
-    isOpenDrop ? theme.menuBg : "transparent"};
+    isOpenDrop ? theme.colors.newColors.shades.menuBg : "transparent"};
   height: 40px;
   border-radius: 10px;
   color: #868b90;
@@ -89,13 +89,14 @@ const SubMenu = styled.div`
   right: ${({ isOpen }) => (isOpen ? "0" : "5.1%")};
   z-index: 1200;
   background-color: ${({ isOpen, theme }) =>
-    isOpen ? "transparent" : theme.menuBg};
+    theme.colors.newColors.shades.menuBg};
   padding: ${({ isOpen }) => (isOpen ? "0" : " 10px 10px 8.5px 10px")};
   border-radius: ${({ isOpen }) => (isOpen ? "none" : "10px")};
   width: ${({ isOpen }) => (isOpen ? "100%" : "16.6%")};
   max-height: ${({ isOpen }) => (isOpen ? "none" : " 88vh")};
   overflow-y: ${({ isOpen }) => (isOpen ? "none" : "auto")};
   border-bottom: 2px solid ${({ theme }) => theme.lineMenu};
+
   ${commonScrollbarStyles}
 `;
 

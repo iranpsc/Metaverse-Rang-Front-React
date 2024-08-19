@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -61,6 +62,13 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
     cardNumber: "",
     shabaNumber: "",
   });
+  const [cards, setCard] = useState([]);
+  const { Request, HTTP_METHOD } = useRequest();
+  useEffect(() => {
+    Request("bank-accounts").then((response) => {
+      setCard(response.data.data);
+    });
+  }, []);
 
   const addCard = () => {
     if (cardInfo.cardNumber !== "" && cardInfo.shabaNumber !== "") {

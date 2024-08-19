@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState, useRef, useCallback } from "react";
-import { Layer, Source, useMap, Marker } from "react-map-gl";
+import { Layer, Source, useMap } from "react-map-gl";
 import { useLoader } from "@react-three/fiber";
-import { Canvas } from "react-three-map/maplibre";
+import { Canvas, Coordinates } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { HemisphereLight } from "three";
 import { BORDER_COLORS } from "../../Services/Constants/BorderColors";
@@ -149,27 +149,29 @@ const MapPolygons = () => {
           />
         </Source>
       )}
-      {zoom >= 15 &&
-        buildingModels.length > 0 &&
-        buildingModels.map((model) => {
-          return (
-            <>
-              {isLoading && <ClipLoader color="#36d7b7" />}
-              <Canvas
-                latitude={parseFloat(model.building.position.split(", ")[0])}
-                longitude={parseFloat(model.building.position.split(", ")[1])}
-                key={`${model.id}-canvas`}
-              >
-                <FBXModel
-                  url={model.file.url}
-                  rotation={[0, 0, 0]}
-                  setLoading={setIsLoading}
-                  uniqueKey={`${model.id}-model`}
-                />
-              </Canvas>
-            </>
-          );
-        })}
+      {zoom >= 15 && buildingModels.length > 0 && (
+        <Canvas latitude={36} longitude={50}>
+          {buildingModels.map(
+            (model) => (
+              console.log(parseFloat(model.building.position.split(",")[0])),
+              (
+                <Coordinates
+                  latitude={parseFloat(model.building.position.split(",")[0])}
+                  longitude={parseFloat(model.building.position.split(",")[1])}
+                >
+                  <FBXModel
+                    url={model.file.url}
+                    rotation={[0, 0, 0]}
+                    setLoading={setIsLoading}
+                    uniqueKey={`${model.id}-model`}
+                    key={`${model.id}-model`} // Make sure to use the key prop here for React optimization
+                  />
+                </Coordinates>
+              )
+            )
+          )}
+        </Canvas>
+      )}
     </>
   );
 };
