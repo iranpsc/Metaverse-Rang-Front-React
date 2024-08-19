@@ -1,8 +1,9 @@
 import FollowingCard from "./FollowingCard";
-import SearchInput from "../../SearchInput";
-import Title from "../../Title";
+
 import styled from "styled-components";
 import { useState } from "react";
+import Title from "../../../../Components/Title";
+import SearchInput from "../../../Search/Components/SearchInput";
 
 const Container = styled.div`
   direction: ltr;
@@ -75,7 +76,7 @@ const Following = () => {
     const codeMatch = item.code.toLowerCase().includes(query);
     const nameMatch = item.name.toLowerCase().includes(query);
 
-    return codeMatch || nameMatch; 
+    return codeMatch || nameMatch;
   });
 
   return (

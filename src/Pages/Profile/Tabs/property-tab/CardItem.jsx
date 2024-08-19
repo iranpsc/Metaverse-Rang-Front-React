@@ -1,11 +1,12 @@
-import Button from "../../Button";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { convertToPersian } from "../../../lib/convertToPersian";
-import pscpng from "../../../assets/images/profile/psc.gif";
-import rialpng from "../../../assets/images/profile/rial.gif";
+
+import pscpng from "../../../../Assets/gif/psc.gif";
+import rialpng from "../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
 import { useState } from "react";
+import { convertToPersian } from "../../../../Services/Utility";
 
+import Button from "../../../../Components/Button";
 const PhotoName = styled.div`
   display: flex;
   align-items: center;
@@ -26,7 +27,7 @@ const Name = styled.div`
   flex-direction: column;
   gap: 4px;
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 600;
   }
@@ -41,12 +42,12 @@ const Address = styled.div`
   flex-direction: column;
   gap: 4px;
   span {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 14px;
     font-weight: 600;
   }
   p {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
     overflow: hidden;
@@ -60,12 +61,12 @@ const Meter = styled.div`
   flex-direction: column;
   gap: 4px;
   span {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 14px;
     font-weight: 600;
   }
   p {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
   }
@@ -75,7 +76,7 @@ const Price = styled.div`
   flex-direction: column;
   gap: 4px;
   span {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 14px;
     font-weight: 600;
   }
@@ -122,7 +123,8 @@ const Container = styled.div`
   direction: rtl;
   gap: 20px;
   grid-template-columns: 1fr;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   padding: 10px 10px 10px 20px;
   border-radius: 5px;
   @media (min-width: 1400px) {
@@ -184,15 +186,11 @@ const CardItem = ({ name, code, color, address, meter, psc, rial, photo }) => {
             <Div>
               <div>
                 <img width={24} height={24} src={rialpng} />
-                <span>
-                  {convertToPersian(formattedRial)}
-                </span>
+                <span>{convertToPersian(formattedRial)}</span>
               </div>
               <div>
                 <img width={24} height={24} src={pscpng} />
-                <span>
-                  {convertToPersian(formattedPsc)}
-                </span>
+                <span>{convertToPersian(formattedPsc)}</span>
               </div>
             </Div>
           </Price>

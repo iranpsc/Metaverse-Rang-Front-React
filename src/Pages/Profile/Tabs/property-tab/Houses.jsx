@@ -1,12 +1,12 @@
 import CardItem from "./CardItem";
 import { FiSearch } from "react-icons/fi";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import Title from "../../Title";
-import business from "../../../assets/images/profile/building.png";
-import education from "../../../assets/images/profile/courthouse.png";
-import house from "../../../assets/images/profile/house.png";
+import business from "../../../../Assets/images/building.png";
+import education from "../../../../Assets/images/courthouse.png";
+import house from "../../../../Assets/images/house.png";
 import styled from "styled-components";
 import { useState } from "react";
+import Title from "../../../../Components/Title";
 
 const List = styled.div`
   display: flex;
@@ -103,7 +103,8 @@ const Wrapper = styled.div`
 const Select = styled.div`
   border-radius: 5px;
   border: 1px solid #454545;
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   color: #dedee9;
   padding: 10px 12px;
   display: flex;
@@ -129,13 +130,14 @@ const Div = styled.div`
 `;
 const Search = styled.div`
   position: relative;
-  height: 30px;
+  height: 50px;
   border-radius: 5px;
   border: 1px solid #454545;
   padding: 10px 12px;
   color: #84858f;
   direction: rtl;
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   display: grid;
   align-items: center;
   gap: 50px;

@@ -1,14 +1,19 @@
-import ButtonIcon from "../../ButtonIcon";
 import { TiUserAddOutline } from "react-icons/ti";
-import avatar from "../../../assets/images/profile/slide.png";
+import avatar from "../../../../Assets/images/slide.png";
 import styled from "styled-components";
 import { useState } from "react";
 
 const Button = styled.div`
   font-size: 16px;
-  color: ${(props) => (props.gray ? "#949494" : "#c30000")};
+  color: ${(props) =>
+    !props.gray
+      ? props.theme.colors.newColors.primaryText
+      : props.theme.colors.newColors.otherColors.btnIconText};
   font-weight: 600;
-  background-color: ${(props) => (props.gray ? "#3B3B3B" : "#c3000026")};
+  background-color: ${(props) =>
+    !props.gray
+      ? props.theme.colors.primary
+      : props.theme.colors.newColors.otherColors.btnIconBg};
   border-radius: 10px;
   padding: 7px 20px 6px 20px;
   cursor: pointer;
@@ -25,7 +30,7 @@ const Profile = styled.div`
     border: 2px solid #0066ff;
   }
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 18px;
     font-weight: 500;
   }
@@ -46,7 +51,8 @@ const Card = styled.div`
   direction: rtl;
   align-items: center;
   justify-content: space-between;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px;
   padding: 15px;
 `;
@@ -66,8 +72,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  background-color: #FFC700;
-  color: #191B21;
+  background-color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   border-radius: 7px;
   font-size: 16px;
   cursor: pointer;

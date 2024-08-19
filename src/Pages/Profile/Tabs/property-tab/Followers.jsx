@@ -1,8 +1,9 @@
 import Follower from "./Follower";
-import SearchInput from "../../SearchInput";
-import Title from "../../Title";
+import SearchInput from "../../../Search/Components/SearchInput";
+
 import styled from "styled-components";
 import { useState } from "react";
+import Title from "../../../../Components/Title";
 
 const Container = styled.div`
   direction: ltr;
@@ -68,7 +69,7 @@ const Followers = () => {
     const codeMatch = item.code.toLowerCase().includes(query);
     const nameMatch = item.name.toLowerCase().includes(query);
 
-    return codeMatch || nameMatch; 
+    return codeMatch || nameMatch;
   });
   return (
     <Container>

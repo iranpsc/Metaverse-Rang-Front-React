@@ -1,13 +1,19 @@
-import avatar from "../../../assets/images/profile/slide.png";
+import avatar from "../../../../Assets/images/slide.png";
 import styled from "styled-components";
 import { useState } from "react";
 
 const Button = styled.div`
   font-size: 16px;
-  color: ${(props) => (props.gray ? "#949494" : "black")};
-  font-weight: 600;
   white-space: nowrap;
-  background-color: ${(props) => (props.gray ? "#3b3b3b" : "#FFC700")};
+  color: ${(props) =>
+    !props.gray
+      ? props.theme.colors.newColors.primaryText
+      : props.theme.colors.newColors.otherColors.btnIconText};
+  font-weight: 600;
+  background-color: ${(props) =>
+    !props.gray
+      ? props.theme.colors.primary
+      : props.theme.colors.newColors.otherColors.btnIconBg};
   border-radius: 10px;
   padding: 10px 22px;
   cursor: pointer;
@@ -21,7 +27,7 @@ const Profile = styled.div`
     border: 2px solid #0066ff;
   }
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 18px;
     font-weight: 500;
   }
@@ -42,11 +48,12 @@ const Card = styled.div`
   direction: rtl;
   align-items: center;
   justify-content: space-between;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px;
   padding: 15px;
 `;
-const FollowingCard = ({name, code}) => {
+const FollowingCard = ({ name, code }) => {
   const [follow, setFollow] = useState(true);
   return (
     <Card>
