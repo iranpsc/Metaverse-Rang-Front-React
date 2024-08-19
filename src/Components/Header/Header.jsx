@@ -97,7 +97,7 @@ const Icons = styled.div`
     color: #3b3b3b;
     width: 30px;
     height: 30px;
-    z-index: 100;
+    z-index: 10;
     @media (min-width: 998px) {
       width: 40px;
       height: 40px;

@@ -5,12 +5,13 @@ import Property from "./Tabs/Property";
 import PropertyTab from "./Tabs/property-tab/PropertyTab";
 import TotalTab from "./Tabs/total-tab/TotalTab";
 import Transactions from "./Tabs/Transactions";
+import TransactionsTab from "./Tabs/transactions-tab/TransactionsTab";
 
 export default function Profile() {
   const tabs = [
     { title: "کلیات", content: <TotalTab /> },
     { title: "دارایی", content: <PropertyTab /> },
-    { title: "تراکنش ها", content: <Transactions /> },
+    { title: "تراکنش ها", content: <TransactionsTab /> },
   ];
 
   const TabPanel = useTabs(tabs);

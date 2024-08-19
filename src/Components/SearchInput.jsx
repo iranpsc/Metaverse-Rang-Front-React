@@ -2,19 +2,21 @@ import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: 30px;
+  height: 50px;
   border-radius: 5px;
-  border: 1px solid #454545;
-  padding: 10px 12px;
+  border: 1px solid ${(props) => props.theme.colors.newColors.shades.title};
+  padding: 5px 12px;
   color: #84858f;
   direction: rtl;
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   display: grid;
   align-items: center;
   grid-template-columns: 5px 1fr;
   gap: 50px;
   svg {
-    color: white;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
   }
   input {
     height: 100%;
@@ -23,7 +25,8 @@ const Container = styled.div`
     width: 100% !important;
     outline: none;
     border: none;
-    color: white;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
   }
 `;
 

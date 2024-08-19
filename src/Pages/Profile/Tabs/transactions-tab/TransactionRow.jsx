@@ -1,8 +1,9 @@
 import { LuEye } from "react-icons/lu";
 import PrintModal from "./PrintModal";
-import { convertToPersian } from "../../../lib/convertToPersian";
+
 import styled from "styled-components";
 import { useState } from "react";
+import { convertToPersian, persianNumbers } from "../../../../Services/Utility";
 
 const TableRow = styled.tr`
   background-color: transparent;
@@ -11,7 +12,7 @@ const TableRow = styled.tr`
 const TableCell = styled.td`
   padding: 15px 20px;
   border-bottom: 1px solid #454545;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
 `;
 
 const Image = styled.img`
@@ -44,33 +45,37 @@ const Subject = styled.div`
 const Print = styled.div`
   width: 40px;
   height: 40px;
-  background-color: #3b3b3b;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconBg};
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   &:hover {
-    background-color: #ffc700;
+    background-color: ${(props) => props.theme.colors.primary};
     transition: all 0.2s linear;
   }
   svg {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.otherColors.iconText};
+  }
+  svg:hover {
+    color: ${(props) => props.theme.colors.newColors.primaryText};
   }
 `;
 
 const Status = styled.h3`
   color: ${(props) =>
-    props.status === "success"
+    props.status == "1"
       ? "#18c090"
-      : props.status === "pending"
+      : props.status == "-118"
       ? "#ffc800"
       : "#ff0000"};
   padding: 2px 18px;
   background-color: ${(props) =>
-    props.status === "success"
+    props.status == "1"
       ? "#18c09017"
-      : props.status === "pending"
+      : props.status == "-118"
       ? "#ffc80017"
       : "#ff000017"};
   width: fit-content;
@@ -80,14 +85,14 @@ const Status = styled.h3`
 `;
 
 const TransactionRow = ({
-  code,
+  id,
   date,
   time,
   status,
-  title,
-  subject,
-  count,
-  gif,
+  asset,
+  type,
+  amount,
+  assetGif,
 }) => {
   const [openPrint, setOpenPrint] = useState(false);
 
@@ -95,27 +100,29 @@ const TransactionRow = ({
     <TableRow className="odd:bg-slate-50 hover:bg-black/10 py-5 duration-200">
       <TableCell>
         <div>
-          <Code>TR-{code}</Code>
+          <Code>{id}</Code>
         </div>
       </TableCell>
       <TableCell>
         <div>
           <Date>
-            {date} | {time}
+            {convertToPersian(date)} | {convertToPersian(time)}
           </Date>
         </div>
       </TableCell>
       <TableCell>
         <Status status={status}>
-          {status === "success"
+          {status == "1"
             ? "موفق"
-            : status === "pending"
+            : status == "0"
+            ? "نا موفق"
+            : status == "-1"
             ? "معلق"
-            : "ناموفق"}
+            : "بب"}
         </Status>
       </TableCell>
       <TableCell>
-        <Title>{title}</Title>
+        <Title>{type}</Title>
       </TableCell>
       <TableCell>
         <Subject>
@@ -124,14 +131,14 @@ const TransactionRow = ({
             height={300}
             alt="doctor"
             loading="lazy"
-            src={gif}
+            src={assetGif}
           />
-          <Title>{subject}</Title>
+          <Title>{asset}</Title>
         </Subject>
       </TableCell>
       <TableCell>
         <div>
-          <Title>{convertToPersian(count)}</Title>
+          <Title>{convertToPersian(amount)}</Title>
         </div>
       </TableCell>
       <TableCell>
@@ -141,14 +148,14 @@ const TransactionRow = ({
       </TableCell>
       {openPrint && (
         <PrintModal
-          code={code}
+          code={id}
           date={date}
           time={time}
           status={status}
-          title={title}
-          subject={subject}
-          count={count}
-          gif={gif}
+          title={type}
+          subject={status}
+          count={amount}
+          gif={assetGif}
           setOpenPrint={setOpenPrint}
         />
       )}

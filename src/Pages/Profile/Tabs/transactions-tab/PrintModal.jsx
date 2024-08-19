@@ -1,9 +1,10 @@
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BsCheckCircleFill } from "react-icons/bs";
-import Button from "../../Button";
+
 import { IoIosClose } from "react-icons/io";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
+import Button from "../../../../Components/Button";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -21,7 +22,7 @@ const BackGround = styled.div`
 const Modal = styled.div`
   position: relative;
   border-radius: 10px;
-  background-color: #000000;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   overflow-y: auto;
   direction: ltr;
   padding: 20px;
@@ -47,16 +48,16 @@ const Header = styled.div`
   align-items: center;
   p {
     color: ${(props) =>
-      props.status === "success"
+      props.status == "1"
         ? "#00966d"
-        : props.status === "failed"
+        : props.status == "0"
         ? "#C30000"
         : "#FFC700"};
     font-size: 24px;
     font-weight: 600;
   }
   span {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
   }
@@ -67,9 +68,9 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
   color: ${(props) =>
-    props.status === "success"
+    props.status == "1"
       ? "#00966d"
-      : props.status === "failed"
+      : props.status == "0"
       ? "#C30000"
       : "#FFC700"};
   margin-bottom: 20px;
@@ -87,7 +88,7 @@ const Div = styled.div`
 `;
 
 const Info = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   padding: 20px;
   border-radius: 10px;
   margin-top: 20px;
@@ -102,11 +103,11 @@ const Row = styled.div`
 `;
 const Title = styled.h3`
   font-size: 16px;
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-weight: 500;
 `;
 const Value = styled.h3`
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 400;
 `;
@@ -144,7 +145,6 @@ const PrintModal = ({
   time,
   status,
   title,
-  subject,
   count,
   setOpenPrint,
 }) => {
@@ -157,20 +157,20 @@ const PrintModal = ({
         <Header status={status}>
           <Div status={status}>
             <div />
-            {status === "success" ? (
+            {status == "1" ? (
               <BsCheckCircleFill size={80} />
-            ) : status === "pending" ? (
+            ) : status == "-1" ? (
               <IoReloadCircleSharp size={80} />
             ) : (
               <AiFillCloseCircle size={80} />
             )}
           </Div>
-          {status === "success" ? (
+          {status == "1" ? (
             <>
               <p>از خرید شما سپاس گذاریم</p>
               <span>خرید شما با موفقیت ثبت شده است</span>
             </>
-          ) : status === "pending" ? (
+          ) : status == "-1" ? (
             <>
               <p>تراکنش شما در حال برسی است</p>
               <span>تا دقایقی دیگر تراکنش شما برسی خواهد شد</span>
@@ -187,12 +187,12 @@ const PrintModal = ({
             <Title>موضوع</Title>
             <Gif>
               <img loading="lazy" width={26} height={26} src={gif} alt={code} />
-              <Value>خرید {subject}</Value>
+              <Value>خرید {count}</Value>
             </Gif>
           </Row>
           <Row>
             <Title>شناسه واریز</Title>
-            <Value>TR-{code}</Value>
+            <Value>{code}</Value>
           </Row>
           <Row>
             <Title>تاریخ واریز</Title>

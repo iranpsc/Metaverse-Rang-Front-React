@@ -1,12 +1,12 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import TransactionRow from "./TransactionRow";
-import blue from "../../../assets/images/profile/blue-color.gif";
-import psc from "../../../assets/images/profile/psc.gif";
-import red from "../../../assets/images/profile/red-color.gif";
-import rial from "../../../assets/images/profile/rial.gif";
+import blue from "../../../../Assets/gif/blue-color.gif";
+import psc from "../../../../Assets/gif/psc.gif";
+import red from "../../../../Assets/gif/red-color.gif";
+import rial from "../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
 import { useState } from "react";
-import yellow from "../../../assets/images/profile/yellow-color.gif";
+import yellow from "../../../../Assets/gif/yellow-color.gif";
 
 const Container = styled.div`
   border-radius: 0.25rem;
@@ -52,7 +52,8 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px !important;
   overflow: hidden !important;
 `;
@@ -64,7 +65,8 @@ const StatusFilter = styled.div`
   width: 169px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   font-size: 16px;
   div {
     position: relative;
@@ -149,7 +151,8 @@ const SubjectFilter = styled.div`
   width: 140px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   font-size: 16px;
   div {
     position: relative;
@@ -167,7 +170,7 @@ const SubjectFilter = styled.div`
     }
   }
   span {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 400;
     font-size: 16px;
   }
@@ -190,10 +193,10 @@ const TableHeader = styled.th`
   padding: 20px;
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
   width: ${(props) =>
-    props.date ? "235px" : props.subject ? "116px" : props.title && "140px"};
+    props.date ? "235px" : props.subject ? "130px" : props.title && "140px"};
 `;
 
 const Loader = styled.div`
@@ -204,7 +207,7 @@ const Loader = styled.div`
   justify-content: center;
   button {
     background-color: transparent;
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     border: none;
   }
 `;
