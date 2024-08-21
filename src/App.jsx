@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import "./App.css";
 import "react-quill/dist/quill.snow.css";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import "./i18n/i18n.js";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
@@ -40,41 +40,6 @@ const Container = styled.section`
 `;
 
 function App() {
-  const [isFullScreen, setFullScreen] = useState(false);
-
-  useEffect(() => {
-    if (isFullScreen && screen.orientation) {
-      screen.orientation.lock("landscape").catch((error) => {
-        console.error("Failed to change to landscape mode:", error);
-      });
-    }
-  }, [isFullScreen]);
-
-  const toggleFullScreen = () => {
-    if (!isFullScreen) {
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-      } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen();
-      } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen();
-      } else if (document.documentElement.msRequestFullscreen) {
-        document.documentElement.msRequestFullscreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-    }
-    setFullScreen(!isFullScreen);
-  };
-
   useLayoutEffect(() => {
     window.Echo = new Echo({
       broadcaster: "pusher",
@@ -99,7 +64,6 @@ function App() {
               <MapContextProvider>
                 <AlertProvider>
                   <BrowserRouter>
-                    {/* <Tutorial /> */}
                     <Routers />
                     <Container>
                       <MenuContextProvider>
@@ -109,17 +73,6 @@ function App() {
                         <MapTreeD />
                       </SelectedEnvironmentProvider>
                       <StatusBar />
-                      <button
-                        onClick={toggleFullScreen}
-                        style={{
-                          width: "20px",
-                          position: "absolute",
-                          top: 0,
-                          right: "10px",
-                        }}
-                      >
-                        +++
-                      </button>
                     </Container>
 
                     <Toaster

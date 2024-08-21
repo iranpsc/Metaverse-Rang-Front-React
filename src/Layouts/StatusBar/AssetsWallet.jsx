@@ -2,12 +2,12 @@ import React from "react";
 import { useContext } from "react";
 import { WalletContext } from "../../Services/Reducers/WalletContext";
 import styled from "styled-components";
-import BlueSpray from "../../Assets/svg/blueSpray.svg";
-import RedSpray from "../../Assets/svg/redSpray.svg";
-import YellowSpray from "../../Assets/svg/yellowSpray.svg";
-import Satisfaction from "../../Assets/svg/satisfaction.svg";
-import Psc from "../../Assets/svg/psc.svg";
-import Irr from "../../Assets/svg/irr.svg";
+import BlueSpray from "../../Assets/gif/blue-color.gif";
+import RedSpray from "../../Assets/gif/red-color.gif";
+import YellowSpray from "../../Assets/gif/yellow-color.gif";
+import Satisfaction from "../../Assets/gif/satisfaction.gif";
+import Psc from "../../Assets/gif/psc.gif";
+import Irr from "../../Assets/gif/rial.gif";
 import { convertEnglishToPersianNumbers } from "../../Services/Utility";
 
 const Asset = styled.div`

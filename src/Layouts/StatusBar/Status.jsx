@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Ping = styled.p`
   color: #c1c1c1;
-  font-family: DigitalNumber;
+  font-family: DigitalNumber !important;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -17,7 +17,7 @@ const Ping = styled.p`
 `;
 const Watch = styled.p`
   color: #c1c1c1;
-  font-family: DigitalNumber;
+  font-family: DigitalNumber !important;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -26,6 +26,7 @@ const Watch = styled.p`
   @media (min-width: 1024px) {
     font-size: 15px;
   }
+
 `;
 
 const Status = () => {

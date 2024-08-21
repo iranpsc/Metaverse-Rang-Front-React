@@ -57,7 +57,6 @@
 @font-face {
   font-family: "DigitalNumber";
   src: url("/public/fonts/Digital-7\ V7.woff")format("woff"),
-
 }
 
 body {
@@ -103,6 +102,8 @@ a {
     border-radius: 20px;
   }
 }
+
+
 
 .purple-box-shadow {
   box-shadow: 0 2px 5px 2px #bb1fcf73, inset 0 2px 5px 2px #bb1fcf73;

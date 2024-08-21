@@ -1,38 +1,18 @@
-import React, {
-  useContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useState, useEffect, useRef, createContext } from "react";
 import styled from "styled-components";
-import { createContext } from "react";
-
-import MapPolygons from "./MapPolygons";
-import Main from "../Main";
 import useAuth from "../../Services/Hooks/useAuth";
+import MapPolygons from "./MapPolygons";
 import MapFlag from "./MapFlag";
-import AdviserIcon from "./Adviser";
-import flyToPosition from "./FlyToGift";
-import ContextMenu from "./ContextMenu/ContextMenu";
-import ToolTip from "../../Components/Tooltip";
-import Routes from "./Routers";
-import useRequest from "../../Services/Hooks/useRequest";
-
-import LocationPin from "../../Assets/gif/location-pin.gif";
-import BtnFlagMap from "./BtnFlagMap";
-import Map, {
-  FullscreenControl,
-  NavigationControl,
-} from "react-map-gl/maplibre";
+import Map from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
 import Mark from "./3dModelMap/Mark";
 import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
-
+import { ReactComponent as unZoom } from "../../Assets/images/UnZoom.svg";
+import { ReactComponent as zoom } from "../../Assets/images/zoom.svg";
+import { ReactComponent as fullPage } from "../../Assets/images/fullPage.svg";
 const Container = styled.div`
-  width: 100%;
+  width: 101%;
   height: 100%;
   position: relative;
   border-radius: 10px;
@@ -41,11 +21,132 @@ const Container = styled.div`
     border-radius: 20px;
   }
 `;
-export const TransactionContext = createContext();
 
+const ZoomContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-direction: column;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px;
+  border-radius: 7px;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+`;
+const ZoomControlContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 1;
+  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+`;
+
+const UnZoomControlContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 1;
+  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+`;
+const FullscreenControlContainer = styled.div`
+  position: absolute;
+  top: 85px;
+  left: 10px;
+  z-index: 1;
+  border-radius: 10px;
+  width: 33px;
+  height: 33px;
+  padding: 5px;
+  border-radius: 7px;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+`;
+const FullscreenMapContainer = styled.div`
+  position: absolute;
+  top: 125px;
+  left: 10px;
+  z-index: 1;
+  border-radius: 10px;
+  width: 33px;
+  height: 33px;
+  padding: 5px;
+  border-radius: 7px;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+`;
+
+const CustomZoomInButton = styled(zoom)`
+  width: 100%;
+  height: 100%;
+  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
+  cursor: pointer;
+`;
+const CustomZoomOutButton = styled(unZoom)`
+  width: 100%;
+  height: 100%;
+  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
+  cursor: pointer;
+`;
+
+const CustomFullscreenButton = styled(fullPage)`
+  width: 100%;
+  height: 100%;
+  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
+  cursor: pointer;
+`;
+const CustomFullscreenMapButton = styled(fullPage)`
+  width: 100%;
+  height: 100%;
+  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
+  cursor: pointer;
+  rotate: 45deg;
+`;
+export const TransactionContext = createContext();
 const MapTreeD = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   const { setUserWithToken, setUser } = useAuth();
+  const mapRef = useRef(null);
+  const [isFullScreen, setFullScreen] = useState(false);
+  const [isFullScreenMap, setFullScreenMap] = useState(false);
+  useEffect(() => {
+    if (isFullScreen && screen.orientation) {
+      screen.orientation.lock("landscape").catch((error) => {
+        console.error("Failed to change to landscape mode:", error);
+      });
+    }
+  }, [isFullScreen]);
+
+  const toggleFullScreen = () => {
+    if (!isFullScreen) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen();
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+    setFullScreen(!isFullScreen);
+  };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -65,20 +166,40 @@ const MapTreeD = () => {
   }, []);
 
   const navigator = useNavigate();
-  const [zoomLevel, setZoomLevel] = useState(18);
+  const [zoomLevel, setZoomLevel] = useState(12);
   const { confirmation, selectedEnvironment, hiddenModel } =
     useSelectedEnvironment();
 
+  const handleZoomIn = () => {
+    if (mapRef.current) {
+      const newZoomLevel = zoomLevel + 1;
+      mapRef.current.zoomTo(newZoomLevel);
+      setZoomLevel(newZoomLevel);
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (mapRef.current) {
+      const newZoomLevel = zoomLevel - 1;
+      mapRef.current.zoomTo(newZoomLevel);
+      setZoomLevel(newZoomLevel);
+    }
+  };
+
+  const handleFullscreenToggle = () => {
+    if (!isFullScreenMap) {
+      mapRef.current.getMap().getContainer().requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+    setFullScreenMap(!isFullScreenMap);
+  };
+  console.log(mapRef.current);
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
     >
       <Container>
-        {/* 
-          <Main />
-          <ContextMenu />
-          <AdviserIcon />  
-    */}
         <Map
           className="map"
           antialias
@@ -97,18 +218,29 @@ const MapTreeD = () => {
               navigator(`/metaverse/feature/${feature.properties.id}`);
             }
           }}
-          onZoomEnd={setZoomLevel}
+          onZoomEnd={(e) => setZoomLevel(e.viewState.zoom)}
           RTLTextPlugin="https://map.irpsc.com/rtl.js"
           maxPitch={78}
+          ref={mapRef}
         >
-          <FullscreenControl position="top-left" />
-          <NavigationControl position="top-left" />
-
           {confirmation && selectedEnvironment && !hiddenModel && <Mark />}
-
           <MapPolygons />
           <MapFlag />
         </Map>
+        <ZoomContainer>
+          <ZoomControlContainer>
+            <CustomZoomInButton onClick={handleZoomIn} />
+          </ZoomControlContainer>
+          <UnZoomControlContainer>
+            <CustomZoomOutButton onClick={handleZoomOut} />
+          </UnZoomControlContainer>
+        </ZoomContainer>
+        <FullscreenControlContainer>
+          <CustomFullscreenButton onClick={toggleFullScreen} />
+        </FullscreenControlContainer>
+        <FullscreenMapContainer>
+          <CustomFullscreenMapButton onClick={handleFullscreenToggle} />
+        </FullscreenMapContainer>
       </Container>
     </TransactionContext.Provider>
   );

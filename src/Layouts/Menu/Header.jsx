@@ -14,6 +14,7 @@ const Container = styled.div`
   justify-content: ${(props) => (props.isOpen ? "space-between" : "center")};
   gap: 5px;
   width: 100%;
+  position: relative;
 `;
 
 const ContainerText = styled.div`
@@ -47,9 +48,8 @@ const BtnOpenCloseMenu = styled.button`
   justify-content: center;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.themeBtn};
-  position: ${(props) => (props.isOpen ? "inherit" : "absolute")};
-  right: 5.12%;
-  top: 3.3%;
+  position: ${(props) => (props.isOpen ? "relative" : "absolute")};
+  left: ${(props) => (!props.isOpen ? "-70px" : "0")};
   z-index: 9;
   border: none;
 `;

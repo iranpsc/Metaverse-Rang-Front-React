@@ -9,6 +9,7 @@ import PrivateComponent from "../../Middleware/PrivateComponent";
 import PublicComponent from "../../Middleware/PublicComponent";
 import BtnsAfterLogin from "./BtnsAfterLogin";
 import BtnLogin from "./BtnAction/BtnLogin";
+import BtnAction from "./BtnAction/BtnAction";
 
 const Container = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ const Container = styled.div`
     border-radius: 10px;
   }
   @media (min-width: 1536px) {
-    width: ${(props) => (props.isOpen ? "23.5%" : "4.1%")};
+    width: ${(props) => (props.isOpen ? "21.5%" : "4.1%")};
     border-radius: 10px;
   }
   background-color: ${(props) =>
@@ -48,7 +49,9 @@ const Menu = () => {
       <PublicComponent>
         <BtnLogin />
       </PublicComponent>
-
+      <PrivateComponent>
+        <BtnAction />
+      </PrivateComponent>
       <ThemesBtn />
     </Container>
   );

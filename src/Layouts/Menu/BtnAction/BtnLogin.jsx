@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { ReactComponent as LoginIcon } from "../../../Assets/svg/login.svg";
 import { useMenuContext } from "../../../Services/Reducers/MenuContext";
-import { useNavigate } from "react-router-dom";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
 import useRequest from "../../../Services/Hooks/useRequest";
 
@@ -51,10 +50,10 @@ const BtnLogin = () => {
 
   return (
     <Btn isOpen={isOpen} onClick={handleClick}>
+      <Icon src={LoginIcon} />
       <Text isOpen={isOpen}>
         {getFieldTranslationByNames("login", "login")}
       </Text>
-      <Icon src={LoginIcon} />
     </Btn>
   );
 };

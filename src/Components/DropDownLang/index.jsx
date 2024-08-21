@@ -7,6 +7,7 @@ import i18n from "../../i18n/i18n";
 import { useEffect } from "react";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import Tippy from "@tippyjs/react";
+import { ReactComponent as ArowMenu } from "../../Assets/svg/arowMenu.svg";
 import "tippy.js/animations/scale.css";
 const Container = styled.div`
   width: 100%;
@@ -19,7 +20,8 @@ const Btn = styled.button`
   width: 100%;
   background-color: transparent;
   align-items: center;
-  justify-content: ${({ shouldHide }) => (shouldHide ? "center" : "start")};
+  justify-content: ${({ shouldHide }) =>
+    shouldHide ? "center" : "space-between"};
   gap: 16.865px;
   padding: ${({ shouldHide }) => (shouldHide ? " 0px" : "0 10px")};
   border: none;
@@ -76,6 +78,17 @@ const Tooltip = styled.div`
   line-height: 180%; /* 36px */
   text-transform: capitalize;
 `;
+const IconArrow = styled(ArowMenu)`
+  display: ${({ isOpenDrop }) => (isOpenDrop ? "flex" : "none")};
+  stroke: ${(props) => props.theme.colors.newColors.shades[90]};
+  rotate: ${(props) => (props.isOpenDrop ? "270deg" : "90deg")};
+  width: 40px;
+  height: 40px;
+`;
+const Div = styled.div`
+  display: flex;
+  gap: 12px;
+`;
 const DropDownLang = () => {
   const { isOpen } = useMenuContext();
   const [isOpenDrop, setIsOpen] = useState(false);
@@ -102,10 +115,14 @@ const DropDownLang = () => {
     >
       <Container onClick={() => setIsOpen(!isOpenDrop)}>
         <Btn isOpenDrop={isOpenDrop} shouldHide={!isOpen}>
-          <Icon src={LangIcon} />
-          <Text shouldHide={!isOpen}>
-            {getFieldTranslationByNames("central-page", "language")}
-          </Text>
+          <Div>
+            <Icon src={LangIcon} />
+            <Text shouldHide={!isOpen}>
+              {getFieldTranslationByNames("central-page", "language")}
+            </Text>
+          </Div>
+
+          <IconArrow isOpenDrop={isOpenDrop} />
         </Btn>
         {isOpenDrop && (
           <DropdownMenu isOpenDrop={isOpenDrop}>

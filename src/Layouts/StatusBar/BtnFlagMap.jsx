@@ -23,23 +23,26 @@ const IconFilter = styled(FilterIcon)`
   width: 16px;
   cursor: pointer;
   cursor: "not-allowed";
+  width: 14px;
+  height: 16px;
 `;
 const IconLocation = styled(LocationIcon)`
-  width: 16px;
+  width: 14px;
+  height: 16px;
   fill: ${(props) => (props.active ? "#FFC700" : "#868B90")};
   fill-opacity: ${(props) => (props.active ? "1" : "0.5")};
   cursor: pointer;
 `;
 const TitleFlag = styled.p`
   color: #868b90;
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 180%;
   text-transform: capitalize;
   white-space: nowrap;
   @media (min-width: 1024px) {
-    font-size: 20px;
+    font-size: 17px;
   }
 `;
 const ContainerIcon = styled.div`
