@@ -19,7 +19,7 @@ const Btn = styled.div`
   border-radius: 10px;
   padding: 0 10px;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 `;
 const Text = styled.p`
   display: ${(props) => (props.isOpen ? "block" : "none")};

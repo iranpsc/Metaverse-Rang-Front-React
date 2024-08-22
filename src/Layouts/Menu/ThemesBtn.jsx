@@ -98,9 +98,9 @@ const ThemesBtn = () => {
           isActive={isActive}
         >
           {isActive ? (
-            <Dark active={true} dark={true} />
-          ) : (
             <Light active={true} />
+          ) : (
+            <Dark active={true} dark={true} />
           )}
         </Btn>
       )}

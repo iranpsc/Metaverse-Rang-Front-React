@@ -46,6 +46,7 @@ const Container = styled.div`
     background-color: #999;
   }
   margin-bottom: auto;
+  margin-top: 25px;
 `;
 
 const Btn = styled.a`

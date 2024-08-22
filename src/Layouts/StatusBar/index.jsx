@@ -53,6 +53,7 @@ const FlagMapContainer = styled.div`
   padding: 4px 7px;
   align-items: center;
   overflow-y: auto;
+  padding-left: 10px;
   /* Scrollbar styles for this component */
   &::-webkit-scrollbar {
     width: 6px;

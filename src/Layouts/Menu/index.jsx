@@ -33,7 +33,14 @@ const Container = styled.div`
   padding: ${(props) => (props.isOpen ? "20px" : "10px")};
   transition: all 0.3s ease 0s;
 `;
-
+const Hr = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconBg};
+  width: 100%;
+  padding: 0 15px;
+  height: 2px;
+  margin-bottom: 10px;
+`;
 const Menu = () => {
   const { isOpen } = useMenuContext();
   return (
@@ -52,6 +59,7 @@ const Menu = () => {
       <PrivateComponent>
         <BtnAction />
       </PrivateComponent>
+      <Hr />
       <ThemesBtn />
     </Container>
   );

@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import one from "../../Assets/images/Frame 3801.png";
-import Tow from "../../Assets/images/Frame 3802.png";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { getFieldTranslationByNames } from "../../Services/Utility";
@@ -20,11 +18,12 @@ const ContainerList = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-
   flex-direction: column;
   max-height: 90%;
   gap: 5px;
   overflow-y: auto;
+
+  padding-left: 12px;
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -47,7 +46,7 @@ const ContainerList = styled.div`
 const Line = styled.div`
   width: 100%;
   height: 2px;
-  background-color: #000; // این رنگ را به یک رنگ با کنتراست بیشتر مثل مشکی تغییر دهید
+  background-color: #000;
 `;
 const createSVG = (color) =>
   `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill="/></svg>`;
@@ -60,10 +59,11 @@ const Tooltip = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconBg};
+  text-align: right;
   border-radius: 10px;
   color: #868b90;
-  text-align: right;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -85,10 +85,15 @@ const Tooltip = styled.div`
 `;
 
 const Text = styled.p`
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconText};
   font-size: 12px;
-  padding: 0px 8px;
-  border-radius: 78px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const ContainerTextTooltip = styled.div`
   display: flex;
@@ -104,36 +109,62 @@ const BtnAllList = styled.div`
   border-radius: 10px;
   background-color: ${(props) => props.theme.colors.primary};
   min-height: 36px;
-  color: #868b90;
+  color: ${(props) => props.theme.colors.newColors.primaryText};
 `;
 const ImgPosition = styled.img`
   width: 100%;
   height: 114px;
+  border-radius: 12px;
   @media (min-width: 1024px) {
     width: 100%;
     height: 126px;
   }
 `;
+const Hr = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconText};
+  width: 100%;
+  padding: 0 15px;
+  height: 2px;
+  margin-bottom: 10px;
+  opacity: 0.4;
+`;
 const positionsData = [
-  { src: one, name: "مزار شهدای گمنام قزوین" },
-  { src: Tow, name: "دفتر" },
-  { src: one, name: "قزوین" },
-  { src: Tow, name: "قشم" },
+  {
+    src: "https://3drgb.irpsc.com/metaverse/office/OF-602/images/1.png",
+    name: "دفتر فروش متاورس رنگ ",
+    navigation: "https://3drgb.irpsc.com/metaverse/office/OF-602",
+    onlineUser: "20",
+  },
+  {
+    src: "https://3drgb.irpsc.com/metaverse/gym/GE-901/images/1.png",
+    name: "باشگاه بدن سازی متاورس رنگ",
+    navigation: " https://3drgb.irpsc.com/metaverse/gym/GE-901",
+    onlineUser: "14",
+  },
+  {
+    src: "https://3drgb.irpsc.com/metaverse/exhibition/EX-301/images/1.png",
+    name: "نمایشگاه بین المللی قزوین",
+    navigation: "https://3drgb.irpsc.com/metaverse/exhibition/EX-301",
+    onlineUser: "4",
+  },
 ];
 
-const TooltipContent = ({ imgSrc, name, lang }) => {
+const TooltipContent = ({ imgSrc, name, lang, href, onlineUser }) => {
   return (
     <Tippy
       content={
         <Tooltip lang={lang}>
           {name}
+          <Hr />
           <ContainerTextTooltip>
+            <Text>{onlineUser} </Text>
             {getFieldTranslationByNames("central-page", "people online")}
-            <Text>200 نفر آنلاین</Text>
           </ContainerTextTooltip>
+          <Hr />
           <ContainerTextTooltip>
+            <Text>0</Text>
             {getFieldTranslationByNames("central-page", "entrance fee")}
-            <Text> 300.000</Text>
           </ContainerTextTooltip>
         </Tooltip>
       }
@@ -143,7 +174,9 @@ const TooltipContent = ({ imgSrc, name, lang }) => {
       delay={50}
       animation="scale"
     >
-      <ImgPosition src={imgSrc} />
+      <a href={href} target="_blank">
+        <ImgPosition src={imgSrc} />
+      </a>
     </Tippy>
   );
 };
@@ -160,6 +193,8 @@ const ListPositions = () => {
               imgSrc={position.src}
               name={position.name}
               lang={i18n.language}
+              href={position.navigation}
+              onlineUser={position.onlineUser}
             />
             {index !== positionsData.length - 1 && <Line />}
           </React.Fragment>
