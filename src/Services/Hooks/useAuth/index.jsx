@@ -43,19 +43,22 @@ export default function useAuth() {
           "user/wallet",
           HTTP_METHOD.GET,
           {},
-          { Authorization: `Bearer ${user?.token}` }
+          { Authorization: `Bearer ${user?.token}` },
+          "development"
         ),
         Request(
           "following",
           HTTP_METHOD.GET,
           {},
-          { Authorization: `Bearer ${user?.token}` }
+          { Authorization: `Bearer ${user?.token}` },
+          "development"
         ),
         Request(
           "auth/me",
           HTTP_METHOD.POST,
           {},
-          { Authorization: `Bearer ${user?.token}` }
+          { Authorization: `Bearer ${user?.token}` },
+          "development"
         ),
       ]);
     setWallet({

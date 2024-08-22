@@ -150,7 +150,7 @@ const MapTreeD = () => {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
-
+    console.log(queryParams.get("token"));
     if (queryParams.has("token") && queryParams.has("expires_at")) {
       const queryParamsObject = {
         token: queryParams.get("token"),

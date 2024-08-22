@@ -35,7 +35,13 @@ const BtnLogin = () => {
   const { Request, HTTP_METHOD } = useRequest();
 
   const handleClick = () => {
-    Request("auth/redirect", HTTP_METHOD.GET, {}, {}, "development")
+    Request(
+      `auth/redirect?redirect_to=${window.location.origin}/metaverse`,
+      HTTP_METHOD.GET,
+      {},
+      {},
+      "development"
+    )
       .then((response) => {
         if (response && response.data.url) {
           window.location.href = response.data.url;
