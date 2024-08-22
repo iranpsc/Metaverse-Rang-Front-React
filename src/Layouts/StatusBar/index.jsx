@@ -11,10 +11,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 18%;
+  max-width: 18%;
   height: 100%;
   @media (min-width: 1024px) {
-    width: 10%;
+    max-width: 10%;
     gap: 10px;
   }
 `;
@@ -54,7 +54,6 @@ const FlagMapContainer = styled.div`
   align-items: center;
   overflow-y: auto;
   padding-left: 10px;
-  /* Scrollbar styles for this component */
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -87,7 +86,6 @@ const StatusContainer = styled.div`
   justify-content: center;
   padding: 10px;
   display: flex;
-  gap: 10px;
   @media (min-width: 1024px) {
     height: 6%;
     border-radius: 20px;

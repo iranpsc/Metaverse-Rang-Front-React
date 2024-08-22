@@ -32,10 +32,10 @@ const Icon = styled(LoginIcon)`
 
 const BtnLogin = () => {
   const { isOpen } = useMenuContext();
-  const { Request } = useRequest();
+  const { Request, HTTP_METHOD } = useRequest();
 
   const handleClick = () => {
-    Request("auth/redirect")
+    Request("auth/redirect", HTTP_METHOD.GET, {}, {}, "development")
       .then((response) => {
         if (response && response.data.url) {
           window.location.href = response.data.url;

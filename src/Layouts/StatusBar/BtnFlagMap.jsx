@@ -164,9 +164,7 @@ const BtnFlagMap = () => {
                 onClick={() => handleClick(flag.id)}
               ></IconLocation>
             </ContainerIcon>
-            <TitleFlag>
-              {flag.name.length > 4 ? "..." + flag.name.slice(0, 4) : flag.name}
-            </TitleFlag>
+            <TitleFlag>{flag.name}</TitleFlag>
           </Btn>
         </Tippy>
       ))}

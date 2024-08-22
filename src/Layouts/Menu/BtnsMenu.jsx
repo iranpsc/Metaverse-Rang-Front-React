@@ -124,7 +124,7 @@ const BtnsMenu = () => {
     setUser(getUser());
   }, []);
   const logoutHandler = () => {
-    Request("auth/logout", HTTP_METHOD.POST).then(() => {
+    Request("auth/logout", HTTP_METHOD.POST, {}, {}, "development").then(() => {
       removeItem("user");
       window.location.reload();
     });
