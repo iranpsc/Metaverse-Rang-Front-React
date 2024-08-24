@@ -46,7 +46,8 @@ const ProgressContainer = styled.div`
 const ProgressBar = styled.div`
   background-color: ${(props) => props.theme.colors.primary};
   border-radius: 8px;
-  width: 70%;
+  width: ${(props) => `${props.percentage}%`};
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
   height: 100%;
 `;
 const LevelCount = styled.div`
@@ -65,29 +66,17 @@ const LevelCount = styled.div`
 `;
 
 const Level = () => {
-  const [levels, setLevels] = useState({});
-  const { Request, HTTP_METHOD } = useRequest();
   const [user] = useContext(UserContext);
-  useEffect(() => {
-    Request(
-      `users/${user?.id}/level`,
-      HTTP_METHOD.GET,
-      {},
-      {},
-      "development"
-    ).then((response) => {
-      setLevels(response.data.data);
-    });
-  }, []);
+
   return (
     <Container>
       <Percent>
         <Title>
-          <h2>سطح مشارکت کننده</h2>
-          <h3>٪۷۰</h3>
+          <h2>{user?.level?.name}</h2>
+          <h3>{user?.socre_percentage_to_next_level}%</h3>
         </Title>
         <ProgressContainer>
-          <ProgressBar />
+          <ProgressBar percentage={user?.socre_percentage_to_next_level} />
         </ProgressContainer>
       </Percent>
       <LevelCount>

@@ -185,10 +185,7 @@ const SecondStep = ({ setStep, time }) => {
       Request("account/security/verify", HTTP_METHOD.POST, { code })
         .then(() => {
           setStep(3);
-          setItem(
-            "account_security",
-            Date.now() + paginate.options.data.time * 60 * 1000
-          );
+          setItem("account_security", Date.now() + time * 60 * 1000);
           toast.success(
             <Alert>
               <h2>کیف پول شما با موفقیت خاموش شد.</h2>

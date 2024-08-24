@@ -80,6 +80,7 @@ const InfoRow = ({ data, type, shop }) => {
   const { Request, HTTP_METHOD } = useRequest();
 
   const paymentHandler = (asset, amount) => {
+    console.log(1);
     Request("order", HTTP_METHOD.POST, { asset, amount }).then((response) => {
       window.location.href = response?.data?.link;
     });
@@ -125,7 +126,9 @@ const InfoRow = ({ data, type, shop }) => {
         <Button
           row
           label="خرید"
-          onClick={() => paymentHandler(data.asset, data.amount)}
+          onclick={() => {
+            paymentHandler(data.asset, data.amount);
+          }}
         />
       </Wrapper>
       {openModal && (

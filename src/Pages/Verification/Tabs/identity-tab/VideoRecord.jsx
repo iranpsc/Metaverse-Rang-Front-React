@@ -1,6 +1,6 @@
 import { HiOutlineCamera } from "react-icons/hi";
-import WebcamStreamCapture from "./WebcamStreamCapture";
 import styled from "styled-components";
+import { useState, useRef } from "react";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -40,6 +40,12 @@ const Record = styled.div`
   span {
     font-size: 14px;
   }
+  video {
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 const Info = styled.div`
   color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -70,15 +76,89 @@ const Info = styled.div`
   }
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  margin-top: 10px;
+`;
+
 const VideoRecord = () => {
+  const [capturing, setCapturing] = useState(false);
+  const [videoURL, setVideoURL] = useState(null);
+  const [error, setError] = useState(null);
+  const videoRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const [timeLeft, setTimeLeft] = useState(30);
+
+  const handleRecordClick = () => {
+    if (capturing) {
+      mediaRecorderRef.current.stop();
+      setCapturing(false);
+    } else {
+      startRecording();
+      setCapturing(true);
+    }
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+      videoRef.current.srcObject = stream;
+      setError(null);
+
+      mediaRecorderRef.current = new MediaRecorder(stream, {
+        mimeType: "video/webm",
+      });
+      let chunks = [];
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          chunks.push(event.data);
+        }
+      };
+      mediaRecorderRef.current.onstop = () => {
+        const blob = new Blob(chunks, { type: "video/webm" });
+        const url = URL.createObjectURL(blob);
+        setVideoURL(url);
+        stream.getTracks().forEach((track) => track.stop());
+      };
+      mediaRecorderRef.current.start();
+
+      // Start countdown
+      let countdown = 30;
+      const timer = setInterval(() => {
+        countdown -= 1;
+        setTimeLeft(countdown);
+        if (countdown === 0) {
+          mediaRecorderRef.current.stop();
+          setCapturing(false);
+          clearInterval(timer);
+        }
+      }, 1000);
+    } catch (err) {
+      console.error("Error accessing media devices.", err);
+      setError(
+        "دسترسی به دوربین یا میکروفون ممکن نیست. لطفاً تنظیمات دستگاه خود را بررسی کنید."
+      );
+    }
+  };
+
   return (
     <Container>
       <Title>ویدیو احراز هویت</Title>
-      {/* <WebcamStreamCapture /> */}
       <Div>
-        <Record>
-          <HiOutlineCamera size={40} />
-          <span>برای ظبط کلیک کنید</span>
+        <Record onClick={handleRecordClick}>
+          {capturing ? (
+            <video ref={videoRef} autoPlay muted />
+          ) : videoURL ? (
+            <video src={videoURL} controls />
+          ) : (
+            <>
+              <HiOutlineCamera size={50} />
+              <span>شروع ضبط</span>
+            </>
+          )}
         </Record>
         <Info>
           <h4>متن احراز هویت، لطفا این متن را در ویدیو بخوانید</h4>
@@ -90,11 +170,12 @@ const VideoRecord = () => {
           <div>
             <h3>زمان خواندن: </h3>
             <h5>
-              ۳۰ <span>ثانیه</span>
+              {timeLeft} <span>ثانیه</span>
             </h5>
           </div>
         </Info>
       </Div>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>
   );
 };

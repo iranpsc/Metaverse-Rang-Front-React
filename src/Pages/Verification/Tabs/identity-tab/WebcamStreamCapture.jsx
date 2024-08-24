@@ -1,15 +1,29 @@
-import { useCallback, useRef, useState } from "react";
-
+import { useCallback, useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
+import styled from "styled-components";
 
-const WebcamStreamCapture = () => {
+const CircleWebcam = styled(Webcam)`
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const VideoPreview = styled.video`
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const WebcamStreamCapture = ({ onRecordClick, capturing }) => {
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
-  const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
+  const timeoutRef = useRef(null);
 
   const handleStartCaptureClick = useCallback(() => {
-    setCapturing(true);
+    onRecordClick(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
     });
@@ -18,7 +32,11 @@ const WebcamStreamCapture = () => {
       handleDataAvailable
     );
     mediaRecorderRef.current.start();
-  }, [webcamRef, setCapturing, mediaRecorderRef]);
+
+    timeoutRef.current = setTimeout(() => {
+      handleStopCaptureClick();
+    }, 30000);
+  }, [webcamRef, mediaRecorderRef, onRecordClick]);
 
   const handleDataAvailable = useCallback(
     ({ data }) => {
@@ -30,9 +48,12 @@ const WebcamStreamCapture = () => {
   );
 
   const handleStopCaptureClick = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
     mediaRecorderRef.current.stop();
-    setCapturing(false);
-  }, [mediaRecorderRef, webcamRef, setCapturing]);
+    onRecordClick(false);
+  }, [mediaRecorderRef, onRecordClick]);
 
   const handleDownload = useCallback(() => {
     if (recordedChunks.length) {
@@ -51,16 +72,38 @@ const WebcamStreamCapture = () => {
     }
   }, [recordedChunks]);
 
+  const handlePreview = useCallback(() => {
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: "video/webm",
+      });
+      return URL.createObjectURL(blob);
+    }
+    return null;
+  }, [recordedChunks]);
+
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        webcamRef.current.srcObject = stream;
+      })
+      .catch((error) => {
+        console.error("Error accessing media devices.", error);
+      });
+  }, []);
+
   return (
     <>
-      <Webcam audio={false} ref={webcamRef} />
-      {capturing ? (
-        <button onClick={handleStopCaptureClick}>Stop Capture</button>
+      {capturing || !handlePreview() ? (
+        <CircleWebcam audio={false} ref={webcamRef} />
       ) : (
-        <button onClick={handleStartCaptureClick}>Start Capture</button>
+        <VideoPreview controls src={handlePreview()} />
       )}
-      {recordedChunks.length > 0 && (
-        <button onClick={handleDownload}>Download</button>
+      {recordedChunks.length > 0 && !capturing && (
+        <>
+          <button onClick={handleDownload}>Download</button>
+        </>
       )}
     </>
   );

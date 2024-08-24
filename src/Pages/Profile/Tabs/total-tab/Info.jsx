@@ -4,8 +4,10 @@ import { LuShare2 } from "react-icons/lu";
 import ShareModal from "./ShareModal";
 import { TiUserAddOutline } from "react-icons/ti";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ButtonIcon from "../../../../Components/ButtonIcon";
+import useAuth from "../../../../Services/Hooks/useAuth";
+import { UserContext } from "../../../../Services/Reducers/UserContext";
 
 const Container = styled.div`
   padding: 15px;
@@ -76,14 +78,15 @@ const Upper = styled.div`
 `;
 const Info = () => {
   const [openShare, setOpenShare] = useState(false);
-
+  const { getUser } = useAuth();
+  const [user] = useContext(UserContext);
   return (
     <Container>
       <Header>
         <div>
-          <Title>حسین قدیری</Title>
+          <Title>{user?.name}</Title>
           <Code href="https://rgb.irpsc.com/fa/citizen/hm-2000001">
-            HM-2000001
+            {user?.code}
           </Code>
         </div>
         <span>عضویت از: ۱۴۰۱/۱۰/۱۴</span>
