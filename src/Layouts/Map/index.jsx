@@ -30,7 +30,12 @@ const ZoomContainer = styled.div`
   flex-direction: column;
   position: absolute;
   top: 10px;
-  left: 10px;
+  ${(props) => {
+    const direction = document.body.dir || "ltr";
+    return direction === "ltr"
+      ? `right: ${!props.isOpen ? "10px" : "0"}`
+      : `left: ${!props.isOpen ? "10px" : "0"}`;
+  }};
   padding: 3px;
   border-radius: 7px;
   background-color: ${(props) =>
@@ -58,7 +63,12 @@ const UnZoomControlContainer = styled.div`
 const FullscreenControlContainer = styled.div`
   position: absolute;
   top: 85px;
-  left: 10px;
+  ${(props) => {
+    const direction = document.body.dir || "ltr";
+    return direction === "ltr"
+      ? `right: ${!props.isOpen ? "10px" : "0"}`
+      : `left: ${!props.isOpen ? "10px" : "0"}`;
+  }};
   z-index: 1;
   border-radius: 10px;
   width: 33px;
@@ -71,7 +81,12 @@ const FullscreenControlContainer = styled.div`
 const FullscreenMapContainer = styled.div`
   position: absolute;
   top: 125px;
-  left: 10px;
+  ${(props) => {
+    const direction = document.body.dir || "ltr";
+    return direction === "ltr"
+      ? `right: ${!props.isOpen ? "10px" : "0"}`
+      : `left: ${!props.isOpen ? "10px" : "0"}`;
+  }};
   z-index: 1;
   border-radius: 10px;
   width: 33px;
@@ -150,7 +165,6 @@ const MapTreeD = () => {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
-    console.log(queryParams.get("token"));
     if (queryParams.has("token") && queryParams.has("expires_at")) {
       const queryParamsObject = {
         token: queryParams.get("token"),
@@ -194,7 +208,6 @@ const MapTreeD = () => {
     }
     setFullScreenMap(!isFullScreenMap);
   };
-  console.log(mapRef.current);
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}

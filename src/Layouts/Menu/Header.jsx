@@ -4,6 +4,7 @@ import LogoIcon from "../../Assets/svg/logoMeta.svg";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import { ReactComponent as ArowMenu } from "../../Assets/svg/arowMenu.svg";
+
 const Logo = styled.img`
   width: 37px;
 `;
@@ -39,6 +40,7 @@ const Details = styled.p`
   font-weight: 500;
   line-height: 180%;
 `;
+
 const BtnOpenCloseMenu = styled.button`
   width: 41px;
   height: 41px;
@@ -49,21 +51,28 @@ const BtnOpenCloseMenu = styled.button`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.themeBtn};
   position: ${(props) => (props.isOpen ? "relative" : "absolute")};
-  left: ${(props) => (!props.isOpen ? "-70px" : "0")};
+  ${(props) => {
+    const direction = document.body.dir || "ltr";
+    return direction === "ltr"
+      ? `right: ${!props.isOpen ? "-70px" : "0"}`
+      : `left: ${!props.isOpen ? "-70px" : "0"}`;
+  }};
   z-index: 9;
   border: none;
 `;
+
 const ContainerMain = styled.div`
   display: flex;
   gap: 12px;
 `;
+
 const Icon = styled(ArowMenu)`
   stroke: ${(props) => props.theme.colors.newColors.shades[90]};
   rotate: ${(props) => (props.isOpen ? "0" : "180deg")};
 `;
+
 const Header = () => {
   const { isOpen, toggleMenu } = useMenuContext();
-
   return (
     <Container isOpen={isOpen}>
       <ContainerMain>

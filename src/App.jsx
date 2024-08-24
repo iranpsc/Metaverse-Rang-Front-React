@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import "./App.css";
 import "react-quill/dist/quill.snow.css";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import "./i18n/i18n.js";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
@@ -16,7 +16,6 @@ import { ThemeProviderContext } from "./Services/Reducers/ThemeContext";
 import MapTreeD from "./Layouts/Map";
 import Menu from "./Layouts/Menu";
 import StatusBar from "./Layouts/StatusBar";
-import Tutorial from "./Components/Tutorial";
 import { MenuContextProvider } from "./Services/Reducers/MenuContext";
 import { MapProvider } from "react-map-gl";
 import { SelectedEnvironmentProvider } from "./Services/Reducers/SelectedEnvironmentContext.jsx";
@@ -40,6 +39,7 @@ const Container = styled.section`
 `;
 
 function App() {
+  console.log(useTranslation());
   useLayoutEffect(() => {
     window.Echo = new Echo({
       broadcaster: "pusher",

@@ -60,7 +60,12 @@ const Div = styled.div`
     !props.isOpen && props.isClicked ? "absolute" : "relative"};
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};
-  left: ${(props) => (!props.isOpen && props.isClicked ? "-220px" : "0")};
+  ${(props) => {
+    const direction = document.body.dir || "ltr";
+    return direction === "ltr"
+      ? `right: ${!props.isOpen ? "-220px" : "0"}`
+      : `left: ${!props.isOpen ? "-220px" : "0"}`;
+  }};
   z-index: 10;
   padding: 16px;
   border-radius: 10px;
@@ -71,7 +76,12 @@ const Div = styled.div`
     content: "";
     position: absolute;
     top: 10px;
-    right: -8px;
+    ${(props) => {
+      const direction = document.body.dir || "ltr";
+      return direction === "ltr"
+        ? `left: ${!props.isOpen ? "-8px" : "0"} ;rotate:226deg;`
+        : `right: ${!props.isOpen ? "-8px" : "0"} ;rotate: 45deg;`;
+    }};
     width: 0;
     height: 0;
     border-style: solid;
@@ -79,7 +89,6 @@ const Div = styled.div`
     border-color: transparent ${(props) => props.theme.colors.primary}
       transparent transparent;
     border-radius: 0 7px 0 0;
-    rotate: 45deg;
     display: ${(props) =>
       !props.isOpen && props.isClicked ? "block" : "none"};
   }
