@@ -99,7 +99,6 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
       [name]: value,
     }));
   };
-  console.log(inputValues);
   const [submitted, setSubmitted] = useState(false);
 
   if (!submitted)

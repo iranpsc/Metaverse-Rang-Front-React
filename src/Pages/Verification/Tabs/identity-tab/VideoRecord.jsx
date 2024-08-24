@@ -1,6 +1,7 @@
 import { HiOutlineCamera, HiOutlineRefresh } from "react-icons/hi";
 import styled from "styled-components";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import axios from "axios";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -102,7 +103,7 @@ const VideoRecord = () => {
   const mediaRecorderRef = useRef(null);
   const [timeLeft, setTimeLeft] = useState(30);
   const timerRef = useRef(null);
-
+  const [textVerify, setTextVerify] = useState("");
   const handleRecordClick = () => {
     if (capturing) {
       mediaRecorderRef.current.stop();
@@ -165,6 +166,12 @@ const VideoRecord = () => {
     }
   };
 
+  useEffect(() => {
+    axios.get("https://admin.rgb.irpsc.com/api/kyc-verify-text").then((res) => {
+      setTextVerify(res.data.text);
+    });
+  }, []);
+
   return (
     <Container>
       <Title>ویدیو احراز هویت</Title>
@@ -191,11 +198,7 @@ const VideoRecord = () => {
 
         <Info>
           <h4>متن احراز هویت، لطفا این متن را در ویدیو بخوانید</h4>
-          <p>
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
-            ستون و سطرآنچنان که لازم است
-          </p>
+          <p>{textVerify}</p>
           <div>
             <h3>زمان خواندن: </h3>
             <h5>

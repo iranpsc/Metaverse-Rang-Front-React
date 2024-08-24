@@ -81,8 +81,6 @@ const IdentityInputs = ({
     if (!inputValues.gender) {
       errorMessages.push("جنسیت انتخاب نشده است.");
     }
-
-    console.log(errorMessages);
     setErrors(errorMessages);
 
     if (errorMessages.length === 0) {
