@@ -1,4 +1,4 @@
-import { HiOutlineCamera } from "react-icons/hi";
+import { HiOutlineCamera, HiOutlineRefresh } from "react-icons/hi";
 import styled from "styled-components";
 import { useState, useRef } from "react";
 
@@ -81,6 +81,19 @@ const ErrorMessage = styled.div`
   margin-top: 10px;
 `;
 
+const DeleteButton = styled.button`
+  background: none;
+  border: none;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  cursor: pointer;
+  font-size: 24px;
+`;
+const ContainerRecorder = styled.div`
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  flex-direction: column;
+`;
 const VideoRecord = () => {
   const [capturing, setCapturing] = useState(false);
   const [videoURL, setVideoURL] = useState(null);
@@ -88,15 +101,22 @@ const VideoRecord = () => {
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [timeLeft, setTimeLeft] = useState(30);
+  const timerRef = useRef(null);
 
   const handleRecordClick = () => {
     if (capturing) {
       mediaRecorderRef.current.stop();
       setCapturing(false);
+      clearInterval(timerRef.current); // Stop the countdown when recording stops
     } else {
       startRecording();
       setCapturing(true);
     }
+  };
+
+  const handleDeleteClick = () => {
+    setVideoURL(null);
+    setTimeLeft(30);
   };
 
   const startRecording = async () => {
@@ -122,18 +142,19 @@ const VideoRecord = () => {
         const url = URL.createObjectURL(blob);
         setVideoURL(url);
         stream.getTracks().forEach((track) => track.stop());
+        clearInterval(timerRef.current); // Stop the countdown when recording stops
       };
       mediaRecorderRef.current.start();
 
       // Start countdown
       let countdown = 30;
-      const timer = setInterval(() => {
+      timerRef.current = setInterval(() => {
         countdown -= 1;
         setTimeLeft(countdown);
         if (countdown === 0) {
           mediaRecorderRef.current.stop();
           setCapturing(false);
-          clearInterval(timer);
+          clearInterval(timerRef.current);
         }
       }, 1000);
     } catch (err) {
@@ -148,18 +169,26 @@ const VideoRecord = () => {
     <Container>
       <Title>ویدیو احراز هویت</Title>
       <Div>
-        <Record onClick={handleRecordClick}>
-          {capturing ? (
-            <video ref={videoRef} autoPlay muted />
-          ) : videoURL ? (
-            <video src={videoURL} controls />
-          ) : (
-            <>
-              <HiOutlineCamera size={50} />
-              <span>شروع ضبط</span>
-            </>
+        <ContainerRecorder>
+          <Record onClick={handleRecordClick}>
+            {capturing ? (
+              <video ref={videoRef} autoPlay muted />
+            ) : videoURL ? (
+              <video src={videoURL} controls />
+            ) : (
+              <>
+                <HiOutlineCamera size={50} />
+                <span>شروع ضبط</span>
+              </>
+            )}
+          </Record>
+          {videoURL && (
+            <DeleteButton onClick={handleDeleteClick}>
+              <HiOutlineRefresh />
+            </DeleteButton>
           )}
-        </Record>
+        </ContainerRecorder>
+
         <Info>
           <h4>متن احراز هویت، لطفا این متن را در ویدیو بخوانید</h4>
           <p>

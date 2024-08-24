@@ -59,7 +59,7 @@ const ThirdStep = ({ setStep, time }) => {
       "0"
     )}`;
   };
-
+useEffect
   return (
     <Container>
       <Div>

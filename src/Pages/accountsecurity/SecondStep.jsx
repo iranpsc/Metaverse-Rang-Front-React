@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import useRequest from "../../Services/Hooks/useRequest";
+import { setItem } from "../../Services/Utility/LocalStorage";
 
 const Codes = styled.div`
   display: flex;
@@ -175,7 +176,6 @@ const SecondStep = ({ setStep, time }) => {
       }
     });
   };
-
   const values = inputRefs.current.map((inputRef) => inputRef.value);
   const allValuesNotEmpty = values.every((value) => value !== "");
 
@@ -184,8 +184,11 @@ const SecondStep = ({ setStep, time }) => {
       const code = values.join("");
       Request("account/security/verify", HTTP_METHOD.POST, { code })
         .then(() => {
+          setItem("account_security", {
+            account_security: Date.now() + parseInt(time) * 60 * 1000,
+            time,
+          });
           setStep(3);
-          setItem("account_security", Date.now() + time * 60 * 1000);
           toast.success(
             <Alert>
               <h2>کیف پول شما با موفقیت خاموش شد.</h2>

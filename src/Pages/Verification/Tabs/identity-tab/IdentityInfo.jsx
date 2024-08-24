@@ -27,7 +27,7 @@ const Container = styled.div`
     padding-right: 0;
   }
 `;
-const IdentityInfo = ({ data, inputValues }) => {
+const IdentityInfo = ({ data, inputValues, nationalCardImg }) => {
   const [showAlert, setShowAlert] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -42,7 +42,7 @@ const IdentityInfo = ({ data, inputValues }) => {
         )}
         <Title title="اطلاعات احراز هویت" />
         <InfoInputs data={data} inputValues={inputValues} />
-        <CardPhotos />
+        <CardPhotos nationalCardImg={nationalCardImg} />
       </Wrapper>
     </Container>
   );

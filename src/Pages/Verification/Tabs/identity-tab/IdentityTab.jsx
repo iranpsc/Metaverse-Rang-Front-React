@@ -1,6 +1,7 @@
+import useRequest from "../../../../Services/Hooks/useRequest";
 import IdentityInfo from "./IdentityInfo";
 import IdentityInputs from "./IdentityInputs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const details = [
   { id: 1, slug: "name", label: "نام" },
@@ -11,13 +12,37 @@ const details = [
     slug: "province",
     label: "استان",
     options: [
-      { id: 1, city: "استان" },
-      { id: 2, city: "تهران" },
-      { id: 3, city: "شیراز" },
+      { id: 1, city: "آذربایجان شرقی" },
+      { id: 2, city: "آذربایجان غربی" },
+      { id: 3, city: "اردبیل" },
       { id: 4, city: "اصفهان" },
-      { id: 5, city: "یزد" },
-      { id: 6, city: "ارومیه" },
-      { id: 7, city: "سنندج" },
+      { id: 5, city: "البرز" },
+      { id: 6, city: "ایلام" },
+      { id: 7, city: "بوشهر" },
+      { id: 8, city: "تهران" },
+      { id: 9, city: "چهارمحال و بختیاری" },
+      { id: 10, city: "خراسان جنوبی" },
+      { id: 11, city: "خراسان رضوی" },
+      { id: 12, city: "خراسان شمالی" },
+      { id: 13, city: "خوزستان" },
+      { id: 14, city: "زنجان" },
+      { id: 15, city: "سمنان" },
+      { id: 16, city: "سیستان و بلوچستان" },
+      { id: 17, city: "فارس" },
+      { id: 18, city: "قزوین" },
+      { id: 19, city: "قم" },
+      { id: 20, city: "کردستان" },
+      { id: 21, city: "کرمان" },
+      { id: 22, city: "کرمانشاه" },
+      { id: 23, city: "کهگیلویه و بویراحمد" },
+      { id: 24, city: "گلستان" },
+      { id: 25, city: "گیلان" },
+      { id: 26, city: "لرستان" },
+      { id: 27, city: "مازندران" },
+      { id: 28, city: "مرکزی" },
+      { id: 29, city: "هرمزگان" },
+      { id: 30, city: "همدان" },
+      { id: 31, city: "یزد" },
     ],
   },
   { id: 5, slug: "birthDate", label: "تاریخ تولد" },
@@ -26,13 +51,23 @@ const details = [
     slug: "gender",
     label: "جنسیت",
     options: [
-      { id: 1, gender: "جنسیت" },
-      { id: 2, gender: "مرد" },
-      { id: 3, gender: "زن" },
+      { id: 1, gender: "مرد" },
+      { id: 2, gender: "زن" },
     ],
   },
 ];
+
 const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
+  const [kyc, setKyc] = useState({});
+  const [nationalCardImg, SetNationalCardImg] = useState("");
+  const { Request } = useRequest();
+
+  useEffect(() => {
+    Request(`kyc`).then((response) => {
+      setKyc(response.data.data);
+    });
+  }, []);
+
   const [inputValues, setInputValues] = useState({
     name: "",
     lastName: "",
@@ -42,6 +77,21 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
     gender: "",
   });
 
+  useEffect(() => {
+    setInputValues({
+      name: kyc?.fname || "",
+      lastName: kyc?.lname || "",
+      nationalCode: kyc?.melli_code || "",
+      province: kyc?.province || "",
+      birthDate: kyc?.birthdate || "1300/01/01",
+      gender: kyc?.gender || "",
+    });
+    SetNationalCardImg(kyc?.melli_card);
+    if (kyc.status == 1) {
+      setSubmitted(true);
+    }
+  }, [kyc]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputValues((prevInputValues) => ({
@@ -49,7 +99,9 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
       [name]: value,
     }));
   };
+
   const [submitted, setSubmitted] = useState(false);
+
   if (!submitted)
     return (
       <IdentityInputs
@@ -62,7 +114,13 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
       />
     );
   if (submitted)
-    return <IdentityInfo data={details} inputValues={inputValues} />;
+    return (
+      <IdentityInfo
+        data={details}
+        inputValues={inputValues}
+        nationalCardImg={nationalCardImg}
+      />
+    );
 };
 
 export default IdentityTab;

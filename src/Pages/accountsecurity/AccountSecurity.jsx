@@ -1,4 +1,4 @@
-import { getItem } from "../../Services/Utility/LocalStorage";
+import { getItem, removeItem } from "../../Services/Utility/LocalStorage";
 import FirstStep from "./FirstStep";
 import SecondStep from "./SecondStep";
 import ThirdStep from "./ThirdStep";
@@ -7,17 +7,21 @@ import { useEffect, useState } from "react";
 const AccountSecurity = () => {
   const [step, setStep] = useState(1);
   const [time, setTime] = useState("");
-
-  const [accountSecurity, setAccountSecurity] = useState();
+  const [accountSecurity, setAccountSecurity] = useState(null);
 
   useEffect(() => {
-    setAccountSecurity(getItem("account_security"));
-    if (accountSecurity) {
+    const storedSecurity = getItem("account_security");
+
+    if (storedSecurity && storedSecurity.account_security > Date.now()) {
+      setAccountSecurity(storedSecurity);
       setStep(3);
+      setTime(storedSecurity.time);
     } else {
+      removeItem("account_security");
       setStep(1);
     }
   }, []);
+
   if (step === 1)
     return <FirstStep setStep={setStep} time={time} setTime={setTime} />;
   if (step === 2) return <SecondStep setStep={setStep} time={time} />;

@@ -1,10 +1,10 @@
 import BankCardsUpload from "./BankCardsUpload";
-import ErrorModal from "../ErrorModal";
 
 import styled from "styled-components";
 import { useState } from "react";
 import Title from "../../../../Components/Title";
 import Alert from "../../../../Components/Alert/Alert";
+import ErrorModal from "../ErrorModal";
 
 const Wrapper = styled.div`
   direction: rtl;

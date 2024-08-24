@@ -5,6 +5,7 @@ import { useState } from "react";
 import Alert from "../../../../Components/Alert/Alert";
 import Title from "../../../../Components/Title";
 import Button from "../../../../Components/Button";
+import ErrorModal from "../ErrorModal";
 
 const Wrapper = styled.div`
   direction: ltr;

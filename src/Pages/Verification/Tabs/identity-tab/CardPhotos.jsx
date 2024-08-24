@@ -29,19 +29,13 @@ const Container = styled.div`
   gap: 30px;
   margin-top: 20px;
 `;
-const CardPhotos = () => {
+const CardPhotos = ({ nationalCardImg }) => {
   return (
     <Container>
       <div>
         <Title>تصویر کارت ملی</Title>
         <ImageWrapper>
-          <img src={nation} alt="nation" />
-        </ImageWrapper>
-      </div>
-      <div>
-        <Title>تصویر کارت بانکی</Title>
-        <ImageWrapper>
-          <img src={bank} alt="bank" />
+          <img src={nationalCardImg} alt="nation" />
         </ImageWrapper>
       </div>
     </Container>
