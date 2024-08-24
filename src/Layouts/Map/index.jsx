@@ -11,6 +11,7 @@ import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironm
 import { ReactComponent as unZoom } from "../../Assets/images/UnZoom.svg";
 import { ReactComponent as zoom } from "../../Assets/images/zoom.svg";
 import { ReactComponent as fullPage } from "../../Assets/images/fullPage.svg";
+
 const Container = styled.div`
   width: 101%;
   height: 100%;
@@ -32,9 +33,7 @@ const ZoomContainer = styled.div`
   top: 10px;
   ${(props) => {
     const direction = document.body.dir || "ltr";
-    return direction === "ltr"
-      ? `right: ${!props.isOpen ? "10px" : "0"}`
-      : `left: ${!props.isOpen ? "10px" : "0"}`;
+    return direction === "ltr" ? `right: ${"10px"}` : `left: ${"10px"}`;
   }};
   padding: 3px;
   border-radius: 7px;
@@ -65,9 +64,7 @@ const FullscreenControlContainer = styled.div`
   top: 85px;
   ${(props) => {
     const direction = document.body.dir || "ltr";
-    return direction === "ltr"
-      ? `right: ${!props.isOpen ? "10px" : "0"}`
-      : `left: ${!props.isOpen ? "10px" : "0"}`;
+    return direction === "ltr" ? `right: ${"10px"}` : `left: ${"10px"}`;
   }};
   z-index: 1;
   border-radius: 10px;
@@ -83,9 +80,7 @@ const FullscreenMapContainer = styled.div`
   top: 125px;
   ${(props) => {
     const direction = document.body.dir || "ltr";
-    return direction === "ltr"
-      ? `right: ${!props.isOpen ? "10px" : "0"}`
-      : `left: ${!props.isOpen ? "10px" : "0"}`;
+    return direction === "ltr" ? `right: ${"10px"}` : `left: ${"10px"}`;
   }};
   z-index: 1;
   border-radius: 10px;
@@ -130,9 +125,10 @@ const MapTreeD = () => {
   const mapRef = useRef(null);
   const [isFullScreen, setFullScreen] = useState(false);
   const [isFullScreenMap, setFullScreenMap] = useState(false);
+
   useEffect(() => {
     if (isFullScreen && screen.orientation) {
-      screen.orientation.lock("landscape").catch((error) => {
+      screen.orientation.lock("landscape-primary").catch((error) => {
         console.error("Failed to change to landscape mode:", error);
       });
     }
@@ -140,26 +136,24 @@ const MapTreeD = () => {
 
   const toggleFullScreen = () => {
     if (!isFullScreen) {
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-      } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen();
-      } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen();
-      } else if (document.documentElement.msRequestFullscreen) {
-        document.documentElement.msRequestFullscreen();
-      }
+      const docElement = document.documentElement;
+      const requestFullScreen =
+        docElement.requestFullscreen ||
+        docElement.mozRequestFullScreen ||
+        docElement.webkitRequestFullscreen ||
+        docElement.msRequestFullscreen;
+
+      requestFullScreen.call(docElement);
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
+      const exitFullScreen =
+        document.exitFullscreen ||
+        document.mozCancelFullScreen ||
+        document.webkitExitFullscreen ||
+        document.msExitFullscreen;
+
+      exitFullScreen.call(document);
     }
+
     setFullScreen(!isFullScreen);
   };
 
@@ -208,6 +202,7 @@ const MapTreeD = () => {
     }
     setFullScreenMap(!isFullScreenMap);
   };
+
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}

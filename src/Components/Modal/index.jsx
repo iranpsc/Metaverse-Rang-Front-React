@@ -3,13 +3,14 @@ import Header from "../Header/Header";
 
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-  width: 80%;
+  height: 100%;
 
   padding: 15px 20px;
   max-width: 800px;
+  width: 80%;
   z-index: 2000;
+  border-radius: 10px;
   @media (min-width: 1023px) {
-    border-radius: 10px;
     height: 94%;
     max-width: 1330px;
     max-height: 782px;
