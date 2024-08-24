@@ -17,11 +17,12 @@ const Container = styled.div`
     font-size: 22px;
   }
 `;
-const ErrorItem = () => {
+const ErrorItem = ({ item }) => {
+  console.log(item);
   return (
     <Container>
       <BsExclamationOctagon />
-      <Message>عکس کارت ملی واضح نیست</Message>
+      <Message>{item}</Message>
     </Container>
   );
 };

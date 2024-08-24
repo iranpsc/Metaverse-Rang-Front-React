@@ -87,7 +87,7 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
       gender: kyc?.gender || "",
     });
     SetNationalCardImg(kyc?.melli_card);
-    if (kyc.status == 1) {
+    if (kyc?.status == 1) {
       setSubmitted(true);
     }
   }, [kyc]);
@@ -99,7 +99,7 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
       [name]: value,
     }));
   };
-
+  console.log(inputValues);
   const [submitted, setSubmitted] = useState(false);
 
   if (!submitted)

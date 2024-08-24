@@ -63,7 +63,7 @@ const Close = styled.div`
   }
 `;
 
-const ErrorModal = ({ setOpenErrorModal }) => {
+const ErrorModal = ({ setOpenErrorModal, errors }) => {
   return (
     <BackGround>
       <Modal>
@@ -78,8 +78,8 @@ const ErrorModal = ({ setOpenErrorModal }) => {
           </Info>
         </div>
         <Div>
-          {[1, 2, 3, 5, 5].map((errorItem) => (
-            <ErrorItem key={errorItem} />
+          {errors.map((errorItem) => (
+            <ErrorItem key={errorItem} item={errorItem} />
           ))}
         </Div>
       </Modal>

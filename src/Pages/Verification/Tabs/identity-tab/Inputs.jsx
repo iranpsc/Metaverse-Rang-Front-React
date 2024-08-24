@@ -99,11 +99,11 @@ const Inputs = ({ data, identityError, inputValues, handleInputChange }) => {
         <DatePicker
           shadow="red"
           value={inputValues[data[4].slug]}
-          className="bg-dark"
           onChange={setValue}
           calendar={persian}
           locale={persian_fa}
           calendarPosition="bottom-right"
+          zIndex={100}
         />
         <FaRegCalendarAlt size={20} />
       </Birthday>
