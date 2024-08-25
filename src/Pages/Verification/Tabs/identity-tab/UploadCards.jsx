@@ -1,7 +1,6 @@
 import { HiOutlineTrash } from "react-icons/hi";
 import styled from "styled-components";
 import { useState } from "react";
-import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +32,7 @@ const BankCard = styled.div`
     opacity: 0;
   }
 `;
+
 const Image = styled.div`
   position: relative;
 `;
@@ -83,6 +83,7 @@ const Upload = styled.div`
     position: absolute;
   }
 `;
+
 const IconWrapper = styled.div`
   width: 24px !important;
   height: 24px !important;
@@ -99,18 +100,25 @@ const IconWrapper = styled.div`
     cursor: pointer;
   }
 `;
-const UploadCards = () => {
-  const [nationImage, setNationImage] = useState();
-  const [bankImage, setBankImage] = useState();
+
+const UploadCards = ({ setImageError, setNationImageURL, setBankImageURL }) => {
+  const [nationImage, setNationImage] = useState(null);
+  const [bankImage, setBankImage] = useState(null);
 
   const handleNationImageChange = (e) => {
     const file = e.target.files && e.target.files[0];
-    setNationImage(URL.createObjectURL(file));
+    if (file) {
+      setNationImage(URL.createObjectURL(file));
+      setNationImageURL(URL.createObjectURL(file)); // Pass image URL to parent
+    }
   };
 
   const handleBankImageChange = (e) => {
     const file = e.target.files && e.target.files[0];
-    setBankImage(URL.createObjectURL(file));
+    if (file) {
+      setBankImage(URL.createObjectURL(file));
+      setBankImageURL(URL.createObjectURL(file)); // Pass image URL to parent
+    }
   };
 
   return (
@@ -130,7 +138,12 @@ const UploadCards = () => {
           )}
           {nationImage && (
             <Image>
-              <IconWrapper onClick={() => setNationImage("")}>
+              <IconWrapper
+                onClick={() => {
+                  setNationImage(null);
+                  setNationImageURL(null); // Reset image URL in parent
+                }}
+              >
                 <HiOutlineTrash />
               </IconWrapper>
               <img src={nationImage} alt="nation card" />
@@ -154,7 +167,12 @@ const UploadCards = () => {
           )}
           {bankImage && (
             <Image>
-              <IconWrapper onClick={() => setBankImage("")}>
+              <IconWrapper
+                onClick={() => {
+                  setBankImage(null);
+                  setBankImageURL(null); // Reset image URL in parent
+                }}
+              >
                 <HiOutlineTrash />
               </IconWrapper>
               <img src={bankImage} alt="bank card" />

@@ -2,6 +2,13 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import {
+  getBankNameFromCardNumber,
+  getShebaInfo,
+  verifyCardNumber,
+} from "@persian-tools/persian-tools";
+import { ToastError, ToastSuccess } from "../../../../Services/Utility";
+import { IoCloseCircleSharp, IoCloseSharp } from "react-icons/io5";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -16,9 +23,10 @@ const BackGround = styled.div`
   backdrop-filter: blur(5px);
   background-color: rgba(0, 0, 0, 0.713);
 `;
+
 const Modal = styled.div`
   border-radius: 10px;
-  background-color: #000000;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   padding: 20px;
   width: 100%;
   max-width: 515px;
@@ -26,13 +34,14 @@ const Modal = styled.div`
   display: flex;
   gap: 30px;
   flex-direction: column;
+  position: relative;
 `;
 
 const Title = styled.h3`
   font-size: 24px;
   font-weight: 600;
   text-align: right;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (max-width: 1023px) {
     font-size: 18px;
   }
@@ -43,10 +52,11 @@ const Inputs = styled.div`
   display: grid;
   gap: 20px;
 `;
+
 const Button = styled.button`
   border-radius: 10px;
-  background-color: #ffc700;
-  color: black;
+  background-color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.primaryText};
   border: none;
   padding: 0 14px;
   width: fit-content;
@@ -54,26 +64,68 @@ const Button = styled.button`
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
-  color: #191b21;
   font-family: inherit;
+`;
+
+const ErrorMessage = styled.div`
+  color: #df2e38;
+  font-size: 14px;
+  margin-top: 10px;
+`;
+
+const Close = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+  svg {
+    color: red;
+    font-size: 24px;
+  }
 `;
 const AddBankCard = ({ setOpenAddModal, setCards }) => {
   const [cardInfo, setCardInfo] = useState({
-    cardNumber: "",
-    shabaNumber: "",
+    card_num: "",
+    shaba_num: "",
   });
-  const [cards, setCard] = useState([]);
+  const [errors, setErrors] = useState([]);
   const { Request, HTTP_METHOD } = useRequest();
-  useEffect(() => {
-    Request("bank-accounts").then((response) => {
-      setCard(response.data.data);
-    });
-  }, []);
 
   const addCard = () => {
-    if (cardInfo.cardNumber !== "" && cardInfo.shabaNumber !== "") {
-      setCards((prevCards) => [...prevCards, cardInfo]);
-      setOpenAddModal(false);
+    setErrors([]);
+    const shebaInfo = getShebaInfo(`IR${cardInfo.shaba_num}`);
+    const cartValidate = verifyCardNumber(cardInfo.card_num);
+    const cartName = getBankNameFromCardNumber(cardInfo.card_num);
+
+    if (shebaInfo?.persianName) {
+      if (cartName === shebaInfo.persianName) {
+        if (cartValidate) {
+          Request("bank-accounts", HTTP_METHOD.POST, {
+            card_num: cardInfo.card_num,
+            shaba_num: `IR${cardInfo.shaba_num}`,
+            bank_name: shebaInfo.persianName,
+          })
+            .then(() => {
+              ToastSuccess(
+                "حساب بانکی شما با موفقيت ثبت شد. تاييد نهايی پس از بررسی های لازم صورت ميگيرد/ قابليت بارگذاری ٢٠ حساب بانکی توسط متقاضی صورت گيرد"
+              );
+              setOpenAddModal(false);
+              // Refresh the cards list
+              Request("bank-accounts").then((response) => {
+                setCards(response.data.data);
+              });
+            })
+            .catch((error) => {
+              ToastError(error.response.data.message);
+            });
+        } else {
+          setErrors(["شماره کارت صحیح نمی باشد لطفا آنرا برسی نمایید."]);
+        }
+      } else {
+        setErrors(["شماره شبا و شماره کارت باید متعلق به یک کارت باشد."]);
+      }
+    } else {
+      setErrors(["شماره شبا صحیح نمی باشد لطفا آنرا برسی نمایید."]);
     }
   };
 
@@ -81,17 +133,20 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
     <BackGround>
       <Modal>
         <Title>افزودن کارت</Title>
+        <Close>
+          <IoCloseCircleSharp onClick={() => setOpenAddModal(false)} />
+        </Close>
         <Inputs>
           <EditInput
             title="شماره کارت"
             type="number"
-            value={cardInfo.cardNumber}
+            value={cardInfo.card_num}
             onchange={(e) => {
               const inputValue = e.target.value;
-              if (inputValue.length < 17) {
+              if (inputValue.length <= 16) {
                 setCardInfo((prev) => ({
                   ...prev,
-                  cardNumber: inputValue,
+                  card_num: inputValue,
                 }));
               }
             }}
@@ -99,18 +154,19 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
           <EditInput
             title="شماره شبا"
             type="number"
-            value={cardInfo.shabaNumber}
+            value={cardInfo.shaba_num}
             onchange={(e) => {
               const inputValue = e.target.value;
-              if (inputValue.length < 25) {
+              if (inputValue.length <= 24) {
                 setCardInfo((prev) => ({
                   ...prev,
-                  shabaNumber: inputValue,
+                  shaba_num: inputValue,
                 }));
               }
             }}
           />
         </Inputs>
+        {errors.length > 0 && <ErrorMessage>{errors[0]}</ErrorMessage>}
         <Button onClick={addCard}>افزودن کارت</Button>
       </Modal>
     </BackGround>

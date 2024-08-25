@@ -30,6 +30,7 @@ const Container = styled.div`
 `;
 const BankTab = ({ setOpenErrorModal, openErrorModal }) => {
   const [isError, setIsError] = useState(false);
+  const [errors, setErrors] = useState([]);
   const [cards, setCards] = useState([]);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -38,7 +39,7 @@ const BankTab = ({ setOpenErrorModal, openErrorModal }) => {
     <Container>
       <Wrapper>
         <Title title="کارت های بانکی" />
-        {!isError && (
+        {isError && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
             buttonText="مشاهده خطاها"
@@ -54,9 +55,12 @@ const BankTab = ({ setOpenErrorModal, openErrorModal }) => {
           setOpenDeleteModal={setOpenDeleteModal}
           cards={cards}
           setCards={setCards}
+          setIsError={setIsError}
         />
       </Wrapper>
-      {openErrorModal && <ErrorModal setOpenErrorModal={setOpenErrorModal} />}
+      {openErrorModal && (
+        <ErrorModal setOpenErrorModal={setOpenErrorModal} errors={errors} />
+      )}
     </Container>
   );
 };

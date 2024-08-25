@@ -26,7 +26,7 @@ const BackGround = styled.div`
 `;
 const Modal = styled.div`
   border-radius: 10px;
-  background-color: #000000;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   padding: 20px;
   width: 100%;
   max-width: 475px;
@@ -37,13 +37,13 @@ const Modal = styled.div`
 const Title = styled.h3`
   font-size: 24px;
   font-weight: 600;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (max-width: 1023px) {
     font-size: 18px;
   }
 `;
 const Info = styled.p`
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-weight: 400;
   text-align: justify;
   margin: 20px 0;

@@ -72,6 +72,7 @@
     "react-tooltip": "^5.27.1",
     "react-unity-webgl": "^9.4.0",
     "react-webcam": "^7.2.0",
+    "resumablejs": "^1.1.0",
     "shortid": "^2.2.16",
     "slate-history": "^0.100.0",
     "slate-react": "^0.108.0",

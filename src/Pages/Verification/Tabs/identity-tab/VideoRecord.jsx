@@ -2,6 +2,7 @@ import { HiOutlineCamera, HiOutlineRefresh } from "react-icons/hi";
 import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import Resumable from "resumablejs";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -95,7 +96,8 @@ const ContainerRecorder = styled.div`
   height: fit-content;
   flex-direction: column;
 `;
-const VideoRecord = () => {
+
+const VideoRecord = ({ setVideoError, setVideoURLParent }) => {
   const [capturing, setCapturing] = useState(false);
   const [videoURL, setVideoURL] = useState(null);
   const [error, setError] = useState(null);
@@ -104,11 +106,13 @@ const VideoRecord = () => {
   const [timeLeft, setTimeLeft] = useState(30);
   const timerRef = useRef(null);
   const [textVerify, setTextVerify] = useState("");
+  const chunks = useRef([]);
+
   const handleRecordClick = () => {
     if (capturing) {
       mediaRecorderRef.current.stop();
       setCapturing(false);
-      clearInterval(timerRef.current); // Stop the countdown when recording stops
+      clearInterval(timerRef.current);
     } else {
       startRecording();
       setCapturing(true);
@@ -118,6 +122,9 @@ const VideoRecord = () => {
   const handleDeleteClick = () => {
     setVideoURL(null);
     setTimeLeft(30);
+    setVideoError(true);
+    setVideoURLParent(null);
+    chunks.current = []; // Reset the chunks
   };
 
   const startRecording = async () => {
@@ -128,26 +135,34 @@ const VideoRecord = () => {
       });
       videoRef.current.srcObject = stream;
       setError(null);
+      setVideoError(false);
 
       mediaRecorderRef.current = new MediaRecorder(stream, {
         mimeType: "video/webm",
       });
-      let chunks = [];
+
       mediaRecorderRef.current.ondataavailable = (event) => {
         if (event.data.size > 0) {
-          chunks.push(event.data);
+          chunks.current.push(event.data);
         }
       };
+
       mediaRecorderRef.current.onstop = () => {
-        const blob = new Blob(chunks, { type: "video/webm" });
-        const url = URL.createObjectURL(blob);
-        setVideoURL(url);
+        const blob = new Blob(chunks.current, { type: "video/mp4" });
+        const file = new File([blob], "video.mp4", { type: "video/mp4" });
+
+        // Instead of using Blob URL, pass file directly
+        setVideoURL(URL.createObjectURL(blob));
+        setVideoURLParent(URL.createObjectURL(blob));
         stream.getTracks().forEach((track) => track.stop());
-        clearInterval(timerRef.current); // Stop the countdown when recording stops
+        clearInterval(timerRef.current);
+
+        console.log(URL.createObjectURL(file));
+        uploadVideo(file);
       };
+
       mediaRecorderRef.current.start();
 
-      // Start countdown
       let countdown = 30;
       timerRef.current = setInterval(() => {
         countdown -= 1;
@@ -164,6 +179,17 @@ const VideoRecord = () => {
         "دسترسی به دوربین یا میکروفون ممکن نیست. لطفاً تنظیمات دستگاه خود را بررسی کنید."
       );
     }
+  };
+
+  const uploadVideo = (file) => {
+    const resumable = new Resumable({
+      target: "https://api.rgb.irpsc.com/api/upload",
+    });
+    resumable.addFile(file);
+
+    resumable.on("fileAdded", (file) => {
+      resumable.upload();
+    });
   };
 
   useEffect(() => {

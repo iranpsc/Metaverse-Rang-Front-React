@@ -76,7 +76,7 @@ function App() {
                     </Container>
 
                     <Toaster
-                      containerStyle={{ zIndex: 1000, marginBottom: 48 }}
+                      containerStyle={{ zIndex: 100000, marginBottom: 48 }}
                       position="bottom-right"
                     />
                   </BrowserRouter>

@@ -3,7 +3,8 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   direction: rtl;
   border-radius: 5px;
   padding: 10px;
@@ -30,11 +31,12 @@ const Left = styled.div`
   background-color: #e9e9e9;
   border-radius: 10px;
   font-weight: 600;
-  color: #949494;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   cursor: pointer;
 `;
 const Text = styled.p`
-  color: ${(props) => (props.color ? "#C30000" : "#dedee9")};
+  color: ${(props) =>
+    props.color ? "#C30000" : props.theme.colors.newColors.shades.title};
   font-weight: ${(props) => (props.color ? "700" : "")};
 `;
 const Alert = ({ type, text, info, buttonText, onclick }) => {

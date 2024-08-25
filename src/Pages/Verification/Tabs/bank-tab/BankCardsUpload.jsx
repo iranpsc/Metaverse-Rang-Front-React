@@ -4,6 +4,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 import bank from "../../../../Assets/images/bank-melat.png";
 import styled from "styled-components";
 import { useState } from "react";
+import { getShebaInfo } from "@persian-tools/persian-tools";
 
 const Container = styled.div`
   display: flex;
@@ -17,6 +18,7 @@ const BankCard = styled.div`
   gap: 20px;
   justify-content: flex-start;
 `;
+
 const Image = styled.div`
   position: relative;
   background-color: #0066ff;
@@ -64,11 +66,11 @@ const CardNumber = styled.div`
     }
     span {
       font-size: 12px;
-      color: white;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
     }
   }
   h2 {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     text-align: center;
     margin-top: 20px;
   }
@@ -77,24 +79,23 @@ const CardNumber = styled.div`
 const CardShaba = styled.div`
   display: flex;
   flex-grow: 1;
-  background-color: yellow;
+  background-color: #1a1a18;
   flex-direction: column;
   gap: 5px;
-  background-color: #1a1a18;
   height: 30% !important;
-
   padding: 10px 40px;
   span {
     font-size: 12px;
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 600;
   }
   h3 {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 14px;
     font-weight: 500;
   }
 `;
+
 const Upload = styled.div`
   height: 97% !important;
   width: 97% !important;
@@ -105,15 +106,16 @@ const Upload = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 46px;
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
   flex-grow: 1;
   span {
     font-size: 16px;
     font-weight: 600;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
+
 const IconWrapper = styled.div`
   width: 24px !important;
   height: 24px !important;
@@ -150,28 +152,33 @@ const BankCardsUpload = ({
     <>
       <Container>
         <BankCard>
-          {Object.values(cards).map((card, i) => (
-            <UploadWrapper key={i}>
-              <Image>
-                <IconWrapper onClick={() => handleDeleteCard(i)}>
-                  <HiOutlineTrash />
-                </IconWrapper>
-                <DisplayCard>
-                  <CardNumber>
-                    <div>
-                      <img width={60} src={bank} alt="bank-logo" />
-                      <span>بانک ملت</span>
-                    </div>
-                    <h2>{card.cardNumber.replace(/(\d{4})(?=\d)/g, "$1 ")}</h2>{" "}
-                  </CardNumber>
-                  <CardShaba>
-                    <span>شماره شبا</span>
-                    <h3>IR-{card.shabaNumber}</h3>
-                  </CardShaba>
-                </DisplayCard>
-              </Image>
-            </UploadWrapper>
-          ))}
+          {Object.values(cards).map((card, i) => {
+            const shebaInfo = getShebaInfo(`IR${card.shabaNumber}`);
+            return (
+              <UploadWrapper key={i}>
+                <Image>
+                  <IconWrapper onClick={() => handleDeleteCard(i)}>
+                    <HiOutlineTrash />
+                  </IconWrapper>
+                  <DisplayCard>
+                    <CardNumber>
+                      <div>
+                        <img width={60} src={bank} alt="bank-logo" />
+                        <span>{shebaInfo}</span>
+                      </div>
+                      <h2>
+                        {card.cardNumber.replace(/(\d{4})(?=\d)/g, "$1 ")}
+                      </h2>
+                    </CardNumber>
+                    <CardShaba>
+                      <span>شماره شبا</span>
+                      <h3>{card.shabaNumber}</h3>
+                    </CardShaba>
+                  </DisplayCard>
+                </Image>
+              </UploadWrapper>
+            );
+          })}
 
           <UploadWrapper>
             <Upload onClick={() => setOpenAddModal(true)}>

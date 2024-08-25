@@ -11,11 +11,22 @@ const Container = styled.div`
     grid-template-columns: 800px 1fr;
   }
 `;
-const Upload = () => {
+const Upload = ({
+  setVideoError,
+  setVideoURLParent,
+  setNationImageURL,
+  setBankImageURL,
+}) => {
   return (
     <Container>
-      <VideoRecord />
-      <UploadCards />
+      <VideoRecord
+        setVideoError={setVideoError}
+        setVideoURLParent={setVideoURLParent}
+      />
+      <UploadCards
+        setNationImageURL={setNationImageURL}
+        setBankImageURL={setBankImageURL}
+      />
     </Container>
   );
 };

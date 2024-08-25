@@ -40,6 +40,10 @@ const IdentityInputs = ({
 }) => {
   const [identityError, setIdentityError] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [videoError, setVideoError] = useState(false);
+  const [videoURL, setVideoURL] = useState(null);
+  const [nationImageURL, setNationImageURL] = useState(null);
+  const [bankImageURL, setBankImageURL] = useState(null); // Store video URL in state
 
   const sendHandler = () => {
     let errorMessages = [];
@@ -81,6 +85,21 @@ const IdentityInputs = ({
     if (!inputValues.gender) {
       errorMessages.push("جنسیت انتخاب نشده است.");
     }
+
+    if (!videoURL) {
+      errorMessages.push("ویدیو ضبط نشده است.");
+      setVideoError(true);
+    } else {
+      setVideoError(false);
+    }
+    if (!nationImageURL) {
+      errorMessages.push("تصویر کارت ملی بارگذاری نشده است.");
+    }
+
+    if (!bankImageURL) {
+      errorMessages.push("تصویر کارت بانکی بارگذاری نشده است.");
+    }
+
     setErrors(errorMessages);
 
     if (errorMessages.length === 0) {
@@ -90,6 +109,7 @@ const IdentityInputs = ({
       setIdentityError(true);
     }
   };
+
   return (
     <Wrapper identityError={identityError}>
       <Container>
@@ -109,7 +129,12 @@ const IdentityInputs = ({
           inputValues={inputValues}
           handleInputChange={handleInputChange}
         />
-        <Upload />
+        <Upload
+          setVideoError={setVideoError}
+          setVideoURLParent={setVideoURL}
+          setNationImageURL={setNationImageURL}
+          setBankImageURL={setBankImageURL}
+        />
         <Button large label="ارسال و ثبت اطلاعات" onclick={sendHandler} />
       </Container>
       {openErrorModal && (
