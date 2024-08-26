@@ -3,7 +3,7 @@ import { useState } from "react";
 import Alert from "../../../../Components/Alert/Alert";
 import Title from "../../../../Components/Title";
 import Button from "../../../../Components/Button";
-import ErrorModal from "../ErrorModal";
+
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
 import { convertPersianNumbersToEnglish } from "../../../../Services/Utility";
 import DatePicker from "react-multi-date-picker";
@@ -70,6 +70,7 @@ const InputContainer = styled.div`
     }
   }
 `;
+
 const EditInput = ({
   id,
   icon,
@@ -82,13 +83,26 @@ const EditInput = ({
   error,
   slug,
 }) => {
-  // Check if the field has an error
+  // Function to handle input validation based on the input type
+  const handleInputChange = (e) => {
+    let regex;
+    if (type === "text") {
+      regex = /^[a-zA-Zآ-ی\s]*$/; // Allow only letters and spaces
+      if (regex.test(e.target.value)) {
+        onchange(e); // Call the parent's onChange handler
+      }
+    } else if (type === "number") {
+      const numericValue = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+      e.target.value = numericValue;
+      onchange(e); // Call the parent's onChange handler
+    }
+  };
   return (
-    <InputContainer hasError={hasError}>
+    <InputContainer hasError={identityError}>
       <input
         placeholder={title}
         value={value}
-        onChange={onchange}
+        onChange={handleInputChange} // Use the custom handler here
         type={type || "text"}
         name={name}
       />

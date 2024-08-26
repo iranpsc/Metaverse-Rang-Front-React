@@ -3,10 +3,10 @@ import IdentityInfo from "./IdentityInfo";
 import IdentityInputs from "./IdentityInputs";
 import { useState, useEffect } from "react";
 
-const details = [
-  { id: 1, slug: "name", label: "نام" },
-  { id: 2, slug: "lastName", label: "نام خانوادگی" },
-  { id: 3, slug: "nationalCode", label: "کد ملی" },
+const initialDetails = [
+  { id: 1, slug: "fname", label: "نام" },
+  { id: 2, slug: "lname", label: "نام خانوادگی" },
+  { id: 3, slug: "melli_code", label: "کد ملی" },
   {
     id: 4,
     slug: "province",
@@ -45,7 +45,7 @@ const details = [
       { id: 31, city: "یزد" },
     ],
   },
-  { id: 5, slug: "birthDate", label: "تاریخ تولد" },
+  { id: 5, slug: "birthdate", label: "تاریخ تولد" },
   {
     id: 6,
     slug: "gender",
@@ -62,32 +62,53 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
   const [nationalCardImg, SetNationalCardImg] = useState("");
   const { Request } = useRequest();
   const [errors, setErrors] = useState([]);
+  const [details, setDetails] = useState(initialDetails); // Initialize state for details
+
   useEffect(() => {
     Request(`kyc`).then((response) => {
       setKyc(response.data.data);
+
       if (response.data.data.errors) {
-        setErrors(response.data.data.errors.map((error) => error.message));
+        const errorNames = response.data.data.errors.map(
+          (error) => error.message
+        );
+        setErrors(errorNames);
         setOpenErrorModal(true); // Open the error modal when there are errors
+
+        // Update details with error flags
+        const updatedDetails = initialDetails.map((detail) => {
+          if (
+            response.data.data.errors
+              .map((error) => error.name)
+              .includes(`${detail.slug}_err`)
+          ) {
+            return { ...detail, error: true };
+          }
+          return detail;
+        });
+
+        setDetails(updatedDetails);
       }
     });
   }, []);
-  console.log(errors);
+  console.log(details);
+
   const [inputValues, setInputValues] = useState({
-    name: "",
-    lastName: "",
-    nationalCode: "",
+    fname: "",
+    lname: "",
+    melli_code: "",
     province: "",
-    birthDate: "1300/01/01",
+    birthdate: "1300/01/01",
     gender: "",
   });
 
   useEffect(() => {
     setInputValues({
-      name: kyc?.fname || "",
-      lastName: kyc?.lname || "",
-      nationalCode: kyc?.melli_code || "",
+      fname: kyc?.fname || "",
+      lname: kyc?.lname || "",
+      melli_code: kyc?.melli_code || "",
       province: kyc?.province || "",
-      birthDate: kyc?.birthdate || "1300/01/01",
+      birthdate: kyc?.birthdate || "1300/01/01",
       gender: kyc?.gender || "",
     });
     SetNationalCardImg(kyc?.melli_card);
@@ -98,11 +119,26 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    // Update the input values
     setInputValues((prevInputValues) => ({
       ...prevInputValues,
       [name]: value,
     }));
+
+    // Remove the error for the field that is being changed
+    setErrors((prevErrors) =>
+      prevErrors.filter((error) => error !== `${name}_err`)
+    );
+
+    // Optionally, update the details array to remove the error flag
+    setDetails((prevDetails) =>
+      prevDetails.map((detail) =>
+        detail.slug === name ? { ...detail, error: false } : detail
+      )
+    );
   };
+
   const [submitted, setSubmitted] = useState(false);
 
   if (!submitted)

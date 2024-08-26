@@ -13,7 +13,10 @@ const Birthday = styled.div`
   direction: rtl;
   border-radius: 5px;
   border: 1px solid
-    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
+    ${(props) =>
+      props.error
+        ? "red"
+        : props.theme.colors.newColors.otherColors.inputBorder};
   display: flex;
   flex-grow: 1;
   align-items: center;
@@ -50,8 +53,8 @@ const Select = styled.select`
   border-radius: 5px;
   border: 1px solid
     ${(props) =>
-      props.identityError && props.value === ""
-        ? props.theme.colors.newColors.otherColors.red
+      props.identityError
+        ? "red"
         : props.theme.colors.newColors.otherColors.inputBorder};
   display: flex;
   flex-grow: 1;
@@ -79,13 +82,12 @@ const Inputs = ({ data, identityError, inputValues, handleInputChange }) => {
           onchange={handleInputChange}
           key={item.id}
           name={item.slug}
-          identityError={identityError}
+          identityError={item?.error}
           type={item.id === 1 || item.id === 2 ? "text" : "number"}
-          error={identityError[item.slug]} // Pass error prop
         />
       ))}
       <Select
-        identityError={identityError[data[3].slug]}
+        identityError={data[3]?.error}
         value={inputValues[data[3].slug]}
         onChange={handleInputChange}
         name={data[3].slug}
@@ -95,7 +97,7 @@ const Inputs = ({ data, identityError, inputValues, handleInputChange }) => {
         ))}
       </Select>
 
-      <Birthday>
+      <Birthday error={data[4]?.error}>
         <DatePicker
           shadow="red"
           value={inputValues[data[4].slug]}
@@ -115,7 +117,7 @@ const Inputs = ({ data, identityError, inputValues, handleInputChange }) => {
         value={inputValues[data[5].slug]}
         onChange={handleInputChange}
         name={data[5].slug}
-        identityError={identityError[data[5].slug]}
+        identityError={data[5]?.error}
       >
         {data[5].options.map((option) => (
           <option key={option.id}>{option.gender}</option>

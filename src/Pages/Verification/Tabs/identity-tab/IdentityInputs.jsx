@@ -55,29 +55,29 @@ const IdentityInputs = ({
     let errorMessages = [];
 
     // Validation checks and storing error messages and fields
-    if (!inputValues.name) {
+    if (!inputValues.fname) {
       errorMessages.push("نام وارد نشده است.");
-    } else if (inputValues.name.length < 3) {
+    } else if (inputValues.fname.length < 3) {
       errorMessages.push("نام وارد شده باید بیشتر از 3 کاراکتر داشته باشد.");
-    } else if (inputValues.name.length > 32) {
+    } else if (inputValues.fname.length > 32) {
       errorMessages.push("نام وارد شده باید کمتر از 32 کاراکتر داشته باشد.");
     }
 
-    if (!inputValues.lastName) {
+    if (!inputValues.lname) {
       errorMessages.push("نام خانوادگی وارد نشده است.");
-    } else if (inputValues.lastName.length < 3) {
+    } else if (inputValues.lname.length < 3) {
       errorMessages.push(
         "نام خانوادگی وارد شده باید بیشتر از 3 کاراکتر داشته باشد."
       );
-    } else if (inputValues.lastName.length > 52) {
+    } else if (inputValues.lname.length > 52) {
       errorMessages.push(
         "نام خانوادگی وارد شده باید کمتر از 52 کاراکتر داشته باشد."
       );
     }
 
-    if (!inputValues.nationalCode) {
+    if (!inputValues.melli_code) {
       errorMessages.push("کد ملی وارد نشده است.");
-    } else if (!verifyIranianNationalId(inputValues.nationalCode)) {
+    } else if (!verifyIranianNationalId(inputValues.melli_code)) {
       errorMessages.push("کد ملی صحیح نمی باشد.");
     }
 
@@ -85,7 +85,7 @@ const IdentityInputs = ({
       errorMessages.push("استان وارد نشده است.");
     }
 
-    if (!inputValues.birthDate) {
+    if (!inputValues.birthdate) {
       errorMessages.push("تاریخ تولد وارد نشده است.");
     }
 
@@ -105,16 +105,15 @@ const IdentityInputs = ({
     }
 
     setErrors(errorMessages);
-    setIdentityError(errorFields);
-
+    console.log(inputValues.birthDate);
     const requestData = new FormData();
-    requestData.append("fname", inputValues.name);
-    requestData.append("lname", inputValues.lastName);
-    requestData.append("melli_code", inputValues.nationalCode);
+    requestData.append("fname", inputValues.fname);
+    requestData.append("lname", inputValues.lname);
+    requestData.append("melli_code", inputValues.melli_code);
     requestData.append("province", inputValues.province);
     requestData.append(
       "birthdate",
-      convertPersianNumbersToEnglish(inputValues.birthDate)
+      convertPersianNumbersToEnglish(inputValues.birthdate)
     );
     requestData.append("melli_card", nationImageURL);
     requestData.append("video[name]", JSON.parse(uploadResponse).name);
