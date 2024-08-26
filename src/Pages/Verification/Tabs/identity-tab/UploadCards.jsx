@@ -37,27 +37,6 @@ const Image = styled.div`
   position: relative;
 `;
 
-const UploadWrapper = styled.div`
-  margin-top: 20px;
-  width: 80% !important;
-  height: 150px;
-  div {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border-radius: 10px;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  @media (min-width: 1500px) {
-    width: 187px;
-    height: 150px;
-  }
-`;
-
 const Title = styled.h3`
   font-size: 16px;
   font-weight: 600;
@@ -100,32 +79,54 @@ const IconWrapper = styled.div`
     cursor: pointer;
   }
 `;
+const UploadWrapper = styled.div`
+  margin-top: 20px;
+  width: 80% !important;
+  height: 150px;
+  div {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 2px dashed ${(props) => (props.hasError ? "red" : "#454545")}; /* Conditionally set border color */
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
 
-const UploadCards = ({ setImageError, setNationImageURL, setBankImageURL }) => {
+  @media (min-width: 1500px) {
+    width: 187px;
+    height: 150px;
+  }
+`;
+
+const UploadCards = ({ setImageError, setNationImageURL }) => {
   const [nationImage, setNationImage] = useState(null);
-  const [bankImage, setBankImage] = useState(null);
+  const [imageError, setImageErrorState] = useState(false); // State for image upload error
 
   const handleNationImageChange = (e) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
-      setNationImage(URL.createObjectURL(file));
-      setNationImageURL(URL.createObjectURL(file)); // Pass image URL to parent
+      setNationImage(file);
+      setNationImageURL(file);
+      setImageErrorState(false); // Clear the error when a file is selected
+    } else {
+      setImageErrorState(true); // Set the error if no file is selected
     }
   };
 
-  const handleBankImageChange = (e) => {
-    const file = e.target.files && e.target.files[0];
-    if (file) {
-      setBankImage(URL.createObjectURL(file));
-      setBankImageURL(URL.createObjectURL(file)); // Pass image URL to parent
-    }
+  const handleDeleteClick = () => {
+    setNationImage(null);
+    setNationImageURL(null);
+    setImageErrorState(true); // Set the error when the image is deleted
   };
 
   return (
     <Container>
       <NationCard>
         <Title>تصویر کارت ملی</Title>
-        <UploadWrapper>
+        <UploadWrapper hasError={imageError}>
           {!nationImage && (
             <Upload>
               +
@@ -138,48 +139,14 @@ const UploadCards = ({ setImageError, setNationImageURL, setBankImageURL }) => {
           )}
           {nationImage && (
             <Image>
-              <IconWrapper
-                onClick={() => {
-                  setNationImage(null);
-                  setNationImageURL(null); // Reset image URL in parent
-                }}
-              >
+              <IconWrapper onClick={handleDeleteClick}>
                 <HiOutlineTrash />
               </IconWrapper>
-              <img src={nationImage} alt="nation card" />
+              <img src={URL.createObjectURL(nationImage)} alt="nation card" />
             </Image>
           )}
         </UploadWrapper>
       </NationCard>
-
-      <BankCard>
-        <Title>تصویر کارت بانکی</Title>
-        <UploadWrapper>
-          {!bankImage && (
-            <Upload>
-              +
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleBankImageChange}
-              />
-            </Upload>
-          )}
-          {bankImage && (
-            <Image>
-              <IconWrapper
-                onClick={() => {
-                  setBankImage(null);
-                  setBankImageURL(null); // Reset image URL in parent
-                }}
-              >
-                <HiOutlineTrash />
-              </IconWrapper>
-              <img src={bankImage} alt="bank card" />
-            </Image>
-          )}
-        </UploadWrapper>
-      </BankCard>
     </Container>
   );
 };

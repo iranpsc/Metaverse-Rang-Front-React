@@ -15,17 +15,21 @@ const Upload = ({
   setVideoError,
   setVideoURLParent,
   setNationImageURL,
-  setBankImageURL,
+  uploadResponse,
+  setUploadResponse,
+  inputValues,
 }) => {
   return (
     <Container>
       <VideoRecord
         setVideoError={setVideoError}
         setVideoURLParent={setVideoURLParent}
+        uploadResponse={uploadResponse}
+        setUploadResponse={setUploadResponse}
       />
       <UploadCards
         setNationImageURL={setNationImageURL}
-        setBankImageURL={setBankImageURL}
+        inputValues={inputValues}
       />
     </Container>
   );

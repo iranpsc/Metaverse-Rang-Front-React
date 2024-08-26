@@ -99,17 +99,12 @@ const RestrictUser = () => {
   const [limitations, setLimitations] = useState({});
   const { Request, HTTP_METHOD } = useRequest();
   const [user] = useContext(UserContext);
-  console.log(user);
   useEffect(() => {
-    Request(
-      `users/${user?.id}/profile-limitations`,
-      HTTP_METHOD.GET,
-      {},
-      {},
-      "development"
-    ).then((response) => {
-      setLimitations(response.data.data);
-    });
+    Request(`users/${user?.id}/profile-limitations`, HTTP_METHOD.GET).then(
+      (response) => {
+        setLimitations(response.data.data);
+      }
+    );
   }, []);
   const handleIconClick = (slug) => {
     setOptions((prevOptions) => ({

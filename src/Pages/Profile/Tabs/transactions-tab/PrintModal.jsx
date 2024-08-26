@@ -48,9 +48,9 @@ const Header = styled.div`
   align-items: center;
   p {
     color: ${(props) =>
-      props.status == "1"
+      props.status == "0"
         ? "#00966d"
-        : props.status == "0"
+        : props.status == "-138"
         ? "#C30000"
         : "#FFC700"};
     font-size: 24px;
@@ -68,9 +68,9 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
   color: ${(props) =>
-    props.status == "1"
+    props.status == "0"
       ? "#00966d"
-      : props.status == "0"
+      : props.status == "-138"
       ? "#C30000"
       : "#FFC700"};
   margin-bottom: 20px;
@@ -157,28 +157,28 @@ const PrintModal = ({
         <Header status={status}>
           <Div status={status}>
             <div />
-            {status == "1" ? (
+            {status == "0" ? (
               <BsCheckCircleFill size={80} />
-            ) : status == "-1" ? (
-              <IoReloadCircleSharp size={80} />
-            ) : (
+            ) : status == "-138" ? (
               <AiFillCloseCircle size={80} />
+            ) : (
+              <IoReloadCircleSharp size={80} />
             )}
           </Div>
-          {status == "1" ? (
+          {status == "0" ? (
             <>
               <p>از خرید شما سپاس گذاریم</p>
               <span>خرید شما با موفقیت ثبت شده است</span>
             </>
-          ) : status == "-1" ? (
-            <>
-              <p>تراکنش شما در حال برسی است</p>
-              <span>تا دقایقی دیگر تراکنش شما برسی خواهد شد</span>
-            </>
-          ) : (
+          ) : status == "-138" ? (
             <>
               <p>تراکنش شما انجام نشده است</p>
               <span>متاسفانه تراکنش شما رد شده است</span>
+            </>
+          ) : (
+            <>
+              <p>تراکنش شما در حال برسی است</p>
+              <span>تا دقایقی دیگر تراکنش شما برسی خواهد شد</span>
             </>
           )}
         </Header>

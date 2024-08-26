@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import ButtonIcon from "../../../../Components/ButtonIcon";
 import useAuth from "../../../../Services/Hooks/useAuth";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   padding: 15px;
@@ -78,8 +79,14 @@ const Upper = styled.div`
 `;
 const Info = () => {
   const [openShare, setOpenShare] = useState(false);
-  const { getUser } = useAuth();
-  const [user] = useContext(UserContext);
+  const [userId] = useContext(UserContext);
+  const [user, setUser] = useState({});
+  const { Request } = useRequest();
+  useEffect(() => {
+    Request(`users/${userId.id}/profile`).then((response) => {
+      setUser(response.data.data);
+    });
+  }, []);
   return (
     <Container>
       <Header>
@@ -89,30 +96,30 @@ const Info = () => {
             {user?.code}
           </Code>
         </div>
-        <span>عضویت از: ۱۴۰۱/۱۰/۱۴</span>
+        <span>عضویت از: {user?.registered_at}</span>
       </Header>
       <Content>
         <Follow>
-          <Count>۳</Count>
+          <Count>{user?.followers_count}</Count>
           <span>دنبال کننده</span>
         </Follow>
         <div
           style={{ height: "55px", width: "1px", backgroundColor: "#454545" }}
         />
         <Follow>
-          <Count>۰</Count>
+          <Count>{user?.following_count}</Count>
           <span>دنبال شونده</span>
         </Follow>
       </Content>
       <Buttons>
         <Upper>
-          <ButtonIcon
+          {/* <ButtonIcon
             grow
             icon={<TiUserAddOutline />}
             label="دنبال کردن"
             fill
             onclick={() => {}}
-          />
+          /> */}
           <ButtonIcon
             grow
             icon={<LuShare2 />}
@@ -120,12 +127,12 @@ const Info = () => {
             onclick={() => setOpenShare(true)}
           />
         </Upper>
-        <ButtonIcon
+        {/* <ButtonIcon
           grow
           icon={<BiCommentDots />}
           label="پیام دادن"
           onclick={() => {}}
-        />
+        /> */}
       </Buttons>
       {openShare && <ShareModal setOpenShare={setOpenShare} />}
     </Container>

@@ -70,7 +70,6 @@ const Select = styled.select`
 `;
 
 const Inputs = ({ data, identityError, inputValues, handleInputChange }) => {
-  const [value, setValue] = useState();
   return (
     <Container>
       {data.slice(0, 3).map((item) => (
@@ -82,10 +81,11 @@ const Inputs = ({ data, identityError, inputValues, handleInputChange }) => {
           name={item.slug}
           identityError={identityError}
           type={item.id === 1 || item.id === 2 ? "text" : "number"}
+          error={identityError[item.slug]} // Pass error prop
         />
       ))}
       <Select
-        identityError={identityError}
+        identityError={identityError[data[3].slug]}
         value={inputValues[data[3].slug]}
         onChange={handleInputChange}
         name={data[3].slug}
@@ -99,7 +99,11 @@ const Inputs = ({ data, identityError, inputValues, handleInputChange }) => {
         <DatePicker
           shadow="red"
           value={inputValues[data[4].slug]}
-          onChange={setValue}
+          onChange={(dateObject) => {
+            handleInputChange({
+              target: { name: data[4].slug, value: dateObject.format() },
+            });
+          }}
           calendar={persian}
           locale={persian_fa}
           calendarPosition="bottom-right"
@@ -111,7 +115,7 @@ const Inputs = ({ data, identityError, inputValues, handleInputChange }) => {
         value={inputValues[data[5].slug]}
         onChange={handleInputChange}
         name={data[5].slug}
-        identityError={identityError}
+        identityError={identityError[data[5].slug]}
       >
         {data[5].options.map((option) => (
           <option key={option.id}>{option.gender}</option>

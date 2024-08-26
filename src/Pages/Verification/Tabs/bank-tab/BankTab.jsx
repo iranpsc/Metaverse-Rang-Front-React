@@ -1,10 +1,11 @@
 import BankCardsUpload from "./BankCardsUpload";
 
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Title from "../../../../Components/Title";
 import Alert from "../../../../Components/Alert/Alert";
 import ErrorModal from "../ErrorModal";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Wrapper = styled.div`
   direction: rtl;
@@ -35,6 +36,12 @@ const BankTab = ({ setOpenErrorModal, openErrorModal }) => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
+  const { Request } = useRequest();
+  useEffect(() => {
+    Request("bank-accounts").then((response) => {
+      setCards(response.data.data);
+    });
+  }, []);
   return (
     <Container>
       <Wrapper>

@@ -152,7 +152,7 @@ const BankCardsUpload = ({
     <>
       <Container>
         <BankCard>
-          {Object.values(cards).map((card, i) => {
+          {cards.map((card, i) => {
             const shebaInfo = getShebaInfo(`IR${card.shabaNumber}`);
             return (
               <UploadWrapper key={i}>

@@ -7,6 +7,9 @@ import Title from "../../../../Components/Title";
 import Button from "../../../../Components/Button";
 import ErrorModal from "../ErrorModal";
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
+import ReactQuill from "react-quill";
+import useRequest from "../../../../Services/Hooks/useRequest";
+import { convertPersianNumbersToEnglish } from "../../../../Services/Utility";
 
 const Wrapper = styled.div`
   direction: ltr;
@@ -37,17 +40,21 @@ const IdentityInputs = ({
   setSubmitted,
   setOpenErrorModal,
   openErrorModal,
+  errors,
+  setErrors,
 }) => {
-  const [identityError, setIdentityError] = useState(false);
-  const [errors, setErrors] = useState([]);
+  const [identityError, setIdentityError] = useState({});
   const [videoError, setVideoError] = useState(false);
   const [videoURL, setVideoURL] = useState(null);
   const [nationImageURL, setNationImageURL] = useState(null);
-  const [bankImageURL, setBankImageURL] = useState(null); // Store video URL in state
+  const [uploadResponse, setUploadResponse] = useState(null);
+  const [textVerify, setTextVerify] = useState("");
+  const { Request, HTTP_METHOD } = useRequest();
 
   const sendHandler = () => {
     let errorMessages = [];
 
+    // Validation checks and storing error messages and fields
     if (!inputValues.name) {
       errorMessages.push("نام وارد نشده است.");
     } else if (inputValues.name.length < 3) {
@@ -88,6 +95,7 @@ const IdentityInputs = ({
 
     if (!videoURL) {
       errorMessages.push("ویدیو ضبط نشده است.");
+
       setVideoError(true);
     } else {
       setVideoError(false);
@@ -96,15 +104,30 @@ const IdentityInputs = ({
       errorMessages.push("تصویر کارت ملی بارگذاری نشده است.");
     }
 
-    if (!bankImageURL) {
-      errorMessages.push("تصویر کارت بانکی بارگذاری نشده است.");
-    }
-
     setErrors(errorMessages);
+    setIdentityError(errorFields);
+
+    const requestData = new FormData();
+    requestData.append("fname", inputValues.name);
+    requestData.append("lname", inputValues.lastName);
+    requestData.append("melli_code", inputValues.nationalCode);
+    requestData.append("province", inputValues.province);
+    requestData.append(
+      "birthdate",
+      convertPersianNumbersToEnglish(inputValues.birthDate)
+    );
+    requestData.append("melli_card", nationImageURL);
+    requestData.append("video[name]", JSON.parse(uploadResponse).name);
+    requestData.append("video[path]", JSON.parse(uploadResponse).path);
+    requestData.append("verify_text_id", textVerify.id);
 
     if (errorMessages.length === 0) {
       setIdentityError(false);
-      setSubmitted(true);
+      Request("kyc", HTTP_METHOD.POST, requestData, {
+        "Content-Type": "multipart/form-data",
+      }).then((res) => {
+        setSubmitted(true);
+      });
     } else {
       setIdentityError(true);
     }
@@ -133,7 +156,11 @@ const IdentityInputs = ({
           setVideoError={setVideoError}
           setVideoURLParent={setVideoURL}
           setNationImageURL={setNationImageURL}
-          setBankImageURL={setBankImageURL}
+          uploadResponse={uploadResponse}
+          setUploadResponse={setUploadResponse}
+          textVerify={textVerify}
+          setTextVerify={setTextVerify}
+          inputValues={inputValues}
         />
         <Button large label="ارسال و ثبت اطلاعات" onclick={sendHandler} />
       </Container>

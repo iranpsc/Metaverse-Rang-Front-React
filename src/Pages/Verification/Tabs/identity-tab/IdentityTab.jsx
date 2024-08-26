@@ -61,13 +61,17 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
   const [kyc, setKyc] = useState({});
   const [nationalCardImg, SetNationalCardImg] = useState("");
   const { Request } = useRequest();
-
+  const [errors, setErrors] = useState([]);
   useEffect(() => {
     Request(`kyc`).then((response) => {
       setKyc(response.data.data);
+      if (response.data.data.errors) {
+        setErrors(response.data.data.errors.map((error) => error.message));
+        setOpenErrorModal(true); // Open the error modal when there are errors
+      }
     });
   }, []);
-
+  console.log(errors);
   const [inputValues, setInputValues] = useState({
     name: "",
     lastName: "",
@@ -110,6 +114,8 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
         inputValues={inputValues}
         handleInputChange={handleInputChange}
         setSubmitted={setSubmitted}
+        errors={errors}
+        setErrors={setErrors}
       />
     );
   if (submitted)

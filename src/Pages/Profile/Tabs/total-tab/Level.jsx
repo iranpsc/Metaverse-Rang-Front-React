@@ -66,14 +66,21 @@ const LevelCount = styled.div`
 `;
 
 const Level = () => {
-  const [user] = useContext(UserContext);
+  const [userId] = useContext(UserContext);
+  const [user, setUser] = useState({});
+  const { Request } = useRequest();
+  useEffect(() => {
+    Request(`users/${userId.id}/level`).then((response) => {
+      setUser(response.data.data);
+    });
+  }, []);
 
   return (
     <Container>
       <Percent>
         <Title>
           <h2>{user?.level?.name}</h2>
-          <h3>{user?.socre_percentage_to_next_level}%</h3>
+          <h3>{user?.current_level?.socre_percentage_to_next_level}%</h3>
         </Title>
         <ProgressContainer>
           <ProgressBar percentage={user?.socre_percentage_to_next_level} />
