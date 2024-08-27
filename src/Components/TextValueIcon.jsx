@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { convertToPersian } from "../Services/Utility";
 
 const Item = styled.div`
   border-radius: 5px;
@@ -53,7 +52,7 @@ const Value = styled.span`
   font-weight: 400;
   padding: 10px 15px;
   line-height: ${(props) => props.smallValue && "20px"};
-
+  text-transform: uppercase;
   @media (min-width: 460px) {
     font-size: 18px;
   }

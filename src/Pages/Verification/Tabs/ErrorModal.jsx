@@ -21,7 +21,7 @@ const BackGround = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(5px);
+
   background-color: rgba(0, 0, 0, 0.713);
 `;
 const Modal = styled.div`

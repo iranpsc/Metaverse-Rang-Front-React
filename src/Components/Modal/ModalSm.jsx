@@ -32,6 +32,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
+  background-color: rgba(0, 0, 0, 0.713);
   z-index: 100;
 `;
 const ModalSm = ({ children, title }) => {

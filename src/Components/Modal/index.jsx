@@ -4,16 +4,19 @@ import Header from "../Header/Header";
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   height: 100%;
-
   padding: 15px 20px;
   max-width: 800px;
   width: 80%;
   z-index: 2000;
   border-radius: 10px;
+  position: absolute;
+  right: 0;
   @media (min-width: 1023px) {
     height: 94%;
     max-width: 1330px;
     max-height: 782px;
+    position: static; /* برای غیر فعال کردن position */
+    right: auto;
   }
 
   @media (min-width: 1024px) and (max-width: 1180px) {
@@ -36,6 +39,8 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
+  background-color: rgba(0, 0, 0, 0.713);
+  z-index: 10;
 `;
 const Modal = ({ children, title }) => {
   return (

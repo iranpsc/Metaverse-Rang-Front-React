@@ -82,15 +82,15 @@ const CardShaba = styled.div`
   background-color: #1a1a18;
   flex-direction: column;
   gap: 5px;
-  height: 30% !important;
+  height: 35% !important;
   padding: 10px 40px;
   span {
     font-size: 12px;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
+    color: #fdfdfd;
     font-weight: 600;
   }
   h3 {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
+    color: white;
     font-size: 14px;
     font-weight: 500;
   }
@@ -153,7 +153,7 @@ const BankCardsUpload = ({
       <Container>
         <BankCard>
           {cards.map((card, i) => {
-            const shebaInfo = getShebaInfo(`IR${card.shabaNumber}`);
+            console.log(card);
             return (
               <UploadWrapper key={i}>
                 <Image>
@@ -164,15 +164,13 @@ const BankCardsUpload = ({
                     <CardNumber>
                       <div>
                         <img width={60} src={bank} alt="bank-logo" />
-                        <span>{shebaInfo}</span>
+                        <span>{card.bank_name}</span>
                       </div>
-                      <h2>
-                        {card.cardNumber.replace(/(\d{4})(?=\d)/g, "$1 ")}
-                      </h2>
+                      <h2>{card.card_num}</h2>
                     </CardNumber>
                     <CardShaba>
                       <span>شماره شبا</span>
-                      <h3>{card.shabaNumber}</h3>
+                      <h3>{card.shaba_num}</h3>
                     </CardShaba>
                   </DisplayCard>
                 </Image>

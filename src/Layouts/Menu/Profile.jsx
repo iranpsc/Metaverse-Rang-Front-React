@@ -24,29 +24,6 @@ const Container = styled.div`
   padding-right: 10px;
 `;
 
-const commonScrollbarStyles = `
-  /* Scrollbar styles */
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.colors.primary};
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.colors.primary};
-    border-radius: 10px;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #999;
-  }
-`;
-
 const Btn = styled.button`
   display: ${({ isHidden }) => (isHidden ? "none" : "flex")};
   width: 100%;
@@ -87,17 +64,19 @@ const SubMenu = styled.div`
   position: ${({ isOpen }) => (isOpen ? "none" : "fixed")};
   top: ${({ isOpen }) => (isOpen ? "0" : "10%")};
   right: ${({ isOpen }) => (isOpen ? "0" : "5.1%")};
-  z-index: 1200;
-  background-color: ${({ isOpen, theme }) =>
-    theme.colors.newColors.shades.menuBg};
+  ${(props) => {
+    const direction = document.body.dir || "ltr";
+    return direction === "ltr"
+      ? `left: ${!props.isOpen ? "5.1%" : "0"}`
+      : `right: ${!props.isOpen ? "5.1%" : "0"}`;
+  }};
+  z-index: 1;
+  background-color: ${(props) => props.theme.colors.newColors.primaryText};
   padding: ${({ isOpen }) => (isOpen ? "0" : " 10px 10px 8.5px 10px")};
   border-radius: ${({ isOpen }) => (isOpen ? "none" : "10px")};
   width: ${({ isOpen }) => (isOpen ? "100%" : "16.6%")};
   max-height: ${({ isOpen }) => (isOpen ? "none" : " 88vh")};
   overflow-y: ${({ isOpen }) => (isOpen ? "none" : "auto")};
-  border-bottom: 2px solid ${({ theme }) => theme.lineMenu};
-
-  ${commonScrollbarStyles}
 `;
 
 const Icon = styled.img`
@@ -130,7 +109,7 @@ const ContainerMain = styled.div`
   max-height: 78%;
   border-top: 2px solid ${({ theme }) => theme.lineMenu};
   border-bottom: 2px solid ${({ theme }) => theme.lineMenu};
-  ${commonScrollbarStyles}
+  background-color: ${(props) => props.theme.colors.newColors.shades.bgOne};
 `;
 
 const Level = styled.div`

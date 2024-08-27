@@ -9,6 +9,7 @@ const Container = styled.div`
   height: 100%;
   position: absolute;
   z-index: 100;
+  background-color: rgba(0, 0, 0, 0.713);
 `;
 const Modal = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};

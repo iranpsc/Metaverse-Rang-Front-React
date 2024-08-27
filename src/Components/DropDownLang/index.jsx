@@ -92,12 +92,26 @@ const Div = styled.div`
 const DropDownLang = () => {
   const { isOpen } = useMenuContext();
   const [isOpenDrop, setIsOpen] = useState(false);
+  const languages = ["en", "fa"]; // آرایه زبان‌ها
+  const [currentLanguageIndex, setCurrentLanguageIndex] = useState(0);
+
   useEffect(() => {
     document.body.dir = i18n.dir();
   }, []);
+
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
     document.body.dir = i18n.dir();
+  };
+
+  const handleIconClick = () => {
+    if (!isOpenDrop) {
+      const nextLanguageIndex = (currentLanguageIndex + 1) % languages.length;
+      setCurrentLanguageIndex(nextLanguageIndex);
+      changeLanguage(languages[nextLanguageIndex]);
+    } else {
+      setIsOpen(!isOpenDrop);
+    }
   };
 
   return (
@@ -113,7 +127,7 @@ const DropDownLang = () => {
       delay={50}
       animation="scale"
     >
-      <Container onClick={() => setIsOpen(!isOpenDrop)}>
+      <Container onClick={handleIconClick}>
         <Btn isOpenDrop={isOpenDrop} shouldHide={!isOpen}>
           <Div>
             <Icon src={LangIcon} />
@@ -122,9 +136,9 @@ const DropDownLang = () => {
             </Text>
           </Div>
 
-          <IconArrow isOpenDrop={isOpenDrop} />
+          {isOpen && <IconArrow isOpenDrop={isOpenDrop} />}
         </Btn>
-        {isOpenDrop && (
+        {isOpen && isOpenDrop && (
           <DropdownMenu isOpenDrop={isOpenDrop}>
             <DropdownItem onClick={() => changeLanguage("en")}>
               English
