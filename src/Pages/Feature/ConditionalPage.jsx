@@ -11,6 +11,7 @@ import EnterTab from "./Tabs/enter-tab/EnterTab";
 import PhysicTab from "./Tabs/physic-tab/PhysicTab";
 import HistoryTab from "./Tabs/history-tab/HistoryTab";
 import ParticipationTab from "./Tabs/participation-tab/ParticipationTab";
+import BuyerTabSystem from "./Tabs/BuyFromSystem/BuyerTab";
 
 export default function ConditionalPage() {
   const { getUser } = useAuth();
@@ -28,7 +29,7 @@ export default function ConditionalPage() {
 
   const BuySystemTabs = [
     { title: "خصوصیات", content: <InfoTab /> },
-    { title: "خرید", content: <BuyFromSystem /> },
+    { title: "خرید", content: <BuyerTabSystem /> },
   ];
   const BuySystemTabPanel = useTabs(BuySystemTabs);
 

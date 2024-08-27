@@ -46,6 +46,8 @@ const Title = styled.p`
 `;
 
 const Value = styled.span`
+  display: flex;
+  align-items: center;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 12px;
   font-weight: 400;
@@ -61,8 +63,23 @@ const Value = styled.span`
   @media (min-width: 1400px) {
     font-size: ${(props) => (props.very_long ? "15px" : "16px")};
   }
+
+  svg {
+    margin-left: 5px;
+    font-size: 16px;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
+  }
 `;
-const TextValueIcon = ({ icon, title, value, long, smallValue, very_long }) => {
+
+const TextValueIcon = ({
+  icon,
+  title,
+  value,
+  valueIcon,
+  long,
+  smallValue,
+  very_long,
+}) => {
   return (
     <Item>
       <InfoIcon>
@@ -71,6 +88,7 @@ const TextValueIcon = ({ icon, title, value, long, smallValue, very_long }) => {
       </InfoIcon>
       <Value very_long={very_long} smallValue={smallValue}>
         {value}
+        {valueIcon && valueIcon}
       </Value>
     </Item>
   );

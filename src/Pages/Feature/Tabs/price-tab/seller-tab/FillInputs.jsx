@@ -147,7 +147,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
         <Wrapper>
           <Title>قیمت نهایی</Title>
           <Value dir="ltr">
-            {convertToPersian(rial)} IRR / {convertToPersian(psc)} PSC
+            {calculateFee(rial)} IRR / {calculateFee(psc)} PSC
           </Value>
         </Wrapper>
         <TitleValue title="کارمزد" value="5%" />

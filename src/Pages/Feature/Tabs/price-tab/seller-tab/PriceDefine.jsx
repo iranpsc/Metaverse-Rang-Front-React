@@ -31,10 +31,10 @@ const Wrapper = styled.div`
 `;
 
 const Text = styled.p`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   line-height: 1.6rem;
   direction: rtl;
-  font-weight: 100;
+
   font-size: 16px;
 `;
 

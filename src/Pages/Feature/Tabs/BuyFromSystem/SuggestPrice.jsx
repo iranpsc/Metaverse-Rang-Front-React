@@ -31,9 +31,10 @@ const Wrapper = styled.div`
 `;
 
 const Text = styled.p`
-  color: ${(props) => props.theme.colors.newColors.shades.title};
+  color: #ffffff;
   line-height: 1.5rem;
   direction: rtl;
+  font-weight: 100;
 `;
 
 const SuggestPrice = () => {
@@ -46,6 +47,7 @@ const SuggestPrice = () => {
   const [psc, setPsc] = useState("");
   const [suggestText, setSuggestText] = useState("");
   const [errors, setErrors] = useState({});
+
   const totalArea = feature?.properties?.density * feature?.properties?.area;
   const totalIrr =
     totalArea *

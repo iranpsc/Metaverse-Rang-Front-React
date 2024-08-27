@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -11,6 +10,7 @@ const Container = styled.div`
     cursor: pointer;
   }
 `;
+
 const Div = styled.div`
   display: flex;
   align-items: center;
@@ -33,13 +33,19 @@ const Div = styled.div`
 `;
 
 const ThirdStep = ({ setStep, time }) => {
-  const [timer, setTimer] = useState(time * 60);
+  // تلاش برای بازیابی تایمر از localStorage
+  const [timer, setTimer] = useState(() => {
+    const savedTimer = localStorage.getItem("timer");
+    return savedTimer !== null ? parseInt(savedTimer, 10) : time * 60;
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer > 0) {
-          return prevTimer - 1;
+          const newTimer = prevTimer - 1;
+          localStorage.setItem("timer", newTimer); // ذخیره‌ی مقدار جدید در localStorage
+          return newTimer;
         } else {
           clearInterval(interval);
           return 0;
@@ -59,7 +65,7 @@ const ThirdStep = ({ setStep, time }) => {
       "0"
     )}`;
   };
-useEffect
+
   return (
     <Container>
       <Div>

@@ -19,17 +19,18 @@ const Wrapper = styled.div`
 `;
 
 const Text = styled.p`
-  color: ${(props) => props.theme.colors.newColors.shades.title};
+  color: #ffffff;
   line-height: 1.7rem;
   direction: rtl;
+  font-weight: 100;
 `;
 
 const SellerPrice = () => {
   return (
     <Wrapper>
       <Text>
-        این VOD توسط فروشنده قیمت گذاری شده است شما می توایند این ملک را به دو
-        قیمت فروشنده به صورت ریال و PSC خریداری کنید{" "}
+        این VOD توسط متارنگ قیمت گذاری شده است شما می توایند این ملک را خریداری
+        کنید
       </Text>
       <SellerPriceInfo />
     </Wrapper>

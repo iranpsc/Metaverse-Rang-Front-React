@@ -1,15 +1,11 @@
+import React, { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-
 import styled from "styled-components";
 import useRequest from "../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   margin-top: 20px;
-  h3 {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 16px;
-    font-weight: 400;
-  }
+  h3,
   p {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
@@ -27,11 +23,6 @@ const Container = styled.div`
     width: 93%;
     color: ${(props) => props.theme.colors.newColors.shades.title};
     margin-top: 20px;
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
   }
 
   button {
@@ -75,20 +66,33 @@ const Min = styled.span`
 `;
 
 const FirstStep = ({ setStep, time, setTime }) => {
+  console.log(time);
+  const [phone, setPhone] = useState(true);
+  const [formData, setFormData] = useState({ phone: "", time: time });
   const { Request, HTTP_METHOD } = useRequest();
 
   const onSendHandler = () => {
-    if (time !== "" && time > 0) {
-      Request("account/security", HTTP_METHOD.POST, { time: time })
+    if (phone) {
+      Request("account/security", HTTP_METHOD.POST, { time: formData.time })
         .then(() => {
           setStep(2);
         })
         .catch((error) => {
           if (error.response.status === 422) {
+            setPhone(false);
           }
         });
+    } else {
+      Request("account/security", HTTP_METHOD.POST, formData).then(() => {
+        setStep(2);
+      });
     }
   };
+
+  const handleInputChange = (e) => {
+    setFormData({ [e.target.name]: e.target.value, time: time });
+  };
+
   return (
     <Container>
       <h3>مدت زمان</h3>
@@ -108,16 +112,28 @@ const FirstStep = ({ setStep, time, setTime }) => {
             <MdKeyboardArrowDown />
           </Down>
         </div>
+
         <input
           value={time}
           onChange={(e) => setTime(e.target.value)}
           type="number"
+          name="time"
           placeholder="مدت زمان"
           maxLength={3}
           min={0}
           max={200}
           step={1}
         />
+        {!phone && (
+          <input
+            type="number"
+            name="phone"
+            placeholder="091XXXXXXXX"
+            value={formData.phone}
+            onChange={handleInputChange}
+            maxLength={11}
+          />
+        )}
         {time !== "" && <Min>دقیقه</Min>}
       </Div>
       <button onClick={onSendHandler}>ادامه</button>

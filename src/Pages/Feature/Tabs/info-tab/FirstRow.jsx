@@ -28,7 +28,12 @@ const RowWrapper = styled.div`
 
 const FirstRow = ({ feature }) => {
   const first_row_info = [
-    { id: 1, title: "شناسه ملک", value: "QA31-10789", icon: <MdOutlineHome /> },
+    {
+      id: 1,
+      title: "شناسه ملک",
+      value: feature?.properties?.id,
+      icon: <MdOutlineHome />,
+    },
     {
       id: 2,
       title: "صاحب ملک",

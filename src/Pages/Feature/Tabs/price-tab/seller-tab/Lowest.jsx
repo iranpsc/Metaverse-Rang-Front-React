@@ -37,7 +37,8 @@ const InputWrapper = styled.div`
   border-radius: 5px;
   border: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
-  background-color: #${(props) => props.theme.colors.newColors.otherColors.inputBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   overflow: hidden;
   width: 276px;
 `;
@@ -80,7 +81,6 @@ const Lowest = () => {
   const { Request, HTTP_METHOD } = useRequest();
 
   const onSubmit = () => {
-    console.log(1);
     if (TimeAgo(user?.birthdate) >= 18) {
       if (percentage < 80) {
         return ToastError(
