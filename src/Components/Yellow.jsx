@@ -12,7 +12,6 @@ const Container = styled.div`
 const Yellow = ({ color }) => {
   return (
     <Container color={color}>
-      <span>Yellow</span>
       <img width={26} alt="yellow" src={yellowGif} />
     </Container>
   );

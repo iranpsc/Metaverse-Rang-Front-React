@@ -27,7 +27,6 @@ const Wrapper = styled.div`
 
 const Text = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
-  font-weight: 200;
   line-height: 1.8rem;
 `;
 

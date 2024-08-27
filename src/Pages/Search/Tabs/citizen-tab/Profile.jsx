@@ -28,10 +28,12 @@ const Profile = ({ user }) => {
   return (
     <Container>
       <ProfilePhoto src={user?.photo ? user?.photo : AnonymousIcon} />
-
       <Info>
         <h2>{user?.name}</h2>
-        <a href={`https://rgb.irpsc.com/citizen/${user?.code}`} target="_blank">
+        <a
+          href={`https://rgb.irpsc.com/citizen/fa/${user?.code}`}
+          target="_blank"
+        >
           {user.code}
         </a>
       </Info>

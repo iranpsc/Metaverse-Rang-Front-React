@@ -42,6 +42,7 @@ const IdentityInputs = ({
   openErrorModal,
   errors,
   setErrors,
+  allErrors,
 }) => {
   const [identityError, setIdentityError] = useState({});
   const [videoError, setVideoError] = useState(false);
@@ -105,7 +106,7 @@ const IdentityInputs = ({
     }
 
     setErrors(errorMessages);
-    console.log(inputValues.birthDate);
+
     const requestData = new FormData();
     requestData.append("fname", inputValues.fname);
     requestData.append("lname", inputValues.lname);

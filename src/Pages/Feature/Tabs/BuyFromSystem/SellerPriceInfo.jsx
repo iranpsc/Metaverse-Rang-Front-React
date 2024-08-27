@@ -2,12 +2,14 @@ import styled from "styled-components";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Red from "../../../../Components/Red";
 import TextValueIcon from "../../../../Components/TextValueIcon";
 import { FeatureContext } from "../../Context/FeatureProvider";
 import Button from "../../../../Components/Button";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import { FeatureSvg } from "../../../../Services/Constants/FeatureType";
+import {
+  FeatureColor,
+  FeatureSvg,
+} from "../../../../Services/Constants/FeatureType";
 import { ToastError } from "../../../../Services/Utility";
 
 const InputsWrapper = styled.div`
@@ -40,14 +42,13 @@ const SellerPriceInfo = () => {
         ToastError(error.response.data.message);
       });
   };
-
   return (
     <>
       <InputsWrapper>
         <TextValueIcon
           title="قیمت ملک"
-          value={feature.properties.area * feature.properties.density}
-          valueIcon={<Red />}
+          value={feature.properties.stability}
+          valueIcon={FeatureColor(feature.properties.rgb)}
           very_long
         />
       </InputsWrapper>

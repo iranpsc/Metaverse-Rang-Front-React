@@ -91,7 +91,6 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
       }
     });
   }, []);
-  console.log(details);
 
   const [inputValues, setInputValues] = useState({
     fname: "",

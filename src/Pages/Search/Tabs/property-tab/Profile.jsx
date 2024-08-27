@@ -1,4 +1,5 @@
 import { LuBuilding2 } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -27,10 +28,12 @@ const Info = styled.div`
     font-weight: 500;
     color: #ffc700;
     text-decoration: none;
+    cursor: pointer;
   }
 `;
 
 const Profile = ({ item }) => {
+  const Navigate = useNavigate();
   return (
     <Container>
       <IconWrapper>
@@ -38,7 +41,9 @@ const Profile = ({ item }) => {
       </IconWrapper>
       <Info>
         <h2>شناسه VOD</h2>
-        <p>{item?.feature_properties_id}</p>
+        <p onClick={() => Navigate(`/metaverse/feature/${item?.id}`)}>
+          {item?.feature_properties_id}
+        </p>
       </Info>
     </Container>
   );

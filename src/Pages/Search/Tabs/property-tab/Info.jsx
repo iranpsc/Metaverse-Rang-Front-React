@@ -92,7 +92,7 @@ const Info = ({ item }) => {
           )}
           {item.id == 2 && (
             <a
-              href={`https://rgb.irpsc.com/citizen/${item?.owner_code}`}
+              href={`https://rgb.irpsc.com/citizen/fa/${item.value}`}
               target="_blank"
             >
               {item.value}

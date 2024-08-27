@@ -18,7 +18,6 @@ const Container = styled.div`
   }
 `;
 const ErrorItem = ({ item }) => {
-  console.log(item);
   return (
     <Container>
       <BsExclamationOctagon />

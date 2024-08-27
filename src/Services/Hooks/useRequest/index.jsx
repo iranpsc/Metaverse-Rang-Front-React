@@ -2,8 +2,8 @@ import axios from "axios";
 import { getItem } from "../../Utility/LocalStorage";
 
 export default function useRequest() {
-  const PROD_BASE_URL = "https://api.rgbdev.irpsc.com/api/";
-  const DEV_BASE_URL = "https://api.rgbdev.irpsc.com/api/";
+  const PROD_BASE_URL = "https://api.rgb.irpsc.com/api/";
+  const DEV_BASE_URL = "https://api.rgb.irpsc.com/api/";
   const user = getItem("user");
 
   const HTTP_METHOD = {

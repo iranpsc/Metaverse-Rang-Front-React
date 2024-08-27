@@ -1,3 +1,4 @@
+import React from "react";
 import {
   HiOutlineCurrencyDollar,
   HiOutlineLocationMarker,
@@ -35,6 +36,7 @@ const Container = styled.div`
   gap: 15px;
 `;
 
+// Function to calculate the centroid of a polygon
 function calculatePolygonCentroid(vertices) {
   const numVertices = vertices.length;
   let sumX = 0;
@@ -51,41 +53,96 @@ function calculatePolygonCentroid(vertices) {
   return { x: centroidX, y: centroidY };
 }
 
-function flyToPosition({ latitude, longitude, mapRef, zoom = 14 }) {
-  mapRef.default.flyTo({
+// Function to fly the map to a specific position and add a marker
+function flyToPosition({ latitude, longitude, mapRef, zoom = 17 }) {
+  const map = mapRef.default.getMap();
+
+  // Remove any existing location icon
+  if (map.getSource("location-icon")) {
+    map.removeLayer("location-icon-layer");
+    map.removeSource("location-icon");
+  }
+
+  // Add a new location icon
+  map.loadImage(
+    "https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png",
+    (error, image) => {
+      if (error) throw error;
+      if (!map.hasImage("custom-marker")) map.addImage("custom-marker", image);
+
+      map.addSource("location-icon", {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [longitude, latitude],
+          },
+        },
+      });
+
+      map.addLayer({
+        id: "location-icon-layer",
+        type: "symbol",
+        source: "location-icon",
+        layout: {
+          "icon-image": "custom-marker",
+          "icon-size": 0.65,
+          "icon-offset": [0, -15], // Adjust the icon position
+        },
+      });
+    }
+  );
+
+  // Fly to the specified location
+  map.flyTo({
     center: [longitude, latitude],
     zoom: zoom,
-    essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+    bearing: 0,
+    essential: true,
+    speed: 1.2,
+    curve: 1.42,
   });
-}
 
-function rotateCamera(map, duration = 3000) {
-  const startRotation = map.default.getBearing();
-  const targetRotation = startRotation + 360;
-  let start = null;
+  // Check if the position and zoom level are correct
+  const checkPosition = () => {
+    const currentZoom = map.getZoom();
+    const currentCenter = map.getCenter();
 
-  const rotate = (timestamp) => {
-    if (!start) start = timestamp;
-    const progress = timestamp - start;
-    const rotation = startRotation + (progress / duration) * 360;
-
-    map.default.rotateTo(rotation, { duration: 0 });
-
-    if (progress < duration) {
-      requestAnimationFrame(rotate);
+    if (
+      Math.abs(currentZoom - zoom) < 0.1 &&
+      Math.abs(currentCenter.lng - longitude) < 0.0001 &&
+      Math.abs(currentCenter.lat - latitude) < 0.0001
+    ) {
+      // If the position is correct, start rotating the camera
+      rotateCamera();
     } else {
-      map.default.rotateTo(targetRotation, { duration: 0 }); // Ensure exact final rotation
+      // If not, check again
+      requestAnimationFrame(checkPosition);
     }
   };
 
-  requestAnimationFrame(rotate);
+  // Function to rotate the camera
+  let rotation = 0;
+  const rotateCamera = () => {
+    rotation += 3; // Rotation per frame
+    if (rotation <= 360) {
+      map.rotateTo(rotation, { duration: 100 }); // Set rotation amount and speed
+      requestAnimationFrame(rotateCamera);
+    }
+  };
+
+  // Schedule the position check to start after flying
+  setTimeout(() => {
+    checkPosition();
+  }, 3000);
 }
 
 const Buttons = ({ item }) => {
   const Navigate = useNavigate();
   const center = calculatePolygonCentroid(item?.coordinates);
-  const map = useMap();
-  console.log(map);
+  const mapRef = useMap();
+
   const items = [
     {
       id: 1,
@@ -114,10 +171,9 @@ const Buttons = ({ item }) => {
         flyToPosition({
           latitude: center.y,
           longitude: center.x,
-          mapRef: map,
+          mapRef: mapRef,
           zoom: 17,
         });
-        rotateCamera(map); // اضافه کردن چرخش دوربین
       },
     },
   ];

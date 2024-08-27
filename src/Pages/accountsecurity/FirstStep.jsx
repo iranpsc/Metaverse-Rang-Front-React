@@ -66,14 +66,13 @@ const Min = styled.span`
 `;
 
 const FirstStep = ({ setStep, time, setTime }) => {
-  console.log(time);
   const [phone, setPhone] = useState(true);
   const [formData, setFormData] = useState({ phone: "", time: time });
   const { Request, HTTP_METHOD } = useRequest();
 
   const onSendHandler = () => {
     if (phone) {
-      Request("account/security", HTTP_METHOD.POST, { time: formData.time })
+      Request("account/security", HTTP_METHOD.POST, { time: time })
         .then(() => {
           setStep(2);
         })

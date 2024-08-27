@@ -118,6 +118,7 @@ const MapPolygons = () => {
           type="geojson"
           data={{
             type: "FeatureCollection",
+
             features: features.map((polygon) => ({
               type: "Feature",
               properties: {
@@ -135,6 +136,7 @@ const MapPolygons = () => {
           <Layer
             id="polygon-fill-layer"
             type="fill"
+            beforeId="location-icon-layer"
             paint={{
               "fill-color": ["get", "fill"],
             }}
@@ -142,6 +144,7 @@ const MapPolygons = () => {
           <Layer
             id="polygon-outline-layer"
             type="line"
+            beforeId="location-icon-layer"
             paint={{
               "line-color": ["get", "border"],
               "line-width": 3,

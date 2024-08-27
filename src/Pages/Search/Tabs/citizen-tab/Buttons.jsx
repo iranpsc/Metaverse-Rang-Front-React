@@ -64,7 +64,7 @@ const Buttons = ({ user }) => {
   const items = [
     {
       id: 1,
-      icon: isFollowed ? <TiUserAddOutline /> : <RiUserUnfollowLine />,
+      icon: isFollowed ? <RiUserUnfollowLine /> : <TiUserAddOutline />,
       label: isFollowed ? "لغو درخواست" : "درخواست دوستی",
       onClick: isFollowed
         ? () => onUnFollowHandler(user?.id)
@@ -89,8 +89,8 @@ const Buttons = ({ user }) => {
           <IconWrapper data-tooltip-id={item.label}>{item.icon}</IconWrapper>
           <ReactTooltip
             style={{ backgroundColor: "#434343", borderRadius: "10px" }}
-            id={item.label}
             place="right"
+            id={item.label}
             content={item.label}
           />
         </div>

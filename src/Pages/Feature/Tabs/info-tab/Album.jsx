@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
 import { FeatureContext } from "../../Context/FeatureProvider";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { ToastError, ToastSuccess } from "../../../../Services/Utility";
 
 const AlbumWrapper = styled.div`
   direction: rtl;
@@ -135,11 +136,26 @@ const Album = ({ feature, setFeature }) => {
     }
   };
 
-  const deleteHandler = (id) => {
-    // Implement API call to delete the image
-    const filteredImages = feature?.images?.filter((item) => item.id !== id);
-    setFeature({ ...feature, images: filteredImages });
-    setActiveImage(filteredImages.length > 0 ? filteredImages[0] : null);
+  const deleteHandler = (imageId) => {
+    const url = `my-features/${user.id}/remove-image/${feature.id}/image/${imageId}`;
+    console.log(imageId);
+    Request(url, HTTP_METHOD.POST)
+      .then((response) => {
+        const filteredImages = feature?.images?.filter(
+          (item) => item.id !== imageId
+        );
+        setFeature({ ...feature, images: filteredImages });
+        setActiveImage(filteredImages.length > 0 ? filteredImages[0] : null);
+        ToastSuccess("تصویر با موفقیت حذف شد.");
+      })
+      .catch((error) => {
+        if (error.response.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          Navigate("/metaverse/confirmation");
+        } else {
+          ToastError(error.response.data.message);
+        }
+      });
   };
 
   return (

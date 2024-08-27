@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 ("../../../../../Components/SidebarOptions");
 import BuyerContent from "./BuyerContent";
-import SidebarOptions from "../../../../Components/SidebarOptions";
+import SidebarOptions from "./SidebarOptions";
 
 const Wrapper = styled.div`
   display: flex;
