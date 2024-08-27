@@ -12,7 +12,7 @@ const Codes = styled.div`
   margin-bottom: 30px !important;
   input {
     width: 30px;
-    height: 30px;
+    height: 50px;
     font-size: 16px;
     padding: 12px;
     text-align: center;
@@ -93,14 +93,13 @@ const Container = styled.div`
     span {
       color: #969696;
     }
-  }
-
-  h2 {
-    font-size: 12px;
-    color: #dc920a;
-    cursor: pointer;
-    &:hover {
-      color: #ad740a;
+    h2 {
+      font-size: 12px;
+      color: #dc920a;
+      cursor: pointer;
+      &:hover {
+        color: #ad740a;
+      }
     }
   }
 `;
@@ -225,11 +224,23 @@ const SecondStep = ({ setStep, time }) => {
 
   const resetHandler = () => {
     resetInputs();
-    clearInterval(timerInterval.current);
-    setTimer(2 * 60);
-    Request("account/security/resend", HTTP_METHOD.POST, { time }) // Handle resend logic
+    clearInterval(timerInterval.current); // Clear the previous interval
+
+    Request("account/security", HTTP_METHOD.POST, { time }) // Handle resend logic
       .then(() => {
         setErrors(false);
+        setTimer(2 * 60); // Reset the timer to 2 minutes
+        timerInterval.current = setInterval(() => {
+          // Restart the timer interval
+          setTimer((prevTimer) => {
+            if (prevTimer > 0) {
+              return prevTimer - 1;
+            } else {
+              clearInterval(timerInterval.current);
+              return 0;
+            }
+          });
+        }, 1000);
         toast.info("کد تأیید جدید ارسال شد.", {
           position: "top-center",
           autoClose: 3000,

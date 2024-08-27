@@ -4,11 +4,10 @@ import Header from "../Header/Header";
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   height: 100%;
-  padding: 15px 20px;
+  padding: 15px 14px;
   max-width: 800px;
   width: 80%;
   z-index: 2000;
-  border-radius: 10px;
   position: absolute;
   right: 0;
   @media (min-width: 1023px) {
@@ -17,6 +16,7 @@ const ModalContainer = styled.div`
     max-height: 782px;
     position: static; /* برای غیر فعال کردن position */
     right: auto;
+    border-radius: 10px;
   }
 
   @media (min-width: 1024px) and (max-width: 1180px) {

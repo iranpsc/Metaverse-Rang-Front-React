@@ -36,7 +36,17 @@ const ThirdStep = ({ setStep, time }) => {
   // تلاش برای بازیابی تایمر از localStorage
   const [timer, setTimer] = useState(() => {
     const savedTimer = localStorage.getItem("timer");
-    return savedTimer !== null ? parseInt(savedTimer, 10) : time * 60;
+    const savedTimestamp = localStorage.getItem("timestamp");
+
+    if (savedTimer !== null && savedTimestamp !== null) {
+      const elapsed = Math.floor(
+        (Date.now() - parseInt(savedTimestamp, 10)) / 1000
+      );
+      const adjustedTimer = parseInt(savedTimer, 10) - elapsed;
+      return adjustedTimer > 0 ? adjustedTimer : 0;
+    }
+
+    return time * 60;
   });
 
   useEffect(() => {
@@ -53,7 +63,10 @@ const ThirdStep = ({ setStep, time }) => {
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      localStorage.setItem("timestamp", Date.now()); // ذخیره‌ی زمان خروج
+      clearInterval(interval);
+    };
   }, []);
 
   const formatTime = (timeItem) => {

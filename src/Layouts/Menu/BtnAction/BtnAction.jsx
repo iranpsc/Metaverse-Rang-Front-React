@@ -9,7 +9,7 @@ import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const Btn = styled.div`
   min-height: ${(props) =>
-    props.isClicked && props.isOpen ? "210px" : "49px"};
+    props.isClicked && props.isOpen ? "210px" : "35px"};
   width: 100%;
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};

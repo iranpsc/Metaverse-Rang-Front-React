@@ -30,7 +30,7 @@ const Container = styled.div`
   }
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};
-  padding: ${(props) => (props.isOpen ? "20px" : "10px")};
+  padding: ${(props) => (props.isOpen ? "5px" : "10px")};
   transition: all 0.3s ease 0s;
 `;
 const Hr = styled.div`
