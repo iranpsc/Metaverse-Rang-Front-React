@@ -151,6 +151,8 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
         setSubmitted={setSubmitted}
         errors={errors}
         setErrors={setErrors}
+        setDetails={setDetails}
+        kyc={kyc}
       />
     );
   if (submitted)

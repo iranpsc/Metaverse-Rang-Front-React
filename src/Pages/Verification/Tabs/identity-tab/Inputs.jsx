@@ -72,7 +72,7 @@ const Select = styled.select`
   font-size: 16px;
 `;
 
-const Inputs = ({ data, identityError, inputValues, handleInputChange }) => {
+const Inputs = ({ data, inputValues, handleInputChange }) => {
   return (
     <Container>
       {data.slice(0, 3).map((item) => (

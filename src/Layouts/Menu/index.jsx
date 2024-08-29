@@ -23,10 +23,12 @@ const Container = styled.div`
   @media (min-width: 1024px) {
     width: ${(props) => (props.isOpen ? "32%" : "6.1%")};
     border-radius: 10px;
+    padding: 15px;
   }
   @media (min-width: 1536px) {
     width: ${(props) => (props.isOpen ? "21.5%" : "4.1%")};
     border-radius: 10px;
+    padding: 20px;
   }
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};

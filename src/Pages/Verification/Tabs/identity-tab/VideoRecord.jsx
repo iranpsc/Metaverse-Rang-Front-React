@@ -186,20 +186,6 @@ const VideoRecord = ({
       });
       videoRef.current.srcObject = stream;
 
-      // Request full-screen mode
-      if (videoRef.current.requestFullscreen) {
-        await videoRef.current.requestFullscreen();
-      } else if (videoRef.current.webkitRequestFullscreen) {
-        await videoRef.current.webkitRequestFullscreen();
-      } else if (videoRef.current.msRequestFullscreen) {
-        await videoRef.current.msRequestFullscreen();
-      }
-
-      // Lock screen orientation to landscape
-      if (screen.orientation && screen.orientation.lock) {
-        await screen.orientation.lock("landscape");
-      }
-
       setError(null);
       setVideoError(false);
       setVideoUploadError(false); // Clear the error when recording starts
@@ -224,18 +210,6 @@ const VideoRecord = ({
         clearInterval(timerRef.current);
 
         // Exit full-screen mode
-        if (document.exitFullscreen) {
-          await document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-          await document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) {
-          await document.msExitFullscreen();
-        }
-
-        // Unlock screen orientation
-        if (screen.orientation && screen.orientation.unlock) {
-          screen.orientation.unlock();
-        }
 
         uploadVideo(file);
       };
