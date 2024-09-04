@@ -1,5 +1,4 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import level from "../../../../Assets/images/level.png";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
@@ -79,26 +78,27 @@ const Level = () => {
     <Container>
       <Percent>
         <Title>
-          <h2>{user?.level?.name}</h2>
-          <h3>{user?.current_level?.socre_percentage_to_next_level}%</h3>
+          <h2>{user?.latest_level?.name}</h2>
+          <h3>{user?.score_percentage_to_next_level}%</h3>
         </Title>
         <ProgressContainer>
-          <ProgressBar percentage={user?.socre_percentage_to_next_level} />
+          <ProgressBar percentage={user?.score_percentage_to_next_level} />
         </ProgressContainer>
       </Percent>
       <LevelCount>
-        {["شهروند", "خبرنگار", "خبرنگار", "خبرنگار"].map((item) => (
-          <div key={item}>
-            <img
-              data-tooltip-id={item}
-              width={65}
-              height={65}
-              src={level}
-              alt={item}
-            />
-            <ReactTooltip id={item} place="top" content={item} />
-          </div>
-        ))}
+        {user.previous_levels &&
+          user?.previous_levels.map((item, index) => (
+            <div key={index}>
+              <img
+                data-tooltip-id={item.slug}
+                width={65}
+                height={65}
+                src={item.image}
+                alt={item.image}
+              />
+              <ReactTooltip id={item.slug} place="top" content={item.name} />
+            </div>
+          ))}
       </LevelCount>
     </Container>
   );

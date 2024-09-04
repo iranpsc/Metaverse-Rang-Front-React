@@ -20,28 +20,32 @@ const Container = styled.div`
     height: 79%;
   }
 `;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`;
+
 const AccountTab = () => {
   const [settings, setSettings] = useState({});
+  const [loading, setLoading] = useState(true);
   const { Request } = useRequest();
-
-  useEffect(() => {
-    Request("settings").then((response) => {
-      setSettings(response.data.data);
-    });
-  }, []);
 
   const [emailChange, setEmailChange] = useState({
     title: "تغییر ایمیل ورود به متاورس",
-    warn: `فقط ${settings?.email_reset_count} بار می توانید ایمیل خود را عوض کنید`,
+    warn: "",
     inputs: [
-      { id: 1, type: "email", label: "ایمیل جدید", value: "" },
+      { id: 1, type: "text", label: "ایمیل جدید", value: "" },
       { id: 2, type: "number", label: "کد تایید", value: "" },
     ],
   });
 
   const [mobileChange, setMobileChange] = useState({
     title: "تغییر شماره موبایل در سراسر متاورس",
-    warn: `فقط ۱${settings?.phone_reset_count} بار می توانید شماره موبایل خود را عوض کنید`,
+    warn: "",
     inputs: [
       { id: 1, type: "number", label: "شماره تلفن جدید", value: "" },
       { id: 2, type: "number", label: "کد تایید", value: "" },
@@ -55,6 +59,38 @@ const AccountTab = () => {
       { id: 2, type: "number", label: "رمز جدید", value: "" },
     ],
   });
+
+  useEffect(() => {
+    Request("settings")
+      .then((response) => {
+        setSettings(response.data.data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(settings).length > 0) {
+      setEmailChange((prevState) => ({
+        ...prevState,
+        warn: `فقط ${settings.email_reset_count} بار می توانید ایمیل خود را عوض کنید`,
+      }));
+
+      setMobileChange((prevState) => ({
+        ...prevState,
+        warn: `فقط ${settings.phone_reset_count} بار می توانید شماره موبایل خود را عوض کنید`,
+      }));
+    }
+  }, [settings]);
+
+  if (loading) {
+    return (
+      <LoadingContainer>
+        <div>Loading...</div>
+      </LoadingContainer>
+    );
+  }
 
   return (
     <Container>

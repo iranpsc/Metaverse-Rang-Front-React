@@ -4,7 +4,6 @@ import {
   BiVolumeMute,
 } from "react-icons/bi";
 import { FaCircle, FaEarDeaf } from "react-icons/fa6";
-
 import { CiImageOn } from "react-icons/ci";
 import { FiShare2 } from "react-icons/fi";
 import { MdOutlineMailOutline } from "react-icons/md";
@@ -22,7 +21,7 @@ const icons = [
   { id: 4, slug: "pic", label: "مشاهده تصاویر", icon: <CiImageOn /> },
   { id: 5, slug: "location", label: "پیام صوتی", icon: <FaEarDeaf /> },
   { id: 6, slug: "email", label: "ارسال سند", icon: <MdOutlineMailOutline /> },
-  { id: 4, slug: "sound", label: "مکالمه صوتی", icon: <BiVolumeMute /> },
+  { id: 7, slug: "sound", label: "مکالمه صوتی", icon: <BiVolumeMute /> },
   { id: 8, slug: "message", label: "", icon: <BiMessageSquareDetail /> },
   { id: 9, slug: "record", label: "", icon: <FaCircle /> },
 ];
@@ -41,6 +40,7 @@ const Container = styled.div`
     gap: 0;
   }
 `;
+
 const Title = styled.h2`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-weight: 600;
@@ -49,6 +49,7 @@ const Title = styled.h2`
     font-size: 18px;
   }
 `;
+
 const Icons = styled.div`
   display: flex;
   flex-direction: row-reverse;
@@ -58,6 +59,7 @@ const Icons = styled.div`
     color: ${(props) => props.theme.colors.newColors.otherColors.iconText};
   }
 `;
+
 const IconWrapper = styled.div`
   width: 42px;
   height: 42px;
@@ -84,6 +86,7 @@ const IconWrapper = styled.div`
   }
   cursor: pointer;
 `;
+
 const RestrictUser = () => {
   const [options, setOptions] = useState({
     record: false,
@@ -96,21 +99,45 @@ const RestrictUser = () => {
     user: false,
     share: true,
   });
-  const [limitations, setLimitations] = useState({});
+
   const { Request, HTTP_METHOD } = useRequest();
   const [user] = useContext(UserContext);
+
   useEffect(() => {
     Request(`users/${user?.id}/profile-limitations`, HTTP_METHOD.GET).then(
       (response) => {
-        setLimitations(response.data.data);
+        setOptions(response.data.data.options);
       }
     );
-  }, []);
+  }, [user?.id, Request, HTTP_METHOD.GET]);
+
   const handleIconClick = (slug) => {
-    setOptions((prevOptions) => ({
-      ...prevOptions,
-      [slug]: !prevOptions[slug],
-    }));
+    const updatedOptions = {
+      ...options,
+      [slug]: !options[slug],
+    };
+    setOptions(updatedOptions);
+
+    const data = {
+      limited_user_id: user?.id,
+      options: {
+        follow: updatedOptions.user ? 1 : 0,
+        share: updatedOptions.share ? 1 : 0,
+        send_ticket: updatedOptions.comment ? 1 : 0,
+        view_profile_images: updatedOptions.pic ? 1 : 0,
+        view_features_locations: updatedOptions.location ? 1 : 0,
+        send_message: updatedOptions.message ? 1 : 0,
+      },
+      note: "", // You can change this to whatever note you need
+    };
+
+    Request("profile-limitations", HTTP_METHOD.POST, data)
+      .then((response) => {
+        console.log("Restrictions updated:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating restrictions:", error);
+      });
   };
 
   return (

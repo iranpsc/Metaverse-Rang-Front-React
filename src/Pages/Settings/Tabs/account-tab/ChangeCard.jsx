@@ -7,12 +7,18 @@ import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { ToastError, ToastSuccess } from "../../../../Services/Utility";
+import {
+  phoneNumberNormalizer,
+  phoneNumberValidator,
+} from "@persian-tools/persian-tools";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   padding: 20px;
   border-radius: 5px;
   direction: rtl;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   order: ${(props) => props.id === 3 && "4"};
 `;
 
@@ -30,10 +36,10 @@ const Warn = styled.div`
   margin-top: 6px;
   margin-bottom: 20px;
   svg {
-    color: #ffc700;
+    color: ${(props) => props.theme.colors.primary};
   }
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 11px;
     font-weight: 400;
   }
@@ -53,7 +59,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
   const [sentPhone, setSentPhone] = useState(false);
   const [inputValues, setInputValues] = useState([]);
   const [inputErrors, setInputErrors] = useState([]);
-
+  const Navigate = useNavigate();
   useEffect(() => {
     if (Array.isArray(inputs)) {
       setInputValues(
@@ -69,6 +75,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
         input.id === inputId ? { ...input, value } : input
       )
     );
+
     setInputErrors((prevInputErrors) =>
       prevInputErrors.map((input) =>
         input.id === inputId
@@ -100,7 +107,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
 
   const handleSave = () => {
     if (!sentPhone) {
-      const phoneInput = inputValues.find((input) => input.id === "phone");
+      const phoneInput = inputValues.find((input) => input.id == "1");
       if (phoneInput && phoneInput.value) {
         try {
           phoneNumberValidator(phoneNumberNormalizer(phoneInput.value, "0"));
@@ -112,6 +119,11 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
               ToastSuccess("کد تایید باموفقیت به شماره تلفن شما ارسال شد.");
             })
             .catch((error) => {
+              if (error.response.status === 410) {
+                ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+                return Navigate("/metaverse/confirmation");
+              }
+
               ToastError(error.response.data.message);
             });
         } catch {
@@ -157,29 +169,27 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
       )}
       <Inputs>
         {inputs.map((item) => (
-          <>
+          <div key={item.id}>
             <EditInput
               type={item.type}
-              onchange={(e) => handleInputChange(item.id, e.target.value)}
-              key={item.id}
-              title={item.label}
-              error={
-                inputErrors.find((input) => input.id === item.id)?.error ||
-                false
-              }
               value={
                 inputValues.find((input) => input.id === item.id)?.value || ""
               }
-              disabled={item.id === "phone" ? sentPhone : !sentPhone}
+              onchange={(e) => handleInputChange(item.id, e.target.value)}
+              title={item.label}
+              error={
+                inputErrors.find((input) => input.id === item.id)?.error || ""
+              }
             />
             {inputErrors.find((input) => input.id === item.id)?.error && (
               <Error>
                 {inputErrors.find((input) => input.id === item.id)?.error}
               </Error>
             )}
-          </>
+          </div>
         ))}
       </Inputs>
+
       <Button
         full
         label={

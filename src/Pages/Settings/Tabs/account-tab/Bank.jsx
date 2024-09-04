@@ -5,21 +5,25 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import Title from "../../../../Components/Title";
 import Button from "../../../../Components/Button";
+import { ToastError, ToastSuccess } from "../../../../Services/Utility";
+import { useNavigate } from "react-router-dom";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Select = styled.select`
   border-radius: 5px;
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   height: 48px;
   width: 100%;
   border: none;
   outline: none;
-  color: white;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   padding: 0 10px;
   border: 1px solid #454545;
   margin-top: 30px;
   margin-bottom: 20px;
   option {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     width: 100%;
     height: 100%;
     background-color: transparent;
@@ -39,7 +43,8 @@ const Select = styled.select`
 const Container = styled.div`
   padding: 20px;
   border-radius: 5px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   direction: rtl;
 `;
 
@@ -59,7 +64,7 @@ const Div = styled.div`
   span {
     font-size: 12px;
     font-weight: 500;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
   input {
     display: flex;
@@ -71,8 +76,9 @@ const Div = styled.div`
     height: 50px;
     border: 1px solid ${(props) => (props.error ? "red" : "#454545")};
     border-radius: 5px;
-    background-color: #2c2c2c;
-    color: #84858f;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
       -webkit-appearance: none;
@@ -87,17 +93,31 @@ const Div = styled.div`
 `;
 
 const items_info = [
-  { id: 1, title: "زمان تسویه حساب بازه زمانی | روزانه", value: "" },
-  { id: 2, title: "خروج اتوماتیک از حساب کاربری | دقیقه", value: "" },
+  {
+    id: 1,
+    title: "زمان تسویه حساب بازه زمانی | روزانه",
+    value: "",
+    name: "checkout_days_count",
+  },
+  {
+    id: 2,
+    title: "خروج اتوماتیک از حساب کاربری | دقیقه",
+    value: "",
+    name: "automatic_logout",
+  },
 ];
 
 const options = [
   { id: 1, label: "IR-125478963258745896324587" },
   { id: 2, label: "IR-125478963258745896324587" },
 ];
+
 const Bank = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [items, setItems] = useState(items_info);
+  const { Request, HTTP_METHOD } = useRequest();
+  const Navigate = useNavigate();
+
   const handleSelectChange = (e) => {
     setSelectedValue(e.target.value);
   };
@@ -108,7 +128,6 @@ const Bank = () => {
         ? { ...item, value: e.target.value, error: false }
         : item
     );
-
     setItems(updatedItems);
   };
 
@@ -119,6 +138,22 @@ const Bank = () => {
       if (item.value === "") {
         hasError = true;
         item.error = true;
+      } else if (item.name === "automatic_logout" && item.value < 1) {
+        hasError = true;
+        item.error = true;
+        ToastError("خروج اتوماتیک باید بیشتر از 1 دقیقه باشد.");
+      } else if (item.name === "automatic_logout" && item.value > 55) {
+        hasError = true;
+        item.error = true;
+        ToastError("خروج اتوماتیک باید کمتر از 55 دقیقه باشد.");
+      } else if (item.name === "checkout_days_count" && item.value < 3) {
+        hasError = true;
+        item.error = true;
+        ToastError("واریز اتوماتیک باید بیشتر از 3 روز باشد.");
+      } else if (item.name === "checkout_days_count" && item.value > 1000) {
+        hasError = true;
+        item.error = true;
+        ToastError("واریز اتوماتیک باید کمتر از 1000 روز باشد.");
       } else {
         item.error = false;
       }
@@ -126,22 +161,26 @@ const Bank = () => {
 
     setItems([...items]);
 
-    if (hasError) {
-      console.log("Please fill in all the inputs.");
-    } else {
-      const resetItems = items.map((item) => ({ ...item, value: "" }));
-      setItems(resetItems);
-      toast.success("متغییر های الزامی با موفقیت ذخیره شد!", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        bodyClassName: "success",
-      });
+    if (!hasError) {
+      const formData = items.reduce((acc, item) => {
+        acc[item.name] = item.value;
+        return acc;
+      }, {});
+
+      Request("settings", HTTP_METHOD.POST, formData)
+        .then((response) => {
+          ToastSuccess("متغییر های الزامی با موفقیت بروزرسانی شد.");
+          const resetItems = items.map((item) => ({ ...item, value: "" }));
+          setItems(resetItems);
+        })
+        .catch((error) => {
+          if (error.response.status === 410) {
+            ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+            return Navigate("/metaverse/confirmation");
+          } else {
+            ToastError(error.response.data.message);
+          }
+        });
     }
   };
 
@@ -174,4 +213,5 @@ const Bank = () => {
     </Container>
   );
 };
+
 export default Bank;

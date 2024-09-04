@@ -5,15 +5,15 @@ import RestrictUser from "./RestrictUser";
 import Text from "./Text";
 
 const Details = () => {
-    return (
-        <div dir="rtl">
-            <Colors />
-            <RealEstate />
-            <Level />
-            <RestrictUser />
-            <Text />
-        </div>
-    );
+  return (
+    <div dir="rtl">
+      <Colors />
+      <RealEstate />
+      <Level />
+      <RestrictUser />
+      {/* <Text /> */}
+    </div>
+  );
 };
 
 export default Details;

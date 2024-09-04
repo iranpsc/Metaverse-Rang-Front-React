@@ -15,11 +15,12 @@ const Option = styled.div`
   padding: 10px;
   margin: 0 15px 15px;
   border-radius: 5px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   align-items: center;
   justify-content: space-between;
   p {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 500;
   }
@@ -39,7 +40,7 @@ const Label = styled.div`
   justify-content: space-between;
   padding: 15px;
   h3 {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 500;
   }
@@ -47,7 +48,10 @@ const Label = styled.div`
     font-size: 36px;
     cursor: pointer;
     transform: ${(props) => props.show && "rotate(180deg)"};
-    color: ${(props) => (props.show ? "#FFC700" : "#e9e9e9")};
+    color: ${(props) =>
+      props.show
+        ? props.theme.colors.primary
+        : props.theme.colors.newColors.shades.title};
     transition: all 0.2s linear;
   }
 `;
