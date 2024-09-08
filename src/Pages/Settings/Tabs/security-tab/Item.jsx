@@ -1,8 +1,10 @@
+// Item component
 import { IoIosArrowDropdownCircle } from "react-icons/io";
-
 import styled from "styled-components";
 import { useState } from "react";
 import OnOff from "../OnOff";
+import useRequest from "../../../../Services/Hooks/useRequest";
+import { ToastError } from "../../../../Services/Utility";
 
 const Container = styled.div`
   border: 1px solid #454545;
@@ -56,8 +58,19 @@ const Label = styled.div`
   }
 `;
 
-const Item = ({ label, options }) => {
+const Item = ({ label, options, privacy }) => {
   const [show, setShow] = useState(false);
+  const { Request, HTTP_METHOD } = useRequest();
+  const handleToggle = (optionKey, newValue) => {
+    Request("privacy", HTTP_METHOD.POST, {
+      key: optionKey,
+      value: Number(newValue),
+    })
+      .then(() => {})
+      .catch(() => {
+        ToastError("لطفا بعدا تلاش کنید ");
+      });
+  };
 
   return (
     <Container>
@@ -69,7 +82,11 @@ const Item = ({ label, options }) => {
         {options.map((option) => (
           <Option key={option.id}>
             <p>{option.title}</p>
-            <OnOff label={option.title} />
+            <OnOff
+              label={option.title}
+              isOn={privacy[option.key] || false}
+              onToggle={(newValue) => handleToggle(option.key, newValue)}
+            />
           </Option>
         ))}
       </Options>

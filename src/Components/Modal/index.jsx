@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Header from "../Header/Header";
+import { useTranslation } from "react-i18next";
 
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -43,6 +44,7 @@ const Container = styled.div`
   z-index: 10;
 `;
 const Modal = ({ children, title }) => {
+  console.log(useTranslation());
   return (
     <Container>
       <ModalContainer>

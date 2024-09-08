@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useRef, useCallback } from "react";
+import React, { memo, useEffect, useState, useRef } from "react";
 import { Layer, Source, useMap } from "react-map-gl";
 import { useLoader } from "@react-three/fiber";
 import { Canvas, Coordinates } from "react-three-map/maplibre";
@@ -9,7 +9,9 @@ import { POLYGON_COLORS } from "../../Services/Constants/PolygonColors";
 import useRequest from "../../Services/Hooks/useRequest";
 import { ClipLoader } from "react-spinners";
 
+// Add the proxy URL to bypass CORS
 const FBXModel = memo(({ url, rotation, setLoading, uniqueKey }) => {
+  // Prepend proxy URL to avoid CORS issues
   const fbx = useLoader(FBXLoader, url, (loader) => {
     loader.manager.onStart = () => setLoading(true);
     loader.manager.onLoad = () => setLoading(false);
@@ -55,13 +57,12 @@ const MapPolygons = () => {
     window.Echo.channel("feature-status").listen(
       ".feature-status-changed",
       (e) => {
-        const data = [];
-        for (const feature of features) {
+        const data = features.map((feature) => {
           if (parseInt(feature.id) === parseInt(e.data.id)) {
-            feature.rgb = e.data.rgb;
+            return { ...feature, rgb: e.data.rgb };
           }
-          data.push(feature);
-        }
+          return feature;
+        });
 
         setFeatures(data);
       }
@@ -82,24 +83,19 @@ const MapPolygons = () => {
           bounds.getNorthEast().lat
         }${loadBuildings}`
       ).then((response) => {
-        const newFeatures = [];
-        const newBuildingModels = [];
-        for (const feature of response?.data?.data) {
-          newFeatures.push({
+        const newFeatures =
+          response?.data?.data?.map((feature) => ({
             id: feature?.geometry?.feature_id,
             rgb: feature?.properties?.rgb,
             coordinates: feature?.geometry?.coordinates.map((coordinate) => [
               parseFloat(coordinate.x),
               parseFloat(coordinate.y),
             ]),
-          });
+          })) || [];
 
-          if (feature.building_models) {
-            for (const model of feature.building_models) {
-              newBuildingModels.push(model);
-            }
-          }
-        }
+        const newBuildingModels = response?.data?.data?.flatMap(
+          (feature) => feature.building_models || []
+        );
 
         setFeatures((prevFeatures) => [...prevFeatures, ...newFeatures]);
         setBuildingModels((prevModels) => [
@@ -118,7 +114,6 @@ const MapPolygons = () => {
           type="geojson"
           data={{
             type: "FeatureCollection",
-
             features: features.map((polygon) => ({
               type: "Feature",
               properties: {
@@ -160,27 +155,26 @@ const MapPolygons = () => {
           />
         </Source>
       )}
-      {zoom >= 15 && buildingModels.length > 0 && (
+      {zoom >= 14 && buildingModels.length > 0 && (
         <Canvas latitude={36} longitude={50}>
-          {buildingModels.map(
-            (model) => (
-              console.log(parseFloat(model.building.position.split(",")[0])),
-              (
-                <Coordinates
-                  latitude={parseFloat(model.building.position.split(",")[0])}
-                  longitude={parseFloat(model.building.position.split(",")[1])}
-                >
-                  <FBXModel
-                    url={model.file.url}
-                    rotation={[0, 0, 0]}
-                    setLoading={setIsLoading}
-                    uniqueKey={`${model.id}-model`}
-                    key={`${model.id}-model`} // Make sure to use the key prop here for React optimization
-                  />
-                </Coordinates>
-              )
-            )
-          )}
+          {buildingModels.map((model) => {
+            const proxyFbxUrl = `https://middle.irpsc.com/app/?url=${model.file.url}`;
+            console.log(parseFloat(model.building.position.split(",")[0]));
+            return (
+              <Coordinates
+                key={`${model.id}-coordinates`}
+                latitude={parseFloat(model.building.position.split(",")[0])}
+                longitude={parseFloat(model.building.position.split(",")[1])}
+              >
+                <FBXModel
+                  url={proxyFbxUrl}
+                  rotation={[0, 0, 0]}
+                  setLoading={setIsLoading}
+                  uniqueKey={`${model.id}-model`}
+                />
+              </Coordinates>
+            );
+          })}
         </Canvas>
       )}
     </>

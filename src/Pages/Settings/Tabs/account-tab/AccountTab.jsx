@@ -15,10 +15,6 @@ const Container = styled.div`
   gap: 20px;
   padding-right: 15px;
   overflow-y: auto;
-  height: 73%;
-  @media (min-width: 1400px) {
-    height: 79%;
-  }
 `;
 
 const LoadingContainer = styled.div`

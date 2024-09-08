@@ -11,7 +11,7 @@ const Btn = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
   height: 40px;
   border-radius: 0 5px 5px 0;
   &.active {
