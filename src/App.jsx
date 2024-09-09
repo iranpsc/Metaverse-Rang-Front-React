@@ -21,6 +21,7 @@ import { MapProvider } from "react-map-gl";
 import { SelectedEnvironmentProvider } from "./Services/Reducers/SelectedEnvironmentContext.jsx";
 import { AlertProvider } from "./Services/Reducers/AlertContext.jsx";
 import Routers from "./Layouts/Map/Routers.jsx";
+import { getFieldTranslationByNames } from "./Services/Utility/index.jsx";
 
 const Container = styled.section`
   display: flex;
@@ -54,7 +55,9 @@ function App() {
       enabledTransports: ["wss", "ws"],
     });
   }, []);
-
+  console.log(
+    getFieldTranslationByNames("setting", "permission to establish a school")
+  );
   return (
     <MapProvider>
       <ThemeProviderContext>

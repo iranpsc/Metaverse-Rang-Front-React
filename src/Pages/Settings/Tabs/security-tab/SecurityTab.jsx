@@ -554,7 +554,9 @@ const SecurityTab = () => {
       setItemsWithValues(updatedItems); // آیتم‌ها با مقدار value تنظیم می‌شوند
     });
   }, []);
-
+  console.log(
+    getFieldTranslationByNames("setting", "permission to establish a school")
+  );
   return (
     <Container>
       <SearchInput

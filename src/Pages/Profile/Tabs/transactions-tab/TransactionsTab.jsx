@@ -142,19 +142,19 @@ const TransactionsTab = () => {
     let assetGif = null;
 
     switch (transaction.asset) {
-      case "رنگ زرد":
+      case "yellow":
         assetGif = yellow;
         break;
-      case "رنگ قرمز":
+      case "red":
         assetGif = red;
         break;
-      case "رنگ آبی":
+      case "blue":
         assetGif = blue;
         break;
-      case "PSC":
+      case "psc":
         assetGif = psc;
         break;
-      case "ریال":
+      case "rial":
         assetGif = rial;
         break;
       default:
@@ -164,7 +164,7 @@ const TransactionsTab = () => {
 
     return { ...transaction, assetGif };
   });
-
+  console.log(updatedTransactions);
   const filteredItems = updatedTransactions.filter((row) => {
     const codeMatch = row.id.includes(searched);
     const statusMatch =

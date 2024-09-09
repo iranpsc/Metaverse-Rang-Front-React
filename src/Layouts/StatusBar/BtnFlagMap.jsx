@@ -42,7 +42,7 @@ const TitleFlag = styled.p`
   text-transform: capitalize;
   white-space: nowrap;
   @media (min-width: 1024px) {
-    font-size: 17px;
+    font-size: 14px;
   }
 `;
 const ContainerIcon = styled.div`

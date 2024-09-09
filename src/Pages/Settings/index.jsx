@@ -1,9 +1,7 @@
 import Modal from "../../Components/Modal";
 import useTabs from "../../Services/Hooks/useTabs";
 import AccountTab from "./Tabs/account-tab/AccountTab";
-import AccountSetting from "./Tabs/AccountSetting";
-import GeneralSettings from "./Tabs/GeneralSettings";
-import Privacy from "./Tabs/Privacy";
+
 import PublicTab from "./Tabs/public-tab/PublicTab";
 import SecurityTab from "./Tabs/security-tab/SecurityTab";
 
