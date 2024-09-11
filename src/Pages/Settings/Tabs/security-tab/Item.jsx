@@ -4,7 +4,10 @@ import styled from "styled-components";
 import { useState } from "react";
 import OnOff from "../OnOff";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import { ToastError } from "../../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../../Services/Utility";
 
 const Container = styled.div`
   border: 1px solid #454545;
@@ -75,13 +78,13 @@ const Item = ({ label, options, privacy }) => {
   return (
     <Container>
       <Label show={show}>
-        <h3>{label}</h3>
+        <h3>{getFieldTranslationByNames("setting", label)}</h3>
         <IoIosArrowDropdownCircle onClick={() => setShow(!show)} />
       </Label>
       <Options show={show}>
         {options.map((option) => (
           <Option key={option.id}>
-            <p>{option.title}</p>
+            <p>{getFieldTranslationByNames("setting", option.title)}</p>
             <OnOff
               label={option.title}
               isOn={privacy[option.key] || false}

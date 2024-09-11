@@ -52,455 +52,411 @@ const Container = styled.div`
 const items = [
   {
     id: 1,
-    label: getFieldTranslationByNames("setting", "real specifications"),
+    label: "real specifications",
     options: [
       {
         id: 1,
-        title: getFieldTranslationByNames("setting", "nationality"),
+        title: "nationality",
         key: "nationality",
       },
       {
         id: 2,
-        title: getFieldTranslationByNames("setting", "father's name"),
+        title: "father's name",
         key: "fname",
       },
       {
         id: 3,
-        title: getFieldTranslationByNames("setting", "last name"),
+        title: "last name",
         key: "lname",
       },
       {
         id: 4,
-        title: getFieldTranslationByNames("setting", "date of birth"),
+        title: "date of birth",
         key: "birthdate",
       },
       {
         id: 5,
-        title: getFieldTranslationByNames("setting", "phone number"),
+        title: "phone number",
         key: "phone",
       },
       {
         id: 6,
-        title: getFieldTranslationByNames("setting", "email"),
+        title: "email",
         key: "email",
       },
       {
         id: 7,
-        title: getFieldTranslationByNames("setting", "address"),
+        title: "address",
         key: "address",
       },
       {
         id: 8,
-        title: getFieldTranslationByNames("setting", "name"),
+        title: "name",
         key: "name",
       },
     ],
   },
   {
     id: 2,
-    label: getFieldTranslationByNames("setting", "citizenship profile"),
+    label: "citizenship profile",
     options: [
       {
         id: 1,
-        title: getFieldTranslationByNames("setting", "about"),
+        title: "about",
         key: "about",
       },
       {
         id: 2,
-        title: getFieldTranslationByNames("setting", "registery date"),
+        title: "registery date",
         key: "registered_at",
       },
       {
         id: 3,
-        title: getFieldTranslationByNames("setting", "position or direction"),
+        title: "position or direction",
         key: "position",
       },
       {
         id: 4,
-        title: getFieldTranslationByNames("setting", "score"),
+        title: "score",
         key: "score",
       },
       {
         id: 5,
-        title: getFieldTranslationByNames("setting", "permissions"),
+        title: "permissions",
         key: "licenses",
       },
       {
         id: 6,
-        title: getFieldTranslationByNames("setting", "license points"),
+        title: "license points",
         key: "license_score",
       },
       {
         id: 7,
-        title: getFieldTranslationByNames("setting", "avatar"),
+        title: "avatar",
         key: "avatar",
       },
       {
         id: 8,
-        title: getFieldTranslationByNames("setting", "job"),
+        title: "job",
         key: "occupation",
       },
       {
         id: 9,
-        title: getFieldTranslationByNames("setting", "education"),
+        title: "education",
         key: "education",
       },
       {
         id: 10,
-        title: getFieldTranslationByNames("setting", "favorite city"),
+        title: "favorite city",
         key: "loved_city",
       },
       {
         id: 11,
-        title: getFieldTranslationByNames("setting", "favorite country"),
+        title: "favorite country",
         key: "loved_country",
       },
       {
         id: 12,
-        title: getFieldTranslationByNames("setting", "favorite language"),
+        title: "favorite language",
         key: "loved_language",
       },
       {
         id: 13,
-        title: getFieldTranslationByNames("setting", "forecast"),
+        title: "forecast",
         key: "prediction",
       },
       {
         id: 14,
-        title: getFieldTranslationByNames("setting", "pleasant memory"),
+        title: "pleasant memory",
         key: "memory",
       },
       {
         id: 15,
-        title: getFieldTranslationByNames("setting", "favorites"),
+        title: "favorites",
         key: "passions",
       },
     ],
   },
   {
     id: 3,
-    label: getFieldTranslationByNames("setting", "real estates"),
+    label: "real estates",
     options: [
       {
         id: 1,
-        title: getFieldTranslationByNames("setting", "educational vods"),
+        title: "educational vods",
         key: "amoozeshi_features",
       },
       {
         id: 2,
-        title: getFieldTranslationByNames("setting", "commercial vods"),
+        title: "commercial vods",
         key: "tejari_features",
       },
       {
         id: 3,
-        title: getFieldTranslationByNames("setting", "tourism vods"),
+        title: "tourism vods",
         key: "gardeshgari_features",
       },
       {
         id: 4,
-        title: getFieldTranslationByNames("setting", "green space vods"),
+        title: "green space vods",
         key: "fazasabz_features",
       },
       {
         id: 5,
-        title: getFieldTranslationByNames("setting", "health vods"),
+        title: "health vods",
         key: "behdashti_features",
       },
       {
         id: 6,
-        title: getFieldTranslationByNames("setting", "administrative vods"),
+        title: "administrative vods",
         key: "edari_features",
       },
       {
         id: 7,
-        title: getFieldTranslationByNames("setting", "exhibition vods"),
+        title: "exhibition vods",
         key: "nemayeshgah_features",
       },
     ],
   },
   {
     id: 4,
-    label: getFieldTranslationByNames("setting", "citizenship relations"),
+    label: "citizenship relations",
     options: [
       {
         id: 1,
-        title: getFieldTranslationByNames("setting", "list of followers"),
+        title: "list of followers",
         key: "followers",
       },
       {
         id: 2,
-        title: getFieldTranslationByNames("setting", "list of followings"),
+        title: "list of followings",
         key: "following",
       },
       {
         id: 3,
-        title: getFieldTranslationByNames("setting", "number of followings"),
+        title: "number of followings",
         key: "following_count",
       },
     ],
   },
   {
     id: 5,
-    label: getFieldTranslationByNames("setting", "licenses received"),
+    label: "licenses received",
     options: [
       {
         id: 1,
-        title: getFieldTranslationByNames(
-          "setting",
-          "permission to create a store"
-        ),
+        title: "permission to create a store",
+
         key: "establish_store_license",
       },
       {
         id: 2,
-        title: getFieldTranslationByNames(
-          "setting",
-          "permission to create a union"
-        ),
+        title: "permission to create a union",
         key: "establish_union_license",
       },
       {
         id: 3,
-        title: getFieldTranslationByNames(
-          "setting",
-          "permission to create a taxi service"
-        ),
+        title: "permission to create a taxi service",
         key: "establish_taxi_license",
       },
       {
         id: 4,
-        title: getFieldTranslationByNames(
-          "setting",
-          "permission to establish a school"
-        ),
+        title: "permission to establish a school",
         key: "establish_amoozeshgah_license",
       },
       {
         id: 5,
-        title: getFieldTranslationByNames("setting", "journalism license"),
+        title: "journalism license",
         key: "reporter_license",
       },
       {
         id: 6,
-        title: getFieldTranslationByNames("setting", "contributor license"),
+        title: "contributor license",
         key: "cooporation_license",
       },
       {
         id: 7,
-        title: getFieldTranslationByNames("setting", "developer license"),
+        title: "developer license",
         key: "developer_license",
       },
       {
         id: 8,
-        title: getFieldTranslationByNames("setting", "express license"),
+        title: "express license",
         key: "inspection_license",
       },
       {
         id: 9,
-        title: getFieldTranslationByNames("setting", "merchant license"),
+        title: "merchant license",
         key: "trading_license",
       },
       {
         id: 10,
-        title: getFieldTranslationByNames("setting", "attorney's license"),
+        title: "attorney's license",
         key: "lawyer_license",
       },
       {
         id: 11,
-        title: getFieldTranslationByNames("setting", "mayor's license"),
+        title: "mayor's license",
         key: "city_council_license",
       },
       {
         id: 12,
-        title: getFieldTranslationByNames("setting", "governor's license"),
+        title: "governor's license",
         key: "governer_license",
       },
     ],
   },
   {
     id: 6,
-    label: getFieldTranslationByNames("setting", "transactions"),
+    label: "transactions",
     options: [
       {
         id: 1,
-        title: getFieldTranslationByNames("setting", "show Riyal transactions"),
+        title: "show Riyal transactions",
         key: "irr_transactions",
         value: true,
       },
       {
         id: 2,
-        title: getFieldTranslationByNames("setting", "show PSC transactions"),
+        title: "show PSC transactions",
         key: "psc_transactions",
       },
       {
         id: 3,
-        title: getFieldTranslationByNames(
-          "setting",
-          "show transactions in blue color"
-        ),
+        title: "show transactions in blue color",
         key: "blue_transactions",
       },
       {
         id: 4,
-        title: getFieldTranslationByNames(
-          "setting",
-          "show transactions in yellow"
-        ),
+        title: "show transactions in yellow",
         key: "yellow_transactions",
       },
       {
         id: 5,
-        title: getFieldTranslationByNames(
-          "setting",
-          "show transactions in red"
-        ),
+        title: "show transactions in red",
         key: "red_transactions",
       },
       {
         id: 6,
-        title: getFieldTranslationByNames("setting", "show sold product"),
+        title: "show sold product",
         key: "sold_products",
       },
       {
         id: 7,
-        title: getFieldTranslationByNames(
-          "setting",
-          "show purchased properties"
-        ),
+        title: "show purchased properties",
         key: "bought_products",
       },
     ],
   },
   {
     id: 7,
-    label: getFieldTranslationByNames("setting", "rewards received"),
+    label: "rewards received",
     options: [
       {
         id: 1,
-        title: getFieldTranslationByNames(
-          "setting",
-          "show the bonus received rial"
-        ),
+        title: "show the bonus received rial",
         key: "recieved_irr_prizes",
       },
       {
         id: 2,
-        title: getFieldTranslationByNames("setting", "show psc bonus received"),
+        title: "show psc bonus received",
         key: "recieved_psc_prizes",
       },
       {
         id: 3,
-        title: getFieldTranslationByNames(
-          "setting",
-          "show yellow bonus received"
-        ),
+        title: "show yellow bonus received",
         key: "recieved_yellow_prizes",
       },
       {
         id: 4,
-        title: getFieldTranslationByNames(
-          "setting",
-          "show blue bonus received"
-        ),
+        title: "show blue bonus received",
         key: "recieved_blue_prizes",
       },
       {
         id: 5,
-        title: getFieldTranslationByNames("setting", "show red bonus received"),
+        title: "show red bonus received",
         key: "recieved_red_prizes",
       },
     ],
   },
   {
     id: 8,
-    label: getFieldTranslationByNames(
-      "setting",
-      "display the purchased golden key"
-    ),
+    label: "display the purchased golden key",
     options: [
       {
         id: 1,
-        title: getFieldTranslationByNames("setting", "show spent golden keys"),
+        title: "show spent golden keys",
         key: "bought_golden_keys",
       },
       {
         id: 2,
-        title: getFieldTranslationByNames("setting", "show spent golden keys"),
+        title: "show spent golden keys",
         key: "used_golden_keys",
       },
     ],
   },
   {
     id: 9,
-    label: getFieldTranslationByNames("setting", "infractions"),
+    label: "infractions",
     options: [],
   },
   {
     id: 10,
-    label: getFieldTranslationByNames("setting", "complaints"),
+    label: "complaints",
     options: [],
   },
   {
     id: 11,
-    label: getFieldTranslationByNames("setting", "notice"),
+    label: "notice",
     options: [],
   },
   {
     id: 12,
-    label: getFieldTranslationByNames("setting", "violation of the rules"),
+    label: "violation of the rules",
     options: [],
   },
   {
     id: 13,
-    label: getFieldTranslationByNames("setting", "show life status"),
+    label: "show life status",
     options: [],
   },
   {
     id: 14,
-    label: getFieldTranslationByNames("setting", "sum of negative points"),
+    label: "sum of negative points",
     options: [],
   },
   {
     id: 15,
-    label: getFieldTranslationByNames("setting", "family lineage"),
+    label: "family lineage",
     options: [
       {
         id: 1,
-        title: getFieldTranslationByNames(
-          "setting",
-          "display the image of the members of the dynasty"
-        ),
+        title: "display the image of the members of the dynasty",
         key: "dynasty_members_photo",
       },
       {
         id: 2,
-        title: getFieldTranslationByNames(
-          "setting",
-          "view profiles of dynasty members"
-        ),
+        title: "view profiles of dynasty members",
         key: "dynasty_members_info",
       },
       {
         id: 3,
-        title: getFieldTranslationByNames("setting", "dynasty reward"),
+        title: "dynasty reward",
         key: "recieved_dynasty_satisfaction_prizes",
       },
       {
         id: 4,
-        title: getFieldTranslationByNames(
-          "setting",
-          "riyal bonus received in psc unit from dynasty members"
-        ),
+        title: "riyal bonus received in psc unit from dynasty members",
         key: "recieved_dynasty_referral_profit_prizes",
       },
       {
         id: 5,
-        title: getFieldTranslationByNames("setting", "show satisfaction bonus"),
+        title: "show satisfaction bonus",
         key: "recieved_satisfaction_prizes",
       },
       {
         id: 6,
-        title: getFieldTranslationByNames("setting", "show satisfaction bonus"),
+        title: "show satisfaction bonus",
         key: "recieved_satisfaction_prizes",
       },
     ],
@@ -554,9 +510,7 @@ const SecurityTab = () => {
       setItemsWithValues(updatedItems); // آیتم‌ها با مقدار value تنظیم می‌شوند
     });
   }, []);
-  console.log(
-    getFieldTranslationByNames("setting", "permission to establish a school")
-  );
+  console.log("permission to establish a school");
   return (
     <Container>
       <SearchInput

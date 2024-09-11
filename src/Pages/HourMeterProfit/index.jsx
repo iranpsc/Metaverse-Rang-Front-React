@@ -1,7 +1,6 @@
 import React from "react";
 import ModalPosition from "../../Components/ModalPosition";
 import useTabs from "../../Services/Hooks/useTabs";
-import HourProfit from "./Tabs/HourProfit";
 import ProfitView from "./Components/ProfitView";
 
 const HourMeterProfit = () => {
