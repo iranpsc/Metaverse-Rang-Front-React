@@ -92,7 +92,10 @@ const Info = () => {
       <Header>
         <div>
           <Title>{user?.name}</Title>
-          <Code href="https://rgb.irpsc.com/fa/citizen/hm-2000001">
+          <Code
+            href={`https://rgb.irpsc.com/citizen/fa/${user?.code}`}
+            target="_blank"
+          >
             {user?.code}
           </Code>
         </div>
@@ -134,7 +137,7 @@ const Info = () => {
           onclick={() => {}}
         /> */}
       </Buttons>
-      {openShare && <ShareModal setOpenShare={setOpenShare} />}
+      {openShare && <ShareModal setOpenShare={setOpenShare} data={user} />}
     </Container>
   );
 };

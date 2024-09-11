@@ -1,5 +1,5 @@
 import { TiUserAddOutline } from "react-icons/ti";
-
+import DefaultProfile from "../../../../Assets/images/defulte-profile.png";
 import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
@@ -125,14 +125,17 @@ const Follower = ({
       setFollow(true);
     });
   };
-
+  const profileImage =
+    profile_photos.length === 0 ? DefaultProfile : profile_photos;
   return (
     <Card>
       <Profile>
-        <img src={profile_photos} width={80} height={80} />
+        <img src={profileImage} width={80} height={80} />
         <div>
           <h3>{name}</h3>
-          <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">{code}</a>
+          <a href={`https://rgb.irpsc.com/citizen/fa/${code}`} target="_blank">
+            {code}
+          </a>
         </div>
       </Profile>
       <Buttons>

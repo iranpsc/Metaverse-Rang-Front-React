@@ -97,10 +97,10 @@ const Social = styled.div`
   }
 `;
 
-const ShareModal = ({ setOpenShare }) => {
+const ShareModal = ({ setOpenShare, data }) => {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
-    const textToCopy = "https://rgb.irpsc.com/fa/citizen/hm-2000001";
+    const textToCopy = `https://rgb.irpsc.com/fa/citizen/${data?.code}`;
 
     navigator.clipboard
       .writeText(textToCopy)
@@ -124,7 +124,7 @@ const ShareModal = ({ setOpenShare }) => {
             <WhatsappShare
               size={52}
               borderRadius={100}
-              url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
+              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
             />
             <span>Whatsapp</span>
           </Social>
@@ -132,7 +132,7 @@ const ShareModal = ({ setOpenShare }) => {
             <TelegramShare
               size={52}
               borderRadius={100}
-              url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
+              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
             />
             <span>Telegram</span>{" "}
           </Social>
@@ -140,7 +140,7 @@ const ShareModal = ({ setOpenShare }) => {
             <FacebookShare
               size={52}
               borderRadius={100}
-              url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
+              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
             />
             <span>Facebook</span>{" "}
           </Social>
@@ -148,7 +148,7 @@ const ShareModal = ({ setOpenShare }) => {
             <TwitterShare
               size={52}
               borderRadius={100}
-              url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
+              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
             />
             <span>Twitter</span>{" "}
           </Social>
@@ -156,14 +156,14 @@ const ShareModal = ({ setOpenShare }) => {
             <LinkedinShare
               size={52}
               borderRadius={100}
-              url="https://rgb.irpsc.com/fa/citizen/hm-2000001"
+              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
             />
             <span>Linkedin</span>{" "}
           </Social>
         </Socials>
         <Copy>
           <span onClick={handleCopy}>{copied ? "کپی شد" : "کپی"}</span>
-          <p>https://rgb.irpsc.com/fa/citizen/hm-2000001</p>
+          <p> {`https://rgb.irpsc.com/fa/citizen/${data?.code}`}</p>
         </Copy>
       </Modal>
     </BackGround>

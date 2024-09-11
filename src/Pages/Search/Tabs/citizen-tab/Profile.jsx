@@ -1,6 +1,6 @@
 import { HiOutlineUser } from "react-icons/hi";
 import styled from "styled-components";
-import AnonymousIcon from "../../../../Assets/images/anonymous.png";
+import DefaultProfile from "../../../../Assets/images/defulte-profile.png";
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@ const ProfilePhoto = styled.img`
 const Profile = ({ user }) => {
   return (
     <Container>
-      <ProfilePhoto src={user?.photo ? user?.photo : AnonymousIcon} />
+      <ProfilePhoto src={user?.photo ? user?.photo : DefaultProfile} />
       <Info>
         <h2>{user?.name}</h2>
         <a

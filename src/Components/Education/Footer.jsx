@@ -112,7 +112,10 @@ const Footer = ({ show, data }) => {
   return (
     <Container show={show}>
       <Right>
-        <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">
+        <a
+          href={`https://rgb.irpsc.com/citizen/fa/${data?.creator_code}`}
+          target="_blank"
+        >
           {data?.creator_code}
         </a>
         <span>

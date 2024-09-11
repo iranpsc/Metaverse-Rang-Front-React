@@ -24,7 +24,6 @@ const Buttons = styled.div`
   gap: 10px;
   margin-bottom: 20px;
 `;
-
 const ProfitView = () => {
   const [buttons, setButtons] = useState([]);
   const [cards, setCards] = useState([]);
@@ -144,6 +143,9 @@ const ProfitView = () => {
       .catch(console.error);
   };
 
+  // فیلتر کردن کارت‌هایی که is_active آنها false است
+  const filteredCards = cards.filter((card) => card.is_active);
+
   return (
     <Scroll onScroll={handleScroll}>
       <Buttons>
@@ -155,9 +157,10 @@ const ProfitView = () => {
           />
         ))}
       </Buttons>
-      <ProfitList cards={cards} onClick={handelClick} />
+      <ProfitList cards={filteredCards} onClick={handelClick} />
     </Scroll>
   );
 };
 
 export default ProfitView;
+

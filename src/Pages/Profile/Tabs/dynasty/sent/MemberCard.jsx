@@ -71,7 +71,13 @@ const MemberCard = ({ status, code, date, time }) => {
         <img src={avatar} width={80} height={80} />
         <div>
           <h3>Sorena Qadiri</h3>
-          <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">HM-{code}</a>
+          <a
+            h
+            href={`https://rgb.irpsc.com/citizen/fa/${code}`}
+            target="_blank"
+          >
+            HM-{code}
+          </a>
         </div>
       </Profile>
       <Status>
