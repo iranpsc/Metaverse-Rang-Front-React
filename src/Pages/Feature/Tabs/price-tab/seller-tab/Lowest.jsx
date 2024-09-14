@@ -6,6 +6,7 @@ import { UserContext } from "../../../../../Services/Reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import {
+  getFieldTranslationByNames,
   TimeAgo,
   ToastError,
   ToastSuccess,
@@ -122,9 +123,10 @@ const Lowest = () => {
   return (
     <Wrapper>
       <Text>
-        در این قسمت شما میتوانید قیمت پیشنهادی ملک خود را نسبت به قیمت اولیه
-        متارنگ به صورت درصدی تعیین نمایید. در این صورت پیشنهاد های کمتر از این
-        محدوده برای شما ارسال نخواهد شد.
+        {getFieldTranslationByNames(
+          "property-information",
+          "In this section, you can determine"
+        )}
       </Text>
       <Div>
         <InputWrapper>
@@ -139,7 +141,13 @@ const Lowest = () => {
           <Span>%</Span>
         </InputWrapper>
       </Div>
-      <Button label="ثبت قیمت" onclick={onSubmit} />
+      <Button
+        label={getFieldTranslationByNames(
+          "property-information",
+          "price determination"
+        )}
+        onclick={onSubmit}
+      />
     </Wrapper>
   );
 };

@@ -2,7 +2,10 @@ import { BiEditAlt } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 
 import styled from "styled-components";
-import { convertToPersian } from "../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../Services/Utility";
 import Result from "../../../Components/Result";
 
 const Wrapper = styled.div`
@@ -11,7 +14,6 @@ const Wrapper = styled.div`
     props.theme.colors.newColors.otherColors.inputBg};
   padding: 15px;
   display: grid;
-  direction: rtl;
   grid-template-columns: 4fr 1fr;
 `;
 
@@ -81,15 +83,33 @@ const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
   return (
     <Wrapper>
       <Results>
-        <Result title="قیمت فروش(ریال)" value={rial} />
-        <Result title="قیمت فروش(PSC)" value={psc} />
+        <Result
+          title={
+            (getFieldTranslationByNames("property-information", "sales price"),
+            getFieldTranslationByNames("property-information", "rial"))
+          }
+          value={rial}
+        />
+        <Result
+          title={
+            (getFieldTranslationByNames("property-information", "sales price"),
+            getFieldTranslationByNames("property-information", "psc"))
+          }
+          value={psc}
+        />
         <ResultWrapper>
-          <Title>قیمت نهایی</Title>
-          <Value dir="ltr">
+          {getFieldTranslationByNames(
+            "property-information",
+            "the final price"
+          )}
+          <Value>
             {convertToPersian(rial)} IRR / {convertToPersian(psc)} PSC
           </Value>
         </ResultWrapper>
-        <Result title="کارمزد" value={"5%"} />
+        <Result
+          title={getFieldTranslationByNames("property-information", "wage")}
+          value={"5%"}
+        />
       </Results>
       <Actions>
         <ActionWrapper onClick={() => setAssign(false)}>

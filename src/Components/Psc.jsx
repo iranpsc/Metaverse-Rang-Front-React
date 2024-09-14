@@ -1,5 +1,6 @@
 import pscGif from "../Assets/gif/psc.gif";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const Container = styled.div`
 const Psc = ({ color }) => {
   return (
     <Container color={color}>
-      <span>PSC</span>
+      <span>{getFieldTranslationByNames("property-information", "psc")}</span>
       <img width={26} alt="psc" src={pscGif} />
     </Container>
   );

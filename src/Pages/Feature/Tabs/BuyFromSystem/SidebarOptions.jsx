@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Wrapper = styled.div`
   max-width: 171px !important;
@@ -30,7 +31,7 @@ const SidebarOptions = ({ option, setOption }) => {
   return (
     <Wrapper>
       <Option option={option === true} onClick={() => setOption(true)}>
-        قیمت فروشنده
+        {getFieldTranslationByNames("property-information", "seller's price")}
       </Option>
     </Wrapper>
   );

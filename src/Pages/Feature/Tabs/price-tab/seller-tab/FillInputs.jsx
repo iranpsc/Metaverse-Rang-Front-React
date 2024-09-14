@@ -4,7 +4,7 @@ import Psc from "../../../../../Components/Psc";
 import Input from "../../../../../Components/Input";
 import {
   calculateFee,
-  convertToPersian,
+  getFieldTranslationByNames,
   TimeAgo,
   ToastError,
 } from "../../../../../Services/Utility";
@@ -17,7 +17,6 @@ import { FeatureContext } from "../../../Context/FeatureProvider";
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  direction: rtl;
   gap: 23px;
 `;
 
@@ -130,7 +129,10 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           value={rial}
           onchange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder="قیمت فروش (ریال)"
+          placeholder={`${getFieldTranslationByNames(
+            "property-information",
+            "sales price"
+          )} (${getFieldTranslationByNames("property-information", "psc")})`}
           insideText={<Rial />}
           errorMessage={errors.rial}
         />
@@ -138,21 +140,38 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           value={psc}
           onchange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder="قیمت فروش (PSC)"
+          placeholder={`${getFieldTranslationByNames(
+            "property-information",
+            "sales price"
+          )} (${getFieldTranslationByNames("property-information", "psc")})`}
           insideText={<Psc />}
           errorMessage={errors.psc}
         />
       </InputsWrapper>
       <ResultWrapper>
         <Wrapper>
-          <Title>قیمت نهایی</Title>
-          <Value dir="ltr">
+          <Title>
+            {getFieldTranslationByNames(
+              "property-information",
+              "the final price"
+            )}
+          </Title>
+          <Value>
             {calculateFee(rial)} IRR / {calculateFee(psc)} PSC
           </Value>
         </Wrapper>
-        <TitleValue title="کارمزد" value="5%" />
+        <TitleValue
+          title={getFieldTranslationByNames("property-information", "wage")}
+          value="5%"
+        />
       </ResultWrapper>
-      <Button label="ثبت قیمت" onclick={priceHandler} />
+      <Button
+        label={getFieldTranslationByNames(
+          "property-information",
+          "price determination"
+        )}
+        onclick={priceHandler}
+      />
     </Div>
   );
 };

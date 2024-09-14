@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useLanguage } from "../Services/Reducers/LanguageContext";
 
 const Wrapper = styled.div`
   position: relative;
@@ -36,7 +37,8 @@ const Span = styled.span`
   display: flex;
   align-items: center;
   gap: 5px;
-  left: 10px;
+
+  ${(props) => (props.isPersian ? "left: 10px;" : "right: 10px;")}
   top: 5px;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (min-width: 998px) {
@@ -52,6 +54,7 @@ const Input = ({
   onchange,
   disabled,
 }) => {
+  const isPersian = useLanguage();
   return (
     <Wrapper>
       <InputElement
@@ -61,7 +64,7 @@ const Input = ({
         onChange={onchange}
         disabled={disabled}
       />
-      <Span>
+      <Span isPersian={isPersian}>
         {insideText}
         {gif && (
           <img width={30} height={30} loading="lazy" src={gif} alt="git" />

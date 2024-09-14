@@ -1,5 +1,6 @@
 import rialGif from "../Assets/gif/rial.gif";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const Container = styled.div`
 const Rial = ({ color }) => {
   return (
     <Container color={color}>
-      <span>ریال</span>
+      <span>{getFieldTranslationByNames("property-information", "rial")}</span>
       <img width={26} alt="rial" src={rialGif} />
     </Container>
   );

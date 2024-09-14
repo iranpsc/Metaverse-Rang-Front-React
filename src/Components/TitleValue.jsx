@@ -39,9 +39,7 @@ const TitleValue = ({ title, value }) => {
   return (
     <Wrapper>
       <Title>{title}</Title>
-      <Value>
-        {value.toLocaleString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])}
-      </Value>
+      <Value>{value}</Value>
     </Wrapper>
   );
 };

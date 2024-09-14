@@ -4,6 +4,7 @@ import FillInputs from "./FillInputs";
 import ResultInfo from "../../../Components/ResultInfo";
 import {
   calculateFee,
+  getFieldTranslationByNames,
   TimeAgo,
   ToastError,
   ToastSuccess,
@@ -103,7 +104,10 @@ const PriceDefine = () => {
   return (
     <Wrapper>
       <Text>
-        شما می توانید ملک خود را به دو صورت ریال و PSC قیمت گذاری نمایید
+        {getFieldTranslationByNames(
+          "property-information",
+          "you can price your property"
+        )}
       </Text>
       {!assign && (
         <FillInputs

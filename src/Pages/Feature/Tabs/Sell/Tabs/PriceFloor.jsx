@@ -5,7 +5,12 @@ import Submit from "../../../../../Components/Buttons/Submit";
 import Form from "../../../../../Components/Form";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { UserContext } from "../../../../../Services/Reducers/UserContext";
-import { ToastSuccess, ToastError, TimeAgo } from "../../../../../Services/Utility";
+import {
+  ToastSuccess,
+  ToastError,
+  TimeAgo,
+  getFieldTranslationByNames,
+} from "../../../../../Services/Utility";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { Container, Text, Title } from "../../../Styles";
 
@@ -27,27 +32,31 @@ const Input = styled.input`
 `;
 
 export default function PriceFloor() {
-  const [user, ] = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const [feature, setFeature] = useContext(FeatureContext);
 
   const Navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     minimum_price_percentage: feature?.properties?.minimum_price_percentage,
   });
   const { Request, HTTP_METHOD } = useRequest();
 
   const onSubmit = () => {
-    if(TimeAgo(user?.birthdate) >= 18) {
-      if(formData.minimum_price_percentage < 80) {
-        return ToastError("برای افراد بالای 18 سال باید درصد وارد شده بیشتر از 80 باشد.");
+    if (TimeAgo(user?.birthdate) >= 18) {
+      if (formData.minimum_price_percentage < 80) {
+        return ToastError(
+          "برای افراد بالای 18 سال باید درصد وارد شده بیشتر از 80 باشد."
+        );
       }
     } else {
-      if(formData.minimum_price_percentage < 110) {
-        return ToastError("برای افراد زیر 18 سال باید درصد وارد شده بیشتر از 110 باشد.");
+      if (formData.minimum_price_percentage < 110) {
+        return ToastError(
+          "برای افراد زیر 18 سال باید درصد وارد شده بیشتر از 110 باشد."
+        );
       }
     }
-    
+
     Request(
       `my-features/${user.id}/features/${feature?.id}`,
       HTTP_METHOD.POST,
@@ -65,10 +74,10 @@ export default function PriceFloor() {
       })
       .catch((error) => {
         if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
           return Navigate("/metaverse/confirmation");
         } else {
-          ToastError(error.response.data.message)
+          ToastError(error.response.data.message);
         }
       });
   };
@@ -103,7 +112,13 @@ export default function PriceFloor() {
           />
           %
         </label>
-        <Submit type="primary" text="ثبت قیمت" />
+        <Submit
+          type="primary"
+          text={getFieldTranslationByNames(
+            "property-information",
+            "price determination"
+          )}
+        />
       </Form>
     </Container>
   );

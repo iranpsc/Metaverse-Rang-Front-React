@@ -19,7 +19,7 @@ const ButtonElement = styled.button`
       ? "fit-content"
       : props.full
       ? "100%"
-      : "112px"};
+      : "fit-content"};
   height: 45px;
   font-weight: 600;
   font-size: 16px;
