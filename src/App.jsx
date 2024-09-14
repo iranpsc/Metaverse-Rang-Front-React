@@ -22,6 +22,7 @@ import { SelectedEnvironmentProvider } from "./Services/Reducers/SelectedEnviron
 import { AlertProvider } from "./Services/Reducers/AlertContext.jsx";
 import Routers from "./Layouts/Map/Routers.jsx";
 import { getFieldTranslationByNames } from "./Services/Utility/index.jsx";
+import { LanguageProvider } from "./Services/Reducers/LanguageContext.jsx";
 
 const Container = styled.section`
   display: flex;
@@ -55,39 +56,39 @@ function App() {
       enabledTransports: ["wss", "ws"],
     });
   }, []);
-  console.log(
-    getFieldTranslationByNames("setting", "permission to establish a school")
-  );
+
   return (
     <MapProvider>
       <ThemeProviderContext>
-        <UserProvider>
-          <WalletProvider>
-            <FollowProvider>
-              <MapContextProvider>
-                <AlertProvider>
-                  <BrowserRouter>
-                    <Routers />
-                    <Container>
-                      <MenuContextProvider>
-                        <Menu />
-                      </MenuContextProvider>
-                      <SelectedEnvironmentProvider>
-                        <MapTreeD />
-                      </SelectedEnvironmentProvider>
-                      <StatusBar />
-                    </Container>
+        <LanguageProvider>
+          <UserProvider>
+            <WalletProvider>
+              <FollowProvider>
+                <MapContextProvider>
+                  <AlertProvider>
+                    <BrowserRouter>
+                      <Routers />
+                      <Container>
+                        <MenuContextProvider>
+                          <Menu />
+                        </MenuContextProvider>
+                        <SelectedEnvironmentProvider>
+                          <MapTreeD />
+                        </SelectedEnvironmentProvider>
+                        <StatusBar />
+                      </Container>
 
-                    <Toaster
-                      containerStyle={{ zIndex: 100000, marginBottom: 48 }}
-                      position="bottom-right"
-                    />
-                  </BrowserRouter>
-                </AlertProvider>
-              </MapContextProvider>
-            </FollowProvider>
-          </WalletProvider>
-        </UserProvider>
+                      <Toaster
+                        containerStyle={{ zIndex: 100000, marginBottom: 48 }}
+                        position="bottom-right"
+                      />
+                    </BrowserRouter>
+                  </AlertProvider>
+                </MapContextProvider>
+              </FollowProvider>
+            </WalletProvider>
+          </UserProvider>
+        </LanguageProvider>
       </ThemeProviderContext>
     </MapProvider>
   );

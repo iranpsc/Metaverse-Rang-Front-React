@@ -6,6 +6,7 @@ import { RxLayout } from "react-icons/rx";
 
 import styled from "styled-components";
 import TextValueIcon from "../../../../Components/TextValueIcon";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const RowWrapper = styled.div`
   display: flex;
@@ -29,26 +30,46 @@ const SecondRow = ({ feature }) => {
   const second_row_info = [
     {
       id: 1,
-      title: "تراکم | طبقه",
+      title: getFieldTranslationByNames(
+        "property-information",
+        "density | floor"
+      ),
       value: feature?.properties?.density,
       icon: <HiOutlineBuildingOffice />,
     },
-    { id: 2, title: "پکیج ساخت", value: 10, icon: <LuPackageOpen /> },
+    {
+      id: 2,
+      title: getFieldTranslationByNames(
+        "property-information",
+        "build a package"
+      ),
+      value: 10,
+      icon: <LuPackageOpen />,
+    },
     {
       id: 3,
-      title: "مجوز ساخت",
+      title: getFieldTranslationByNames(
+        "property-information",
+        "building permits"
+      ),
       value: "آزاد",
       icon: <MdOutlinePlaylistAddCheckCircle />,
     },
     {
       id: 4,
-      title: "متراژ  |  متر مربع",
+      title: getFieldTranslationByNames(
+        "property-information",
+        "building permits"
+      ),
       value: feature?.properties?.area,
       icon: <RxLayout />,
     },
     {
       id: 5,
-      title: "سود ساعت شمار",
+      title: getFieldTranslationByNames(
+        "property-information",
+        "monthly profit"
+      ),
       value: (feature?.properties?.area * feature?.properties?.density) / 100,
       icon: <RiCloseCircleLine />,
     },

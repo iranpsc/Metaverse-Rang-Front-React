@@ -7,6 +7,7 @@ import TextValueIcon from "../../../../Components/TextValueIcon";
 import { COMBINE_FEATURE } from "../../../../Services/Constants/FeatureType";
 import { useContext } from "react";
 import { FeatureContext } from "../../Context/FeatureProvider";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const RowWrapper = styled.div`
   display: flex;
@@ -30,13 +31,16 @@ const FirstRow = ({ feature }) => {
   const first_row_info = [
     {
       id: 1,
-      title: "شناسه ملک",
+      title: getFieldTranslationByNames("property-information", "property id"),
       value: feature?.properties?.id,
       icon: <MdOutlineHome />,
     },
     {
       id: 2,
-      title: "صاحب ملک",
+      title: getFieldTranslationByNames(
+        "property-information",
+        "property owner"
+      ),
       value:
         feature?.properties?.owner === "rgb"
           ? "سیستم"
@@ -45,7 +49,7 @@ const FirstRow = ({ feature }) => {
     },
     {
       id: 3,
-      title: "وضعیت",
+      title: getFieldTranslationByNames("property-information", "condition"),
       value: COMBINE_FEATURE[feature?.properties?.rgb],
       icon: <BsCardChecklist />,
     },

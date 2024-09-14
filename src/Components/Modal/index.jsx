@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Header from "../Header/Header";
 import { useTranslation } from "react-i18next";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -48,7 +49,7 @@ const Modal = ({ children, title }) => {
   return (
     <Container>
       <ModalContainer>
-        <Header title={title} />
+        <Header title={getFieldTranslationByNames(title[0], title[1])} />
         {children}
       </ModalContainer>
     </Container>

@@ -9,7 +9,10 @@ export default function Feature() {
 
   return (
     <FeatureProvider id={id}>
-      <Modal type="modal-section-xl" title="اطلاعات VOD">
+      <Modal
+        type="modal-section-xl"
+        title={["property-information", "property information"]}
+      >
         <ConditionalPage />
       </Modal>
     </FeatureProvider>

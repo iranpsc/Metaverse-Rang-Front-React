@@ -57,12 +57,14 @@ const ProfitView = () => {
 
     Request(`hourly-profits?page=${page}`, HTTP_METHOD.GET)
       .then(({ data }) => {
-        const formattedData = data.data.map((item) => ({
-          ...item,
-          ...karbariMapping[item.karbari],
-        }));
+        const filteredData = data.data
+          .filter((item) => item.is_active)
+          .map((item) => ({
+            ...item,
+            ...karbariMapping[item.karbari],
+          }));
 
-        setCards((prevCards) => [...prevCards, ...formattedData]);
+        setCards((prevCards) => [...prevCards, ...filteredData]);
         setPage(data.meta.current_page + 1);
         setHasMore(data.links.next !== null);
 
@@ -163,4 +165,3 @@ const ProfitView = () => {
 };
 
 export default ProfitView;
-

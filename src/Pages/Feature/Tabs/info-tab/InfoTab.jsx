@@ -10,7 +10,7 @@ const RowsWrapper = styled.div`
   height: 65%;
   padding-right: 15px;
   padding-bottom: 20px !important;
-  direction: ltr;
+
   @media (min-width: 840px) {
     height: 65% !important;
   }
@@ -32,7 +32,6 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  direction: rtl;
 `;
 
 const InfoTab = () => {

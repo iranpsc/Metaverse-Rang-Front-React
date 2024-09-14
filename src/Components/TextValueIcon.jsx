@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { useLanguage } from "../Services/Reducers/LanguageContext";
 
 const Item = styled.div`
   border-radius: 5px;
   border: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   display: flex;
+  flex-direction: row;
   flex-grow: 1;
   align-items: center;
   overflow: hidden;
@@ -14,10 +16,10 @@ const Item = styled.div`
 const InfoIcon = styled.div`
   display: flex;
   align-items: center;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+
   gap: 10px;
-  border-left: 1px solid #454545;
+  border-left: ${(props) => (props.isPersian ? "1px solid #454545" : "none")};
+  border-right: ${(props) => (!props.isPersian ? "1px solid #454545" : "none")};
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.bgContainer};
   padding: 10px;
@@ -79,9 +81,10 @@ const TextValueIcon = ({
   smallValue,
   very_long,
 }) => {
+  const isPersian = useLanguage();
   return (
     <Item>
-      <InfoIcon>
+      <InfoIcon isPersian={isPersian}>
         {icon}
         <Title long={long}>{title}</Title>
       </InfoIcon>
