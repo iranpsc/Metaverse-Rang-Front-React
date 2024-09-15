@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import Title from "../../../../Components/Title";
 import SearchInput from "../../../Search/Components/SearchInput";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
-  direction: ltr;
   padding-right: 15px;
   padding-top: 20px;
   gap: 20px;
@@ -81,11 +81,16 @@ const Following = () => {
 
   return (
     <Container>
-      <div dir="rtl" style={{ marginBottom: "20px" }}>
-        <Title title="دنبال شوندگان" />
+      <div style={{ marginBottom: "20px" }}>
+        <Title
+          title={getFieldTranslationByNames("citizenship-account", "following")}
+        />
       </div>
       <SearchInput
-        placeholder="جستجو کنید..."
+        placeholder={getFieldTranslationByNames(
+          "citizenship-account",
+          "search"
+        )}
         value={searched}
         onchange={(e) => setSearched(e.target.value)}
       />

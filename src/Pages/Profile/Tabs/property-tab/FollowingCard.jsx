@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import DefaultProfile from "../../../../Assets/images/defulte-profile.png";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 const Button = styled.div`
   font-size: 16px;
   white-space: nowrap;
@@ -55,7 +56,7 @@ const Card = styled.div`
 `;
 const FollowingCard = ({ name, code, id, profile_photos }) => {
   const [follow, setFollow] = useState(true);
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request } = useRequest();
   const unFollowHandler = () => {
     Request(`unfollow/${id}`).then(() => {
       setFollow(false);
@@ -81,10 +82,13 @@ const FollowingCard = ({ name, code, id, profile_photos }) => {
       </Profile>
       {follow ? (
         <Button gray onClick={unFollowHandler}>
-          آنفالو کردن
+          {getFieldTranslationByNames("citizenship-account", "following")}
         </Button>
       ) : (
-        <Button onClick={onFollowHandler}>فالو کردن</Button>
+        <Button onClick={onFollowHandler}>
+          {" "}
+          {getFieldTranslationByNames("citizenship-account", "to follow")}
+        </Button>
       )}
     </Card>
   );

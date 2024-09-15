@@ -3,8 +3,12 @@ import pscpng from "../../../../Assets/gif/psc.gif";
 import rialpng from "../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
 import { useState } from "react";
-import { convertToPersian } from "../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 import Button from "../../../../Components/Button";
+import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
 
 const PhotoName = styled.div`
   display: flex;
@@ -128,7 +132,7 @@ const Right = styled.div`
 const Container = styled.div`
   display: grid;
   align-items: center;
-  direction: rtl;
+
   gap: 20px;
   grid-template-columns: 1fr;
   background-color: ${(props) =>
@@ -182,26 +186,35 @@ const CardItem = ({
             <img src={photo} />
           </ImageWrapper>
           <Name>
-            <h3>{name}</h3>
+            <h3>{getFieldTranslationByNames("citizenship-account", name)}</h3>
             <span>{id}</span>
           </Name>
         </PhotoName>
         <Address>
-          <span>آدرس</span>
+          <span>
+            {getFieldTranslationByNames("citizenship-account", "address")}
+          </span>
           <p data-tooltip-id={address}>{address}</p>
           <StyledTooltip id={address} place="top" content={address} />
         </Address>
       </Right>
       <Left>
         <Meter>
-          <span>متراژ</span>
+          <span>
+            {getFieldTranslationByNames(
+              "property-information",
+              "square meter area"
+            )}
+          </span>
           <p>{area}</p>
         </Meter>
         {isDeleted ? (
           <div />
         ) : (
           <Price>
-            <span>قیمت</span>
+            <span>
+              {getFieldTranslationByNames("citizenship-account", "price")}
+            </span>
             <Div>
               <div>
                 <img width={24} height={24} src={rialpng} />
@@ -215,9 +228,18 @@ const CardItem = ({
           </Price>
         )}
         {isDeleted ? (
-          <Button fit label="قیمت گذاری" onclick={() => setIsDeleted(false)} />
+          <Button
+            fit
+            label={getFieldTranslationByNames(
+              "property-information",
+              "pricing"
+            )}
+            onclick={() => setIsDeleted(false)}
+          />
         ) : (
-          <Delete onClick={() => setIsDeleted(true)}>حذف قیمت</Delete>
+          <Delete onClick={() => setIsDeleted(true)}>
+            {getFieldTranslationByNames("citizenship-account", "remove price")}
+          </Delete>
         )}
       </Left>
     </Container>

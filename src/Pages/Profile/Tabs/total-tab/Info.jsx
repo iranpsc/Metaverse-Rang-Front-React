@@ -9,6 +9,7 @@ import ButtonIcon from "../../../../Components/ButtonIcon";
 import useAuth from "../../../../Services/Hooks/useAuth";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 15px;
@@ -99,19 +100,26 @@ const Info = () => {
             {user?.code}
           </Code>
         </div>
-        <span>عضویت از: {user?.registered_at}</span>
+        <span>
+          {getFieldTranslationByNames("citizenship-account", "Membership from")}{" "}
+          {user?.registered_at}
+        </span>
       </Header>
       <Content>
         <Follow>
           <Count>{user?.followers_count}</Count>
-          <span>دنبال کننده</span>
+          <span>
+            {getFieldTranslationByNames("citizenship-account", "followers")}
+          </span>
         </Follow>
         <div
           style={{ height: "55px", width: "1px", backgroundColor: "#454545" }}
         />
         <Follow>
           <Count>{user?.following_count}</Count>
-          <span>دنبال شونده</span>
+          <span>
+            {getFieldTranslationByNames("citizenship-account", "following")}
+          </span>
         </Follow>
       </Content>
       <Buttons>
@@ -126,7 +134,7 @@ const Info = () => {
           <ButtonIcon
             grow
             icon={<LuShare2 />}
-            label="اشتراک گذاری"
+            label={getFieldTranslationByNames("citizenship-account", "sharing")}
             onclick={() => setOpenShare(true)}
           />
         </Upper>

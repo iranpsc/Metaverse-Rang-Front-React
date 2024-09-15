@@ -3,6 +3,7 @@ import DefaultProfile from "../../../../Assets/images/defulte-profile.png";
 import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Button = styled.div`
   font-size: 16px;
@@ -49,7 +50,7 @@ const Profile = styled.div`
 `;
 const Card = styled.div`
   display: flex;
-  direction: rtl;
+
   align-items: center;
   justify-content: space-between;
   background-color: ${(props) =>
@@ -141,17 +142,22 @@ const Follower = ({
       <Buttons>
         {follow ? (
           <Button onClick={unFollowHandler} gray>
-            آنفالو کردن
+            {getFieldTranslationByNames("citizenship-account", "unfollow")}
           </Button>
         ) : (
           <Container onClick={onFollowHandler}>
             <span>
               <TiUserAddOutline />
             </span>
-            <h3>دنبال کردن</h3>
+            <h3>
+              {" "}
+              {getFieldTranslationByNames("citizenship-account", "following")}
+            </h3>
           </Container>
         )}
-        <Button onClick={deleteHandler}>حذف کردن</Button>
+        <Button onClick={deleteHandler}>
+          {getFieldTranslationByNames("citizenship-account", "remove")}
+        </Button>
       </Buttons>
     </Card>
   );

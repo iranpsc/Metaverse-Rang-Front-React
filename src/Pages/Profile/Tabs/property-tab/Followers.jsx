@@ -5,9 +5,9 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
-  direction: ltr;
   padding-right: 15px;
   padding-top: 20px;
   overflow-y: auto;
@@ -73,11 +73,16 @@ const Followers = () => {
   console.log(followers);
   return (
     <Container>
-      <div dir="rtl" style={{ marginBottom: "20px" }}>
-        <Title title="پیروان" />
+      <div style={{ marginBottom: "20px" }}>
+        <Title
+          title={getFieldTranslationByNames("citizenship-account", "followers")}
+        />
       </div>
       <SearchInput
-        placeholder="جستجو کنید..."
+        placeholder={getFieldTranslationByNames(
+          "citizenship-account",
+          "search"
+        )}
         value={searched}
         onchange={(e) => setSearched(e.target.value)}
       />

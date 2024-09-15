@@ -8,11 +8,11 @@ import styled from "styled-components";
 import { useEffect, useState, useCallback } from "react";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const List = styled.div`
   display: flex;
   flex-direction: column;
-  direction: ltr;
   gap: 20px;
   padding-top: 20px;
 `;
@@ -20,7 +20,6 @@ const Container = styled.div`
   padding-bottom: 20px;
   padding-right: 15px;
   padding-top: 20px;
-  direction: ltr;
   overflow-y: auto;
   height: 226px;
   @media (min-width: 840px) {
@@ -119,7 +118,6 @@ const Select = styled.div`
 `;
 const Div = styled.div`
   display: grid;
-  direction: rtl;
   grid-template-columns: 1fr 1fr;
   margin-top: 20px;
   gap: 20px;
@@ -141,7 +139,6 @@ const Search = styled.div`
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   padding: 10px 12px;
   color: ${(props) => props.theme.colors.newColors.shades.title};
-  direction: rtl;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   display: grid;
@@ -166,7 +163,6 @@ const Search = styled.div`
 
 const Houses = () => {
   const [searched, setSearched] = useState("");
-  const [cards, setCards] = useState([]);
   const [open, setOpen] = useState(false);
   const [property, setProperty] = useState({
     industry: false,
@@ -189,7 +185,7 @@ const Houses = () => {
         if (feature.properties.karbari === "m") {
           newProperties = {
             ...newProperties,
-            name: "املاک مسکونی",
+            name: "residential property",
             photo: "/metaverse/src/Assets/images/house.png",
             color: "#ffc80021",
             slug: "house",
@@ -197,7 +193,7 @@ const Houses = () => {
         } else if (feature.properties.karbari === "t") {
           newProperties = {
             ...newProperties,
-            name: "ساختمان تجاری",
+            name: "commercial property",
             photo: "/metaverse/src/Assets/images/building.png",
             color: "#ff000021",
             slug: "industry",
@@ -205,7 +201,7 @@ const Houses = () => {
         } else if (feature.properties.karbari === "a") {
           newProperties = {
             ...newProperties,
-            name: "املاک آموزشی",
+            name: "educational property",
             photo: "/metaverse/src/Assets/images/courthouse.png",
             color: "#0066ff21",
             slug: "education",
@@ -264,15 +260,23 @@ const Houses = () => {
 
   return (
     <Container id="scrollable-container">
-      <div dir="rtl">
-        <Title title="املاک و مستغلات" />
+      <div>
+        <Title
+          title={getFieldTranslationByNames(
+            "citizenship-account",
+            "real estates"
+          )}
+        />
       </div>
       <Div>
         <Search>
           <FiSearch size={34} />
           <input
             type="text"
-            placeholder="جستجو کنید..."
+            placeholder={getFieldTranslationByNames(
+              "citizenship-account",
+              "search"
+            )}
             value={searched}
             onChange={(e) => setSearched(e.target.value)}
           />
@@ -280,12 +284,20 @@ const Houses = () => {
         <Wrapper>
           <Select onClick={() => setOpen(!open)}>
             <span>
-              املاک{" "}
               {property.industry
-                ? "تجاری"
+                ? getFieldTranslationByNames(
+                    "citizenship-account",
+                    "commercial property"
+                  )
                 : property.education
-                ? "آمورشی  "
-                : "مسکونی"}
+                ? getFieldTranslationByNames(
+                    "citizenship-account",
+                    "educational property"
+                  )
+                : getFieldTranslationByNames(
+                    "citizenship-account",
+                    "residential property"
+                  )}
             </span>
             <MdKeyboardArrowDown
               style={{
@@ -305,7 +317,12 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>املاک تجاری</h1>
+                <h1>
+                  {getFieldTranslationByNames(
+                    "citizenship-account",
+                    "commercial property"
+                  )}
+                </h1>
                 {property.industry && (
                   <span
                     onClick={(e) => {
@@ -328,7 +345,12 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>املاک آموزشی</h1>
+                <h1>
+                  {getFieldTranslationByNames(
+                    "citizenship-account",
+                    "educational property"
+                  )}
+                </h1>
                 {property.education && (
                   <span
                     onClick={(e) => {
@@ -354,7 +376,12 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>املاک مسکونی</h1>
+                <h1>
+                  {getFieldTranslationByNames(
+                    "citizenship-account",
+                    "residential property"
+                  )}
+                </h1>
                 {property.house && (
                   <span
                     onClick={(e) => {

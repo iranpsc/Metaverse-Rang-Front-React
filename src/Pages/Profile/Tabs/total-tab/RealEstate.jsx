@@ -7,6 +7,8 @@ import styled from "styled-components";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
+import { WalletContext } from "../../../../Services/Reducers/WalletContext";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   display: grid;
@@ -17,6 +19,7 @@ const Container = styled.div`
 const RealEstate = () => {
   const [assets, setAssets] = useState({});
   const { Request, HTTP_METHOD } = useRequest();
+  const [wallet] = useContext(WalletContext);
   const [user] = useContext(UserContext);
   useEffect(() => {
     Request(
@@ -30,23 +33,37 @@ const RealEstate = () => {
     });
   }, []);
   const properties = [
-    { id: 1, image: property1, label: "رضایت", value: "۰.۲ رضایت" },
+    {
+      id: 1,
+      image: property1,
+      label: getFieldTranslationByNames("citizenship-account", "satisfaction"),
+      value: wallet?.effect,
+    },
     {
       id: 2,
       image: property2,
-      label: "املاک تجاری",
+      label: getFieldTranslationByNames(
+        "citizenship-account",
+        "commercial property"
+      ),
       value: assets?.tejari_features_count,
     },
     {
       id: 3,
       image: property3,
-      label: "املاک مسکونی",
+      label: getFieldTranslationByNames(
+        "citizenship-account",
+        "residential property"
+      ),
       value: assets?.maskoni_features_count,
     },
     {
       id: 4,
       image: property4,
-      label: "املاک آموزشی",
+      label: getFieldTranslationByNames(
+        "citizenship-account",
+        "educational property"
+      ),
       value: assets?.amoozeshi_features_count,
     },
   ];

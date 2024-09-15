@@ -2,7 +2,6 @@ import Slider from "./Slider";
 import styled from "styled-components";
 
 const Container = styled.div`
-  direction: rtl;
   overflow: hidden;
   height: 317px;
   @media (min-width: 740px) {

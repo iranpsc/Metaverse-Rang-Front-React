@@ -13,15 +13,21 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const icons = [
-  { id: 1, slug: "share", label: "اشتراک گذاری", icon: <FiShare2 /> },
-  { id: 2, slug: "user", label: "دنبال کردن", icon: <RiUserForbidLine /> },
-  { id: 3, slug: "comment", label: "ارسال پیام", icon: <BiMessageDetail /> },
-  { id: 4, slug: "pic", label: "مشاهده تصاویر", icon: <CiImageOn /> },
-  { id: 5, slug: "location", label: "پیام صوتی", icon: <FaEarDeaf /> },
-  { id: 6, slug: "email", label: "ارسال سند", icon: <MdOutlineMailOutline /> },
-  { id: 7, slug: "sound", label: "مکالمه صوتی", icon: <BiVolumeMute /> },
+  { id: 1, slug: "share", label: "sharing", icon: <FiShare2 /> },
+  { id: 2, slug: "user", label: "to follow", icon: <RiUserForbidLine /> },
+  { id: 3, slug: "comment", label: "send message", icon: <BiMessageDetail /> },
+  { id: 4, slug: "pic", label: "view images", icon: <CiImageOn /> },
+  { id: 5, slug: "location", label: "voice message", icon: <FaEarDeaf /> },
+  {
+    id: 6,
+    slug: "email",
+    label: "send the document",
+    icon: <MdOutlineMailOutline />,
+  },
+  { id: 7, slug: "sound", label: "voice conversation", icon: <BiVolumeMute /> },
   { id: 8, slug: "message", label: "", icon: <BiMessageSquareDetail /> },
   { id: 9, slug: "record", label: "", icon: <FaCircle /> },
 ];
@@ -142,7 +148,9 @@ const RestrictUser = () => {
 
   return (
     <Container>
-      <Title>محدود کردن کاربر</Title>
+      <Title>
+        {getFieldTranslationByNames("citizenship-account", "limitation")}
+      </Title>
       <Icons>
         {icons.map((icon) => (
           <div key={icon.id}>
@@ -153,7 +161,14 @@ const RestrictUser = () => {
             >
               {icon.icon}
             </IconWrapper>
-            <ReactTooltip id={icon.slug} place="top" content={icon.label} />
+            <ReactTooltip
+              id={icon.slug}
+              place="top"
+              content={getFieldTranslationByNames(
+                "citizenship-account",
+                icon.label
+              )}
+            />
           </div>
         ))}
       </Icons>

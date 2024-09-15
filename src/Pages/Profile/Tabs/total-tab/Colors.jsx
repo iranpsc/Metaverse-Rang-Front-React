@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { WalletContext } from "../../../../Services/Reducers/WalletContext";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   display: grid;
@@ -21,12 +22,42 @@ const Container = styled.div`
 const Colors = () => {
   const [wallet] = useContext(WalletContext);
   const colors = [
-    { id: 1, gif: gif1, label: "حد تاثیر", value: wallet?.effect },
-    { id: 2, gif: gif2, label: "رنگ زرد", value: wallet?.yellow },
-    { id: 3, gif: gif3, label: "رنگ قرمز", value: wallet?.red },
-    { id: 4, gif: gif4, label: "رنگ آبی", value: wallet?.blue },
-    { id: 5, gif: gif5, label: "ریال", value: wallet?.irr },
-    { id: 6, gif: gif6, label: "PSC", value: wallet?.psc },
+    {
+      id: 1,
+      gif: gif1,
+      label: getFieldTranslationByNames("citizenship-account", "satisfaction"),
+      value: wallet?.effect,
+    },
+    {
+      id: 2,
+      gif: gif2,
+      label: getFieldTranslationByNames("citizenship-account", "yellow color"),
+      value: wallet?.yellow,
+    },
+    {
+      id: 3,
+      gif: gif3,
+      label: getFieldTranslationByNames("citizenship-account", "get red color"),
+      value: wallet?.red,
+    },
+    {
+      id: 4,
+      gif: gif4,
+      label: getFieldTranslationByNames("citizenship-account", "blue color"),
+      value: wallet?.blue,
+    },
+    {
+      id: 5,
+      gif: gif5,
+      label: getFieldTranslationByNames("citizenship-account", "rial"),
+      value: wallet?.irr,
+    },
+    {
+      id: 6,
+      gif: gif6,
+      label: getFieldTranslationByNames("citizenship-account", "psc"),
+      value: wallet?.psc,
+    },
   ];
   return (
     <Container>
