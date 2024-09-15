@@ -11,6 +11,7 @@ import Education from "../Education/Education";
 import useAdviserData from "../../Services/Hooks/useAdviserData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const HelpIcon = styled(Help)`
   width: 40px;
@@ -147,7 +148,7 @@ const Header = ({ title, long, loading, profile }) => {
   };
   return (
     <HeaderWrapper>
-      <Text long={long}>{title}</Text>
+      <Text long={long}>{getFieldTranslationByNames(title[0], title[1])}</Text>
       <Icons>
         {loading && (
           <FullWrapper>

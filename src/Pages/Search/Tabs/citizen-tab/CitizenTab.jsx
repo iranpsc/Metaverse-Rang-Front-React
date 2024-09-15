@@ -5,6 +5,7 @@ import { useState, useCallback } from "react";
 
 import SearchInput from "../../Components/SearchInput";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,7 +18,6 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  direction: ltr;
   padding: 20px 15px 20px 0;
   height: 240px;
   overflow-y: auto;
@@ -82,13 +82,21 @@ const CitizenTab = () => {
       <SearchInput
         onchange={(e) => setSearched(e.target.value)}
         value={searched}
-        placeholder="شناسه شهروند یا نام را جستجو کنید"
+        placeholder={getFieldTranslationByNames(
+          "search-in-metarang",
+          "search for citizen name or id"
+        )}
         onSearch={searchHandler} // New prop to handle the search trigger
       />
       {isLoading ? (
         <P>درحال دریافت اطلاعات</P>
       ) : data.length === 0 ? (
-        <P>اطلاعات موجود نمی باشد جستجو کنید</P>
+        <P>
+          {getFieldTranslationByNames(
+            "search-in-metarang",
+            "there is no information, search"
+          )}
+        </P>
       ) : (
         <Wrapper>
           {data.map((item, i) => (

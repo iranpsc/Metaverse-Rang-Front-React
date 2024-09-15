@@ -9,6 +9,7 @@ import { FollowContext } from "../../../../Services/Reducers/FollowContext";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const IconWrapper = styled.div`
   width: 36px;
@@ -65,16 +66,23 @@ const Buttons = ({ user }) => {
     {
       id: 1,
       icon: isFollowed ? <RiUserUnfollowLine /> : <TiUserAddOutline />,
-      label: isFollowed ? "لغو درخواست" : "درخواست دوستی",
+      label: isFollowed
+        ? getFieldTranslationByNames("search-in-metarang", "friend request")
+        : getFieldTranslationByNames("search-in-metarang", "friend request"),
       onClick: isFollowed
         ? () => onUnFollowHandler(user?.id)
         : () => onFollowHandler(user?.id),
     },
-    { id: 2, icon: <BiCommentDots />, label: "چت آنلاین", onClick: () => {} },
+    {
+      id: 2,
+      icon: <BiCommentDots />,
+      label: getFieldTranslationByNames("search-in-metarang", "online chat"),
+      onClick: () => {},
+    },
     {
       id: 3,
       icon: <MdOutlineMailOutline />,
-      label: "ارسال پیام",
+      label: getFieldTranslationByNames("search-in-metarang", "send message"),
       onClick: () =>
         Navigate("/metaverse/sanad", {
           state: { code: user?.code, user: user?.id },

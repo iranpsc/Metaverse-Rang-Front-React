@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import useRequest from "../../Services/Hooks/useRequest";
 import { setItem } from "../../Services/Utility/LocalStorage";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Codes = styled.div`
   display: flex;
@@ -258,8 +259,15 @@ const SecondStep = ({ setStep, time }) => {
 
   return (
     <Container>
-      <h3>تایید حساب</h3>
-      <p>کد ۶ رقمی را وارد کنید.</p>
+      <h3>
+        {getFieldTranslationByNames("account-security", "account verification")}
+      </h3>
+      <p>
+        {getFieldTranslationByNames(
+          "account-security",
+          "enter the 6-digit code sent to the"
+        )}
+      </p>
       <Codes>
         {[...Array(6)].map((_, index) => (
           <input
@@ -281,13 +289,18 @@ const SecondStep = ({ setStep, time }) => {
             .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])}
         </h4>
         {timer !== 0 ? (
-          <span>تا ارسال مجدد کد</span>
+          <span>
+            {getFieldTranslationByNames(
+              "account-security",
+              "until resend the code"
+            )}
+          </span>
         ) : (
           <h2 onClick={resetHandler}>ارسال مجدد کد</h2>
         )}
       </div>
       <button disabled={!allValuesNotEmpty} onClick={nextStep}>
-        ادامه
+        {getFieldTranslationByNames("account-security", "continue")}
       </button>
     </Container>
   );

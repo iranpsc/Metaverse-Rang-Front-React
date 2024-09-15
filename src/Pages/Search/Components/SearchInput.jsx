@@ -8,7 +8,6 @@ const Container = styled.div`
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   padding: 10px 12px;
 
-  direction: rtl;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   display: grid;

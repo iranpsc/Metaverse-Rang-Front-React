@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import styled from "styled-components";
 import useRequest from "../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   margin-top: 20px;
@@ -46,7 +47,7 @@ const Div = styled.div`
   position: relative;
   div {
     position: absolute;
-    left: 10px;
+    left: 2px;
     top: 28px;
     display: flex;
     flex-direction: column;
@@ -94,8 +95,13 @@ const FirstStep = ({ setStep, time, setTime }) => {
 
   return (
     <Container>
-      <h3>مدت زمان</h3>
-      <p>مدت زمانی که میخواهید کیف پولتان خاموش بماند.</p>
+      <h3>{getFieldTranslationByNames("account-security", "duration")}</h3>
+      <p>
+        {getFieldTranslationByNames(
+          "account-security",
+          "how long you want your wallet security lock to be off"
+        )}
+      </p>
       <Div>
         <div>
           <Up onClick={() => setTime((prev) => +prev + 1)}>
@@ -117,7 +123,10 @@ const FirstStep = ({ setStep, time, setTime }) => {
           onChange={(e) => setTime(e.target.value)}
           type="number"
           name="time"
-          placeholder="مدت زمان"
+          placeholder={getFieldTranslationByNames(
+            "account-security",
+            "duration"
+          )}
           maxLength={3}
           min={0}
           max={200}
@@ -133,9 +142,13 @@ const FirstStep = ({ setStep, time, setTime }) => {
             maxLength={11}
           />
         )}
-        {time !== "" && <Min>دقیقه</Min>}
+        {time !== "" && (
+          <Min>{getFieldTranslationByNames("account-security", "minutes")}</Min>
+        )}
       </Div>
-      <button onClick={onSendHandler}>ادامه</button>
+      <button onClick={onSendHandler}>
+        {getFieldTranslationByNames("account-security", "continue")}
+      </button>
     </Container>
   );
 };

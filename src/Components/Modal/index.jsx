@@ -45,11 +45,10 @@ const Container = styled.div`
   z-index: 10;
 `;
 const Modal = ({ children, title }) => {
-  console.log(useTranslation());
   return (
     <Container>
       <ModalContainer>
-        <Header title={getFieldTranslationByNames(title[0], title[1])} />
+        <Header title={title} />
         {children}
       </ModalContainer>
     </Container>

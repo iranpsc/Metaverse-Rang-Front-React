@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   p {
@@ -82,15 +83,21 @@ const ThirdStep = ({ setStep, time }) => {
   return (
     <Container>
       <Div>
-        <h3>زمان باقی مانده</h3>
+        <h3>
+          {getFieldTranslationByNames("account-security", "time remaining")}
+        </h3>
         <h4>
-          {formatTime(timer)
-            .toLocaleString()
-            .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])}{" "}
-          دقیقه
+          {formatTime(timer).toLocaleString()}
+          {getFieldTranslationByNames("account-security", "minutes")}
         </h4>
       </Div>
-      <p onClick={() => setStep(1)}>میخوام زمانم را بیشتر کنم!</p>
+      <p onClick={() => setStep(1)}>
+        {" "}
+        {getFieldTranslationByNames(
+          "account-security",
+          "i want to increase the time"
+        )}
+      </p>
     </Container>
   );
 };

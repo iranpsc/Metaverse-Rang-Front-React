@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -22,9 +23,21 @@ const Container = styled.div`
 `;
 const Info = ({ user }) => {
   const items = [
-    { id: 1, title: "سطح", value: user?.level },
-    { id: 2, title: "پیروان", value: user?.followers },
-    { id: 3, title: "اتحاد", value: "-" },
+    {
+      id: 1,
+      title: getFieldTranslationByNames("citizenship-account", "level"),
+      value: user?.level,
+    },
+    {
+      id: 2,
+      title: getFieldTranslationByNames("search-in-metarang", "followers"),
+      value: user?.followers,
+    },
+    {
+      id: 3,
+      title: getFieldTranslationByNames("search-in-metarang", "unity"),
+      value: "-",
+    },
   ];
   return (
     <Container>
