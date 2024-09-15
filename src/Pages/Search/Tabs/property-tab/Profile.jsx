@@ -1,6 +1,7 @@
 import { LuBuilding2 } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +41,9 @@ const Profile = ({ item }) => {
         <LuBuilding2 size={30} />
       </IconWrapper>
       <Info>
-        <h2>شناسه VOD</h2>
+        <h2>
+          {getFieldTranslationByNames("search-in-metarang", "property id")}
+        </h2>
         <p onClick={() => Navigate(`/metaverse/feature/${item?.id}`)}>
           {item?.feature_properties_id}
         </p>

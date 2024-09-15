@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useCallback, useState } from "react";
 import SearchInput from "../../Components/SearchInput";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Wrapper = styled.div`
   display: flex;
@@ -80,13 +81,21 @@ const PropertyTab = () => {
       <SearchInput
         onchange={(e) => setSearched(e.target.value)}
         value={searched}
-        placeholder="شناسه ملک یا آدرس را جستجو کنید"
+        placeholder={getFieldTranslationByNames(
+          "search-in-metarang",
+          "search for property address or id"
+        )}
         onSearch={searchHandler} // New prop to handle the search trigger
       />
       {isLoading ? (
         <P>درحال دریافت اطلاعات</P>
       ) : data.length === 0 ? (
-        <P>اطلاعات موجود نمی باشد جستجو کنید</P>
+        <P>
+          {getFieldTranslationByNames(
+            "search-in-metarang",
+            "there is no information, search"
+          )}
+        </P>
       ) : (
         <Wrapper>
           {data.map((item, i) => (

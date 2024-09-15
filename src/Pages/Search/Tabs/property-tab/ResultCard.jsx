@@ -6,7 +6,6 @@ const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.bgContainer};
   border-radius: 5px;
-  direction: rtl;
   padding: 20px;
   hr {
     height: 1.5px;

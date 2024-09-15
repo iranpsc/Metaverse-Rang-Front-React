@@ -7,6 +7,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { useMap } from "react-map-gl";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const IconWrapper = styled.div`
   border-radius: 60px;
@@ -146,7 +147,7 @@ const Buttons = ({ item }) => {
   const items = [
     {
       id: 1,
-      label: "خرید",
+      label: getFieldTranslationByNames("search-in-metarang", "buy"),
       icon: <LuShoppingCart />,
       onClick: () =>
         Navigate(`/metaverse/feature/${item?.id}`, {
@@ -155,7 +156,7 @@ const Buttons = ({ item }) => {
     },
     {
       id: 2,
-      label: "پیشنهاد",
+      label: getFieldTranslationByNames("search-in-metarang", "suggested"),
       icon: <HiOutlineCurrencyDollar />,
       onClick: () => {
         Navigate(`/metaverse/feature/${item?.id}`, {
@@ -165,7 +166,7 @@ const Buttons = ({ item }) => {
     },
     {
       id: 3,
-      label: "لوکیشن",
+      label: getFieldTranslationByNames("search-in-metarang", "location"),
       icon: <HiOutlineLocationMarker />,
       onClick: () => {
         flyToPosition({

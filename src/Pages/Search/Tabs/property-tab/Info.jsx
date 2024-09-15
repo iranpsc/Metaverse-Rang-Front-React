@@ -1,6 +1,7 @@
 import psc from "../../../../Assets/gif/psc.gif";
 import rial from "../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -43,12 +44,27 @@ const Info = ({ item }) => {
   const items = [
     {
       id: 1,
-      title: "آدرس vod",
+      title: getFieldTranslationByNames(
+        "search-in-metarang",
+        "property address"
+      ),
       value: item?.address,
     },
-    { id: 2, title: "شناسه مالک", value: item?.owner_code },
-    { id: 3, title: "قیمت گذاری (PSC)", value: item?.price_psc },
-    { id: 4, title: "قیمت گذاری (ریال)", value: item?.price_irr },
+    {
+      id: 2,
+      title: getFieldTranslationByNames("search-in-metarang", "owner id"),
+      value: item?.owner_code,
+    },
+    {
+      id: 3,
+      title: getFieldTranslationByNames("search-in-metarang", "psc pricing"),
+      value: item?.price_psc,
+    },
+    {
+      id: 4,
+      title: getFieldTranslationByNames("search-in-metarang", "irr pricing"),
+      value: item?.price_irr,
+    },
   ];
   return (
     <Container>
@@ -75,16 +91,16 @@ const Info = ({ item }) => {
               />
             )}
           </div>
-          {item.id === 1 && <h2 dir="ltr">{item.value}</h2>}
+          {item.id === 1 && <h2>{item.value}</h2>}
           {item.id === 3 && (
-            <h2 dir="ltr">
+            <h2>
               {item.value >= 1000000
                 ? `${Math.floor(item.value / 1000000)}M`
                 : `${Math.floor(item.value / 1000)}K`}
             </h2>
           )}
           {item.id === 4 && (
-            <h2 dir="ltr">
+            <h2>
               {item.value >= 1000000
                 ? `${Math.floor(item.value / 1000000)}M`
                 : `${Math.floor(item.value / 1000)}K`}
