@@ -2,7 +2,10 @@ import ConfettiExplosion from "react-confetti-explosion";
 
 import styled from "styled-components";
 import { useState } from "react";
-import { convertToPersian } from "../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../Services/Utility";
 
 const Card = styled.div`
   border-radius: 5px;
@@ -118,7 +121,11 @@ const ProfitCard = ({
         </Value>
       </Content>
       <Footer>
-        آخرین زمان جمع آوری: <h4>{dead_line}</h4>{" "}
+        {getFieldTranslationByNames(
+          "hour-meter-profit",
+          "last collection time :"
+        )}
+        <h4>{dead_line}</h4>
       </Footer>
     </Card>
   );

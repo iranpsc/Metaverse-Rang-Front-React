@@ -18,7 +18,6 @@ const BackGround = styled.div`
 const Modal = styled.div`
   border-radius: 10px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-  direction: ltr;
   overflow-y: auto;
   padding: 20px;
   max-width: 680px;
@@ -56,7 +55,6 @@ const Info = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-weight: 400;
   text-align: justify;
-  direction: rtl;
   margin: 20px 0;
   font-size: 16px;
 `;

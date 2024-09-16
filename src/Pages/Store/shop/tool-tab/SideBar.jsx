@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
-  direction: ltr;
   overflow-y: auto;
   padding-right: 10px;
   height: 18rem;
@@ -35,7 +35,7 @@ const Option = styled.h2`
   padding: 15px 20px;
   white-space: nowrap;
   cursor: pointer;
-  direction: rtl;
+
   color: ${(props) =>
     props.option
       ? props.theme.colors.primary
@@ -45,7 +45,7 @@ const Option = styled.h2`
       ? `2px solid ${props.theme.colors.primary}`
       : "2px solid transparent"};
   @media (max-width: 850px) {
-    font-size: 16px;
+    font-size: 15px;
   }
 `;
 const SideBar = ({ tools, option, setOption }) => {
@@ -58,11 +58,9 @@ const SideBar = ({ tools, option, setOption }) => {
             onClick={() => setOption(item.id)}
             key={item.id}
           >
-            بسته
-            {item.number
-              .toLocaleString()
-              .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])}{" "}
-            عددی
+            {getFieldTranslationByNames("store", "pack of")}
+            {item.number.toLocaleString()}
+            {getFieldTranslationByNames("store", "pieces")}
           </Option>
         ))}
       </Wrapper>

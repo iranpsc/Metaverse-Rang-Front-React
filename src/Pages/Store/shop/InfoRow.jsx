@@ -13,7 +13,6 @@ const Wrapper = styled.div`
   border-radius: 5px;
   padding: 10px;
   padding-left: 20px;
-  direction: rtl;
   display: flex;
   align-items: center;
   justify-content: space-between;

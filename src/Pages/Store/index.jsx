@@ -5,17 +5,24 @@ import ToolTab from "./shop/tool-tab/ToolTab";
 import CurrencyTab from "./shop/currency-tab/CurrencyTab";
 import ShopInfo from "./shop/ShopInfo";
 import Modal from "../../Components/Modal/index";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 export default function Store() {
   const tabs = [
-    { title: "ابزار ها", content: <ToolTab /> },
-    { title: "ارز ها", content: <CurrencyTab /> },
+    {
+      title: getFieldTranslationByNames("store", "tools"),
+      content: <ToolTab />,
+    },
+    {
+      title: getFieldTranslationByNames("store", "currencies"),
+      content: <CurrencyTab />,
+    },
   ];
 
   const TabPanel = useTabs(tabs);
 
   return (
-    <Modal title="فروشگاه">
+    <Modal title={["store", "store"]}>
       {TabPanel}
       <ShopInfo />
     </Modal>

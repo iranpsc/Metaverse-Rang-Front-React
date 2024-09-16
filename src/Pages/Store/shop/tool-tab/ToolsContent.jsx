@@ -8,7 +8,6 @@ import useRequest from "../../../../Services/Hooks/useRequest";
 import { ScaleLoader } from "react-spinners";
 
 const Container = styled.div`
-  direction: ltr;
   text-align: right;
   padding: 20px 15px 0 0;
   height: 70% !important;

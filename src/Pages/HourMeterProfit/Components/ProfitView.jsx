@@ -6,19 +6,18 @@ import education from "../../../Assets/images/courthouse.png";
 import house from "../../../Assets/images/house.png";
 import styled from "styled-components";
 import useRequest from "../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const Scroll = styled.div`
   padding: 30px 15px 20px;
   overflow-y: auto;
   height: calc(100% - 115px);
-  direction: ltr;
   @media (min-width: 1024px) {
     height: calc(100% - 170px);
   }
 `;
 
 const Buttons = styled.div`
-  direction: rtl;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -33,19 +32,28 @@ const ProfitView = () => {
 
   const karbariMapping = {
     m: {
-      title: "ملک مسکونی",
+      title: getFieldTranslationByNames(
+        "hour-meter-profit",
+        "residential property"
+      ),
       logo: house,
       color: "#FFC700",
       background: "#ffc80021",
     },
     t: {
-      title: "ملک تجاری",
+      title: getFieldTranslationByNames(
+        "hour-meter-profit",
+        "commercial property"
+      ),
       logo: building,
       color: "#FF0000",
       background: "#ff000021",
     },
     a: {
-      title: "ملک آموزشی",
+      title: getFieldTranslationByNames(
+        "hour-meter-profit",
+        "educational property"
+      ),
       logo: education,
       color: "#0066FF",
       background: "#0066ff21",
@@ -71,21 +79,30 @@ const ProfitView = () => {
         setButtons([
           {
             id: 1,
-            title: "سود املاک تجاری",
+            title: getFieldTranslationByNames(
+              "hour-meter-profit",
+              "commercial real estate profits"
+            ),
             logo: building,
             value: parseFloat(data.additional.total_tejari_profit),
             color: "#FF0000",
           },
           {
             id: 2,
-            title: "سود املاک مسکونی",
+            title: getFieldTranslationByNames(
+              "hour-meter-profit",
+              "residential property interest"
+            ),
             logo: house,
             value: parseFloat(data.additional.total_maskoni_profit),
             color: "#FFC700",
           },
           {
             id: 3,
-            title: " سود املاک آموزشی",
+            title: getFieldTranslationByNames(
+              "hour-meter-profit",
+              "educational property interest"
+            ),
             logo: education,
             value: parseFloat(data.additional.total_amozeshi_profit),
             color: "#0066FF",

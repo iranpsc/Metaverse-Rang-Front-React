@@ -36,12 +36,11 @@ export const Item = styled.div`
   position: relative;
 
   & > p {
-    direction: rtl;
     font-size: 18px;
     font-weight: bold;
     color: #666;
   }
-  
+
   & .store-help {
     font-size: 30px;
     position: absolute;
@@ -68,6 +67,5 @@ export const Button = styled.button`
   --bs-text-opacity: 1;
   color: rgba(var(--bs-light-rgb), var(--bs-text-opacity)) !important;
   padding: 8px 24px 8px 24px;
-  direction: rtl;
   font-size: 18px;
 `;
