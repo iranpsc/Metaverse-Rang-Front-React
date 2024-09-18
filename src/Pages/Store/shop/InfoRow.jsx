@@ -8,6 +8,7 @@ import InfoModal from "./InfoModal";
 import TitleValue from "./TitleValue";
 import { addCommas } from "@persian-tools/persian-tools";
 import useRequest from "../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const Wrapper = styled.div`
   border-radius: 5px;
@@ -67,7 +68,7 @@ const PhotoContainer = styled.div`
   }
 `;
 
-const InfoRow = ({ data, type, shop }) => {
+const InfoRow = ({ data, type, shop, title }) => {
   const [openModal, setOpenModal] = useState(false);
   const { setAlert } = useContext(AlertContext);
   const buyHandler = () => {
@@ -94,37 +95,32 @@ const InfoRow = ({ data, type, shop }) => {
               <div />
               <BsExclamationCircleFill onClick={() => setOpenModal(true)} />
             </IconWrapper>
-            <img
-              width={54}
-              height={54}
-              loading="lazy"
-              alt={data.image}
-              src={data.image}
-            />
+            <img width={54} height={54} alt={data.image} src={data.image} />
           </PhotoContainer>
           <TitleValue
             shop={shop}
-            title={`نوع ${type}`}
+            title={` ${getFieldTranslationByNames("store", "type of tool")}`}
             value={`${type === "ابزار" ? "رنگ" : ""} ${data.asset}`}
           />
         </div>
         <TitleValue
           shop={shop}
-          title={`تعداد ${type}`}
-          value={`${data.amount
-            .toLocaleString()
-            .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])} عدد`}
+          title={` ${getFieldTranslationByNames("store", "number of tools")}`}
+          value={`${data.amount.toLocaleString()} ${getFieldTranslationByNames(
+            "store",
+            "number"
+          )}`}
         />
         <TitleValue
           shop={shop}
-          title="مبلغ(تومان)"
-          value={`${addCommas((data.amount * data.unitPrice) / 10)
-            .toLocaleString()
-            .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])} تومان`}
+          title={`${getFieldTranslationByNames("store", "amount")}`}
+          value={`${addCommas(
+            (data.amount * data.unitPrice) / 10
+          ).toLocaleString()} ${getFieldTranslationByNames("store", "toman")}`}
         />
         <Button
           row
-          label="خرید"
+          label={getFieldTranslationByNames("store", "buy")}
           onclick={() => {
             paymentHandler(data.asset, data.amount);
           }}

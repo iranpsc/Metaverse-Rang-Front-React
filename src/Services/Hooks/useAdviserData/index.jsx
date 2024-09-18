@@ -60,10 +60,6 @@ const useAdviserData = (newStr, locationState) => {
       urlRequest: "dynasty",
       adviserPage: "family-members-desktop",
     },
-    "search-1": {
-      urlRequest: "dynasty",
-      adviserPage: "family-members-desktop",
-    },
     "dynasty-4": {
       urlRequest: "dynasty",
       adviserPage: "establishment-desktop",

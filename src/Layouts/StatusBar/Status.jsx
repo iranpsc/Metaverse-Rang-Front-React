@@ -42,41 +42,46 @@ const Status = () => {
     return "12px";
   };
 
-  useEffect(() => {
-    const getPing = async () => {
-      try {
-        const startTime = new Date().getTime();
-        const response = await fetch("https://rgb.irpsc.com/metaverse");
-        const endTime = new Date().getTime();
-        const pingTime = endTime - startTime;
-
-        if (response.ok) {
-          setPing(pingTime);
-        } else {
-          console.error("Error in fetching the data:", response.status);
+  // Function to calculate ping to a website
+  const measurePing = async () => {
+    const startTime = Date.now();
+    try {
+      await fetch(
+        "https://middle.irpsc.com/app/?url=https://rgb.irpsc.com/metaverse/",
+        {
+          method: "HEAD",
         }
-      } catch (error) {
-        console.error("Error in fetching the data:", error);
-      }
-    };
-
-    const interval = setInterval(getPing, 7000);
-
-    return () => clearInterval(interval);
-  }, []);
+      ); // Replace with your URL
+      const endTime = Date.now();
+      const pingTime = endTime - startTime;
+      setPing(pingTime);
+    } catch (error) {
+      console.error("Error fetching site:", error);
+      setPing(-1); // Indicating error in fetching
+    }
+  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const clockInterval = setInterval(() => {
       setClock(new Date().toLocaleTimeString().split(" ")[0]);
     }, 1000);
 
-    return () => clearInterval(interval);
+    const pingInterval = setInterval(() => {
+      measurePing();
+    }, 5000); // Measure ping every 5 seconds
+
+    return () => {
+      clearInterval(clockInterval);
+      clearInterval(pingInterval);
+    };
   }, []);
 
   return (
     <>
       <Watch>{clock}</Watch>
-      <Ping size={calculateFontSize(ping)}>{`${ping}ms`}</Ping>
+      <Ping size={calculateFontSize(ping)}>
+        {ping >= 0 ? `${ping} ms` : "Error"}
+      </Ping>
     </>
   );
 };
