@@ -11,6 +11,22 @@
   background-color: #0000009e;
 }
 
+.modal-preview-base {
+  top: 0;
+  position: fixed;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  background-color: #0000009e;
+  left: 0;
+}
+
+
+
 .modal-section {
   background: #F9F9F9;
   padding: 10px;
@@ -48,7 +64,7 @@
 }
 
 .modal-section-xl {
-  width: 90% !important;
+  width: 85% !important;
 }
 
 .modal-icon {

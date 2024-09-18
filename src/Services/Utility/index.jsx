@@ -40,6 +40,22 @@ export const calculateFee = (number = 100, percent = 5) => {
   const parseNumber = parseInt(number);
   return (parseNumber * percent) / 100 + parseNumber;
 };
+export const convertPersianNumbersToEnglish = (text) => {
+  const persianToEnglishMap = {
+    "۰": "0",
+    "۱": "1",
+    "۲": "2",
+    "۳": "3",
+    "۴": "4",
+    "۵": "5",
+    "۶": "6",
+    "۷": "7",
+    "۸": "8",
+    "۹": "9",
+  };
+
+  return text.replace(/[۰۱۲۳۴۵۶۷۸۹]/g, (match) => persianToEnglishMap[match]);
+};
 
 export const persianNumbers = [
     /۰/g,
@@ -62,7 +78,9 @@ export const persianNumbers = [
     }
     return str;
   };
-
+export const convertToPersian = (number) => {
+  return number.toLocaleString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+};
 export const ToastError = (message) => {
   return toast.error(message, {
     style: {
@@ -108,8 +126,9 @@ export const getFieldTranslationByNames = (modalName, fieldName) => {
   }
 
   // Return a default translation or handle missing translations as needed
-  return "Translation not found";
+  return " not found";
 };
+
 export function convertEnglishToPersianNumbers(inputText) {
   const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];

@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom"; // Import useNavigate
 import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import "./App.css";
@@ -13,11 +13,16 @@ import WalletProvider from "./Services/Reducers/WalletContext";
 import FollowProvider from "./Services/Reducers/FollowContext";
 import { MapContextProvider } from "./Services/Reducers/mapContext";
 import { ThemeProviderContext } from "./Services/Reducers/ThemeContext";
-import Map from "./Layouts/Map";
+import MapTreeD from "./Layouts/Map";
 import Menu from "./Layouts/Menu";
 import StatusBar from "./Layouts/StatusBar";
-import Tutorial from "./Components/Tutorial";
 import { MenuContextProvider } from "./Services/Reducers/MenuContext";
+import { MapProvider } from "react-map-gl";
+import { SelectedEnvironmentProvider } from "./Services/Reducers/SelectedEnvironmentContext.jsx";
+import { AlertProvider } from "./Services/Reducers/AlertContext.jsx";
+import Routers from "./Layouts/Map/Routers.jsx";
+import { getFieldTranslationByNames } from "./Services/Utility/index.jsx";
+import { LanguageProvider } from "./Services/Reducers/LanguageContext.jsx";
 
 const Container = styled.section`
   display: flex;
@@ -25,54 +30,17 @@ const Container = styled.section`
   height: 100vh;
   flex-direction: row;
   gap: 5px;
-  background-color: ${(props) => props.theme.bgMain};
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   padding: 5px;
   @media (min-width: 768px) {
     gap: 10px;
     padding: 10px;
   }
-  .leaflet-tile {
-    filter: ${(props) => props.theme.filterMap};
-  }
+
   transition: all 0.3s ease 0s;
 `;
 
 function App() {
-  const [isFullScreen, setFullScreen] = useState(false);
-
-  useEffect(() => {
-    if (isFullScreen && screen.orientation) {
-      screen.orientation.lock("landscape").catch((error) => {
-        console.error("Failed to change to landscape mode:", error);
-      });
-    }
-  }, [isFullScreen]);
-
-  const toggleFullScreen = () => {
-    if (!isFullScreen) {
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-      } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen();
-      } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen();
-      } else if (document.documentElement.msRequestFullscreen) {
-        document.documentElement.msRequestFullscreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-    }
-    setFullScreen(!isFullScreen);
-  };
-
   console.log(useTranslation());
   useLayoutEffect(() => {
     window.Echo = new Echo({
@@ -90,43 +58,39 @@ function App() {
   }, []);
 
   return (
-    <ThemeProviderContext>
-      <UserProvider>
-        <WalletProvider>
-          <FollowProvider>
-            <MapContextProvider>
-              <BrowserRouter>
-                {/* <Tutorial /> */}
+    <MapProvider>
+      <ThemeProviderContext>
+        <LanguageProvider>
+          <UserProvider>
+            <WalletProvider>
+              <FollowProvider>
+                <MapContextProvider>
+                  <AlertProvider>
+                    <BrowserRouter>
+                      <Routers />
+                      <Container>
+                        <MenuContextProvider>
+                          <Menu />
+                        </MenuContextProvider>
+                        <SelectedEnvironmentProvider>
+                          <MapTreeD />
+                        </SelectedEnvironmentProvider>
+                        <StatusBar />
+                      </Container>
 
-                <Container>
-                  <MenuContextProvider>
-                    <Menu />
-                  </MenuContextProvider>
-                  <Map />
-                  <StatusBar />
-                  <button
-                    onClick={toggleFullScreen}
-                    style={{
-                      width: "20px",
-                      position: "absolute",
-                      top: 0,
-                      right: "10px",
-                    }}
-                  >
-                    +++
-                  </button>
-                </Container>
-
-                <Toaster
-                  containerStyle={{ zIndex: 1000, marginBottom: 48 }}
-                  position="bottom-right"
-                />
-              </BrowserRouter>
-            </MapContextProvider>
-          </FollowProvider>
-        </WalletProvider>
-      </UserProvider>
-    </ThemeProviderContext>
+                      <Toaster
+                        containerStyle={{ zIndex: 100000, marginBottom: 48 }}
+                        position="bottom-right"
+                      />
+                    </BrowserRouter>
+                  </AlertProvider>
+                </MapContextProvider>
+              </FollowProvider>
+            </WalletProvider>
+          </UserProvider>
+        </LanguageProvider>
+      </ThemeProviderContext>
+    </MapProvider>
   );
 }
 

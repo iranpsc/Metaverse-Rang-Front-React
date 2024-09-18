@@ -19,7 +19,6 @@ export default function useAuth() {
   const { Request, HTTP_METHOD } = useRequest();
 
   const LocalStorage = getItem("user");
-
   const isLoggedIn = () => {
     if (LocalStorage?.expire > Date.now() && userState?.id) {
       return true;
@@ -33,32 +32,41 @@ export default function useAuth() {
   };
 
   const setUser = async (response) => {
-    const user = response.data;
-    const expire = Date.now() + user.automatic_logout * 60 * 1000;
-    const LocalStorageData = { token: user.token, expire };
+    const user = response;
+    const expire = Date.now() + parseInt(user.automatic_logout) * 60 * 1000;
+    const LocalStorageData = { token: user.token, expire: expire };
+
     setItem("user", LocalStorageData);
-
-    const [walletResponse, followingResponse] = await Promise.all([
-      Request(
-        "user/wallet",
-        HTTP_METHOD.GET,
-        {},
-        { Authorization: `Bearer ${user?.token}` }
-      ),
-      Request(
-        "following",
-        HTTP_METHOD.GET,
-        {},
-        { Authorization: `Bearer ${user?.token}` }
-      ),
-    ]);
-
+    const [walletResponse, followingResponse, profileResponse] =
+      await Promise.all([
+        Request(
+          "user/wallet",
+          HTTP_METHOD.GET,
+          {},
+          { Authorization: `Bearer ${user?.token}` },
+          "development"
+        ),
+        Request(
+          "following",
+          HTTP_METHOD.GET,
+          {},
+          { Authorization: `Bearer ${user?.token}` },
+          "development"
+        ),
+        Request(
+          "auth/me",
+          HTTP_METHOD.POST,
+          {},
+          { Authorization: `Bearer ${user?.token}` },
+          "development"
+        ),
+      ]);
     setWallet({
       type: WalletContextTypes.ADD_WALLET,
       payload: walletResponse.data.data,
     });
     setFollow(followingResponse.data.data);
-    setUserState(AddUserAction(response.data));
+    setUserState(AddUserAction(profileResponse.data.data));
   };
 
   const getUser = () => {
@@ -66,8 +74,8 @@ export default function useAuth() {
   };
 
   const setUserWithToken = async () => {
-    if (LocalStorage?.expire > Date.now() && !userState?.id) {
-      const userProfileResponse = await Request("user/profile");
+    if (true) {
+      const userProfileResponse = await Request("auth/me", HTTP_METHOD.POST);
       setUserState(AddUserAction(userProfileResponse.data.data));
 
       const [walletResponse, followingResponse] = await Promise.all([

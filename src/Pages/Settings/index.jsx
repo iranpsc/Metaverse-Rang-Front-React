@@ -1,21 +1,18 @@
 import Modal from "../../Components/Modal";
 import useTabs from "../../Services/Hooks/useTabs";
-import AccountSetting from "./Tabs/AccountSetting";
-import GeneralSettings from "./Tabs/GeneralSettings";
-import Privacy from "./Tabs/Privacy";
+import AccountTab from "./Tabs/account-tab/AccountTab";
+
+import PublicTab from "./Tabs/public-tab/PublicTab";
+import SecurityTab from "./Tabs/security-tab/SecurityTab";
 
 export default function Settings() {
   const tabs = [
-    { title: "تنظیمات عمومی", content: <GeneralSettings /> },
-    { title: "حساب کاربری", content: <AccountSetting /> },
-    { title: "حریم  خصوصی", content: <Privacy /> },
+    { title: "تنظیمات عمومی", content: <PublicTab /> },
+    { title: "حساب کاربری", content: <AccountTab /> },
+    { title: "حریم  خصوصی", content: <SecurityTab /> },
   ];
 
   const TabPanel = useTabs(tabs);
 
-  return (
-    <Modal type="modal-section-md" title="تنظیمات">
-      {TabPanel}
-    </Modal>
-  );
+  return <Modal title="تنظیمات">{TabPanel}</Modal>;
 }

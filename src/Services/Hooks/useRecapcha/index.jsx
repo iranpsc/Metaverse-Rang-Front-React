@@ -18,7 +18,7 @@ const Container = styled.div`
   width: 86%;
   height: 140px;
   border-radius: 10px;
-  background: ${(props) => props.theme.bgRecaptcha};
+  background: ${(props) => props.theme.colors.primary};
   @media (min-width: 768px) {
     width: 310px;
   }
@@ -38,7 +38,7 @@ const Container = styled.div`
   }
 `;
 const Text = styled.p`
-  color: ${(props) => props.theme.recaptchaText};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   font-family: AzarMehr;
   font-size: 14px;
@@ -48,7 +48,7 @@ const Text = styled.p`
   margin-top: 7px; /* 178.571% */
 `;
 export function useRecaptcha() {
-  const [recaptchaValue, setRecaptchaValue] = useState(null);
+  const [recaptchaValue, setRecaptchaValue] = useState(false);
   const captchaRef = useRef(null);
   const theme = useTheme();
   const renderRecaptcha = () => (

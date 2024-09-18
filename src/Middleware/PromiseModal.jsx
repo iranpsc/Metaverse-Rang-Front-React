@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import Loading from '../Components/Loading';
+import React, { useEffect, useState } from "react";
+import Loading from "../Components/Loading";
 
 const PromiseModal = (WrappedComponent, axios) => {
   const PromiseModalComponent = (props) => {
@@ -21,7 +21,7 @@ const PromiseModal = (WrappedComponent, axios) => {
         function (response) {
           setTimeout(() => {
             setLoading(false);
-          }, 1000)
+          }, 1000);
 
           return response;
         },

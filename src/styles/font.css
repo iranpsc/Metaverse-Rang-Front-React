@@ -1,0 +1,45 @@
+@font-face {
+  font-family: AzarMehr;
+  font-style: normal;
+  font-weight: 300;
+  src: url("/src/fonts/AzarMehr/Statics/AzarMehr-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: AzarMehr;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/src/fonts/AzarMehr/Statics/AzarMehr-Regular.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: AzarMehr;
+  font-style: normal;
+  font-weight: 500;
+  src: url("/src/fonts/AzarMehr/Statics/AzarMehr-Medium.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: AzarMehr;
+  font-style: normal;
+  font-weight: 600;
+  src: url("/src/fonts/AzarMehr/Statics/AzarMehr-SemiBold.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: AzarMehr;
+  font-style: normal;
+  font-weight: 700;
+  src: url("/src/fonts/AzarMehr/Statics/AzarMehr-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: AzarMehr;
+  font-style: normal;
+  font-weight: 800;
+  src: url("/src/fonts/AzarMehr/Statics/AzarMehr-ExtraBold.ttf")
+    format("truetype");
+}

@@ -5,9 +5,14 @@ import useTabs from "../../Services/Hooks/useTabs";
 import { FeatureContext } from "./Context/FeatureProvider";
 import UnityTab from "./Tabs/3d";
 import BuyFromSystem from "./Tabs/BuyFromSystem";
-import BuyFromUser from "./Tabs/BuyFromUser";
-import Property from "./Tabs/Property";
-import Sell from "./Tabs/Sell";
+import PropertyConstruction from "./Tabs/PropertyConstruction";
+import { BuyerTab, InfoTab, SellerTab } from "./Tabs";
+import EnterTab from "./Tabs/enter-tab/EnterTab";
+import PhysicTab from "./Tabs/physic-tab/PhysicTab";
+import HistoryTab from "./Tabs/history-tab/HistoryTab";
+import ParticipationTab from "./Tabs/participation-tab/ParticipationTab";
+import BuyerTabSystem from "./Tabs/BuyFromSystem/BuyerTab";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 export default function ConditionalPage() {
   const { getUser } = useAuth();
@@ -15,29 +20,122 @@ export default function ConditionalPage() {
   const [feature] = useContext(FeatureContext);
 
   const SellTabs = [
-    { title: "خصوصیات", content: <Property /> },
-    { title: "قیمت گذاری", content: <Sell /> },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "specification"
+      ),
+      content: <InfoTab />,
+    },
+    {
+      title: getFieldTranslationByNames("property-information", "pricing"),
+      content: <SellerTab />,
+    },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "construction of the building"
+      ),
+      content: <PropertyConstruction />,
+    },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "entering the property"
+      ),
+      content: <EnterTab owner />,
+    },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "physical information"
+      ),
+      content: <PhysicTab owner />,
+    },
   ];
   const SellTabPanel = useTabs(SellTabs);
 
   const BuySystemTabs = [
-    { title: "خصوصیات", content: <Property /> },
-    { title: "خرید", content: <BuyFromSystem /> },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "specification"
+      ),
+      content: <InfoTab />,
+    },
+    {
+      title: getFieldTranslationByNames("property-information", "buy"),
+      content: <BuyerTabSystem />,
+    },
   ];
   const BuySystemTabPanel = useTabs(BuySystemTabs);
 
   const BuyUserTabs = [
-    { title: "خصوصیات", content: <Property /> },
-    { title: "خرید", content: <BuyFromUser /> },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "specification"
+      ),
+      content: <InfoTab />,
+    },
+    {
+      title: getFieldTranslationByNames("property-information", "pricing"),
+      content: <SellerTab />,
+    },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "entering the property"
+      ),
+      content: <EnterTab owner />,
+    },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "physical information"
+      ),
+      content: <PhysicTab owner />,
+    },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "participation in construction"
+      ),
+      content: <ParticipationTab />,
+    },
+    {
+      title: getFieldTranslationByNames("property-information", "history"),
+      content: <HistoryTab />,
+    },
   ];
   const BuyUserTabPanel = useTabs(BuyUserTabs);
 
-  const AnonymousTabs = [{ title: "خصوصیات", content: <Property /> }];
+  const AnonymousTabs = [
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "specification"
+      ),
+      content: <InfoTab />,
+    },
+  ];
   const AnonymousTabPanel = useTabs(AnonymousTabs);
 
   const UnityTabs = [
-    { title: "خصوصیات", content: <Property /> },
-    { title: "ورود به ملک", content: <UnityTab /> },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "specification"
+      ),
+      content: <InfoTab />,
+    },
+    {
+      title: getFieldTranslationByNames(
+        "property-information",
+        "entering the property"
+      ),
+      content: <UnityTab />,
+    },
   ];
   const UnityTabPanel = useTabs(UnityTabs);
   useEffect(() => {

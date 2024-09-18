@@ -15,11 +15,14 @@ import StoreIcon from "../../Assets/svg/store.svg";
 import NotifIcon from "../../Assets/svg/notif.svg";
 import ReportIcon from "../../Assets/svg/report.svg";
 import GiftIcon from "../../Assets/svg/gifts.svg";
+import LogoutIcon from "../../Assets/svg/logout.svg";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useAuth from "../../Services/Hooks/useAuth";
 import { useLayoutEffect } from "react";
+import { removeItem } from "../../Services/Utility/LocalStorage";
+import useRequest from "../../Services/Hooks/useRequest";
 
 const Btn = styled.button`
   display: flex;
@@ -72,6 +75,7 @@ const ValueBtn = styled.span`
   top: -3px;
 `;
 const menuItems = [
+  { icon: LogoutIcon, translationKey: "sign out", navigate: "" },
   { icon: GiftIcon, translationKey: "challenges", navigate: "" },
   {
     icon: AccountSecurityIcon,
@@ -115,18 +119,31 @@ const BtnsMenu = () => {
   const navigate = useNavigate();
   const { getUser } = useAuth();
   const [user, setUser] = useState();
-
+  const { Request, HTTP_METHOD } = useRequest();
   useLayoutEffect(() => {
     setUser(getUser());
   }, []);
+  const logoutHandler = () => {
+    Request("auth/logout", HTTP_METHOD.POST, {}, {}, "development").then(() => {
+      removeItem("user");
+      window.location.reload();
+    });
+  };
+
   return (
     <>
       {menuItems.map((item, index) => (
         <Btn
           key={index}
           isOpen={isOpen}
-          onClick={() => navigate(`/metaverse/${item.navigate}`)}
-          disabled={item.navigate == ""}
+          onClick={() => {
+            if (item.translationKey == "sign out") {
+              logoutHandler();
+            } else {
+              navigate(`/metaverse/${item.navigate}`);
+            }
+          }}
+          disabled={item.navigate == "" && item.translationKey !== "sign out"}
         >
           <div>
             <Icon src={item.icon} />

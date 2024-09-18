@@ -11,10 +11,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 18%;
+  max-width: 18%;
   height: 100%;
   @media (min-width: 1024px) {
-    width: 10%;
+    max-width: 10%;
     gap: 10px;
   }
 `;
@@ -22,7 +22,8 @@ const WalletContainer = styled.div`
   width: 100%;
   height: 61.5%;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.menuBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   display: flex;
   flex-direction: column;
   @media (min-width: 1024px) {
@@ -41,7 +42,8 @@ const FlagMapContainer = styled.div`
   width: 100%;
   height: 29%;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.menuBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   display: flex;
   flex-direction: column;
   @media (min-width: 1024px) {
@@ -51,19 +53,19 @@ const FlagMapContainer = styled.div`
   padding: 4px 7px;
   align-items: center;
   overflow-y: auto;
-  /* Scrollbar styles for this component */
+  padding-left: 10px;
   &::-webkit-scrollbar {
     width: 6px;
   }
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.scrollBg};
+    background-color: "#DDDDDD";
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.scrollColor};
+    background-color: "#858585";
     border-radius: 10px;
   }
 
@@ -78,12 +80,12 @@ const StatusContainer = styled.div`
   width: 100%;
   height: 10%;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.menuBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   align-items: center;
   justify-content: center;
   padding: 10px;
   display: flex;
-  gap: 10px;
   @media (min-width: 1024px) {
     height: 6%;
     border-radius: 20px;

@@ -1,28 +1,37 @@
 import React, { useState } from "react";
 import useTabs from "../../Services/Hooks/useTabs";
-
 import Modal from "../../Components/Modal";
-import PersonalVerification from "./Tabs/PersonalVerification";
-import SendDocuments from "./Tabs/SendDocuments";
-import BankVerification from "./Tabs/BankVerification";
-import KycProvider from "./Context/KycProvider";
+import BankTab from "./Tabs/bank-tab/BankTab";
+import IdentityTab from "./Tabs/identity-tab/IdentityTab";
 
 export default function Verification() {
-  const [defaultTab, setDefaultTab] = useState(0);
-
+  const [openErrorModal, setOpenErrorModal] = useState(false);
   const tabs = [
-    { title: "احراز فردی", content: <PersonalVerification setDefaultTab={setDefaultTab} /> },
-    { title: "ارسال مدارک", content: <SendDocuments setDefaultTab={setDefaultTab}/> },
-    { title: "احراز بانکی", content: <BankVerification /> }
+    {
+      title: "احراز هویت ",
+      content: (
+        <IdentityTab
+          openErrorModal={openErrorModal}
+          setOpenErrorModal={setOpenErrorModal}
+        />
+      ),
+    },
+    {
+      title: "احراز بانکی",
+      content: (
+        <BankTab
+          openErrorModal={openErrorModal}
+          setOpenErrorModal={setOpenErrorModal}
+        />
+      ),
+    },
   ];
 
-  const TabPanel = useTabs(tabs, defaultTab);
+  const TabPanel = useTabs(tabs);
 
   return (
-    <KycProvider>
-      <Modal type="modal-section-md" title="احراز هویت">
-        {TabPanel}
-      </Modal>
-    </KycProvider>
+    <Modal type="modal-section-md" title="احراز هویت">
+      {TabPanel}
+    </Modal>
   );
 }

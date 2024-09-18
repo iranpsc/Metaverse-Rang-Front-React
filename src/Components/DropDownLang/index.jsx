@@ -7,6 +7,7 @@ import i18n from "../../i18n/i18n";
 import { useEffect } from "react";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import Tippy from "@tippyjs/react";
+import { ReactComponent as ArowMenu } from "../../Assets/svg/arowMenu.svg";
 import "tippy.js/animations/scale.css";
 const Container = styled.div`
   width: 100%;
@@ -19,7 +20,8 @@ const Btn = styled.button`
   width: 100%;
   background-color: transparent;
   align-items: center;
-  justify-content: ${({ shouldHide }) => (shouldHide ? "center" : "start")};
+  justify-content: ${({ shouldHide }) =>
+    shouldHide ? "center" : "space-between"};
   gap: 16.865px;
   padding: ${({ shouldHide }) => (shouldHide ? " 0px" : "0 10px")};
   border: none;
@@ -66,9 +68,9 @@ const Tooltip = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: ${(props) => props.theme.tooltipSmBg};
+  background-color: ${(props) => props.theme.colors.newColors.shades[40]};
   border-radius: 10px;
-  color: #868b90;
+  color: ${(props) => props.theme.colors.newColors.shades[100]};
   text-align: right;
   font-size: 16px;
   font-style: normal;
@@ -76,15 +78,40 @@ const Tooltip = styled.div`
   line-height: 180%; /* 36px */
   text-transform: capitalize;
 `;
+const IconArrow = styled(ArowMenu)`
+  display: ${({ isOpenDrop }) => (isOpenDrop ? "flex" : "none")};
+  stroke: ${(props) => props.theme.colors.newColors.shades[90]};
+  rotate: ${(props) => (props.isOpenDrop ? "270deg" : "90deg")};
+  width: 40px;
+  height: 40px;
+`;
+const Div = styled.div`
+  display: flex;
+  gap: 12px;
+`;
 const DropDownLang = () => {
   const { isOpen } = useMenuContext();
   const [isOpenDrop, setIsOpen] = useState(false);
+  const languages = ["en", "fa"]; // آرایه زبان‌ها
+  const [currentLanguageIndex, setCurrentLanguageIndex] = useState(0);
+
   useEffect(() => {
     document.body.dir = i18n.dir();
   }, []);
+
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
     document.body.dir = i18n.dir();
+  };
+
+  const handleIconClick = () => {
+    if (!isOpenDrop) {
+      const nextLanguageIndex = (currentLanguageIndex + 1) % languages.length;
+      setCurrentLanguageIndex(nextLanguageIndex);
+      changeLanguage(languages[nextLanguageIndex]);
+    } else {
+      setIsOpen(!isOpenDrop);
+    }
   };
 
   return (
@@ -100,14 +127,18 @@ const DropDownLang = () => {
       delay={50}
       animation="scale"
     >
-      <Container onClick={() => setIsOpen(!isOpenDrop)}>
+      <Container onClick={handleIconClick}>
         <Btn isOpenDrop={isOpenDrop} shouldHide={!isOpen}>
-          <Icon src={LangIcon} />
-          <Text shouldHide={!isOpen}>
-            {getFieldTranslationByNames("central-page", "language")}
-          </Text>
+          <Div>
+            <Icon src={LangIcon} />
+            <Text shouldHide={!isOpen}>
+              {getFieldTranslationByNames("central-page", "language")}
+            </Text>
+          </Div>
+
+          {isOpen && <IconArrow isOpenDrop={isOpenDrop} />}
         </Btn>
-        {isOpenDrop && (
+        {isOpen && isOpenDrop && (
           <DropdownMenu isOpenDrop={isOpenDrop}>
             <DropdownItem onClick={() => changeLanguage("en")}>
               English

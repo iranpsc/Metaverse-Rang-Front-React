@@ -51,18 +51,15 @@ export default function BankVerification() {
   const [errors, setErrors] = useState([]);
   const [cards, setCards] = useState([]);
   const { Request, HTTP_METHOD } = useRequest();
-
-  const [formData, setFormData] = useState({
-    card_num: "",
-    shaba_num: "",
-  });
-
   useEffect(() => {
     Request("bank-accounts").then((response) => {
       setCards(response.data.data);
     });
-   
   }, []);
+  const [formData, setFormData] = useState({
+    card_num: "",
+    shaba_num: "",
+  });
 
   const onSubmit = () => {
     const shebaInfo = getShebaInfo(`IR${formData.shaba_num}`);

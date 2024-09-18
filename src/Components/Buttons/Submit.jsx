@@ -1,18 +1,16 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import propTypes from "prop-types";
-import { useLayoutEffect } from "react";
-import { useState } from "react";
-import { memo } from "react";
 
 const PrimaryButton = styled.button`
-  --bs-bg-opacity: 1;
-  background-color: var(--bs-orange) !important;
+  background-color: ${(props) => props.theme.colors.primary}!important;
   border: none;
   border-radius: 8px;
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-light-rgb), var(--bs-text-opacity)) !important;
+  color: ${(props) => props.theme.colors.newColors.primaryText};
   padding: 8px 24px 8px 24px;
+  font-size: 14px;
+  font-weight: 600;
 `;
 
 const SecondaryButton = styled.button`
@@ -31,8 +29,8 @@ const SecondaryButton = styled.button`
   flex-shrink: 0;
   border-radius: 5px;
   border: 1px solid rgba(24, 192, 143, 0.5);
-  background: ${(props) => props.theme.btnSubmitBgColor};
-  color: ${(props) => props.theme.btnSubmitTextColor};
+  background: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   text-align: center;
   font-family: AzarMehr;
   font-size: 16px;
@@ -43,7 +41,7 @@ const SecondaryButton = styled.button`
 `;
 
 function Submit({ text, type, options, responsive, children }) {
-  const [button, setButton] = useState();
+  const [button, setButton] = useState(null);
 
   useLayoutEffect(() => {
     switch (type) {
@@ -67,7 +65,7 @@ function Submit({ text, type, options, responsive, children }) {
       default:
         return;
     }
-  }, []);
+  }, [type, options, responsive, children, text]);
 
   return button;
 }
@@ -76,10 +74,8 @@ Submit.propTypes = {
   text: propTypes.string.isRequired,
   type: propTypes.string.isRequired,
   options: propTypes.object,
+  responsive: propTypes.bool,
+  children: propTypes.node,
 };
 
-const areEqual = (prevProps, nextProps) => {
-  return prevProps.text === nextProps.text;
-};
-
-export default memo(Submit, areEqual);
+export default Submit;

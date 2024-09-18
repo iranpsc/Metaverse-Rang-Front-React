@@ -1,134 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import FloatingModal from '../../Components/FloatingModal';
-import useRequest from '../../Services/Hooks/useRequest';
+import NotifCard from "./NotifCard";
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+import useRequest from "../../Services/Hooks/useRequest";
+import { useNavigate } from "react-router-dom";
+import ModalSm from "../../Components/Modal/ModalSm";
 
-import SeenImage from '../../Assets/images/seen.png';
-import BellGif from '../../Assets/gif/bell.gif';
-import { useNavigate } from 'react-router-dom';
-import { TextShorter } from '../../Services/Utility';
-
-
-const Notification = styled.div`
+const Div = styled.div`
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
-  height: 96px;
-  padding: 8px;
-  position: relative;
-
-  &:nth-child(even) {
-    background-color: #e9ecef;
-  }
-`;
-
-const Information = styled.div`
-  text-align: right;
-
-  & > p {
-    margin-top: 8px;
-  }
-
-  & > div {
-    position: relative;
-  }
-`;
-
-const DateContainer = styled.p`
-  position: absolute;
-  top: 8px;
-  left: 14%;
-  color: #666;
-  font-size: 14px;
-`;
-
-const Gif = styled.img`
-  width: 350px;
-`
-const AnimateContainer = styled.div`
-  width: 100%;
-  height: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-
-  & p {
-    text-align: right;
-    direction: rtl;
-    margin-top: -32px;
-    font-weight: bold;
+  gap: 15px;
+  overflow-y: auto;
+  direction: ltr;
+  padding-right: 15px;
+  height: 220px;
+  @media (min-width: 1000px) {
+    height: 300px;
   }
-`
+`;
+const Container = styled.div`
+  h4 {
+    color: #dedee9;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-align: left;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+`;
 
-const Pages = {
-  tickets: '/metaverse/sanad'
-}
-
-
-export default function Notifications() {
+const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const { Request } = useRequest();
 
-  const Navigate = useNavigate();
-
   useEffect(() => {
-    Request('notifications').then(response => {
+    Request("notifications").then((response) => {
       setNotifications(response.data.data);
-    })
- 
+    });
   }, []);
 
-  const ReadClickHandler = (id) => {
-    Request(`notifications/${id}`).then(() => {
-      setNotifications(notifications.filter(notification => 
-        notification.id !== id
-      ))
-    })
-  }
-
   return (
-    <FloatingModal title={"اعلان ها "}>
-        {notifications?.map(notification => (
-          <Notification key={notification.id} onClick={() => Navigate(Pages[notification.data["related-to"]])}>
-            <img
-              style={{ marginLeft: 16, borderRadius: 100, height: '75%' }}
-              src={notification?.data?.["sender-image"]}
-              width={60}
-              alt={notification?.data?.["sender-name"]}
+    <ModalSm title="اعلان ها">
+      <Container>
+        <h4 onClick={() => setNotifications([])}>حذف همه</h4>
+
+        <Div>
+          {notifications.map((notif) => (
+            <NotifCard
+              setNotifications={setNotifications}
+              notifications={notifications}
+              key={notif.id}
+              id={notif.id}
+              data={notif}
             />
+          ))}
+        </Div>
+      </Container>
+    </ModalSm>
+  );
+};
 
-            <DateContainer>{
-              notification?.date
-            }</DateContainer>
-            
-            <Information>
-              <h4 className='link' onClick={() => Navigate(`/metaverse/player/`)}>
-                {notification?.data?.["sender-name"]}
-              </h4>
-
-              <p className='text-information rtl'>
-                {TextShorter(notification?.data?.["message"], 68)}
-              </p>
-            </Information>
-
-            <img
-              src={SeenImage}
-              width={40}
-              alt='seen'
-              className='cursor-pointer'
-              onClick={() => ReadClickHandler(notification.id)}
-            />
-          </Notification>
-        ))}
-
-        {notifications?.length === 0 &&
-          <AnimateContainer>
-            <Gif src={BellGif} alt=''/>
-            <p>پیامی موجود نیست !</p>
-          </AnimateContainer>
-        }
-    </FloatingModal>
-  )
-}
+export default Notifications;

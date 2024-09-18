@@ -1,20 +1,32 @@
 import Modal from "../../Components/Modal";
 import useTabs from "../../Services/Hooks/useTabs";
-import General from "./Tabs/General";
-import Property from "./Tabs/Property";
-import Transactions from "./Tabs/Transactions";
+import { getFieldTranslationByNames } from "../../Services/Utility";
+
+import PropertyTab from "./Tabs/property-tab/PropertyTab";
+import TotalTab from "./Tabs/total-tab/TotalTab";
+
+import TransactionsTab from "./Tabs/transactions-tab/TransactionsTab";
 
 export default function Profile() {
   const tabs = [
-    { title: 'کلیات', content: <General /> },
-    { title: 'دارایی', content: <Property /> },
-    { title: 'تراکنش ها', content: <Transactions /> },
+    {
+      title: getFieldTranslationByNames("citizenship-account", "general"),
+      content: <TotalTab />,
+    },
+    {
+      title: getFieldTranslationByNames("citizenship-account", "property"),
+      content: <PropertyTab />,
+    },
+    {
+      title: getFieldTranslationByNames("citizenship-account", "transactions"),
+      content: <TransactionsTab />,
+    },
   ];
 
   const TabPanel = useTabs(tabs);
 
   return (
-    <Modal type="modal-section-md" title='حساب کاربری'>
+    <Modal title={["citizenship-account", "citizenship account"]}>
       {TabPanel}
     </Modal>
   );

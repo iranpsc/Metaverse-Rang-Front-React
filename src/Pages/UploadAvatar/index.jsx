@@ -104,13 +104,13 @@ export default function UploadAvatar() {
     } else {
       setErrors(["باید حجم فایل انتخابی کمتر از 1024 کیلوبایت باشد."]);
     }
+    Navigate('/metaverse/profile');
   }
 
   const onSubmitHandler = () => {
     if(image) {
       Request('profilePhotos', HTTP_METHOD.POST, { image }, {"Content-Type": "multipart/form-data"}).then(response => {
         ToastSuccess("آواتار با موفقیت آپلود شد.");
-        Navigate('/metaverse/profile');
       })
     } else {
       ToastError("برای آپلود آواتار ابتدا باید عکس خود را انتخاب کنید.");

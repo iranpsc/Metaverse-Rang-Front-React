@@ -1,104 +1,184 @@
-//Importing required modules and components
-import { memo, useEffect, useState } from "react";
-import { Polygon, useMapEvents } from "react-leaflet";
-import { useNavigate } from "react-router";
+import React, { memo, useEffect, useState, useRef } from "react";
+import { Layer, Source, useMap } from "react-map-gl";
+import { useLoader } from "@react-three/fiber";
+import { Canvas, Coordinates } from "react-three-map/maplibre";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { HemisphereLight } from "three";
 import { BORDER_COLORS } from "../../Services/Constants/BorderColors";
 import { POLYGON_COLORS } from "../../Services/Constants/PolygonColors";
 import useRequest from "../../Services/Hooks/useRequest";
+import { ClipLoader } from "react-spinners";
 
-//Defining a component MapPolygons as a memoized function
-const MapPolygons = memo(() => {
-  //Declaring state variables using useState hook
-  const [features, setFeatures] = useState([]); //An array of features on the map
-  const [zoom, setZoom] = useState(15); //The zoom level of the map
-  const [bounds, setBounds] = useState(null); //The bounds of the map
-
-  //Custom hook for handling API requests
-  const { Request } = useRequest();
-
-  //Custom hook for handling navigation
-  const Navigate = useNavigate();
-
-  //Custom hook for listening to map events
-  const MapEvents = useMapEvents({
-    //Updating the zoom level on zoomend event
-    zoomend: () => {
-      setZoom(MapEvents.getZoom());
-    },
-    //Updating the bounds if current zoom is greater or equal to 16
-    moveend: () => {
-      if (zoom >= 16) {
-        setBounds(MapEvents.getBounds());
-      }
-    },
+// Add the proxy URL to bypass CORS
+const FBXModel = memo(({ url, rotation, setLoading, uniqueKey }) => {
+  // Prepend proxy URL to avoid CORS issues
+  const fbx = useLoader(FBXLoader, url, (loader) => {
+    loader.manager.onStart = () => setLoading(true);
+    loader.manager.onLoad = () => setLoading(false);
+    loader.manager.onError = () => setLoading(false);
   });
 
-  //A side effect hook for updating the features state whenever feature status changes
+  const fbxRef = useRef();
+  return (
+    <group ref={fbxRef} rotation={rotation} scale={0.0097} key={uniqueKey}>
+      <hemisphereLight
+        args={["#ffffff", "#60666C"]}
+        intensity={12}
+        key={`${uniqueKey}-light`}
+      />
+      <primitive object={fbx} key={`${uniqueKey}-primitive`} />
+    </group>
+  );
+});
+
+const MapPolygons = () => {
+  const map = useMap();
+  const bounds = map.current.getBounds();
+  const [features, setFeatures] = useState([]);
+  const [buildingModels, setBuildingModels] = useState([]);
+  const [zoom, setZoom] = useState(map.current.getZoom());
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { Request } = useRequest();
+
+  useEffect(() => {
+    const handleViewportChange = () => {
+      setZoom(map.current.getZoom());
+    };
+
+    map.current.on("zoomend", handleViewportChange);
+
+    return () => {
+      map.current.off("zoomend", handleViewportChange);
+    };
+  }, [map]);
+
   useEffect(() => {
     window.Echo.channel("feature-status").listen(
       ".feature-status-changed",
       (e) => {
-        const data = [];
-        for (const feature of features) {
+        const data = features.map((feature) => {
           if (parseInt(feature.id) === parseInt(e.data.id)) {
-            feature.rgb = e.data.rgb;
+            return { ...feature, rgb: e.data.rgb };
           }
-          data.push(feature);
-        }
+          return feature;
+        });
 
-        setFeatures(data); //Updating the features state with new data
+        setFeatures(data);
       }
     );
   }, [features]);
 
-  //A side effect hook for updating the features state whenever bounds changes
   useEffect(() => {
-    if (bounds) { //Checking if bounds is not null
-      Request( //Sending API request to get features data
+    if (bounds.getSouthWest().lng && zoom >= 14) {
+      const loadBuildings = zoom >= 15 ? "&load_buildings=1" : "";
+      Request(
         `features?points[]=${bounds.getSouthWest().lng},${
           bounds.getSouthWest().lat
         }&points[]=${bounds.getSouthEast().lng},${
           bounds.getSouthEast().lat
         }&points[]=${bounds.getNorthWest().lng},${
           bounds.getNorthWest().lat
-        }&points[]=${bounds.getNorthEast().lng},${bounds.getNorthEast().lat}`
+        }&points[]=${bounds.getNorthEast().lng},${
+          bounds.getNorthEast().lat
+        }${loadBuildings}`
       ).then((response) => {
-        const features = []; //An empty array for storing features data
-        for (const feature of response?.data?.data) {
-          features.push({
+        const newFeatures =
+          response?.data?.data?.map((feature) => ({
             id: feature?.geometry?.feature_id,
             rgb: feature?.properties?.rgb,
             coordinates: feature?.geometry?.coordinates.map((coordinate) => [
-              coordinate.y,
-              coordinate.x,
+              parseFloat(coordinate.x),
+              parseFloat(coordinate.y),
             ]),
-          }); //Parsing and formatting the features data and pushing it into the array
-        }
+          })) || [];
 
-        setFeatures(features); //Updating the features state with new data
+        const newBuildingModels = response?.data?.data?.flatMap(
+          (feature) => feature.building_models || []
+        );
+
+        setFeatures((prevFeatures) => [...prevFeatures, ...newFeatures]);
+        setBuildingModels((prevModels) => [
+          ...prevModels,
+          ...newBuildingModels,
+        ]);
       });
     }
-  }, [bounds]);
+  }, [bounds.getSouthWest().lng, zoom]);
 
   return (
     <>
-      {zoom >= 17 && //Rendering a Polygon component for each feature in the features array if zoom level is greater or equal to 17
-        features.map((feature) => (
-          <Polygon
-            eventHandlers={{
-              click: () => Navigate(`/metaverse/feature/${feature.id}`), //Handling click event and navigating to the feature detail page
+      {zoom >= 14 && (
+        <Source
+          id="polygons"
+          type="geojson"
+          data={{
+            type: "FeatureCollection",
+            features: features.map((polygon) => ({
+              type: "Feature",
+              properties: {
+                id: polygon.id,
+                fill: POLYGON_COLORS[polygon.rgb],
+                border: BORDER_COLORS[polygon.rgb],
+              },
+              geometry: {
+                type: "Polygon",
+                coordinates: [polygon.coordinates],
+              },
+            })),
+          }}
+        >
+          <Layer
+            id="polygon-fill-layer"
+            type="fill"
+            beforeId={
+              map.current.getLayer("location-icon-layer")
+                ? "location-icon-layer"
+                : undefined
+            }
+            paint={{
+              "fill-color": ["get", "fill"],
             }}
-            key={feature.id}
-            pathOptions={{
-              color: BORDER_COLORS[feature.rgb], //Setting border color based on rgb value of the feature
-              fillColor: POLYGON_COLORS[feature.rgb], //Setting fill color based on rgb value of the feature
-              fillOpacity: 0.5, //Setting fill opacity to 0.5
-            }}
-            positions={feature.coordinates} //Passing an array of coordinates to the Polygon component
           />
-        ))}
+          <Layer
+            id="polygon-outline-layer"
+            type="line"
+            beforeId={
+              map.current.getLayer("location-icon-layer")
+                ? "location-icon-layer"
+                : undefined
+            }
+            paint={{
+              "line-color": ["get", "border"],
+              "line-width": 3,
+            }}
+          />
+        </Source>
+      )}
+      {zoom >= 14 && buildingModels.length > 0 && (
+        <Canvas latitude={36} longitude={50}>
+          {buildingModels.map((model) => {
+            const proxyFbxUrl = `https://middle.irpsc.com/app/?url=${model.file.url}`;
+            console.log(parseFloat(model.building.position.split(",")[0]));
+            return (
+              <Coordinates
+                key={`${model.id}-coordinates`}
+                latitude={parseFloat(model.building.position.split(",")[0])}
+                longitude={parseFloat(model.building.position.split(",")[1])}
+              >
+                <FBXModel
+                  url={proxyFbxUrl}
+                  rotation={[0, 0, 0]}
+                  setLoading={setIsLoading}
+                  uniqueKey={`${model.id}-model`}
+                />
+              </Coordinates>
+            );
+          })}
+        </Canvas>
+      )}
     </>
   );
-});
+};
 
 export default MapPolygons;

@@ -1,42 +1,19 @@
-import "leaflet/dist/leaflet.css";
-import "./MapLayout.css";
-import { MapContainer, Polygon, TileLayer, useMap } from "react-leaflet";
-import { ScenegraphLayer } from "@deck.gl/mesh-layers";
-import { LeafletLayer } from "deck.gl-leaflet";
-import { MapView } from "@deck.gl/core";
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useState, useEffect, useRef, createContext } from "react";
 import styled from "styled-components";
-import { createContext } from "react";
-
-import MapPolygons from "./MapPolygons";
-import Main from "../Main";
 import useAuth from "../../Services/Hooks/useAuth";
+import MapPolygons from "./MapPolygons";
 import MapFlag from "./MapFlag";
-import AdviserIcon from "./Adviser";
-import flyToPosition from "./FlyToGift";
-import flyToGif from "../../Assets/gif/Flyto.gif";
-import ContextMenu from "./ContextMenu/ContextMenu";
-import ToolTip from "../../Components/Tooltip";
-import Routes from "./Routers";
-import useRequest from "../../Services/Hooks/useRequest";
+import Map from "react-map-gl/maplibre";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { useNavigate } from "react-router-dom";
+import Mark from "./3dModelMap/Mark";
+import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
+import { ReactComponent as unZoom } from "../../Assets/images/UnZoom.svg";
+import { ReactComponent as zoom } from "../../Assets/images/zoom.svg";
+import { ReactComponent as fullPage } from "../../Assets/images/fullPage.svg";
 
-import LocationPin from "../../Assets/gif/location-pin.gif";
-import BtnFlagMap from "./BtnFlagMap";
-
-const IconFlyTo = styled.img`
-  position: absolute;
-  z-index: 500;
-  top: 56%;
-  right: 0px;
-  width: 100px;
-  aspect-ratio: 1/1;
-  cursor: pointer;
-  @media (min-width: 1536px) {
-    top: 50%;
-  }
-`;
 const Container = styled.div`
-  width: 100%;
+  width: 101%;
   height: 100%;
   position: relative;
   border-radius: 10px;
@@ -45,70 +22,236 @@ const Container = styled.div`
     border-radius: 20px;
   }
 `;
-export const TransactionContext = createContext();
-// This is a functional component named Map.
-const Map = () => {
-  // A reference to the map container element.
-  const mapRef = useRef();
-  const [selectedTransaction, setSelectedTransaction] = useState([]);
-  // A custom hook to get user authentication details. setUserWithToken function is being destructured from useAuth.
-  const { setUserWithToken } = useAuth();
-  // useEffect hook to set the user with token when the component mounts. An empty dependency array is passed to avoid multiple calls.
-  const { Request } = useRequest();
-  useEffect(() => {
-    setUserWithToken();
-  }, []);
-  // A LeafletLayer component that represents the deck.gl overlay for the map.
-  const deckLayer = new LeafletLayer({
-    views: [
-      // A MapView instance is created with controller property set to true.
-      new MapView({
-        controller: true,
-      }),
-    ],
 
-    layers: [
-      // A ScenegraphLayer instance that displays a glTF model on the map.
-      new ScenegraphLayer({
-        id: "scenegraph-layer",
-        data: [0],
-        pickable: false,
-        scenegraph: "house.gltf", // The source of the glTF model file.
-        getOrientation: (d) => [0, 0, 90],
-        getPosition: (d) => [50.0639, 36.32746], // The longitude and latitude coordinates where the model should be placed.
-        sizeScale: 1,
-        _lighting: "pbr", // The type of lighting to apply to the model.
-      }),
-    ],
-  });
+const ZoomContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-direction: column;
+  position: absolute;
+  top: 10px;
+  ${(props) => {
+    const direction = document.body.dir || "ltr";
+    return direction === "ltr" ? `right: ${"10px"}` : `left: ${"10px"}`;
+  }};
+  padding: 3px;
+  border-radius: 7px;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+`;
+const ZoomControlContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 1;
+  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+`;
+
+const UnZoomControlContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 1;
+  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+`;
+const FullscreenControlContainer = styled.div`
+  position: absolute;
+  top: 85px;
+  ${(props) => {
+    const direction = document.body.dir || "ltr";
+    return direction === "ltr" ? `right: ${"10px"}` : `left: ${"10px"}`;
+  }};
+  z-index: 1;
+  border-radius: 10px;
+  width: 33px;
+  height: 33px;
+  padding: 5px;
+  border-radius: 7px;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+`;
+const FullscreenMapContainer = styled.div`
+  position: absolute;
+  top: 125px;
+  ${(props) => {
+    const direction = document.body.dir || "ltr";
+    return direction === "ltr" ? `right: ${"10px"}` : `left: ${"10px"}`;
+  }};
+  z-index: 1;
+  border-radius: 10px;
+  width: 33px;
+  height: 33px;
+  padding: 5px;
+  border-radius: 7px;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+`;
+
+const CustomZoomInButton = styled(zoom)`
+  width: 100%;
+  height: 100%;
+  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
+  cursor: pointer;
+`;
+const CustomZoomOutButton = styled(unZoom)`
+  width: 100%;
+  height: 100%;
+  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
+  cursor: pointer;
+`;
+
+const CustomFullscreenButton = styled(fullPage)`
+  width: 100%;
+  height: 100%;
+  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
+  cursor: pointer;
+`;
+const CustomFullscreenMapButton = styled(fullPage)`
+  width: 100%;
+  height: 100%;
+  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
+  cursor: pointer;
+  rotate: 45deg;
+`;
+export const TransactionContext = createContext();
+const MapTreeD = () => {
+  const [selectedTransaction, setSelectedTransaction] = useState([]);
+  const { setUserWithToken, setUser } = useAuth();
+  const mapRef = useRef(null);
+  const [isFullScreen, setFullScreen] = useState(false);
+  const [isFullScreenMap, setFullScreenMap] = useState(false);
+
+  useEffect(() => {
+    if (isFullScreen && screen.orientation) {
+      screen.orientation.lock("landscape-primary").catch((error) => {
+        console.error("Failed to change to landscape mode:", error);
+      });
+    }
+  }, [isFullScreen]);
+
+  const toggleFullScreen = () => {
+    if (!isFullScreen) {
+      const docElement = document.documentElement;
+      const requestFullScreen =
+        docElement.requestFullscreen ||
+        docElement.mozRequestFullScreen ||
+        docElement.webkitRequestFullscreen ||
+        docElement.msRequestFullscreen;
+
+      requestFullScreen.call(docElement);
+    } else {
+      const exitFullScreen =
+        document.exitFullscreen ||
+        document.mozCancelFullScreen ||
+        document.webkitExitFullscreen ||
+        document.msExitFullscreen;
+
+      exitFullScreen.call(document);
+    }
+
+    setFullScreen(!isFullScreen);
+  };
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    if (queryParams.has("token") && queryParams.has("expires_at")) {
+      const queryParamsObject = {
+        token: queryParams.get("token"),
+        automatic_logout: queryParams.get("expires_at"),
+      };
+      setUser(queryParamsObject).then(() => {
+        navigator("/metaverse");
+        setUserWithToken();
+      });
+    } else {
+      setUserWithToken();
+    }
+  }, []);
+
+  const navigator = useNavigate();
+  const [zoomLevel, setZoomLevel] = useState(12);
+  const { confirmation, selectedEnvironment, hiddenModel } =
+    useSelectedEnvironment();
+
+  const handleZoomIn = () => {
+    if (mapRef.current) {
+      const newZoomLevel = zoomLevel + 1;
+      mapRef.current.zoomTo(newZoomLevel);
+      setZoomLevel(newZoomLevel);
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (mapRef.current) {
+      const newZoomLevel = zoomLevel - 1;
+      mapRef.current.zoomTo(newZoomLevel);
+      setZoomLevel(newZoomLevel);
+    }
+  };
+
+  const handleFullscreenToggle = () => {
+    if (!isFullScreenMap) {
+      mapRef.current.getMap().getContainer().requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+    setFullScreenMap(!isFullScreenMap);
+  };
 
   return (
     <TransactionContext.Provider
       value={{ selectedTransaction, setSelectedTransaction }}
     >
       <Container>
-        <MapContainer
-          center={[36.32, 50.02]} // The initial center of the map at given longitude and latitude.
-          zoom={15} // The initial zoom level of the map.
+        <Map
           className="map"
-          ref={mapRef} // A reference to the map container element.
-          layers={deckLayer} // The deck.gl overlay layer to be added on top of the map.
+          antialias
+          initialViewState={{
+            latitude: 36.32,
+            longitude: 50.02,
+            zoom: 12,
+            pitch: 40,
+          }}
+          mapStyle="./styleMap.json"
+          style={{ borderRadius: "15px" }}
+          interactiveLayerIds={["polygon-fill-layer"]}
+          onClick={(event) => {
+            const feature = event.features[0];
+            if (feature.properties.id) {
+              navigator(`/metaverse/feature/${feature.properties.id}`);
+            }
+          }}
+          onZoomEnd={(e) => setZoomLevel(e.viewState.zoom)}
+          RTLTextPlugin="https://map.irpsc.com/rtl.js"
+          maxPitch={78}
+          ref={mapRef}
         >
-          <TileLayer
-            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" // The source of the tile images for the map.
-          />
-          {/* 
+          {confirmation && selectedEnvironment && !hiddenModel && <Mark />}
           <MapPolygons />
-          <Main />
-          <ContextMenu />
-          <AdviserIcon />
-          */}
           <MapFlag />
-        </MapContainer>
-        <Routes />
+        </Map>
+        <ZoomContainer>
+          <ZoomControlContainer>
+            <CustomZoomInButton onClick={handleZoomIn} />
+          </ZoomControlContainer>
+          <UnZoomControlContainer>
+            <CustomZoomOutButton onClick={handleZoomOut} />
+          </UnZoomControlContainer>
+        </ZoomContainer>
+        <FullscreenControlContainer>
+          <CustomFullscreenButton onClick={toggleFullScreen} />
+        </FullscreenControlContainer>
+        <FullscreenMapContainer>
+          <CustomFullscreenMapButton onClick={handleFullscreenToggle} />
+        </FullscreenMapContainer>
       </Container>
     </TransactionContext.Provider>
   );
 };
 
-export default Map;
+export default MapTreeD;
