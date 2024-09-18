@@ -21,7 +21,7 @@ This project is designed as part of the national Iranian metaverse known as **Me
 First, you need to clone the repository to your system. Run the following command in your terminal:
 
 ```bash
-git clone https://github.com/iranpsc/frontend-nextjs.git
+git clone https://github.com/iranpsc/react-version-2.git
 ```
 
 ### 2. Navigate to the Project Directory
@@ -29,7 +29,7 @@ git clone https://github.com/iranpsc/frontend-nextjs.git
 Once you have cloned the repository, navigate to the project directory:
 
 ```bash
-cd frontend-nextjs
+cd react-version-2
 ```
 
 ### 3. Install Dependencies
