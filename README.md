@@ -38,7 +38,6 @@ To install the required dependencies, use the following commands:
 
 ```bash
 npm install
-npm install next react react-dom
 ```
 
 ## Running the Project
