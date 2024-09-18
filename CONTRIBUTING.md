@@ -11,7 +11,7 @@ Follow the steps below to clone the repository and start working on it.
 To start working on the project, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/iranpsc/react-version-2.git
+git clone https://github.com/iranpsc/Metaverse-Rang-Front-React.git
 ```
 
 ### 2. Navigate to the Project Directory
@@ -19,7 +19,7 @@ git clone https://github.com/iranpsc/react-version-2.git
 Once the repository is cloned, navigate to the project directory:
 
 ```bash
-cd react-version-2
+cd Metaverse-Rang-Front-React
 ```
 
 ### 3. Install Dependencies
