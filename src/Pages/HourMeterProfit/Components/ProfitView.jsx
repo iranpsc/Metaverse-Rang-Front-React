@@ -147,13 +147,13 @@ const ProfitView = () => {
     }
   };
 
-  const handelClick = ({ color, value, id }) => {
+  const handelClick = ({ color, amount, id }) => {
     Request(`hourly-profits/${id}`, HTTP_METHOD.POST)
       .then(() => {
         setButtons((prevButtons) =>
           prevButtons.map((button) =>
             button.color === color
-              ? { ...button, value: button.value - value }
+              ? { ...button, value: button.value - parseFloat(amount) }
               : button
           )
         );
@@ -161,8 +161,6 @@ const ProfitView = () => {
       })
       .catch(console.error);
   };
-
-  // فیلتر کردن کارت‌هایی که is_active آنها false است
   const filteredCards = cards.filter((card) => card.is_active);
 
   return (
