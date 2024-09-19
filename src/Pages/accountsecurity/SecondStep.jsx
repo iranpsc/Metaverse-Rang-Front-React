@@ -29,8 +29,8 @@ const Codes = styled.div`
   }
   @media (min-width: 1024px) {
     input {
-      width: 46px;
-      height: 46px;
+      width: 60px;
+      height: 60px;
       font-size: 16px;
     }
   }

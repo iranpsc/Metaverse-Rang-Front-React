@@ -3,12 +3,17 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import styled from "styled-components";
 import useRequest from "../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../Services/Utility";
+import { useLanguage } from "../../Services/Reducers/LanguageContext";
 
 const Container = styled.div`
   margin-top: 20px;
-  h3,
-  p {
+  h3 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
+    font-size: 16px;
+    font-weight: 400;
+  }
+  p {
+    color: ${(props) => props.theme.colors.newColors.otherColors.gray};
     font-size: 16px;
     font-weight: 400;
   }
@@ -21,7 +26,7 @@ const Container = styled.div`
       ${(props) => props.theme.colors.newColors.otherColors.inputBg};
     padding: 14px 18px 14px 18px;
     outline: none;
-    width: 93%;
+    width: 100%;
     color: ${(props) => props.theme.colors.newColors.shades.title};
     margin-top: 20px;
   }
@@ -47,7 +52,7 @@ const Div = styled.div`
   position: relative;
   div {
     position: absolute;
-    left: 2px;
+    ${(props) => (props.isPersian ? "left" : "right")}: 8px;
     top: 28px;
     display: flex;
     flex-direction: column;
@@ -57,12 +62,21 @@ const Div = styled.div`
 `;
 const Up = styled.span`
   margin-bottom: -15px;
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 `;
-const Down = styled.span``;
+const Down = styled.span`
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+`;
 const Min = styled.span`
   position: absolute;
   color: ${(props) => props.theme.colors.newColors.shades.title};
-  right: 40px;
+  ${(props) => (props.isPersian ? "right" : "left")}: 40px;
   top: 32px;
 `;
 
@@ -70,7 +84,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
   const [phone, setPhone] = useState(true);
   const [formData, setFormData] = useState({ phone: "", time: time });
   const { Request, HTTP_METHOD } = useRequest();
-
+  const isPersian = useLanguage();
   const onSendHandler = () => {
     if (phone) {
       Request("account/security", HTTP_METHOD.POST, { time: time })
@@ -102,7 +116,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
           "how long you want your wallet security lock to be off"
         )}
       </p>
-      <Div>
+      <Div isPersian={isPersian}>
         <div>
           <Up onClick={() => setTime((prev) => +prev + 1)}>
             <MdKeyboardArrowUp />
@@ -143,7 +157,9 @@ const FirstStep = ({ setStep, time, setTime }) => {
           />
         )}
         {time !== "" && (
-          <Min>{getFieldTranslationByNames("account-security", "minutes")}</Min>
+          <Min isPersian={isPersian}>
+            {getFieldTranslationByNames("account-security", "minutes")}
+          </Min>
         )}
       </Div>
       <button onClick={onSendHandler}>

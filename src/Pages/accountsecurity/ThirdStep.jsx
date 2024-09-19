@@ -57,16 +57,14 @@ const ThirdStep = ({ setStep, time }) => {
           const newTimer = prevTimer - 1;
           localStorage.setItem("timer", newTimer); // ذخیره‌ی مقدار جدید در localStorage
           return newTimer;
-        } else {
-          clearInterval(interval);
-          return 0;
         }
+        return prevTimer; // If the timer is 0, just return 0, don't decrement further
       });
     }, 1000);
 
     return () => {
       localStorage.setItem("timestamp", Date.now()); // ذخیره‌ی زمان خروج
-      clearInterval(interval);
+      clearInterval(interval); // Clear interval on component unmount
     };
   }, []);
 
@@ -87,12 +85,11 @@ const ThirdStep = ({ setStep, time }) => {
           {getFieldTranslationByNames("account-security", "time remaining")}
         </h3>
         <h4>
-          {formatTime(timer).toLocaleString()}
+          {formatTime(timer).toLocaleString()}{" "}
           {getFieldTranslationByNames("account-security", "minutes")}
         </h4>
       </Div>
       <p onClick={() => setStep(1)}>
-        {" "}
         {getFieldTranslationByNames(
           "account-security",
           "i want to increase the time"
