@@ -14,16 +14,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Get Node.js version from package.json
-      - name: Get Node.js version from package.json
-        id: node_version
-        run: echo "NODE_VERSION=$(jq -r '.engines.node' < package.json)" >> $GITHUB_ENV
-
       # Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: '16.x'
 
       # Install dependencies
       - name: Install dependencies
@@ -37,22 +32,17 @@ jobs:
       - name: List dist folder contents
         run: ls -la dist/
 
-      # Zip dist folder
+      # Zip dist folder and ensure output.zip exists
       - name: Zip dist folder
         run: |
-          if [ -d "dist" ]; then
-            zip -r output.zip dist/
-            echo "output.zip created"
-            ls -la # Ensure the zip file exists
-          else
-            echo "Dist folder does not exist, skipping zip"
-            exit 1
-          fi
+          zip -r $GITHUB_WORKSPACE/output.zip dist/
+          echo "output.zip created"
+          ls -la $GITHUB_WORKSPACE
 
       # Verify that output.zip exists
       - name: Check if output.zip exists
         run: |
-          if [ -f "output.zip" ]; then
+          if [ -f "$GITHUB_WORKSPACE/output.zip" ]; then
             echo "output.zip exists"
           else
             echo "output.zip does not exist"
@@ -92,6 +82,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/output.zip
+          asset_path: $GITHUB_WORKSPACE/output.zip
           asset_name: output.zip
           asset_content_type: application/zip
