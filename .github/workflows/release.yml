@@ -43,11 +43,14 @@ jobs:
             exit 1
           fi
 
-      - name: Zip dist folder
+      - name: Check if zip is installed
+        run: zip --version
+
+      - name: Zip dist folder with absolute path
         run: |
-          if [ -d "dist" ]; then
-            zip -r output.zip dist/ || echo "No files to zip"
-            ls -la output.zip # بررسی وجود فایل zip
+          if [ -d "$GITHUB_WORKSPACE/dist" ]; then
+            zip -r $GITHUB_WORKSPACE/output.zip $GITHUB_WORKSPACE/dist/ || echo "No files to zip"
+            ls -la $GITHUB_WORKSPACE/output.zip # بررسی وجود فایل zip
           else
             echo "Dist folder does not exist, skipping zip"
             exit 1
@@ -55,7 +58,7 @@ jobs:
 
       - name: Verify output.zip existence
         run: |
-          if [ -f "./output.zip" ]; then
+          if [ -f "$GITHUB_WORKSPACE/output.zip" ]; then
             echo "Output.zip exists."
           else
             echo "Output.zip does not exist."
@@ -91,6 +94,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./output.zip
+          asset_path: $GITHUB_WORKSPACE/output.zip
           asset_name: output.zip
           asset_content_type: application/zip
