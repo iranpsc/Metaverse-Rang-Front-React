@@ -1,3 +1,10 @@
+name: CI/CD for MetaRang Frontend
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,11 +28,14 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: List dist folder contents
+        run: ls -la dist/
+
       - name: Zip dist folder
         run: |
           if [ -d "dist" ]; then
             zip -r output.zip dist/ || echo "No files to zip"
-            ls -la output.zip
+            ls -la output.zip # بررسی وجود فایل zip
           else
             echo "Dist folder does not exist, skipping zip"
             exit 1
