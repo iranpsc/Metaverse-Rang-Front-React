@@ -9,10 +9,12 @@ import ErrorModal from "../ErrorModal";
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
 import ReactQuill from "react-quill";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import { convertPersianNumbersToEnglish } from "../../../../Services/Utility";
+import {
+  convertPersianNumbersToEnglish,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 
 const Wrapper = styled.div`
-  direction: ltr;
   overflow-y: auto;
   height: 84%;
   padding-right: 15px;
@@ -27,7 +29,7 @@ const Container = styled.div`
   margin: 20px 0;
   display: flex;
   flex-direction: column;
-  direction: rtl;
+
   gap: 10px;
   @media (min-width: 1500px) {
     grid-template-columns: 2fr 3fr;
@@ -172,13 +174,24 @@ const IdentityInputs = ({
         {identityError && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
-            buttonText="مشاهده خطاها"
-            text="احراز هویت شما تایید نشده است، لطفا برسی و موارد ناقص را با دقت وارد کنید"
-            info="خطا در احراز هویت"
+            buttonText={getFieldTranslationByNames(
+              "authentication",
+              "view errors"
+            )}
+            text={getFieldTranslationByNames("authentication", "view errors")}
+            info={getFieldTranslationByNames(
+              "authentication",
+              "error in authentication"
+            )}
             type="error"
           />
         )}
-        <Title title="اطلاعات احراز هویت" />
+        <Title
+          title={getFieldTranslationByNames(
+            "authentication",
+            "authentication information"
+          )}
+        />
         <Inputs
           identityError={identityError}
           data={data}
@@ -195,7 +208,14 @@ const IdentityInputs = ({
           setTextVerify={setTextVerify}
           inputValues={inputValues}
         />
-        <Button large label="ارسال و ثبت اطلاعات" onclick={sendHandler} />
+        <Button
+          large
+          label={getFieldTranslationByNames(
+            "authentication",
+            "send information"
+          )}
+          onclick={sendHandler}
+        />
       </Container>
       {openErrorModal && (
         <ErrorModal setOpenErrorModal={setOpenErrorModal} errors={errors} />

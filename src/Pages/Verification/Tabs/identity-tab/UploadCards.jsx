@@ -1,6 +1,7 @@
 import { HiOutlineTrash } from "react-icons/hi";
 import styled from "styled-components";
 import { useState } from "react";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -125,7 +126,9 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
   return (
     <Container>
       <NationCard>
-        <Title>تصویر کارت ملی</Title>
+        <Title>
+          {getFieldTranslationByNames("authentication", "national card image")}
+        </Title>
         <UploadWrapper hasError={imageError}>
           {!nationImage && (
             <Upload>

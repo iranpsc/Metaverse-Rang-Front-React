@@ -9,7 +9,7 @@ const Container = styled.div`
   padding: 20px;
   padding-right: 15px;
   display: grid;
-  direction: ltr;
+
   grid-template-columns: 1fr 1fr;
   align-items: flex-start;
   gap: 20px;

@@ -7,7 +7,7 @@ import { ParticipantsContext } from "./ParticipationTab";
 
 const Container = styled.div`
   padding-top: 20px;
-  direction: ltr;
+
   @media (min-width: 1500px) {
     padding-right: 15px;
     overflow-y: auto;

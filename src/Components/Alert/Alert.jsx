@@ -5,7 +5,6 @@ import styled from "styled-components";
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  direction: rtl;
   border-radius: 5px;
   padding: 10px;
   display: flex;

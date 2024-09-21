@@ -17,7 +17,7 @@ import { FeatureContext } from "../../../Context/FeatureProvider";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  direction: ltr;
+
   padding-right: 15px;
   padding-top: 20px;
   gap: 30px;

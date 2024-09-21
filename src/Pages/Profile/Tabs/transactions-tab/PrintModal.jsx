@@ -24,7 +24,7 @@ const Modal = styled.div`
   border-radius: 10px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   overflow-y: auto;
-  direction: ltr;
+
   padding: 20px;
   z-index: 999;
   width: 415px;

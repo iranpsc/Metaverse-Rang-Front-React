@@ -8,7 +8,7 @@ const Container = styled.div`
   padding-bottom: 20px;
   overflow-y: auto;
   padding-right: 15px;
-  direction: ltr;
+
   height: 69% !important;
   h3 {
     &:first-of-type {

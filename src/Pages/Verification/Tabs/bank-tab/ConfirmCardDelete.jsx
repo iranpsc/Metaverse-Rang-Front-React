@@ -50,7 +50,6 @@ const Buttons = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: 20px;
-  direction: rtl;
 `;
 
 const Button = styled.button`
@@ -80,15 +79,34 @@ const ConfirmCardDelete = ({ setOpenDeleteModal, setCards, deleteIndex }) => {
     <BackGround>
       <Modal>
         <div>
-          <Title>حذف کارت ثبت شده</Title>
-          <Info>آیا می خواهید این کارت را حذف کنید؟ </Info>
+          <Title>
+            {" "}
+            {getFieldTranslationByNames(
+              "authentication",
+              "delete the registered card"
+            )}
+          </Title>
+          <Info>
+            {" "}
+            {getFieldTranslationByNames(
+              "authentication",
+              "do you want to delete the card"
+            )}{" "}
+            {getFieldTranslationByNames(
+              "authentication",
+              "delete the card with"
+            )}
+          </Info>
         </div>
         <Buttons>
           <Button red onClick={handleDelete}>
-            بله، حذف کارت{" "}
+            {getFieldTranslationByNames(
+              "authentication",
+              "yes, remove the card"
+            )}
           </Button>
           <Button onClick={() => setOpenDeleteModal(false)}>
-            خیر، منصرف شدم
+            {getFieldTranslationByNames("authentication", "no, I gave up")}
           </Button>
         </Buttons>
       </Modal>

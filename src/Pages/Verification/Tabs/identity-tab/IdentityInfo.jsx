@@ -6,15 +6,14 @@ import InfoInputs from "./InfoInputs";
 import styled from "styled-components";
 import Title from "../../../../Components/Title";
 import Alert from "../../../../Components/Alert/Alert";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
-const Wrapper = styled.div`
-  direction: rtl;
-`;
+const Wrapper = styled.div``;
 const Container = styled.div`
   padding: 20px 15px 20px 0;
   display: flex;
   flex-direction: column;
-  direction: ltr;
+
   gap: 10px;
   overflow-y: auto;
   height: 71%;
@@ -38,9 +37,20 @@ const IdentityInfo = ({ data, inputValues, nationalCardImg }) => {
     <Container>
       <Wrapper>
         {showAlert && (
-          <Alert text="احراز هویت شما با موفقیت انجام شده است" type="success" />
+          <Alert
+            text={getFieldTranslationByNames(
+              "authentication",
+              "your authentication has been successful"
+            )}
+            type="success"
+          />
         )}
-        <Title title="اطلاعات احراز هویت" />
+        <Title
+          title={getFieldTranslationByNames(
+            "authentication",
+            "authentication information"
+          )}
+        />
         <InfoInputs data={data} inputValues={inputValues} />
         <CardPhotos nationalCardImg={nationalCardImg} />
       </Wrapper>
