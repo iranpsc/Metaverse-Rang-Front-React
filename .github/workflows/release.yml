@@ -28,16 +28,15 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      # List dist folder contents (for debugging)
-      - name: List dist folder contents
-        run: ls -la dist/
-
       # Zip dist folder and ensure output.zip exists
       - name: Zip dist folder
         run: |
           zip -r $GITHUB_WORKSPACE/output.zip dist/
           echo "output.zip created"
-          ls -la $GITHUB_WORKSPACE
+
+      # List workspace folder contents (for debugging)
+      - name: List workspace contents
+        run: ls -la $GITHUB_WORKSPACE
 
       # Verify that output.zip exists
       - name: Check if output.zip exists
