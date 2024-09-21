@@ -28,44 +28,20 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Print current directory
-        run: pwd
+      - name: List dist folder contents
+        run: ls -la dist/
 
-      - name: List contents of current directory
-        run: ls -la
-
-      - name: Verify dist folder existence
+      - name: Zip dist folder
         run: |
           if [ -d "dist" ]; then
-            echo "Dist folder exists."
-          else
-            echo "Dist folder does not exist."
-            exit 1
-          fi
-
-      - name: Check if zip is installed
-        run: zip --version
-
-      - name: Zip dist folder with absolute path
-        run: |
-          if [ -d "$GITHUB_WORKSPACE/dist" ]; then
-            zip -r $GITHUB_WORKSPACE/output.zip $GITHUB_WORKSPACE/dist/ || echo "No files to zip"
-            ls -la $GITHUB_WORKSPACE/output.zip # بررسی وجود فایل zip
+            zip -r output.zip dist/ || echo "No files to zip"
+            ls -la # Check if output.zip was created
           else
             echo "Dist folder does not exist, skipping zip"
             exit 1
           fi
 
-      - name: Verify output.zip existence
-        run: |
-          if [ -f "$GITHUB_WORKSPACE/output.zip" ]; then
-            echo "Output.zip exists."
-          else
-            echo "Output.zip does not exist."
-            exit 1
-          fi
-
-    release:
+  release:
     needs: build
     runs-on: ubuntu-latest
 
@@ -94,6 +70,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: $GITHUB_WORKSPACE/output.zip
+          asset_path: ./output.zip
           asset_name: output.zip
           asset_content_type: application/zip
