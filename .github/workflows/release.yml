@@ -65,7 +65,7 @@ jobs:
             exit 1
           fi
 
-  release:
+    release:
     needs: build
     runs-on: ubuntu-latest
 
