@@ -20,7 +20,7 @@ const ModalContainer = styled.div`
     margin-bottom: -80px !important;
   }
   @media (min-width: 1000px) {
-    height: ${(props) => (props.isNotif ? "550px" : "450px")};
+    height: 550px;
     margin-right: 100px;
   }
 `;
