@@ -33,13 +33,13 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      # Step 5.5: List contents of the build folder (for debugging)
-      - name: List build folder contents
-        run: ls -la build/
+      # Step 5.5: List contents of the dist folder (for debugging)
+      - name: List dist folder contents
+        run: ls -la dist/
 
-      # Step 6: Zip the build folder (create output.zip)
-      - name: Zip build folder
-        run: zip -r build/output.zip build/ || echo "No files to zip"
+      # Step 6: Zip the dist folder (create output.zip)
+      - name: Zip dist folder
+        run: zip -r dist/output.zip dist/ || echo "No files to zip"
 
   release:
     needs: build
@@ -74,6 +74,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/output.zip
+          asset_path: ./dist/output.zip
           asset_name: output.zip
           asset_content_type: application/zip
