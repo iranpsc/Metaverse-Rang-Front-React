@@ -47,6 +47,7 @@ const IconWrapper = styled.div`
     background-color: white;
   }
 `;
+
 const PhotoContainer = styled.div`
   width: 80px;
   height: 80px;
@@ -71,19 +72,33 @@ const PhotoContainer = styled.div`
 const InfoRow = ({ data, type, shop, title }) => {
   const [openModal, setOpenModal] = useState(false);
   const { setAlert } = useContext(AlertContext);
+  const { Request, HTTP_METHOD } = useRequest();
+
   const buyHandler = () => {
     setAlert(true);
     setTimeout(() => {
       setAlert(false);
     }, 3000);
   };
-  const { Request, HTTP_METHOD } = useRequest();
 
   const paymentHandler = (asset, amount) => {
-    console.log(1);
     Request("order", HTTP_METHOD.POST, { asset, amount }).then((response) => {
       window.location.href = response?.data?.link;
     });
+  };
+
+  const getAssetTranslation = () => {
+    if (data.asset === "yellow") {
+      return getFieldTranslationByNames("store", "yellow");
+    } else if (data.asset === "red") {
+      return getFieldTranslationByNames("store", "red");
+    } else if (data.asset === "blue") {
+      return getFieldTranslationByNames("store", "blue");
+    } else if (data.asset === "irr") {
+      return getFieldTranslationByNames("store", "irr");
+    } else if (data.asset === "psc") {
+      return getFieldTranslationByNames("store", "psc");
+    }
   };
 
   return (
@@ -100,7 +115,7 @@ const InfoRow = ({ data, type, shop, title }) => {
           <TitleValue
             shop={shop}
             title={` ${getFieldTranslationByNames("store", "type of tool")}`}
-            value={`${type === "ابزار" ? "رنگ" : ""} ${data.asset}`}
+            value={getAssetTranslation()}
           />
         </div>
         <TitleValue
@@ -116,7 +131,7 @@ const InfoRow = ({ data, type, shop, title }) => {
           title={`${getFieldTranslationByNames("store", "amount")}`}
           value={`${addCommas(
             (data.amount * data.unitPrice) / 10
-          ).toLocaleString()} ${getFieldTranslationByNames("store", "toman")}`}
+          )} ${getFieldTranslationByNames("store", "toman")}`}
         />
         <Button
           row
