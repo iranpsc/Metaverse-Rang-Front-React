@@ -35,6 +35,7 @@ jobs:
           path: output.zip
 
   release:
+    name: Create GitHub Release
     needs: build
     runs-on: ubuntu-latest
 
