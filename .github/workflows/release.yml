@@ -78,8 +78,20 @@ jobs:
           MAJOR=$(echo $VERSION | cut -d'.' -f1)
           MINOR=$(echo $VERSION | cut -d'.' -f2)
           PATCH=$(echo $VERSION | cut -d'.' -f3)
-          NEW_PATCH=$((PATCH+1))
-          TAG_NAME="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+          
+          # Logic for changing MAJOR, MINOR, PATCH dynamically
+          if [[ $GITHUB_COMMIT_MESSAGE == *"BREAKING CHANGE"* ]]; then
+            MAJOR=$((MAJOR+1))
+            MINOR=0
+            PATCH=0
+          elif [[ $GITHUB_COMMIT_MESSAGE == *"feat"* ]]; then
+            MINOR=$((MINOR+1))
+            PATCH=0
+          else
+            PATCH=$((PATCH+1))
+          fi
+
+          TAG_NAME="v${MAJOR}.${MINOR}.${PATCH}"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
 
       # Create GitHub Release
