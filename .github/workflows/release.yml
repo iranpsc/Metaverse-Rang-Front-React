@@ -36,7 +36,8 @@ jobs:
             echo "Dist folder does not exist."
             exit 1
           fi
-
+  - name: Print current directory
+  run: pwd
       - name: Zip dist folder
         run: |
           if [ -d "dist" ]; then
