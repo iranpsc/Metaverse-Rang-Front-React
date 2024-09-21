@@ -29,7 +29,7 @@ const Title = styled.h3`
 const Value = styled.p`
   font-size: 18px;
   padding: 5px 20px;
-  direction: ltr;
+
   @media (min-width: 998px) {
     padding: 8px 20px;
   }

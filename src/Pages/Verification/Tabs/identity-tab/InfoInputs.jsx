@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TitleValue from "../../../../Components/TitleValue";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   display: grid;
@@ -29,7 +30,14 @@ const InfoInputs = ({ data, inputValues }) => {
   return (
     <Container>
       {Object.values(inputValues).map((item, index) => (
-        <TitleValue value={item} title={data[index]?.label} key={item.id} />
+        <TitleValue
+          value={item}
+          title={getFieldTranslationByNames(
+            "authentication",
+            data[index]?.label
+          )}
+          key={item.id}
+        />
       ))}
     </Container>
   );

@@ -6,9 +6,9 @@ import Title from "../../../../Components/Title";
 import Alert from "../../../../Components/Alert/Alert";
 import ErrorModal from "../ErrorModal";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Wrapper = styled.div`
-  direction: rtl;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -17,7 +17,7 @@ const Container = styled.div`
   padding: 20px 0;
   padding-right: 15px;
   overflow-y: auto;
-  direction: ltr;
+
   height: 73%;
   @media (min-width: 1024px) {
     height: 70%;
@@ -45,13 +45,24 @@ const BankTab = ({ setOpenErrorModal, openErrorModal }) => {
   return (
     <Container>
       <Wrapper>
-        <Title title="کارت های بانکی" />
+        <Title
+          title={getFieldTranslationByNames("authentication", "bank cards")}
+        />
         {isError && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
-            buttonText="مشاهده خطاها"
-            text="خطا در ثبت کارت جدید، اطلاعات کارت به درستی وارد نشده است "
-            info="خطا در ثبت کارت"
+            buttonText={getFieldTranslationByNames(
+              "authentication",
+              "view errors"
+            )}
+            text={getFieldTranslationByNames(
+              "authentication",
+              "error in new card registration, card information is not entered correctly"
+            )}
+            info={getFieldTranslationByNames(
+              "authentication",
+              "card registration error"
+            )}
             type="error"
           />
         )}

@@ -8,6 +8,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useState } from "react";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Birthday = styled.div`
   direction: rtl;
@@ -77,7 +78,7 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
     <Container>
       {data.slice(0, 3).map((item) => (
         <EditInput
-          title={item.label}
+          title={getFieldTranslationByNames("authentication", item.label)}
           value={inputValues[item.slug]}
           onchange={handleInputChange}
           key={item.id}

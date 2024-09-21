@@ -13,7 +13,6 @@ import persian_fa from "react-date-object/locales/persian_fa";
 
 // Wrapper Component
 const Wrapper = styled.div`
-  direction: ltr;
   overflow-y: auto;
   height: 84%;
   padding-right: 15px;
