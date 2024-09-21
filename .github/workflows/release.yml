@@ -24,25 +24,32 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Extract commit message
-      - name: Get commit message
-        run: echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+      # Get the commit message and set version bump type
+      - name: Determine bump type based on commit message
+        run: |
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          echo "Commit message: $COMMIT_MESSAGE"
 
-      # Bump version in package.json based on commit message
+          if [[ "$COMMIT_MESSAGE" == *"BREAKING CHANGE"* ]]; then
+            echo "BUMP_TYPE=major" >> $GITHUB_ENV
+          elif [[ "$COMMIT_MESSAGE" == *"feat"* ]]; then
+            echo "BUMP_TYPE=minor" >> $GITHUB_ENV
+          else
+            echo "BUMP_TYPE=patch" >> $GITHUB_ENV
+
+      # Bump version in package.json
       - name: Bump version
         run: |
-          COMMIT_MESSAGE=$GITHUB_COMMIT_MESSAGE
           CURRENT_VERSION=$(jq -r ".version" package.json)
           VERSION_ARRAY=(${CURRENT_VERSION//./ })
           MAJOR=${VERSION_ARRAY[0]}
           MINOR=${VERSION_ARRAY[1]}
           PATCH=${VERSION_ARRAY[2]}
 
-          # Check the commit message for specific keywords
-          if [[ "$COMMIT_MESSAGE" == *"BREAKING CHANGE"* ]]; then
+          if [ "$BUMP_TYPE" = "major" ]; then
             NEW_MAJOR=$((MAJOR + 1))
             NEW_VERSION="$NEW_MAJOR.0.0"
-          elif [[ "$COMMIT_MESSAGE" == *"feat"* ]]; then
+          elif [ "$BUMP_TYPE" = "minor" ]; then
             NEW_MINOR=$((MINOR + 1))
             NEW_VERSION="$MAJOR.$NEW_MINOR.0"
           else
@@ -88,7 +95,7 @@ jobs:
           VERSION=$(jq -r ".version" package.json)
           echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
 
-      # Create GitHub Release 1
+      # Create GitHub Release
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
