@@ -28,6 +28,12 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: Print current directory
+        run: pwd
+
+      - name: List contents of current directory
+        run: ls -la
+
       - name: Verify dist folder existence
         run: |
           if [ -d "dist" ]; then
@@ -36,8 +42,7 @@ jobs:
             echo "Dist folder does not exist."
             exit 1
           fi
-  - name: Print current directory
-  run: pwd
+
       - name: Zip dist folder
         run: |
           if [ -d "dist" ]; then
