@@ -35,7 +35,7 @@ jobs:
         run: |
           if [ -d "dist" ]; then
             zip -r output.zip dist/ || echo "No files to zip"
-            ls -la # برای بررسی وجود فایل zip
+            ls -la output.zip # بررسی وجود فایل zip
           else
             echo "Dist folder does not exist, skipping zip"
           fi
