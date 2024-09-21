@@ -27,7 +27,7 @@ const Container = styled.div`
   overflow-y: auto;
   padding-right: 15px;
   height: 265px;
-  direction: ltr;
+
   @media (min-width: 840px) {
     height: 280px;
   }

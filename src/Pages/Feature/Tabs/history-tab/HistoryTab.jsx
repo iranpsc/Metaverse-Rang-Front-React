@@ -6,28 +6,28 @@ const history = [
     id: 1,
     date: { day: 1, month: "خرداد" },
     user: "HM-2000081",
-    link:'https://rgb.irpsc.com/fa/citizen/hm-2000001',
+    link: "https://rgb.irpsc.com/fa/citizen/hm-2000001",
     time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰",
   },
   {
     id: 2,
     date: { day: 30, month: "اردیبهشت" },
     user: "HM-2000081",
-    link:'https://rgb.irpsc.com/fa/citizen/hm-2000001',
+    link: "https://rgb.irpsc.com/fa/citizen/hm-2000001",
     time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰",
   },
   {
     id: 3,
     date: { day: 25, month: "اردیبهشت" },
     user: "HM-2000081",
-    link:'https://rgb.irpsc.com/fa/citizen/hm-2000001',
+    link: "https://rgb.irpsc.com/fa/citizen/hm-2000001",
     time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰",
   },
   {
     id: 4,
     date: { day: 24, month: "اردیبهشت" },
     user: "HM-2000081",
-    link:'https://rgb.irpsc.com/fa/citizen/hm-2000001',
+    link: "https://rgb.irpsc.com/fa/citizen/hm-2000001",
     time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰",
   },
 ];
@@ -39,7 +39,7 @@ const Container = styled.div`
   gap: 10px;
   padding-right: 15px;
   overflow-y: auto;
-  direction: ltr;
+
   height: 68%;
   @media (min-width: 930px) {
     height: 71%;
@@ -63,7 +63,7 @@ const HistoryTab = () => {
       ))}
       <HistoryItem
         date={{ day: "20", month: "اردیبهشت" }}
-        user='سیستم آر جی بی'
+        user="سیستم آر جی بی"
         time="۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰"
         owner
       />

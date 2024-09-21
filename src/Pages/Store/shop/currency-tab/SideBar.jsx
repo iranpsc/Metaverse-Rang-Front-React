@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { convertToPersian } from "../../../../Services/Utility";
 
 const Container = styled.div`
-  direction: ltr;
   overflow-y: auto;
   padding-right: 10px;
   height: 20rem;

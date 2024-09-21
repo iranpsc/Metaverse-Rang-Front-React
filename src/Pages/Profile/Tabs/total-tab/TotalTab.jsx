@@ -10,7 +10,7 @@ const Container = styled.div`
   padding-top: 20px;
   padding-right: 10px;
   padding-bottom: 19px;
-  direction: ltr;
+
   overflow-y: auto;
   display: grid;
   grid-template-columns: 1fr;

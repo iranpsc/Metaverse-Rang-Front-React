@@ -40,7 +40,6 @@ const ProgressContainer = styled.div`
   height: 8px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 28px;
-  direction: ltr;
 `;
 const ProgressBar = styled.div`
   background-color: ${(props) => props.theme.colors.primary};

@@ -1,11 +1,14 @@
 import ErrorItem from "./identity-tab/ErrorItem";
 import { IoCloseSharp } from "react-icons/io5";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
+import { useLanguage } from "../../../Services/Reducers/LanguageContext";
+import { isPersian } from "@persian-tools/persian-tools";
 
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  direction: ltr;
+
   gap: 10px;
   padding-right: 15px;
   height: 197px;
@@ -30,7 +33,6 @@ const Modal = styled.div`
   padding: 20px;
   width: 100%;
   max-width: 475px;
-  direction: rtl;
   position: relative;
 `;
 
@@ -55,7 +57,7 @@ const Info = styled.p`
 const Close = styled.div`
   position: absolute;
   top: 10px;
-  left: 10px;
+  ${(props) => (props.isPersian ? "left" : "right")}: 10px;
   cursor: pointer;
   svg {
     color: red;
@@ -64,17 +66,26 @@ const Close = styled.div`
 `;
 
 const ErrorModal = ({ setOpenErrorModal, errors }) => {
+  const isPersian = useLanguage();
   return (
     <BackGround>
       <Modal>
-        <Close>
+        <Close isPersian={isPersian}>
           <IoCloseSharp onClick={() => setOpenErrorModal(false)} />
         </Close>
         <div>
-          <Title>خطا های احراز هویت</Title>
+          <Title>
+            {" "}
+            {getFieldTranslationByNames(
+              "authentication",
+              "authentication errors"
+            )}
+          </Title>
           <Info>
-            احراز هویت شما تایید نشده است، لطفا برسی و موارد ناقص را با دقت
-            وارید کنید
+            {getFieldTranslationByNames(
+              "authentication",
+              "your authentication has not been verified, please review and record incomplete items carefully"
+            )}
           </Info>
         </div>
         <Div>

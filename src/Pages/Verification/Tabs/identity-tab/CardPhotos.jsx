@@ -1,6 +1,5 @@
-import bank from "../../../../Assets/images/bank-card.png";
-import nation from "../../../../Assets/images/nation.png";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const ImageWrapper = styled.div`
   width: 220px;
@@ -33,7 +32,9 @@ const CardPhotos = ({ nationalCardImg }) => {
   return (
     <Container>
       <div>
-        <Title>تصویر کارت ملی</Title>
+        <Title>
+          {getFieldTranslationByNames("authentication", "national card image")}
+        </Title>
         <ImageWrapper>
           <img src={nationalCardImg} alt="nation" />
         </ImageWrapper>

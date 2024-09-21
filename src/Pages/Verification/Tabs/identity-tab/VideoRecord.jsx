@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import Resumable from "resumablejs";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -274,7 +275,9 @@ const VideoRecord = ({
 
   return (
     <Container>
-      <Title>ویدیو احراز هویت</Title>
+      <Title>
+        {getFieldTranslationByNames("authentication", "video authentication")}
+      </Title>
       <Div>
         <ContainerRecorder>
           <Record
@@ -307,14 +310,24 @@ const VideoRecord = ({
         </ContainerRecorder>
 
         <Info>
-          <h4>متن احراز هویت، لطفا این متن را در ویدیو بخوانید</h4>
+          <h4>
+            {getFieldTranslationByNames(
+              "authentication",
+              "authentication text, please read this text in the video"
+            )}
+          </h4>
           <p>
             {textVerify.text} {user.code}
           </p>
           <div>
-            <h3>زمان خواندن: </h3>
+            <h3>
+              {getFieldTranslationByNames("authentication", "reading time")}
+            </h3>
             <h5>
-              {timeLeft} <span>ثانیه</span>
+              {timeLeft}
+              <span>
+                {getFieldTranslationByNames("authentication", "seconds")}
+              </span>
             </h5>
           </div>
         </Info>

@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
-  direction: ltr;
+
   overflow-y: auto;
   height: 550px;
   @media (min-width: 640px) {
@@ -492,7 +492,7 @@ const SentList = () => {
 
     return codeMatch && statusMatch && memberMatch;
   });
-  
+
   return (
     <Container>
       <div dir="rtl">

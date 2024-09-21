@@ -22,7 +22,7 @@ import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
-  direction: ltr;
+
   overflow-y: auto;
   height: 550px;
   z-index: 10;
