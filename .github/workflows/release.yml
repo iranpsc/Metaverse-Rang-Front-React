@@ -31,6 +31,11 @@ jobs:
       - name: List dist folder contents
         run: ls -la dist/
 
+      - name: Print current directory and list all files
+        run: |
+          pwd
+          ls -la
+
       - name: Zip dist folder
         run: |
           if [ -d "dist" ]; then
@@ -41,7 +46,7 @@ jobs:
             exit 1
           fi
 
-      - name: Verify output.zip exists
+      - name: Check if output.zip exists
         run: |
           if [ -f "output.zip" ]; then
             echo "output.zip exists"
@@ -79,6 +84,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/output.zip  # مسیر مطلق
+          asset_path: ./output.zip
           asset_name: output.zip
           asset_content_type: application/zip
