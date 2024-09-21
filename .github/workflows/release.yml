@@ -10,52 +10,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Read Node.js version from package.json
       - name: Get Node.js version from package.json
         id: node_version
         run: echo "NODE_VERSION=$(jq -r '.engines.node' < package.json)" >> $GITHUB_ENV
 
-      # Step 3: Set up Node.js with the version from package.json
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      # Step 4: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Step 5: Build the project
       - name: Build the project
         run: npm run build
 
-      # Step 5.5: List contents of the dist folder (for debugging)
       - name: List dist folder contents
         run: ls -la dist/
 
-      # Step 6: Zip the dist folder (create output.zip)
       - name: Zip dist folder
-        run: zip -r dist/output.zip dist/ || echo "No files to zip"
+        run: zip -r output.zip dist/ || echo "No files to zip"
 
   release:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Generate a dynamic tag name
       - name: Generate tag name
         id: generate_tag
         run: echo "TAG_NAME=v1.0.0-${{ github.run_number }}-$(date '+%Y%m%d')" >> $GITHUB_ENV
 
-      # Step 3: Create GitHub Release with a dynamic tag name
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -69,11 +59,10 @@ jobs:
           draft: false
           prerelease: false
 
-      # Step 4: Upload release assets
       - name: Upload release assets
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/output.zip
+          asset_path: ./output.zip
           asset_name: output.zip
           asset_content_type: application/zip
