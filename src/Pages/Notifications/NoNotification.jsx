@@ -23,7 +23,10 @@ const NoNotification = () => {
   return (
     <Container>
       <FiInbox />
-      <h2>اعلانی موجود نیست!</h2>
+      <h2>
+        {" "}
+        {getFieldTranslationByNames("notification", "there is no message")}
+      </h2>
     </Container>
   );
 };

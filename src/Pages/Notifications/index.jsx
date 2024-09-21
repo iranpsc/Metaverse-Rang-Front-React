@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import useRequest from "../../Services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import ModalSm from "../../Components/Modal/ModalSm";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Div = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
   overflow-y: auto;
-  direction: ltr;
   padding-right: 15px;
   height: 220px;
   @media (min-width: 1000px) {
@@ -40,9 +40,11 @@ const Notifications = () => {
   }, []);
 
   return (
-    <ModalSm title="اعلان ها">
+    <ModalSm title={[]}>
       <Container>
-        <h4 onClick={() => setNotifications([])}>حذف همه</h4>
+        <h4 onClick={() => setNotifications(["notification", "notifications"])}>
+          {getFieldTranslationByNames("notification", "remove all")}
+        </h4>
 
         <Div>
           {notifications.map((notif) => (
