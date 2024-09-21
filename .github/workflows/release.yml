@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Get the commit message and set version bump type
+      # Get the commit message and set version bump type (dynamic bump for MAJOR, MINOR, PATCH)
       - name: Determine bump type based on commit message
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
@@ -37,7 +37,7 @@ jobs:
           else
             echo "BUMP_TYPE=patch" >> $GITHUB_ENV
 
-      # Bump version in package.json
+      # Bump version in package.json (dynamic bump for MAJOR, MINOR, PATCH)
       - name: Bump version
         run: |
           CURRENT_VERSION=$(jq -r ".version" package.json)
@@ -46,6 +46,7 @@ jobs:
           MINOR=${VERSION_ARRAY[1]}
           PATCH=${VERSION_ARRAY[2]}
 
+          # Check the type of bump and update version accordingly
           if [ "$BUMP_TYPE" = "major" ]; then
             NEW_MAJOR=$((MAJOR + 1))
             NEW_VERSION="$NEW_MAJOR.0.0"
