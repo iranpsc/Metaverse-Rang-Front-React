@@ -35,7 +35,7 @@ jobs:
         run: |
           if [ -d "dist" ]; then
             zip -r output.zip dist/ || echo "No files to zip"
-            ls -la output.zip # بررسی وجود فایل zip
+            ls -la output.zip
           else
             echo "Dist folder does not exist, skipping zip"
             exit 1
@@ -61,6 +61,9 @@ jobs:
       - name: Generate tag name
         id: generate_tag
         run: echo "TAG_NAME=v1.0.0-${{ github.run_number }}-$(date '+%Y%m%d')" >> $GITHUB_ENV
+
+      - name: Print Upload URL
+        run: echo ${{ steps.create_release.outputs.upload_url }}
 
       - name: Create GitHub Release
         id: create_release
