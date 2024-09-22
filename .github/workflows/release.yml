@@ -28,7 +28,7 @@ jobs:
       - name: Get commit message
         run: echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
 
-            # Bump version in package.json based on commit message
+      # Bump version in package.json based on commit message
       - name: Bump version
         run: |
           COMMIT_MESSAGE=${{ env.COMMIT_MESSAGE }}
@@ -52,7 +52,6 @@ jobs:
 
           echo "Bumping version from $CURRENT_VERSION to $NEW_VERSION"
           jq ".version = \"$NEW_VERSION\"" package.json > temp.json && mv temp.json package.json
-
 
       # Commit the version bump
       - name: Commit version bump
@@ -89,7 +88,7 @@ jobs:
           VERSION=$(jq -r ".version" package.json)
           echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
 
-      # Create GitHub Release 3
+      # Create GitHub Release
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
