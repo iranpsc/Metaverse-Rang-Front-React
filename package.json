@@ -1,7 +1,7 @@
 {
   "name": "meta-vite",
   "private": true,
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
