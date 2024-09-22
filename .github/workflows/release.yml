@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: "16.x"
 
       # Install dependencies
       - name: Install dependencies
@@ -27,8 +27,8 @@ jobs:
       # Set Git user for commits
       - name: Configure Git user
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config --global user.name "m6hdix"
+          git config --global user.email "m6hdixx@gmail.com"
 
       # Run standard-version to bump version, generate changelog, and tag the release
       - name: Bump version using standard-version
