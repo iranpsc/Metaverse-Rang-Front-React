@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.26 (2024-09-23)
+
+
+### Bug Fixes
+
+* test standard version 10 ([2333fe7](https://github.com/iranpsc/Metaverse-Rang-Front-React/commit/2333fe780e7b7080ddf0f9710f291b4a8c354e8d))
+
 ### 1.1.25 (2024-09-23)
 
 ### [1.1.24](https://github.com/iranpsc/react-version-2/compare/v1.1.23...v1.1.24) (2024-09-23)
