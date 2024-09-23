@@ -75,6 +75,7 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body_path: ./CHANGELOG.md  # Use the updated changelog file as the release body
+          body_path: ./CHANGELOG.md  # Make sure this is pointing to the correct file path
           draft: false
           prerelease: false
+
