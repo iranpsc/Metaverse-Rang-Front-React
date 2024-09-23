@@ -31,7 +31,7 @@ jobs:
           git config --global user.email "m6hdixx@gmail.com"
 
       # Run standard-version to bump version, generate changelog, and tag the release
-      - name: Bump version using standard-version
+      - name: Bump version and generate changelog
         run: |
           npx standard-version
 
@@ -43,19 +43,6 @@ jobs:
       # Build the project
       - name: Build the project
         run: npm run build
-
-      # Generate release body from commit logs between two latest pushes
-      - name: Generate release body
-        id: generate_body
-        run: |
-          # Find the last push commit
-          LAST_PUSH_COMMIT=$(git rev-parse origin/main)
-          
-          # Collect commit messages between the last push and current HEAD
-          COMMITS=$(git log $LAST_PUSH_COMMIT..HEAD --pretty=format:"* %h - %s" --no-merges)
-          
-          echo "Collected commits: $COMMITS"  # Log collected commits for debugging
-          echo "RELEASE_BODY=$COMMITS" >> $GITHUB_ENV
 
       # Zip dist folder and ensure output.zip exists
       - name: Zip dist folder
@@ -79,7 +66,7 @@ jobs:
           VERSION=$(jq -r ".version" package.json)
           echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
 
-      # Create GitHub Release with commit messages as body
+      # Create GitHub Release with changelog as the body
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -88,6 +75,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body: ${{ env.RELEASE_BODY }}  # Use commit logs as the release body
+          body_path: ./CHANGELOG.md  # Use the generated changelog file as body
           draft: false
           prerelease: false
