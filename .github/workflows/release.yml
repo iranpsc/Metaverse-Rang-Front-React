@@ -28,7 +28,7 @@ jobs:
         run: |
           zip -r $GITHUB_WORKSPACE/output.zip dist/
           echo "output.zip created"
-#dsdsdsdsd
+
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -49,13 +49,11 @@ jobs:
           version_header=$(grep -oP '^### \[.*\]' CHANGELOG.md | head -n 1)
           sed -n "/^### $version_header/,/^### /{ /^### /{ /$version_header/!d }; p }" CHANGELOG.md > latest_changes.md
 
-      - name: Read latest changes into an environment variable
+      - name: Read latest changes into a variable
         id: read_changes
         run: |
           CHANGELOG_CONTENT=$(cat latest_changes.md)
-          echo "CHANGELOG_CONTENT<<EOF" >> $GITHUB_ENV
-          echo "$CHANGELOG_CONTENT" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          echo "$CHANGELOG_CONTENT" > changelog_content.txt
 
       - name: Create GitHub Release
         id: create_release
@@ -65,6 +63,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body: ${{ env.CHANGELOG_CONTENT }}
+          body_path: changelog_content.txt
           draft: false
           prerelease: false
