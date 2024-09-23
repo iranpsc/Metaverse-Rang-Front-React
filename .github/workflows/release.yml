@@ -34,28 +34,40 @@ jobs:
           zip -r $GITHUB_WORKSPACE/output.zip dist/
           echo "output.zip created"
 
-release:
-  needs: build  # Wait for the build job to complete
-  runs-on: ubuntu-latest
+  release:
+    needs: build
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Generate tag name from package.json
-      id: generate_tag
-      run: |
-        VERSION=$(jq -r ".version" package.json)
-        echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
+      - name: Generate tag name from package.json
+        id: generate_tag
+        run: |
+          VERSION=$(jq -r ".version" package.json)
+          echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
 
-    - name: Extract latest changes
-      run: |
-        # Extract the version header
-        version_header=$(grep -oP '^### \[.*\]' CHANGELOG.md | head -n 1)
-        
-        # Use sed to extract changes for the latest version header
-        sed -n "/^### $version_header/,/^### /{ /^### /{ /$version_header/!d }; p }" CHANGELOG.md > latest_changes.md
+      - name: Extract latest changes
+        run: |
+          # Extract the latest version header from CHANGELOG.md
+          version_header=$(grep -oP '^### \[.*\]' CHANGELOG.md | head -n 1)
+          
+          # Use sed to extract changes for the latest version header
+          sed -n "/^### $version_header/,/^### /{ /^### /{ /$version_header/!d }; p }" CHANGELOG.md > latest_changes.md
 
-        # Print the extracted changes for debugging
-        cat latest_changes.md
+          # Print the extracted changes for debugging
+          cat latest_changes.md
 
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: ${{ env.TAG_NAME }}
+          body: |
+            $(cat latest_changes.md)
+          draft: false
+          prerelease: false
