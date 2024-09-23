@@ -1,7 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 
 import Search from "../../Pages/Search";
-import Security from "../../Pages/Security";
 import PrivateRoute from "../../Routes/PrivateRoute";
 import Report from "../../Pages/Report";
 import Sanad from "../../Pages/Sanad";
@@ -26,7 +25,7 @@ import TransactionPayments from "../../Pages/Payments/Verification/transactionPa
 import VerificationEmail from "../../Pages/VerificationEmail";
 import Ip from "../../Pages/Ip";
 import EmailVerification from "../../Pages/EmailVerification";
-import AccountSecurityModal from "../../Pages/accountsecurity";
+import AccountSecurityModal from "../../Pages/AccountSecurity";
 
 export default function Routers() {
   return (

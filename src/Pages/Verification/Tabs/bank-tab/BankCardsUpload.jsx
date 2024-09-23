@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { getShebaInfo } from "@persian-tools/persian-tools";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   display: flex;
@@ -143,10 +144,13 @@ const BankCardsUpload = ({
   setOpenDeleteModal,
 }) => {
   const [deleteIndex, setDeleteIndex] = useState(null);
-
-  const handleDeleteCard = (index) => {
-    setDeleteIndex(index);
-    setOpenDeleteModal(true);
+  const { Request, HTTP_METHOD } = useRequest();
+  const handleDeleteCard = ({ index, id }) => {
+    console.log(id);
+    Request(`bank-accounts/${id}`, HTTP_METHOD.DELETE).then((response) => {
+      setDeleteIndex(index);
+      setOpenDeleteModal(true);
+    });
   };
 
   return (
@@ -157,7 +161,9 @@ const BankCardsUpload = ({
             return (
               <UploadWrapper key={i}>
                 <Image>
-                  <IconWrapper onClick={() => handleDeleteCard(i)}>
+                  <IconWrapper
+                    onClick={() => handleDeleteCard({ index: i, id: card.id })}
+                  >
                     <HiOutlineTrash />
                   </IconWrapper>
                   <DisplayCard>
