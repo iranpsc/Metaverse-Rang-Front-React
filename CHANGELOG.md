@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.33](https://github.com/iranpsc/react-version-2/compare/v1.1.32...v1.1.33) (2024-09-23)
+
+
+### Bug Fixes
+
+* test standard version 201554445454 ([3f57705](https://github.com/iranpsc/react-version-2/commit/3f5770542e8f491e0592519ecf3956e0b375afd7))
+* test standard version 510er ewsfds ([7c6365a](https://github.com/iranpsc/react-version-2/commit/7c6365a8b2c57c03d30088210cc8a7640ce2a992))
+* test standard version zzzzzzzzzzzzzz ([a4e37e8](https://github.com/iranpsc/react-version-2/commit/a4e37e8acbcdeef52957ec12071e1ed604aa0949))
+* test standard version یبلیببل ([dd9b8c4](https://github.com/iranpsc/react-version-2/commit/dd9b8c4431c077b717006948660d61a903ebb677))
+
 ### [1.1.32](https://github.com/iranpsc/react-version-2/compare/v1.1.31...v1.1.32) (2024-09-23)
 
 
