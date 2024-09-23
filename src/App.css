@@ -145,3 +145,23 @@ a {
     transition: all 0.3s;
   }
 }
+
+* {
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #85858590;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #d7d7d74d;
+    cursor: pointer;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
