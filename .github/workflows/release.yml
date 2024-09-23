@@ -45,11 +45,12 @@ jobs:
         run: npm run build
 
       # Generate release body from commit logs between the two most recent tags
+            # Generate release body from commit logs between the two most recent tags
       - name: Generate release body
         id: generate_body
         run: |
-          # Get the most recent tag
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          # Get the most recent tag before the current commit
+          PREV_TAG=$(git describe --tags `git rev-list --tags --skip=1 --max-count=1` 2>/dev/null || echo "")
           
           # Check if there is a previous tag
           if [ -z "$PREV_TAG" ]; then
@@ -58,9 +59,10 @@ jobs:
           fi
 
           # Collect commit messages between the last tag and current HEAD
-          COMMITS=$(git log $PREV_TAG..HEAD --pretty=format:"* %h - %s" --no-merges)
+          COMMITS=$(git log $PREV_TAG..HEAD --pretty=format:"* %h - %s" --no-merges --grep='^(?!chore\(release\))')
           echo "Collected commits: $COMMITS"  # Log collected commits for debugging
           echo "RELEASE_BODY=$COMMITS" >> $GITHUB_ENV
+
 
       # Zip dist folder and ensure output.zip exists
       - name: Zip dist folder
