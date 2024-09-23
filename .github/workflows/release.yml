@@ -43,31 +43,36 @@ jobs:
           echo "output.zip created"
 
   release:
-    needs: build
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
+      # Checkout the code again to get the latest changelog
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Generate tag name based on updated version
       - name: Generate tag name from package.json
         id: generate_tag
         run: |
           VERSION=$(jq -r ".version" package.json)
           echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
 
-      # Wait for GitHub to process new tag
-      - name: Wait for GitHub to process new tag
-        run: sleep 5
+      # Read the CHANGELOG.md file and save it to a file
+      - name: Prepare changelog body
+        id: prepare_changelog
+        run: |
+          cat CHANGELOG.md > changelog_body.txt
 
+      # Create GitHub Release with changelog as the body
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1.1.2
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body_path: ./CHANGELOG.md
+          body_path: changelog_body.txt  # Use the changelog file directly as body
           draft: false
           prerelease: false
