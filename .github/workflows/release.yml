@@ -1,37 +1,15 @@
+name: CI/CD for MetaRang Frontend
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  versioning:
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Configure Git user
-        run: |
-          git config --global user.name "m6hdix"
-          git config --global user.email "m6hdixx@gmail.com"
-
-      - name: Bump version and generate changelog
-        run: npx standard-version
-
-      - name: Push changes including version bump and changelog
-        run: |
-          git push --follow-tags origin main
-
-      # Wait to ensure the tag is processed by GitHub
-      - name: Wait for GitHub to process the new tag
-        run: sleep 10
 
   build:
-    needs: versioning
+    needs: versioning  # Wait for the versioning job to complete
     runs-on: ubuntu-latest
 
     steps:
@@ -55,7 +33,7 @@ jobs:
           echo "output.zip created"
 
   release:
-    needs: build
+    needs: build  # Wait for the build job to complete
     runs-on: ubuntu-latest
 
     steps:
