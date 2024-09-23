@@ -59,7 +59,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Generate tag name based on updated version
+      # Generate tag name based on updated version ..
       - name: Generate tag name from package.json
         id: generate_tag
         run: |
