@@ -78,6 +78,7 @@ const Min = styled.span`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   ${(props) => (props.isPersian ? "right" : "left")}: 40px;
   top: 32px;
+  font-size: 14px;
 `;
 
 const FirstStep = ({ setStep, time, setTime }) => {
