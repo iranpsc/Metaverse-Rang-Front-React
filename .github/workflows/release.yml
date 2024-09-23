@@ -44,25 +44,18 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      # Generate release body from commit logs between the two most recent tags
-            # Generate release body from commit logs between the two most recent tags
+      # Generate release body from commit logs between two latest pushes
       - name: Generate release body
         id: generate_body
         run: |
-          # Get the most recent tag before the current commit
-          PREV_TAG=$(git describe --tags `git rev-list --tags --skip=1 --max-count=1` 2>/dev/null || echo "")
+          # Find the last push commit
+          LAST_PUSH_COMMIT=$(git rev-parse origin/main)
           
-          # Check if there is a previous tag
-          if [ -z "$PREV_TAG" ]; then
-            # No previous tag found, use the initial commit as the starting point
-            PREV_TAG=$(git rev-list --max-parents=0 HEAD)
-          fi
-
-          # Collect commit messages between the last tag and current HEAD
-          COMMITS=$(git log $PREV_TAG..HEAD --pretty=format:"* %h - %s" --no-merges --grep='^(?!chore\(release\))')
+          # Collect commit messages between the last push and current HEAD
+          COMMITS=$(git log $LAST_PUSH_COMMIT..HEAD --pretty=format:"* %h - %s" --no-merges)
+          
           echo "Collected commits: $COMMITS"  # Log collected commits for debugging
           echo "RELEASE_BODY=$COMMITS" >> $GITHUB_ENV
-
 
       # Zip dist folder and ensure output.zip exists
       - name: Zip dist folder
@@ -95,6 +88,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body: ${{ env.RELEASE_BODY }}  # Use commit logs between tags as the body
+          body: ${{ env.RELEASE_BODY }}  # Use commit logs as the release body
           draft: false
           prerelease: false
