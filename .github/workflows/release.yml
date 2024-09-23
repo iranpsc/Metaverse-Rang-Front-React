@@ -59,7 +59,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Generate tag name based on updated version ..
+      # Generate tag name based on updated version from package.json
       - name: Generate tag name from package.json
         id: generate_tag
         run: |
@@ -75,7 +75,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body: ${{ github.event.pull_request.body }} 
-           
+          body: ${{ github.event.head_commit.message }} # استفاده از متن کامیت
           draft: false
           prerelease: false
