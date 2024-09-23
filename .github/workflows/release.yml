@@ -29,8 +29,7 @@ jobs:
       - name: Bump version and generate changelog
         run: npx standard-version
 
-      # Push changes including version bump and changelog
-      - name: Push changes
+      - name: Push changes including version bump and changelog
         run: |
           git push --follow-tags origin main
 
@@ -42,36 +41,42 @@ jobs:
           zip -r $GITHUB_WORKSPACE/output.zip dist/
           echo "output.zip created"
 
-release:
-  needs: build
-  runs-on: ubuntu-latest
+  release:
+    needs: build
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Generate tag name from package.json
-      id: generate_tag
-      run: |
-        VERSION=$(jq -r ".version" package.json)
-        echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
+      - name: Generate tag name from package.json
+        id: generate_tag
+        run: |
+          VERSION=$(jq -r ".version" package.json)
+          echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
 
-    # Extract only the latest changes from CHANGELOG.md
-    - name: Extract latest changes
-      run: |
-        awk '/^## \[v/{if (p) exit; p=1} p' CHANGELOG.md > latest_changes.md
+      # Extract only the latest changes from CHANGELOG.md
+      - name: Extract latest changes
+        run: |
+          awk '/^## \[v/{if (p) exit; p=1} p' CHANGELOG.md > latest_changes.md
 
-    - name: Wait for GitHub to process new tag
-      run: sleep 5
+      # Optional: Verify the extracted latest changes
+      - name: Print latest changes
+        run: cat latest_changes.md
 
-    - name: Create GitHub Release
-      id: create_release
-      uses: actions/create-release@v1.1.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ env.TAG_NAME }}
-        release_name: "Release ${{ env.TAG_NAME }}"
-        body_path: ./latest_changes.md  # Use only the latest changes
-        draft: false
-        prerelease: false
+      # Wait for GitHub to process new tag
+      - name: Wait for GitHub to process new tag
+        run: sleep 5
+
+      # Create GitHub Release with only the latest changes in body
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1.1.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: "Release ${{ env.TAG_NAME }}"
+          body_path: ./latest_changes.md  # Use only the latest changes
+          draft: false
+          prerelease: false
