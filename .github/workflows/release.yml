@@ -6,7 +6,6 @@ on:
       - main
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
@@ -14,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-        - name: Set up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
@@ -36,18 +35,32 @@ jobs:
           echo "output.zip created"
 
   release:
-    needs: build
+    needs: build  # Wait for the build job to complete
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Generate tag name from package.json
+        id: generate_tag
+        run: |
+          VERSION=$(jq -r ".version" package.json)
+          echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
+
       - name: Extract latest changes
         run: |
+          # Extract the version header
           version_header=$(grep -oP '^### \K.*(?= \()' CHANGELOG.md | head -n 1)
+          
+          # Extract changes related to the version header
           awk "/^### $version_header/{found=1} found && /^### /{exit} found" CHANGELOG.md > latest_changes.md
+          
+          # Print the extracted changes for debugging
           cat latest_changes.md
+
+      - name: Wait for GitHub to process new tag
+        run: sleep 5
 
       - name: Create GitHub Release
         id: create_release
@@ -56,5 +69,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.TAG_NAME }}
-          release_name: Release ${{ env.TAG_NAME }}
+          release_name: ${{ env.TAG_NAME }}
           body_path: latest_changes.md
