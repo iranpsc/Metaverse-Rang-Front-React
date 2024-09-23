@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  versioning:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,6 +33,22 @@ jobs:
         run: |
           git push --follow-tags origin main
 
+  build:
+    needs: versioning  # Wait for the versioning job to complete
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Build the project
         run: npm run build
 
@@ -42,7 +58,7 @@ jobs:
           echo "output.zip created"
 
   release:
-    needs: build
+    needs: build  # Wait for the build job to complete
     runs-on: ubuntu-latest
 
     steps:
@@ -55,20 +71,16 @@ jobs:
           VERSION=$(jq -r ".version" package.json)
           echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
 
-      # Extract only the latest changes from CHANGELOG.md
       - name: Extract latest changes
         run: |
           awk '/^## \[v/{if (p) exit; p=1} p' CHANGELOG.md > latest_changes.md
 
-      # Optional: Verify the extracted latest changes
       - name: Print latest changes
         run: cat latest_changes.md
 
-      # Wait for GitHub to process new tag
       - name: Wait for GitHub to process new tag
         run: sleep 5
 
-      # Create GitHub Release with only the latest changes in body
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1.1.2
@@ -77,6 +89,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body_path: ./latest_changes.md  # Use only the latest changes
+          body_path: ./latest_changes.md
           draft: false
           prerelease: false
