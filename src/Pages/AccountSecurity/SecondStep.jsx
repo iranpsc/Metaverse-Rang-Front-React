@@ -87,6 +87,7 @@ const Container = styled.div`
     text-align: center;
     width: fit-content;
     margin: 0 auto;
+    direction: ltr;
     h4 {
       color: #008bf8;
       margin-left: 5px;
