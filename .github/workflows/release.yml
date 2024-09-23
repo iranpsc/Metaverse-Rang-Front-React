@@ -14,14 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-
-      - name: Install dependencies
-        run: npm install
-
       - name: Build the project
         run: npm run build
 
@@ -31,37 +23,25 @@ jobs:
           echo "output.zip created"
 
   release:
-    needs: build  # Wait for the build job to complete
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Generate tag name from package.json
-        id: generate_tag
-        run: |
-          VERSION=$(jq -r ".version" package.json)
-          echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
-
       - name: Extract latest changes
         run: |
-          awk '/^## \[v/{if (p) exit; p=1} p' CHANGELOG.md > latest_changes.md
-
-      - name: Print latest changes
-        run: cat latest_changes.md
-
-      - name: Wait for GitHub to process new tag
-        run: sleep 5
+          version_header=$(grep -oP '^### \K.*(?= \()' CHANGELOG.md | head -n 1)
+          awk "/^### $version_header/{found=1} found && /^### /{exit} found" CHANGELOG.md > latest_changes.md
+          cat latest_changes.md
 
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1.1.2
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.TAG_NAME }}
-          release_name: "Release ${{ env.TAG_NAME }}"
-          body_path: ./latest_changes.md
-          draft: false
-          prerelease: false
+          release_name: Release ${{ env.TAG_NAME }}
+          body_path: latest_changes.md
