@@ -39,7 +39,7 @@ const Option = styled.h2`
   color: ${(props) =>
     props.option
       ? props.theme.colors.primary
-      : props.theme.colors.newColors.otherColors.title};
+      : props.theme.colors.newColors.shades.title};
   border-right: ${(props) =>
     props.option
       ? `2px solid ${props.theme.colors.primary}`

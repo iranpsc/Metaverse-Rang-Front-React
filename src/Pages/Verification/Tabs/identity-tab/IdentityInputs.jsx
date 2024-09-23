@@ -171,7 +171,7 @@ const IdentityInputs = ({
   return (
     <Wrapper identityError={identityError}>
       <Container>
-        {identityError && (
+        {Object.keys(identityError).length > 0 && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
             buttonText={getFieldTranslationByNames(

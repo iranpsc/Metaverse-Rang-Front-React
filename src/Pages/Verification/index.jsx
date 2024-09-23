@@ -18,7 +18,7 @@ export default function Verification() {
       ),
     },
     {
-      title: getFieldTranslationByNames("authentication", "authentication"),
+      title: getFieldTranslationByNames("authentication", "bank verification"),
       content: (
         <BankTab
           openErrorModal={openErrorModal}
