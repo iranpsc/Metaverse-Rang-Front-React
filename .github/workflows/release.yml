@@ -44,6 +44,14 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      # Generate dynamic release body from commit messages
+      - name: Generate release body from commit logs
+        id: generate_body
+        run: |
+          echo "Collecting commit messages between tags..."
+          COMMITS=$(git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"* %h - %s")
+          echo "RELEASE_BODY=$COMMITS" >> $GITHUB_ENV
+
       # Zip dist folder and ensure output.zip exists
       - name: Zip dist folder
         run: |
@@ -66,7 +74,7 @@ jobs:
           VERSION=$(jq -r ".version" package.json)
           echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
 
-      # Create GitHub Release with changelog as the body
+      # Create GitHub Release with dynamic body
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -75,7 +83,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body_path: ./CHANGELOG.md  # Make sure this is pointing to the correct file path
+          body: ${{ env.RELEASE_BODY }}  # Use dynamically generated commit logs as body
           draft: false
           prerelease: false
-
