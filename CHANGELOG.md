@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.22](https://github.com/iranpsc/react-version-2/compare/v1.1.21...v1.1.22) (2024-09-23)
+
+
+### Bug Fixes
+
+* test standard version 02 ([6b04c29](https://github.com/iranpsc/react-version-2/commit/6b04c293f221f80af20624be30200f137fe143c2))
+* test standard version 08 ([37facc8](https://github.com/iranpsc/react-version-2/commit/37facc8ab62b02abbf880683ee6659305ea0effe))
+
 ### 1.1.21 (2024-09-23)
 
 
