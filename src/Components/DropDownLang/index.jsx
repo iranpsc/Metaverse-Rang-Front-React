@@ -127,7 +127,7 @@ const DropDownLang = () => {
       delay={50}
       animation="scale"
     >
-      <Container onClick={handleIconClick}>
+      <Container>
         <Btn isOpenDrop={isOpenDrop} shouldHide={!isOpen}>
           <Div>
             <Icon src={LangIcon} />
