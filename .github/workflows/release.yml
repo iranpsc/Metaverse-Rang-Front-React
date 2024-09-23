@@ -75,6 +75,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body_path: ./CHANGELOG.md  # Use the generated changelog file as body sdsds dsdsd
+          body_path: ./CHANGELOG.md  
           draft: false
           prerelease: false
