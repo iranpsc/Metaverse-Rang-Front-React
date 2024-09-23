@@ -21,11 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Configure Git user
-        run: |
-          git config --global user.name "m6hdix"
-          git config --global user.email "m6hdixx@gmail.com"
-
       - name: Build the project
         run: npm run build
 
@@ -49,15 +44,18 @@ jobs:
           echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
 
       - name: Extract latest changes
+        id: extract_changes
         run: |
-          # Extract the latest version header from CHANGELOG.md
           version_header=$(grep -oP '^### \[.*\]' CHANGELOG.md | head -n 1)
-          
-          # Use sed to extract changes for the latest version header
           sed -n "/^### $version_header/,/^### /{ /^### /{ /$version_header/!d }; p }" CHANGELOG.md > latest_changes.md
 
-          # Print the extracted changes for debugging
-          cat latest_changes.md
+      - name: Read latest changes into an environment variable
+        id: read_changes
+        run: |
+          CHANGELOG_CONTENT=$(cat latest_changes.md)
+          echo "CHANGELOG_CONTENT<<EOF" >> $GITHUB_ENV
+          echo "$CHANGELOG_CONTENT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         id: create_release
@@ -66,8 +64,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.TAG_NAME }}
-          release_name: ${{ env.TAG_NAME }}
-          body: |
-            $(cat latest_changes.md)
+          release_name: "Release ${{ env.TAG_NAME }}"
+          body: ${{ env.CHANGELOG_CONTENT }}
           draft: false
           prerelease: false
