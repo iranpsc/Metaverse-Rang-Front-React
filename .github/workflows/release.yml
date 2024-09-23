@@ -44,12 +44,22 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      # Generate release body from commit logs between two commits
+      # Generate release body from commit logs between the two most recent tags
       - name: Generate release body
         id: generate_body
         run: |
-          # Collect commits from the last push (HEAD^) until the current commit
-          COMMITS=$(git log HEAD^..HEAD --pretty=format:"* %h - %s" --no-merges)
+          # Get the most recent tag
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          
+          # Check if there is a previous tag
+          if [ -z "$PREV_TAG" ]; then
+            # No previous tag found, use the initial commit as the starting point
+            PREV_TAG=$(git rev-list --max-parents=0 HEAD)
+          fi
+
+          # Collect commit messages between the last tag and current HEAD
+          COMMITS=$(git log $PREV_TAG..HEAD --pretty=format:"* %h - %s" --no-merges)
+          echo "Collected commits: $COMMITS"  # Log collected commits for debugging
           echo "RELEASE_BODY=$COMMITS" >> $GITHUB_ENV
 
       # Zip dist folder and ensure output.zip exists
@@ -83,6 +93,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: "Release ${{ env.TAG_NAME }}"
-          body: ${{ env.RELEASE_BODY }}  # Use commit logs as body
+          body: ${{ env.RELEASE_BODY }}  # Use commit logs between tags as the body
           draft: false
           prerelease: false
