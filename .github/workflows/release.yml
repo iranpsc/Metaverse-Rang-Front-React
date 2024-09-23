@@ -14,6 +14,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+        - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Configure Git user
+        run: |
+          git config --global user.name "m6hdix"
+          git config --global user.email "m6hdixx@gmail.com"
+
       - name: Build the project
         run: npm run build
 
