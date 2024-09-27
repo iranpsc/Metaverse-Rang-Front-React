@@ -24,7 +24,7 @@ const Container = styled.div`
   }
   @media (min-width: 1400px) {
     height: 80%;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 2fr;
   }
   @media (min-width: 1800px) {
     height: auto;
@@ -52,8 +52,8 @@ const TotalTab = () => {
         </>
       ) : (
         <>
-          <Details />
           <Bio />
+          <Details />
         </>
       )}
     </Container>

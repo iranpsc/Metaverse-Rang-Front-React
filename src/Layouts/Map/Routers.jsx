@@ -8,12 +8,11 @@ import Settings from "../../Pages/Settings";
 import Notifications from "../../Pages/Notifications";
 import Store from "../../Pages/Store";
 import PublicRoute from "../../Routes/PublicRoute";
-import ForgetPassword from "../../Pages/ForgetPassword";
 import PaymentVerification from "../../Pages/Payments/Verification";
 import Profile from "../../Pages/Profile";
 import Verification from "../../Pages/Verification";
 import Feature from "../../Pages/Feature";
-import UploadAvatar from "../../Pages/UploadAvatar";
+
 import Commercial from "../../Components/Lottie/Commercial";
 import Residential from "../../Components/Lottie/Residential";
 import Educational from "../../Components/Lottie/Educational";
@@ -22,7 +21,7 @@ import Player from "../../Pages/Player";
 import Dynasty from "../../Pages/Dynasty";
 import HourMeterProfit from "../../Pages/HourMeterProfit";
 import TransactionPayments from "../../Pages/Payments/Verification/transactionPayments";
-import VerificationEmail from "../../Pages/VerificationEmail";
+
 import Ip from "../../Pages/Ip";
 import EmailVerification from "../../Pages/EmailVerification";
 import AccountSecurityModal from "../../Pages/AccountSecurity";
@@ -40,22 +39,6 @@ export default function Routers() {
           }
         />
 
-        <Route
-          path="reset-password"
-          element={
-            <PublicRoute>
-              <ForgetPassword />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="email"
-          element={
-            <PublicRoute>
-              <VerificationEmail />
-            </PublicRoute>
-          }
-        />
         <Route
           path="verification-email"
           element={
@@ -173,14 +156,6 @@ export default function Routers() {
 
         <Route path="feature/:id" element={<Feature />} />
 
-        <Route
-          path="upload/avatar"
-          element={
-            <PrivateRoute>
-              <UploadAvatar />
-            </PrivateRoute>
-          }
-        />
         <Route
           path="search"
           element={

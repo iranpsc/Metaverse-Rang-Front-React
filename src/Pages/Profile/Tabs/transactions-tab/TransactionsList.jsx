@@ -7,10 +7,10 @@ import rial from "../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
 import { useState } from "react";
 import yellow from "../../../../Assets/gif/yellow-color.gif";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;
-  direction: rtl;
   /* width: 73vw !important; */
   overflow-x: auto;
   min-height: 93vh;
@@ -18,19 +18,19 @@ const Container = styled.div`
     display: none;
   }
   @media (min-width: 640px) {
-    /* width: 75vw !important; */
+    width: 75vw !important;
   }
   @media (min-width: 840px) {
     min-height: 80vh !important;
   }
   @media (min-width: 1024px) {
-    /* width: 83vw !important; */
+    width: 83vw !important;
   }
   @media (min-width: 1280px) {
-    /* width: 78.5vw !important; */
+    width: 78.5vw !important;
   }
   @media (min-width: 1360px) {
-    /* width: 78.5vw !important; */
+    width: 78.5vw !important;
   }
   @media (min-width: 1920px) {
     width: auto !important;
@@ -118,12 +118,14 @@ const TitleFilter = styled.div`
   width: 130px;
   padding: 15px;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   div {
     position: relative;
     padding-right: 5px;
     &:hover {
       background-color: #3b3b3b;
+      color: #dedee9;
       transition: all 0.2s linear;
     }
     span {
@@ -137,7 +139,7 @@ const TitleFilter = styled.div`
   }
   h1 {
     font-size: 16px;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 400;
     cursor: pointer;
     &:first-of-type {
@@ -148,7 +150,7 @@ const TitleFilter = styled.div`
 const SubjectFilter = styled.div`
   position: absolute;
   top: 65px;
-  width: 140px;
+  width: max-content;
   padding: 20px;
   border-radius: 10px;
   background-color: ${(props) =>
@@ -156,8 +158,10 @@ const SubjectFilter = styled.div`
   font-size: 16px;
   div {
     position: relative;
+    padding: 3px;
     &:hover {
       background-color: #3b3b3b;
+      color: #dedee9;
       transition: all 0.2s linear;
     }
     span {
@@ -213,11 +217,11 @@ const Loader = styled.div`
 `;
 
 const subjects = [
-  { id: 1, label: "رنگ آبی", slug: "blue", gif: blue },
-  { id: 2, label: "رنگ قرمز", slug: "red", gif: red },
-  { id: 3, label: "رنگ زرد", slug: "yellow", gif: yellow },
-  { id: 4, label: "ریال", slug: "rial", gif: rial },
-  { id: 5, label: "PSC", slug: "psc", gif: psc },
+  { id: 1, label: "buy blue", slug: "blue", gif: blue },
+  { id: 2, label: "buy red", slug: "red", gif: red },
+  { id: 3, label: "buy yellow", slug: "yellow", gif: yellow },
+  { id: 4, label: "buy rial currency", slug: "rial", gif: rial },
+  { id: 5, label: "buy psc currency", slug: "psc", gif: psc },
 ];
 const TransactionsList = ({
   rows,
@@ -245,11 +249,21 @@ const TransactionsList = ({
       <Table>
         <TableHead>
           <TableRow>
-            <TableHeader>شناسه تراکنش</TableHeader>
-            <TableHeader date>تاریخ و ساعت ارسال</TableHeader>
+            <TableHeader>
+              {getFieldTranslationByNames(
+                "citizenship-account",
+                "transaction id"
+              )}
+            </TableHeader>
+            <TableHeader date>
+              {getFieldTranslationByNames(
+                "citizenship-account",
+                "date and time of sending"
+              )}
+            </TableHeader>
             <TableHeader>
               <Div>
-                وضعیت
+                {getFieldTranslationByNames("citizenship-account", "condition")}
                 <Arrows onClick={() => setFilters({ status: !filters.status })}>
                   <MdKeyboardArrowDown
                     style={{
@@ -274,7 +288,10 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      موفق
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "successful"
+                      )}
                     </h1>
                     {status.success && (
                       <span
@@ -299,7 +316,10 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      معلق
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "suspended"
+                      )}
                     </h2>
                     {status.pending && (
                       <span
@@ -324,7 +344,10 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      ناموفق
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "unsuccessful"
+                      )}
                     </h3>
                     {status.failed && (
                       <span
@@ -342,7 +365,7 @@ const TransactionsList = ({
             </TableHeader>
             <TableHeader title>
               <Div>
-                عنوان
+                {getFieldTranslationByNames("citizenship-account", "title")}
                 <Arrows onClick={() => setFilters({ title: !filters.title })}>
                   <MdKeyboardArrowDown
                     style={{
@@ -367,8 +390,10 @@ const TransactionsList = ({
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {" "}
-                      خرید دارایی{" "}
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "purchase property"
+                      )}
                     </h1>
                     {title.property_buy && (
                       <span
@@ -393,8 +418,10 @@ const TransactionsList = ({
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {" "}
-                      معامله ملک{" "}
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "real estate transaction"
+                      )}
                     </h1>
                     {title.property_dealing && (
                       <span
@@ -412,7 +439,8 @@ const TransactionsList = ({
             </TableHeader>
             <TableHeader subject>
               <Div>
-                موضوع
+                {getFieldTranslationByNames("citizenship-account", "issue")}
+
                 <Arrows
                   onClick={() => setFilters({ subject: !filters.subject })}
                 >
@@ -451,7 +479,12 @@ const TransactionsList = ({
                         height={26}
                         loading="lazy"
                       />
-                      <h3>{item.label}</h3>
+                      <h3>
+                        {getFieldTranslationByNames(
+                          "citizenship-account",
+                          item.label
+                        )}
+                      </h3>
                       {subject[item.slug] && (
                         <span
                           onClick={(e) => {
@@ -471,8 +504,16 @@ const TransactionsList = ({
                 </SubjectFilter>
               )}
             </TableHeader>
-            <TableHeader>مقدار</TableHeader>
-            <TableHeader>مشاهده و چاپ</TableHeader>
+            <TableHeader>
+              {" "}
+              {getFieldTranslationByNames(
+                "citizenship-account",
+                "the amount of"
+              )}
+            </TableHeader>
+            <TableHeader>
+              {getFieldTranslationByNames("citizenship-account", "view-print")}
+            </TableHeader>
           </TableRow>
         </TableHead>
         <tbody>

@@ -1,6 +1,7 @@
 import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
 import i18n from "../../i18n/i18n";
+import { useLanguage } from "../Reducers/LanguageContext";
 
 export function SanitizeHTML(content) {
   return content?.replace(/<[^>]*>?/gm, "");
@@ -79,7 +80,12 @@ export const persianNumbers = [
     return str;
   };
 export const convertToPersian = (number) => {
-  return number.toLocaleString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  const isPersian = useLanguage();
+  if (isPersian) {
+    return number.toLocaleString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  } else {
+    return number;
+  }
 };
 export const ToastError = (message) => {
   return toast.error(message, {
