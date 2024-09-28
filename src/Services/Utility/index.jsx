@@ -115,24 +115,43 @@ export const ToastSuccess = (message) => {
   });
 };
 export const getFieldTranslationByNames = (modalName, fieldName) => {
-  const resources = i18n.options.resources;
+  // بررسی اینکه منابع i18n موجود هستند
+  const resources = i18n.store.data;
+
+  // بررسی وجود زبان فعلی در منابع
+  if (
+    !resources ||
+    !resources[i18n.language] ||
+    !resources[i18n.language].translation
+  ) {
+    return "Translation resources not found";
+  }
+
+  // پیدا کردن modal مورد نظر با نام آن
   const modal = resources[i18n.language].translation.modals.find(
     (modal) => modal.name === modalName
   );
 
-  if (modal) {
-    for (let i = 0; i < modal.tabs.length; i++) {
-      const tab = modal.tabs[i];
+  // اگر modal پیدا نشد
+  if (!modal) {
+    return `Modal '${modalName}' not found`;
+  }
+
+  // جستجوی درون تب‌ها و فیلدها
+  for (let i = 0; i < modal.tabs.length; i++) {
+    const tab = modal.tabs[i];
+
+    if (tab.fields && tab.fields.length > 0) {
       const field = tab.fields.find((field) => field.name === fieldName);
 
-      if (field) {
-        return field.translation;
+      if (field && field.translation) {
+        return field.translation; // برگرداندن ترجمه فیلد
       }
     }
   }
 
-  // Return a default translation or handle missing translations as needed
-  return " not found";
+  // اگر فیلد پیدا نشد یا ترجمه‌ای وجود نداشت
+  return `Field '${fieldName}' translation not found in modal '${modalName}'`;
 };
 
 export function convertEnglishToPersianNumbers(inputText) {

@@ -36,6 +36,7 @@
     "esbuild": "^0.19.2",
     "fscreen": "^1.2.0",
     "i18next": "^23.5.1",
+    "i18next-http-backend": "^2.6.1",
     "jalali-moment": "^3.3.11",
     "keen-slider": "^6.8.6",
     "laravel-echo": "^1.15.0",
