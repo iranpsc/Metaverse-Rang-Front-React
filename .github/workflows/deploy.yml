@@ -1,23 +1,32 @@
-name: Deploy to Server
+name: Deploy React App
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout the code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-    - name: Deploy to Server
-      run: |
-        ssh frdevelop@2.187.100.51 'cd /var/www/metaverse-project && git pull origin main && npm install && npm run build'
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to server
+        env:
+          HOST: ${{ secrets.SERVER_HOST }}
+          USERNAME: ${{ secrets.SERVER_USER }}
+          PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+        run: |
+          rsync -avz --delete-after ./build/ $USERNAME@$HOST:/public_html/metaverse
