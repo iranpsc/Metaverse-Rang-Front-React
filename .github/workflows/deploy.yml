@@ -35,4 +35,4 @@ jobs:
 
       - name: Deploy to server
         run: |
-          rsync -avz --delete-after ./build/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
+          rsync -avz --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
