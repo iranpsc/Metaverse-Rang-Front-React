@@ -20,4 +20,4 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        ssh frdevelop@192.168.1.100 'cd /var/www/metaverse-project && git pull origin main && npm install && npm run build'
+        ssh frdevelop@2.187.100.51 'cd /var/www/metaverse-project && git pull origin main && npm install && npm run build'
