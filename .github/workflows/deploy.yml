@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Debug secrets
+        run: echo ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}    
+
       - name: Install dependencies
         run: npm install
 
@@ -37,5 +40,4 @@ jobs:
           echo "Deploying to server..."
           rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
 
-      - name: Debug secrets
-        run: echo ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
+      
