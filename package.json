@@ -8,6 +8,7 @@
     "dev": "vite",
     "dev-h": "vite --host",
     "build": "vite build",
+    "start": "vite start",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "release": "standard-version"
