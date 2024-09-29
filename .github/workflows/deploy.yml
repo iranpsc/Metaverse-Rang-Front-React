@@ -24,6 +24,10 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: List build directory
+        run: ls -la ./build
+
+
       - name: Setup SSH for Deploy
         uses: webfactory/ssh-agent@v0.5.3
         with:
