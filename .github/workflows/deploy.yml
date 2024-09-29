@@ -27,7 +27,6 @@ jobs:
       - name: List build directory
         run: ls -la ./dist
 
-
       - name: Setup SSH for Deploy
         uses: webfactory/ssh-agent@v0.5.3
         with:
@@ -35,4 +34,8 @@ jobs:
 
       - name: Deploy to server
         run: |
-          rsync -avz --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
+          echo "Deploying to server..."
+          rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
+
+      - name: Debug secrets
+        run: echo ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
