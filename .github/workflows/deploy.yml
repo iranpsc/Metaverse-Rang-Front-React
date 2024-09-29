@@ -30,4 +30,4 @@ jobs:
           USERNAME: ${{ secrets.SERVER_USER }}
           PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         run: |
-          rsync -avz --delete-after ./build/ $USERNAME@$HOST:/public_html/metaverse
+             rsync -avz --delete-after ./build/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
