@@ -19,7 +19,11 @@ jobs:
           node-version: '16'
 
       - name: Debug secrets
-        run: echo ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}    
+  run: |
+    echo "SERVER_USER: ${{ secrets.SERVER_USER }}"
+    echo "SERVER_HOST: ${{ secrets.SERVER_HOST }}"
+    echo "SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION }}"
+
 
       - name: Install dependencies
         run: npm install
