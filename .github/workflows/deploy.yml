@@ -1,8 +1,9 @@
 name: Deploy React App
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
 
 jobs:
   build:
