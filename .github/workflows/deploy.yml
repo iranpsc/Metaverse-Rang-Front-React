@@ -25,7 +25,7 @@ jobs:
         run: npm run build
 
       - name: List build directory
-        run: ls -la ./build
+        run: ls -la ./dist
 
 
       - name: Setup SSH for Deploy
