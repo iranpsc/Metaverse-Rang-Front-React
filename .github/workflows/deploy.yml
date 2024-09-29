@@ -33,6 +33,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to server
+      - name: Deploy to server #test
         run: |
-          rsync -avz --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
+          rsync -avz --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.
+          }}
