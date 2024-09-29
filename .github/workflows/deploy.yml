@@ -1,9 +1,8 @@
 name: Deploy React App
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -24,10 +23,11 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Setup SSH for Deploy
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Deploy to server
-        env:
-          HOST: ${{ secrets.SERVER_HOST }}
-          USERNAME: ${{ secrets.SERVER_USER }}
-          PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         run: |
-             rsync -avz --delete-after ./build/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
+          rsync -avz --delete-after ./build/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
