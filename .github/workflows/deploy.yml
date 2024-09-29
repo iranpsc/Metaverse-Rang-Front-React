@@ -45,5 +45,5 @@ jobs:
       - name: Deploy to server
         run: |
           echo "Deploying to server...."
-          rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/domains/frdevelop.irpsc.com/public_html/metaverse
+          rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
 
