@@ -19,6 +19,7 @@ import yellow from "../../../../Assets/gif/yellow-color.gif";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -62,7 +63,7 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   align-items: center;
-  direction: rtl;
+
   gap: 20px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -71,7 +72,6 @@ const Div = styled.div`
 `;
 
 const Date = styled.div`
-  direction: rtl;
   border-radius: 5px;
   border: 1px solid #454545;
   display: flex;
@@ -192,18 +192,29 @@ const TransactionsTab = () => {
   });
   return (
     <Container>
-      <div dir="rtl">
-        <Title title="تراکنش ها" />
+      <div>
+        <Title
+          title={getFieldTranslationByNames(
+            "citizenship-account",
+            "transactions"
+          )}
+        />
       </div>
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder="جستجو شناسه تراکنش"
+          placeholder={getFieldTranslationByNames(
+            "citizenship-account",
+            "transaction id"
+          )}
         />
         <Date>
           <DatePicker
-            placeholder="تاریخ و ساعت"
+            placeholder={getFieldTranslationByNames(
+              "citizenship-account",
+              "date and time range"
+            )}
             className="bg-dark yellow"
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}

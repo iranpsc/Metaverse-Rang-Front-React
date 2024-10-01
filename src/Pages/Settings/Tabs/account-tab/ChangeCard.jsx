@@ -6,7 +6,11 @@ import Button from "../../../../Components/Button";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import { ToastError, ToastSuccess } from "../../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+  ToastSuccess,
+} from "../../../../Services/Utility";
 import {
   phoneNumberNormalizer,
   phoneNumberValidator,
@@ -16,7 +20,6 @@ import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   padding: 20px;
   border-radius: 5px;
-  direction: rtl;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   order: ${(props) => props.id === 3 && "4"};
@@ -160,7 +163,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
 
   return (
     <Container id={id}>
-      <Title title={title} />
+      <Title title={getFieldTranslationByNames("setting", title)} />
       {warn && (
         <Warn>
           <RiErrorWarningLine size={22} />
@@ -176,7 +179,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
                 inputValues.find((input) => input.id === item.id)?.value || ""
               }
               onchange={(e) => handleInputChange(item.id, e.target.value)}
-              title={item.label}
+              title={getFieldTranslationByNames("setting", item.label)}
               error={
                 inputErrors.find((input) => input.id === item.id)?.error || ""
               }
@@ -192,9 +195,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
 
       <Button
         full
-        label={
-          title !== "تغییر شماره موبایل در سراسر متاورس" ? "ذخیره شود" : "تایید"
-        }
+        label={getFieldTranslationByNames("setting", "save")}
         onclick={handleSave}
       />
     </Container>

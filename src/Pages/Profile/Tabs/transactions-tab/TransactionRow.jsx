@@ -3,7 +3,11 @@ import PrintModal from "./PrintModal";
 
 import styled from "styled-components";
 import { useState } from "react";
-import { convertToPersian, persianNumbers } from "../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+  persianNumbers,
+} from "../../../../Services/Utility";
 
 const TableRow = styled.tr`
   background-color: transparent;
@@ -95,7 +99,18 @@ const TransactionRow = ({
   assetGif,
 }) => {
   const [openPrint, setOpenPrint] = useState(false);
-
+  const getAssetTitle = (assetType) => {
+    switch (assetType) {
+      case "red":
+        return getFieldTranslationByNames("citizenship-account", "buy red");
+      case "blue":
+        return getFieldTranslationByNames("citizenship-account", "buy blue");
+      case "yellow":
+        return getFieldTranslationByNames("citizenship-account", "buy yellow");
+      default:
+        return assetType;
+    }
+  };
   return (
     <TableRow className="odd:bg-slate-50 hover:bg-black/10 py-5 duration-200">
       <TableCell>
@@ -113,11 +128,11 @@ const TransactionRow = ({
       <TableCell>
         <Status status={status}>
           {status == "0"
-            ? "موفق"
+            ? getFieldTranslationByNames("citizenship-account", "successful")
             : status == "-138"
-            ? "نا موفق"
+            ? getFieldTranslationByNames("citizenship-account", "unsuccessful")
             : status == "1"
-            ? "معلق"
+            ? getFieldTranslationByNames("citizenship-account", "suspended")
             : "بب"}
         </Status>
       </TableCell>
@@ -133,7 +148,7 @@ const TransactionRow = ({
             loading="lazy"
             src={assetGif}
           />
-          <Title>{asset}</Title>
+          <Title>{getAssetTitle(asset)}</Title>
         </Subject>
       </TableCell>
       <TableCell>

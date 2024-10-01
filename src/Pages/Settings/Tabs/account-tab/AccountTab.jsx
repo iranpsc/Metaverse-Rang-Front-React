@@ -31,28 +31,20 @@ const AccountTab = () => {
   const { Request } = useRequest();
 
   const [emailChange, setEmailChange] = useState({
-    title: "تغییر ایمیل ورود به متاورس",
+    title: "changing the login email to metaverse",
     warn: "",
     inputs: [
-      { id: 1, type: "text", label: "ایمیل جدید", value: "" },
-      { id: 2, type: "number", label: "کد تایید", value: "" },
+      { id: 1, type: "text", label: "new email", value: "" },
+      { id: 2, type: "number", label: "verification code", value: "" },
     ],
   });
 
   const [mobileChange, setMobileChange] = useState({
-    title: "تغییر شماره موبایل در سراسر متاورس",
+    title: "change mobile number across the metaverse",
     warn: "",
     inputs: [
-      { id: 1, type: "number", label: "شماره تلفن جدید", value: "" },
-      { id: 2, type: "number", label: "کد تایید", value: "" },
-    ],
-  });
-
-  const [passwordChange, setPasswordChange] = useState({
-    title: "تغییر رمز ورود به متاورس",
-    inputs: [
-      { id: 1, type: "number", label: "رمز قدیمی", value: "" },
-      { id: 2, type: "number", label: "رمز جدید", value: "" },
+      { id: 1, type: "number", label: "new phone number", value: "" },
+      { id: 2, type: "number", label: "confirmation", value: "" },
     ],
   });
 
@@ -101,7 +93,6 @@ const AccountTab = () => {
         inputs={emailChange.inputs}
       />
       <Bank />
-      <ChangeCard title={passwordChange.title} inputs={passwordChange.inputs} />
     </Container>
   );
 };

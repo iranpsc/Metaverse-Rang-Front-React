@@ -1,3 +1,4 @@
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import Input from "./Input";
 import styled from "styled-components";
 
@@ -11,7 +12,14 @@ const EnterInputs = ({ data }) => {
   return (
     <Wrapper>
       {data[0]?.inputs?.slice(0, 4).map((input) => (
-        <Input {...input} key={input.id} />
+        <Input
+          {...input}
+          title={getFieldTranslationByNames(
+            "property-information",
+            input.title
+          )}
+          key={input.id}
+        />
       ))}
     </Wrapper>
   );
