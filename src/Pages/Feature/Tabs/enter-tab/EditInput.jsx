@@ -1,40 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
-import Alert from "../../../../Components/Alert/Alert";
-import Title from "../../../../Components/Title";
-import Button from "../../../../Components/Button";
-
-import { verifyIranianNationalId } from "@persian-tools/persian-tools";
-import { convertPersianNumbersToEnglish } from "../../../../Services/Utility";
-import DatePicker from "react-multi-date-picker";
-import { FaRegCalendarAlt } from "react-icons/fa";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-
-// Wrapper Component
-const Wrapper = styled.div`
-  overflow-y: auto;
-  height: 84%;
-  padding-right: 15px;
-  @media (min-width: 1180px) {
-    height: 80%;
-  }
-  @media (min-width: 1500px) {
-    height: ${(props) => (props.identityError ? "85%" : "auto")};
-  }
-`;
-
-// Container Component
-const Container = styled.div`
-  margin: 20px 0;
-  display: flex;
-  flex-direction: column;
-  direction: rtl;
-  gap: 10px;
-  @media (min-width: 1500px) {
-    grid-template-columns: 2fr 3fr;
-  }
-`;
+import Psc from "../../../../Components/Psc";
+import Rial from "../../../../Components/Rial";
 
 // EditInput Component
 const InputContainer = styled.div`

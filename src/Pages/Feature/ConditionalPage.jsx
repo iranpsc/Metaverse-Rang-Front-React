@@ -87,7 +87,7 @@ export default function ConditionalPage() {
         "property-information",
         "entering the property"
       ),
-      content: <EnterTab owner />,
+      content: <EnterTab />,
     },
     {
       title: getFieldTranslationByNames(

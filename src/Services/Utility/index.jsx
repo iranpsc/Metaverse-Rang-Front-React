@@ -115,10 +115,8 @@ export const ToastSuccess = (message) => {
   });
 };
 export const getFieldTranslationByNames = (modalName, fieldName) => {
-  // بررسی اینکه منابع i18n موجود هستند
   const resources = i18n.store.data;
-
-  // بررسی وجود زبان فعلی در منابع
+  console.log(resources);
   if (
     !resources ||
     !resources[i18n.language] ||
@@ -127,17 +125,14 @@ export const getFieldTranslationByNames = (modalName, fieldName) => {
     return "Translation resources not found";
   }
 
-  // پیدا کردن modal مورد نظر با نام آن
   const modal = resources[i18n.language].translation.modals.find(
     (modal) => modal.name === modalName
   );
 
-  // اگر modal پیدا نشد
   if (!modal) {
     return `Modal '${modalName}' not found`;
   }
 
-  // جستجوی درون تب‌ها و فیلدها
   for (let i = 0; i < modal.tabs.length; i++) {
     const tab = modal.tabs[i];
 
@@ -145,12 +140,11 @@ export const getFieldTranslationByNames = (modalName, fieldName) => {
       const field = tab.fields.find((field) => field.name === fieldName);
 
       if (field && field.translation) {
-        return field.translation; // برگرداندن ترجمه فیلد
+        return field.translation;
       }
     }
   }
 
-  // اگر فیلد پیدا نشد یا ترجمه‌ای وجود نداشت
   return `Field '${fieldName}' translation not found in modal '${modalName}'`;
 };
 
@@ -158,7 +152,6 @@ export function convertEnglishToPersianNumbers(inputText) {
   const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
 
-  // استفاده از تابع replace با استفاده از نگاشت اعداد
   for (let i = 0; i < 10; i++) {
     const regex = new RegExp(englishNumbers[i], "g");
     inputText = inputText.replace(regex, persianNumbers[i]);
