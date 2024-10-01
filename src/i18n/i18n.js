@@ -1,53 +1,70 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import HttpApi from "i18next-http-backend";
 import axios from "axios";
 
-const TRANSLATION_API_URL = "https://admin.rgb.irpsc.com/api/translations";
+const TRANSLATIONS_API = "https://admin.rgb.irpsc.com/api/translations";
+const CACHE_PREFIX = "i18n_cache_";
 
-async function fetchTranslations() {
-  try {
-    const response = await axios.get(TRANSLATION_API_URL);
-    return response.data.data;
-  } catch (error) {
-    console.error("Error fetching translations:", error);
-    return [];
-  }
-}
+const customBackend = {
+  type: "backend",
+  init: () => {},
+  read: async (language, namespace, callback) => {
+    try {
+      // Check if we have cached data and its version
+      const cachedData = localStorage.getItem(`${CACHE_PREFIX}${language}`);
+      const cachedVersion = localStorage.getItem(
+        `${CACHE_PREFIX}${language}_version`
+      );
 
-async function loadTranslations() {
-  const languages = await fetchTranslations();
-  if (languages.length > 0) {
-    for (const lang of languages) {
-      const { code, version, file_url } = lang;
+      // Fetch the latest language info
+      const { data } = await axios.get(TRANSLATIONS_API);
+      const langInfo = data.data.find((lang) => lang.code === language);
 
-      const cachedVersion = localStorage.getItem(`${code}_version`);
-      if (cachedVersion !== version) {
-        const translationResponse = await axios.get(file_url);
-        i18n.addResourceBundle(code, "translation", translationResponse.data);
-        localStorage.setItem(`${code}_version`, version);
-        console.log(`Translations for ${code} updated.`);
-      } else {
-        console.log(`Translations for ${code} are up to date.`);
+      if (!langInfo) {
+        throw new Error(`Language ${language} not found`);
       }
+
+      // If cached version matches the latest version, use cached data
+      if (
+        cachedData &&
+        cachedVersion &&
+        parseInt(cachedVersion) === langInfo.version
+      ) {
+        callback(null, JSON.parse(cachedData));
+        return;
+      }
+
+      // If no cache or outdated, fetch new translation data
+      const response = await axios.get(langInfo.file_url);
+      const translations = response.data;
+
+      // Cache the new data and version
+      localStorage.setItem(
+        `${CACHE_PREFIX}${language}`,
+        JSON.stringify(translations)
+      );
+      localStorage.setItem(
+        `${CACHE_PREFIX}${language}_version`,
+        langInfo.version.toString()
+      );
+
+      callback(null, translations);
+    } catch (error) {
+      console.error("Error loading translations:", error);
+      callback(error, null);
     }
-  }
-}
+  },
+};
 
 i18n
-  .use(HttpApi)
+  .use(customBackend)
   .use(initReactI18next)
-  .init(
-    {
-      supportedLngs: ["en", "fa"],
-      fallbackLng: "fa",
-      react: {
-        useSuspense: true,
-      },
+  .init({
+    supportedLngs: ["en", "fa"],
+    fallbackLng: "fa",
+    react: {
+      useSuspense: true,
     },
-    () => {
-      loadTranslations();
-    }
-  );
+  });
 
 export default i18n;

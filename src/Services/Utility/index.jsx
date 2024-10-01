@@ -116,7 +116,7 @@ export const ToastSuccess = (message) => {
 };
 export const getFieldTranslationByNames = (modalName, fieldName) => {
   const resources = i18n.store.data;
-  console.log(resources);
+
   if (
     !resources ||
     !resources[i18n.language] ||
