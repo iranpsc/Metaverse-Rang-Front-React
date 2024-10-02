@@ -7,12 +7,13 @@ import Dynasty from "./Dynasty/Dynasty";
 import Union from "./Union/Union";
 import BtnsMenu from "./BtnsMenu";
 
-import Anonymous from "../../Assets/images/anonymous.png";
+import Anonymous from "../../Assets/images/defulte-profile.png";
 import Message from "../../Assets/svg/message.svg";
 import ProfileMember from "../../Assets/svg/profileMember.svg";
 import Ticket from "../../Assets/svg/ticket.svg";
 import Setting from "../../Assets/svg/setting.svg";
 import { useNavigate } from "react-router-dom";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ const Btn = styled.button`
     isOpenDrop ? theme.openDropDown : "transparent"};
   height: 49px;
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 const BtnNavigator = styled.button`
@@ -159,19 +161,19 @@ const Profile = () => {
             </Btn>
             <BtnNavigator>
               <Icon src={Ticket} />
-              ارسال سند
+              {getFieldTranslationByNames("central-page", "send document")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={Message} />
-              گفتگو
+              {getFieldTranslationByNames("central-page", "chat")}
             </BtnNavigator>
             <BtnNavigator onClick={() => navigate("/metaverse/profile")}>
               <Icon src={ProfileMember} />
-              پروفایل
+              {getFieldTranslationByNames("central-page", "profile")}
             </BtnNavigator>
             <BtnNavigator onClick={() => navigate("/metaverse/settings")}>
               <Icon src={Setting} />
-              تنظیمات
+              {getFieldTranslationByNames("setting", "settings")}
             </BtnNavigator>
             <Fallowing />
             <Dynasty />

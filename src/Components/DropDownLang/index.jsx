@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import LangIcon from "../../Assets/svg/lang.svg";
 import { getFieldTranslationByNames } from "../../Services/Utility";
-import { useState } from "react";
 import i18n from "../../i18n/i18n";
-import { useEffect } from "react";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
+
 const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   height: fit-content;
 `;
+
 const Btn = styled.button`
   display: flex;
   width: 100%;
@@ -28,6 +28,7 @@ const Btn = styled.button`
   background-color: ${(props) =>
     props.isOpenDrop ? props.theme.openDropDown : "none"};
 `;
+
 const Icon = styled.img`
   width: 18.176px;
   height: 19.429px;
@@ -36,6 +37,7 @@ const Icon = styled.img`
     height: 24.771px;
   }
 `;
+
 const Text = styled.p`
   color: #868b90;
   font-style: normal;
@@ -47,6 +49,7 @@ const Text = styled.p`
     font-size: 16px;
   }
 `;
+
 const DropdownMenu = styled.div`
   flex-direction: column;
   width: 100%;
@@ -56,8 +59,10 @@ const DropdownMenu = styled.div`
 
 const DropdownItem = styled.div`
   padding: 0 50px;
-  color: #858585;
+  color: ${({ isSelected }) => (isSelected ? "#000" : "#858585")};
+  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
 `;
+
 const Tooltip = styled.div`
   width: 146px;
   height: 40px;
@@ -76,15 +81,40 @@ const Tooltip = styled.div`
   line-height: 180%; /* 36px */
   text-transform: capitalize;
 `;
+
 const DropDownLang = () => {
   const { isOpen } = useMenuContext();
   const [isOpenDrop, setIsOpen] = useState(false);
+  const [currentLang, setCurrentLang] = useState(i18n.language || "fa");
+
   useEffect(() => {
     document.body.dir = i18n.dir();
+    const savedLang = localStorage.getItem("selectedLanguage");
+    if (savedLang) {
+      changeLanguage(savedLang);
+    }
   }, []);
-  const changeLanguage = (lang) => {
-    i18n.changeLanguage(lang);
-    document.body.dir = i18n.dir();
+
+  const changeLanguage = async (lang) => {
+    try {
+      // بررسی اینکه آیا ترجمه کش شده است یا نه
+      const cachedData = localStorage.getItem(`i18n_cache_${lang}`);
+      if (cachedData) {
+        // اگر ترجمه در کش باشد، زبان و جهت را بلافاصله تغییر دهید
+        i18n.changeLanguage(lang);
+        document.body.dir = i18n.dir();
+        setCurrentLang(lang);
+        localStorage.setItem("selectedLanguage", lang);
+      } else {
+        // اگر ترجمه موجود نباشد، منتظر بارگذاری ترجمه بمانید
+        await i18n.changeLanguage(lang);
+        document.body.dir = i18n.dir();
+        setCurrentLang(lang);
+        localStorage.setItem("selectedLanguage", lang);
+      }
+    } catch (error) {
+      console.error("Error changing language:", error);
+    }
   };
 
   return (
@@ -109,11 +139,17 @@ const DropDownLang = () => {
         </Btn>
         {isOpenDrop && (
           <DropdownMenu isOpenDrop={isOpenDrop}>
-            <DropdownItem onClick={() => changeLanguage("en")}>
-              English
+            <DropdownItem
+              onClick={() => changeLanguage("en")}
+              isSelected={currentLang === "en"}
+            >
+              {getFieldTranslationByNames("misc", "english")}
             </DropdownItem>
-            <DropdownItem onClick={() => changeLanguage("fa")}>
-              Persian
+            <DropdownItem
+              onClick={() => changeLanguage("fa")}
+              isSelected={currentLang === "fa"}
+            >
+              {getFieldTranslationByNames("misc", "persian")}
             </DropdownItem>
           </DropdownMenu>
         )}
