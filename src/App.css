@@ -165,3 +165,7 @@ a {
     background: #555;
   }
 }
+
+button {
+  cursor: pointer;
+}

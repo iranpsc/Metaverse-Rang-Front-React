@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { convertToPersian } from "../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 
 const Item = styled.div`
   border-radius: 5px;
@@ -72,7 +75,8 @@ const Input = ({ id, icon, title, value, options, long, smallValue }) => {
       </InfoIcon>
       <Value smallValue={smallValue}>
         {id === 1 || id === 2 ? convertToPersian(+value) : value}
-        {id === 4 && options[0]}
+        {id === 4 &&
+          getFieldTranslationByNames("property-information", options[0])}
       </Value>
     </Item>
   );

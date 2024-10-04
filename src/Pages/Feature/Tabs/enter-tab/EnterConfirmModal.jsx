@@ -1,3 +1,7 @@
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 import Input from "./Input";
 import styled from "styled-components";
 
@@ -17,7 +21,6 @@ const BackGround = styled.div`
 const Modal = styled.div`
   border-radius: 10px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-  direction: rtl;
   overflow-y: auto;
   padding: 20px;
   width: 760px;
@@ -83,10 +86,22 @@ const EnterConfirmModal = ({ data, setPayStatus, setPayed, setLoading }) => {
   return (
     <BackGround>
       <Modal>
-        <Title>تایید ورود به ملک</Title>
+        <Title>
+          {getFieldTranslationByNames(
+            "property-information",
+            "confirmation of entry to the property"
+          )}
+        </Title>
         <Info>
-          با پرداخت کردن هزینه مبلغ ۲۰ PSC و ۳۰۰,۰۰۰ تومان از حساب شما کسر خواهد
-          شد و شما وراد مجموعه می شوید
+          {getFieldTranslationByNames(
+            "property-information",
+            "by paying the fee, the amount of"
+          )}
+          {convertToPersian(20)}
+          {getFieldTranslationByNames(
+            "property-information",
+            "will be deducted from your account and you will enter the collection"
+          )}
         </Info>
         <Inputs>
           {data[0].inputs.slice(0, 2).map((input) => (
@@ -95,9 +110,17 @@ const EnterConfirmModal = ({ data, setPayStatus, setPayed, setLoading }) => {
         </Inputs>
         <Buttons>
           <Button blue onClick={enterHandler}>
-            پرداخت و ورود
+            {getFieldTranslationByNames(
+              "property-information",
+              "payment and entry"
+            )}
           </Button>
-          <Button onClick={() => setPayStatus(false)}>تمایل ندارم</Button>
+          <Button onClick={() => setPayStatus(false)}>
+            {getFieldTranslationByNames(
+              "property-information",
+              "I don't want to"
+            )}
+          </Button>
         </Buttons>
       </Modal>
     </BackGround>

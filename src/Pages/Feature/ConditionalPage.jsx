@@ -94,7 +94,7 @@ export default function ConditionalPage() {
         "property-information",
         "physical information"
       ),
-      content: <PhysicTab owner />,
+      content: <PhysicTab />,
     },
     {
       title: getFieldTranslationByNames(

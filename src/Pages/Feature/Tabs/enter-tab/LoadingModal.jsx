@@ -2,6 +2,7 @@ import { Rnd } from "react-rnd";
 import loader from "../../../../Assets/gif/loader.svg";
 import styled from "styled-components";
 import Header from "../../../../Components/Education/Header";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const StyledRnd = styled(Rnd)`
   display: flex;
@@ -31,7 +32,7 @@ const Text = styled.p`
   text-align: center;
 `;
 
-const LoadingModal = ({ isMobile }) => {
+const LoadingModal = ({ isMobile, setOpen }) => {
   const defaultSize = isMobile
     ? { width: 640, height: 350 }
     : { width: 1380, height: 750 };
@@ -46,10 +47,19 @@ const LoadingModal = ({ isMobile }) => {
       bounds="window"
       enableResizing={false}
     >
-      <Header loading title="ورود به ملک" />
+      <Header
+        loading
+        title={["property-information", "entering the property"]}
+        setOpenEducation={setOpen}
+      />
       <Loader>
         <img src={loader} width={130} height={130} alt="loader" />
-        <Text>متناسب با سرعت اینترنت شما این مجموعه بارگیری خواهد شد</Text>
+        <Text>
+          {getFieldTranslationByNames(
+            "property-information",
+            "this collection will be downloaded"
+          )}
+        </Text>
       </Loader>
     </StyledRnd>
   );
