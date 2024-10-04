@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 
 const Container = styled.div`
   overflow-y: auto;
@@ -59,7 +62,7 @@ const SideBar = ({ tools, option, setOption }) => {
             key={item.id}
           >
             {getFieldTranslationByNames("store", "pack of")}
-            {item.number.toLocaleString()}
+            {convertToPersian(item.number)}
             {getFieldTranslationByNames("store", "pieces")}
           </Option>
         ))}

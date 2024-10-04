@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import LangIcon from "../../Assets/svg/lang.svg";
+import { FaGlobe, FaChevronDown } from "react-icons/fa"; // اضافه کردن آیکون‌های مورد نیاز
 import { getFieldTranslationByNames } from "../../Services/Utility";
 import i18n from "../../i18n/i18n";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
-
+import LangIcon from "../../Assets/svg/lang.svg";
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -19,9 +19,10 @@ const Btn = styled.button`
   width: 100%;
   background-color: transparent;
   align-items: center;
-  justify-content: ${({ shouldHide }) => (shouldHide ? "center" : "start")};
+  justify-content: ${({ shouldHide }) =>
+    shouldHide ? "center" : "space-between"};
   gap: 16.865px;
-  padding: ${({ shouldHide }) => (shouldHide ? " 0px" : "0 10px")};
+  padding: ${({ shouldHide }) => (shouldHide ? "0px" : "0 10px")};
   border: none;
   border-radius: 10px;
   height: 46px;
@@ -37,7 +38,6 @@ const Icon = styled.img`
     height: 24.771px;
   }
 `;
-
 const Text = styled.p`
   color: #868b90;
   font-style: normal;
@@ -78,8 +78,21 @@ const Tooltip = styled.div`
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 180%; /* 36px */
+  line-height: 180%;
   text-transform: capitalize;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+const ChevronIcon = styled(FaChevronDown)`
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease;
+  transform: ${({ isOpenDrop }) =>
+    isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"}; // چرخاندن آیکون
 `;
 
 const DropDownLang = () => {
@@ -94,23 +107,36 @@ const DropDownLang = () => {
       changeLanguage(savedLang);
     }
   }, []);
-
+  console.log(i18n.dir());
   const changeLanguage = async (lang) => {
     try {
-      // بررسی اینکه آیا ترجمه کش شده است یا نه
       const cachedData = localStorage.getItem(`i18n_cache_${lang}`);
       if (cachedData) {
-        // اگر ترجمه در کش باشد، زبان و جهت را بلافاصله تغییر دهید
-        i18n.changeLanguage(lang);
-        document.body.dir = i18n.dir();
-        setCurrentLang(lang);
-        localStorage.setItem("selectedLanguage", lang);
-      } else {
-        // اگر ترجمه موجود نباشد، منتظر بارگذاری ترجمه بمانید
         await i18n.changeLanguage(lang);
-        document.body.dir = i18n.dir();
-        setCurrentLang(lang);
-        localStorage.setItem("selectedLanguage", lang);
+        if (i18n.dir() === "ltr" || lang === "fa") {
+          document.body.dir = i18n.dir();
+          setCurrentLang(lang);
+          localStorage.setItem("selectedLanguage", lang);
+        } else {
+          // اگر به زبان ltr تغییر نکرد، زبان را به فارسی برگردانید
+          await i18n.changeLanguage("fa");
+          document.body.dir = i18n.dir();
+          setCurrentLang("fa");
+          localStorage.setItem("selectedLanguage", "fa");
+        }
+      } else {
+        await i18n.changeLanguage(lang);
+        if (i18n.dir() === "ltr" || lang === "fa") {
+          document.body.dir = i18n.dir();
+          setCurrentLang(lang);
+          localStorage.setItem("selectedLanguage", lang);
+        } else {
+          // اگر به زبان ltr تغییر نکرد، زبان را به فارسی برگردانید
+          await i18n.changeLanguage("fa");
+          document.body.dir = i18n.dir();
+          setCurrentLang("fa");
+          localStorage.setItem("selectedLanguage", "fa");
+        }
       }
     } catch (error) {
       console.error("Error changing language:", error);
@@ -132,10 +158,14 @@ const DropDownLang = () => {
     >
       <Container onClick={() => setIsOpen(!isOpenDrop)}>
         <Btn isOpenDrop={isOpenDrop} shouldHide={!isOpen}>
-          <Icon src={LangIcon} />
-          <Text shouldHide={!isOpen}>
-            {getFieldTranslationByNames("central-page", "language")}
-          </Text>
+          <TitleContainer>
+            {" "}
+            <Icon src={LangIcon} />
+            <Text shouldHide={!isOpen}>
+              {getFieldTranslationByNames("central-page", "language")}
+            </Text>
+          </TitleContainer>
+          <ChevronIcon isOpenDrop={isOpenDrop} /> {/* آیکون باز و بسته شدن */}
         </Btn>
         {isOpenDrop && (
           <DropdownMenu isOpenDrop={isOpenDrop}>

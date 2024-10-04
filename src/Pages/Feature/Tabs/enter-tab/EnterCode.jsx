@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Input from "../physic-tab/Input";
 import Button from "../../../../Components/Button";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   width: 100%;
@@ -35,9 +36,22 @@ const ButtonEdit = styled.button`
 const EnterCode = ({ setPayStatus }) => {
   return (
     <Container>
-      <Input placeholder="کد ورود اختصاصی" onchange={() => {}} />
+      <Input
+        placeholder={getFieldTranslationByNames(
+          "property-information",
+          "exclusive login code"
+        )}
+        onchange={() => {}}
+      />
       <Div>
-        <Button fit label="پرداخت و ورود" onclick={() => setPayStatus(true)} />
+        <Button
+          fit
+          label={getFieldTranslationByNames(
+            "property-information",
+            "payment and entry"
+          )}
+          onclick={() => setPayStatus(true)}
+        />
       </Div>
     </Container>
   );

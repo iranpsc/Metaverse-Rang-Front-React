@@ -1,4 +1,5 @@
 import Title from "../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import EditInputs from "./EditInputs";
 
 import styled from "styled-components";
@@ -34,7 +35,12 @@ const Container = styled.div`
 const PhysicEdit = ({ setEdit, inputs, setInputs }) => {
   return (
     <Container>
-      <Title title="ویرایش اطلاعات فیزیکی" />
+      <Title
+        title={getFieldTranslationByNames(
+          "property-information",
+          "editing information"
+        )}
+      />{" "}
       <EditInputs inputs={inputs} setInputs={setInputs} setEdit={setEdit} />
     </Container>
   );

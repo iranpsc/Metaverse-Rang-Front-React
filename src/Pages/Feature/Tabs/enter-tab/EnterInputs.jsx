@@ -11,16 +11,23 @@ const Wrapper = styled.div`
 const EnterInputs = ({ data }) => {
   return (
     <Wrapper>
-      {data[0]?.inputs?.slice(0, 4).map((input) => (
-        <Input
-          {...input}
-          title={getFieldTranslationByNames(
-            "property-information",
-            input.title
-          )}
-          key={input.id}
-        />
-      ))}
+      {data[0]?.inputs
+        ?.slice(0, 4)
+        .map(
+          (input) => (
+            console.log(input),
+            (
+              <Input
+                {...input}
+                title={getFieldTranslationByNames(
+                  "property-information",
+                  input.title
+                )}
+                key={input.id}
+              />
+            )
+          )
+        )}
     </Wrapper>
   );
 };

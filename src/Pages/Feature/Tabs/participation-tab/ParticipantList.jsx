@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import Title from "../../../../Components/Title";
 import { ParticipantsContext } from "./ParticipationTab";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding-top: 20px;
@@ -29,9 +30,13 @@ const ParticipantList = () => {
   const { participantsList } = useContext(ParticipantsContext);
   return (
     <Container>
-      <div dir="rtl">
-        <Title title="لیست افراد مشارکت کننده" />
-      </div>
+      <Title
+        title={getFieldTranslationByNames(
+          "property-information",
+          "list of contributors"
+        )}
+      />
+
       <Wrapper>
         {participantsList
           .sort((a, b) => b.id - a.id)

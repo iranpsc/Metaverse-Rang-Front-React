@@ -115,7 +115,12 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
               "editing information"
             )}
           </Button>
-          <Button onClick={() => {}}>ورود به ملک</Button>
+          <Button onClick={() => {}}>
+            {getFieldTranslationByNames(
+              "property-information",
+              "confirmation of entry to the property"
+            )}
+          </Button>
         </Buttons>
       )}
       {payStatus && (
@@ -126,7 +131,7 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
           setLoading={setLoading}
         />
       )}
-      {loading && <LoadingModal isMobile={isMobile} />}
+      {loading && <LoadingModal isMobile={isMobile} setOpen={setLoading} />}
     </Container>
   );
 };

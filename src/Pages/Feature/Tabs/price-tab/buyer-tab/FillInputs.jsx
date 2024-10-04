@@ -22,7 +22,6 @@ const InputsWrapper = styled.div`
 
 const ResultWrapper = styled.div`
   display: grid;
-  direction: rtl;
   gap: 20px;
   width: 100%;
   @media (min-width: 670px) {

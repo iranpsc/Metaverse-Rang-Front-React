@@ -3,6 +3,7 @@ import Pricing from "./Pricing";
 
 import styled from "styled-components";
 import TitleValue from "../../../Store/shop/TitleValue";
+import { convertToPersian } from "../../../../Services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -10,7 +11,7 @@ const Container = styled.div`
   border-radius: 5px;
   padding: 10px;
   display: grid;
-  direction: rtl;
+
   align-items: center;
   grid-template-columns: 3fr 2fr 2fr 2fr;
 `;
@@ -87,7 +88,7 @@ const HistoryItem = ({ date, user, link, time, owner }) => {
     <Container>
       <UserTime>
         <Time>
-          <span>{String(date.day).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])}</span>
+          <span>{convertToPersian(date.day)}</span>
           <span>{date.month}</span>
         </Time>
         <User owner={owner}>
