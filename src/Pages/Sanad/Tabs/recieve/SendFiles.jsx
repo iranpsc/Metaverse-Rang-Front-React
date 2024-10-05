@@ -1,9 +1,9 @@
-import Title from "../../Title";
-import nonPhoto from '../../../assets/images/reports/file.png';
-import remove from "../../../assets/images/reports/remove.png";
+import nonPhoto from "../../../../Assets/images/file.png";
+import remove from "../../../../Assets/images/remove.png";
 import styled from "styled-components";
 import { useGlobalState } from "../GlobalVodStateProvider";
 import { useState } from "react";
+import Title from "../../../../Components/Title";
 
 const Files = styled.div`
   display: flex;
@@ -80,7 +80,7 @@ const SendFiles = () => {
   const { state, dispatch } = useGlobalState();
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState("");
-console.log(state.files);
+  console.log(state.files);
   const MAX_FILE_SIZE_MB = 9;
 
   const fileHandler = (e) => {
@@ -92,7 +92,9 @@ console.log(state.files);
 
     files.forEach((file) => {
       if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setError(`سایز ${file.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`);
+        setError(
+          `سایز ${file.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`
+        );
         isError = true;
       } else {
         if (file.type.startsWith("image/")) {
@@ -126,7 +128,7 @@ console.log(state.files);
       <Files>
         {previews.map((preview, index) => (
           <FilePreview key={index}>
-            <FileImage src={preview} alt={`file-preview-${index}`}/>
+            <FileImage src={preview} alt={`file-preview-${index}`} />
             <RemoveButton
               src={remove}
               alt="remove"
@@ -139,11 +141,7 @@ console.log(state.files);
         {state.files.length < 5 && (
           <Div onClick={handleDivClick}>
             <span>+</span>
-            <HiddenInput
-              id="file-input"
-              type="file"
-              onChange={fileHandler}
-            />
+            <HiddenInput id="file-input" type="file" onChange={fileHandler} />
           </Div>
         )}
       </Files>

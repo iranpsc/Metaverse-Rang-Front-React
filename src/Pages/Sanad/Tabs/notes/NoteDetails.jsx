@@ -2,8 +2,9 @@ import { createContext, useState } from "react";
 
 import NoteCard from "./NoteCard";
 import NoteMessages from "./NoteMessages";
-import Title from "../../Title";
+
 import styled from "styled-components";
+import Title from "../../../../Components/Title";
 
 const Container = styled.div`
   padding: 20px 0;

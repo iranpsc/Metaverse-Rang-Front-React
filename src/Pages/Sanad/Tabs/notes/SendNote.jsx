@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import Title from "../../Title";
-import nonPhoto from "../../../assets/images/reports/file.png";
-import remove from "../../../assets/images/reports/remove.png";
+import nonPhoto from "../../../../Assets/images/file.png";
+import remove from "../../../../Assets/images/remove.png";
 import styled from "styled-components";
+import Title from "../../../../Components/Title";
 
 const Files = styled.div`
   display: flex;

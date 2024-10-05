@@ -2,9 +2,10 @@ import "react-quill/dist/quill.snow.css";
 
 import { CiEdit } from "react-icons/ci";
 import ReactQuill from "react-quill";
-import { convertToPersian } from "../../lib/convertToPersian";
+
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
+import { convertToPersian } from "../../../Services/Utility";
 
 const EditorContainer = styled.div`
   background-color: #2c2c2c;

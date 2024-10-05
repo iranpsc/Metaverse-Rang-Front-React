@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { AlertContext } from "../../../App";
-import Button from "../../Button";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import SendNote from "./SendNote";
-import Title from "../../Title";
+
 import WriteNoteInput from "./WriteNoteInput";
 import styled from "styled-components";
+import Title from "../../../../Components/Title";
+import { AlertContext } from "../../../../Services/Reducers/AlertContext";
+import Button from "../../../../Components/Button";
 
 const Subject = styled.div`
   direction: rtl;

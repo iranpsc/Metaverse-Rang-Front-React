@@ -1,13 +1,13 @@
 import { CiEdit } from "react-icons/ci";
 import { EditContext } from "./NoteDetails";
 import { GoTrash } from "react-icons/go";
-import Title from "../../Title";
-import circle from "../../../assets/images/reports/link-circle.png";
-import insta from "../../../assets/images/reports/instagram.png";
-import send from "../../../assets/images/reports/send-2.png";
+
+import circle from "../../../../Assets/images/link-circle.png";
+import insta from "../../../../Assets/images/instagram.png";
+import send from "../../../../Assets/images/send-2.png";
 import styled from "styled-components";
 import { useContext } from "react";
-import whatsapp from "../../../assets/images/reports/whatsapp.png";
+import whatsapp from "../../../../Assets/images/whatsapp.png";
 
 const Button = styled.div`
   background-color: #3b3b3b;

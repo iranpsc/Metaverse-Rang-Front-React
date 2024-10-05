@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 
-import { LoaderContext } from "../../../LoaderProvider.jsx";
 import { LuEye } from "react-icons/lu";
 import VodDetails from "./VodDetails.jsx";
 import styled from "styled-components";
@@ -75,7 +74,6 @@ const VodRow = ({
   subdomain,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
-  const { setIsLoading } = useContext(LoaderContext);
   return (
     <>
       <TableRow status={status}>
@@ -126,9 +124,7 @@ const VodRow = ({
           <View
             id={id}
             onClick={() => {
-              setIsLoading(true);
               setTimeout(() => {
-                setIsLoading(false);
                 setShowDetails(true);
               }, 2000);
             }}

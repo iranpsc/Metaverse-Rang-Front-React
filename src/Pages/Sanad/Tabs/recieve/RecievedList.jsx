@@ -4,14 +4,16 @@ import "react-multi-date-picker/styles/colors/yellow.css";
 import DatePicker from "react-multi-date-picker";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import RecieveRequestsList from "./RecieveRequestsList";
-import SearchInput from "../../../components/SearchInput";
+
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import Title from "../../../components/Title";
+
 import VodList from "./VodList";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useState } from "react";
+import Title from "../../../../Components/Title";
+import SearchInput from "../../../../Components/SearchInput";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -101,7 +103,7 @@ const rows_items = [
     id: 1,
     code: "827161",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "حامد اکبری",
     status: "confirmed",
@@ -114,7 +116,7 @@ const rows_items = [
     id: 2,
     code: "789452",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "یلدا نادی",
     status: "failed",
@@ -127,7 +129,7 @@ const rows_items = [
     id: 3,
     code: "953258",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "سمیه راد",
     status: "confirmed",
@@ -140,7 +142,7 @@ const rows_items = [
     id: 4,
     code: "135647",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "یلدا نادی",
     status: "read",
@@ -153,7 +155,7 @@ const rows_items = [
     id: 5,
     code: "978512",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "failed",
@@ -166,7 +168,7 @@ const rows_items = [
     id: 6,
     code: "954274",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "یلدا نادی",
     status: "pending",
@@ -179,7 +181,7 @@ const rows_items = [
     id: 7,
     code: "875162",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "pending",
@@ -192,7 +194,7 @@ const rows_items = [
     id: 8,
     code: "147862",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "فرید شادی",
     status: "confirmed",
@@ -205,7 +207,7 @@ const rows_items = [
     id: 9,
     code: "865721",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "سمیه راد",
     status: "read",
@@ -218,7 +220,7 @@ const rows_items = [
     id: 10,
     code: "827161",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "صابر راستی",
     status: "confirmed",
@@ -231,7 +233,7 @@ const rows_items = [
     id: 11,
     code: "789452",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "حامد اکبری",
     status: "pending",
@@ -244,7 +246,7 @@ const rows_items = [
     id: 12,
     code: "953258",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "confirmed",
@@ -257,7 +259,7 @@ const rows_items = [
     id: 13,
     code: "135647",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "حامد اکبری",
     status: "failed",
@@ -270,7 +272,7 @@ const rows_items = [
     id: 14,
     code: "978512",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "سمیه راد",
     status: "confirmed",
@@ -283,7 +285,7 @@ const rows_items = [
     id: 15,
     code: "954274",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "فرید شادی",
     status: "pending",
@@ -296,7 +298,7 @@ const rows_items = [
     id: 16,
     code: "875162",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "pending",
@@ -309,7 +311,7 @@ const rows_items = [
     id: 17,
     code: "147862",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "یلدا نادی",
     status: "confirmed",
@@ -322,7 +324,7 @@ const rows_items = [
     id: 18,
     code: "865721",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "pending",
@@ -335,7 +337,7 @@ const rows_items = [
     id: 19,
     code: "827161",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "حامد اکبری",
     status: "failed",
@@ -348,7 +350,7 @@ const rows_items = [
     id: 20,
     code: "789452",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "صابر راستی",
     status: "read",
@@ -361,7 +363,7 @@ const rows_items = [
     id: 21,
     code: "953258",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "سمیه راد",
     status: "confirmed",
@@ -374,7 +376,7 @@ const rows_items = [
     id: 22,
     code: "135647",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "حامد اکبری",
     status: "pending",
@@ -387,7 +389,7 @@ const rows_items = [
     id: 23,
     code: "978512",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "confirmed",
@@ -400,7 +402,7 @@ const rows_items = [
     id: 24,
     code: "954274",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "فرید شادی",
     status: "pending",
@@ -413,7 +415,7 @@ const rows_items = [
     id: 25,
     code: "875162",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "pending",
@@ -426,7 +428,7 @@ const rows_items = [
     id: 26,
     code: "147862",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "فرید شادی",
     status: "confirmed",
@@ -439,7 +441,7 @@ const rows_items = [
     id: 27,
     code: "865721",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "pending",
@@ -452,7 +454,7 @@ const rows_items = [
     id: 28,
     code: "865721",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "pending",
@@ -465,7 +467,7 @@ const rows_items = [
     id: 29,
     code: "865721",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "pending",
@@ -478,7 +480,7 @@ const rows_items = [
     id: 30,
     code: "865721",
     date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc:"لورم ایپسوم متن ساختگی با تولید سادگی",
+    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
     time: " ۱۶:۲۱:۰۸",
     member: "شیدا کریمی",
     status: "pending",
@@ -510,7 +512,10 @@ const RecievedList = ({ setShowDetails }) => {
   const filteredItems = rows.filter((row) => {
     const codeMatch = row.doc.toString().includes(searched);
     const statusMatch =
-      (!status.confirmed && !status.failed && !status.pending &&!status.read) ||
+      (!status.confirmed &&
+        !status.failed &&
+        !status.pending &&
+        !status.read) ||
       (status.confirmed && row.status === "confirmed") ||
       (status.failed && row.status === "failed") ||
       (status.read && row.status === "read") ||

@@ -1,7 +1,7 @@
-import avatar from "../../../assets/images/profile/slide.png";
-import download from "../../../assets/images/reports/download.png";
-import file from "../../../assets/images/reports/file.png";
-import photo from "../../../assets/images/reports/photo.jpeg";
+import avatar from "../../../../Assets/images/defulte-profile.png";
+import download from "../../../../Assets/images/arrow-down.png";
+import file from "../../../../Assets/images/factor-1.png";
+import photo from "../../../../Assets/images/Eye.png";
 import styled from "styled-components";
 
 const Content = styled.div``;
@@ -25,7 +25,7 @@ const Header = styled.div`
 `;
 
 const Text = styled.div`
-  background-color: #1A1A18;
+  background-color: #1a1a18;
   padding: 12px;
   border-radius: 10px;
   p {
@@ -44,7 +44,7 @@ const Text = styled.div`
 `;
 
 const Files = styled.div`
-  background-color: #1A1A18;
+  background-color: #1a1a18;
   padding: 12px;
   border-radius: 10px;
   margin-top: 10px;
@@ -106,7 +106,7 @@ const Image = styled.div`
 `;
 
 const handleDownload = (imageSrc, filename) => {
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   link.href = imageSrc;
   link.download = filename;
   document.body.appendChild(link);
@@ -114,7 +114,7 @@ const handleDownload = (imageSrc, filename) => {
   document.body.removeChild(link);
 };
 
-const CitizenMessage = ({member}) => {
+const CitizenMessage = ({ member }) => {
   return (
     <Container>
       <Content>
@@ -140,7 +140,7 @@ const CitizenMessage = ({member}) => {
                 alt="download"
                 width={36}
                 height={36}
-                onClick={() => handleDownload(photo, 'photo.jpeg')}
+                onClick={() => handleDownload(photo, "photo.jpeg")}
               />
             </Image>
             <Image>
@@ -150,7 +150,7 @@ const CitizenMessage = ({member}) => {
                 alt="download"
                 width={36}
                 height={36}
-                onClick={() => handleDownload(file, 'file.png')}
+                onClick={() => handleDownload(file, "file.png")}
               />
             </Image>
           </div>

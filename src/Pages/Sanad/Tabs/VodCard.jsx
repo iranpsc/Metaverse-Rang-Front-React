@@ -1,9 +1,9 @@
-import Title from "../Title";
-import circle from "../../assets/images/reports/link-circle.png";
-import insta from "../../assets/images/reports/instagram.png";
-import send from "../../assets/images/reports/send-2.png";
+import circle from "../../../Assets/images/link-circle.png";
+import insta from "../../../Assets/images/instagram.png";
+import send from "../../../Assets/images/send-2.png";
 import styled from "styled-components";
-import whatsapp from "../../assets/images/reports/whatsapp.png";
+import whatsapp from "../../../Assets/images/whatsapp.png";
+import Title from "../../../Components/Title";
 
 const Container = styled.div`
   background-color: #1a1a18;
@@ -82,7 +82,8 @@ const Status = styled.div`
         ? "#18C08F"
         : props.status === "pending"
         ? "#FFC700"
-        : "#A0A0AB"}
+        : "#A0A0AB"};
+  }
 `;
 const Date = styled.div`
   h2 {
@@ -97,15 +98,7 @@ const socials = [
   { id: 3, icon: insta },
   { id: 4, icon: send },
 ];
-const VodCard = ({
-  status,
-  code,
-  date,
-  time,
-  member,
-  domain,
-  subdomain,
-}) => {
+const VodCard = ({ status, code, date, time, member, domain, subdomain }) => {
   return (
     <Container>
       <Info>

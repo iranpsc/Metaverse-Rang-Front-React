@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 
-import Button from "../../Button";
 import { FiTrash2 } from "react-icons/fi";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
-import NoteDetails from "../notes/NoteDetails";
+import NoteDetails from "./NoteDetails";
 import styled from "styled-components";
+import Button from "../../../../Components/Button";
 
 const TableRow = styled.tr`
   background-color: transparent;
@@ -73,7 +73,7 @@ const Row = ({ id, code, title, publish_date, name, description, files }) => {
           </div>
         </TableCell>
         <TableCell>
-          <div style={{paddingRight:"25px"}}>
+          <div style={{ paddingRight: "25px" }}>
             <Code>{title}</Code>
           </div>
         </TableCell>

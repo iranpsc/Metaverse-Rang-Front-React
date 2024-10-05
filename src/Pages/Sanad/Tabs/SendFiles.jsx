@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import Title from "../Title";
-import nonPhoto from "../../assets/images/reports/file.png";
-import remove from "../../assets/images/reports/remove.png";
+import nonPhoto from "../../../Assets/images/file.png";
+import remove from "../../../Assets/images/remove.png";
 import styled from "styled-components";
+import Title from "../../../Components/Title";
 
 const Files = styled.div`
   display: flex;
@@ -101,16 +101,20 @@ const SendFiles = ({ files, onFilesChange }) => {
 
     newFiles.forEach((file) => {
       if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setError(`سایز ${file.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`);
+        setError(
+          `سایز ${file.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`
+        );
         isError = true;
       } else {
-        newPreviews.push(file.type.startsWith("image/") ? URL.createObjectURL(file) : nonPhoto);
+        newPreviews.push(
+          file.type.startsWith("image/") ? URL.createObjectURL(file) : nonPhoto
+        );
       }
     });
 
     if (!isError) {
       setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
-      onFilesChange([...files, ...newFiles]); 
+      onFilesChange([...files, ...newFiles]);
     }
   };
 

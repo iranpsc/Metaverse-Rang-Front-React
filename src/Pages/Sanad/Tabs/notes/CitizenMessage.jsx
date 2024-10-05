@@ -1,5 +1,5 @@
 import React from "react";
-import download from "../../../assets/images/reports/download.png";
+import download from "../../../../Assets/images/download.png";
 import styled from "styled-components";
 
 const Content = styled.div`

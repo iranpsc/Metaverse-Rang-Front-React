@@ -1,8 +1,9 @@
 import NotesList from "./NotesList";
-import SearchInput from "../../../components/SearchInput";
-import Title from "../../../components/Title";
+
 import styled from "styled-components";
 import { useState } from "react";
+import SearchInput from "../../../../Components/SearchInput";
+import Title from "../../../../Components/Title";
 
 const Container = styled.div`
   padding-right: 15px;
