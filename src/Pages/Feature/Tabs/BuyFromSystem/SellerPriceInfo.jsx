@@ -10,13 +10,15 @@ import {
   FeatureColor,
   FeatureSvg,
 } from "../../../../Services/Constants/FeatureType";
-import { ToastError } from "../../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../../Services/Utility";
 
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 20px;
-  direction: rtl;
   gap: 20px;
   @media (min-width: 600px) {
     padding-left: 0;
@@ -46,15 +48,20 @@ const SellerPriceInfo = () => {
     <>
       <InputsWrapper>
         <TextValueIcon
-          title="قیمت ملک"
+          title={getFieldTranslationByNames(
+            "property-information",
+            "sales price"
+          )}
           value={feature.properties.stability}
           valueIcon={FeatureColor(feature.properties.rgb)}
           very_long
         />
       </InputsWrapper>
-      <div dir="rtl">
-        <Button label="خرید" onclick={onSubmit} />
-      </div>
+
+      <Button
+        label={getFieldTranslationByNames("property-information", "buy")}
+        onclick={onSubmit}
+      />
     </>
   );
 };

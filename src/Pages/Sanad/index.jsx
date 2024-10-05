@@ -1,21 +1,28 @@
-import React from 'react'
-import Modal from '../../Components/Modal';
-import useTabs from '../../Services/Hooks/useTabs';
-import Note from './Tabs/Note';
-import Ticket from './Tabs/Ticket';
-
+import React from "react";
+import Modal from "../../Components/Modal";
+import useTabs from "../../Services/Hooks/useTabs";
+import { getFieldTranslationByNames } from "../../Services/Utility";
+import WriteVodTab from "./Tabs/WriteVodTab";
+import VodListTab from "./Tabs/VodListTab";
+import NotesListTab from "./Tabs/notes/NotesListTab";
 
 export default function Sanad() {
   const tabs = [
-    {title: ' سند ها ', content: <Ticket />},
-    {title: 'یادداشت ها', content: <Note />}
-  ]
+    {
+      title: getFieldTranslationByNames("send-vod", "writing the document"),
+      content: <WriteVodTab />,
+    },
+    {
+      title: getFieldTranslationByNames("send-vod", "list of documents"),
+      content: <VodListTab />,
+    },
+    {
+      title: getFieldTranslationByNames("send-vod", "note"),
+      content: <NotesListTab />,
+    },
+  ];
 
   const TabPanel = useTabs(tabs);
 
-  return (
-    <Modal type='modal-section-xl' title='اسناد'>
-      { TabPanel }
-    </Modal>
-  )
+  return <Modal title={["send-vod", "documents"]}>{TabPanel}</Modal>;
 }
