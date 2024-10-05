@@ -43,7 +43,7 @@ const Container = styled.div`
   gap: 12px;
   width: 100%;
   margin-left: auto;
-  direction: rtl;
+
   margin-top: 20px;
 `;
 

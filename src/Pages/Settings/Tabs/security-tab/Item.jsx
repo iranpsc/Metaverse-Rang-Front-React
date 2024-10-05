@@ -12,7 +12,6 @@ import {
 const Container = styled.div`
   border: 1px solid #454545;
   border-radius: 5px;
-  direction: rtl;
 `;
 
 const Option = styled.div`

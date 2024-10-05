@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const ErrorList = styled.ul`
   text-align: right;
-  direction: rtl;
+
   width: 90%;
   color: red;
   & > li {

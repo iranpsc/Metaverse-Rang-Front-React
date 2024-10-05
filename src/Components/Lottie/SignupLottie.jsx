@@ -30,13 +30,12 @@ const TextContainer = styled.div`
 const LottieTitle = styled.span`
   color: white;
   font-size: 2rem;
-`
+`;
 
 const LottieDescription = styled.span`
   color: white;
   font-size: 1.2rem;
-  direction: rtl;
-`
+`;
 
 export default function SignupLottie() {
   const navigate = useNavigate();
@@ -62,7 +61,7 @@ export default function SignupLottie() {
         width="808.768"
         height="411.59"
         viewBox="0 0 808.768 411.59"
-        style={{zIndex:1199}}
+        style={{ zIndex: 1199 }}
       >
         <defs>
           <linearGradient
@@ -300,7 +299,9 @@ export default function SignupLottie() {
       </svg>
       <TextContainer>
         <LottieTitle>به جهان موازی خوش امدید</LottieTitle>
-        <LottieDescription>جهت ادامه لطفا ایمیل خود را برسی کنید.</LottieDescription>
+        <LottieDescription>
+          جهت ادامه لطفا ایمیل خود را برسی کنید.
+        </LottieDescription>
       </TextContainer>
     </Container>
   );

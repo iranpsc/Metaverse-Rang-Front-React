@@ -37,7 +37,6 @@ const Container = styled.div`
     height: auto;
     grid-template-columns: 2fr 3fr;
     overflow: hidden;
-    direction: rtl;
   }
 `;
 

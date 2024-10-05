@@ -44,7 +44,7 @@ const Container = styled.div`
   margin-right: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  direction: rtl;
+
   img {
     border-radius: 100%;
   }

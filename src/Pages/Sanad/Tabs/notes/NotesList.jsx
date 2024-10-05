@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   border-radius: 0.25rem;
-  direction: rtl;
+
   overflow-x: auto;
   /* min-height: 93vh; */
   &::-webkit-scrollbar {
@@ -30,7 +30,6 @@ const TableHead = styled.thead`
 
 const TableRow = styled.tr``;
 
-
 const TableHeader = styled.th`
   padding: 20px 10px;
   font-size: 16px;
@@ -54,21 +53,21 @@ const NotesList = ({ notes }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableHeader style={{width:"100px"}}>
+            <TableHeader style={{ width: "100px" }}>
               <div>کد یادداشت</div>
             </TableHeader>
-            <TableHeader style={{width:"350px"}}>
+            <TableHeader style={{ width: "350px" }}>
               <div>عنوان یادداشت</div>
             </TableHeader>
-            <TableHeader style={{width:"210px"}}>
+            <TableHeader style={{ width: "210px" }}>
               <div>عملیات ها</div>
             </TableHeader>
           </TableRow>
         </TableHead>
         <tbody>
-            {reversedNotes.map((note) => (
-              <Row key={note.id} {...note} />
-            ))}
+          {reversedNotes.map((note) => (
+            <Row key={note.id} {...note} />
+          ))}
         </tbody>
       </Table>
     </Container>

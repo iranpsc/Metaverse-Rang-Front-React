@@ -27,7 +27,6 @@ const Container = styled.div`
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
-  direction: rtl;
 `;
 
 const Info = styled.div`

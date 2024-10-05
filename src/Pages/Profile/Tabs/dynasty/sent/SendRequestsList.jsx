@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const Container = styled.div`
   border-radius: 0.25rem;
-  direction: rtl;
+
   width: 73vw !important;
   overflow-x: auto;
   min-height: 93vh;
@@ -173,13 +173,7 @@ const Loader = styled.div`
   }
 `;
 
-const SendRequestsList = ({
-  rows,
-  member,
-  status,
-  setStatus,
-  setMember
-}) => {
+const SendRequestsList = ({ rows, member, status, setStatus, setMember }) => {
   const [visibleRows, setVisibleRows] = useState(10);
 
   const [filters, setFilters] = useState({
@@ -470,10 +464,7 @@ const SendRequestsList = ({
         </TableHead>
         <tbody>
           {rows.slice(0, visibleRows).map((request) => (
-            <RequestRow
-              key={request.id}
-              {...request}
-            />
+            <RequestRow key={request.id} {...request} />
           ))}
         </tbody>
       </Table>

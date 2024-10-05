@@ -13,7 +13,7 @@ const EditorContainer = styled.div`
   border-radius: 5px;
   overflow: hidden;
   color: white;
-  direction: rtl;
+
   margin: 10px auto;
   height: 212px;
   overflow: auto;
@@ -29,13 +29,13 @@ const EditorContainer = styled.div`
     color: #606060;
     font-family: inherit;
     border: none;
-    direction: rtl;
+
     text-align: right;
   }
 
   .ql-editor {
     min-height: 150px;
-    direction: rtl;
+
     text-align: right;
   }
 
@@ -86,7 +86,6 @@ const Char = styled.div`
   justify-content: end;
   align-items: center;
   gap: 5px;
-  direction: rtl;
 
   svg {
     color: ${({ isOverLimit }) => (isOverLimit ? "red" : "#ffffff")};
@@ -106,7 +105,6 @@ const Label = styled.h2`
   font-weight: 500;
   font-size: 16px;
   margin-top: 20px;
-  direction: rtl;
 `;
 
 const ReplyInput = () => {

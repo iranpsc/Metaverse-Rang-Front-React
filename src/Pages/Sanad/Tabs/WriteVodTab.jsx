@@ -15,7 +15,6 @@ const Container = styled.div`
   padding: 20px 0;
   height: 220px;
   overflow-y: auto;
-  direction: ltr;
   padding-right: 15px;
   @media (min-width: 844px) {
     height: 240px;
@@ -110,7 +109,7 @@ const WriteVodTab = () => {
       <Inputs />
       <Description />
       <SendFiles files={state.files} onFilesChange={handleFilesChange} />
-      <div dir="rtl">
+      <div>
         <Button fit label="ارسال سند" onClick={sendVod} />
       </div>
       {error && <ErrorMessage>{error}</ErrorMessage>}

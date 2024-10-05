@@ -34,7 +34,7 @@ const Header = styled.div`
   & h4 {
     width: 65%;
     text-align: right;
-    direction: rtl;
+
     color: #555;
     padding: 8px;
     border: 0.5px solid #999;

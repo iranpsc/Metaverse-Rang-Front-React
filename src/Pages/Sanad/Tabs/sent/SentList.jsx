@@ -60,7 +60,7 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   align-items: center;
-  direction: rtl;
+
   gap: 20px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -69,7 +69,6 @@ const Div = styled.div`
 `;
 
 const Date = styled.div`
-  direction: rtl;
   border-radius: 5px;
   border: 1px solid #454545;
   display: flex;
@@ -525,7 +524,7 @@ const SentList = ({ setShowDetails }) => {
 
   return (
     <Container>
-      <div dir="rtl">
+      <div>
         <Title title="سندهای ارسال شده" />
       </div>
       <Div>

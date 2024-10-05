@@ -59,7 +59,7 @@ const VodReply = () => {
     <Container>
       <ReplyInput />
       <SendFiles />
-      <div dir="rtl">
+      <div>
         <Button fit label="ارسال پاسخ" onclick={saveVod} />
       </div>
     </Container>

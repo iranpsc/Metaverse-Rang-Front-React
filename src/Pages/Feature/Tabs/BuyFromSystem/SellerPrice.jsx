@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 const Text = styled.p`
   color: #ffffff;
   line-height: 1.7rem;
-  direction: rtl;
+
   font-weight: 100;
 `;
 

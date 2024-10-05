@@ -11,7 +11,7 @@ import SuggestText from "./SuggestText";
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  direction: rtl;
+
   gap: 20px;
   padding-left: 20px;
   @media (min-width: 600px) {
@@ -70,7 +70,7 @@ const Value = styled.p`
 
 const Div = styled.div`
   height: 250px !important;
-  direction: rtl;
+
   margin-bottom: 10px;
 `;
 
@@ -138,7 +138,7 @@ const FillInputs = ({
       <ResultWrapper>
         <Wrapper>
           <Title>قیمت نهایی</Title>
-          <Value dir="ltr">
+          <Value>
             {convertToPersian(rial)} IRR / {psc} PSC
           </Value>
         </Wrapper>
@@ -150,7 +150,7 @@ const FillInputs = ({
           <TitleValue title="کارمزد" value="5%" />
         </Sec>
       </ResultWrapper>
-      <div dir="rtl">
+      <div>
         <Button label="ثبت پیشنهاد" onclick={onSubmit} />
       </div>
     </>

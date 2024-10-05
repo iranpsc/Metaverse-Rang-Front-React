@@ -46,7 +46,7 @@ const PolygonContainer = styled.div`
 const TextDetail = styled.p`
   font-size: 16px;
   color: #707070;
-  direction: rtl;
+
   text-align: right;
 `;
 

@@ -11,7 +11,7 @@ const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   margin-top: 20px;
-  direction: rtl;
+
   @media (min-width: 1366px) {
     grid-template-columns: 1fr 2fr;
   }
@@ -58,7 +58,7 @@ const Title = styled.div`
 
 const CitizenInput = styled.div`
   margin-top: 20px;
-  direction: rtl;
+
   position: relative;
 
   .selected-citizens {
@@ -157,15 +157,15 @@ const Inputs = () => {
   const { state, dispatch } = useGlobalState();
   const [selectedCitizens, setSelectedCitizens] = useState([]);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(""); 
-  const dropdownRef = useRef(null); 
+  const [searchTerm, setSearchTerm] = useState("");
+  const dropdownRef = useRef(null);
 
   const handleCitizenSelect = (citizen) => {
     if (selectedCitizens.length < 9 && !selectedCitizens.includes(citizen)) {
       setSelectedCitizens([...selectedCitizens, citizen]);
     }
     setDropdownOpen(false);
-    setSearchTerm(""); 
+    setSearchTerm("");
   };
 
   const removeCitizen = (citizen) => {
@@ -195,7 +195,7 @@ const Inputs = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false); 
+        setDropdownOpen(false);
       }
     };
 

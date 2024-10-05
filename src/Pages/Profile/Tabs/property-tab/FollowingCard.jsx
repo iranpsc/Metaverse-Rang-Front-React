@@ -46,7 +46,7 @@ const Profile = styled.div`
 `;
 const Card = styled.div`
   display: flex;
-  direction: rtl;
+
   align-items: center;
   justify-content: space-between;
   background-color: ${(props) =>

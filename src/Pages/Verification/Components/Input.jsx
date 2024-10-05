@@ -23,7 +23,7 @@ const TextInput = styled.input`
   margin-top: 12px;
   width: 100%;
   text-align: right;
-  direction: rtl;
+
   padding: 8px;
   font-size: 1rem !important;
   height: 50px !important;
@@ -64,18 +64,31 @@ const TextInput = styled.input`
   }
 `;
 
-export default function Input({ onChange, numberOnly,value, text, name, ignoreEn, error, disabled }) {
+export default function Input({
+  onChange,
+  numberOnly,
+  value,
+  text,
+  name,
+  ignoreEn,
+  error,
+  disabled,
+}) {
   const onChangeHandler = (e) => {
-    if(numberOnly) {
-        try {
-            if(Number(e.target.value) || e.target.value === "" || parseInt(e.target.value) === 0) {
-                onChange((data) => ({ ...data, [e.target.name]: e.target.value }));
-            }  
-        } catch {}
-    } else {
-        if (isPersian(e.target.value) || e.target.value === "" || ignoreEn) {
-            onChange((data) => ({ ...data, [e.target.name]: e.target.value }));
+    if (numberOnly) {
+      try {
+        if (
+          Number(e.target.value) ||
+          e.target.value === "" ||
+          parseInt(e.target.value) === 0
+        ) {
+          onChange((data) => ({ ...data, [e.target.name]: e.target.value }));
         }
+      } catch {}
+    } else {
+      if (isPersian(e.target.value) || e.target.value === "" || ignoreEn) {
+        onChange((data) => ({ ...data, [e.target.name]: e.target.value }));
+      }
     }
   };
 
@@ -85,7 +98,7 @@ export default function Input({ onChange, numberOnly,value, text, name, ignoreEn
         name={name}
         type="text"
         value={value}
-        className={`${error && 'invalid'}`}
+        className={`${error && "invalid"}`}
         onChange={onChangeHandler}
         disabled={disabled}
       />

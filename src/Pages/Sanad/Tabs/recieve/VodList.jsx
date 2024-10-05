@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const Container = styled.div`
   border-radius: 0.25rem;
-  direction: rtl;
+
   /* width: 73vw !important; */
   overflow-x: auto;
   min-height: 93vh;

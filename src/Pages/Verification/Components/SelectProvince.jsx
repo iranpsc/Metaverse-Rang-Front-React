@@ -8,7 +8,7 @@ const Select = styled.select`
   margin-top: 12px;
   width: 100%;
   text-align: right;
-  direction: rtl;
+
   padding: 8px;
   font-size: 1rem !important;
   height: 50px !important;

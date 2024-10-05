@@ -6,7 +6,6 @@ import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   margin-top: 25px;
-  direction: rtl;
 `;
 const Button = styled.div`
   display: flex;

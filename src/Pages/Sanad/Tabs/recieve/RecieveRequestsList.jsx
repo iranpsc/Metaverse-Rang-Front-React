@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const Container = styled.div`
   border-radius: 0.25rem;
-  direction: rtl;
+
   /* width: 73vw !important; */
   overflow-x: auto;
   min-height: 93vh;
@@ -173,7 +173,14 @@ const Loader = styled.div`
   }
 `;
 
-const RecieveRequestsList = ({ rows, member, status, setStatus, setMember, setShowDetails }) => {
+const RecieveRequestsList = ({
+  rows,
+  member,
+  status,
+  setStatus,
+  setMember,
+  setShowDetails,
+}) => {
   const [visibleRows, setVisibleRows] = useState(10);
 
   const [filters, setFilters] = useState({

@@ -12,7 +12,6 @@ import useRequest from "../../../../Services/Hooks/useRequest";
 import { ToastError, ToastSuccess } from "../../../../Services/Utility";
 
 const AlbumWrapper = styled.div`
-  direction: rtl;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;

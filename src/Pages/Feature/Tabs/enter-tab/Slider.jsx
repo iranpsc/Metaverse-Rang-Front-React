@@ -2,7 +2,6 @@ import VideoSlider from "./VideoSlider";
 import styled from "styled-components";
 
 const Container = styled.div`
-  direction: rtl;
   overflow: hidden;
   height: 900px;
   border-radius: 10px;

@@ -19,7 +19,7 @@ const ParentInput = styled.div`
 const InputSearch = styled.input`
   width: 100%;
   text-align: right;
-  direction: rtl;
+
   padding: 8px 16px;
   margin-bottom: 16px;
   font-size: 1.3rem !important;

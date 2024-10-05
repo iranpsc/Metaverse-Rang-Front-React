@@ -10,7 +10,6 @@ import { AlertContext } from "../../../../Services/Reducers/AlertContext";
 import Button from "../../../../Components/Button";
 
 const Subject = styled.div`
-  direction: rtl;
   input {
     background-color: #2c2c2c;
     border: 1px solid #454545;
@@ -114,7 +113,7 @@ const WriteNote = () => {
       </Subject>
       <WriteNoteInput description={description} onChange={setDescription} />
       <SendNote files={files} setFiles={setFiles} />
-      <div dir="rtl">
+      <div>
         <Button fit label="ذخیره" onclick={handleSaveNote} />
       </div>
       {error && <ErrorMessage>{error}</ErrorMessage>}

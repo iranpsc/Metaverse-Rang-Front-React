@@ -10,7 +10,6 @@ import Button from "../../../../Components/Button";
 const Buttons = styled.div`
   display: flex;
   gap: 10px;
-  direction: rtl;
 `;
 const Container = styled.div`
   background-color: #000000;

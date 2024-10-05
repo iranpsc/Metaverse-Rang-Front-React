@@ -32,7 +32,7 @@ const Modal = styled.div`
 `;
 const Header = styled.div`
   display: flex;
-  direction: rtl;
+
   justify-content: space-between;
   margin-bottom: 30px;
   @media (max-width: 1023px) {

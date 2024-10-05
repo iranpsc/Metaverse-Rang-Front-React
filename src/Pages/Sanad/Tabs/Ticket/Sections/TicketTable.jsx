@@ -16,7 +16,7 @@ import Submit from "../../../../../Components/Buttons/Submit";
 
 const Description = styled.div`
   text-align: right;
-  direction: rtl;
+
   background: #ecf2ff;
   padding: 8px;
   border-radius: 8px;
@@ -40,7 +40,6 @@ const Editor = styled.div`
 const Chat = styled.div`
   height: 46%;
   overflow-y: scroll;
-  direction: rtl;
 `;
 
 const CloseTicket = styled.button`

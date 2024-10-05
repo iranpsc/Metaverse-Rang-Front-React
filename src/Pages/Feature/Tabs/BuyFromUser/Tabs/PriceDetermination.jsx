@@ -28,7 +28,7 @@ const TextOffer = styled.textarea`
   color: #707070 !important;
   border: 1px solid #c2c2c2;
   font-family: "AzarMehr";
-  direction: rtl;
+
   text-align: right;
 `;
 

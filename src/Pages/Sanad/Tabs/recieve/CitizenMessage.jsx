@@ -75,7 +75,7 @@ const Container = styled.div`
   gap: 12px;
   width: 80%;
   margin-right: auto;
-  direction: rtl;
+
   margin-top: 20px;
 `;
 
