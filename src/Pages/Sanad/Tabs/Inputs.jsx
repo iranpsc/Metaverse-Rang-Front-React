@@ -19,12 +19,13 @@ const Container = styled.div`
 
 const Subject = styled.div`
   select {
-    background-color: #2c2c2c;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
     border: 1px solid #454545;
     border-radius: 5px;
     padding: 10px 12px;
     outline: none;
-    color: #84858f;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     width: 100%;
     font-size: 16px;
     font-weight: 400;
@@ -32,7 +33,7 @@ const Subject = styled.div`
 `;
 
 const Label = styled.h3`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 4px;
@@ -41,12 +42,13 @@ const Label = styled.h3`
 
 const Title = styled.div`
   input {
-    background-color: #2c2c2c;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
     border: 1px solid #454545;
     border-radius: 5px;
     padding: 10px 12px;
     outline: none;
-    color: #84858f;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     width: 91%;
     font-size: 16px;
     font-weight: 400;
@@ -72,8 +74,8 @@ const CitizenInput = styled.div`
   }
 
   .selected-citizen {
-    background-color: #000000;
-    color: #dedee9;
+    background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     padding: 4px 8px 4px 12px;
     border-radius: 4px;
     display: flex;
@@ -86,12 +88,12 @@ const CitizenInput = styled.div`
   .remove-btn {
     background-color: transparent;
     border: none;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     cursor: pointer;
   }
 
   .dropdown {
-    background-color: #1a1a18;
+    background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
     border: 1px solid #454545;
     border-radius: 5px;
     margin-top: 4px;
@@ -106,20 +108,22 @@ const CitizenInput = styled.div`
   .dropdown-item {
     padding: 8px 12px;
     cursor: pointer;
-    color: #ffffff;
+    background-color: ${(props) => props.theme.colors.newColors.shades[90]};
   }
 
   .dropdown-item:hover {
-    background-color: #454545;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.iconBg};
   }
 
   textarea {
-    background-color: #2c2c2c;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
     border: 1px solid #454545;
     border-radius: 5px;
     padding: 10px 12px;
     outline: none;
-    color: #84858f;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     width: 96%;
     height: 75px;
     font-size: 16px;
