@@ -159,7 +159,7 @@ const Profile = () => {
               <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
               <Text isOpen={!isOpen}>{user?.code}</Text>
             </Btn>
-            <BtnNavigator>
+            <BtnNavigator onClick={() => navigate("/metaverse/sanad")}>
               <Icon src={Ticket} />
               {getFieldTranslationByNames("central-page", "send document")}
             </BtnNavigator>

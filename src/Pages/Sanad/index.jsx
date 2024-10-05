@@ -5,6 +5,8 @@ import { getFieldTranslationByNames } from "../../Services/Utility";
 import WriteVodTab from "./Tabs/WriteVodTab";
 import VodListTab from "./Tabs/VodListTab";
 import NotesListTab from "./Tabs/notes/NotesListTab";
+import { GlobalVodStateProvider } from "./Tabs/GlobalVodStateProvider";
+import { GlobalNoteStateProvider } from "./Tabs/GlobalNoteStateProvider";
 
 export default function Sanad() {
   const tabs = [
@@ -24,5 +26,11 @@ export default function Sanad() {
 
   const TabPanel = useTabs(tabs);
 
-  return <Modal title={["send-vod", "documents"]}>{TabPanel}</Modal>;
+  return (
+    <GlobalNoteStateProvider>
+      <GlobalVodStateProvider>
+        <Modal title={["send-vod", "documents"]}>{TabPanel}</Modal>
+      </GlobalVodStateProvider>
+    </GlobalNoteStateProvider>
+  );
 }

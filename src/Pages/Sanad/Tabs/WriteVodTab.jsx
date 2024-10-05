@@ -8,6 +8,8 @@ import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
 import Alert from "../../../Components/Alert/Alert";
 import Button from "../../../Components/Button";
+import { AlertContext } from "../../../Services/Reducers/AlertContext";
+import Title from "../../../Components/Title";
 
 const Container = styled.div`
   padding: 20px 0;
@@ -50,6 +52,7 @@ const WriteVodTab = () => {
   const { alert, setAlert } = useContext(AlertContext);
   const [error, setError] = useState("");
   const containerRef = useRef(null);
+
   const resetForm = () => {
     dispatch({ type: "SET_SUBJECT", payload: "" });
     dispatch({ type: "SET_TITLE", payload: "" });
@@ -108,7 +111,7 @@ const WriteVodTab = () => {
       <Description />
       <SendFiles files={state.files} onFilesChange={handleFilesChange} />
       <div dir="rtl">
-        <Button fit label="ارسال سند" onclick={sendVod} />
+        <Button fit label="ارسال سند" onClick={sendVod} />
       </div>
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>
