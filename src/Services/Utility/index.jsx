@@ -108,26 +108,63 @@ export const ToastSuccess = (message) => {
     duration: 5000,
   });
 };
+
+
+
+
+
 export const getFieldTranslationByNames = (modalName, fieldName) => {
   const resources = i18n.options.resources;
+
   const modal = resources[i18n.language].translation.modals.find(
     (modal) => modal.name === modalName
   );
 
-  if (modal) {
-    for (let i = 0; i < modal.tabs.length; i++) {
-      const tab = modal.tabs[i];
-      const field = tab.fields.find((field) => field.name === fieldName);
+  if (!modal) {
+    return "مودال پیدا نشد";
+  }
 
-      if (field) {
-        return field.translation;
-      }
+  for (let i = 0; i < modal.tabs.length; i++) {
+    const tab = modal.tabs[i];
+
+    const field = tab.fields.find((field) => field.name === fieldName);
+
+    if (field) {
+      return field.translation;
     }
   }
 
-  // Return a default translation or handle missing translations as needed
-  return " not found";
+  return "ترجمه پیدا نشد";
 };
+
+
+
+
+  export const getFieldsByTabName = (modalName, tabName) => {
+    const resources = i18n.options.resources;
+    
+    const modal = resources[i18n.language].translation.modals.find(
+      (modal) => modal.name === modalName
+    );
+
+    if (!modal) {
+      return [];
+    }
+
+    const tab = modal.tabs.find((tab) => tab.name === tabName);
+
+    if (!tab) {
+      return [];
+    }
+
+    return tab.fields;
+  };
+
+
+
+
+
+
 
 export function convertEnglishToPersianNumbers(inputText) {
   const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
