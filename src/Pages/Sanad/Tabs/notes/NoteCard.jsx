@@ -8,22 +8,24 @@ import send from "../../../../Assets/images/send-2.png";
 import styled from "styled-components";
 import { useContext } from "react";
 import whatsapp from "../../../../Assets/images/whatsapp.png";
+import Title from "../../../../Components/Title";
 
 const Button = styled.div`
-  background-color: #3b3b3b;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.garyBtn};
   border-radius: 10px;
   display: flex;
   padding: 10px 22px;
   gap: 6px;
   cursor: pointer;
-  color: #949494;
+  color: ${(props) => props.theme.colors.newColors.otherColors.grayBtnText};
   svg {
     margin-top: 2px;
   }
 `;
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) => props.theme.colors.newColors.shades.inputBg};
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
@@ -47,7 +49,7 @@ const Socials = styled.div`
   h3 {
     font-size: 13px;
     font-weight: 600;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
   div {
     margin-top: 12px;
@@ -59,18 +61,18 @@ const Socials = styled.div`
 const Texts = styled.div`
   p {
     margin: 10px 0;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
     span {
       font-weight: 600;
-      color: white;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
     }
   }
 `;
 
 const Label = styled.h3`
-  color: #a0a0ab;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 4px;
@@ -80,21 +82,21 @@ const Subject = styled.div`
   h2 {
     font-size: 16px;
     font-weight: 500;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 const Status = styled.div`
   h2 {
     font-size: 16px;
     font-weight: 400;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 const Date = styled.div`
   h2 {
     font-size: 16px;
     font-weight: 400;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 const socials = [

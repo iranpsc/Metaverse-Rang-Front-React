@@ -12,7 +12,8 @@ const Buttons = styled.div`
   gap: 10px;
 `;
 const Container = styled.div`
-  background-color: #000000;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   padding: 20px;
   border-radius: 10px;
   margin-top: 30px;

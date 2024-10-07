@@ -8,7 +8,8 @@ import styled from "styled-components";
 import { convertToPersian } from "../../../Services/Utility";
 
 const EditorContainer = styled.div`
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.garyBtn};
   border-radius: 5px;
   overflow: hidden;
   color: white;
@@ -18,13 +19,15 @@ const EditorContainer = styled.div`
   overflow: auto;
 
   .ql-toolbar {
-    background-color: #2c2c2c;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.garyBtn};
     border: none;
     border-bottom: 1px solid gray;
   }
 
   .ql-container {
-    background-color: #2c2c2c;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.garyBtn};
     color: #606060;
     font-family: inherit;
     border: none;

@@ -23,7 +23,8 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px !important;
   overflow: hidden !important;
 `;
@@ -34,7 +35,7 @@ const TableHeader = styled.th`
   padding: 20px 10px;
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
   padding-bottom: 10px;
   text-align: center;

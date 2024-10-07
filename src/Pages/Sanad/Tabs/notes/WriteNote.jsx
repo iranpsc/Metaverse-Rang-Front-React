@@ -11,12 +11,13 @@ import Button from "../../../../Components/Button";
 
 const Subject = styled.div`
   input {
-    background-color: #2c2c2c;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
     border: 1px solid #454545;
     border-radius: 5px;
     padding: 10px 12px;
     outline: none;
-    color: #84858f;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     width: 95.5%;
     font-size: 16px;
     font-weight: 400;
@@ -27,7 +28,7 @@ const Subject = styled.div`
 `;
 
 const Label = styled.h3`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 4px;
@@ -35,7 +36,8 @@ const Label = styled.h3`
 `;
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   padding: 20px;
   padding-right: 15px;
   border-radius: 10px;

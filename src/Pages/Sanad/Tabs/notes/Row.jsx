@@ -13,7 +13,7 @@ const TableRow = styled.tr`
 const TableCell = styled.td`
   padding: 15px 7px;
   border-bottom: 1px solid #454545;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   padding-right: 30px;
   div {
     width: fit-content;
@@ -38,8 +38,9 @@ const Buttons = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    background-color: #3b3b3b;
-    color: #ffffff;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.garyBtn};
+    color: ${(props) => props.theme.colors.newColors.otherColors.grayBtnText};
     transition: all 0.2s linear;
     cursor: pointer;
     &:hover {
@@ -82,12 +83,7 @@ const Row = ({ id, code, title, publish_date, name, description, files }) => {
             <div onClick={removeNoteHandler}>
               <FiTrash2 size={20} />
             </div>
-            <Button
-              label="مشاهده"
-              color="#3B3B3B"
-              textColor="#FFFFFF"
-              onclick={showHandler}
-            />
+            <Button label="مشاهده" grayTheme onclick={showHandler} />
           </Buttons>
         </TableCell>
       </TableRow>

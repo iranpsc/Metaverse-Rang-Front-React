@@ -19,7 +19,8 @@ const Container = styled.div`
 const Div = styled.div`
   display: flex;
   align-items: center;
-  background-color: black;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   justify-content: center;
   gap: 10px;
   border: 1px dashed #454545;
@@ -30,7 +31,7 @@ const Div = styled.div`
   cursor: pointer;
   position: relative;
   span {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 60px;
   }
   @media (min-width: 1366px) {
@@ -69,7 +70,7 @@ const FileImage = styled.img`
 
 const RemoveButton = styled.img`
   border: none;
-  color: white;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   padding: 5px;
   border-radius: 3px;
   cursor: pointer;

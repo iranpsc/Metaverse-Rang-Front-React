@@ -5,13 +5,13 @@ import styled from "styled-components";
 const Content = styled.div`
   width: 100%;
   h2 {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 10px;
   }
   p {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
   }
@@ -29,7 +29,7 @@ const Files = styled.div`
   }
 
   h4 {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
     width: fit-content;
@@ -61,7 +61,8 @@ const Image = styled.div`
   width: 192px;
   height: 171px;
   border-radius: 10px;
-  background-color: white;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   overflow: hidden;
   border: 1px solid gray;
   img {

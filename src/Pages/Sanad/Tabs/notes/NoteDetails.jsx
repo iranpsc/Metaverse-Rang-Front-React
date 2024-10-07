@@ -12,7 +12,7 @@ const Container = styled.div`
   height: 80%;
   position: relative;
   border-radius: 10px;
-  background-color: #000000;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   padding: 20px;
   z-index: 9999;
   @media (min-width: 1366px) {
@@ -48,7 +48,6 @@ const Back = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(5px);
   background-color: rgba(0, 0, 0, 0.713);
 `;
 

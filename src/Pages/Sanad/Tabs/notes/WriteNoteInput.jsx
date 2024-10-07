@@ -8,24 +8,27 @@ import { useGlobalState } from "../GlobalVodStateProvider";
 import { convertToPersian } from "../../../../Services/Utility";
 
 const EditorContainer = styled.div`
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   overflow: hidden;
-  color: white;
-
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  border: 1px solid ${(props) => props.theme.colors.newColors.shades.title};
   margin: 10px auto;
   height: 212px;
   overflow: auto;
 
   .ql-toolbar {
-    background-color: #2c2c2c;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
     border: none;
     border-bottom: 1px solid gray;
   }
 
   .ql-container {
-    background-color: #2c2c2c;
-    color: #606060;
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-family: inherit;
     border: none;
 
@@ -40,7 +43,7 @@ const EditorContainer = styled.div`
 
   .ql-editor::before {
     content: attr(data-placeholder);
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-style: italic;
     position: absolute;
     left: 0;
@@ -52,21 +55,22 @@ const EditorContainer = styled.div`
   }
 
   .ql-toolbar .ql-picker {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 
   .ql-toolbar .ql-stroke {
-    stroke: white;
+    stroke: ${(props) => props.theme.colors.newColors.otherColors.iconText};
   }
 
   .ql-toolbar .ql-fill {
-    fill: white;
+    fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
   }
 
   .ql-toolbar .ql-picker-label,
   .ql-toolbar .ql-picker-options {
-    color: white;
-    background-color: #444;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
   }
 
   .ql-toolbar .ql-picker-options {
@@ -75,8 +79,9 @@ const EditorContainer = styled.div`
 
   .ql-toolbar .ql-picker-label:hover,
   .ql-toolbar .ql-picker-options:hover {
-    color: #ddd;
-    background-color: #555;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
   }
 `;
 
@@ -87,18 +92,24 @@ const Char = styled.div`
   gap: 5px;
 
   svg {
-    color: ${({ isOverLimit }) => (isOverLimit ? "red" : "#ffffff")};
+    color: ${(props) =>
+      props.isOverLimit
+        ? "red"
+        : props.theme.colors.newColors.otherColors.iconText};
   }
 
   span {
-    color: ${({ isOverLimit }) => (isOverLimit ? "red" : "#a0a0ab")};
+    color: ${(props) =>
+      props.isOverLimit
+        ? "red"
+        : props.theme.colors.newColors.otherColors.iconText};
     font-size: 13px;
     font-weight: 400;
   }
 `;
 
 const Label = styled.h2`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   display: block;
   margin-bottom: 10px;
   font-weight: 500;
