@@ -6,17 +6,17 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
-import VodList from "./VodList";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useState } from "react";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
+import VodList from "../../Components/VodList";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
-  direction: ltr;
+
   overflow-y: auto;
   height: 550px;
   @media (min-width: 640px) {
@@ -552,6 +552,7 @@ const SentList = ({ setShowDetails }) => {
         member={member}
         status={status}
         rows={filteredItems}
+        mode=""
       />
     </Container>
   );

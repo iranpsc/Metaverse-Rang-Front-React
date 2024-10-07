@@ -52,7 +52,7 @@ const Back = styled.div`
 const Div = styled.div`
   height: 272px;
   overflow-y: auto;
-  direction: ltr;
+
   padding-right: 15px;
   @media (min-width: 720px) {
     height: 408px;

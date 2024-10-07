@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   border-radius: 5px;
   padding: 15px 0;
   margin-top: 20px;
@@ -14,14 +15,18 @@ const Label = styled.div`
   font-size: 18px;
   font-weight: 500;
   white-space: nowrap;
-  color: ${(props) => (props.menu ? "#FFC700" : "#dedee9")};
+  color: ${(props) =>
+    props.menu
+      ? props.theme.colors.primary
+      : props.theme.colors.newColors.shades.title};
   padding: 8px 25px;
   cursor: pointer;
-  border-right: 2px solid ${(props) => (props.menu ? "#FFC700" : "transparent")};
+  border-right: 2px solid
+    ${(props) => (props.menu ? props.theme.colors.primary : "transparent")};
   transition: all 0.2s linear;
   &:hover {
-    color: #ffc700;
-    border-right: 2px solid #ffc700;
+    color: ${(props) => props.theme.colors.primary};
+    border-right: 2px solid ${(props) => props.theme.colors.primary};
   }
 `;
 

@@ -47,75 +47,32 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   border-radius: 10px !important;
   overflow: hidden !important;
 `;
 
 const TableRow = styled.tr``;
-const StatusFilter = styled.div`
-  position: absolute;
-  top: 65px;
-  width: 169px;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #1a1a18;
-  font-size: 16px;
-  div {
-    position: relative;
-    &:hover {
-      background-color: #3b3b3b;
-      transition: all 0.2s linear;
-    }
-    span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
-  }
 
-  h1 {
-    font-weight: 400;
-    color: #ffffff;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
-  }
-  h2 {
-    color: #ffffff;
-    font-weight: 400;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
-    margin: 10px 0;
-  }
-  h3 {
-    color: #ffffff;
-    font-weight: 400;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
-    margin: 10px 0;
-  }
-`;
 const TitleFilter = styled.div`
   position: absolute;
   top: 65px;
   width: 130px;
   padding: 15px;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   div {
     position: relative;
     padding-right: 5px;
+    background-color: ${(props) =>
+      props.status.confirmed &&
+      props.theme.colors.newColors.otherColors.bgContainer};
+    border-radius: 10px;
     &:hover {
-      background-color: #3b3b3b;
+      background-color: ${(props) =>
+        props.theme.colors.newColors.otherColors.inputBg};
       transition: all 0.2s linear;
     }
     span {
@@ -129,7 +86,7 @@ const TitleFilter = styled.div`
   }
   h1 {
     font-size: 16px;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 400;
     cursor: pointer;
     &:first-of-type {
@@ -156,7 +113,7 @@ const TableHeader = styled.th`
   padding: 20px;
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
 `;
 
@@ -168,7 +125,7 @@ const Loader = styled.div`
   justify-content: center;
   button {
     background-color: transparent;
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     border: none;
   }
 `;
@@ -192,7 +149,7 @@ const VodList = ({
   const handleLoadMore = () => {
     setVisibleRows((prevVisibleRows) => prevVisibleRows + 10);
   };
-
+  console.log(status);
   return (
     <Container>
       <Table>
@@ -217,13 +174,8 @@ const VodList = ({
                 </Arrows>
               </Div>
               {filters.status && (
-                <TitleFilter>
-                  <div
-                    style={{
-                      backgroundColor: `${status.confirmed && "#3B3B3B"}`,
-                      borderRadius: "10px",
-                    }}
-                  >
+                <TitleFilter status={status}>
+                  <div>
                     <h1
                       onClick={() => {
                         setStatus({ ...status, confirmed: true });
@@ -244,12 +196,7 @@ const VodList = ({
                       </span>
                     )}
                   </div>
-                  <div
-                    style={{
-                      backgroundColor: `${status.pending && "#3B3B3B"}`,
-                      borderRadius: "10px",
-                    }}
-                  >
+                  <div>
                     <h1
                       onClick={() => {
                         setStatus({ ...status, pending: true });
@@ -270,12 +217,7 @@ const VodList = ({
                       </span>
                     )}
                   </div>
-                  <div
-                    style={{
-                      backgroundColor: `${status.failed && "#3B3B3B"}`,
-                      borderRadius: "10px",
-                    }}
-                  >
+                  <div>
                     <h1
                       onClick={() => {
                         setStatus({ ...status, failed: true });
@@ -296,12 +238,7 @@ const VodList = ({
                       </span>
                     )}
                   </div>
-                  <div
-                    style={{
-                      backgroundColor: `${status.read && "#3B3B3B"}`,
-                      borderRadius: "10px",
-                    }}
-                  >
+                  <div>
                     <h1
                       onClick={() => {
                         setStatus({ ...status, read: true });

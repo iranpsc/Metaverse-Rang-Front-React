@@ -7,7 +7,7 @@ import Title from "../../../../Components/Title";
 
 const Container = styled.div`
   padding-right: 15px;
-  direction: ltr;
+
   @media (min-width: 1366px) {
     height: 650px;
     overflow-y: auto;

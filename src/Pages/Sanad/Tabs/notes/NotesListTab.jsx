@@ -8,7 +8,7 @@ const Container = styled.div`
   padding: 20px 0;
   padding-right: 15px;
   display: grid;
-  direction: ltr;
+
   gap: 15px;
   height: 220px;
   overflow-y: auto;

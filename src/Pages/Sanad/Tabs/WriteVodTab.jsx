@@ -109,9 +109,9 @@ const WriteVodTab = () => {
       <Inputs />
       <Description />
       <SendFiles files={state.files} onFilesChange={handleFilesChange} />
-      <div>
-        <Button fit label="ارسال سند" onClick={sendVod} />
-      </div>
+
+      <Button fit label="ارسال سند" onClick={sendVod} />
+
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>
   );

@@ -3,9 +3,7 @@ import CitizenMessage from "./CitizenMessage";
 import VodReply from "./VodReply";
 import styled from "styled-components";
 
-const Container = styled.div`
-  direction: ltr;
-`;
+const Container = styled.div``;
 const Messages = ({ member }) => {
   return (
     <Container>

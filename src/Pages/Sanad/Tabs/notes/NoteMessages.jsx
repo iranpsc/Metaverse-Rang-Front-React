@@ -4,9 +4,7 @@ import EditNote from "./EditNote";
 import styled from "styled-components";
 import { useContext } from "react";
 
-const Container = styled.div`
-  direction: ltr;
-`;
+const Container = styled.div``;
 const NoteMessages = ({ member, id, description, files }) => {
   const { isEditing, setIsEditing } = useContext(EditContext);
   return (

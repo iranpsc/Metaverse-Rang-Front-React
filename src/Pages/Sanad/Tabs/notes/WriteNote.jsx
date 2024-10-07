@@ -39,7 +39,7 @@ const Container = styled.div`
   padding: 20px;
   padding-right: 15px;
   border-radius: 10px;
-  direction: ltr;
+
   @media (min-width: 1366px) {
     height: 600px;
     overflow-y: auto;
