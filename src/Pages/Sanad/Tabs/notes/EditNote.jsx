@@ -62,13 +62,7 @@ const EditNote = ({ setIsEditing, id, description, files }) => {
 
       <Buttons>
         <Button fit label="ذخیره" onclick={handleSave} />
-        <Button
-          color="#3b3b3b"
-          textColor="#949494"
-          fit
-          label="لغو"
-          onclick={() => setIsEditing(false)}
-        />
+        <Button grayTheme fit label="لغو" onclick={() => setIsEditing(false)} />
       </Buttons>
     </Container>
   );
