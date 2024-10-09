@@ -8,7 +8,8 @@ import Button from "../../../../Components/Button";
 import { AlertContext } from "../../../../Services/Reducers/AlertContext";
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   padding: 20px;
   border-radius: 10px;
   margin-top: 30px;
@@ -59,9 +60,8 @@ const VodReply = () => {
     <Container>
       <ReplyInput />
       <SendFiles />
-      <div>
-        <Button fit label="ارسال پاسخ" onclick={saveVod} />
-      </div>
+
+      <Button fit label="ارسال پاسخ" onclick={saveVod} />
     </Container>
   );
 };

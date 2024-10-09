@@ -12,7 +12,7 @@ const Header = styled.div`
   justify-content: space-between;
   margin-bottom: 10px;
   span {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 600;
   }
@@ -25,16 +25,17 @@ const Header = styled.div`
 `;
 
 const Text = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   padding: 12px;
   border-radius: 10px;
   p {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
   }
   h4 {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
     width: fit-content;
@@ -44,7 +45,8 @@ const Text = styled.div`
 `;
 
 const Files = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   padding: 12px;
   border-radius: 10px;
   margin-top: 10px;
@@ -93,7 +95,8 @@ const Image = styled.div`
   width: 192px;
   height: 171px;
   border-radius: 10px;
-  background-color: white;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   overflow: hidden;
   border: 1px solid gray;
   img {

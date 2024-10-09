@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Title from "../../../../Components/Title";
 import { AlertContext } from "../../../../Services/Reducers/AlertContext";
 import Button from "../../../../Components/Button";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Subject = styled.div`
   input {
@@ -103,12 +104,15 @@ const WriteNote = () => {
 
   return (
     <Container>
-      <Title right title="نوشتن یادداشت" />
+      <Title
+        right
+        title={getFieldTranslationByNames("send-vod", "write a note")}
+      />
       <Subject>
-        <Label>عنوان</Label>
+        <Label>{getFieldTranslationByNames("send-vod", "title")}</Label>
         <input
           type="text"
-          placeholder="عنوان"
+          placeholder={getFieldTranslationByNames("send-vod", "title")}
           value={title}
           onChange={(e) => title.length < 201 && setTitle(e.target.value)}
         />
@@ -116,7 +120,11 @@ const WriteNote = () => {
       <WriteNoteInput description={description} onChange={setDescription} />
       <SendNote files={files} setFiles={setFiles} />
       <div>
-        <Button fit label="ذخیره" onclick={handleSaveNote} />
+        <Button
+          fit
+          label={getFieldTranslationByNames("send-vod", "save")}
+          onclick={handleSaveNote}
+        />
       </div>
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>

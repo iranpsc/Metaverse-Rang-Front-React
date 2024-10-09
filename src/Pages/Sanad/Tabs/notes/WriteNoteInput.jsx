@@ -32,13 +32,13 @@ const EditorContainer = styled.div`
     font-family: inherit;
     border: none;
 
-    text-align: right;
+    text-align: unset;
   }
 
   .ql-editor {
     min-height: 150px;
 
-    text-align: right;
+    text-align: unset;
   }
 
   .ql-editor::before {
@@ -49,7 +49,7 @@ const EditorContainer = styled.div`
     left: 0;
     right: 20px;
     font-family: inherit;
-    text-align: right;
+    text-align: unset;
     pointer-events: none;
     display: block;
   }
@@ -154,7 +154,7 @@ const WriteNoteInput = ({ description, onChange }) => {
 
   return (
     <>
-      <Label>یادداشت خود را بنویسید</Label>
+      <Label>{getFieldTranslationByNames("send-vod", "write your note")}</Label>
       <EditorContainer>
         <ReactQuill
           value={description}
@@ -165,7 +165,10 @@ const WriteNoteInput = ({ description, onChange }) => {
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
-        <span>{convertToPersian(remainingChars)} کاراکتر</span>
+        <span>
+          {convertToPersian(remainingChars)}{" "}
+          {getFieldTranslationByNames("send-vod", "character")}
+        </span>
         <CiEdit size={20} />
       </Char>
     </>

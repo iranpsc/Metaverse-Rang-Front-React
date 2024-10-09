@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -34,10 +35,10 @@ const Sidebar = ({ setMenu, menu }) => {
   return (
     <Container>
       <Label menu={menu === 1} onClick={() => setMenu(1)}>
-        سندهای دریافت شده
+        {getFieldTranslationByNames("send-vod", "documents received")}
       </Label>
       <Label menu={menu === 2} onClick={() => setMenu(2)}>
-        سندهای ارسال شده
+        {getFieldTranslationByNames("send-vod", "submitted documents")}
       </Label>
     </Container>
   );

@@ -10,6 +10,7 @@ import Alert from "../../../Components/Alert/Alert";
 import Button from "../../../Components/Button";
 import { AlertContext } from "../../../Services/Reducers/AlertContext";
 import Title from "../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px 0;
@@ -43,7 +44,6 @@ const ErrorMessage = styled.div`
   color: red;
   font-size: 14px;
   margin-top: 10px;
-  text-align: right;
 `;
 
 const WriteVodTab = () => {
@@ -80,7 +80,12 @@ const WriteVodTab = () => {
         setAlert(false);
       }, 2000);
     } else {
-      setError("تمامی فیلدها باید قبل از ارسال گزارش پر شوند");
+      setError(
+        getFieldTranslationByNames(
+          "send-vod",
+          "all fields must be fille…re sending the document"
+        )
+      );
     }
   };
 
@@ -99,18 +104,31 @@ const WriteVodTab = () => {
 
   return (
     <Container ref={containerRef}>
-      <Title title="نوشتن سند" right />
+      <Title
+        title={getFieldTranslationByNames("send-vod", "writing the document")}
+        right
+      />
       {alert && (
         <Alert
           type="success"
-          text={`گزارش شما با عنوان ${state.title} با موفقیت ارسال شد`}
+          text={`   ${getFieldTranslationByNames(
+            "send-vod",
+            "your document titled"
+          )}${state.title}    ${getFieldTranslationByNames(
+            "send-vod",
+            "submitted successfully"
+          )}`}
         />
       )}
       <Inputs />
       <Description />
       <SendFiles files={state.files} onFilesChange={handleFilesChange} />
 
-      <Button fit label="ارسال سند" onClick={sendVod} />
+      <Button
+        fit
+        label={getFieldTranslationByNames("send-vod", "send the document")}
+        onClick={sendVod}
+      />
 
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>

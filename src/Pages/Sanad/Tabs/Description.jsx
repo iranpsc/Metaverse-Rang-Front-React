@@ -5,15 +5,19 @@ import ReactQuill from "react-quill";
 
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
-import { convertToPersian } from "../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../Services/Utility";
 
 const EditorContainer = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   overflow: hidden;
-  color: white;
-
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   margin: 10px auto;
   height: 212px;
   overflow: auto;
@@ -32,13 +36,13 @@ const EditorContainer = styled.div`
     font-family: inherit;
     border: none;
 
-    text-align: right;
+    text-align: unset;
   }
 
   .ql-editor {
     min-height: 150px;
 
-    text-align: right;
+    text-align: unset;
   }
 
   .ql-editor::before {
@@ -49,7 +53,7 @@ const EditorContainer = styled.div`
     left: 0;
     right: 20px;
     font-family: inherit;
-    text-align: right;
+    text-align: unset;
     pointer-events: none;
     display: block;
   }
@@ -158,18 +162,20 @@ const Description = () => {
 
   return (
     <>
-      <Label>متن سند</Label>
+      <Label> {getFieldTranslationByNames("send-vod", "document text")}</Label>
       <EditorContainer>
         <ReactQuill
           value={state.description}
           onChange={handleChange}
           modules={modules}
           formats={formats}
-          // placeholder="متن سند را بنویسید"
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
-        <span>{convertToPersian(remainingChars)} کاراکتر</span>
+        <span>
+          {convertToPersian(remainingChars)}{" "}
+          {getFieldTranslationByNames("send-vod", "character")}
+        </span>
         <CiEdit size={20} />
       </Char>
     </>

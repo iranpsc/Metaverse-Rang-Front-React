@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { LuEye } from "react-icons/lu";
 import VodDetails from "./VodDetails.jsx";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility/index.jsx";
 
 const TableRow = styled.tr`
   background-color: ${(props) =>
@@ -105,12 +106,12 @@ const VodRow = ({
             }}
           >
             {status === "confirmed"
-              ? "پاسخ داده شده"
+              ? getFieldTranslationByNames("send-vod", "answered")
               : status === "pending"
-              ? "باز نشده"
+              ? getFieldTranslationByNames("send-vod", "not opened")
               : status === "read"
-              ? "خوانده شده"
-              : "بسته شده"}
+              ? getFieldTranslationByNames("send-vod", "read")
+              : getFieldTranslationByNames("send-vod", "closed")}
           </Title>
         </TableCell>
         <TableCell>
@@ -124,9 +125,7 @@ const VodRow = ({
           <View
             id={id}
             onClick={() => {
-              setTimeout(() => {
-                setShowDetails(true);
-              }, 2000);
+              setShowDetails(true);
             }}
           >
             <LuEye size={20} />

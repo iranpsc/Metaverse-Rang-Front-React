@@ -4,9 +4,11 @@ import send from "../../../../Assets/images/send-2.png";
 import styled from "styled-components";
 import whatsapp from "../../../../Assets/images/whatsapp.png";
 import Button from "../../../../Components/Button";
+import Title from "../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
@@ -23,6 +25,7 @@ const Content = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin-top: 20px;
+  gap: 15px;
 `;
 
 const Buttons = styled.div`
@@ -40,7 +43,7 @@ const Socials = styled.div`
   h3 {
     font-size: 13px;
     font-weight: 600;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
   div {
     margin-top: 12px;
@@ -52,18 +55,18 @@ const Socials = styled.div`
 const Texts = styled.div`
   p {
     margin: 10px 0;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
     span {
       font-weight: 600;
-      color: white;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
     }
   }
 `;
 
 const Label = styled.h3`
-  color: #a0a0ab;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 4px;
@@ -73,7 +76,7 @@ const Subject = styled.div`
   h2 {
     font-size: 16px;
     font-weight: 500;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 const Status = styled.div`
@@ -92,7 +95,7 @@ const Date = styled.div`
   h2 {
     font-size: 16px;
     font-weight: 400;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 const socials = [
@@ -119,7 +122,7 @@ const VodCard = ({
           <p>#{code}</p>
         </Texts>
         <Socials>
-          <h3>اشتراک گذاری سند</h3>
+          <h3>{getFieldTranslationByNames("send-vod", "document sharing")}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -135,21 +138,23 @@ const VodCard = ({
       </Info>
       <Content>
         <Subject>
-          <Label>ارسال کننده</Label>
+          <Label>{getFieldTranslationByNames("send-vod", "sender")}</Label>
           <h2>{member}</h2>
         </Subject>
         <Status status={status}>
-          <Label>وضعیت</Label>
+          <Label>{getFieldTranslationByNames("send-vod", "status")}</Label>
           <h2>
             {status === "confirmed"
-              ? "پاسخ داده شده"
+              ? getFieldTranslationByNames("send-vod", "answered")
               : status === "pending"
-              ? "در حال برسی"
-              : "بسته شده"}
+              ? getFieldTranslationByNames("send-vod", "not opened")
+              : getFieldTranslationByNames("send-vod", "closed")}
           </h2>
         </Status>
         <Date>
-          <Label>تاریخ و ساعت ارسال</Label>
+          <Label>
+            {getFieldTranslationByNames("send-vod", "date and time of sending")}
+          </Label>
           <h2>
             {date} | {time}
           </h2>
@@ -158,16 +163,17 @@ const VodCard = ({
           <Button
             fit
             onclick={() => setShowDetails(false)}
-            color="#3B3B3B"
-            textColor="#949494"
-            label="بستن سند"
+            grayTheme
+            label={getFieldTranslationByNames(
+              "send-vod",
+              "document registration"
+            )}
           />
           <Button
             fit
             onclick={() => setShowDetails(false)}
-            color="#3B3B3B"
-            textColor="#949494"
-            label="ثبت سند"
+            grayTheme
+            label={getFieldTranslationByNames("send-vod", "close document")}
           />
         </Buttons>
       </Content>

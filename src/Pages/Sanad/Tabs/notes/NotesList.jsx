@@ -1,6 +1,7 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import Row from "./Row";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;
@@ -55,13 +56,15 @@ const NotesList = ({ notes }) => {
         <TableHead>
           <TableRow>
             <TableHeader style={{ width: "100px" }}>
-              <div>کد یادداشت</div>
+              <div>{getFieldTranslationByNames("send-vod", "note code")}</div>
             </TableHeader>
             <TableHeader style={{ width: "350px" }}>
-              <div>عنوان یادداشت</div>
+              <div>
+                {getFieldTranslationByNames("send-vod", "title of the note")}
+              </div>
             </TableHeader>
             <TableHeader style={{ width: "210px" }}>
-              <div>عملیات ها</div>
+              <div>{getFieldTranslationByNames("send-vod", "operation")}</div>
             </TableHeader>
           </TableRow>
         </TableHead>

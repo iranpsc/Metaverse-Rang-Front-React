@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { CgDanger } from "react-icons/cg";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const Wrapper = styled.div``;
 
@@ -137,13 +138,13 @@ const CitizenInput = styled.div`
 
 const Inputs = () => {
   const options = [
-    { id: 1, label: "شهروند", value: "citizen" },
-    { id: 2, label: "امنیت شهروندان", value: "security" },
-    { id: 3, label: "پشتیبانی فنی", value: "support" },
-    { id: 4, label: "سرمایه گذاری", value: "invest" },
-    { id: 5, label: "بازرسی", value: "review" },
-    { id: 6, label: "حراست", value: "guard" },
-    { id: 7, label: "مدیریت کل ز ت ب", value: "management" },
+    { id: 1, label: "citizen", value: "citizen" },
+    { id: 2, label: "security of citizens", value: "security" },
+    { id: 3, label: "technical support", value: "support" },
+    { id: 4, label: "investment", value: "invest" },
+    { id: 5, label: "inspection", value: "review" },
+    { id: 6, label: "protection", value: "guard" },
+    { id: 7, label: "general management of z.t.b", value: "management" },
   ];
   const citizens = [
     { id: 1, name: "محمد عباسی" },
@@ -213,21 +214,35 @@ const Inputs = () => {
     <Wrapper>
       <Container>
         <Subject>
-          <Label>ارسال سند به</Label>
+          <Label>
+            {getFieldTranslationByNames("send-vod", "send the document to")}
+          </Label>
           <select value={state.subject} onChange={(e) => subjectHandler(e)}>
-            <option value="">دسته بندی سند را انتخاب کنید</option>
+            <option value="">
+              {" "}
+              {getFieldTranslationByNames(
+                "send-vod",
+                "select the document category"
+              )}
+            </option>
             {options.map((option) => (
               <option value={option.value} key={option.id}>
-                {option.label}
+                {getFieldTranslationByNames("send-vod", option.label)}
               </option>
             ))}
           </select>
         </Subject>
         <Title>
-          <Label>عنوان سند</Label>
+          <Label>
+            {" "}
+            {getFieldTranslationByNames("send-vod", "document title")}
+          </Label>
           <input
             type="text"
-            placeholder="عنوان سند"
+            placeholder={getFieldTranslationByNames(
+              "send-vod",
+              "document title"
+            )}
             value={state.title}
             onChange={(e) => titleHandler(e)}
           />
@@ -236,7 +251,13 @@ const Inputs = () => {
 
       {state.subject === "citizen" && (
         <CitizenInput ref={dropdownRef}>
-          <Label>شهروندان مورد نظر</Label>
+          <Label>
+            {" "}
+            {getFieldTranslationByNames(
+              "send-vod",
+              "the citizen or citizens in question"
+            )}
+          </Label>
 
           <div className="selected-citizens">
             {selectedCitizens.map((citizen) => (
@@ -255,7 +276,11 @@ const Inputs = () => {
           <textarea
             rows={2}
             placeholder={`${
-              selectedCitizens.length === 0 && "شهروندان مورد نظر"
+              selectedCitizens.length === 0 &&
+              getFieldTranslationByNames(
+                "send-vod",
+                "the citizen or citizens in question"
+              )
             }`}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
@@ -275,7 +300,13 @@ const Inputs = () => {
                   </div>
                 ))
               ) : (
-                <div className="dropdown-item">شهروندی یافت نشد</div>
+                <div className="dropdown-item">
+                  {" "}
+                  {getFieldTranslationByNames(
+                    "send-vod",
+                    "citizenship not found"
+                  )}
+                </div>
               )}
             </div>
           )}
@@ -290,7 +321,11 @@ const Inputs = () => {
               gap: "2px",
             }}
           >
-            <CgDanger size={20} /> حداکثر تعداد شهروندان مجاز ۹ نفر میباشد
+            <CgDanger size={20} />{" "}
+            {getFieldTranslationByNames(
+              "send-vod",
+              "the maximum number of citizens allowed is 9 people"
+            )}
           </div>
         </CitizenInput>
       )}

@@ -1,4 +1,5 @@
 import Title from "../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import Messages from "./Messages";
 
 import VodCard from "./VodCard";
@@ -10,7 +11,7 @@ const Container = styled.div`
   height: 80%;
   position: relative;
   border-radius: 10px;
-  background-color: #000000;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   padding: 20px;
   z-index: 9999;
   @media (min-width: 1366px) {
@@ -45,8 +46,8 @@ const Back = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(5px);
   background-color: rgba(0, 0, 0, 0.713);
+  z-index: 10;
 `;
 
 const Div = styled.div`
@@ -109,7 +110,12 @@ const VodDetails = ({
     <Back>
       <Container>
         <Header>
-          <Title title="اطلاعات سند" />
+          <Title
+            title={getFieldTranslationByNames(
+              "send-vod",
+              "document information"
+            )}
+          />
           <div onClick={() => setShowDetails(false)}>X</div>
         </Header>
         <Div>

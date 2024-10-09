@@ -1,8 +1,8 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
-
 import styled from "styled-components";
 import { useState } from "react";
 import VodRow from "../Tabs/recieve/VodRow";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;
@@ -26,8 +26,6 @@ const Table = styled.table`
   text-align: right;
   margin-top: 5px;
   border-collapse: collapse;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
   @media (min-width: 1920px) {
     width: 100% !important;
   }
@@ -39,21 +37,19 @@ const TableHead = styled.thead`
   border-radius: 10px !important;
 `;
 
-const TableRow = styled.tr``;
-
-const Div = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 15px;
-`;
-
 const TableHeader = styled.th`
   padding: 20px;
   font-size: 16px;
   font-weight: 500;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
+`;
+
+const Div = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 15px;
 `;
 
 const Loader = styled.div`
@@ -72,17 +68,18 @@ const Loader = styled.div`
 const TitleFilter = styled.div`
   position: absolute;
   top: 65px;
-  width: 130px;
+  width: max-content;
   padding: 15px;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.bgContainer};
   div {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     padding-right: 5px;
-    background-color: ${(props) =>
-      props.status.confirmed &&
-      props.theme.colors.newColors.otherColors.bgContainer};
     border-radius: 10px;
     &:hover {
       background-color: ${(props) =>
@@ -90,9 +87,6 @@ const TitleFilter = styled.div`
       transition: all 0.2s linear;
     }
     span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
       color: red;
       cursor: pointer;
       font-size: 14px;
@@ -119,258 +113,87 @@ const Arrows = styled.div`
 
 const VodList = ({
   rows,
-  mode = "receive",
-  member,
+
   status,
   setStatus,
-  setMember,
   domain,
   subdomain,
 }) => {
   const [visibleRows, setVisibleRows] = useState(10);
-
-  const [filters, setFilters] = useState({
-    status: false,
-  });
+  const [filters, setFilters] = useState({ status: false });
 
   const handleLoadMore = () => {
     setVisibleRows((prevVisibleRows) => prevVisibleRows + 10);
   };
 
+  const handleFilterClick = (filterKey) => {
+    setStatus((prevStatus) => ({
+      ...prevStatus,
+      [filterKey]: !prevStatus[filterKey],
+    }));
+    setFilters({ status: false });
+  };
+
+  const renderStatusFilters = () => (
+    <TitleFilter status={status}>
+      {["confirmed", "pending", "failed", "read"].map((filterKey) => (
+        <div key={filterKey}>
+          <h1 onClick={() => handleFilterClick(filterKey)}>
+            {filterKey === "confirmed"
+              ? getFieldTranslationByNames("send-vod", "answered")
+              : filterKey === "pending"
+              ? getFieldTranslationByNames("send-vod", "not opened")
+              : filterKey === "failed"
+              ? getFieldTranslationByNames("send-vod", "closed")
+              : getFieldTranslationByNames("send-vod", "read")}
+          </h1>
+          {status[filterKey] && (
+            <span onClick={() => handleFilterClick(filterKey)}>X</span>
+          )}
+        </div>
+      ))}
+    </TitleFilter>
+  );
+
   return (
     <Container>
       <Table>
         <TableHead>
-          <TableRow>
-            {mode === "receive" ? (
-              <>
-                <TableHeader>کد سند</TableHeader>
-                <TableHeader>عنوان سند</TableHeader>
-                <TableHeader>
-                  <Div>ارسال کننده</Div>
-                </TableHeader>
-                <TableHeader>
-                  <Div>
-                    وضعیت
-                    <Arrows
-                      onClick={() => setFilters({ status: !filters.status })}
-                    >
-                      <MdKeyboardArrowDown
-                        style={{
-                          transform: `${
-                            filters.status ? "rotate(180deg)" : "rotate(360deg)"
-                          }`,
-                        }}
-                      />
-                    </Arrows>
-                  </Div>
-                  {filters.status && (
-                    <TitleFilter status={status}>
-                      <div>
-                        <h1
-                          onClick={() => {
-                            setStatus({ ...status, confirmed: true });
-                            setFilters({ ...filters, status: false });
-                          }}
-                        >
-                          {" "}
-                          پاسخ داده شده{" "}
-                        </h1>
-                        {status.confirmed && (
-                          <span
-                            onClick={() => {
-                              setStatus({ ...status, confirmed: false });
-                              setFilters({ ...filters, status: false });
-                            }}
-                          >
-                            X
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <h1
-                          onClick={() => {
-                            setStatus({ ...status, pending: true });
-                            setFilters({ ...filters, status: false });
-                          }}
-                        >
-                          {" "}
-                          باز نشده
-                        </h1>
-                        {status.pending && (
-                          <span
-                            onClick={() => {
-                              setStatus({ ...status, pending: false });
-                              setFilters({ ...filters, status: false });
-                            }}
-                          >
-                            X
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <h1
-                          onClick={() => {
-                            setStatus({ ...status, failed: true });
-                            setFilters({ ...filters, status: false });
-                          }}
-                        >
-                          {" "}
-                          بسته شده{" "}
-                        </h1>
-                        {status.failed && (
-                          <span
-                            onClick={() => {
-                              setStatus({ ...status, failed: false });
-                              setFilters({ ...filters, status: false });
-                            }}
-                          >
-                            X
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <h1
-                          onClick={() => {
-                            setStatus({ ...status, read: true });
-                            setFilters({ ...filters, status: false });
-                          }}
-                        >
-                          {" "}
-                          خوانده شده
-                        </h1>
-                        {status.read && (
-                          <span
-                            onClick={() => {
-                              setStatus({ ...status, read: false });
-                              setFilters({ ...filters, status: false });
-                            }}
-                          >
-                            X
-                          </span>
-                        )}
-                      </div>
-                    </TitleFilter>
-                  )}
-                </TableHeader>
-                <TableHeader>تاریخ و ساعت ارسال</TableHeader>
-              </>
-            ) : (
-              <>
-                <TableHeader>کد ارسال</TableHeader>
-                <TableHeader>عنوان ارسال</TableHeader>
-                <TableHeader>
-                  <Div>دریافت کننده</Div>
-                </TableHeader>
-                <TableHeader>
-                  <Div>
-                    وضعیت
-                    <Arrows
-                      onClick={() => setFilters({ status: !filters.status })}
-                    >
-                      <MdKeyboardArrowDown
-                        style={{
-                          transform: `${
-                            filters.status ? "rotate(180deg)" : "rotate(360deg)"
-                          }`,
-                        }}
-                      />
-                    </Arrows>
-                  </Div>
-                  {filters.status && (
-                    <TitleFilter status={status}>
-                      <div>
-                        <h1
-                          onClick={() => {
-                            setStatus({ ...status, confirmed: true });
-                            setFilters({ ...filters, status: false });
-                          }}
-                        >
-                          {" "}
-                          پاسخ داده شده{" "}
-                        </h1>
-                        {status.confirmed && (
-                          <span
-                            onClick={() => {
-                              setStatus({ ...status, confirmed: false });
-                              setFilters({ ...filters, status: false });
-                            }}
-                          >
-                            X
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <h1
-                          onClick={() => {
-                            setStatus({ ...status, pending: true });
-                            setFilters({ ...filters, status: false });
-                          }}
-                        >
-                          {" "}
-                          باز نشده
-                        </h1>
-                        {status.pending && (
-                          <span
-                            onClick={() => {
-                              setStatus({ ...status, pending: false });
-                              setFilters({ ...filters, status: false });
-                            }}
-                          >
-                            X
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <h1
-                          onClick={() => {
-                            setStatus({ ...status, failed: true });
-                            setFilters({ ...filters, status: false });
-                          }}
-                        >
-                          {" "}
-                          بسته شده{" "}
-                        </h1>
-                        {status.failed && (
-                          <span
-                            onClick={() => {
-                              setStatus({ ...status, failed: false });
-                              setFilters({ ...filters, status: false });
-                            }}
-                          >
-                            X
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <h1
-                          onClick={() => {
-                            setStatus({ ...status, read: true });
-                            setFilters({ ...filters, status: false });
-                          }}
-                        >
-                          {" "}
-                          خوانده شده
-                        </h1>
-                        {status.read && (
-                          <span
-                            onClick={() => {
-                              setStatus({ ...status, read: false });
-                              setFilters({ ...filters, status: false });
-                            }}
-                          >
-                            X
-                          </span>
-                        )}
-                      </div>
-                    </TitleFilter>
-                  )}
-                </TableHeader>
-                <TableHeader>تاریخ و ساعت ارسال</TableHeader>
-              </>
-            )}
-            <TableHeader>مشاهده سند</TableHeader>
-          </TableRow>
+          <tr>
+            <TableHeader>
+              {getFieldTranslationByNames("send-vod", "document code")}
+            </TableHeader>
+            <TableHeader>
+              {getFieldTranslationByNames("send-vod", "document title")}
+            </TableHeader>
+            <TableHeader>
+              <Div>{getFieldTranslationByNames("send-vod", "sender")}</Div>
+            </TableHeader>
+            <TableHeader>
+              <Div>
+                {getFieldTranslationByNames("send-vod", "status")}
+                <Arrows onClick={() => setFilters({ status: !filters.status })}>
+                  <MdKeyboardArrowDown
+                    style={{
+                      transform: `${
+                        filters.status ? "rotate(180deg)" : "rotate(360deg)"
+                      }`,
+                    }}
+                  />
+                </Arrows>
+              </Div>
+              {filters.status && renderStatusFilters()}
+            </TableHeader>
+            <TableHeader>
+              {getFieldTranslationByNames(
+                "send-vod",
+                "date and time of sending"
+              )}
+            </TableHeader>
+            <TableHeader>
+              {getFieldTranslationByNames("send-vod", "view the document")}
+            </TableHeader>
+          </tr>
         </TableHead>
         <tbody>
           {rows?.slice(0, visibleRows).map((request) => (

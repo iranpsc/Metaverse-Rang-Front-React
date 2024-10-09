@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding-right: 15px;
@@ -24,10 +25,13 @@ const Notes = ({ notes }) => {
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>
-        <Title title="یادداشت ها" right />
+        <Title title={getFieldTranslationByNames("send-vod", "notes")} />
       </div>
       <SearchInput
-        placeholder="جستجو عنوان یادداشت"
+        placeholder={getFieldTranslationByNames(
+          "send-vod",
+          "search note title"
+        )}
         onchange={(e) => setSearchTerm(e.target.value)}
       />
       <NotesList notes={filteredNotes} />

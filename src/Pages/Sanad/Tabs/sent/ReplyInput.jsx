@@ -30,13 +30,13 @@ const EditorContainer = styled.div`
     font-family: inherit;
     border: none;
 
-    text-align: right;
+    text-align: unset;
   }
 
   .ql-editor {
     min-height: 150px;
 
-    text-align: right;
+    text-align: unset;
   }
 
   .ql-editor::before {
@@ -47,7 +47,7 @@ const EditorContainer = styled.div`
     left: 0;
     right: 20px;
     font-family: inherit;
-    text-align: right;
+    text-align: unset;
     pointer-events: none;
     display: block;
   }

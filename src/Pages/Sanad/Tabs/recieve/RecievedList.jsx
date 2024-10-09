@@ -13,6 +13,7 @@ import { useState } from "react";
 import Title from "../../../../Components/Title";
 import SearchInput from "../../../../Components/SearchInput";
 import VodList from "../../Components/VodList";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -186,18 +187,25 @@ const RecievedList = ({ setShowDetails }) => {
 
   return (
     <Container>
-      <div>
-        <Title title="سندهای دریافت شده" />
-      </div>
+      <Title
+        title={getFieldTranslationByNames("send-vod", "documents received")}
+      />
+
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder="جستجو عنوان سند"
+          placeholder={getFieldTranslationByNames(
+            "send-vod",
+            "search document title"
+          )}
         />
         <Date>
           <DatePicker
-            placeholder="تاریخ و ساعت سند"
+            placeholder={getFieldTranslationByNames(
+              "send-vod",
+              "date and time of the document"
+            )}
             className="bg-dark yellow"
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
