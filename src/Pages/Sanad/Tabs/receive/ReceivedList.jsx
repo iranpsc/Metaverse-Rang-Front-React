@@ -9,11 +9,12 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Title from "../../../../Components/Title";
 import SearchInput from "../../../../Components/SearchInput";
 import VodList from "../../Components/VodList";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -98,61 +99,8 @@ const Date = styled.div`
     font-size: 16px;
   }
 `;
-const rows_items = [
-  {
-    id: 1,
-    code: "827161",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
-    time: " ۱۶:۲۱:۰۸",
-    member: "حامد اکبری",
-    status: "confirmed",
-    member_slug: "child",
-    gif: 0.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 2,
-    code: "789452",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
-    time: " ۱۶:۲۱:۰۸",
-    member: "یلدا نادی",
-    status: "failed",
-    member_slug: "mother",
-    gif: 1.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 3,
-    code: "953258",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
-    time: " ۱۶:۲۱:۰۸",
-    member: "سمیه راد",
-    status: "confirmed",
-    member_slug: "father",
-    gif: 1.6,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 4,
-    code: "135647",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
-    time: " ۱۶:۲۱:۰۸",
-    member: "یلدا نادی",
-    status: "read",
-    member_slug: "mother",
-    gif: 1.7,
-    count: 100,
-    psc: 1000,
-  },
-];
-const RecievedList = ({ setShowDetails }) => {
+const ReceivedList = () => {
+  const [rows, setRows] = useState([]);
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
     pending: false,
@@ -161,18 +109,15 @@ const RecievedList = ({ setShowDetails }) => {
     read: false,
   });
 
-  const [member, setMember] = useState({
-    father: false,
-    mother: false,
-    child: false,
-    sister: false,
-    brother: false,
-    wife: false,
-  });
+  const { Request } = useRequest();
 
-  const [rows, setRows] = useState(rows_items);
+  useEffect(() => {
+    Request("tickets/recieved").then((response) => {
+      setRows((tickets) => [...tickets, ...response.data.data]);
+    });
+  }, []);
   const filteredItems = rows.filter((row) => {
-    const codeMatch = row.doc.toString().includes(searched);
+    const codeMatch = row.title.toString().includes(searched);
     const statusMatch =
       (!status.confirmed &&
         !status.failed &&
@@ -218,8 +163,6 @@ const RecievedList = ({ setShowDetails }) => {
       </Div>
       <VodList
         setStatus={setStatus}
-        setMember={setMember}
-        member={member}
         status={status}
         rows={filteredItems}
         mode="send"
@@ -228,4 +171,4 @@ const RecievedList = ({ setShowDetails }) => {
   );
 };
 
-export default RecievedList;
+export default ReceivedList;
