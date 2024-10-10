@@ -4,10 +4,10 @@ import VodReply from "./VodReply";
 import styled from "styled-components";
 
 const Container = styled.div``;
-const Messages = ({ member }) => {
+const Messages = ({ data }) => {
   return (
     <Container>
-      <CitizenMessage member={member} />
+      <CitizenMessage data={data} />
       {/* <AdminMessage /> */}
       <VodReply />
     </Container>

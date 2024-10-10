@@ -96,16 +96,7 @@ const Div = styled.div`
   }
 `;
 
-const VodDetails = ({
-  setShowDetails,
-  status,
-  code,
-  date,
-  time,
-  member,
-  domain,
-  subdomain,
-}) => {
+const VodDetails = ({ setShowDetails, data }) => {
   return (
     <Back>
       <Container>
@@ -119,17 +110,8 @@ const VodDetails = ({
           <div onClick={() => setShowDetails(false)}>X</div>
         </Header>
         <Div>
-          <VodCard
-            status={status}
-            date={date}
-            time={time}
-            code={code}
-            member={member}
-            domain={domain}
-            subdomain={subdomain}
-            setShowDetails={setShowDetails}
-          />
-          <Messages member={member} />
+          <VodCard data={data} />
+          <Messages data={data} />
         </Div>
       </Container>
     </Back>

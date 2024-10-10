@@ -117,22 +117,21 @@ const handleDownload = (imageSrc, filename) => {
   document.body.removeChild(link);
 };
 
-const CitizenMessage = ({ member }) => {
+const CitizenMessage = ({ data }) => {
+  console.log(data);
   return (
     <Container>
       <Content>
         <Header>
-          <span>{member}</span>
+          <span>{data?.sender}</span>
           <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">HM-200020</a>
         </Header>
         <Text>
-          <p>
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
-            ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-            کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
-          </p>
-          <h4>۲۱ اردیبهشت ۱۴۰۳ | ۱۲:۲۰</h4>
+          <p>{data?.content}</p>
+          <h4>
+            {" "}
+            {data?.date} | {data?.time}
+          </h4>
         </Text>
         <Files>
           <div>
@@ -157,7 +156,7 @@ const CitizenMessage = ({ member }) => {
               />
             </Image>
           </div>
-          <h4>۲۱ اردیبهشت ۱۴۰۳ | ۱۲:۲۰</h4>
+          {data?.date} | {data?.time}
         </Files>
       </Content>
       <Avatar src={avatar} alt="avatar" width={50} height={50} />

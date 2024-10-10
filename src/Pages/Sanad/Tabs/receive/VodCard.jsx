@@ -104,22 +104,13 @@ const socials = [
   { id: 3, icon: insta },
   { id: 4, icon: send },
 ];
-const VodCard = ({
-  status,
-  code,
-  date,
-  time,
-  member,
-  domain,
-  subdomain,
-  setShowDetails,
-}) => {
+const VodCard = ({ data }) => {
   return (
     <Container>
       <Info>
         <Texts>
-          <Title title="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم" />
-          <p>#{code}</p>
+          <Title title={data.title} />
+          <p>#{data.code}</p>
         </Texts>
         <Socials>
           <h3>{getFieldTranslationByNames("send-vod", "document sharing")}</h3>
@@ -139,14 +130,14 @@ const VodCard = ({
       <Content>
         <Subject>
           <Label>{getFieldTranslationByNames("send-vod", "sender")}</Label>
-          <h2>{member}</h2>
+          <h2>{data.sender}</h2>
         </Subject>
-        <Status status={status}>
+        <Status status={data?.status}>
           <Label>{getFieldTranslationByNames("send-vod", "status")}</Label>
           <h2>
-            {status === "confirmed"
+            {data?.status === "confirmed"
               ? getFieldTranslationByNames("send-vod", "answered")
-              : status === "pending"
+              : data?.status === "pending"
               ? getFieldTranslationByNames("send-vod", "not opened")
               : getFieldTranslationByNames("send-vod", "closed")}
           </h2>
@@ -156,7 +147,7 @@ const VodCard = ({
             {getFieldTranslationByNames("send-vod", "date and time of sending")}
           </Label>
           <h2>
-            {date} | {time}
+            {data?.date} | {data?.time}
           </h2>
         </Date>
         <Buttons>

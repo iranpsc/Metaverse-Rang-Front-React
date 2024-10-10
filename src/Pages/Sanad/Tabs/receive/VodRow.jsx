@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-
 import { LuEye } from "react-icons/lu";
 import VodDetails from "./VodDetails.jsx";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../Services/Utility/index.jsx";
+import useRequest from "../../../../Services/Hooks/useRequest/index.jsx";
 
 const TableRow = styled.tr`
   background-color: ${(props) =>
@@ -68,28 +68,36 @@ const VodRow = ({
   date,
   time,
   title,
-  doc,
   status,
-  member,
   domain,
   subdomain,
+  sender,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const { Request } = useRequest();
+  const [ticket, setTicket] = useState(null);
+
+  const onClickHandler = async (id) => {
+    try {
+      const response = await Request(`tickets/${id}`);
+      setTicket(response.data.data);
+      setShowDetails(true);
+    } catch (error) {
+      console.error("Error fetching ticket details:", error);
+    }
+  };
+
   return (
     <>
       <TableRow status={status}>
         <TableCell>
-          <div>
-            <Code>#{code}</Code>
-          </div>
+          <Code>#{code}</Code>
         </TableCell>
         <TableCell>
-          <div>
-            <Date>{doc}</Date>
-          </div>
+          <Date>{title}</Date>
         </TableCell>
         <TableCell>
-          <Status>{member}</Status>
+          <Status>{sender}</Status>
         </TableCell>
         <TableCell>
           <Title
@@ -115,34 +123,18 @@ const VodRow = ({
           </Title>
         </TableCell>
         <TableCell>
-          <div>
-            <Date>
-              {date} | {time}
-            </Date>
-          </div>
+          <Date>
+            {date} | {time}
+          </Date>
         </TableCell>
         <TableCell>
-          <View
-            id={id}
-            onClick={() => {
-              setShowDetails(true);
-            }}
-          >
+          <View onClick={() => onClickHandler(id)}>
             <LuEye size={20} />
           </View>
         </TableCell>
       </TableRow>
       {showDetails && (
-        <VodDetails
-          status={status}
-          date={date}
-          time={time}
-          member={member}
-          code={code}
-          setShowDetails={setShowDetails}
-          domain={domain}
-          subdomain={subdomain}
-        />
+        <VodDetails data={ticket} setShowDetails={setShowDetails} />
       )}
     </>
   );
