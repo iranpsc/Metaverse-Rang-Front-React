@@ -8,9 +8,7 @@ import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import useRequest from "../../../../Services/Hooks/useRequest/index";
 import { useEffect, useState } from "react"; 
 
-
-
-  const EditorContainer = styled.div`
+const EditorContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   overflow: hidden;
@@ -45,7 +43,7 @@ import { useEffect, useState } from "react";
   }
 
   .ql-toolbar .ql-stroke {
-    stroke:${(props) => props.theme.colors.newColors.shades[80]};
+    stroke: ${(props) => props.theme.colors.newColors.shades[80]};
   }
 
   .ql-toolbar .ql-fill {
@@ -55,7 +53,7 @@ import { useEffect, useState } from "react";
   .ql-toolbar .ql-picker-label,
   .ql-toolbar .ql-picker-options {
     color: white;
-    background-color:#444;
+    background-color: #444;
   }
 
   .ql-toolbar .ql-picker-options {
@@ -95,44 +93,45 @@ const Char = styled.div`
     font-weight: 400;
   }
 `;
-
 const About = () => {
   const { Request, HTTP_METHOD } = useRequest();
   const { state, dispatch } = useGlobalState();
   const charLimit = 10000;
-  const [aboutValue, setAboutValue] = useState(state.about || ""); 
+  const [aboutValue, setAboutValue] = useState(state.about || localStorage.getItem("about") || "");
 
   useEffect(() => {
-    const cachedAbout = localStorage.getItem("aboutData"); 
-    if (cachedAbout && !state.about) {
-      setAboutValue(cachedAbout);
-      dispatch({ type: "SET_ABOUT", payload: cachedAbout });
-    } else if (!state.about) {
+    
+    if (!state.about && !localStorage.getItem("about")) {
       const fetchData = async () => {
         try {
-          const response = await Request("personal-info", HTTP_METHOD.GET); 
-          console.log("data is",response.data.data);
+          const response = await Request("personal-info", "GET"); // Use the string "GET"
+          console.log("data is", response.data.data);
+
           if (response.data && response.data.data.about) {
-            setAboutValue(response.data.data.about); 
-            dispatch({ type: "SET_ABOUT", payload: response.data.data.about }); 
-            localStorage.setItem("aboutData", response.data.data.about); // 
+            const aboutData = response.data.data.about;
+            setAboutValue(aboutData);
+            dispatch({ type: "SET_ABOUT", payload: aboutData });
+            localStorage.setItem("about", aboutData); // ذخیره در localStorage
+            
           }
         } catch (error) {
           console.error("Error fetching data from API:", error);
         }
       };
-      fetchData(); 
+      fetchData();
     }
-  }, []); 
+  }, [dispatch, state.about]);
 
+
+
+  
   const handleChange = (value) => {
     if (value.length <= charLimit && value !== state.about) {
       setAboutValue(value);
       dispatch({ type: "SET_ABOUT", payload: value });
-      localStorage.setItem("aboutData", value); 
+      localStorage.setItem("about", value); // ذخیره تغییرات جدید در localStorage
     }
   };
-
 
   const currentLength = aboutValue.length;
   const remainingChars = charLimit - currentLength;
@@ -172,7 +171,6 @@ const About = () => {
           onChange={handleChange}
           modules={modules}
           formats={formats}
-          // placeholder="درباره خود بنویسید"
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>

@@ -5,6 +5,7 @@ import { convertToPersian } from "../../../../lib/convertToPersian";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../Services/Hooks/useRequest/index"; // استفاده از useRequest برای درخواست API
 import { useEffect, useState } from "react";
 
 const EditorContainer = styled.div`
@@ -35,19 +36,6 @@ const EditorContainer = styled.div`
     min-height: 150px;
     direction: rtl;
     text-align: right;
-  }
-
-  .ql-editor::before {
-    content: attr(data-placeholder);
-    color: #a0a0ab;
-    font-style: italic;
-    position: absolute;
-    left: 0;
-    right: 20px;
-    font-family: inherit;
-    text-align: right;
-    pointer-events: none;
-    display: block;
   }
 
   .ql-toolbar .ql-picker {
@@ -106,25 +94,42 @@ const Char = styled.div`
     font-weight: 400;
   }
 `;
-
 const Opportunity = () => {
+  const { Request } = useRequest(); // استفاده از useRequest برای درخواست API
   const { state, dispatch } = useGlobalState();
   const charLimit = 2000;
-  const [opportunityValue, setOpportunityValue] = useState(state.opportunity || ""); 
+  const [opportunityValue, setOpportunityValue] = useState(
+    state.opportunity || localStorage.getItem("opportunity") || "" // مقداردهی اولیه از state یا localStorage
+  );
 
   useEffect(() => {
-    const cachedOpportunity = localStorage.getItem("opportunityData"); 
-    if (cachedOpportunity && !state.opportunity) {
-      setOpportunityValue(cachedOpportunity); 
-      dispatch({ type: "SET_OPPORTUNITY", payload: cachedOpportunity });
+    // بررسی اینکه آیا فرصت‌ها در state یا localStorage وجود دارند
+    if (!state.opportunity && !localStorage.getItem("opportunity")) {
+      const fetchData = async () => {
+        try {
+          const response = await Request("personal-info", "GET"); // درخواست به API برای دریافت اطلاعات
+
+          if (response.data && response.data.data.problem_solving) {
+            const problemSolvingData = response.data.data.problem_solving;
+
+            setOpportunityValue(problemSolvingData); // تنظیم مقدار opportunity از API
+            dispatch({ type: "SET_OPPORTUNITY", payload: problemSolvingData });
+            localStorage.setItem("opportunity", problemSolvingData); // ذخیره در localStorage
+          }
+        } catch (error) {
+          console.error("Error fetching data from API:", error);
+        }
+      };
+
+      fetchData();
     }
-  }, [dispatch, state.opportunity]);
+  }, [dispatch, Request, state.opportunity]);
 
   const handleChange = (value) => {
     if (value.length <= charLimit) {
-      setOpportunityValue(value); 
+      setOpportunityValue(value);
       dispatch({ type: "SET_OPPORTUNITY", payload: value });
-      localStorage.setItem("opportunityData", value); 
+      localStorage.setItem("opportunity", value); // ذخیره تغییرات در localStorage
     }
   };
 
@@ -135,12 +140,7 @@ const Opportunity = () => {
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike", "blockquote"],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
-      ],
+      [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
       ["link", "image", "code-block"],
       [{ align: [] }],
     ],
@@ -164,18 +164,22 @@ const Opportunity = () => {
 
   return (
     <>
-      <Label>{getFieldTranslationByNames("citizenship-account", "if you had a chance to solve a problem, what would it be")}</Label>
+      <Label>
+        {getFieldTranslationByNames("citizenship-account", "if you had a chance to solve a problem, what would it be")}
+      </Label>
 
       <EditorContainer>
         <ReactQuill
-          value={opportunityValue} 
+          value={opportunityValue}
           onChange={handleChange}
           modules={modules}
           formats={formats}
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
-        <span>{convertToPersian(remainingChars)} {getFieldTranslationByNames("citizenship-account", "character")}</span>
+        <span>
+          {convertToPersian(remainingChars)} {getFieldTranslationByNames("citizenship-account", "character")}
+        </span>
         <CiEdit size={20} />
       </Char>
     </>

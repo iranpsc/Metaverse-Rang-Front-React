@@ -1,6 +1,6 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
-import { useState, useEffect } from "react"; // اضافه کردن useEffect و useState
+import { useState, useEffect } from "react"; 
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const DropdownContainer = styled.div`
@@ -57,26 +57,16 @@ const Dropdown = ({ options, value, onChange, label }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedValue, setSelectedValue] = useState(value || "");
-  const cacheKey = `dropdown-${label}`;
 
   useEffect(() => {
     setSelectedValue(value || "");
   }, [value]);
 
-  useEffect(() => {
-    const cachedValue = localStorage.getItem(cacheKey);
-    if (cachedValue) {
-      setSelectedValue(cachedValue);
-      onChange(cachedValue);
-    }
-  }, []); 
-
   const handleOptionClick = (option) => {
     setSelectedValue(option);
     onChange(option);
     setIsOpen(false);
-    setSearchTerm(""); 
-    localStorage.setItem(cacheKey, option);
+    setSearchTerm("");
   };
 
   const filteredOptions = options.filter((option) =>

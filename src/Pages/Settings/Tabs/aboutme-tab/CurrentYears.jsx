@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
@@ -79,30 +79,22 @@ const Content = styled.p`
 
 const yearContent = {
   "۱۴۰۳":
-    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...",
+    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1403",
   "۱۴۰۲":
-    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...",
+    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1402",
   "۱۴۰۱":
-    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...",
+    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1401",
 };
 
 const CurrentYears = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedYear, setSelectedYear] = useState("۱۴۰۳");
 
-  useEffect(() => {
-    const storedYear = localStorage.getItem("selectedYear");
-    if (storedYear) {
-      setSelectedYear(storedYear); 
-    }
-  }, []);
-
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const selectYear = (year) => {
     setSelectedYear(year);
     setIsOpen(false);
-    localStorage.setItem("selectedYear", year); 
   };
 
   return (

@@ -17,6 +17,7 @@ import { useGlobalState } from "./GlobalStateProvider";
 import weight from "../../../../Assets/images/settings/weight.png";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import { useEffect, useState } from "react";
+import useRequest from "../../../../Services/Hooks/useRequest/index";
 
 const Container = styled.div`
   margin-top: 20px;
@@ -99,14 +100,55 @@ const CheckboxLabel = styled.label`
     gap: 8px;
   }
 `;
-
 const Hobby = () => {
   const { state, dispatch } = useGlobalState();
   const maxHobbies = 5;
-  const selectedHobbiesCount = Object.keys(state.hobbies).filter(key => state.hobbies[key] === 1).length; 
+  const selectedHobbiesCount = Object.keys(state.hobbies || {}).filter(key => state.hobbies[key] === 1).length; 
   const remainingHobbies = maxHobbies - selectedHobbiesCount;
   const limitReached = selectedHobbiesCount >= maxHobbies;
-  const [hobbyValue, setHobbyValue] = useState(state.hobbies || {});
+  const [hobbyValue, setHobbyValue] = useState(
+    state.hobbies || JSON.parse(localStorage.getItem("hobbies")) || {} // مقداردهی اولیه از localStorage یا خالی
+  );
+  const { Request } = useRequest();
+
+  // درخواست به API و ذخیره داده‌ها در localStorage و state
+  useEffect(() => {
+    const savedHobbies = localStorage.getItem("hobbies");
+
+    if (!Object.keys(state.hobbies || {}).length && !savedHobbies) { 
+      const fetchData = async () => {
+        try {
+          const response = await Request("personal-info", "GET");
+          if (response.data && response.data.data.passions) {
+            const passionsData = response.data.data.passions;
+
+            setHobbyValue(passionsData);  // تنظیم مقدار در state محلی
+            dispatch({ type: "SET_HOBBIES", payload: passionsData });  // ذخیره در state کلی
+            localStorage.setItem("hobbies", JSON.stringify(passionsData)); // ذخیره در localStorage
+          }
+        } catch (error) {
+          console.error("Error fetching data from API:", error);
+        }
+      };
+
+      fetchData();
+    } else if (savedHobbies && !Object.keys(state.hobbies || {}).length) {
+      const hobbiesFromLocalStorage = JSON.parse(savedHobbies);
+      if (hobbiesFromLocalStorage) {
+        setHobbyValue(hobbiesFromLocalStorage);
+        dispatch({ type: "SET_HOBBIES", payload: hobbiesFromLocalStorage });
+      }
+    }
+  }, [dispatch, state.hobbies, Request]);
+
+  // مدیریت تغییرات علاقه‌مندی‌ها
+  const handleHobbyChange = (hobbyKey) => {
+    const updatedHobbies = { ...hobbyValue };
+    updatedHobbies[hobbyKey] = updatedHobbies[hobbyKey] === 1 ? 0 : 1; 
+    setHobbyValue(updatedHobbies);
+    dispatch({ type: "SET_HOBBIES", payload: updatedHobbies });
+    localStorage.setItem("hobbies", JSON.stringify(updatedHobbies)); // ذخیره تغییرات جدید در localStorage
+  };
 
   const hobbies = [
     { id: 1, key: "music", name: getFieldTranslationByNames("citizenship-account", "instruments and music"), icon: music },
@@ -124,41 +166,6 @@ const Hobby = () => {
     { id: 13, key: "history", name: getFieldTranslationByNames("citizenship-account", "history and civilization"), icon: bubble },
     { id: 14, key: "politics_economy", name: getFieldTranslationByNames("citizenship-account", "politics and economics"), icon: dollar },
   ];
-
-  useEffect(() => {
-    const cachedHobbies = localStorage.getItem("hobbiesData");
-    if (cachedHobbies && !Object.keys(state.hobbies).length) {
-      setHobbyValue(JSON.parse(cachedHobbies));
-      dispatch({ type: "SET_HOBBIES", payload: JSON.parse(cachedHobbies) });
-    } else if (!Object.keys(state.hobbies).length) {
-      const fetchData = async () => {
-        try {
-          const response = await Request("personal-info", HTTP_METHOD.GET);
-          
-          console.log("API Response Data:", response.data.passions);
-  
-          if (response.data && response.data.passions) {
-            const passionsData = response.data.passions;
-
-            setHobbyValue(passionsData);
-            dispatch({ type: "SET_HOBBIES", payload: passionsData });
-            localStorage.setItem("hobbiesData", JSON.stringify(passionsData));
-          }
-        } catch (error) {
-          console.error("Error fetching data from API:", error);
-        }
-      };
-      fetchData();
-    }
-  }, [dispatch]);
-
-  const handleHobbyChange = (hobbyKey) => {
-    const updatedHobbies = { ...hobbyValue };
-    updatedHobbies[hobbyKey] = updatedHobbies[hobbyKey] === 1 ? 0 : 1; 
-    setHobbyValue(updatedHobbies);
-    dispatch({ type: "SET_HOBBIES", payload: updatedHobbies });
-    localStorage.setItem("hobbiesData", JSON.stringify(updatedHobbies));
-  };
 
   return (
     <Container>

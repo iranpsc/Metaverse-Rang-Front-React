@@ -1,61 +1,59 @@
-import  { createContext, useContext, useReducer } from "react";
+  import  { createContext, useContext, useReducer } from "react";
 
-const initialState = {
-  about: "",
-  educations: "",
-  job: "",
-  hobbies: [],
-  country: "",
-  language: '',
-  city: '',
-  memory: "",
-  opportunity: "",
-  prediction2023: "",
-  prediction2024: "",
-};
+  const initialState = {
+    about: "",
+    education: "",
+    occupation: "",
+    hobbies: [],
+    country: "",
+    language: '',
+    city: '',
+    memory: "",
+    opportunity: "",
+    prediction: "",
+  };
 
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "SET_ABOUT":
-      return { ...state, about: action.payload };
-    case "SET_EDUCATIONS":
-      return { ...state, educations: action.payload };
-    case "SET_JOB":
-      return { ...state, job: action.payload };
-    case "SET_HOBBIES":
-      return { ...state, hobbies: action.payload };
-    case "SET_COUNTRY":
-      return { ...state, country: action.payload };
-    case "SET_CITY":
-      return { ...state, city: action.payload };
-    case "SET_LANGUAGE":
-      return { ...state, language: action.payload };
-    case "SET_MEMORY":
-      return { ...state, memory: action.payload };
-    case "SET_OPPORTUNITY":
-      return { ...state, opportunity: action.payload };
-    case "SET_PREDICTION_2023":
-      return { ...state, prediction2023: action.payload };
-    case "SET_NEXT_YEAR_PREDICTION":
-      return { ...state, prediction2024: action.payload };
-    default:
-      return state;
-  }
-};
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "SET_ABOUT":
+        return { ...state, about: action.payload };
+      case "SET_EDUCATION":
+        return { ...state, education: action.payload };
+      case "SET_OCCUPATION":
+        return { ...state, occupation: action.payload };
+      case "SET_HOBBIES":
+        return { ...state, hobbies: action.payload };
+      case "SET_COUNTRY":
+        return { ...state, loved_country: action.payload };
+      case "SET_CITY":
+        return { ...state, loved_city: action.payload };
+      case "SET_LANGUAGE":
+        return { ...state, loved_language: action.payload };
+      case "SET_MEMORY":
+        return { ...state, memory: action.payload };
+      case "SET_OPPORTUNITY":
+        return { ...state, opportunity: action.payload };
+      case "SET_PREDICTION":
+        return { ...state, prediction: action.payload };
+    
+      default:
+        return state;
+    }
+  };
 
-const GlobalStateContext = createContext();
+  const GlobalStateContext = createContext();
 
-export const GlobalStateProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  export const GlobalStateProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(reducer, initialState);
 
-  return (
-    <GlobalStateContext.Provider value={{ state, dispatch }}>
-      {children}
-    </GlobalStateContext.Provider>
-  );
-};
+    return (
+      <GlobalStateContext.Provider value={{ state, dispatch }}>
+        {children}
+      </GlobalStateContext.Provider>
+    );
+  };
 
-export const useGlobalState = () => {
-  return useContext(GlobalStateContext);
-};
+  export const useGlobalState = () => {
+    return useContext(GlobalStateContext);
+  };

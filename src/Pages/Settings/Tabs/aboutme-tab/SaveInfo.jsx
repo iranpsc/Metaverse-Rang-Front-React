@@ -27,15 +27,16 @@ const SaveInfo = () => {
   const saveData = async () => {
     const formData = {
       about: state.about,
-      educations: state.educations,
-      job: state.job,
-      hobbies: state.hobbies,
-      country: state.country,
-      city: state.city,
+      education: state.education,
+      occupation: state.occupation,
+      passions: state.hobbies,
+      loved_country: state.loved_country,
+      loved_city: state.loved_city,
+      loved_language: state.loved_language,
+
       memory: state.memory,
-      opportunity: state.opportunity,
-      prediction2023: state.prediction2023,
-      prediction2024: state.prediction2024,
+      problem_solving: state.opportunity,
+      prediction: state.prediction,
     };
     try {
       const response = await Request("personal-info", HTTP_METHOD.PUT, formData); // استفاده از PUT برای ذخیره اطلاعات
