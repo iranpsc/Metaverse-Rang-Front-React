@@ -5,7 +5,7 @@ import { convertToPersian } from "../../../../lib/convertToPersian";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import useRequest from "../../../../Services/Hooks/useRequest/index"; // استفاده از useRequest برای درخواست API
+import useRequest from "../../../../Services/Hooks/useRequest/index"; 
 import { useEffect, useState } from "react";
 
 const EditorContainer = styled.div`
@@ -107,40 +107,45 @@ const Label = styled.h2`
   margin-top: 20px;
   direction: rtl;
 `;
+
 const Memory = () => {
-  const { Request } = useRequest(); // استفاده از useRequest
+  const { Request } = useRequest(); 
   const { state, dispatch } = useGlobalState();
   const charLimit = 2000;
-  const [memoryValue, setMemoryValue] = useState(
-    state.memory || localStorage.getItem("memory") || "" // مقداردهی اولیه از state یا localStorage
-  );
+  const [memoryValue, setMemoryValue] = useState(""); 
 
   useEffect(() => {
-    if (!state.memory && !localStorage.getItem("memory")) { // اگر حافظه قبلاً ذخیره نشده باشد
-      const fetchData = async () => {
-        try {
-          const response = await Request("personal-info", "GET"); // درخواست به API برای دریافت اطلاعات
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem("memory"); // بررسی داده‌ها در localStorage
+
+        if (storedData) {
+          setMemoryValue(storedData); // اگر موجود بود از localStorage بخوانید
+          dispatch({ type: "SET_MEMORY", payload: storedData });
+        } else {
+          const response = await Request("personal-info", "GET"); // درخواست API فقط در صورت نبودن داده‌ها
 
           if (response.data && response.data.data.memory) {
-            const memoryData = response.data.data.memory;
-            setMemoryValue(memoryData); // تنظیم مقدار حافظه از API
-            dispatch({ type: "SET_MEMORY", payload: memoryData });
-            localStorage.setItem("memory", memoryData); // ذخیره در localStorage
+            setMemoryValue(response.data.data.memory); 
+            dispatch({ type: "SET_MEMORY", payload: response.data.data.memory });
+            localStorage.setItem("memory", response.data.data.memory); // ذخیره در localStorage
           }
-        } catch (error) {
-          console.error("Error fetching data from API:", error);
         }
-      };
+      } catch (error) {
+        console.error("Error fetching data from API:", error);
+      }
+    };
 
+    if (!state.memory) {
       fetchData();
     }
-  }, [dispatch, Request, state.memory]);
+  }, [dispatch, state.memory, Request]);
 
   const handleChange = (value) => {
     if (value.length <= charLimit && value !== state.memory) {
       setMemoryValue(value); 
       dispatch({ type: "SET_MEMORY", payload: value });
-      localStorage.setItem("memory", value); // ذخیره تغییرات جدید در localStorage
+      localStorage.setItem("memory", value); // به‌روزرسانی داده‌ها در localStorage
     }
   };
 
@@ -178,7 +183,7 @@ const Memory = () => {
       <Label>{getFieldTranslationByNames("Citizenship-profile", "pleasant memory")}</Label>
       <EditorContainer>
         <ReactQuill
-          value={memoryValue} // استفاده از memoryValue که از API یا localStorage دریافت شده
+          value={memoryValue} 
           onChange={handleChange}
           modules={modules}
           formats={formats}

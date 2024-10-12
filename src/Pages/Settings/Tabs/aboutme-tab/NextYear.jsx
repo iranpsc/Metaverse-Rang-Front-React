@@ -92,44 +92,49 @@ const Char = styled.div`
     font-weight: 400;
   }
 `;
+
 const NextYear = () => {
   const { Request } = useRequest(); 
   const { state, dispatch } = useGlobalState();
   const charLimit = 10000;
-  const [predictionValue, setPredictionValue] = useState(
-    localStorage.getItem("prediction") || "" // مقدار اولیه از localStorage
-  );
-  const [isDataLoaded, setIsDataLoaded] = useState(false); // کنترل اینکه فقط یکبار درخواست بزنیم
+  const [predictionValue, setPredictionValue] = useState(""); 
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem("prediction")) { // اگر پیش‌بینی قبلاً در localStorage ذخیره نشده باشد
-      const fetchData = async () => {
-        if (!isDataLoaded) { // فقط زمانی که هنوز داده بارگذاری نشده است، درخواست ارسال می‌شود
-          try {
-            const response = await Request("personal-info", "GET");
+    const fetchData = async () => {
+      const storedData = localStorage.getItem("prediction"); 
 
-            if (response.data && response.data.data) {
-              const predictionData = response.data.data.prediction || "";
-              setPredictionValue(predictionData); // حتی اگر خالی باشد، مقدار خالی را تنظیم می‌کند
-              localStorage.setItem("prediction", predictionData); // ذخیره در localStorage
-              setIsDataLoaded(true); // داده‌ها بارگذاری شده‌اند، دیگر درخواست ارسال نمی‌شود
-            }
-          } catch (error) {
-            console.error("Error fetching data from API:", error);
-            setIsDataLoaded(true); // حتی اگر خطا باشد، دوباره درخواست نمی‌زند
+      if (storedData) {
+        setPredictionValue(storedData); 
+        dispatch({ type: "SET_PREDICTION", payload: storedData });
+        setIsDataLoaded(true); 
+      } else if (!isDataLoaded) { // بررسی می‌شود که درخواست دوباره ارسال نشود
+        try {
+          const response = await Request("personal-info", "GET");
+
+          if (response.data && response.data.data) {
+            const predictionData = response.data.data.prediction || "";
+            setPredictionValue(predictionData); 
+            dispatch({ type: "SET_PREDICTION", payload: predictionData });
+            localStorage.setItem("prediction", predictionData); 
+            setIsDataLoaded(true);
           }
+        } catch (error) {
+          console.error("Error fetching data from API:", error);
+          setIsDataLoaded(true); 
         }
-      };
-
-      fetchData(); // یک بار درخواست به API می‌زند
+      }
+    };
+    if (!state.prediction) {
+      fetchData();
     }
-  }, [isDataLoaded, Request]);
+  }, [dispatch, isDataLoaded, Request]); // اضافه کردن `isDataLoaded` به وابستگی‌ها
 
   const handleChange = (value) => {
     if (value.length <= charLimit) {
       setPredictionValue(value); 
       dispatch({ type: "SET_PREDICTION", payload: value });
-      localStorage.setItem("prediction", value); // ذخیره تغییرات در localStorage
+      localStorage.setItem("prediction", value); 
     }
   };
 

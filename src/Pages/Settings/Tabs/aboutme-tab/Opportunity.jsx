@@ -5,7 +5,7 @@ import { convertToPersian } from "../../../../lib/convertToPersian";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import useRequest from "../../../../Services/Hooks/useRequest/index"; // استفاده از useRequest برای درخواست API
+import useRequest from "../../../../Services/Hooks/useRequest/index"; 
 import { useEffect, useState } from "react";
 
 const EditorContainer = styled.div`
@@ -94,42 +94,45 @@ const Char = styled.div`
     font-weight: 400;
   }
 `;
+
 const Opportunity = () => {
-  const { Request } = useRequest(); // استفاده از useRequest برای درخواست API
+  const { Request } = useRequest(); 
   const { state, dispatch } = useGlobalState();
   const charLimit = 2000;
-  const [opportunityValue, setOpportunityValue] = useState(
-    state.opportunity || localStorage.getItem("opportunity") || "" // مقداردهی اولیه از state یا localStorage
-  );
+  const [opportunityValue, setOpportunityValue] = useState(""); 
 
   useEffect(() => {
-    // بررسی اینکه آیا فرصت‌ها در state یا localStorage وجود دارند
-    if (!state.opportunity && !localStorage.getItem("opportunity")) {
-      const fetchData = async () => {
-        try {
-          const response = await Request("personal-info", "GET"); // درخواست به API برای دریافت اطلاعات
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem("opportunity"); // بررسی داده‌ها در localStorage
 
-          if (response.data && response.data.data.problem_solving) {
-            const problemSolvingData = response.data.data.problem_solving;
+        if (storedData) {
+          setOpportunityValue(storedData); // اگر موجود بود از localStorage بخوانید
+          dispatch({ type: "SET_OPPORTUNITY", payload: storedData });
+        } else {
+          const response = await Request("personal-info", "GET"); // درخواست API وقتی داده‌ها موجود نیست
 
-            setOpportunityValue(problemSolvingData); // تنظیم مقدار opportunity از API
-            dispatch({ type: "SET_OPPORTUNITY", payload: problemSolvingData });
-            localStorage.setItem("opportunity", problemSolvingData); // ذخیره در localStorage
+          if (response.data && response.data.data.problem_solving) { 
+            setOpportunityValue(response.data.data.problem_solving); 
+            dispatch({ type: "SET_OPPORTUNITY", payload: response.data.data.problem_solving });
+            localStorage.setItem("opportunity", response.data.data.problem_solving); // ذخیره داده‌ها در localStorage
           }
-        } catch (error) {
-          console.error("Error fetching data from API:", error);
         }
-      };
+      } catch (error) {
+        console.error("Error fetching data from API:", error);
+      }
+    };
 
+    if (!state.opportunity) {
       fetchData();
     }
-  }, [dispatch, Request, state.opportunity]);
+  }, [dispatch, state.opportunity, Request]);
 
   const handleChange = (value) => {
     if (value.length <= charLimit) {
       setOpportunityValue(value);
       dispatch({ type: "SET_OPPORTUNITY", payload: value });
-      localStorage.setItem("opportunity", value); // ذخیره تغییرات در localStorage
+      localStorage.setItem("opportunity", value); // ذخیره داده‌های جدید در localStorage
     }
   };
 
@@ -140,7 +143,12 @@ const Opportunity = () => {
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
       ["link", "image", "code-block"],
       [{ align: [] }],
     ],
@@ -164,9 +172,7 @@ const Opportunity = () => {
 
   return (
     <>
-      <Label>
-        {getFieldTranslationByNames("citizenship-account", "if you had a chance to solve a problem, what would it be")}
-      </Label>
+      <Label>{getFieldTranslationByNames("citizenship-account", "if you had a chance to solve a problem, what would it be")}</Label>
 
       <EditorContainer>
         <ReactQuill
@@ -177,9 +183,7 @@ const Opportunity = () => {
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
-        <span>
-          {convertToPersian(remainingChars)} {getFieldTranslationByNames("citizenship-account", "character")}
-        </span>
+        <span>{convertToPersian(remainingChars)} {getFieldTranslationByNames("citizenship-account", "character")}</span>
         <CiEdit size={20} />
       </Char>
     </>

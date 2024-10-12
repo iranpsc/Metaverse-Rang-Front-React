@@ -93,43 +93,47 @@ const Char = styled.div`
     font-weight: 400;
   }
 `;
+
 const About = () => {
   const { Request, HTTP_METHOD } = useRequest();
   const { state, dispatch } = useGlobalState();
   const charLimit = 10000;
-  const [aboutValue, setAboutValue] = useState(state.about || localStorage.getItem("about") || "");
-
+  const [aboutValue, setAboutValue] = useState(state.about || ""); 
   useEffect(() => {
-    
-    if (!state.about && !localStorage.getItem("about")) {
-      const fetchData = async () => {
-        try {
-          const response = await Request("personal-info", "GET"); // Use the string "GET"
-          console.log("data is", response.data.data);
-
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem("about"); // بررسی کنید آیا داده‌ها در localStorage موجود هستند
+  
+        if (storedData) {
+          setAboutValue(storedData); // اگر داده‌ها موجود بود، از localStorage بخوانید
+          dispatch({ type: "SET_ABOUT", payload: storedData });
+        } else {
+          const response = await Request("personal-info", "GET"); // درخواست API وقتی داده‌ها موجود نیستند
+  
           if (response.data && response.data.data.about) {
-            const aboutData = response.data.data.about;
-            setAboutValue(aboutData);
-            dispatch({ type: "SET_ABOUT", payload: aboutData });
-            localStorage.setItem("about", aboutData); // ذخیره در localStorage
+            setAboutValue(response.data.data.about); 
+            console.log("data is", response.data.data);
             
+            dispatch({ type: "SET_ABOUT", payload: response.data.data.about });
+  
+            localStorage.setItem("about", response.data.data.about); // ذخیره داده‌ها در localStorage
           }
-        } catch (error) {
-          console.error("Error fetching data from API:", error);
         }
-      };
+      } catch (error) {
+        console.error("Error fetching data from API:", error);
+      }
+    };
+  
+    if (!state.about) {
       fetchData();
     }
   }, [dispatch, state.about]);
-
-
-
   
+
   const handleChange = (value) => {
     if (value.length <= charLimit && value !== state.about) {
       setAboutValue(value);
       dispatch({ type: "SET_ABOUT", payload: value });
-      localStorage.setItem("about", value); // ذخیره تغییرات جدید در localStorage
     }
   };
 
