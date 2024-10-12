@@ -40,7 +40,6 @@ const SaveInfo = () => {
     };
     try {
       const response = await Request("personal-info", HTTP_METHOD.PUT, formData); // استفاده از PUT برای ذخیره اطلاعات
-      console.log("Data saved successfully:", formData);
     } catch (error) {
       console.error("Error saving data:", error);
     }
