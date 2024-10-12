@@ -1,16 +1,20 @@
 import { useContext, useEffect, useRef, useState } from "react";
-
 import Description from "./Description";
 import Inputs from "./Inputs";
 import SendFiles from "./SendFiles";
-
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
 import Alert from "../../../Components/Alert/Alert";
 import Button from "../../../Components/Button";
 import { AlertContext } from "../../../Services/Reducers/AlertContext";
 import Title from "../../../Components/Title";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../Services/Utility";
+
+import ErrorMessage from "../../../Components/ErrorMessage";
+import useRequest from "../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   padding: 20px 0;
@@ -40,16 +44,12 @@ const Container = styled.div`
   }
 `;
 
-const ErrorMessage = styled.div`
-  color: red;
-  font-size: 14px;
-  margin-top: 10px;
-`;
-
 const WriteVodTab = () => {
   const { state, dispatch } = useGlobalState();
   const { alert, setAlert } = useContext(AlertContext);
+  const { Request, HTTP_METHOD } = useRequest();
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState([]);
   const containerRef = useRef(null);
 
   const resetForm = () => {
@@ -69,23 +69,34 @@ const WriteVodTab = () => {
       if (containerRef.current) {
         containerRef.current.scrollTo(0, 0);
       }
-      setAlert(true);
-      setError("");
 
-      setTimeout(() => {
-        resetForm();
-      }, 2000);
+      const filesData = new FormData();
+      state.files.forEach((file, index) => {
+        filesData.append(`file${index}`, file, file.name);
+      });
 
-      setTimeout(() => {
-        setAlert(false);
-      }, 2000);
-    } else {
-      setError(
-        getFieldTranslationByNames(
-          "send-vod",
-          "all fields must be fille…re sending the document"
-        )
-      );
+      Request(
+        "tickets",
+        HTTP_METHOD.POST,
+        {
+          title: state.title,
+          subject: state.subject,
+          content: state.description,
+          attachment: filesData,
+        },
+        { "Content-Type": "multipart/form-data" }
+      )
+        .then(() => {
+          resetForm();
+          setAlert(true);
+          setTimeout(() => {
+            setAlert(false);
+          }, 2000);
+        })
+        .catch((error) => {
+          setError(getFieldTranslationByNames("send-vod", error.message));
+          ToastError(error.response.data.message);
+        });
     }
   };
 
@@ -111,10 +122,10 @@ const WriteVodTab = () => {
       {alert && (
         <Alert
           type="success"
-          text={`   ${getFieldTranslationByNames(
+          text={`${getFieldTranslationByNames(
             "send-vod",
             "your document titled"
-          )}${state.title}    ${getFieldTranslationByNames(
+          )} ${state.title} ${getFieldTranslationByNames(
             "send-vod",
             "submitted successfully"
           )}`}
@@ -127,10 +138,11 @@ const WriteVodTab = () => {
       <Button
         fit
         label={getFieldTranslationByNames("send-vod", "send the document")}
-        onClick={sendVod}
+        onclick={sendVod}
       />
 
       {error && <ErrorMessage>{error}</ErrorMessage>}
+      <ErrorMessage errors={errors} maxList={5} />
     </Container>
   );
 };

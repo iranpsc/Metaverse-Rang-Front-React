@@ -97,23 +97,7 @@ const Div = styled.div`
   }
 `;
 export const EditContext = createContext();
-const NoteDetails = ({
-  setShowDetails,
-  status,
-  code,
-  title,
-  id,
-  onRemove,
-  date,
-  name,
-  time,
-  publish_date,
-  description,
-  files,
-  member,
-  domain,
-  subdomain,
-}) => {
+const NoteDetails = ({ data, setShowDetails }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -125,26 +109,8 @@ const NoteDetails = ({
             <div onClick={() => setShowDetails(false)}>X</div>
           </Header>
           <Div>
-            <NoteCard
-              status={status}
-              date={date}
-              time={time}
-              code={code}
-              onRemove={onRemove}
-              name={name}
-              title={title}
-              description={description}
-              publish_date={publish_date}
-              member={member}
-              domain={domain}
-              subdomain={subdomain}
-            />
-            <NoteMessages
-              member={member}
-              description={description}
-              files={files}
-              id={id}
-            />
+            <NoteCard data={data} />
+            <NoteMessages data={data} />
           </Div>
         </Container>
       </Back>

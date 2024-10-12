@@ -49,7 +49,6 @@ const TableHeader = styled.th`
 `;
 
 const NotesList = ({ notes }) => {
-  const reversedNotes = [...notes].reverse();
   return (
     <Container>
       <Table>
@@ -69,7 +68,7 @@ const NotesList = ({ notes }) => {
           </TableRow>
         </TableHead>
         <tbody>
-          {reversedNotes.map((note) => (
+          {notes.map((note) => (
             <Row key={note.id} {...note} />
           ))}
         </tbody>

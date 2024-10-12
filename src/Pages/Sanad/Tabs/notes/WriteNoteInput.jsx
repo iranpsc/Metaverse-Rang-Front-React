@@ -5,7 +5,10 @@ import ReactQuill from "react-quill";
 
 import styled from "styled-components";
 import { useGlobalState } from "../GlobalVodStateProvider";
-import { convertToPersian } from "../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 
 const EditorContainer = styled.div`
   background-color: ${(props) =>

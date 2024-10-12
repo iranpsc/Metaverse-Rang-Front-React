@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { useContext } from "react";
 import whatsapp from "../../../../Assets/images/whatsapp.png";
 import Title from "../../../../Components/Title";
+import useRequest from "../../../../Services/Hooks/useRequest";
+import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 
 const Button = styled.div`
   background-color: ${(props) =>
@@ -105,25 +107,24 @@ const socials = [
   { id: 3, icon: insta },
   { id: 4, icon: send },
 ];
-const NoteCard = ({
-  status,
-  code,
-  name,
-  title,
-  publish_date,
-  onRemove,
-  description,
-  date,
-  time,
-  member,
-}) => {
+const NoteCard = ({ data }) => {
   const { isEditing, setIsEditing } = useContext(EditContext);
+  const { state, dispatch } = useContext(GlobalNoteStateContext); // Access both state and dispatch
+  const { Request } = useRequest();
+  const removeNoteHandler = async () => {
+    try {
+      await Request(`notes/${data.id}`, "DELETE"); // Use the request hook to delete the note
+      dispatch({ type: "REMOVE_NOTE", payload: data.id }); // Dispatch action after successful deletion
+    } catch (error) {
+      console.error("Error deleting note:", error);
+    }
+  };
   return (
     <Container>
       <Info>
         <Texts>
-          <Title title={title} />
-          <p>#{code}</p>
+          <Title title={data?.title} />
+          <p>#{data?.code}</p>
         </Texts>
         <Socials>
           <h3>اشتراک گذاری سند</h3>
@@ -143,15 +144,15 @@ const NoteCard = ({
       <Content>
         <Subject>
           <Label>ثبت کننده</Label>
-          <h2>{name}</h2>
+          <h2>{data?.name}</h2>
         </Subject>
-        <Status status={status}>
+        <Status status={data?.status}>
           <Label>تاریخ ثبت یاداشت</Label>
-          <h2>{publish_date}</h2>
+          <h2>{data?.date}</h2>
         </Status>
         <Date>
           <Label>آخرین بروزرسانی</Label>
-          <h2>{publish_date}</h2>
+          <h2>{data?.date}</h2>
         </Date>
         <div
           style={{
@@ -161,7 +162,7 @@ const NoteCard = ({
             alignItems: "start",
           }}
         >
-          <Button onClick={onRemove}>
+          <Button onClick={removeNoteHandler}>
             <GoTrash size={22} />
             <h4>حذف</h4>
           </Button>

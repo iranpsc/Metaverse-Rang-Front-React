@@ -5,27 +5,12 @@ import styled from "styled-components";
 import { useContext } from "react";
 
 const Container = styled.div``;
-const NoteMessages = ({ member, id, description, files }) => {
+const NoteMessages = ({ data }) => {
   const { isEditing, setIsEditing } = useContext(EditContext);
   return (
     <Container>
-      {!isEditing && (
-        <CitizenMessage
-          member={member}
-          isEditing={isEditing}
-          description={description}
-          files={files}
-        />
-      )}
-      {/* <AdminMessage /> */}
-      {isEditing && (
-        <EditNote
-          setIsEditing={setIsEditing}
-          description={description}
-          files={files}
-          id={id}
-        />
-      )}
+      {!isEditing && <CitizenMessage data={data} />}
+      {isEditing && <EditNote setIsEditing={setIsEditing} data={data} />}
     </Container>
   );
 };

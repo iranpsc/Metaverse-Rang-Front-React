@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-
-import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
-import SendNote from "./SendNote";
-
-import WriteNoteInput from "./WriteNoteInput";
 import styled from "styled-components";
-import Title from "../../../../Components/Title";
+import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import { AlertContext } from "../../../../Services/Reducers/AlertContext";
-import Button from "../../../../Components/Button";
+import useRequest from "../../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+
+import SendNote from "./SendNote";
+import WriteNoteInput from "./WriteNoteInput";
+import Title from "../../../../Components/Title";
+import Button from "../../../../Components/Button";
 
 const Subject = styled.div`
   input {
@@ -64,39 +64,41 @@ const WriteNote = () => {
   const [description, setDescription] = useState("");
   const [files, setFiles] = useState([]);
 
+  const { Request, HTTP_METHOD } = useRequest();
+
   useEffect(() => {
     if (alert) {
-      const timer = setTimeout(() => {
-        setAlert(false);
-      }, 2000);
+      const timer = setTimeout(() => setAlert(false), 2000);
       return () => clearTimeout(timer);
     }
   }, [alert, setAlert]);
 
   const handleSaveNote = () => {
-    if (!title.trim()) {
-      setError("عنوان یادداشت نمی‌تواند خالی باشد.");
-      return;
-    }
-    if (!description.trim()) {
-      setError("متن یادداشت نمی‌تواند خالی باشد.");
+    if (!title.trim() || !description.trim()) {
+      setError("عنوان و متن یادداشت نمی‌تواند خالی باشد.");
       return;
     }
     setError("");
 
-    const newNote = {
-      code: Math.floor(10000 + Math.random() * 90000),
-      id: state.notes.length + 1,
-      title,
-      name: "علی اکبری",
-      publish_date: "۲۸ اردیبهشت ۱۴۰۳ | ۱۶:۲۱:۰۸",
-      description,
-      files,
-    };
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", description);
+    files.length > 0 && formData.append("attachment", files[0]);
 
-    dispatch({ type: "ADD_NOTE", payload: newNote });
+    const requestData = files.length > 0 ? formData : { title, description };
+    const headers =
+      files.length > 0 ? { "Content-Type": "multipart/form-data" } : {};
 
-    setAlert(true);
+    Request("notes", HTTP_METHOD.POST, requestData, headers)
+      .then((response) => {
+        dispatch({ type: "ADD_NOTE", payload: response.data.data });
+        setAlert(true);
+        resetForm();
+      })
+      .catch(() => setError("خطا در ارسال یادداشت."));
+  };
+
+  const resetForm = () => {
     setTitle("");
     setDescription("");
     setFiles([]);

@@ -19,11 +19,11 @@ const Container = styled.div`
   margin-top: 30px;
 `;
 
-const EditNote = ({ setIsEditing, id, description, files }) => {
+const EditNote = ({ setIsEditing, data }) => {
   const { state, dispatch } = useContext(GlobalNoteStateContext);
   const { alert, setAlert } = useContext(AlertContext);
-  const [localDescription, setLocalDescription] = useState(description);
-  const [localFiles, setLocalFiles] = useState(files);
+  const [localDescription, setLocalDescription] = useState(data.content);
+  const [localFiles, setLocalFiles] = useState(data.attachment);
   useEffect(() => {
     setLocalDescription(description);
     setLocalFiles(files);
@@ -42,7 +42,11 @@ const EditNote = ({ setIsEditing, id, description, files }) => {
   const handleSave = () => {
     dispatch({
       type: "UPDATE_NOTE",
-      payload: { id, description: localDescription, files: localFiles }, // Include `id` in the payload
+      payload: {
+        id: data.id,
+        description: localDescription,
+        files: localFiles,
+      }, // Include `id` in the payload
     });
 
     console.log("Note updated successfully!");

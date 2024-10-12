@@ -43,7 +43,6 @@ const Container = styled.div`
   gap: 12px;
   width: 100%;
   margin-left: auto;
-
   margin-top: 20px;
 `;
 
@@ -82,42 +81,45 @@ const handleDownload = (url, filename) => {
   link.click();
   document.body.removeChild(link);
 };
+
 const stripHtmlTags = (htmlString) => {
   const div = document.createElement("div");
   div.innerHTML = htmlString;
   return div.textContent || div.innerText || "";
 };
-const CitizenMessage = ({ isEditing, description, files }) => {
-  const filePreviews = files.map((file) => ({
-    ...file,
-    url: URL.createObjectURL(file),
-  }));
+
+const CitizenMessage = ({ data }) => {
+  const filePreview = {
+    url: data.attachment,
+    name: `attachment_${data.id}`, // A default name for the attachment
+  };
 
   return (
     <Container>
       <Content>
         <Files>
           <h2>متن یادداشت</h2>
-          <p>{stripHtmlTags(description)}</p>
+          <p>{stripHtmlTags(data?.content)}</p>
           <div>
-            {filePreviews.length > 0 &&
-              filePreviews.map((file, index) => (
-                <Image key={index}>
-                  <img
-                    src={file.url}
-                    alt={file.name}
-                    width={200}
-                    height={179}
-                  />
-                  <Download
-                    src={download}
-                    alt="download"
-                    width={36}
-                    height={36}
-                    onClick={() => handleDownload(file.url, file.name)}
-                  />
-                </Image>
-              ))}
+            {filePreview.url && (
+              <Image>
+                <img
+                  src={filePreview.url}
+                  alt={filePreview.name}
+                  width={200}
+                  height={179}
+                />
+                <Download
+                  src={download}
+                  alt="download"
+                  width={36}
+                  height={36}
+                  onClick={() =>
+                    handleDownload(filePreview.url, filePreview.name)
+                  }
+                />
+              </Image>
+            )}
           </div>
         </Files>
       </Content>
