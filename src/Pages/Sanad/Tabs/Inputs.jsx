@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-
+import { useEffect, useRef, useState, useCallback } from "react";
 import { CgDanger } from "react-icons/cg";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
+import useRequest from "../../../Services/Hooks/useRequest";
 
 const Wrapper = styled.div``;
 
@@ -18,19 +18,8 @@ const Container = styled.div`
   }
 `;
 
-const Subject = styled.div`
-  select {
-    background-color: ${(props) =>
-      props.theme.colors.newColors.otherColors.inputBg};
-    border: 1px solid #454545;
-    border-radius: 5px;
-    padding: 10px 12px;
-    outline: none;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    width: 100%;
-    font-size: 16px;
-    font-weight: 400;
-  }
+const InputWrapper = styled.div`
+  margin-bottom: 20px;
 `;
 
 const Label = styled.h3`
@@ -38,164 +27,174 @@ const Label = styled.h3`
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 4px;
-  white-space: nowrap;
 `;
 
-const Title = styled.div`
-  input {
-    background-color: ${(props) =>
-      props.theme.colors.newColors.otherColors.inputBg};
-    border: 1px solid #454545;
-    border-radius: 5px;
-    padding: 10px 12px;
-    outline: none;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    width: 91%;
-    font-size: 16px;
-    font-weight: 400;
-    @media (min-width: 1366px) {
-      width: 96.5%;
-    }
-  }
+const Select = styled.select`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border: 1px solid #454545;
+  border-radius: 5px;
+  padding: 10px 12px;
+  outline: none;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
 `;
 
-const CitizenInput = styled.div`
+const Input = styled.input`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border: 1px solid #454545;
+  border-radius: 5px;
+  padding: 10px 12px;
+  outline: none;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+`;
+
+const CitizenInputWrapper = styled.div`
   margin-top: 20px;
-
   position: relative;
+`;
 
-  .selected-citizens {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 8px;
-    position: absolute;
-    top: 41px;
-    right: 10px;
-  }
+const SelectedCitizens = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  position: absolute;
+  top: 41px;
+  right: 10px;
+`;
 
-  .selected-citizen {
-    background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    padding: 4px 8px 4px 12px;
-    border-radius: 4px;
-    display: flex;
-    font-size: 16px;
-    font-weight: 500;
-    align-items: center;
-    gap: 4px;
-  }
+const SelectedCitizen = styled.div`
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  padding: 4px 8px 4px 12px;
+  border-radius: 4px;
+  display: flex;
+  font-size: 16px;
+  font-weight: 500;
+  align-items: center;
+  gap: 4px;
+`;
 
-  .remove-btn {
-    background-color: transparent;
-    border: none;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    cursor: pointer;
-  }
+const RemoveButton = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  cursor: pointer;
+`;
 
-  .dropdown {
-    background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-    border: 1px solid #454545;
-    border-radius: 5px;
-    margin-top: 4px;
-    max-height: 150px;
-    overflow-y: auto;
-    position: absolute;
-    top: 100px;
-    z-index: 50;
-    width: 100%;
-  }
+const Dropdown = styled.div`
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
+  border: 1px solid #454545;
+  border-radius: 5px;
+  margin-top: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100px;
+  z-index: 50;
+  width: 100%;
+`;
 
-  .dropdown-item {
-    padding: 8px 12px;
-    cursor: pointer;
-    background-color: ${(props) => props.theme.colors.newColors.shades[90]};
-  }
+const DropdownItem = styled.div`
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: ${(props) => props.theme.colors.newColors.shades[90]};
 
-  .dropdown-item:hover {
+  &:hover {
     background-color: ${(props) =>
       props.theme.colors.newColors.otherColors.iconBg};
   }
+`;
 
-  textarea {
-    background-color: ${(props) =>
-      props.theme.colors.newColors.otherColors.inputBg};
-    border: 1px solid #454545;
-    border-radius: 5px;
-    padding: 10px 12px;
-    outline: none;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    width: 96%;
-    height: 75px;
-    font-size: 16px;
-    font-weight: 400;
-    resize: none;
-    @media (min-width: 1366px) {
-      width: 98%;
-    }
-  }
+const CitizenWarning = styled.div`
+  color: #a0a0ab;
+  font-size: 13px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 `;
 
 const Inputs = () => {
   const options = [
     { id: 1, label: "citizen", value: "citizen" },
-    { id: 2, label: "security of citizens", value: "security" },
-    { id: 3, label: "technical support", value: "support" },
-    { id: 4, label: "investment", value: "invest" },
-    { id: 5, label: "inspection", value: "review" },
-    { id: 6, label: "protection", value: "guard" },
-    { id: 7, label: "general management of z.t.b", value: "management" },
-  ];
-  const citizens = [
-    { id: 1, name: "محمد عباسی" },
-    { id: 2, name: "محمد غازی" },
-    { id: 3, name: "محمد مسیری" },
-    { id: 4, name: "علی حسینی" },
-    { id: 5, name: "علیرضا رضایی" },
-    { id: 6, name: "رضا صالحی" },
-    { id: 7, name: "سارا توکلی" },
-    { id: 8, name: "سعید مرتضوی" },
-    { id: 9, name: "نرگس اسدی" },
-    { id: 10, name: "فاطمه موسوی" },
+    { id: 2, label: "security of citizens", value: "citizens_safety" },
+    { id: 3, label: "technical support", value: "technical_support" },
+    { id: 4, label: "investment", value: "investment" },
+    { id: 5, label: "inspection", value: "inspection" },
+    { id: 6, label: "protection", value: "protection" },
+    { id: 7, label: "general management of z.t.b", value: "ztb" },
   ];
 
   const { state, dispatch } = useGlobalState();
   const [selectedCitizens, setSelectedCitizens] = useState([]);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredCitizens, setFilteredCitizens] = useState([]);
   const dropdownRef = useRef(null);
+  const { Request, HTTP_METHOD } = useRequest();
+  const searchTimeout = useRef(null);
 
-  const handleCitizenSelect = (citizen) => {
-    if (selectedCitizens.length < 9 && !selectedCitizens.includes(citizen)) {
-      setSelectedCitizens([...selectedCitizens, citizen]);
-    }
-    setDropdownOpen(false);
-    setSearchTerm("");
-  };
-
-  const removeCitizen = (citizen) => {
-    setSelectedCitizens(
-      selectedCitizens.filter((selected) => selected !== citizen)
-    );
-  };
-
-  const subjectHandler = (e) => {
-    const value = e.target.value;
-    dispatch({ type: "SET_SUBJECT", payload: value });
-  };
-
-  const titleHandler = (e) => {
-    const value = e.target.value;
-    if (value.length < 201) {
-      dispatch({ type: "SET_TITLE", payload: value });
-    }
-  };
-
-  const filteredCitizens = citizens.filter(
-    (citizen) =>
-      citizen.name.includes(searchTerm) &&
-      !selectedCitizens.some((selected) => selected.id === citizen.id)
+  const handleCitizenSelect = useCallback(
+    (citizen) => {
+      if (
+        selectedCitizens.length < 9 &&
+        !selectedCitizens.some((selected) => selected.id === citizen.id)
+      ) {
+        setSelectedCitizens((prev) => [...prev, citizen]);
+      }
+      setDropdownOpen(false);
+      setSearchTerm("");
+    },
+    [selectedCitizens]
   );
+
+  const removeCitizen = useCallback((citizenId) => {
+    setSelectedCitizens((prev) =>
+      prev.filter((selected) => selected.id !== citizenId)
+    );
+  }, []);
+
+  const subjectHandler = useCallback(
+    (e) => {
+      dispatch({ type: "SET_SUBJECT", payload: e.target.value });
+    },
+    [dispatch]
+  );
+
+  const titleHandler = useCallback(
+    (e) => {
+      const value = e.target.value;
+      if (value.length < 201) {
+        dispatch({ type: "SET_TITLE", payload: value });
+      }
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    if (searchTimeout.current) {
+      clearTimeout(searchTimeout.current);
+    }
+    if (searchTerm && state.subject === "citizen") {
+      searchTimeout.current = setTimeout(() => {
+        Request("search/users", HTTP_METHOD.POST, { searchTerm })
+          .then((response) => {
+            setFilteredCitizens(response.data.data);
+          })
+          .catch(() => setFilteredCitizens([]));
+      }, 600);
+    } else {
+      setFilteredCitizens([]);
+    }
+  }, [searchTerm, state.subject]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -213,13 +212,12 @@ const Inputs = () => {
   return (
     <Wrapper>
       <Container>
-        <Subject>
+        <InputWrapper>
           <Label>
             {getFieldTranslationByNames("send-vod", "send the document to")}
           </Label>
-          <select value={state.subject} onChange={(e) => subjectHandler(e)}>
+          <Select value={state.subject} onChange={subjectHandler}>
             <option value="">
-              {" "}
               {getFieldTranslationByNames(
                 "send-vod",
                 "select the document category"
@@ -230,104 +228,86 @@ const Inputs = () => {
                 {getFieldTranslationByNames("send-vod", option.label)}
               </option>
             ))}
-          </select>
-        </Subject>
-        <Title>
+          </Select>
+        </InputWrapper>
+        <InputWrapper>
           <Label>
-            {" "}
             {getFieldTranslationByNames("send-vod", "document title")}
           </Label>
-          <input
+          <Input
             type="text"
             placeholder={getFieldTranslationByNames(
               "send-vod",
               "document title"
             )}
             value={state.title}
-            onChange={(e) => titleHandler(e)}
+            onChange={titleHandler}
           />
-        </Title>
+        </InputWrapper>
       </Container>
 
       {state.subject === "citizen" && (
-        <CitizenInput ref={dropdownRef}>
+        <CitizenInputWrapper ref={dropdownRef}>
           <Label>
-            {" "}
             {getFieldTranslationByNames(
               "send-vod",
               "the citizen or citizens in question"
             )}
           </Label>
-
-          <div className="selected-citizens">
+          <SelectedCitizens>
             {selectedCitizens.map((citizen) => (
-              <div key={citizen.id} className="selected-citizen">
-                <button
-                  className="remove-btn"
-                  onClick={() => removeCitizen(citizen)}
-                >
+              <SelectedCitizen key={citizen.id}>
+                <RemoveButton onClick={() => removeCitizen(citizen.id)}>
                   X
-                </button>
+                </RemoveButton>
                 {citizen.name}
-              </div>
+              </SelectedCitizen>
             ))}
-          </div>
-
-          <textarea
+          </SelectedCitizens>
+          <Input
+            as="textarea"
             rows={2}
-            placeholder={`${
-              selectedCitizens.length === 0 &&
-              getFieldTranslationByNames(
-                "send-vod",
-                "the citizen or citizens in question"
-              )
-            }`}
+            placeholder={
+              selectedCitizens.length === 0
+                ? getFieldTranslationByNames(
+                    "send-vod",
+                    "the citizen or citizens in question"
+                  )
+                : ""
+            }
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
+            onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={() => setDropdownOpen(true)}
           />
-
           {isDropdownOpen && (
-            <div className="dropdown">
+            <Dropdown>
               {filteredCitizens.length > 0 ? (
-                filteredCitizens.map((option) => (
-                  <div
-                    key={option.id}
-                    className="dropdown-item"
-                    onClick={() => handleCitizenSelect(option)}
+                filteredCitizens.map((citizen) => (
+                  <DropdownItem
+                    key={citizen.id}
+                    onClick={() => handleCitizenSelect(citizen)}
                   >
-                    {option.name}
-                  </div>
+                    {citizen.name}
+                  </DropdownItem>
                 ))
               ) : (
-                <div className="dropdown-item">
-                  {" "}
+                <DropdownItem>
                   {getFieldTranslationByNames(
                     "send-vod",
                     "citizenship not found"
                   )}
-                </div>
+                </DropdownItem>
               )}
-            </div>
+            </Dropdown>
           )}
-
-          <div
-            style={{
-              color: "#A0A0AB",
-              fontSize: "13px",
-              fontWeight: "400",
-              display: "flex",
-              alignItems: "center",
-              gap: "2px",
-            }}
-          >
-            <CgDanger size={20} />{" "}
+          <CitizenWarning>
+            <CgDanger size={20} />
             {getFieldTranslationByNames(
               "send-vod",
               "the maximum number of citizens allowed is 9 people"
             )}
-          </div>
-        </CitizenInput>
+          </CitizenWarning>
+        </CitizenInputWrapper>
       )}
     </Wrapper>
   );

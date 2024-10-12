@@ -58,7 +58,7 @@ const WriteVodTab = () => {
     dispatch({ type: "SET_DESCRIPTION", payload: "" });
     dispatch({ type: "SET_FILES", payload: [] });
   };
-
+  console.log(state.subject);
   const sendVod = () => {
     if (
       state.subject &&
@@ -71,18 +71,15 @@ const WriteVodTab = () => {
       }
 
       const filesData = new FormData();
-      state.files.forEach((file, index) => {
-        filesData.append(`file${index}`, file, file.name);
-      });
 
       Request(
         "tickets",
         HTTP_METHOD.POST,
         {
           title: state.title,
-          subject: state.subject,
+          department: state.subject,
           content: state.description,
-          attachment: filesData,
+          attachment: state.files[0],
         },
         { "Content-Type": "multipart/form-data" }
       )
