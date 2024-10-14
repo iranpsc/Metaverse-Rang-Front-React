@@ -94,7 +94,7 @@ const Info = () => {
         <div>
           <Title>{user?.name}</Title>
           <Code
-            href={`https://rgb.irpsc.com/fa/citizen/${user?.code}`}
+            href={`https://rgb.irpsc.com/fa/citizens/${user?.code}`}
             target="_blank"
           >
             {user?.code}

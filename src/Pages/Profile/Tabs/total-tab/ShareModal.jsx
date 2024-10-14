@@ -100,7 +100,7 @@ const Social = styled.div`
 const ShareModal = ({ setOpenShare, data }) => {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
-    const textToCopy = `https://rgb.irpsc.com/fa/citizen/${data?.code}`;
+    const textToCopy = `https://rgb.irpsc.com/fa/citizens/${data?.code}`;
 
     navigator.clipboard
       .writeText(textToCopy)
@@ -124,7 +124,7 @@ const ShareModal = ({ setOpenShare, data }) => {
             <WhatsappShare
               size={52}
               borderRadius={100}
-              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
+              url={`https://rgb.irpsc.com/fa/citizens/${data?.code}`}
             />
             <span>Whatsapp</span>
           </Social>
@@ -132,7 +132,7 @@ const ShareModal = ({ setOpenShare, data }) => {
             <TelegramShare
               size={52}
               borderRadius={100}
-              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
+              url={`https://rgb.irpsc.com/fa/citizens/${data?.code}`}
             />
             <span>Telegram</span>{" "}
           </Social>
@@ -140,7 +140,7 @@ const ShareModal = ({ setOpenShare, data }) => {
             <FacebookShare
               size={52}
               borderRadius={100}
-              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
+              url={`https://rgb.irpsc.com/fa/citizens/${data?.code}`}
             />
             <span>Facebook</span>{" "}
           </Social>
@@ -148,7 +148,7 @@ const ShareModal = ({ setOpenShare, data }) => {
             <TwitterShare
               size={52}
               borderRadius={100}
-              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
+              url={`https://rgb.irpsc.com/fa/citizens/${data?.code}`}
             />
             <span>Twitter</span>{" "}
           </Social>
@@ -156,14 +156,14 @@ const ShareModal = ({ setOpenShare, data }) => {
             <LinkedinShare
               size={52}
               borderRadius={100}
-              url={`https://rgb.irpsc.com/fa/citizen/${data?.code}`}
+              url={`https://rgb.irpsc.com/fa/citizens/${data?.code}`}
             />
             <span>Linkedin</span>{" "}
           </Social>
         </Socials>
         <Copy>
           <span onClick={handleCopy}>{copied ? "کپی شد" : "کپی"}</span>
-          <p> {`https://rgb.irpsc.com/fa/citizen/${data?.code}`}</p>
+          <p> {`https://rgb.irpsc.com/fa/citizens/${data?.code}`}</p>
         </Copy>
       </Modal>
     </BackGround>

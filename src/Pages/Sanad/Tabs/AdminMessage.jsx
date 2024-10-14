@@ -56,7 +56,7 @@ const AdminMessage = () => {
       <Content>
         <Header>
           <span>محمد امینی</span>
-          <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">HM-200020</a>
+          <a href="https://rgb.irpsc.com/fa/citizens/hm-2000001">HM-200020</a>
         </Header>
         <Text>
           <p>

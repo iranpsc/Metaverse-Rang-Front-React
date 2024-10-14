@@ -8,8 +8,10 @@ const Messages = ({ data }) => {
   return (
     <Container>
       <CitizenMessage data={data} />
-      <AdminMessage />
-      <VodReply />
+      {data?.responses.map((response) => {
+        <AdminMessage data={response} />;
+      })}
+      {!(data?.status == 5) && <VodReply />}
     </Container>
   );
 };

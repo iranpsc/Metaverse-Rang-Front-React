@@ -1,5 +1,6 @@
 import avatar from "../../../../Assets/images/defulte-profile.png";
 import styled from "styled-components";
+import { SanitizeHTML } from "../../../../Services/Utility";
 
 const Content = styled.div``;
 const Header = styled.div`
@@ -50,21 +51,16 @@ const Container = styled.div`
   }
 `;
 
-const AdminMessage = () => {
+const AdminMessage = ({ data }) => {
   return (
     <Container>
       <Content>
         <Header>
-          <span>محمد امینی</span>
-          <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">HM-200020</a>
+          <span>{data.responser_name}</span>
+          <a href="https://rgb.irpsc.com/fa/citizens/hm-2000001">HM-200020</a>
         </Header>
         <Text>
-          <p>
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
-            ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-            کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
-          </p>
+          <p>{SanitizeHTML(res.response)}</p>
           <h4>۲۱ اردیبهشت ۱۴۰۳ | ۱۲:۲۰</h4>
         </Text>
       </Content>

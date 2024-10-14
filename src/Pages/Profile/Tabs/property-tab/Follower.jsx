@@ -134,7 +134,7 @@ const Follower = ({
         <img src={profileImage} width={80} height={80} />
         <div>
           <h3>{name}</h3>
-          <a href={`https://rgb.irpsc.com/fa/citizen/${code}`} target="_blank">
+          <a href={`https://rgb.irpsc.com/fa/citizens/${code}`} target="_blank">
             {code}
           </a>
         </div>

@@ -6,6 +6,7 @@ import whatsapp from "../../../../Assets/images/whatsapp.png";
 import Button from "../../../../Components/Button";
 import Title from "../../../../Components/Title";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -105,6 +106,17 @@ const socials = [
   { id: 4, icon: send },
 ];
 const VodCard = ({ data }) => {
+  const { Request, HTTP_METHOD } = useRequest();
+  const onCloseTicket = () => {
+    Request(`tickets/close/${data.id}`)
+      .then(() => {
+        setShowDetails(false);
+      })
+      .catch((error) => {
+        ToastError(error.response.data.message);
+      });
+  };
+
   return (
     <Container>
       <Info>
@@ -153,7 +165,7 @@ const VodCard = ({ data }) => {
         <Buttons>
           <Button
             fit
-            onclick={() => setShowDetails(false)}
+            onclick={() => onCloseTicket()}
             grayTheme
             label={getFieldTranslationByNames(
               "send-vod",
@@ -162,7 +174,7 @@ const VodCard = ({ data }) => {
           />
           <Button
             fit
-            onclick={() => setShowDetails(false)}
+            onclick={() => onCloseTicket()}
             grayTheme
             label={getFieldTranslationByNames("send-vod", "close document")}
           />

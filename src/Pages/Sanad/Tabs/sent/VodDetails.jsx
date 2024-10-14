@@ -1,7 +1,5 @@
 import Title from "../../../../Components/Title";
 import Messages from "./Messages";
-
-import VodCard from "./VodCard";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -113,16 +111,7 @@ const VodDetails = ({
           <div onClick={() => setShowDetails(false)}>X</div>
         </Header>
         <Div>
-          <VodCard
-            status={status}
-            date={date}
-            time={time}
-            code={code}
-            member={member}
-            domain={domain}
-            subdomain={subdomain}
-            setShowDetails={setShowDetails}
-          />
+          <VodCard />
           <Messages member={member} />
         </Div>
       </Container>

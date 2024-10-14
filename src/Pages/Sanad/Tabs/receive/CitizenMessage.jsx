@@ -1,8 +1,7 @@
-import avatar from "../../../../Assets/images/slide.png";
+import avatar from "../../../../Assets/images/defulte-profile.png";
 import download from "../../../../Assets/images/download.png";
-import file from "../../../../Assets/images/file.png";
-import photo from "../../../../Assets/images/photo.jpeg";
 import styled from "styled-components";
+import { SanitizeHTML } from "../../../../Services/Utility";
 
 const Content = styled.div``;
 
@@ -59,7 +58,7 @@ const Files = styled.div`
     }
   }
   h4 {
-    color: #a0a0ab;
+    color: #a0a0a0ab;
     font-size: 16px;
     font-weight: 400;
     width: fit-content;
@@ -106,9 +105,11 @@ const Image = styled.div`
   }
 `;
 
-const handleDownload = (imageSrc, filename) => {
+// Image downloader function
+const handleDownload = (url, filename) => {
   const link = document.createElement("a");
-  link.href = imageSrc;
+  link.href = url;
+  link.target = "_blank";
   link.download = filename;
   document.body.appendChild(link);
   link.click();
@@ -121,35 +122,24 @@ const CitizenMessage = ({ data }) => {
       <Content>
         <Header>
           <span>{data?.sender}</span>
-          <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">HM-200020</a>
+          <a href="https://rgb.irpsc.com/fa/citizens/hm-2000001">HM-200020</a>
         </Header>
         <Text>
-          <p>{data?.content}</p>
+          <p>{SanitizeHTML(data?.content)}</p>
           <h4>
-            {" "}
             {data?.date} | {data?.time}
           </h4>
         </Text>
         <Files>
           <div>
             <Image>
-              <img src={photo} alt="file" width={200} height={179} />
+              <img src={data?.attachment} alt="file" width={200} height={179} />
               <Download
                 src={download}
                 alt="download"
                 width={36}
                 height={36}
-                onClick={() => handleDownload(photo, "photo.jpeg")}
-              />
-            </Image>
-            <Image>
-              <img src={file} alt="file" width={200} height={179} />
-              <Download
-                src={download}
-                alt="download"
-                width={36}
-                height={36}
-                onClick={() => handleDownload(file, "file.png")}
+                onClick={() => handleDownload(data?.attachment, "photo.png")}
               />
             </Image>
           </div>
