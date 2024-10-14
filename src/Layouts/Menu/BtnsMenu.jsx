@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 import DropDownLang from "../../Components/DropDownLang";
@@ -18,7 +18,6 @@ import GiftIcon from "../../Assets/svg/gifts.svg";
 import LogoutIcon from "../../Assets/svg/logout.svg";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import useAuth from "../../Services/Hooks/useAuth";
 import { useLayoutEffect } from "react";
 import { removeItem } from "../../Services/Utility/LocalStorage";
@@ -42,15 +41,26 @@ const Btn = styled.button`
     gap: 10px;
   }
   position: ${(props) => (props.isOpen ? "inherit" : "relative")};
+  background-color: ${(props) =>
+    props.isSelected
+      ? props.theme.colors.newColors.otherColors.iconBackground
+      : "transparent"};
 `;
 
 const Icon = styled.img`
   width: 20px;
   height: 40px;
+  filter: ${(props) =>
+    props.isSelected
+      ? `brightness(0) saturate(100%) invert(42%) sepia(39%) saturate(580%) hue-rotate(114deg) brightness(95%) contrast(89%)`
+      : "none"};
 `;
 
 const Text = styled.p`
-  color: #868b90;
+  color: ${(props) =>
+    props.isSelected
+      ? props.theme.colors.newColors.otherColors.iconText
+      : "#868b90"};
   font-style: normal;
   font-weight: 500;
   line-height: 180%;
@@ -74,8 +84,8 @@ const ValueBtn = styled.span`
   left: 1px;
   top: -3px;
 `;
+
 const menuItems = [
-  { icon: LogoutIcon, translationKey: "sign out", navigate: "" },
   { icon: GiftIcon, translationKey: "challenges", navigate: "" },
   {
     icon: AccountSecurityIcon,
@@ -119,15 +129,16 @@ const BtnsMenu = () => {
   const navigate = useNavigate();
   const { getUser } = useAuth();
   const [user, setUser] = useState();
+  const [selectedItem, setSelectedItem] = useState(null); // New state for selected item
   const { Request, HTTP_METHOD } = useRequest();
+
   useLayoutEffect(() => {
     setUser(getUser());
   }, []);
-  const logoutHandler = () => {
-    Request("auth/logout", HTTP_METHOD.POST, {}, {}, "development").then(() => {
-      removeItem("user");
-      window.location.reload();
-    });
+
+  const handleClick = (item) => {
+    setSelectedItem(item.translationKey); // Set selected item
+    navigate(`/metaverse/${item.navigate}`);
   };
 
   return (
@@ -136,18 +147,19 @@ const BtnsMenu = () => {
         <Btn
           key={index}
           isOpen={isOpen}
-          onClick={() => {
-            if (item.translationKey == "sign out") {
-              logoutHandler();
-            } else {
-              navigate(`/metaverse/${item.navigate}`);
-            }
-          }}
-          disabled={item.navigate == "" && item.translationKey !== "sign out"}
+          isSelected={selectedItem === item.translationKey} // Check if item is selected
+          onClick={() => handleClick(item)}
+          disabled={item.navigate === "" && item.translationKey !== "sign out"}
         >
           <div>
-            <Icon src={item.icon} />
-            <Text isOpen={isOpen}>
+            <Icon
+              src={item.icon}
+              isSelected={selectedItem === item.translationKey}
+            />
+            <Text
+              isOpen={isOpen}
+              isSelected={selectedItem === item.translationKey}
+            >
               {getFieldTranslationByNames("central-page", item.translationKey)}
             </Text>
           </div>

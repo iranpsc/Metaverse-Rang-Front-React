@@ -1,17 +1,16 @@
+import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import TransactionRow from "./TransactionRow";
 import blue from "../../../../Assets/gif/blue-color.gif";
 import psc from "../../../../Assets/gif/psc.gif";
 import red from "../../../../Assets/gif/red-color.gif";
 import rial from "../../../../Assets/gif/rial.gif";
-import styled from "styled-components";
-import { useState } from "react";
 import yellow from "../../../../Assets/gif/yellow-color.gif";
+import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;
-  /* width: 73vw !important; */
   overflow-x: auto;
   min-height: 93vh;
   &::-webkit-scrollbar {
@@ -223,6 +222,7 @@ const subjects = [
   { id: 4, label: "buy rial currency", slug: "rial", gif: rial },
   { id: 5, label: "buy psc currency", slug: "psc", gif: psc },
 ];
+
 const TransactionsList = ({
   rows,
   title,
@@ -233,6 +233,7 @@ const TransactionsList = ({
   setSubject,
 }) => {
   const [visibleRows, setVisibleRows] = useState(10);
+  const loaderRef = useRef(null);
 
   const [filters, setFilters] = useState({
     status: false,
@@ -240,9 +241,32 @@ const TransactionsList = ({
     subject: false,
   });
 
+  // Function to load more rows when near the bottom
   const handleLoadMore = () => {
     setVisibleRows((prevVisibleRows) => prevVisibleRows + 10);
   };
+
+  // Set up IntersectionObserver to trigger when the loader becomes visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          handleLoadMore();
+        }
+      },
+      { threshold: 1 }
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    };
+  }, []);
 
   return (
     <Container>
@@ -440,7 +464,6 @@ const TransactionsList = ({
             <TableHeader subject>
               <Div>
                 {getFieldTranslationByNames("citizenship-account", "issue")}
-
                 <Arrows
                   onClick={() => setFilters({ subject: !filters.subject })}
                 >
@@ -522,11 +545,7 @@ const TransactionsList = ({
           ))}
         </tbody>
       </Table>
-      {visibleRows < rows.length && (
-        <Loader>
-          <button onClick={handleLoadMore}>نمایش موارد بیشتر</button>
-        </Loader>
-      )}
+      {visibleRows < rows.length && <div ref={loaderRef} />}
     </Container>
   );
 };

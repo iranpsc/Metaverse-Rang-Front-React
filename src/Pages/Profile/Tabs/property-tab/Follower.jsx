@@ -41,6 +41,7 @@ const Profile = styled.div`
     color: #0066ff;
     font-size: 16px;
     font-weight: 500;
+    text-transform: uppercase;
   }
   img {
     border-radius: 100%;

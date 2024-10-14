@@ -49,6 +49,7 @@ const Code = styled.a`
   font-weight: 500;
   color: #0066ff;
   text-decoration: none;
+  text-transform: uppercase;
 `;
 const Content = styled.div`
   display: flex;

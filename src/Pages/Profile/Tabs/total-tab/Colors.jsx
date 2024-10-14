@@ -55,7 +55,7 @@ const Colors = () => {
     {
       id: 6,
       gif: gif6,
-      label: getFieldTranslationByNames("citizenship-account", "psc"),
+      label: getFieldTranslationByNames("citizenship-account", "impact"),
       value: wallet?.psc,
     },
   ];

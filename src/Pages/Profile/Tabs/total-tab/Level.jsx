@@ -98,6 +98,22 @@ const Level = () => {
               <ReactTooltip id={item.slug} place="top" content={item.name} />
             </div>
           ))}
+        {user.latest_level && (
+          <div>
+            <img
+              data-tooltip-id={user.latest_level.slug}
+              width={65}
+              height={65}
+              src={user.latest_level.image}
+              alt={user.latest_level.name}
+            />
+            <ReactTooltip
+              id={user.latest_level.slug}
+              place="top"
+              content={user.latest_level.name}
+            />
+          </div>
+        )}
       </LevelCount>
     </Container>
   );
