@@ -124,7 +124,7 @@ const CitizenWarning = styled.div`
 
 const Inputs = () => {
   const options = [
-    { id: 1, label: "citizen", value: "citizen" },
+    { id: 1, label: "1", value: "citizen" },
     { id: 2, label: "security of citizens", value: "citizens_safety" },
     { id: 3, label: "technical support", value: "technical_support" },
     { id: 4, label: "investment", value: "investment" },
@@ -148,19 +148,26 @@ const Inputs = () => {
         selectedCitizens.length < 9 &&
         !selectedCitizens.some((selected) => selected.id === citizen.id)
       ) {
-        setSelectedCitizens((prev) => [...prev, citizen]);
+        const updatedCitizens = [...selectedCitizens, citizen];
+        setSelectedCitizens(updatedCitizens);
+        dispatch({ type: "SET_SELECTED_CITIZENS", payload: updatedCitizens }); // ذخیره در کانتکست
       }
       setDropdownOpen(false);
       setSearchTerm("");
     },
-    [selectedCitizens]
+    [selectedCitizens, dispatch]
   );
 
-  const removeCitizen = useCallback((citizenId) => {
-    setSelectedCitizens((prev) =>
-      prev.filter((selected) => selected.id !== citizenId)
-    );
-  }, []);
+  const removeCitizen = useCallback(
+    (citizenId) => {
+      const updatedCitizens = selectedCitizens.filter(
+        (selected) => selected.id !== citizenId
+      );
+      setSelectedCitizens(updatedCitizens);
+      dispatch({ type: "SET_SELECTED_CITIZENS", payload: updatedCitizens }); // به‌روزرسانی کانتکست
+    },
+    [selectedCitizens, dispatch]
+  );
 
   const subjectHandler = useCallback(
     (e) => {

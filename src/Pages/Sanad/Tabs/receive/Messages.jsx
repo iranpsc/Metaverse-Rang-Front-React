@@ -8,7 +8,7 @@ const Messages = ({ data }) => {
   return (
     <Container>
       <CitizenMessage data={data} />
-      {/* <AdminMessage /> */}
+      <AdminMessage />
       <VodReply />
     </Container>
   );

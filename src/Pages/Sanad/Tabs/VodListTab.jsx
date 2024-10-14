@@ -1,8 +1,8 @@
-import SendVod from "./sent/SendVod";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
 import { useState } from "react";
 import ReceivedList from "./receive/ReceivedList";
+import SentList from "./sent/SentList";
 
 const Container = styled.div`
   display: grid;
@@ -19,7 +19,7 @@ const VodListTab = () => {
     <Container>
       <Sidebar setMenu={setMenu} menu={menu} />
       {menu === 1 && <ReceivedList />}
-      {menu === 2 && <SendVod />}
+      {menu === 2 && <SentList />}
     </Container>
   );
 };

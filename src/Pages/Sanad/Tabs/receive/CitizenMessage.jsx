@@ -76,8 +76,6 @@ const Container = styled.div`
   display: flex;
   gap: 12px;
   width: 80%;
-  margin-right: auto;
-
   margin-top: 20px;
 `;
 
@@ -118,7 +116,6 @@ const handleDownload = (imageSrc, filename) => {
 };
 
 const CitizenMessage = ({ data }) => {
-  console.log(data);
   return (
     <Container>
       <Content>

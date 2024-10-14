@@ -1,12 +1,12 @@
-import  { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 const initialState = {
   subject: "",
   title: "",
   description: "",
-  files: []
+  files: [],
+  selectedCitizens: [],
 };
-
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -18,11 +18,12 @@ const reducer = (state, action) => {
       return { ...state, description: action.payload };
     case "SET_FILES":
       return { ...state, files: action.payload };
+    case "SET_SELECTED_CITIZENS":
+      return { ...state, selectedCitizens: action.payload };
     default:
       return state;
   }
 };
-
 const GlobalVodStateContext = createContext();
 
 export const GlobalVodStateProvider = ({ children }) => {

@@ -57,8 +57,9 @@ const WriteVodTab = () => {
     dispatch({ type: "SET_TITLE", payload: "" });
     dispatch({ type: "SET_DESCRIPTION", payload: "" });
     dispatch({ type: "SET_FILES", payload: [] });
+    dispatch({ type: "SET_SELECTED_CITIZENS", payload: [] });
   };
-  console.log(state.subject);
+
   const sendVod = () => {
     if (
       state.subject &&
@@ -72,17 +73,26 @@ const WriteVodTab = () => {
 
       const filesData = new FormData();
 
-      Request(
-        "tickets",
-        HTTP_METHOD.POST,
-        {
-          title: state.title,
-          department: state.subject,
-          content: state.description,
-          attachment: state.files[0],
-        },
-        { "Content-Type": "multipart/form-data" }
-      )
+      filesData.append("title", state.title);
+      filesData.append("content", state.description);
+      filesData.append("attachment", state.files[0]);
+
+      if (state.selectedCitizens.length > 0) {
+        if (state.selectedCitizens.length === 1) {
+          filesData.append("reciever", state.selectedCitizens[0].id);
+        } else {
+          const citizenIds = state.selectedCitizens.map((citizen) =>
+            parseInt(citizen.id)
+          );
+          filesData.append("reciever", JSON.stringify(citizenIds));
+        }
+      } else {
+        filesData.append("department", state.subject);
+      }
+
+      Request("tickets", HTTP_METHOD.POST, filesData, {
+        "Content-Type": "multipart/form-data",
+      })
         .then(() => {
           resetForm();
           setAlert(true);
