@@ -1,9 +1,9 @@
-name: Deploy React App
+name: Deploy React App via FTP
 
 on:
   push:
     branches:
-      - main  # اینجا شاخه‌ی موردنظر برای دیپلوی را تنظیم کنید
+      - main
 
 jobs:
   build-and-deploy:
@@ -24,13 +24,11 @@ jobs:
     - name: Build project
       run: npm run build
 
-    - name: Deploy to Server
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        SERVER_PATH: ${{ secrets.SERVER_PATH }}
-      run: |
-        echo "$SSH_PRIVATE_KEY" | ssh-add -
-        ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "rm -rf $SERVER_PATH/*"
-        scp -r ./build/* $USERNAME@$HOST:$SERVER_PATH
+    - name: Deploy via FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        ftp-server: sftp://${{ secrets.SERVER_HOST }}   # یا ftp:// اگر از FTP استفاده می‌کنید
+        ftp-username: ${{ secrets.SERVER_USER }}
+        ftp-password: ${{ secrets.SERVER_PASSWORD }}
+        local-dir: ./build
+        server-dir: ${{ secrets.SERVER_PATH }}  # مسیر روی سرور که فایل‌ها باید دیپلوی شوند
