@@ -4,25 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import "./App.css";
 import "react-quill/dist/quill.snow.css";
-import styled from "styled-components";
-import "./i18n/i18n.js";
-import Echo from "laravel-echo";
-import Pusher from "pusher-js";
-import UserProvider from "./Services/Reducers/UserContext.jsx";
-import WalletProvider from "./Services/Reducers/WalletContext";
-import FollowProvider from "./Services/Reducers/FollowContext";
-import { MapContextProvider } from "./Services/Reducers/mapContext";
-import { ThemeProviderContext } from "./Services/Reducers/ThemeContext";
-import MapTreeD from "./Layouts/Map";
-import Menu from "./Layouts/Menu";
-import StatusBar from "./Layouts/StatusBar";
-import { MenuContextProvider } from "./Services/Reducers/MenuContext";
-import { MapProvider } from "react-map-gl";
-import { SelectedEnvironmentProvider } from "./Services/Reducers/SelectedEnvironmentContext.jsx";
-import { AlertProvider } from "./Services/Reducers/AlertContext.jsx";
-import Routers from "./Layouts/Map/Routers.jsx";
-import { getFieldTranslationByNames } from "./Services/Utility/index.jsx";
-import { LanguageProvider } from "./Services/Reducers/LanguageContext.jsx";
+
 
 const Container = styled.section`
   display: flex;
