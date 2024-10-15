@@ -3,47 +3,34 @@ name: Deploy React App
 on:
   push:
     branches:
-      - main
+      - main  # اینجا شاخه‌ی موردنظر برای دیپلوی را تنظیم کنید
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Build project
-        run: npm run build
+    - name: Build project
+      run: npm run build
 
-      - name: List build directory
-        run: ls -la ./dist
-
-      - name: Setup SSH for Deploy
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Debug secrets
-        run: |
-          echo "SERVER_USER: ${{ secrets.SERVER_USER }}"
-          echo "SERVER_HOST: ${{ secrets.SERVER_HOST }}"
-          echo "SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION }}"
-
-      - name: Debug rsync command
-        run: |
-          echo "rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}"
-
-      - name: Deploy to server
-        run: |
-          echo "Deploying to server...."
-          rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
-
+    - name: Deploy to Server
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        SERVER_PATH: ${{ secrets.SERVER_PATH }}
+      run: |
+        echo "$SSH_PRIVATE_KEY" | ssh-add -
+        ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "rm -rf $SERVER_PATH/*"
+        scp -r ./build/* $USERNAME@$HOST:$SERVER_PATH
