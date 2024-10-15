@@ -27,8 +27,9 @@ jobs:
     - name: Deploy via FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
-        ftp-server: sftp://${{ secrets.SERVER_HOST }}   # یا ftp:// اگر از FTP استفاده می‌کنید
-        ftp-username: ${{ secrets.SERVER_USER }}
-        ftp-password: ${{ secrets.SERVER_PASSWORD }}
+        server: ${{ secrets.SERVER_HOST }}     # آدرس سرور شما
+        username: ${{ secrets.SERVER_USER }}   # نام کاربری FTP شما
+        password: ${{ secrets.SERVER_PASSWORD }}  # رمز عبور FTP شما
+        protocol: 'sftp'  # اگر از FTP استفاده می‌کنید می‌توانید 'ftp' قرار دهید
         local-dir: ./build
         server-dir: ${{ secrets.SERVER_PATH }}  # مسیر روی سرور که فایل‌ها باید دیپلوی شوند
