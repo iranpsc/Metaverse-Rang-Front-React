@@ -36,14 +36,14 @@ jobs:
         run: |
           echo "SERVER_USER: ${{ secrets.SERVER_USER }}"
           echo "SERVER_HOST: ${{ secrets.SERVER_HOST }}"
-          echo "SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION }}"
+          echo "SERVER_PATH: ${{ secrets.SERVER_PATH }}"
 
       - name: Debug rsync command
         run: |
-          echo "rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}"
+          echo "rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_PATH }}"
 
       - name: Deploy to server
         run: |
           echo "Deploying to server...."
-          rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_DESTINATION }}
+          rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_PATH }}
 
