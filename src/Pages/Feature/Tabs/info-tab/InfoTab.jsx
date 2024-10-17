@@ -36,6 +36,7 @@ const Div = styled.div`
 
 const InfoTab = () => {
   const [feature, setFeature] = useContext(FeatureContext);
+  console.log(feature);
   return (
     <RowsWrapper>
       <Div>

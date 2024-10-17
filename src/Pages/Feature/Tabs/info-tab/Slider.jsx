@@ -13,6 +13,7 @@ const Background = styled.div`
   right: 0;
   background-color: #000000;
   opacity: 0.9;
+  z-index: 10;
   div {
     cursor: pointer;
     width: 40px;
@@ -45,7 +46,13 @@ const Background = styled.div`
   }
 `;
 
-const Slider = ({ setOpen, images, deleteHandler, activeImage, setActiveImage }) => {
+const Slider = ({
+  setOpen,
+  images,
+  deleteHandler,
+  activeImage,
+  setActiveImage,
+}) => {
   return (
     <div>
       <Background>
@@ -53,7 +60,12 @@ const Slider = ({ setOpen, images, deleteHandler, activeImage, setActiveImage })
           <IoMdClose />
         </div>
       </Background>
-      <MobileSlider activeImage={activeImage} setActiveImage={setActiveImage} images={images} deleteHandler={deleteHandler} />
+      <MobileSlider
+        activeImage={activeImage}
+        setActiveImage={setActiveImage}
+        images={images}
+        deleteHandler={deleteHandler}
+      />
       <KeenSlider images={images} deleteHandler={deleteHandler} />
     </div>
   );

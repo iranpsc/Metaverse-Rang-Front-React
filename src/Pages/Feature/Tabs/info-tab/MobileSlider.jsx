@@ -14,11 +14,17 @@ const Wrapper = styled.div`
   gap: 14px;
   overflow: hidden;
   grid-template-columns: 6fr 2fr;
+  z-index: 11;
   @media (min-width: 1024px) {
     display: none;
   }
 `;
-const MobileSlider = ({ images, deleteHandler, activeImage, setActiveImage }) => {
+const MobileSlider = ({
+  images,
+  deleteHandler,
+  activeImage,
+  setActiveImage,
+}) => {
   const thumbListRef = useRef();
 
   const [touchStart, setTouchStart] = useState(0);

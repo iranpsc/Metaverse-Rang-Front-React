@@ -74,7 +74,8 @@ const Avatar = styled.img`
 const Container = styled.div`
   display: flex;
   gap: 12px;
-  width: 80%;
+  width: fit-content;
+  margin-left: auto;
   margin-top: 20px;
 `;
 
