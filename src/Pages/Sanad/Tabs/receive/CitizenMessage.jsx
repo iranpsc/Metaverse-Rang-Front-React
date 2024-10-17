@@ -122,7 +122,12 @@ const CitizenMessage = ({ data }) => {
       <Content>
         <Header>
           <span>{data?.sender}</span>
-          <a href="https://rgb.irpsc.com/fa/citizens/hm-2000001">HM-200020</a>
+          <a
+            href="https://rgb.irpsc.com/fa/citizens/hm-2000001"
+            target="_blank"
+          >
+            HM-200020
+          </a>
         </Header>
         <Text>
           <p>{SanitizeHTML(data?.content)}</p>
@@ -130,21 +135,28 @@ const CitizenMessage = ({ data }) => {
             {data?.date} | {data?.time}
           </h4>
         </Text>
-        <Files>
-          <div>
-            <Image>
-              <img src={data?.attachment} alt="file" width={200} height={179} />
-              <Download
-                src={download}
-                alt="download"
-                width={36}
-                height={36}
-                onClick={() => handleDownload(data?.attachment, "photo.png")}
-              />
-            </Image>
-          </div>
-          {data?.date} | {data?.time}
-        </Files>
+        {data?.attachment ? (
+          <Files>
+            <div>
+              <Image>
+                <img
+                  src={data?.attachment}
+                  alt="file"
+                  width={200}
+                  height={179}
+                />
+                <Download
+                  src={download}
+                  alt="download"
+                  width={36}
+                  height={36}
+                  onClick={() => handleDownload(data?.attachment, "photo.png")}
+                />
+              </Image>
+            </div>
+            {data?.date} | {data?.time}
+          </Files>
+        ) : null}
       </Content>
       <Avatar src={avatar} alt="avatar" width={50} height={50} />
     </Container>

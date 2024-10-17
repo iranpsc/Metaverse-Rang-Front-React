@@ -1,11 +1,10 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import ReplyInput from "./ReplyInput";
 import SendFiles from "./SendFiles";
 import styled from "styled-components";
-import { useGlobalState } from "../GlobalVodStateProvider";
 import Button from "../../../../Components/Button";
-import { AlertContext } from "../../../../Services/Reducers/AlertContext";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -15,53 +14,52 @@ const Container = styled.div`
   margin-top: 30px;
 `;
 
-const VodReply = () => {
-  const { state, dispatch } = useGlobalState();
-  const { alert, setAlert } = useContext(AlertContext);
-  const [error, setError] = useState("");
+const VodReply = ({ setData, responseId }) => {
+  const [message, setMessage] = useState("");
+  const [files, setFiles] = useState([]);
+
   const containerRef = useRef(null);
+  const { Request, HTTP_METHOD } = useRequest();
+  const handleSendReply = () => {
+    const formData = new FormData();
 
-  const resetForm = () => {
-    dispatch({ type: "SET_DESCRIPTION", payload: "" });
-    dispatch({ type: "SET_FILES", payload: [] });
-  };
+    formData.append("response", message.replace(/<[^>]+>/g, ""));
 
-  const saveVod = () => {
-    if (state.description && state.files.length > 0) {
+    if (files.length > 0 && files[0].file) {
+      formData.append("attachment", files[0].file);
+    }
+
+    Request(`tickets/response/${responseId}`, HTTP_METHOD.POST, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }).then((res) => {
+      const lastResponse =
+        res.data.data.responses[res.data.data.responses.length - 1];
+      setData((prevData) => ({
+        ...prevData,
+        responses: Array.isArray(prevData.responses)
+          ? [...prevData.responses, lastResponse]
+          : [lastResponse],
+      }));
+
+      setMessage("");
+      setFiles([]);
+
       if (containerRef.current) {
-        containerRef.current.scrollTo(0, 0);
+        containerRef.current.scrollIntoView({
+          behavior: "smooth",
+        });
       }
-      setAlert(true);
-      setError("");
-
-      setTimeout(() => {
-        resetForm();
-      }, 2000);
-
-      setTimeout(() => {
-        setAlert(false);
-      }, 2000);
-    } else {
-      setError("تمامی فیلدها باید قبل از ارسال گزارش پر شوند");
-    }
+    });
   };
-
-  useEffect(() => {
-    if (alert) {
-      const timer = setTimeout(() => {
-        setAlert(false);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [alert, setAlert]);
 
   return (
-    <Container>
-      <ReplyInput />
-      <SendFiles />
+    <Container ref={containerRef}>
+      <ReplyInput message={message} setMessage={setMessage} />
+      <SendFiles files={files} setFiles={setFiles} />
 
-      <Button fit label="ارسال پاسخ" onclick={saveVod} />
+      <Button fit label="ارسال پاسخ" onclick={handleSendReply} />
     </Container>
   );
 };

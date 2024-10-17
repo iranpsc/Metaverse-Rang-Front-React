@@ -1,20 +1,20 @@
-import React from "react";
-import useActivity from "../../../../Services/Hooks/useActivity";
+import React, { useState } from "react";
 import GeneralDefault from "./Tabs/GeneralDefault";
 import SpecialOrder from "./Tabs/SpecialOrder";
-
+import SidebarOptions from "./Tabs/Components/SidebarOptions";
+import styled from "styled-components";
+const Wrapper = styled.div`
+  display: flex;
+  gap: 10px;
+`;
 const PropertyConstruction = () => {
-  const tabs = [
-    {
-      name: "پیش فرض عمومی",
-      component: <GeneralDefault />,
-    },
-    { name: "سفارش اختصاصی", component: <SpecialOrder /> },
-  ];
-
-  const activity = useActivity(tabs);
-
-  return activity;
+  const [option, setOption] = useState(true);
+  return (
+    <Wrapper>
+      <SidebarOptions option={option} setOption={setOption} />
+      {option ? <GeneralDefault /> : <SpecialOrder />}
+    </Wrapper>
+  );
 };
 
 export default PropertyConstruction;

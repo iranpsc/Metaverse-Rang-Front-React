@@ -6,7 +6,10 @@ import ReactQuill from "react-quill";
 import styled from "styled-components";
 import { useGlobalState } from "../GlobalVodStateProvider";
 import { useState } from "react";
-import { convertToPersian } from "../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 
 const EditorContainer = styled.div`
   background-color: ${(props) =>
@@ -99,7 +102,8 @@ const Char = styled.div`
 `;
 
 const Label = styled.h2`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+
   display: block;
   margin-bottom: 10px;
   font-weight: 500;
@@ -107,13 +111,21 @@ const Label = styled.h2`
   margin-top: 20px;
 `;
 
-const ReplyInput = () => {
+const ReplyInput = ({ message, setMessage }) => {
   const [replyText, setReplyText] = useState("");
   const charLimit = 2000;
 
   const handleChange = (value) => {
     if (value.length <= charLimit) {
       setReplyText(value);
+      setMessage(value);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    const currentLength = replyText.length;
+    if (currentLength >= charLimit) {
+      e.preventDefault();
     }
   };
 
@@ -152,18 +164,23 @@ const ReplyInput = () => {
 
   return (
     <>
-      <Label>پاسخ دادن به سند</Label>
+      <Label>
+        {getFieldTranslationByNames("send-vod", "responding to the document")}
+      </Label>
       <EditorContainer>
         <ReactQuill
           value={replyText}
           onChange={handleChange}
+          onKeyPress={handleKeyPress}
           modules={modules}
           formats={formats}
-          // placeholder="پاسخ خود را بنویسید"
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
-        <span>{convertToPersian(remainingChars)} کاراکتر</span>
+        <span>
+          {convertToPersian(remainingChars)}{" "}
+          {getFieldTranslationByNames("send-vod", "character")}
+        </span>
         <CiEdit size={20} />
       </Char>
     </>
