@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # این خط برای اجرای دستی اضافه شده است
 
 jobs:
   build:
@@ -42,8 +43,12 @@ jobs:
         run: |
           echo "rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_PATH }}"
 
+      - name: Check server directory
+        run: |
+          echo "Checking current directory on server..."
+          ssh -p 2222 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'pwd'
+
       - name: Deploy to server
         run: |
           echo "Deploying to server...."
           rsync -avz -e 'ssh -p 2222' --delete-after ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_PATH }}
-
