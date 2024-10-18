@@ -115,7 +115,9 @@ a {
   }
 }
 
-
+.ql-editor {
+  text-align: unset !important;
+}
 
 .tooltip-container {
   border-radius: 0.5rem;

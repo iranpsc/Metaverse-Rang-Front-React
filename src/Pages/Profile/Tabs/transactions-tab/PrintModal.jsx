@@ -93,7 +93,6 @@ const Info = styled.div`
   padding: 20px;
   border-radius: 10px;
   margin-top: 20px;
-  direction: rtl;
 `;
 const Row = styled.div`
   display: flex;

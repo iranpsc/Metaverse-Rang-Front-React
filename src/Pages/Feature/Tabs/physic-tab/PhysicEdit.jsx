@@ -13,7 +13,6 @@ const Container = styled.div`
   height: 69% !important;
   h3 {
     &:first-of-type {
-      direction: rtl;
     }
   }
   @media (min-width: 840px) {

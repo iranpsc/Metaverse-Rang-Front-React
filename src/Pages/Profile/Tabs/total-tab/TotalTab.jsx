@@ -15,13 +15,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
-  height: 73%;
-  @media (min-width: 930px) {
-    height: 78%;
-  }
-  @media (min-width: 1024px) {
-    height: 78%;
-  }
+
   @media (min-width: 1400px) {
     height: 80%;
     grid-template-columns: 1fr 2fr;

@@ -1,5 +1,5 @@
-name: Auto release
 
+name: Auto release
 on:
   push:
     branches:

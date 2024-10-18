@@ -11,7 +11,6 @@ import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Birthday = styled.div`
-  direction: rtl;
   border-radius: 5px;
   border: 1px solid
     ${(props) =>

@@ -54,31 +54,13 @@ const FlagMapContainer = styled.div`
   align-items: center;
   overflow-y: auto;
   padding-left: 10px;
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background-color: "#DDDDDD";
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background-color: "#858585";
-    border-radius: 10px;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #999;
-  }
   transition: all 0.3s ease 0s;
 `;
 const StatusContainer = styled.div`
   display: flex;
   width: 100%;
   height: 10%;
+  gap: 5px;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};

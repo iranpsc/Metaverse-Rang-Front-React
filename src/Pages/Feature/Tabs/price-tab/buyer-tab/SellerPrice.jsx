@@ -21,7 +21,6 @@ const Wrapper = styled.div`
 const Text = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   line-height: 1.7rem;
-  direction: rtl;
 `;
 
 const SellerPrice = () => {

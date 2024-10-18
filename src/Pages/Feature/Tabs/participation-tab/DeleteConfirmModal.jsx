@@ -53,7 +53,6 @@ const Buttons = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: 20px;
-  direction: rtl;
 `;
 
 const Button = styled.button`

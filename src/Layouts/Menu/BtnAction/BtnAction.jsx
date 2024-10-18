@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../Services/Hooks/useAuth";
 import { ReactComponent as ArowMenu } from "../../../Assets/svg/arowMenu.svg";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
+import useRequest from "../../../Services/Hooks/useRequest";
+import { removeItem } from "../../../Services/Utility/LocalStorage";
 
 const Btn = styled.div`
   min-height: ${(props) =>
@@ -100,7 +102,7 @@ const BtnAction = () => {
   const { getUser } = useAuth();
   const [user, setUser] = useState();
   const [isClicked, setIsClicked] = useState(false);
-
+  const { Request, HTTP_METHOD } = useRequest();
   useLayoutEffect(() => {
     setUser(getUser());
   }, []);
@@ -108,7 +110,12 @@ const BtnAction = () => {
   const handleClick = () => {
     setIsClicked(!isClicked);
   };
-
+  const logoutHandler = () => {
+    Request("auth/logout", HTTP_METHOD.POST, {}, {}, "development").then(() => {
+      removeItem("user");
+      window.location.reload();
+    });
+  };
   return (
     <Btn isOpen={isOpen} isClicked={isClicked} onClick={handleClick}>
       <Div isOpen={isOpen} isClicked={isClicked}>
@@ -121,7 +128,11 @@ const BtnAction = () => {
         <TextDetail isOpen={isOpen} isClicked={isClicked}>
           {getFieldTranslationByNames("Citizenship-profile", "home page")}
         </TextDetail>
-        <TextDetail isOpen={isOpen} isClicked={isClicked}>
+        <TextDetail
+          isOpen={isOpen}
+          isClicked={isClicked}
+          onClick={() => logoutHandler()}
+        >
           {getFieldTranslationByNames("central-page", "sign out")}
         </TextDetail>
       </Div>

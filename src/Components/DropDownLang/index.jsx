@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FaGlobe, FaChevronDown } from "react-icons/fa"; // اضافه کردن آیکون‌های مورد نیاز
+import { FaGlobe, FaChevronDown } from "react-icons/fa";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 import i18n from "../../i18n/i18n";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
@@ -74,7 +74,7 @@ const Tooltip = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades[40]};
   border-radius: 10px;
   color: ${(props) => props.theme.colors.newColors.shades[100]};
-  text-align: right;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -107,7 +107,7 @@ const DropDownLang = () => {
       changeLanguage(savedLang);
     }
   }, []);
-  console.log(i18n.dir());
+
   const changeLanguage = async (lang) => {
     try {
       const cachedData = localStorage.getItem(`i18n_cache_${lang}`);

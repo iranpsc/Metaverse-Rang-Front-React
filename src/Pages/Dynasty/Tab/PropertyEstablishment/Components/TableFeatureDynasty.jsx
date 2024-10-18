@@ -13,14 +13,13 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: right;
+
   gap: 15px;
   flex-direction: column;
 `;
 const Text = styled.p`
   display: inline-block;
   width: 100%;
-  text-align: right;
 `;
 const ContainerTable = styled.div`
   width: 100%;
@@ -91,16 +90,16 @@ export default function TableFeatureDynasty({ dynasty }) {
             </td>
           </thead>
           <TableBody>
-          {dynasty?.prizes?.map(prize => (
-            <Tr>
-              <td>{prize?.member}</td>
-              <td>{prize?.psc}</td>
-              <td>{prize?.data_storage}%</td>
-              <td>{prize?.accumulated_capital_reserve}%</td>
-              <td>{prize?.introduction_profit_increase}</td>
-              <td>{prize?.satisfaction}</td>
-            </Tr>
-          ))}
+            {dynasty?.prizes?.map((prize) => (
+              <Tr>
+                <td>{prize?.member}</td>
+                <td>{prize?.psc}</td>
+                <td>{prize?.data_storage}%</td>
+                <td>{prize?.accumulated_capital_reserve}%</td>
+                <td>{prize?.introduction_profit_increase}</td>
+                <td>{prize?.satisfaction}</td>
+              </Tr>
+            ))}
           </TableBody>
         </Table>
       </ContainerTable>

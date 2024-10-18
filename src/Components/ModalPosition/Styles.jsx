@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Header = styled.div`
   color: ${(props) => props.theme.colors.primary};
-  text-align: right;
+
   font-size: 16px;
   @media (min-width: 768px) {
     font-size: 18px;

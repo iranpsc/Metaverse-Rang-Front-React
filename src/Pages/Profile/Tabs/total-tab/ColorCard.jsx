@@ -46,7 +46,7 @@ const ColorCard = ({ gif, label, value }) => {
       <img width={48} height={48} loading="lazy" alt={label} src={gif} />
       <div>
         <span>{label}</span>
-        <h3 dir="ltr">{value}</h3>
+        <h3>{value}</h3>
       </div>
     </Container>
   );

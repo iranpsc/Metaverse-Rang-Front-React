@@ -39,6 +39,7 @@ const Name = styled.div`
     color: #ffc700;
     font-size: 14px;
     font-weight: 500;
+    text-transform: uppercase;
   }
 `;
 

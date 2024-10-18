@@ -13,12 +13,12 @@ const Label = styled.label`
 `;
 
 const InputContainer = styled.div`
-  width:65%;
+  width: 65%;
   position: relative;
 `;
 
 const Input = styled.input`
-  margin-top:12px;
+  margin-top: 12px;
   width: 100%;
   padding-left: 32px;
   font-size: 1rem !important;
@@ -57,7 +57,7 @@ const Input = styled.input`
 
 const ErrorContainer = styled.p`
   margin-top: 8px;
-  text-align: right;
+
   font-size: 12px;
   color: red;
 `;

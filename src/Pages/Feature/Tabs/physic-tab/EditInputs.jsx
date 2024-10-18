@@ -18,7 +18,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  direction: rtl;
+
   margin-top: 20px;
 `;
 const Field = styled.div`

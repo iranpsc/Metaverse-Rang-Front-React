@@ -32,7 +32,7 @@ const Modal = styled.div`
 `;
 const Header = styled.div`
   display: flex;
-  direction: rtl;
+
   justify-content: space-between;
   margin-bottom: 30px;
   @media (max-width: 1023px) {
@@ -45,7 +45,7 @@ const Header = styled.div`
 const Title = styled.h3`
   font-size: 24px;
   font-weight: 600;
-  text-align: right;
+
   color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (max-width: 1023px) {
     font-size: 18px;

@@ -3,7 +3,6 @@ import ProfitCard from "./ProfitCard";
 import styled from "styled-components";
 
 const Container = styled.div`
-  direction: rtl;
   display: flex;
   flex-direction: column;
   gap: 20px;

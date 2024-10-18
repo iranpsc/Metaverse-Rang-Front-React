@@ -28,7 +28,6 @@ const Modal = styled.div`
   width: 100%;
   max-width: 515px;
   max-height: 363px;
-  direction: rtl;
 `;
 
 const Title = styled.h3`

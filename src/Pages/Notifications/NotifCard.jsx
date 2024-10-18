@@ -9,7 +9,6 @@ const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
 
-  direction: rtl;
   p {
     color: #a0a0ab;
     font-size: 14px;

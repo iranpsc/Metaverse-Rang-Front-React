@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   border-radius: 0.25rem;
-  direction: rtl;
+
   overflow-x: auto;
   min-height: 93vh;
   &::-webkit-scrollbar {
@@ -19,7 +19,6 @@ const Container = styled.div`
 `;
 
 const Table = styled.table`
-  text-align: right;
   margin-top: 5px;
   border-collapse: collapse;
   border-top-right-radius: 10px;
@@ -44,10 +43,10 @@ const TableHeader = styled.th`
   position: relative;
   padding-bottom: 10px;
   text-align: center;
-  &:nth-of-type(2){
+  &:nth-of-type(2) {
     padding-right: 45px;
   }
-  div{
+  div {
     width: fit-content;
   }
 `;

@@ -59,7 +59,7 @@ const SecondRow = ({ feature }) => {
       id: 4,
       title: getFieldTranslationByNames(
         "property-information",
-        "building permits"
+        "square meter area"
       ),
       value: feature?.properties?.area,
       icon: <RxLayout />,

@@ -37,10 +37,10 @@ const Sidebar = ({ setMenu, menu }) => {
         {getFieldTranslationByNames("citizenship-account", "real estates")}
       </Label>
       <Label menu={menu === 2} onClick={() => setMenu(2)}>
-        {getFieldTranslationByNames("citizenship-account", "followers")}
+        {getFieldTranslationByNames("citizenship-account", "following")}
       </Label>
       <Label menu={menu === 3} onClick={() => setMenu(3)}>
-        {getFieldTranslationByNames("citizenship-account", "following")}
+        {getFieldTranslationByNames("citizenship-account", "followers")}
       </Label>
     </Container>
   );
