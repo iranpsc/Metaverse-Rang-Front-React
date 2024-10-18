@@ -84,7 +84,7 @@ const Row = ({ id, code, title, publish_date, name, description, files }) => {
       <TableRow>
         <TableCell>
           <div>
-            <Code>#{code}</Code>
+            <Code>{id}#</Code>
           </div>
         </TableCell>
         <TableCell>

@@ -5,6 +5,7 @@ import SendFiles from "./SendFiles";
 import styled from "styled-components";
 import Button from "../../../../Components/Button";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -59,7 +60,11 @@ const VodReply = ({ setData, responseId }) => {
       <ReplyInput message={message} setMessage={setMessage} />
       <SendFiles files={files} setFiles={setFiles} />
 
-      <Button fit label="ارسال پاسخ" onclick={handleSendReply} />
+      <Button
+        fit
+        label={getFieldTranslationByNames("send-vod", "post a reply")}
+        onclick={handleSendReply}
+      />
     </Container>
   );
 };

@@ -85,11 +85,10 @@ const WriteNote = () => {
     formData.append("content", description);
     files.length > 0 && formData.append("attachment", files[0]);
 
-    const requestData = files.length > 0 ? formData : { title, description };
     const headers =
       files.length > 0 ? { "Content-Type": "multipart/form-data" } : {};
 
-    Request("notes", HTTP_METHOD.POST, requestData, headers)
+    Request("notes", HTTP_METHOD.POST, formData, headers)
       .then((response) => {
         dispatch({ type: "ADD_NOTE", payload: response.data.data });
         setAlert(true);
