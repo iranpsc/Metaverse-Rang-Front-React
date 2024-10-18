@@ -15,8 +15,6 @@ import ReactQuill from "react-quill";
 import Submit from "../../../../../Components/Buttons/Submit";
 
 const Description = styled.div`
-  text-align: right;
-
   background: #ecf2ff;
   padding: 8px;
   border-radius: 8px;

@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const Table = styled.table`
   width: 100%;
-  text-align: right;
+
   margin-top: 5px;
   border-collapse: collapse;
   border-top-right-radius: 10px;

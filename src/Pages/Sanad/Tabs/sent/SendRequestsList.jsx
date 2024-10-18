@@ -36,7 +36,7 @@ const Container = styled.div`
 
 const Table = styled.table`
   width: 994px;
-  text-align: right;
+
   margin-top: 5px;
   border-collapse: collapse;
   border-top-right-radius: 10px;

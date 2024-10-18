@@ -8,8 +8,6 @@ import styled from "styled-components";
 import BackArrowImage from "../../../../../Assets/images/back-arow.png";
 
 const Description = styled.div`
-  text-align: right;
-
   background: #ecf2ff;
   padding: 8px;
   border-radius: 8px;

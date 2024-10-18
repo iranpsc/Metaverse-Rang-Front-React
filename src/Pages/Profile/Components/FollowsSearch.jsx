@@ -17,7 +17,6 @@ const InputSearch = styled.input`
   border-radius: 8px !important;
   color: #b8b8b8 !important;
   height: 40px;
-  text-align: right;
 
   font-size: 16px !important;
 `;

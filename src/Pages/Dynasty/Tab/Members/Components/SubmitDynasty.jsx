@@ -13,7 +13,7 @@ const ContainerMessage = styled.div`
   align-items: end;
   justify-content: center;
   flex-direction: column;
-  text-align: right;
+
   padding: 2rem;
   line-height: 2;
 `;
@@ -156,7 +156,9 @@ function SubmitDanasty({
             type="primary"
             options={{ onClick: handleSubmit }}
           />
-          <CancelButton onClick={()=>setShowMembers(true)}>تایید نمی‌کنم</CancelButton>
+          <CancelButton onClick={() => setShowMembers(true)}>
+            تایید نمی‌کنم
+          </CancelButton>
         </ContainerBtn>
       </ContainerMessage>
     </Container>

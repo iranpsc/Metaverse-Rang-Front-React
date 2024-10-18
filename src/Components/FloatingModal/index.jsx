@@ -33,7 +33,6 @@ const Header = styled.div`
 
   & h4 {
     width: 65%;
-    text-align: right;
 
     color: #555;
     padding: 8px;

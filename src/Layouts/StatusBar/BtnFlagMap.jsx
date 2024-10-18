@@ -65,7 +65,7 @@ const Tooltip = styled.div`
     props.theme.colors.newColors.otherColors.menuBg};
   border-radius: 10px;
   color: #868b90;
-  text-align: right;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

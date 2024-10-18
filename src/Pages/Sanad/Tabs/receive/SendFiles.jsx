@@ -14,7 +14,6 @@ const Files = styled.div`
 
 const Container = styled.div`
   margin-top: 10px;
-  direction: rtl;
 `;
 
 const Div = styled.div`

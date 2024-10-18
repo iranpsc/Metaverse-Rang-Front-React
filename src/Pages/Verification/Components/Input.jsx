@@ -22,7 +22,6 @@ const InputContainer = styled.div`
 const TextInput = styled.input`
   margin-top: 12px;
   width: 100%;
-  text-align: right;
 
   padding: 8px;
   font-size: 1rem !important;

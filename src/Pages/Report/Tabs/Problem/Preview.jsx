@@ -28,7 +28,7 @@ const Icon = styled.img`
 const TitleReport = styled.p`
   display: flex;
   width: 100%;
-  text-align: right;
+
   font-weight: 700;
   font-size: 16px;
   align-items: center;
@@ -52,7 +52,25 @@ export default function Preview() {
         <Text>برطرف شده</Text>
       </ContainerHeader>
       <TitleReport>عنوان</TitleReport>
-      <Message>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero, dolorum quis. Ratione laudantium quas necessitatibus! Facilis consequuntur tempora ullam repellat, dolor facere, culpa beatae nisi, reprehenderit error dolores. Ex, rerum?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero, dolorum quis. Ratione laudantium quas necessitatibus! Facilis consequuntur tempora ullam repellat, dolor facere, culpa beatae nisi, reprehenderit error dolores. Ex, rerum?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero, dolorum quis. Ratione laudantium quas necessitatibus! Facilis consequuntur tempora ullam repellat, dolor facere, culpa beatae nisi, reprehenderit error dolores. Ex, rerum?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero, dolorum quis. Ratione laudantium quas necessitatibus! Facilis consequuntur tempora ullam repellat, dolor facere, culpa beatae nisi, reprehenderit error dolores. Ex, rerum?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero, dolorum quis. Ratione laudantium quas necessitatibus! Facilis consequuntur tempora ullam repellat, dolor facere, culpa beatae nisi, reprehenderit error dolores. Ex, rerum?</Message>
+      <Message>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero, dolorum
+        quis. Ratione laudantium quas necessitatibus! Facilis consequuntur
+        tempora ullam repellat, dolor facere, culpa beatae nisi, reprehenderit
+        error dolores. Ex, rerum?Lorem, ipsum dolor sit amet consectetur
+        adipisicing elit. Vero, dolorum quis. Ratione laudantium quas
+        necessitatibus! Facilis consequuntur tempora ullam repellat, dolor
+        facere, culpa beatae nisi, reprehenderit error dolores. Ex, rerum?Lorem,
+        ipsum dolor sit amet consectetur adipisicing elit. Vero, dolorum quis.
+        Ratione laudantium quas necessitatibus! Facilis consequuntur tempora
+        ullam repellat, dolor facere, culpa beatae nisi, reprehenderit error
+        dolores. Ex, rerum?Lorem, ipsum dolor sit amet consectetur adipisicing
+        elit. Vero, dolorum quis. Ratione laudantium quas necessitatibus!
+        Facilis consequuntur tempora ullam repellat, dolor facere, culpa beatae
+        nisi, reprehenderit error dolores. Ex, rerum?Lorem, ipsum dolor sit amet
+        consectetur adipisicing elit. Vero, dolorum quis. Ratione laudantium
+        quas necessitatibus! Facilis consequuntur tempora ullam repellat, dolor
+        facere, culpa beatae nisi, reprehenderit error dolores. Ex, rerum?
+      </Message>
     </Container>
   );
 }

@@ -53,7 +53,6 @@ const ErrorMessage = styled.div`
   color: red;
   font-size: 14px;
   margin-top: 10px;
-  text-align: right;
 `;
 
 const WriteNote = () => {

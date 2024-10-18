@@ -23,7 +23,7 @@ const Container = styled.div`
 
 const Table = styled.table`
   width: 1250px;
-  text-align: right;
+
   margin-top: 5px;
   border-collapse: collapse;
   @media (min-width: 1920px) {

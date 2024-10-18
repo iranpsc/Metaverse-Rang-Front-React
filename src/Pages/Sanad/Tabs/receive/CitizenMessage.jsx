@@ -32,6 +32,7 @@ const Text = styled.div`
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
+    text-align: right;
   }
   h4 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
