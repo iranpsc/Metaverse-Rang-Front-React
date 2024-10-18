@@ -1,5 +1,5 @@
-name: CI/CD for MetaRang Frontend
 
+name: Auto release
 on:
   push:
     branches:
