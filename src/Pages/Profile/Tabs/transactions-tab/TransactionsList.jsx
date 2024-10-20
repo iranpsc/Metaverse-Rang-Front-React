@@ -199,7 +199,7 @@ const TableHeader = styled.th`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
   width: ${(props) =>
-    props.date ? "235px" : props.subject ? "130px" : props.title && "140px"};
+    props.date ? "235px" : props.subject ? "160px" : props.title && "140px"};
 `;
 
 const Loader = styled.div`

@@ -11,6 +11,7 @@ import whatsapp from "../../../../Assets/images/whatsapp.png";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Button = styled.div`
   background-color: ${(props) =>
@@ -109,12 +110,12 @@ const socials = [
 ];
 const NoteCard = ({ data }) => {
   const { isEditing, setIsEditing } = useContext(EditContext);
-  const { state, dispatch } = useContext(GlobalNoteStateContext); // Access both state and dispatch
+  const { state, dispatch } = useContext(GlobalNoteStateContext);
   const { Request } = useRequest();
   const removeNoteHandler = async () => {
     try {
-      await Request(`notes/${data.id}`, "DELETE"); // Use the request hook to delete the note
-      dispatch({ type: "REMOVE_NOTE", payload: data.id }); // Dispatch action after successful deletion
+      await Request(`notes/${data.id}`, "DELETE");
+      dispatch({ type: "REMOVE_NOTE", payload: data.id });
     } catch (error) {
       console.error("Error deleting note:", error);
     }
@@ -124,10 +125,10 @@ const NoteCard = ({ data }) => {
       <Info>
         <Texts>
           <Title title={data?.title} />
-          <p>#{data?.code}</p>
+          <p>#{data?.id}</p>
         </Texts>
         <Socials>
-          <h3>اشتراک گذاری سند</h3>
+          <h3>{getFieldTranslationByNames("send-vod", "share notes")}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -143,15 +144,22 @@ const NoteCard = ({ data }) => {
       </Info>
       <Content>
         <Subject>
-          <Label>ثبت کننده</Label>
+          <Label>{getFieldTranslationByNames("send-vod", "registrar")}</Label>
           <h2>{data?.name}</h2>
         </Subject>
         <Status status={data?.status}>
-          <Label>تاریخ ثبت یاداشت</Label>
+          <Label>
+            {getFieldTranslationByNames(
+              "send-vod",
+              "date of note registration"
+            )}
+          </Label>
           <h2>{data?.date}</h2>
         </Status>
         <Date>
-          <Label>آخرین بروزرسانی</Label>
+          <Label>
+            {getFieldTranslationByNames("send-vod", "latest update")}
+          </Label>
           <h2>{data?.date}</h2>
         </Date>
         <div
@@ -164,11 +172,11 @@ const NoteCard = ({ data }) => {
         >
           <Button onClick={removeNoteHandler}>
             <GoTrash size={22} />
-            <h4>حذف</h4>
+            <h4>{getFieldTranslationByNames("send-vod", "remove")}</h4>
           </Button>
           <Button onClick={() => setIsEditing(true)}>
             <CiEdit size={22} />
-            <h4>ویرایش</h4>
+            <h4>{getFieldTranslationByNames("send-vod", "edit")}</h4>
           </Button>
         </div>
       </Content>

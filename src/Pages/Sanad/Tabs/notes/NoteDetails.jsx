@@ -5,6 +5,7 @@ import NoteMessages from "./NoteMessages";
 
 import styled from "styled-components";
 import Title from "../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px 0;
@@ -105,7 +106,12 @@ const NoteDetails = ({ data, setShowDetails }) => {
       <Back>
         <Container>
           <Header>
-            <Title title="اطلاعات یادداشت" />
+            <Title
+              title={getFieldTranslationByNames(
+                "send-vod",
+                "title of the note"
+              )}
+            />
             <div onClick={() => setShowDetails(false)}>X</div>
           </Header>
           <Div>

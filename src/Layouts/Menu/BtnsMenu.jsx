@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 import DropDownLang from "../../Components/DropDownLang";
@@ -17,7 +17,7 @@ import ReportIcon from "../../Assets/svg/report.svg";
 import GiftIcon from "../../Assets/svg/gifts.svg";
 import LogoutIcon from "../../Assets/svg/logout.svg";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../Services/Hooks/useAuth";
 import { useLayoutEffect } from "react";
 import { removeItem } from "../../Services/Utility/LocalStorage";
@@ -52,7 +52,7 @@ const Icon = styled.img`
   height: 40px;
   filter: ${(props) =>
     props.isSelected
-      ? `brightness(0) saturate(100%) invert(42%) sepia(39%) saturate(580%) hue-rotate(114deg) brightness(95%) contrast(89%)`
+      ? "brightness(0) saturate(100%) invert(42%) sepia(39%) saturate(580%) hue-rotate(114deg) brightness(95%) contrast(89%)"
       : "none"};
 `;
 
@@ -70,6 +70,7 @@ const Text = styled.p`
   }
   display: ${(props) => (props.isOpen ? "block" : "none")};
 `;
+
 const ValueBtn = styled.span`
   width: 25px;
   height: 25px;
@@ -128,16 +129,29 @@ const BtnsMenu = () => {
   const { isOpen } = useMenuContext();
   const navigate = useNavigate();
   const { getUser } = useAuth();
+  const location = useLocation(); // Get the current route
   const [user, setUser] = useState();
-  const [selectedItem, setSelectedItem] = useState(null); // New state for selected item
+  const [selectedItem, setSelectedItem] = useState(null); // State for selected item
   const { Request, HTTP_METHOD } = useRequest();
 
   useLayoutEffect(() => {
     setUser(getUser());
   }, []);
 
+  useEffect(() => {
+    // Check the current route and set the corresponding menu item as selected
+    const currentItem = menuItems.find(
+      (item) => `/metaverse/${item.navigate}` === location.pathname
+    );
+    if (currentItem) {
+      setSelectedItem(currentItem.translationKey);
+    } else {
+      setSelectedItem(null); // No item selected if the route doesn't match
+    }
+  }, [location.pathname]);
+
   const handleClick = (item) => {
-    setSelectedItem(item.translationKey); // Set selected item
+    setSelectedItem(item.translationKey); // Set selected item on click
     navigate(`/metaverse/${item.navigate}`);
   };
 
@@ -147,7 +161,7 @@ const BtnsMenu = () => {
         <Btn
           key={index}
           isOpen={isOpen}
-          isSelected={selectedItem === item.translationKey} // Check if item is selected
+          isSelected={selectedItem === item.translationKey} // Check if the item is selected
           onClick={() => handleClick(item)}
           disabled={item.navigate === "" && item.translationKey !== "sign out"}
         >

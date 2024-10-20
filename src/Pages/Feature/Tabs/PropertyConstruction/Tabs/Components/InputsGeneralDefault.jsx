@@ -37,9 +37,10 @@ const InputsGeneralDefault = () => {
     toggleConfirmation,
     toggleIsSelectable,
     isSelectable,
-  } = useSelectedEnvironment();
-  const [feature] = useContext(FeatureContext);
+  } = useSelectedEnvironment() || {}; // Ensure default values are provided to avoid undefined context
+  const [feature] = useContext(FeatureContext) || [{}]; // Add a default empty object to avoid undefined issues
   const navigate = useNavigate();
+
   const [inputs, setInputs] = useState({
     activity_line: "",
     name: "",
@@ -47,7 +48,7 @@ const InputsGeneralDefault = () => {
     postal_code: "",
     website: "",
     description: "",
-    featureId: feature.id, // Add feature.id to inputs state
+    featureId: feature?.id || "", // Handle potential undefined feature.id
   });
 
   const handleChange = (e) => {
@@ -58,13 +59,14 @@ const InputsGeneralDefault = () => {
       ...(name === "featureId" && { featureId: value }),
     }));
   };
+
   const handleButtonClick = () => {
-    if (isSelectable) {
+    if (!isSelectable) {
       ToastError("محیطی انتخاب نکردید");
     } else {
-      updateFormState(inputs); // Update form state with inputs
-      toggleConfirmation();
-      toggleIsSelectable(); // Allow selection
+      updateFormState(inputs); // Ensure inputs are passed correctly
+      toggleConfirmation && toggleConfirmation();
+      toggleIsSelectable && toggleIsSelectable(); // Ensure toggle functions exist
       navigate("/metaverse");
     }
   };

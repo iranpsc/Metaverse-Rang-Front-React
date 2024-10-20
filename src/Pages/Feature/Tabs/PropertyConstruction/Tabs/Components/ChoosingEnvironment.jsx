@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { FeatureContext } from "../../../../Context/FeatureProvider";
-import { useNavigate } from "react-router-dom";
+
 import useRequest from "../../../../../../Services/Hooks/useRequest";
 import { ReactComponent as Eye } from "../../../../../../Assets/svg/eye.svg";
-import Modal from "../../../../../../Components/Modal";
+
 import PreviewModel from "./PreviewModel";
 import { useSelectedEnvironment } from "../../../../../../Services/Reducers/SelectedEnvironmentContext";
 
@@ -74,7 +74,7 @@ const ChoosingEnvironment = () => {
   const [coordinates, setCoordinates] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const { addSelectedEnvironment, hiddenModel, setHiddenModel, isSelectable } =
-    useSelectedEnvironment();
+    useSelectedEnvironment() || {};
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -96,7 +96,7 @@ const ChoosingEnvironment = () => {
     };
     fetchData();
   }, [page]);
-  console.log(coordinates);
+
   useEffect(() => {
     const handleScroll = (e) => {
       if (

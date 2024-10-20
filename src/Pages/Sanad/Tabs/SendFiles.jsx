@@ -4,6 +4,7 @@ import nonPhoto from "../../../Assets/images/file.png";
 import remove from "../../../Assets/images/remove.png";
 import styled from "styled-components";
 import Title from "../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const Files = styled.div`
   display: flex;
@@ -74,54 +75,40 @@ const ErrorMessage = styled.div`
   margin: 10px 0;
 `;
 
-const SendFiles = ({ files, onFilesChange }) => {
-  const [previews, setPreviews] = useState([]);
+const SendFiles = ({ fileUrl, onFileChange }) => {
+  const [preview, setPreview] = useState("");
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
   const MAX_FILE_SIZE_MB = 9;
 
   useEffect(() => {
-    const filePreviews = files.map((file) =>
-      file.type.startsWith("image/") ? URL.createObjectURL(file) : nonPhoto
-    );
-    setPreviews(filePreviews);
-
-    return () => {
-      filePreviews.forEach((preview) => URL.revokeObjectURL(preview));
-    };
-  }, [files]);
+    if (fileUrl) {
+      setPreview(fileUrl);
+    }
+  }, [fileUrl]);
 
   const fileHandler = (e) => {
     setError("");
 
-    const newFiles = Array.from(e.target.files);
-    let newPreviews = [];
-    let isError = false;
-
-    newFiles.forEach((file) => {
-      if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+    const newFile = e.target.files[0];
+    if (newFile) {
+      if (newFile.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
         setError(
-          `سایز ${file.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`
+          `سایز ${newFile.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`
         );
-        isError = true;
       } else {
-        newPreviews.push(
-          file.type.startsWith("image/") ? URL.createObjectURL(file) : nonPhoto
-        );
+        const newPreview = newFile.type.startsWith("image/")
+          ? URL.createObjectURL(newFile)
+          : nonPhoto;
+        setPreview(newPreview);
+        onFileChange(newFile);
       }
-    });
-
-    if (!isError) {
-      setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
-      onFilesChange([...files, ...newFiles]);
     }
   };
 
-  const removeFile = (index) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    const updatedPreviews = previews.filter((_, i) => i !== index);
-    setPreviews(updatedPreviews);
-    onFilesChange(updatedFiles); // Notify parent of file removal
+  const removeFile = () => {
+    setPreview("");
+    onFileChange(null); // Notify parent of file removal
   };
 
   const handleDivClick = () => {
@@ -130,21 +117,23 @@ const SendFiles = ({ files, onFilesChange }) => {
 
   return (
     <Container>
-      <Title title="ضمینه سند" />
+      <Title
+        title={getFieldTranslationByNames("send-vod", "document attachment")}
+      />
       <Files>
-        {previews.map((preview, index) => (
-          <FilePreview key={index}>
-            <FileImage src={preview} alt={`file-preview-${index}`} />
+        {preview && (
+          <FilePreview>
+            <FileImage src={preview} alt="file-preview" />
             <RemoveButton
               src={remove}
               alt="remove"
               width={36}
               height={36}
-              onClick={() => removeFile(index)}
+              onClick={removeFile}
             />
           </FilePreview>
-        ))}
-        {files.length < 5 && (
+        )}
+        {!preview && (
           <Div onClick={handleDivClick}>
             <span>+</span>
             <HiddenInput

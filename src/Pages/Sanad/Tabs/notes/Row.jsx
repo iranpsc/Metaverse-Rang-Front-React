@@ -5,6 +5,7 @@ import NoteDetails from "./NoteDetails";
 import styled from "styled-components";
 import Button from "../../../../Components/Button";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const TableRow = styled.tr`
   background-color: transparent;
@@ -97,7 +98,11 @@ const Row = ({ id, code, title, publish_date, name, description, files }) => {
             <div onClick={removeNoteHandler}>
               <FiTrash2 size={20} />
             </div>
-            <Button label="مشاهده" grayTheme onclick={onClickHandler} />
+            <Button
+              label={getFieldTranslationByNames("send-vod", "view")}
+              grayTheme
+              onclick={onClickHandler}
+            />
           </Buttons>
         </TableCell>
       </TableRow>

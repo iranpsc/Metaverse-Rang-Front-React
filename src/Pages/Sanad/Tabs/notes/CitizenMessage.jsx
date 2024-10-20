@@ -1,6 +1,7 @@
 import React from "react";
 import download from "../../../../Assets/images/download.png";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Content = styled.div`
   width: 100%;
@@ -98,7 +99,7 @@ const CitizenMessage = ({ data }) => {
     <Container>
       <Content>
         <Files>
-          <h2>متن یادداشت</h2>
+          <h2>{getFieldTranslationByNames("send-vod", "note text")}</h2>
           <p>{stripHtmlTags(data?.content)}</p>
           <div>
             {filePreview.url && (
@@ -110,7 +111,7 @@ const CitizenMessage = ({ data }) => {
                   height={179}
                 />
                 <Download
-                  src={download}
+                  src={data.attachment}
                   alt="download"
                   width={36}
                   height={36}

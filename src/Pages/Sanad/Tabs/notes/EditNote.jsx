@@ -6,6 +6,7 @@ import SendFiles from "../SendFiles";
 import styled from "styled-components";
 import { AlertContext } from "../../../../Services/Reducers/AlertContext";
 import Button from "../../../../Components/Button";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Buttons = styled.div`
   display: flex;
@@ -24,10 +25,12 @@ const EditNote = ({ setIsEditing, data }) => {
   const { alert, setAlert } = useContext(AlertContext);
   const [localDescription, setLocalDescription] = useState(data.content);
   const [localFiles, setLocalFiles] = useState(data.attachment);
+
+  const { Request, HTTP_METHOD } = useRequest();
+
   useEffect(() => {
-    setLocalDescription(description);
-    setLocalFiles(files);
-  }, [description, files]);
+    setLocalFiles(data.attachment);
+  }, [localFiles]);
 
   useEffect(() => {
     if (alert) {
@@ -40,17 +43,24 @@ const EditNote = ({ setIsEditing, data }) => {
   }, [alert, setAlert]);
 
   const handleSave = () => {
-    dispatch({
-      type: "UPDATE_NOTE",
-      payload: {
-        id: data.id,
-        description: localDescription,
-        files: localFiles,
-      }, // Include `id` in the payload
-    });
+    const formData = new FormData();
+    formData.append("content", localDescription);
+    if (localFiles) {
+      formData.append("attachment", localFiles);
+    }
 
-    console.log("Note updated successfully!");
-    setIsEditing(false);
+    const headers = localFiles ? { "Content-Type": "multipart/form-data" } : {};
+
+    Request(`notes/${data.id}`, HTTP_METHOD.PUT, formData, headers)
+      .then((response) => {
+        dispatch({
+          type: "UPDATE_NOTE",
+          payload: response.data.data,
+        });
+        setAlert(true);
+        setIsEditing(false);
+      })
+      .catch(() => setAlert("خطا در به‌روزرسانی یادداشت."));
   };
 
   return (
@@ -60,13 +70,22 @@ const EditNote = ({ setIsEditing, data }) => {
         onChange={(newDescription) => setLocalDescription(newDescription)}
       />
       <SendFiles
-        files={localFiles}
-        onFilesChange={(newFiles) => setLocalFiles(newFiles)}
+        fileUrl={localFiles}
+        onFileChange={(newFiles) => setLocalFiles(newFiles)}
       />
 
       <Buttons>
-        <Button fit label="ذخیره" onclick={handleSave} />
-        <Button grayTheme fit label="لغو" onclick={() => setIsEditing(false)} />
+        <Button
+          fit
+          label={getFieldTranslationByNames("send-vod", "save")}
+          onclick={handleSave}
+        />
+        <Button
+          grayTheme
+          fit
+          label={getFieldTranslationByNames("send-vod", "cancel")}
+          onclick={() => setIsEditing(false)}
+        />
       </Buttons>
     </Container>
   );
