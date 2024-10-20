@@ -180,6 +180,7 @@ const BtnsAfterLogin = () => {
           interactive={true}
           delay={50}
           animation="scale"
+          key={index}
         >
           <Btn
             key={index}

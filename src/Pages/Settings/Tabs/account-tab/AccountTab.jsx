@@ -3,6 +3,7 @@ import ChangeCard from "./ChangeCard";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding-top: 20px;
@@ -62,12 +63,18 @@ const AccountTab = () => {
     if (Object.keys(settings).length > 0) {
       setEmailChange((prevState) => ({
         ...prevState,
-        warn: `فقط ${settings.email_reset_count} بار می توانید ایمیل خود را عوض کنید`,
+        warn: `${settings.email_reset_count}  ${getFieldTranslationByNames(
+          "setting",
+          "you can change your email"
+        )}`,
       }));
 
       setMobileChange((prevState) => ({
         ...prevState,
-        warn: `فقط ${settings.phone_reset_count} بار می توانید شماره موبایل خود را عوض کنید`,
+        warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(
+          "setting",
+          "you can change your email"
+        )}`,
       }));
     }
   }, [settings]);
