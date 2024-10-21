@@ -1,11 +1,16 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import Input from "../../../../../../Components/Inputs/Input";
+
 import Submit from "../../../../../../Components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../../../../Services/Reducers/SelectedEnvironmentContext";
 import { useNavigate } from "react-router-dom";
-import { ToastError } from "../../../../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../../../../Services/Utility";
 import { FeatureContext } from "../../../../Context/FeatureProvider";
+import Input from "../../../../../../Components/Input";
+import Button from "../../../../../../Components/Button";
 
 const Container = styled.div`
   display: flex;
@@ -25,7 +30,7 @@ const InputSize = styled.div`
   width: 139%;
 `;
 const P = styled.p`
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.otherColors.text};
   font-size: 16px;
   font-weight: 400;
 `;
@@ -59,7 +64,7 @@ const InputsGeneralDefault = () => {
       ...(name === "featureId" && { featureId: value }),
     }));
   };
-
+  console.log(isSelectable);
   const handleButtonClick = () => {
     if (!isSelectable) {
       ToastError("محیطی انتخاب نکردید");
@@ -70,66 +75,75 @@ const InputsGeneralDefault = () => {
       navigate("/metaverse");
     }
   };
-
   return (
     <Container>
       <DivHeader>
         <InputSize>
           <Input
             name="activity_line"
-            placeholder={"رشته فعالیت "}
-            value={inputs.activity_line}
-            onChange={handleChange}
+            placeholder={getFieldTranslationByNames(
+              "property-information",
+              "activity line"
+            )}
+            onchange={handleChange}
           />
         </InputSize>
         <Input
           name="name"
-          placeholder={"نام مجموعه "}
-          value={inputs.name}
-          onChange={handleChange}
+          placeholder={getFieldTranslationByNames(
+            "property-information",
+            "collection name"
+          )}
+          onchange={handleChange}
         />
       </DivHeader>
       <Input
         name="address"
-        placeholder={"آدرس فیزیکی مجموعه  "}
-        value={inputs.address}
-        onChange={handleChange}
+        placeholder={getFieldTranslationByNames(
+          "property-information",
+          "physical address of the complex"
+        )}
+        onchange={handleChange}
       />
       <DivHeader>
         <Input
           name="postal_code"
-          placeholder={"کد پستی فیزیکی مجموعه"}
-          value={inputs.postal_code}
-          onChange={handleChange}
+          placeholder={getFieldTranslationByNames(
+            "property-information",
+            "the physical postal code of the collection"
+          )}
+          onchange={handleChange}
         />
         <Input
           name="website"
-          placeholder={"آدرس وب سایت"}
-          value={inputs.website}
-          onChange={handleChange}
+          placeholder={getFieldTranslationByNames(
+            "property-information",
+            "website address"
+          )}
+          onchange={handleChange}
         />
       </DivHeader>
       <Input
         name="description"
-        placeholder={"هدف تاسیس"}
+        placeholder={getFieldTranslationByNames(
+          "property-information",
+          "the purpose of the establishment"
+        )}
         style={{ height: "220px" }}
-        value={inputs.description}
-        onChange={handleChange}
+        onchange={handleChange}
       />
       <P>
-        در هنگام ساخت یک سازه بر روی ملک امکان قیمت گداری ملک بسته و تا پایان
-        ساخت شما قادر به فروش ملک نخواهید بود.
+        {getFieldTranslationByNames(
+          "property-information",
+          "when building a structure on the property, the possibility of pricing the property is closed and you will not be able to sell the property until the construction is finished."
+        )}
       </P>
-      <Submit
-        text="ساخت ملک پیش فرض"
-        type="primary"
-        options={{
-          style: {
-            width: "190px",
-            alignSelf: "start",
-          },
-          onClick: handleButtonClick,
-        }}
+      <Button
+        label={getFieldTranslationByNames(
+          "property-information",
+          "default property construction"
+        )}
+        onclick={handleButtonClick}
       />
     </Container>
   );

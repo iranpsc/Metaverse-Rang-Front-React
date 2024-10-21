@@ -41,7 +41,6 @@ const Container = styled.section`
 `;
 
 function App() {
-  console.log(useTranslation());
   useLayoutEffect(() => {
     window.Echo = new Echo({
       broadcaster: "pusher",
@@ -64,27 +63,27 @@ function App() {
           <UserProvider>
             <WalletProvider>
               <FollowProvider>
-                <MapContextProvider>
-                  <AlertProvider>
-                    <BrowserRouter>
-                      <Routers />
-                      <Container>
-                        <MenuContextProvider>
-                          <Menu />
-                        </MenuContextProvider>
-                        <SelectedEnvironmentProvider>
+                <SelectedEnvironmentProvider>
+                  <MapContextProvider>
+                    <AlertProvider>
+                      <BrowserRouter>
+                        <Routers />
+                        <Container>
+                          <MenuContextProvider>
+                            <Menu />
+                          </MenuContextProvider>
                           <MapTreeD />
-                        </SelectedEnvironmentProvider>
-                        <StatusBar />
-                      </Container>
+                          <StatusBar />
+                        </Container>
 
-                      <Toaster
-                        containerStyle={{ zIndex: 100000, marginBottom: 48 }}
-                        position="bottom-right"
-                      />
-                    </BrowserRouter>
-                  </AlertProvider>
-                </MapContextProvider>
+                        <Toaster
+                          containerStyle={{ zIndex: 100000, marginBottom: 48 }}
+                          position="bottom-right"
+                        />
+                      </BrowserRouter>
+                    </AlertProvider>
+                  </MapContextProvider>
+                </SelectedEnvironmentProvider>
               </FollowProvider>
             </WalletProvider>
           </UserProvider>
