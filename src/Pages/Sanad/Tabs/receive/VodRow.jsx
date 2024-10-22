@@ -97,29 +97,42 @@ const VodRow = ({
           <Date>{title}</Date>
         </TableCell>
         <TableCell>
-          <Status>{sender}</Status>
+          <Status>{sender.name}</Status>
         </TableCell>
         <TableCell>
           <Title
             style={{
               color: `${
-                status === "confirmed"
+                status === 1
                   ? "#18C08F"
-                  : status === "pending"
+                  : status === 4
                   ? "#FFC700"
-                  : status === "read"
+                  : status === 3
                   ? "#A0A0AB"
+                  : status === 0
+                  ? "#18C08F"
                   : "#C30000"
               }`,
             }}
           >
-            {status === "confirmed"
-              ? getFieldTranslationByNames("send-vod", "answered")
-              : status === "pending"
-              ? getFieldTranslationByNames("send-vod", "not opened")
-              : status === "read"
-              ? getFieldTranslationByNames("send-vod", "read")
-              : getFieldTranslationByNames("send-vod", "closed")}
+            {(() => {
+              switch (status) {
+                case 0:
+                  return getFieldTranslationByNames("send-vod", "new");
+                case 1:
+                  return getFieldTranslationByNames("send-vod", "answered");
+                case 2:
+                  return getFieldTranslationByNames("send-vod", "read");
+                case 3:
+                  return getFieldTranslationByNames("send-vod", "not opened");
+                case 4:
+                  return getFieldTranslationByNames("send-vod", "read");
+                case 5:
+                  return getFieldTranslationByNames("send-vod", "closed");
+                default:
+                  return "";
+              }
+            })()}
           </Title>
         </TableCell>
         <TableCell>

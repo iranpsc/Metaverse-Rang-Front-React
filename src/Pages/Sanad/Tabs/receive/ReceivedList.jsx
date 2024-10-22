@@ -112,7 +112,7 @@ const ReceivedList = () => {
   const { Request } = useRequest();
 
   useEffect(() => {
-    Request("tickets/recieved").then((response) => {
+    Request("tickets?recieved=1").then((response) => {
       setRows((tickets) => [...tickets, ...response.data.data]);
     });
   }, []);
