@@ -142,7 +142,7 @@ const VodCard = ({ data }) => {
       <Content>
         <Subject>
           <Label>{getFieldTranslationByNames("send-vod", "sender")}</Label>
-          <h2>{data.sender}</h2>
+          <h2>{data.sender.name}</h2>
         </Subject>
         <Status status={data?.status}>
           <Label>{getFieldTranslationByNames("send-vod", "status")}</Label>

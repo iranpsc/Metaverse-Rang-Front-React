@@ -20,7 +20,7 @@ const Label = styled.div`
     props.menu
       ? props.theme.colors.primary
       : props.theme.colors.newColors.shades.title};
-  padding: 8px 25px;
+  padding: 8px 10px;
   cursor: pointer;
   border-right: 2px solid
     ${(props) => (props.menu ? props.theme.colors.primary : "transparent")};

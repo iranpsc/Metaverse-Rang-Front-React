@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { FeatureContext } from "../../../../Context/FeatureProvider";
-import { useNavigate } from "react-router-dom";
+
 import useRequest from "../../../../../../Services/Hooks/useRequest";
 import { ReactComponent as Eye } from "../../../../../../Assets/svg/eye.svg";
-import Modal from "../../../../../../Components/Modal";
+
 import PreviewModel from "./PreviewModel";
 import { useSelectedEnvironment } from "../../../../../../Services/Reducers/SelectedEnvironmentContext";
 
@@ -14,7 +14,6 @@ const Container = styled.div`
   display: grid;
   overflow-y: scroll;
   width: 40%;
-  height: 500px;
 `;
 
 const Img = styled.img`
@@ -28,7 +27,7 @@ const ViewIcon = styled(Eye)`
 `;
 
 const ViewHolder = styled.button`
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.newColors.shades.bgOne};
   width: 30px;
   height: 30px;
   border-radius: 60px;
@@ -49,7 +48,7 @@ const ImgHolder = styled.div`
 `;
 
 const SelectorEnvironment = styled.button`
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.newColors.shades.bgOne};
   width: 25px;
   height: 25px;
   border-radius: 60px;
@@ -59,7 +58,8 @@ const SelectorEnvironment = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid ${(props) => props.theme.colors.primary};
+  border: 2px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   padding: 4px;
   &.active {
     background-color: ${(props) => props.theme.colors.primary};
@@ -74,7 +74,7 @@ const ChoosingEnvironment = () => {
   const [coordinates, setCoordinates] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const { addSelectedEnvironment, hiddenModel, setHiddenModel, isSelectable } =
-    useSelectedEnvironment();
+    useSelectedEnvironment() || {};
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -96,7 +96,7 @@ const ChoosingEnvironment = () => {
     };
     fetchData();
   }, [page]);
-  console.log(coordinates);
+
   useEffect(() => {
     const handleScroll = (e) => {
       if (
@@ -113,11 +113,11 @@ const ChoosingEnvironment = () => {
 
   const handleSelectorClick = (index) => {
     setActiveIndex(index);
-    // Prevent selection if not selectable
     addSelectedEnvironment({
       ...data[index],
       coordinates: coordinates[0],
     });
+
     if (!isSelectable) return;
     if (hiddenModel) {
       setHiddenModel(false);

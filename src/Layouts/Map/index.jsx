@@ -8,10 +8,12 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
 import Mark from "./3dModelMap/Mark";
 import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
-import { ReactComponent as unZoom } from "../../Assets/images/UnZoom.svg";
-import { ReactComponent as zoom } from "../../Assets/images/zoom.svg";
-import { ReactComponent as fullPage } from "../../Assets/images/fullPage.svg";
+import { ReactComponent as UnZoomIcon } from "../../Assets/images/UnZoom.svg";
+import { ReactComponent as ZoomIcon } from "../../Assets/images/zoom.svg";
+import { ReactComponent as FullPageIcon } from "../../Assets/images/fullPage.svg";
+import { useLanguage } from "../../Services/Reducers/LanguageContext";
 
+// Styled components
 const Container = styled.div`
   width: 101%;
   height: 100%;
@@ -31,16 +33,14 @@ const ZoomContainer = styled.div`
   flex-direction: column;
   position: absolute;
   top: 10px;
-  ${(props) => {
-    const direction = document.body.dir || "ltr";
-    return direction === "ltr" ? `right: ${"10px"}` : `left: ${"10px"}`;
-  }};
+  ${(props) => (props.isPersian ? "left" : "right")}: 10px;
   padding: 3px;
   border-radius: 7px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.bgContainer};
 `;
-const ZoomControlContainer = styled.div`
+
+const ControlContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -50,110 +50,53 @@ const ZoomControlContainer = styled.div`
   height: 28px;
 `;
 
-const UnZoomControlContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  z-index: 1;
-  border-radius: 10px;
-  width: 28px;
-  height: 28px;
-`;
 const FullscreenControlContainer = styled.div`
   position: absolute;
   top: 85px;
-  ${(props) => {
-    const direction = document.body.dir || "ltr";
-    return direction === "ltr" ? `right: ${"10px"}` : `left: ${"10px"}`;
-  }};
+  ${(props) => (props.isPersian ? "left" : "right")}: 10px;
   z-index: 1;
   border-radius: 10px;
   width: 33px;
   height: 33px;
   padding: 5px;
-  border-radius: 7px;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.bgContainer};
-`;
-const FullscreenMapContainer = styled.div`
-  position: absolute;
-  top: 125px;
-  ${(props) => {
-    const direction = document.body.dir || "ltr";
-    return direction === "ltr" ? `right: ${"10px"}` : `left: ${"10px"}`;
-  }};
-  z-index: 1;
-  border-radius: 10px;
-  width: 33px;
-  height: 33px;
-  padding: 5px;
-  border-radius: 7px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.bgContainer};
 `;
 
-const CustomZoomInButton = styled(zoom)`
-  width: 100%;
-  height: 100%;
-  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
-  cursor: pointer;
-`;
-const CustomZoomOutButton = styled(unZoom)`
+const CustomButton = styled.div`
   width: 100%;
   height: 100%;
   fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
   cursor: pointer;
 `;
 
-const CustomFullscreenButton = styled(fullPage)`
-  width: 100%;
-  height: 100%;
-  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
-  cursor: pointer;
-`;
-const CustomFullscreenMapButton = styled(fullPage)`
-  width: 100%;
-  height: 100%;
-  fill: ${(props) => props.theme.colors.newColors.otherColors.iconText};
-  cursor: pointer;
-  rotate: 45deg;
-`;
 export const TransactionContext = createContext();
+
 const MapTreeD = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   const { setUserWithToken, setUser } = useAuth();
   const mapRef = useRef(null);
   const [isFullScreen, setFullScreen] = useState(false);
   const [isFullScreenMap, setFullScreenMap] = useState(false);
+  const navigator = useNavigate();
+  const [zoomLevel, setZoomLevel] = useState(12);
+  const { confirmation, selectedEnvironment, hiddenModel } =
+    useSelectedEnvironment();
+  const isPersian = useLanguage();
 
   useEffect(() => {
     if (isFullScreen && screen.orientation) {
-      screen.orientation.lock("landscape-primary").catch((error) => {
-        console.error("Failed to change to landscape mode:", error);
-      });
+      screen.orientation.lock("landscape-primary").catch(console.error);
     }
   }, [isFullScreen]);
 
   const toggleFullScreen = () => {
+    const docElement = document.documentElement;
     if (!isFullScreen) {
-      const docElement = document.documentElement;
-      const requestFullScreen =
-        docElement.requestFullscreen ||
-        docElement.mozRequestFullScreen ||
-        docElement.webkitRequestFullscreen ||
-        docElement.msRequestFullscreen;
-
-      requestFullScreen.call(docElement);
+      docElement.requestFullscreen?.();
     } else {
-      const exitFullScreen =
-        document.exitFullscreen ||
-        document.mozCancelFullScreen ||
-        document.webkitExitFullscreen ||
-        document.msExitFullscreen;
-
-      exitFullScreen.call(document);
+      document.exitFullscreen?.();
     }
-
     setFullScreen(!isFullScreen);
   };
 
@@ -173,22 +116,9 @@ const MapTreeD = () => {
     }
   }, []);
 
-  const navigator = useNavigate();
-  const [zoomLevel, setZoomLevel] = useState(12);
-  const { confirmation, selectedEnvironment, hiddenModel } =
-    useSelectedEnvironment();
-
-  const handleZoomIn = () => {
+  const handleZoomChange = (delta) => {
     if (mapRef.current) {
-      const newZoomLevel = zoomLevel + 1;
-      mapRef.current.zoomTo(newZoomLevel);
-      setZoomLevel(newZoomLevel);
-    }
-  };
-
-  const handleZoomOut = () => {
-    if (mapRef.current) {
-      const newZoomLevel = zoomLevel - 1;
+      const newZoomLevel = zoomLevel + delta;
       mapRef.current.zoomTo(newZoomLevel);
       setZoomLevel(newZoomLevel);
     }
@@ -235,20 +165,30 @@ const MapTreeD = () => {
           <MapPolygons />
           <MapFlag />
         </Map>
-        <ZoomContainer>
-          <ZoomControlContainer>
-            <CustomZoomInButton onClick={handleZoomIn} />
-          </ZoomControlContainer>
-          <UnZoomControlContainer>
-            <CustomZoomOutButton onClick={handleZoomOut} />
-          </UnZoomControlContainer>
+        <ZoomContainer isPersian={isPersian}>
+          <ControlContainer>
+            <CustomButton as={ZoomIcon} onClick={() => handleZoomChange(1)} />
+          </ControlContainer>
+          <ControlContainer>
+            <CustomButton
+              as={UnZoomIcon}
+              onClick={() => handleZoomChange(-1)}
+            />
+          </ControlContainer>
         </ZoomContainer>
-        <FullscreenControlContainer>
-          <CustomFullscreenButton onClick={toggleFullScreen} />
+        <FullscreenControlContainer isPersian={isPersian}>
+          <CustomButton as={FullPageIcon} onClick={toggleFullScreen} />
         </FullscreenControlContainer>
-        <FullscreenMapContainer>
-          <CustomFullscreenMapButton onClick={handleFullscreenToggle} />
-        </FullscreenMapContainer>
+        <FullscreenControlContainer
+          style={{ top: "125px" }}
+          isPersian={isPersian}
+        >
+          <CustomButton
+            as={FullPageIcon}
+            style={{ transform: "rotate(45deg)" }}
+            onClick={handleFullscreenToggle}
+          />
+        </FullscreenControlContainer>
       </Container>
     </TransactionContext.Provider>
   );

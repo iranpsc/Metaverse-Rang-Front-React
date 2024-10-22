@@ -4,6 +4,7 @@ import nonPhoto from "../../../../Assets/images/file.png";
 import remove from "../../../../Assets/images/remove.png";
 import styled from "styled-components";
 import Title from "../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Files = styled.div`
   display: flex;
@@ -142,7 +143,9 @@ const SendNote = ({ files, setFiles }) => {
 
   return (
     <Container>
-      <Title title="ضمینه یادداشت" />
+      <Title
+        title={getFieldTranslationByNames("send-vod", "note attachment")}
+      />
       <Wrapper>
         {files.length < 5 && (
           <Div onClick={handleDivClick}>

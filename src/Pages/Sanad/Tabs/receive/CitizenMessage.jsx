@@ -117,13 +117,12 @@ const handleDownload = (url, filename) => {
   link.click();
   document.body.removeChild(link);
 };
-
 const CitizenMessage = ({ data }) => {
   return (
     <Container>
       <Content>
         <Header>
-          <span>{data?.sender}</span>
+          <span>{data?.sender.name}</span>
           <a
             href="https://rgb.irpsc.com/fa/citizens/hm-2000001"
             target="_blank"
@@ -160,7 +159,12 @@ const CitizenMessage = ({ data }) => {
           </Files>
         ) : null}
       </Content>
-      <Avatar src={avatar} alt="avatar" width={50} height={50} />
+      <Avatar
+        src={data?.sender["profile-photo"]} // Use bracket notation for properties with hyphens
+        alt="avatar"
+        width={50}
+        height={50}
+      />
     </Container>
   );
 };

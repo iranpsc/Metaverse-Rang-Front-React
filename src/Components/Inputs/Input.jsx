@@ -39,7 +39,7 @@ const InputField = styled.input`
   color: ${(props) =>
     props.validation ? props.theme.inputTextError : props.theme.inputText};
   ::placeholder {
-    color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.newColors.otherColors.text};
     font-size: 15px;
   }
 `;
@@ -47,7 +47,7 @@ const InputField = styled.input`
 const Container = styled.div`
   position: relative;
   width: 100%;
-
+  
   & svg {
     position: absolute;
     ${(props) => (document.body.dir === "ltr" ? "right: 12px;" : "left: 12px;")}

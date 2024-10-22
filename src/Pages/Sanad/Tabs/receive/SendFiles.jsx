@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { useState } from "react";
 import Title from "../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Files = styled.div`
   display: flex;
@@ -112,7 +113,9 @@ const SendFiles = ({ setFiles }) => {
 
   return (
     <Container>
-      <Title title="ضمینه یادداشت" />
+      <Title
+        title={getFieldTranslationByNames("send-vod", "document attachment")}
+      />
       <Files>
         {previews.map((preview, index) => (
           <FilePreview key={index}>
