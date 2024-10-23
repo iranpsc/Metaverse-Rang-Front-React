@@ -4,16 +4,18 @@ import ReactQuill from "react-quill";
 import { convertToPersian } from "../../../../lib/convertToPersian";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalStateProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import useRequest from "../../../../Services/Hooks/useRequest/index"; 
+import { getFieldTranslationByNames,useRTL } from "../../../../Services/Utility";
 import { useEffect, useState } from "react";
+import i18n from "../../../../i18n/i18n";
 
 const EditorContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   overflow: hidden;
   color: white;
-  direction: rtl;
+  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+  text-align: ${(props) => (props.isRTL ? "right" : "left")};
+
   margin: 10px auto;
   height: 212px;
   overflow: auto;
@@ -28,14 +30,16 @@ const EditorContainer = styled.div`
     background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
     color: ${(props) => props.theme.colors.newColors.shades.title};
     border: none;
-    direction: rtl;
-    text-align: right;
+    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+  text-align: ${(props) => (props.isRTL ? "right" : "left")}; 
+
   }
 
   .ql-editor {
     min-height: 150px;
-    direction: rtl;
-    text-align: right;
+    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+  text-align: ${(props) => (props.isRTL ? "right" : "left")}; 
+
   }
 
   .ql-editor::before {
@@ -56,28 +60,18 @@ const EditorContainer = styled.div`
   }
 
   .ql-toolbar .ql-stroke {
-    stroke: ${(props) => props.theme.colors.newColors.shades[80]};
+    stroke: ${(props) => props.theme.colors.newColors.shades.title};
   }
 
   .ql-toolbar .ql-fill {
-    fill: ${(props) => props.theme.colors.newColors.shades[80]};
+    fill: ${(props) => props.theme.colors.newColors.shades.title};
   }
 
-  .ql-toolbar .ql-picker-label,
-  .ql-toolbar .ql-picker-options {
-    color: white;
-    background-color: #444;
-  }
 
   .ql-toolbar .ql-picker-options {
     border: 1px solid #555;
   }
 
-  .ql-toolbar .ql-picker-label:hover,
-  .ql-toolbar .ql-picker-options:hover {
-    color: #ddd;
-    background-color: #555;
-  }
 `;
 
 const Char = styled.div`
@@ -85,10 +79,10 @@ const Char = styled.div`
   justify-content: end;
   align-items: center;
   gap: 5px;
-  direction: rtl;
+ direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
 
   svg {
-    color: ${({ isOverLimit }) => (isOverLimit ? "red" : "#ffffff")};
+    color: ${({ isOverLimit, theme }) => (isOverLimit ? "red" : theme.colors.newColors.shades.title)};
   }
 
   span {
@@ -105,54 +99,33 @@ const Label = styled.h2`
   font-weight: 500;
   font-size: 16px;
   margin-top: 20px;
-  direction: rtl;
+ direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
 `;
-
 const Memory = () => {
-  const { Request } = useRequest(); 
   const { state, dispatch } = useGlobalState();
   const charLimit = 2000;
+  
   const [memoryValue, setMemoryValue] = useState(""); 
-
+  const isRTL = useRTL();
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const storedData = localStorage.getItem("memory"); // بررسی داده‌ها در localStorage
-
-        if (storedData) {
-          setMemoryValue(storedData); // اگر موجود بود از localStorage بخوانید
-          dispatch({ type: "SET_MEMORY", payload: storedData });
-        } else {
-          const response = await Request("personal-info", "GET"); // درخواست API فقط در صورت نبودن داده‌ها
-
-          if (response.data && response.data.data.memory) {
-            setMemoryValue(response.data.data.memory); 
-            dispatch({ type: "SET_MEMORY", payload: response.data.data.memory });
-            localStorage.setItem("memory", response.data.data.memory); // ذخیره در localStorage
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data from API:", error);
-      }
-    };
-
-    if (!state.memory) {
-      fetchData();
+    if (state.memory) {
+      setMemoryValue(state.memory); 
     }
-  }, [dispatch, state.memory, Request]);
+  }, [ state.memory]);
+
+
 
   const handleChange = (value) => {
     if (value.length <= charLimit && value !== state.memory) {
       setMemoryValue(value); 
       dispatch({ type: "SET_MEMORY", payload: value });
-      localStorage.setItem("memory", value); // به‌روزرسانی داده‌ها در localStorage
     }
   };
 
   const currentLength = memoryValue.length;
   const remainingChars = charLimit - currentLength;
   const isOverLimit = remainingChars <= 0;
-
+  const localizedRemainingChars = i18n.language ==="fa" ? convertToPersian(remainingChars) : remainingChars;
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike", "blockquote"],
@@ -180,8 +153,8 @@ const Memory = () => {
 
   return (
     <>
-      <Label>{getFieldTranslationByNames("Citizenship-profile", "pleasant memory")}</Label>
-      <EditorContainer>
+      <Label isRTL={isRTL}>{getFieldTranslationByNames("Citizenship-profile", "pleasant memory")}</Label>
+      <EditorContainer isRTL={isRTL}>
         <ReactQuill
           value={memoryValue} 
           onChange={handleChange}
@@ -189,8 +162,8 @@ const Memory = () => {
           formats={formats}
         />
       </EditorContainer>
-      <Char isOverLimit={isOverLimit}>
-        <span>{convertToPersian(remainingChars)} {getFieldTranslationByNames("citizenship-account", "character")}</span>
+      <Char isOverLimit={isOverLimit} isRTL={isRTL}>
+        <span>{localizedRemainingChars} {getFieldTranslationByNames("citizenship-account", "character")}</span>
         <CiEdit size={20} />
       </Char>
     </>

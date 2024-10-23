@@ -1,6 +1,7 @@
 import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
 import i18n from "../../i18n/i18n";
+import { useState, useEffect } from "react";
 
 export function SanitizeHTML(content) {
   return content?.replace(/<[^>]*>?/gm, "");
@@ -35,6 +36,11 @@ export function EmailValidator(email) {
     email
   );
 }
+
+
+
+
+
 
 export const calculateFee = (number = 100, percent = 5) => {
   const parseNumber = parseInt(number);
@@ -177,4 +183,14 @@ export function convertEnglishToPersianNumbers(inputText) {
   }
 
   return inputText;
+}
+
+export function useRTL() {
+  const [isRTL, setIsRTL] = useState(i18n.language === "fa");
+
+  useEffect(() => {
+    setIsRTL(i18n.language === "fa");
+  }, [i18n.language]);
+
+  return isRTL;
 }

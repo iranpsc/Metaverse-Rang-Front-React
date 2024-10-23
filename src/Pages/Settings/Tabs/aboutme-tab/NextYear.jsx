@@ -4,16 +4,17 @@ import ReactQuill from "react-quill";
 import { convertToPersian } from "../../../../lib/convertToPersian";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalStateProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import useRequest from "../../../../Services/Hooks/useRequest/index"; 
-import { useEffect, useState } from "react";
+import { getFieldTranslationByNames,useRTL } from "../../../../Services/Utility";
+import { useState,useEffect } from "react";
+import i18n from "../../../../i18n/i18n";
 
 const EditorContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   overflow: hidden;
   color: white;
-  direction: rtl;
+  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+  text-align: ${(props) => (props.isRTL ? "right" : "left")};
   margin: 10px auto;
   height: 212px;
   overflow: auto;
@@ -28,14 +29,14 @@ const EditorContainer = styled.div`
     background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
     color: ${(props) => props.theme.colors.newColors.shades.title};
     border: none;
-    direction: rtl;
-    text-align: right;
+    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+    text-align: ${(props) => (props.isRTL ? "right" : "left")};
   }
 
   .ql-editor {
     min-height: 150px;
-    direction: rtl;
-    text-align: right;
+    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+    text-align: ${(props) => (props.isRTL ? "right" : "left")};
   }
 
   .ql-toolbar .ql-picker {
@@ -43,27 +44,16 @@ const EditorContainer = styled.div`
   }
 
   .ql-toolbar .ql-stroke {
-    stroke: ${(props) => props.theme.colors.newColors.shades[80]};
+    stroke: ${(props) => props.theme.colors.newColors.shades.title};
   }
 
   .ql-toolbar .ql-fill {
-    fill: ${(props) => props.theme.colors.newColors.shades[80]};
+    fill: ${(props) => props.theme.colors.newColors.shades.title};
   }
 
-  .ql-toolbar .ql-picker-label,
-  .ql-toolbar .ql-picker-options {
-    color: white;
-    background-color: #444;
-  }
 
   .ql-toolbar .ql-picker-options {
     border: 1px solid #555;
-  }
-
-  .ql-toolbar .ql-picker-label:hover,
-  .ql-toolbar .ql-picker-options:hover {
-    color: #ddd;
-    background-color: #555;
   }
 `;
 
@@ -74,6 +64,8 @@ const Label = styled.h2`
   font-weight: 500;
   font-size: 16px;
   margin-top: 20px;
+  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+
 `;
 
 const Char = styled.div`
@@ -81,67 +73,42 @@ const Char = styled.div`
   justify-content: end;
   align-items: center;
   gap: 5px;
-
-  svg {
-    color: ${({ isOverLimit }) => (isOverLimit ? "red" : "#ffffff")};
-  }
+    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+    text-align: ${(props) => (props.isRTL ? "right" : "left")};
+    svg {
+      color: ${({ isOverLimit, theme }) => (isOverLimit ? "red" : theme.colors.newColors.shades.title)};
+    }
 
   span {
     color: ${({ isOverLimit }) => (isOverLimit ? "red" : "#a0a0ab")};
     font-size: 13px;
     font-weight: 400;
   }
-`;
 
+`;
 const NextYear = () => {
-  const { Request } = useRequest(); 
   const { state, dispatch } = useGlobalState();
   const charLimit = 10000;
   const [predictionValue, setPredictionValue] = useState(""); 
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
-
+  const isRTL = useRTL();
   useEffect(() => {
-    const fetchData = async () => {
-      const storedData = localStorage.getItem("prediction"); 
-
-      if (storedData) {
-        setPredictionValue(storedData); 
-        dispatch({ type: "SET_PREDICTION", payload: storedData });
-        setIsDataLoaded(true); 
-      } else if (!isDataLoaded) { // بررسی می‌شود که درخواست دوباره ارسال نشود
-        try {
-          const response = await Request("personal-info", "GET");
-
-          if (response.data && response.data.data) {
-            const predictionData = response.data.data.prediction || "";
-            setPredictionValue(predictionData); 
-            dispatch({ type: "SET_PREDICTION", payload: predictionData });
-            localStorage.setItem("prediction", predictionData); 
-            setIsDataLoaded(true);
-          }
-        } catch (error) {
-          console.error("Error fetching data from API:", error);
-          setIsDataLoaded(true); 
-        }
-      }
-    };
-    if (!state.prediction) {
-      fetchData();
+    if (state.prediction) {
+      setPredictionValue(state.prediction); 
     }
-  }, [dispatch, isDataLoaded, Request]); // اضافه کردن `isDataLoaded` به وابستگی‌ها
+  }, [ state.prediction]);
+  
 
   const handleChange = (value) => {
     if (value.length <= charLimit) {
       setPredictionValue(value); 
       dispatch({ type: "SET_PREDICTION", payload: value });
-      localStorage.setItem("prediction", value); 
     }
   };
 
   const currentLength = predictionValue.length;
   const remainingChars = charLimit - currentLength;
   const isOverLimit = remainingChars <= 0;
-
+  const localizedRemainingChars= i18n.language ==="fa" ? convertToPersian(remainingChars) : remainingChars;
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike", "blockquote"],
@@ -174,17 +141,18 @@ const NextYear = () => {
 
   return (
     <>
-      <Label>{getFieldTranslationByNames("Citizenship-profile", "forecast 2022")}</Label>
-      <EditorContainer>
-        <ReactQuill
+      <Label isRTL={isRTL}>{getFieldTranslationByNames("Citizenship-profile", "forecast 2022")}</Label>
+      <EditorContainer isRTL={isRTL}>
+        <ReactQuill 
           value={predictionValue} 
           onChange={handleChange} 
           modules={modules}
           formats={formats}
         />
-      </EditorContainer>
-      <Char isOverLimit={isOverLimit}>
-        <span>{convertToPersian(remainingChars)} {getFieldTranslationByNames("citizenship-account", "character")}</span>
+      </EditorContainer >
+      
+      <Char isOverLimit={isOverLimit} isRTL={isRTL} >
+        <span>{localizedRemainingChars} {getFieldTranslationByNames("citizenship-account", "character")}</span>
         <CiEdit size={20} />
       </Char>
     </>

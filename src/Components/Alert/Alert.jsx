@@ -1,11 +1,13 @@
 import { BsFillExclamationOctagonFill } from "react-icons/bs";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
+import i18n from "../../i18n/i18n";
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  direction: rtl;
+  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
   border-radius: 5px;
   padding: 10px;
   display: flex;
@@ -40,8 +42,12 @@ const Text = styled.p`
   font-weight: ${(props) => (props.color ? "700" : "")};
 `;
 const Alert = ({ type, text, info, buttonText, onclick }) => {
+  const [isRTL , setIsRTL] = useState(i18n.language === "fa");
+  useEffect(() => {
+    setIsRTL(i18n.language === "fa");
+  },[i18n.language])
   return (
-    <Container type={type}>
+    <Container type={type} isRTL={isRTL}>
       <Right>
         {type === "error" ? (
           <BsFillExclamationOctagonFill />

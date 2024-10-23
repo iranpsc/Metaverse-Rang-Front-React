@@ -4,16 +4,16 @@ import ReactQuill from "react-quill";
 import { convertToPersian } from "../../../../lib/convertToPersian";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalStateProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import useRequest from "../../../../Services/Hooks/useRequest/index";
-import { useEffect, useState } from "react"; 
+import { getFieldTranslationByNames,useRTL } from "../../../../Services/Utility";
+import { useEffect, useState } from "react";
+import i18n from "../../../../i18n/i18n";
 
 const EditorContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   overflow: hidden;
   color: white;
-  direction: rtl;
+  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
   margin: 10px auto;
   height: 212px;
   overflow: auto;
@@ -28,14 +28,14 @@ const EditorContainer = styled.div`
     background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
     color: ${(props) => props.theme.colors.newColors.shades.title};
     border: none;
-    direction: rtl;
+    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
     text-align: right;
   }
 
   .ql-editor {
     min-height: 150px;
-    direction: rtl;
-    text-align: right;
+    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+    text-align: ${(props) => (props.isRTL ? "right" : "left")};
   }
 
   .ql-toolbar .ql-picker {
@@ -43,37 +43,32 @@ const EditorContainer = styled.div`
   }
 
   .ql-toolbar .ql-stroke {
-    stroke: ${(props) => props.theme.colors.newColors.shades[80]};
+    stroke: ${(props) => props.theme.colors.newColors.shades.title};
+  
   }
 
   .ql-toolbar .ql-fill {
-    fill: ${(props) => props.theme.colors.newColors.shades[80]};
+    fill: ${(props) => props.theme.colors.newColors.shades.title};
+   
+   
   }
 
-  .ql-toolbar .ql-picker-label,
-  .ql-toolbar .ql-picker-options {
-    color: white;
-    background-color: #444;
-  }
 
   .ql-toolbar .ql-picker-options {
     border: 1px solid #555;
+    
   }
-
-  .ql-toolbar .ql-picker-label:hover,
-  .ql-toolbar .ql-picker-options:hover {
-    color: #ddd;
-    background-color: #555;
-  }
+  
+  
 `;
-
 const Label = styled.h2`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   display: block;
   margin-bottom: 10px;
   font-weight: 500;
   font-size: 16px;
-  direction: rtl;
+  
+  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
 `;
 
 const Char = styled.div`
@@ -81,10 +76,11 @@ const Char = styled.div`
   justify-content: end;
   align-items: center;
   gap: 5px;
-  direction: rtl;
+  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")}
+  ;
 
   svg {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
+    color: ${({ isOverLimit, theme }) => (isOverLimit ? "red" : theme.colors.newColors.shades.title)};
   }
 
   span {
@@ -95,43 +91,20 @@ const Char = styled.div`
 `;
 
 const About = () => {
-  const { Request, HTTP_METHOD } = useRequest();
   const { state, dispatch } = useGlobalState();
   const charLimit = 10000;
-  const [aboutValue, setAboutValue] = useState(state.about || ""); 
+  const [aboutValue, setAboutValue] = useState("");
+  const isRTL = useRTL();
+
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const storedData = localStorage.getItem("about"); // بررسی کنید آیا داده‌ها در localStorage موجود هستند
-  
-        if (storedData) {
-          setAboutValue(storedData); // اگر داده‌ها موجود بود، از localStorage بخوانید
-          dispatch({ type: "SET_ABOUT", payload: storedData });
-        } else {
-          const response = await Request("personal-info", "GET"); // درخواست API وقتی داده‌ها موجود نیستند
-  
-          if (response.data && response.data.data.about) {
-            setAboutValue(response.data.data.about); 
-            console.log("data is", response.data.data);
-            
-            dispatch({ type: "SET_ABOUT", payload: response.data.data.about });
-  
-            localStorage.setItem("about", response.data.data.about); // ذخیره داده‌ها در localStorage
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data from API:", error);
-      }
-    };
-  
-    if (!state.about) {
-      fetchData();
+    if (state.about) {
+      setAboutValue(state.about); 
     }
-  }, [dispatch, state.about]);
-  
+  }, [ state.about]);
 
   const handleChange = (value) => {
-    if (value.length <= charLimit && value !== state.about) {
+    if (value.length <= charLimit) {
       setAboutValue(value);
       dispatch({ type: "SET_ABOUT", payload: value });
     }
@@ -141,10 +114,17 @@ const About = () => {
   const remainingChars = charLimit - currentLength;
   const isOverLimit = remainingChars <= 0;
 
+  const localizedRemainingChars = i18n.language === 'fa' ? convertToPersian(remainingChars) : remainingChars; 
+
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
       ["link", "image", "code-block"],
       [{ align: [] }],
     ],
@@ -168,8 +148,9 @@ const About = () => {
 
   return (
     <>
-      <Label> {getFieldTranslationByNames("citizenship-account", "write about yourself")} </Label>
-      <EditorContainer>
+      <Label isRTL={isRTL}>{getFieldTranslationByNames("citizenship-account", "write about yourself")}</Label>
+
+      <EditorContainer isRTL={isRTL}>
         <ReactQuill
           value={aboutValue}
           onChange={handleChange}
@@ -177,10 +158,8 @@ const About = () => {
           formats={formats}
         />
       </EditorContainer>
-      <Char isOverLimit={isOverLimit}>
-        <span>
-          {convertToPersian(remainingChars)} {getFieldTranslationByNames("citizenship-account", "character")}
-        </span>
+      <Char isOverLimit={isOverLimit} isRTL={isRTL}>
+        <span>{localizedRemainingChars} {getFieldTranslationByNames("citizenship-account", "character")}</span>
         <CiEdit size={20} />
       </Char>
     </>

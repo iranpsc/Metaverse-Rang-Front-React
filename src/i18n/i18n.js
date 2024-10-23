@@ -4592,6 +4592,12 @@ const resources = {
                   name: "your prediction",
                   translation: "Your prediction",
                 },
+                {
+                  "id": 15007,
+                  "tab_id": 479,
+                  "name": "your information has been successfully saved",
+                  "translation": "Your information has been successfully saved"
+              },
               ],
             },
             {
@@ -15331,6 +15337,12 @@ const resources = {
                   name: "your prediction for this year",
                   translation:
                     "\u067e\u06cc\u0634 \u0628\u06cc\u0646\u06cc \u0634\u0645\u0627 \u0628\u0631\u0627\u06cc \u0627\u0645\u0633\u0627\u0644",
+                },
+                {
+                  "id": 15006,
+                  "tab_id": 480,
+                  "name": "your information has been successfully saved",
+                  "translation": "\u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0634\u0645\u0627 \u0628\u0627 \u0645\u0648\u0641\u0642\u06cc\u062a \u0630\u062e\u06cc\u0631\u0647 \u0634\u062f"
                 },
                 {
                   id: 9378,

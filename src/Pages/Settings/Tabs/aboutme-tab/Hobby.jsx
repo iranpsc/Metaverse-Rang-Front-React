@@ -15,13 +15,13 @@ import styled from "styled-components";
 import tree from "../../../../Assets/images/settings/tree.png";
 import { useGlobalState } from "./GlobalStateProvider";
 import weight from "../../../../Assets/images/settings/weight.png";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames,useRTL } from "../../../../Services/Utility";
 import { useEffect, useState } from "react";
-import useRequest from "../../../../Services/Hooks/useRequest/index";
-
+import i18n from "../../../../i18n/i18n";
 const Container = styled.div`
   margin-top: 20px;
-  direction: rtl;
+  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
+
 `;
 
 const Label = styled.label`
@@ -100,54 +100,28 @@ const CheckboxLabel = styled.label`
     gap: 8px;
   }
 `;
+
 const Hobby = () => {
   const { state, dispatch } = useGlobalState();
   const maxHobbies = 5;
   const selectedHobbiesCount = Object.keys(state.hobbies || {}).filter(key => state.hobbies[key] === 1).length; 
   const remainingHobbies = maxHobbies - selectedHobbiesCount;
   const limitReached = selectedHobbiesCount >= maxHobbies;
-  const [hobbyValue, setHobbyValue] = useState(
-    state.hobbies || JSON.parse(localStorage.getItem("hobbies")) || {} // مقداردهی اولیه از localStorage یا خالی
-  );
-  const { Request } = useRequest();
+  const localizedRemainingHobbies = i18n.language === 'fa' ? convertToPersian(remainingHobbies) : remainingHobbies; 
+  const [hobbyValue, setHobbyValue] = useState(state.hobbies || {}); 
+  const isRTL = useRTL();
 
-  // درخواست به API و ذخیره داده‌ها در localStorage و state
   useEffect(() => {
-    const savedHobbies = localStorage.getItem("hobbies");
-
-    if (!Object.keys(state.hobbies || {}).length && !savedHobbies) { 
-      const fetchData = async () => {
-        try {
-          const response = await Request("personal-info", "GET");
-          if (response.data && response.data.data.passions) {
-            const passionsData = response.data.data.passions;
-
-            setHobbyValue(passionsData);  // تنظیم مقدار در state محلی
-            dispatch({ type: "SET_HOBBIES", payload: passionsData });  // ذخیره در state کلی
-            localStorage.setItem("hobbies", JSON.stringify(passionsData)); // ذخیره در localStorage
-          }
-        } catch (error) {
-          console.error("Error fetching data from API:", error);
-        }
-      };
-
-      fetchData();
-    } else if (savedHobbies && !Object.keys(state.hobbies || {}).length) {
-      const hobbiesFromLocalStorage = JSON.parse(savedHobbies);
-      if (hobbiesFromLocalStorage) {
-        setHobbyValue(hobbiesFromLocalStorage);
-        dispatch({ type: "SET_HOBBIES", payload: hobbiesFromLocalStorage });
-      }
+    if (state.hobbies) {
+      setHobbyValue(state.hobbies); 
     }
-  }, [dispatch, state.hobbies, Request]);
+  }, [ state.hobbies]);
 
-  // مدیریت تغییرات علاقه‌مندی‌ها
   const handleHobbyChange = (hobbyKey) => {
     const updatedHobbies = { ...hobbyValue };
     updatedHobbies[hobbyKey] = updatedHobbies[hobbyKey] === 1 ? 0 : 1; 
     setHobbyValue(updatedHobbies);
     dispatch({ type: "SET_HOBBIES", payload: updatedHobbies });
-    localStorage.setItem("hobbies", JSON.stringify(updatedHobbies)); // ذخیره تغییرات جدید در localStorage
   };
 
   const hobbies = [
@@ -168,10 +142,10 @@ const Hobby = () => {
   ];
 
   return (
-    <Container>
+    <Container isRTL={isRTL}>
       <Div limitReached={limitReached}>
         <Label>{getFieldTranslationByNames("citizenship-account", "interests")}</Label>
-        <h4>{`${convertToPersian(remainingHobbies)} ${getFieldTranslationByNames("citizenship-account", "choose items")}`}</h4>
+        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames("citizenship-account", "choose items")}`}</h4>
       </Div>
       <CheckboxContainer>
         {hobbies.map((hobby) => (
