@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useGlobalState } from "./GlobalStateProvider";
-import { getFieldTranslationByNames, getFieldsByTabName,useRTL } from "../../../../Services/Utility"; 
+import { useGlobalState } from "./aboutGlobalStateProvider";
+import { getFieldTranslationByNames, getFieldsByTabName} from "../../../../Services/Utility"; 
 
 const Container = styled.div`
   margin-top: 20px;
@@ -9,7 +9,6 @@ const Container = styled.div`
   justify-content: start;
   align-items: center;
   gap: 20px;
-  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
 
   div {
     width: 100%;
@@ -58,7 +57,6 @@ const Select = styled.select`
 const EducationsAndJob = () => {
   const { state, dispatch } = useGlobalState();
   const educationFields = getFieldsByTabName("misc", "education");
-  const isRTL = useRTL();
 
 
   const handleEducationChange = (e) => {
@@ -72,7 +70,7 @@ const EducationsAndJob = () => {
   };
 
   return (
-    <Container isRTL={isRTL}>
+    <Container>
       <div>
         <Label htmlFor="education">
           {getFieldTranslationByNames("citizenship-account", "education")}

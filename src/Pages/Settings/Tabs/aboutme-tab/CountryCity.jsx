@@ -1,16 +1,14 @@
 import Dropdown from "./Dropdown";
 import styled from "styled-components";
-import { useGlobalState } from "./GlobalStateProvider";
+import { useGlobalState } from "./aboutGlobalStateProvider";
 import { useEffect, useState } from "react";
-import { getFieldTranslationByNames, getFieldsByTabName ,useRTL } from "../../../../Services/Utility";
+import { getFieldTranslationByNames, getFieldsByTabName } from "../../../../Services/Utility";
 const Container = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  direction:  ${(props) => (props.isRTL ? "rtl" : "ltr")}; 
-  text-align: ${(props) => (props.isRTL ? "right" : "left")};
-
+ 
   justify-content: space-between;
   @media (min-width: 1366px) {
     flex-direction: row;
@@ -31,102 +29,76 @@ const Label = styled.label`
   font-weight: 600;
 `;const CountryCity = () => {
   const { state, dispatch } = useGlobalState();
-  const [citiesFields, setCitiesFields] = useState([]);
-  const [countriesFields, setCountriesFields] = useState([]);
-  const [languagesFields, setLanguagesFields] = useState([]);
+  const [fields, setFields] = useState({
+    cities: [],
+    countries: [],
+    languages: []
+  });
   const [isFieldsLoaded, setIsFieldsLoaded] = useState(false);
-  const isRTL = useRTL();
-
 
   useEffect(() => {
- 
     if (!isFieldsLoaded) {
       const loadFields = () => {
-        const cities = getFieldsByTabName("misc", "iranian-cities");
-        const countries = getFieldsByTabName("misc", "countries");
-        const languages = getFieldsByTabName("misc", "languages");
-
-        setCitiesFields(cities);
-        setCountriesFields(countries);
-        setLanguagesFields(languages);
-
+        setFields({
+          cities: getFieldsByTabName("misc", "iranian-cities"),
+          countries: getFieldsByTabName("misc", "countries"),
+          languages: getFieldsByTabName("misc", "languages")
+        });
         setIsFieldsLoaded(true);
       };
-
       loadFields();
     }
   }, [isFieldsLoaded]);
 
-  const getCityTranslation = () => {
+  const getTranslation = (fieldsType, stateValue) => {
     if (!isFieldsLoaded) return "";
-    const selectedCity = citiesFields.find(field => field.name.trim().toLowerCase() === state.loved_city?.trim().toLowerCase());
-    return selectedCity ? selectedCity.translation : "";
+    const selectedField = fields[fieldsType].find(
+      (field) => field.name.trim().toLowerCase() === stateValue?.trim().toLowerCase()
+    );
+    return selectedField ? selectedField.translation : "";
   };
 
-  const getCountryTranslation = () => {
-    if (!isFieldsLoaded) return "";
-    const selectedCountry = countriesFields.find(field => field.name.trim().toLowerCase() === state.loved_country?.trim().toLowerCase());
-    return selectedCountry ? selectedCountry.translation : "";
-  };
-
-  const getLanguageTranslation = () => {
-    if (!isFieldsLoaded) return "";
-    const selectedLanguage = languagesFields.find(field => field.name.trim().toLowerCase() === state.loved_language?.trim().toLowerCase());
-    return selectedLanguage ? selectedLanguage.translation : "";
-  };
-
-  const handleCityChange = (translation) => {
-    const selectedCity = citiesFields.find(field => field.translation === translation);
-    if (selectedCity) {
-      dispatch({ type: "SET_CITY", payload: selectedCity.name });
+  const handleFieldChange = (fieldsType, translation, actionType) => {
+    const selectedField = fields[fieldsType].find((field) => field.translation === translation);
+    if (selectedField) {
+      dispatch({ type: actionType, payload: selectedField.name });
     }
   };
 
-  const handleCountryChange = (translation) => {
-    const selectedCountry = countriesFields.find(field => field.translation === translation);
-    if (selectedCountry) {
-      dispatch({ type: "SET_COUNTRY", payload: selectedCountry.name });
+  const options = [
+    {
+      type: "cities",
+      label: "the city you love so much",
+      stateValue: state.loved_city,
+      actionType: "SET_CITY"
+    },
+    {
+      type: "countries",
+      label: "country you love very much",
+      stateValue: state.loved_country,
+      actionType: "SET_COUNTRY"
+    },
+    {
+      type: "languages",
+      label: "language you like very much",
+      stateValue: state.loved_language,
+      actionType: "SET_LANGUAGE"
     }
-  };
-
-  const handleLanguageChange = (translation) => {
-    const selectedLanguage = languagesFields.find(field => field.translation === translation);
-    if (selectedLanguage) {
-      dispatch({ type: "SET_LANGUAGE", payload: selectedLanguage.name });
-    }
-  };
+  ];
 
   return (
-    <Container isRTL={isRTL}> 
-      <SelectContainer>
-        <Label>{getFieldTranslationByNames("citizenship-account", "the city you love so much")}</Label>
-        <Dropdown
-          options={citiesFields.map(field => field.translation)}
-          value={getCityTranslation()}
-          label={getFieldTranslationByNames("citizenship-account", "the city you love so much")}
-          onChange={handleCityChange}
-        />
-      </SelectContainer>
-
-      <SelectContainer>
-        <Label>{getFieldTranslationByNames("citizenship-account", "country you love very much")}</Label>
-        <Dropdown
-          options={countriesFields.map(field => field.translation)}
-          value={getCountryTranslation()}
-          label={getFieldTranslationByNames("citizenship-account", "country you love very much")}
-          onChange={handleCountryChange}
-        />
-      </SelectContainer>
-
-      <SelectContainer>
-        <Label>{getFieldTranslationByNames("citizenship-account", "language you like very much")}</Label>
-        <Dropdown
-          options={languagesFields.map(field => field.translation)}
-          value={getLanguageTranslation()}
-          label={getFieldTranslationByNames("citizenship-account", "language you like very much")}
-          onChange={handleLanguageChange}
-        />
-      </SelectContainer>
+    <Container>
+      {options.map((option) => (
+        <SelectContainer key={option.type}>
+          <Label>{getFieldTranslationByNames("citizenship-account", option.label)}</Label>
+          <Dropdown
+            options={fields[option.type].map((field) => field.translation)}
+            value={getTranslation(option.type, option.stateValue)}
+            label={getFieldTranslationByNames("citizenship-account", option.label)}
+            onChange={(translation) => handleFieldChange(option.type, translation, option.actionType)}
+          />
+        </SelectContainer>
+      ))}
     </Container>
   );
 };

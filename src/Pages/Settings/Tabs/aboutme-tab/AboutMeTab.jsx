@@ -1,7 +1,7 @@
 import About from "./About";
 import CountryCity from "./CountryCity";
 import EducationsAndJob from "./EducationsAndJob";
-import { GlobalStateProvider } from "./GlobalStateProvider";
+import { GlobalStateProvider } from "./aboutGlobalStateProvider";
 import Hobby from "./Hobby";
 import Memory from "./Memory";
 import Opportunity from "./Opportunity";
@@ -14,7 +14,6 @@ const Container = styled.div`
   height: 100%;
   overflow-y: auto;
   padding-right: 15px;
-  direction: ltr;
  
 `;
 

@@ -1,8 +1,8 @@
-import Button from "../../../../Components/aboutMeTab/Button";
-import Title from "../../../../Components/aboutMeTab/Title";
+import Button from "../../../../Components/Button";
+import Title from "../../../../Components/Title";
 import styled from "styled-components";
-import { useGlobalState } from "./GlobalStateProvider";
-import { getFieldTranslationByNames,useRTL } from "../../../../Services/Utility";
+import { useGlobalState } from "./aboutGlobalStateProvider";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import useRequest from "../../../../Services/Hooks/useRequest/index";
 import {  useState } from "react";
 import Alert from "../../../../Components/Alert/Alert";
@@ -11,7 +11,6 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
   justify-content: space-between;
 `;
 const Text = styled.div`
@@ -27,7 +26,6 @@ const SaveInfo = () => {
   const { Request, HTTP_METHOD } = useRequest();
   const { state } = useGlobalState();
   const [successMessage, setSuccessMessage] = useState(false); 
-  const isRTL = useRTL();
 
 
   const saveData = async () => {
@@ -60,7 +58,7 @@ const SaveInfo = () => {
         <Alert type="success" text={getFieldTranslationByNames("citizenship-account", "your information has been successfully saved")} />
       )}
 
-      <Header isRTL={isRTL}>
+      <Header>
         <Text>
           <Title title={getFieldTranslationByNames("citizenship-account", "about me")} />
           <p>

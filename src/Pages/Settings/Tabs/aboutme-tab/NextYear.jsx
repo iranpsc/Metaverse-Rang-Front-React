@@ -1,20 +1,17 @@
 import "react-quill/dist/quill.snow.css";
 import { CiEdit } from "react-icons/ci";
 import ReactQuill from "react-quill";
-import { convertToPersian } from "../../../../lib/convertToPersian";
+import { convertToPersian } from "../../../../Services/Utility/index";
 import styled from "styled-components";
-import { useGlobalState } from "./GlobalStateProvider";
-import { getFieldTranslationByNames,useRTL } from "../../../../Services/Utility";
+import { useGlobalState } from "./aboutGlobalStateProvider";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import { useState,useEffect } from "react";
-import i18n from "../../../../i18n/i18n";
 
 const EditorContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   overflow: hidden;
   color: white;
-  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
-  text-align: ${(props) => (props.isRTL ? "right" : "left")};
   margin: 10px auto;
   height: 212px;
   overflow: auto;
@@ -29,14 +26,12 @@ const EditorContainer = styled.div`
     background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
     color: ${(props) => props.theme.colors.newColors.shades.title};
     border: none;
-    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
-    text-align: ${(props) => (props.isRTL ? "right" : "left")};
   }
 
   .ql-editor {
     min-height: 150px;
-    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
-    text-align: ${(props) => (props.isRTL ? "right" : "left")};
+    text-align: unset;
+
   }
 
   .ql-toolbar .ql-picker {
@@ -64,7 +59,6 @@ const Label = styled.h2`
   font-weight: 500;
   font-size: 16px;
   margin-top: 20px;
-  direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
 
 `;
 
@@ -73,8 +67,6 @@ const Char = styled.div`
   justify-content: end;
   align-items: center;
   gap: 5px;
-    direction: ${(props) => (props.isRTL ? "rtl" : "ltr")};
-    text-align: ${(props) => (props.isRTL ? "right" : "left")};
     svg {
       color: ${({ isOverLimit, theme }) => (isOverLimit ? "red" : theme.colors.newColors.shades.title)};
     }
@@ -90,7 +82,6 @@ const NextYear = () => {
   const { state, dispatch } = useGlobalState();
   const charLimit = 10000;
   const [predictionValue, setPredictionValue] = useState(""); 
-  const isRTL = useRTL();
   useEffect(() => {
     if (state.prediction) {
       setPredictionValue(state.prediction); 
@@ -108,7 +99,7 @@ const NextYear = () => {
   const currentLength = predictionValue.length;
   const remainingChars = charLimit - currentLength;
   const isOverLimit = remainingChars <= 0;
-  const localizedRemainingChars= i18n.language ==="fa" ? convertToPersian(remainingChars) : remainingChars;
+  const localizedRemainingChars=  convertToPersian(remainingChars);
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike", "blockquote"],
@@ -141,8 +132,8 @@ const NextYear = () => {
 
   return (
     <>
-      <Label isRTL={isRTL}>{getFieldTranslationByNames("Citizenship-profile", "forecast 2022")}</Label>
-      <EditorContainer isRTL={isRTL}>
+      <Label>{getFieldTranslationByNames("Citizenship-profile", "forecast 2022")}</Label>
+      <EditorContainer>
         <ReactQuill 
           value={predictionValue} 
           onChange={handleChange} 
@@ -151,7 +142,7 @@ const NextYear = () => {
         />
       </EditorContainer >
       
-      <Char isOverLimit={isOverLimit} isRTL={isRTL} >
+      <Char isOverLimit={isOverLimit} >
         <span>{localizedRemainingChars} {getFieldTranslationByNames("citizenship-account", "character")}</span>
         <CiEdit size={20} />
       </Char>
