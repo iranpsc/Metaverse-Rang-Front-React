@@ -8,7 +8,7 @@ import YellowSpray from "../../Assets/gif/yellow-color.gif";
 import Satisfaction from "../../Assets/gif/satisfaction.gif";
 import Psc from "../../Assets/gif/psc.gif";
 import Irr from "../../Assets/gif/rial.gif";
-import { convertEnglishToPersianNumbers } from "../../Services/Utility";
+import { convertToPersian } from "../../Services/Utility";
 
 const Asset = styled.div`
   display: flex;
@@ -48,7 +48,7 @@ const Line = styled.div`
 const AssetItem = ({ title, value, img, index, totalAssets }) => (
   <>
     <Asset>
-      <TextAsset>{convertEnglishToPersianNumbers(value || "0.000")}</TextAsset>
+      <TextAsset>{convertToPersian(value || "0.000")}</TextAsset>
       <ImgAsset src={img} />
     </Asset>
     {index !== totalAssets - 1 && <Line />}

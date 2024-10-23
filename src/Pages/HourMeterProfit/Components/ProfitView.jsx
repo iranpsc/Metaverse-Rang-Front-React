@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import Button from "./Button";
 import ProfitList from "./ProfitList";
 import building from "../../../Assets/images/building.png";
@@ -7,6 +7,10 @@ import house from "../../../Assets/images/house.png";
 import styled from "styled-components";
 import useRequest from "../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
+import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../Services/Reducers/WalletContext";
 
 const Scroll = styled.div`
   padding: 30px 15px 20px;
@@ -23,42 +27,44 @@ const Buttons = styled.div`
   gap: 10px;
   margin-bottom: 20px;
 `;
+
+const karbariMapping = {
+  m: {
+    title: getFieldTranslationByNames(
+      "hour-meter-profit",
+      "residential property"
+    ),
+    logo: house,
+    color: "#FFC700",
+    background: "#ffc80021",
+  },
+  t: {
+    title: getFieldTranslationByNames(
+      "hour-meter-profit",
+      "commercial property"
+    ),
+    logo: building,
+    color: "#FF0000",
+    background: "#ff000021",
+  },
+  a: {
+    title: getFieldTranslationByNames(
+      "hour-meter-profit",
+      "educational property"
+    ),
+    logo: education,
+    color: "#0066FF",
+    background: "#0066ff21",
+  },
+};
+
 const ProfitView = () => {
   const [buttons, setButtons] = useState([]);
   const [cards, setCards] = useState([]);
   const { Request, HTTP_METHOD } = useRequest();
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-
-  const karbariMapping = {
-    m: {
-      title: getFieldTranslationByNames(
-        "hour-meter-profit",
-        "residential property"
-      ),
-      logo: house,
-      color: "#FFC700",
-      background: "#ffc80021",
-    },
-    t: {
-      title: getFieldTranslationByNames(
-        "hour-meter-profit",
-        "commercial property"
-      ),
-      logo: building,
-      color: "#FF0000",
-      background: "#ff000021",
-    },
-    a: {
-      title: getFieldTranslationByNames(
-        "hour-meter-profit",
-        "educational property"
-      ),
-      logo: education,
-      color: "#0066FF",
-      background: "#0066ff21",
-    },
-  };
+  const [wallet, dispatch] = useContext(WalletContext); // WalletContext access
 
   const fetchData = useCallback(() => {
     if (!hasMore) return;
@@ -114,12 +120,30 @@ const ProfitView = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const handleScroll = (e) => {
     if (e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight) {
       fetchData();
     }
+  };
+
+  const updateWallet = (color, amount) => {
+    const updatedWallet = { ...wallet };
+
+    if (color === "#FFC700") {
+      updatedWallet.yellow =
+        (parseFloat(wallet.yellow) || 0) + parseFloat(amount);
+    } else if (color === "#FF0000") {
+      updatedWallet.red = (parseFloat(wallet.red) || 0) + parseFloat(amount);
+    } else if (color === "#0066FF") {
+      updatedWallet.blue = (parseFloat(wallet.blue) || 0) + parseFloat(amount);
+    }
+
+    dispatch({
+      type: WalletContextTypes.ADD_WALLET,
+      payload: updatedWallet,
+    });
   };
 
   const sumHandler = ({ color, value }) => {
@@ -142,6 +166,7 @@ const ProfitView = () => {
           setCards((prevCards) =>
             prevCards.filter((card) => card.color !== color)
           );
+          updateWallet(color, value); // به‌روزرسانی دارایی‌ها در کانتکست ولت
         })
         .catch(console.error);
     }
@@ -158,10 +183,11 @@ const ProfitView = () => {
           )
         );
         setCards((prevCards) => prevCards.filter((card) => card.id !== id));
+
+        updateWallet(color, amount); // به‌روزرسانی دارایی‌ها در کانتکست ولت
       })
       .catch(console.error);
   };
-  const filteredCards = cards.filter((card) => card.is_active);
 
   return (
     <Scroll onScroll={handleScroll}>
@@ -174,7 +200,7 @@ const ProfitView = () => {
           />
         ))}
       </Buttons>
-      <ProfitList cards={filteredCards} onClick={handelClick} />
+      <ProfitList cards={cards} onClick={handelClick} />
     </Scroll>
   );
 };

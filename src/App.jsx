@@ -41,6 +41,7 @@ const Container = styled.section`
 `;
 
 function App() {
+  console.log(useTranslation());
   useLayoutEffect(() => {
     window.Echo = new Echo({
       broadcaster: "pusher",
