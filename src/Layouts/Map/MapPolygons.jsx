@@ -159,7 +159,7 @@ const MapPolygons = () => {
         <Canvas latitude={36} longitude={50}>
           {buildingModels.map((model) => {
             const proxyFbxUrl = `https://middle.irpsc.com/app/?url=${model.file.url}`;
-            console.log(parseFloat(model.building.position.split(",")[0]));
+
             return (
               <Coordinates
                 key={`${model.id}-coordinates`}
