@@ -5,7 +5,7 @@ import { convertToPersian } from "../../../../Services/Utility/index";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import { useState,useEffect } from "react";
-import { EditorContainer,Label, Char} from "../../../../Services/Utility/index";
+import { EditorContainer,Label, Char} from "./editorContainerStyle";
 
 const NextYear = () => {
   const { state, dispatch } = useGlobalState();

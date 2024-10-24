@@ -27,7 +27,10 @@ const Label = styled.label`
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
-`;const CountryCity = () => {
+`;
+
+
+const CountryCity = () => {
   const { state, dispatch } = useGlobalState();
   const [fields, setFields] = useState({
     cities: [],
