@@ -146,23 +146,16 @@ const IdentityInputs = ({
     requestData.append("video[name]", JSON.parse(uploadResponse).name);
     requestData.append("video[path]", JSON.parse(uploadResponse).path);
     requestData.append("verify_text_id", textVerify.id);
+    requestData.append("_method", "put");
 
     if (errorMessages.length === 0) {
       setIdentityError(false);
-      if (kyc.status == 1) {
-        Request("kyc", HTTP_METHOD.POST, requestData, {
-          "Content-Type": "multipart/form-data",
-        }).then((res) => {
-          setSubmitted(true);
-        });
-      } else if (kyc.status == -1) {
-        requestData.append("_method", "put");
-        Request(`kyc/${kyc?.id}`, HTTP_METHOD.POST, requestData, {
-          "Content-Type": "multipart/form-data",
-        }).then((res) => {
-          setSubmitted(true);
-        });
-      }
+
+      Request(`kyc`, HTTP_METHOD.POST, requestData, {
+        "Content-Type": "multipart/form-data",
+      }).then((res) => {
+        setSubmitted(true);
+      });
     } else {
       setIdentityError(true);
     }

@@ -202,19 +202,6 @@ const TableHeader = styled.th`
     props.date ? "235px" : props.subject ? "165px" : props.title && "140px"};
 `;
 
-const Loader = styled.div`
-  margin: 10px 0;
-  padding-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  button {
-    background-color: transparent;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    border: none;
-  }
-`;
-
 const subjects = [
   { id: 1, label: "buy blue", slug: "blue", gif: blue },
   { id: 2, label: "buy red", slug: "red", gif: red },

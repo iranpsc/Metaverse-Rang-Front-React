@@ -192,7 +192,7 @@ const Profile = () => {
               <Icon src={Setting} />
               {getFieldTranslationByNames("setting", "settings")}
             </BtnNavigator>
-            <Fallowing />
+            {/* <Fallowing /> */}
             <Dynasty />
             <Union />
           </SubMenu>
