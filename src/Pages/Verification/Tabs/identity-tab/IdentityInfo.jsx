@@ -26,11 +26,16 @@ const Container = styled.div`
 
 const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
   const [showAlert, setShowAlert] = useState(true);
+
   useEffect(() => {
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 3000);
-  }, []);
+    if (!showPending) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showPending]);
+
   return (
     <Container>
       <Wrapper>
