@@ -1,5 +1,6 @@
 import { BsFillExclamationOctagonFill } from "react-icons/bs";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { AiOutlineClockCircle } from "react-icons/ai"; // آیکن جدید برای حالت در دست بررسی
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -13,12 +14,23 @@ const Container = styled.div`
   margin-bottom: 30px;
   gap: 5px;
   border: 1px solid
-    ${(props) => (props.type === "success" ? "#18C08F" : "#C30000")};
+    ${(props) =>
+      props.type === "success"
+        ? "#18C08F"
+        : props.type === "error"
+        ? "#C30000"
+        : "#FFA500"}; // رنگ برای وضعیت در دست بررسی
   svg {
-    color: ${(props) => (props.type === "success" ? "#18C08F" : "#C30000")};
+    color: ${(props) =>
+      props.type === "success"
+        ? "#18C08F"
+        : props.type === "error"
+        ? "#C30000"
+        : "#FFA500"}; // رنگ آیکن برای وضعیت در دست بررسی
     font-size: ${(props) => (props.type === "success" ? "25px" : "40px")};
   }
 `;
+
 const Right = styled.div`
   display: flex;
   justify-content: space-between;
@@ -38,12 +50,15 @@ const Text = styled.p`
     props.color ? "#C30000" : props.theme.colors.newColors.shades.title};
   font-weight: ${(props) => (props.color ? "700" : "")};
 `;
+
 const Alert = ({ type, text, info, buttonText, onclick }) => {
   return (
     <Container type={type}>
       <Right>
         {type === "error" ? (
           <BsFillExclamationOctagonFill />
+        ) : type === "pending" ? (
+          <AiOutlineClockCircle />
         ) : (
           <IoIosCheckmarkCircle />
         )}

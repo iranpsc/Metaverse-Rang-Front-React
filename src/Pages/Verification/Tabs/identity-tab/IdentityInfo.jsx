@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-
 import CardPhotos from "./CardPhotos";
 import InfoInputs from "./InfoInputs";
-
 import styled from "styled-components";
 import Title from "../../../../Components/Title";
 import Alert from "../../../../Components/Alert/Alert";
@@ -13,7 +11,6 @@ const Container = styled.div`
   padding: 20px 15px 20px 0;
   display: flex;
   flex-direction: column;
-
   gap: 10px;
   overflow-y: auto;
   height: 71%;
@@ -26,7 +23,8 @@ const Container = styled.div`
     padding-right: 0;
   }
 `;
-const IdentityInfo = ({ data, inputValues, nationalCardImg }) => {
+
+const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
   const [showAlert, setShowAlert] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -38,11 +36,18 @@ const IdentityInfo = ({ data, inputValues, nationalCardImg }) => {
       <Wrapper>
         {showAlert && (
           <Alert
-            text={getFieldTranslationByNames(
-              "authentication",
-              "your authentication has been successful"
-            )}
-            type="success"
+            text={
+              showPending
+                ? getFieldTranslationByNames(
+                    "authentication",
+                    "your request is under review"
+                  )
+                : getFieldTranslationByNames(
+                    "authentication",
+                    "your authentication has been successful"
+                  )
+            }
+            type={showPending ? "pending" : "success"}
           />
         )}
         <Title
