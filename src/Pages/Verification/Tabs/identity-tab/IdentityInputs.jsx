@@ -12,6 +12,7 @@ import useRequest from "../../../../Services/Hooks/useRequest";
 import {
   convertPersianNumbersToEnglish,
   getFieldTranslationByNames,
+  ToastError,
 } from "../../../../Services/Utility";
 
 const Wrapper = styled.div`
@@ -153,18 +154,21 @@ const IdentityInputs = ({
 
       Request(`kyc`, HTTP_METHOD.POST, requestData, {
         "Content-Type": "multipart/form-data",
-      }).then((res) => {
-        setSubmitted(true);
-      });
+      })
+        .then((res) => {
+          setSubmitted(true);
+        })
+        .catch((error) => {
+          ToastError(error.response.data.message);
+        });
     } else {
       setIdentityError(true);
     }
   };
-
   return (
     <Wrapper identityError={identityError}>
       <Container>
-        {Object.keys(identityError).length > 0 && (
+        {identityError && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
             buttonText={getFieldTranslationByNames(
