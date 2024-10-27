@@ -18,7 +18,7 @@ import weight from "../../../../Assets/images/settings/weight.png";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import { useEffect, useState } from "react";
 const Container = styled.div`
-  margin-top: 20px;
+ margin-top: 20px;
 
 `;
 
@@ -30,10 +30,17 @@ const Label = styled.label`
 
 const CheckboxContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr ;
   margin-bottom: 20px;
-  @media (min-width: 1366px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  @media (min-width: 944px) {
+    grid-template-columns: 1fr 1fr 1fr  ;
+  }
+
+  @media (min-width: 1202px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr  ;
+  }
+  @media (min-width: 1452px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
   }
 `;
 
