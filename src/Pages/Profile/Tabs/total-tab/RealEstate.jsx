@@ -25,9 +25,6 @@ const RealEstate = () => {
     Request(
       `users/${user?.id}/features/count`,
       HTTP_METHOD.GET,
-      {},
-      {},
-      "development"
     ).then((response) => {
       setAssets(response.data.data);
     });

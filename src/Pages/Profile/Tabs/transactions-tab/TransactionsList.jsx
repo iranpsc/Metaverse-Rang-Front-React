@@ -66,7 +66,7 @@ const StatusFilter = styled.div`
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  font-size: 16px;
+
   div {
     position: relative;
     &:hover {
@@ -154,7 +154,7 @@ const SubjectFilter = styled.div`
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  font-size: 16px;
+  font-size: 14px;
   div {
     position: relative;
     padding: 3px;
@@ -210,6 +210,89 @@ const subjects = [
   { id: 5, label: "buy psc currency", slug: "psc", gif: psc },
 ];
 
+const TableBody = styled.tbody``;
+
+const TableHeaderText = styled.span``;
+
+const FilterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 15px;
+`;
+
+const FilterArrows = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const RotatingArrow = styled(MdKeyboardArrowDown)`
+  transform: ${(props) => (props.isOpen ? "rotate(180deg)" : "rotate(360deg)")};
+`;
+
+const FilterItem = styled.div`
+  position: relative;
+  padding: ${(props) => props.padding || "0"};
+  background-color: ${(props) => (props.active ? "#3B3B3B" : "transparent")};
+  border-radius: ${(props) => props.borderRadius || "0"};
+  &:hover {
+    background-color: #3b3b3b;
+    color: #dedee9;
+    transition: all 0.2s linear;
+  }
+`;
+
+const FilterItemText = styled.h1`
+  font-size: 16px;
+  color: ${(props) => {
+    if (props.variant === "success") return "#18c08f";
+    if (props.variant === "pending") return "#ffc800";
+    if (props.variant === "failed") return "#ff0000";
+    return props.theme.colors.newColors.shades.title;
+  }};
+  background-color: ${(props) => {
+    if (props.variant === "success") return "#18c09017";
+    if (props.variant === "pending") return "#ffc80017";
+    if (props.variant === "failed") return "#ff000017";
+    return "transparent";
+  }};
+  font-weight: 400;
+  cursor: pointer;
+  margin: ${(props) => props.margin || "0"};
+  border-radius: 5px;
+  padding: ${(props) => props.padding || "0"};
+`;
+
+const FilterCloseButton = styled.span`
+  position: absolute;
+  left: 10px;
+  top: 3px;
+  color: red;
+  cursor: pointer;
+  font-size: 14px;
+`;
+
+const SubjectFilterItem = styled.div`
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+  align-items: center;
+  background-color: ${(props) => (props.active ? "#3B3B3B" : "transparent")};
+  margin-bottom: ${(props) => (props.isLast ? "0" : "10px")};
+  border-radius: 10px;
+  padding: 3px;
+`;
+
+const SubjectFilterImage = styled.img`
+  width: 24px;
+  height: 26px;
+`;
+
+const SubjectFilterText = styled.h3``;
+
 const TransactionsList = ({
   rows,
   title,
@@ -219,41 +302,11 @@ const TransactionsList = ({
   setTitle,
   setSubject,
 }) => {
-  const [visibleRows, setVisibleRows] = useState(10);
-  const loaderRef = useRef(null);
-
   const [filters, setFilters] = useState({
     status: false,
     title: false,
     subject: false,
   });
-
-  // Function to load more rows when near the bottom
-  const handleLoadMore = () => {
-    setVisibleRows((prevVisibleRows) => prevVisibleRows + 10);
-  };
-
-  // Set up IntersectionObserver to trigger when the loader becomes visible
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          handleLoadMore();
-        }
-      },
-      { threshold: 1 }
-    );
-
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
-    }
-
-    return () => {
-      if (loaderRef.current) {
-        observer.unobserve(loaderRef.current);
-      }
-    };
-  }, []);
 
   return (
     <Container>
@@ -261,39 +314,41 @@ const TransactionsList = ({
         <TableHead>
           <TableRow>
             <TableHeader>
-              {getFieldTranslationByNames(
-                "citizenship-account",
-                "transaction id"
-              )}
+              <TableHeaderText>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "transaction id"
+                )}
+              </TableHeaderText>
             </TableHeader>
             <TableHeader date>
-              {getFieldTranslationByNames(
-                "citizenship-account",
-                "date and time of sending"
-              )}
+              <TableHeaderText>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "date and time of sending"
+                )}
+              </TableHeaderText>
             </TableHeader>
             <TableHeader>
-              <Div>
-                {getFieldTranslationByNames("citizenship-account", "condition")}
-                <Arrows onClick={() => setFilters({ status: !filters.status })}>
-                  <MdKeyboardArrowDown
-                    style={{
-                      transform: `${
-                        filters.status ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
-                    }}
-                  />
-                </Arrows>
-              </Div>
+              <FilterContainer>
+                <TableHeaderText>
+                  {getFieldTranslationByNames(
+                    "citizenship-account",
+                    "condition"
+                  )}
+                </TableHeaderText>
+                <FilterArrows
+                  onClick={() => setFilters({ status: !filters.status })}
+                >
+                  <RotatingArrow isOpen={filters.status} />
+                </FilterArrows>
+              </FilterContainer>
               {filters.status && (
                 <StatusFilter>
-                  <div
-                    style={{
-                      backgroundColor: `${status.success && "#3B3B3B"}`,
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <h1
+                  <FilterItem active={status.success} borderRadius="5px">
+                    <FilterItemText
+                      variant="success"
+                      padding="2px 18px"
                       onClick={() => {
                         setStatus({ ...status, success: true });
                         setFilters({ ...filters, status: false });
@@ -303,25 +358,23 @@ const TransactionsList = ({
                         "citizenship-account",
                         "successful"
                       )}
-                    </h1>
+                    </FilterItemText>
                     {status.success && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setStatus({ ...status, success: false });
                           setFilters({ ...filters, status: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      backgroundColor: `${status.pending && "#3B3B3B"}`,
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <h2
+                  </FilterItem>
+
+                  <FilterItem active={status.pending} borderRadius="5px">
+                    <FilterItemText
+                      variant="pending"
+                      padding="2px 18px"
                       onClick={() => {
                         setStatus({ ...status, pending: true });
                         setFilters({ ...filters, status: false });
@@ -331,25 +384,23 @@ const TransactionsList = ({
                         "citizenship-account",
                         "suspended"
                       )}
-                    </h2>
+                    </FilterItemText>
                     {status.pending && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setStatus({ ...status, pending: false });
                           setFilters({ ...filters, status: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      backgroundColor: `${status.failed && "#3B3B3B"}`,
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <h3
+                  </FilterItem>
+
+                  <FilterItem active={status.failed} borderRadius="5px">
+                    <FilterItemText
+                      variant="failed"
+                      padding="2px 18px"
                       onClick={() => {
                         setStatus({ ...status, failed: true });
                         setFilters({ ...filters, status: false });
@@ -359,43 +410,36 @@ const TransactionsList = ({
                         "citizenship-account",
                         "unsuccessful"
                       )}
-                    </h3>
+                    </FilterItemText>
                     {status.failed && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setStatus({ ...status, failed: false });
                           setFilters({ ...filters, status: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
+                  </FilterItem>
                 </StatusFilter>
               )}
             </TableHeader>
             <TableHeader title>
-              <Div>
-                {getFieldTranslationByNames("citizenship-account", "title")}
-                <Arrows onClick={() => setFilters({ title: !filters.title })}>
-                  <MdKeyboardArrowDown
-                    style={{
-                      transform: `${
-                        filters.title ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
-                    }}
-                  />
-                </Arrows>
-              </Div>
+              <FilterContainer>
+                <TableHeaderText>
+                  {getFieldTranslationByNames("citizenship-account", "title")}
+                </TableHeaderText>
+                <FilterArrows
+                  onClick={() => setFilters({ title: !filters.title })}
+                >
+                  <RotatingArrow isOpen={filters.title} />
+                </FilterArrows>
+              </FilterContainer>
               {filters.title && (
                 <TitleFilter>
-                  <div
-                    style={{
-                      backgroundColor: `${title.property_buy && "#3B3B3B"}`,
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <h1
+                  <FilterItem active={title.property_buy} borderRadius="10px">
+                    <FilterItemText
                       onClick={() => {
                         setTitle({ ...title, property_buy: true });
                         setFilters({ ...filters, title: false });
@@ -405,25 +449,23 @@ const TransactionsList = ({
                         "citizenship-account",
                         "purchase property"
                       )}
-                    </h1>
+                    </FilterItemText>
                     {title.property_buy && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setTitle({ ...title, property_buy: false });
                           setFilters({ ...filters, title: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      backgroundColor: `${title.property_dealing && "#3B3B3B"}`,
-                      borderRadius: "10px",
-                    }}
+                  </FilterItem>
+                  <FilterItem
+                    active={title.property_dealing}
+                    borderRadius="10px"
                   >
-                    <h1
+                    <FilterItemText
                       onClick={() => {
                         setTitle({ ...title, property_dealing: true });
                         setFilters({ ...filters, title: false });
@@ -433,70 +475,57 @@ const TransactionsList = ({
                         "citizenship-account",
                         "real estate transaction"
                       )}
-                    </h1>
+                    </FilterItemText>
                     {title.property_dealing && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setTitle({ ...title, property_dealing: false });
                           setFilters({ ...filters, title: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
+                  </FilterItem>
                 </TitleFilter>
               )}
             </TableHeader>
             <TableHeader subject>
-              <Div>
-                {getFieldTranslationByNames("citizenship-account", "issue")}
-                <Arrows
+              <FilterContainer>
+                <TableHeaderText>
+                  {getFieldTranslationByNames("citizenship-account", "issue")}
+                </TableHeaderText>
+                <FilterArrows
                   onClick={() => setFilters({ subject: !filters.subject })}
                 >
-                  <MdKeyboardArrowDown
-                    style={{
-                      transform: `${
-                        filters.subject ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
-                    }}
-                  />
-                </Arrows>
-              </Div>
+                  <RotatingArrow isOpen={filters.subject} />
+                </FilterArrows>
+              </FilterContainer>
               {filters.subject && (
                 <SubjectFilter>
-                  {subjects.map((item) => (
-                    <div
+                  {subjects.map((item, index) => (
+                    <SubjectFilterItem
+                      key={item.id}
+                      active={subject[item.slug]}
+                      isLast={index === subjects.length - 1}
                       onClick={() => {
                         setSubject((prev) => ({ ...prev, [item.slug]: true }));
                         setFilters({ ...filters, subject: false });
                       }}
-                      key={item.id}
-                      style={{
-                        display: "flex",
-                        gap: "5px",
-                        cursor: "pointer",
-                        alignItems: "center",
-                        backgroundColor: `${subject[item.slug] && "#3B3B3B"}`,
-                        marginBottom: `${item.id !== 5 && "10px"}`,
-                        borderRadius: "10px",
-                      }}
                     >
-                      <img
+                      <SubjectFilterImage
                         src={item.gif}
                         alt={item.slug}
-                        width={24}
-                        height={26}
                         loading="lazy"
                       />
-                      <h3>
+                      <SubjectFilterText>
                         {getFieldTranslationByNames(
                           "citizenship-account",
                           item.label
                         )}
-                      </h3>
+                      </SubjectFilterText>
                       {subject[item.slug] && (
-                        <span
+                        <FilterCloseButton
                           onClick={(e) => {
                             setSubject((prev) => ({
                               ...prev,
@@ -507,32 +536,37 @@ const TransactionsList = ({
                           }}
                         >
                           X
-                        </span>
+                        </FilterCloseButton>
                       )}
-                    </div>
+                    </SubjectFilterItem>
                   ))}
                 </SubjectFilter>
               )}
             </TableHeader>
             <TableHeader>
-              {" "}
-              {getFieldTranslationByNames(
-                "citizenship-account",
-                "the amount of"
-              )}
+              <TableHeaderText>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "the amount of"
+                )}
+              </TableHeaderText>
             </TableHeader>
             <TableHeader>
-              {getFieldTranslationByNames("citizenship-account", "view-print")}
+              <TableHeaderText>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "view-print"
+                )}
+              </TableHeaderText>
             </TableHeader>
           </TableRow>
         </TableHead>
-        <tbody>
-          {rows.slice(0, visibleRows).map((transaction) => (
+        <TableBody>
+          {rows.map((transaction) => (
             <TransactionRow key={transaction.id} {...transaction} />
           ))}
-        </tbody>
+        </TableBody>
       </Table>
-      {visibleRows < rows.length && <div ref={loaderRef} />}
     </Container>
   );
 };
