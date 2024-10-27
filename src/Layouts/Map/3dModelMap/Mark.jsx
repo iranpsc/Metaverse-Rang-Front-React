@@ -39,7 +39,8 @@ const calculateSquareCoordinates = (center, area) => {
 };
 
 const FBXModel = memo(({ url, rotation, setLoading }) => {
-  const fbx = useLoader(FBXLoader, url, (loader) => {
+  const proxyFbxUrl = `https://middle.irpsc.com/app/?url=${url}`;
+  const fbx = useLoader(FBXLoader, proxyFbxUrl, (loader) => {
     loader.manager.onStart = () => setLoading(true);
     loader.manager.onLoad = () => setLoading(false);
     loader.manager.onError = () => setLoading(false);

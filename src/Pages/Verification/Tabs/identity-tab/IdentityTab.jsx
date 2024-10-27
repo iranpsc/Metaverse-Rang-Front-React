@@ -51,6 +51,7 @@ const initialDetails = [
     slug: "gender",
     label: "gender",
     options: [
+      { id: 0, gender: "جنسیت" },
       { id: 1, gender: "مرد" },
       { id: 2, gender: "زن" },
     ],
@@ -62,7 +63,7 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
   const [nationalCardImg, SetNationalCardImg] = useState("");
   const { Request } = useRequest();
   const [errors, setErrors] = useState([]);
-  const [details, setDetails] = useState(initialDetails); // Initialize state for details
+  const [details, setDetails] = useState(initialDetails);
 
   useEffect(() => {
     Request(`kyc`).then((response) => {
@@ -73,9 +74,8 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
           (error) => error.message
         );
         setErrors(errorNames);
-        setOpenErrorModal(true); // Open the error modal when there are errors
+        setOpenErrorModal(true);
 
-        // Update details with error flags
         const updatedDetails = initialDetails.map((detail) => {
           if (
             response.data.data.errors
@@ -111,26 +111,26 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
       gender: kyc?.gender || "",
     });
     SetNationalCardImg(kyc?.melli_card);
-    if (kyc?.status == 1) {
+
+    if (kyc?.status === 1) {
       setSubmitted(true);
+    } else if (kyc?.status === 0) {
+      setSubmitted("pending");
     }
   }, [kyc]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Update the input values
     setInputValues((prevInputValues) => ({
       ...prevInputValues,
       [name]: value,
     }));
 
-    // Remove the error for the field that is being changed
     setErrors((prevErrors) =>
       prevErrors.filter((error) => error !== `${name}_err`)
     );
 
-    // Optionally, update the details array to remove the error flag
     setDetails((prevDetails) =>
       prevDetails.map((detail) =>
         detail.slug === name ? { ...detail, error: false } : detail
@@ -153,6 +153,15 @@ const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
         setErrors={setErrors}
         setDetails={setDetails}
         kyc={kyc}
+      />
+    );
+  if (submitted === "pending")
+    return (
+      <IdentityInfo
+        data={details}
+        inputValues={inputValues}
+        nationalCardImg={nationalCardImg}
+        showPending={true} // برای نمایش حالت "در دست بررسی"
       />
     );
   if (submitted)

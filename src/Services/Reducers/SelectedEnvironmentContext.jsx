@@ -18,6 +18,7 @@ export const SelectedEnvironmentProvider = ({ children }) => {
       console.log("Updated Environment:", updatedEnvironment);
       return updatedEnvironment;
     });
+    toggleIsSelectable(); // Add this line to toggle isSelectable
   };
 
   const updateFormState = (data) => {
