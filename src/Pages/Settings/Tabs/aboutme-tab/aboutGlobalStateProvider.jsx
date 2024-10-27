@@ -75,7 +75,7 @@ export const GlobalStateProvider = ({ children }) => {
     if (!state.about) {
       fetchData(); 
     }
-  }, [state.about, dispatch]); 
+  },[]); 
 
   return (
     <aboutStateContext.Provider value={{ state, dispatch }}>
