@@ -47,6 +47,7 @@
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
     "maplibre-gl": "^3.6.2",
+    "moment-jalaali": "^0.10.1",
     "pusher-js": "^8.0.1",
     "react": "^18.2.0",
     "react-confetti-explosion": "^2.1.2",

@@ -20,6 +20,7 @@ import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import moment from "moment-jalaali";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -127,6 +128,7 @@ const TransactionsTab = () => {
     psc: false,
     rial: false,
   });
+  const [dateRange, setDateRange] = useState([null, null]);
 
   const fetchTransactions = useCallback(async () => {
     if (!hasMore || isLoading) return;
@@ -199,13 +201,19 @@ const TransactionsTab = () => {
     };
   }, [hasMore, isLoading]);
 
-  const filteredItems = transactions.filter((row, index) => {
+  // Helper function to convert Persian date string to moment object
+  const parsePersianDate = (dateString) => {
+    return moment(dateString, "jYYYY/jMM/jDD HH:mm:ss");
+  };
+
+  const filteredItems = transactions.filter((row) => {
     const codeMatch = row.id.toString().includes(searched);
     const statusMatch =
       (!status.success && !status.failed && !status.pending) ||
-      (status.success && row?.status === "1") ||
-      (status.failed && row?.status === "0") ||
-      (status.pending && row?.status === "-1");
+      (status.success && row?.status == "1") ||
+      (status.failed && row?.status == "0") ||
+      (status.pending && row?.status == "-1");
+
     const titleMatch =
       (!title.property_dealing && !title.property_buy) ||
       (title.property_dealing && row?.type === "trade") ||
@@ -222,7 +230,23 @@ const TransactionsTab = () => {
       (subject.psc && row.asset === "psc") ||
       (subject.rial && row.asset === "rial");
 
-    return codeMatch && statusMatch && titleMatch && subjectMatch;
+    // Date range filter
+    let dateMatch = true;
+    if (dateRange[0] && dateRange[1]) {
+      try {
+        const rowDate = parsePersianDate(`${row.date} ${row.time}`);
+        const startDate = parsePersianDate(dateRange[0]);
+        const endDate = parsePersianDate(dateRange[1]);
+
+        dateMatch = rowDate.isBetween(startDate, endDate, null, "[]"); // '[]' includes the start and end dates
+        console.log(dateMatch);
+      } catch (error) {
+        console.error("Date parsing error:", error);
+        dateMatch = false;
+      }
+    }
+
+    return codeMatch && statusMatch && titleMatch && subjectMatch && dateMatch;
   });
 
   return (
@@ -251,11 +275,20 @@ const TransactionsTab = () => {
               "date and time range"
             )}
             className="bg-dark yellow"
-            format="YYYY/DD/MM HH:mm:ss"
+            format="YYYY/MM/DD HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
             calendar={persian}
             locale={persian_fa}
             calendarPosition="bottom-right"
+            range
+            value={dateRange}
+            onChange={(dates) => {
+              if (dates) {
+                setDateRange(dates.toString().split(","));
+              } else {
+                setDateRange([null, null]);
+              }
+            }}
           />
           <FaRegCalendarAlt size={20} />
         </Date>
