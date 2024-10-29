@@ -25,7 +25,7 @@ const Image = styled.img`
 const Code = styled.h2`
   font-size: 16px;
   font-weight: 500;
-  color: #0066ff;
+  color: #ffd000;
 `;
 
 const Date = styled.h3`

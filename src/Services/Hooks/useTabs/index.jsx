@@ -11,6 +11,12 @@ const TabsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  @media (min-width: 998px) {
+    padding-bottom: 70px;
+  }
+
+
+
 `;
 
 // Create a styled Tab component

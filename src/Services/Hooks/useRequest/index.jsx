@@ -4,7 +4,7 @@ import { getItem } from "../../Utility/LocalStorage";
 export default function useRequest() {
   const PROD_BASE_URL = "https://api.rgb.irpsc.com/api/";
   const DEV_BASE_URL = "https://api.rgb.irpsc.com/api/";
-  const user = getItem("user");
+  const user = getItem("user");  // دریافت اطلاعات کاربر از LocalStorage
 
   const HTTP_METHOD = {
     GET: "GET",
@@ -28,10 +28,13 @@ export default function useRequest() {
       url: BASE_URL + directory,
       method,
       headers: {
-        Authorization: user?.token ? `Bearer ${user?.token}` : null,
-        ...customHeader,
+        // اضافه کردن هدر Authorization اگر توکن موجود است
+        ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {}),
+        'Content-Type': 'application/json',  // تعیین نوع محتوا برای ارسال داده‌ها به صورت JSON
+        'Accept': 'application/json',  // اضافه کردن هدر Accept به درخواست
+        ...customHeader,  // اضافه کردن هدرهای سفارشی
       },
-      data: formData,
+      data: method !== HTTP_METHOD.GET ? formData : {},  // درخواستی که GET نباشد نیاز به data دارد
     });
   }
 

@@ -5,7 +5,7 @@ import AccountTab from "./Tabs/account-tab/AccountTab";
 
 import PublicTab from "./Tabs/public-tab/PublicTab";
 import SecurityTab from "./Tabs/security-tab/SecurityTab";
-
+import About from "./Tabs/aboutme-tab/AboutMeTab";
 export default function Settings() {
   const tabs = [
     {
@@ -19,6 +19,10 @@ export default function Settings() {
     {
       title: getFieldTranslationByNames("setting", "privacy"),
       content: <SecurityTab />,
+    },
+    {
+      title: getFieldTranslationByNames("citizenship-account", "about me"),
+      content: <About />,
     },
   ];
 
