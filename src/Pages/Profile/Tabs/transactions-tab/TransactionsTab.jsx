@@ -137,6 +137,7 @@ const TransactionsTab = () => {
     rial: false,
   });
   const [dateRange, setDateRange] = useState([null, null]);
+  const [filterPage, setFilterPage] = useState(1);
 
   const fetchTransactions = async () => {
     setIsLoading(true);
@@ -159,8 +160,17 @@ const TransactionsTab = () => {
       if (subject.psc) subjectParams.push("psc");
       if (subject.rial) subjectParams.push("rial");
 
+      const isFilterActive =
+        searched ||
+        statusParams.length ||
+        titleParams.length ||
+        subjectParams.length ||
+        dateRange[0];
+
+      const currentPage = isFilterActive ? filterPage : page;
+
       const params = new URLSearchParams({
-        page,
+        page: currentPage,
         search: searched,
         type: titleParams.join(","),
         asset: subjectParams.join(","),
@@ -202,19 +212,15 @@ const TransactionsTab = () => {
         return { ...transaction, assetGif };
       });
 
-      // بررسی برای وجود فیلترها
-      const isFilterActive =
-        searched ||
-        statusParams.length ||
-        titleParams.length ||
-        subjectParams.length ||
-        dateRange[0];
-
       if (isFilterActive) {
         setFilteredTransactions(processedTransactions);
       } else {
-        setFilteredTransactions([]); // ریست کردن filteredTransactions در صورت نبود فیلتر
-        setTransactions((prev) => [...prev, ...processedTransactions]);
+        setFilteredTransactions([]);
+        setTransactions((prev) =>
+          currentPage === 1
+            ? processedTransactions
+            : [...prev, ...processedTransactions]
+        );
       }
 
       setHasMore(response.data.links.next !== null);
@@ -226,6 +232,17 @@ const TransactionsTab = () => {
   };
 
   useEffect(() => {
+    const isFilterActive =
+      searched ||
+      Object.values(status).some(Boolean) ||
+      Object.values(title).some(Boolean) ||
+      Object.values(subject).some(Boolean) ||
+      dateRange[0];
+
+    if (isFilterActive) {
+      setFilterPage(1);
+    }
+
     fetchTransactions();
   }, [page, searched, status, title, subject, dateRange]);
 
@@ -234,7 +251,18 @@ const TransactionsTab = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && !isLoading) {
-          setPage((prevPage) => prevPage + 1);
+          const isFilterActive =
+            searched ||
+            Object.values(status).some(Boolean) ||
+            Object.values(title).some(Boolean) ||
+            Object.values(subject).some(Boolean) ||
+            dateRange[0];
+
+          if (isFilterActive) {
+            setFilterPage((prev) => prev + 1);
+          } else {
+            setPage((prev) => prev + 1);
+          }
         }
       },
       { threshold: 0.5 }

@@ -99,19 +99,6 @@ const SubjectFilter = styled.div`
     }
   }
 `;
-const Div = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 15px;
-`;
-const Arrows = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-`;
 
 const TableHeader = styled.th`
   padding: 20px;
@@ -157,11 +144,12 @@ const RotatingArrow = styled(MdKeyboardArrowDown)`
 const FilterItem = styled.div`
   position: relative;
   padding: ${(props) => props.padding || "0"};
+  color: ${(props) => (props.active ? "white" : "black")} !important;
   background-color: ${(props) => (props.active ? "#3B3B3B" : "transparent")};
   border-radius: ${(props) => props.borderRadius || "0"};
   &:hover {
     background-color: #3b3b3b;
-    color: #dedee9;
+    color: #dedee9 !important;
     transition: all 0.2s linear;
   }
 `;
@@ -188,6 +176,9 @@ const FilterItemText = styled.h1`
   display: flex;
   flex-direction: column;
   gap: 3px;
+  &:hover {
+    color: #dedee9 !important;
+  }
 `;
 
 const FilterCloseButton = styled.span`
