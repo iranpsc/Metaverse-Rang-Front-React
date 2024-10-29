@@ -37,6 +37,11 @@ export function EmailValidator(email) {
   );
 }
 
+
+
+
+
+
 export const calculateFee = (number = 100, percent = 5) => {
   const parseNumber = parseInt(number);
   return (parseNumber * percent) / 100 + parseNumber;
@@ -79,6 +84,7 @@ export const persianNumbers = [
     }
     return str;
   };
+
 export const convertToPersian = (number) => {
   const isPersian = useLanguage();
   if (isPersian) {
@@ -87,6 +93,7 @@ export const convertToPersian = (number) => {
     return number;
   }
 };
+
 export const ToastError = (message) => {
   return toast.error(message, {
     style: {
@@ -114,7 +121,13 @@ export const ToastSuccess = (message) => {
     duration: 5000,
   });
 };
+
+
+
+
+
 export const getFieldTranslationByNames = (modalName, fieldName) => {
+
   const resources = i18n.store.data;
 
   if (
@@ -125,16 +138,20 @@ export const getFieldTranslationByNames = (modalName, fieldName) => {
     return "Translation resources not found";
   }
 
+
   const modal = resources[i18n.language].translation.modals.find(
     (modal) => modal.name === modalName
   );
 
   if (!modal) {
+
     return `Modal '${modalName}' not found`;
+
   }
 
   for (let i = 0; i < modal.tabs.length; i++) {
     const tab = modal.tabs[i];
+
 
     if (tab.fields && tab.fields.length > 0) {
       const field = tab.fields.find((field) => field.name === fieldName);
@@ -146,7 +163,37 @@ export const getFieldTranslationByNames = (modalName, fieldName) => {
   }
 
   return `Field '${fieldName}' translation not found in modal '${modalName}'`;
+
 };
+
+
+
+
+  export const getFieldsByTabName = (modalName, tabName) => {
+    const resources = i18n.options.resources;
+    
+    const modal = resources[i18n.language].translation.modals.find(
+      (modal) => modal.name === modalName
+    );
+
+    if (!modal) {
+      return [];
+    }
+
+    const tab = modal.tabs.find((tab) => tab.name === tabName);
+
+    if (!tab) {
+      return [];
+    }
+
+    return tab.fields;
+  };
+
+
+
+
+
+
 
 export function convertEnglishToPersianNumbers(inputText) {
   const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];

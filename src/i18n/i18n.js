@@ -2,6 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import axios from "axios";
 
+
 const TRANSLATIONS_API = "https://admin.rgb.irpsc.com/api/translations";
 const CACHE_PREFIX = "i18n_cache_";
 
