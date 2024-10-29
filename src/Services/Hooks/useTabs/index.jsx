@@ -21,13 +21,14 @@ const TabsWrapper = styled.div`
 
 // Create a styled Tab component
 const Tab = styled.h3`
+  white-space: nowrap;
   color: ${(props) =>
     props.active
       ? props.theme.colors.primary
       : props.theme.colors.newColors.shades[30]};
   font-weight: 500;
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   padding: 8px 26px;
   cursor: pointer;
   border-bottom: 2px solid
@@ -52,6 +53,7 @@ const TabContainer = styled.div`
   border-bottom: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   margin-bottom: 10px;
+  overflow-x: auto;
 `;
 // Create a function that uses the tabs and current index
 function useTabs(tabs, current, fullHeight) {

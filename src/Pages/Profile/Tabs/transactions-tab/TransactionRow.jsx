@@ -70,16 +70,16 @@ const Print = styled.div`
 
 const Status = styled.h3`
   color: ${(props) =>
-    props.status == "0"
+    props.status == "1"
       ? "#18c090"
-      : props.status == "-1"
+      : props.status == "-138"
       ? "#ffc800"
       : "#ff0000"};
   padding: 2px 18px;
   background-color: ${(props) =>
-    props.status == "0"
+    props.status == "1"
       ? "#18c09017"
-      : props.status == "-1"
+      : props.status == "-138"
       ? "#ffc80017"
       : "#ff000017"};
   width: fit-content;
@@ -127,11 +127,11 @@ const TransactionRow = ({
       </TableCell>
       <TableCell>
         <Status status={status}>
-          {status == "0"
+          {status == "1"
             ? getFieldTranslationByNames("citizenship-account", "successful")
-            : status == "-138"
+            : status == "0"
             ? getFieldTranslationByNames("citizenship-account", "unsuccessful")
-            : status == "1"
+            : status == "-138"
             ? getFieldTranslationByNames("citizenship-account", "suspended")
             : "بب"}
         </Status>

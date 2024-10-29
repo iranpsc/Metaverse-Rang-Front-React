@@ -66,50 +66,9 @@ const StatusFilter = styled.div`
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-
-  div {
-    position: relative;
-    &:hover {
-      background-color: #3b3b3b;
-      transition: all 0.2s linear;
-    }
-    span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
-  }
-  h1 {
-    font-weight: 400;
-    color: #18c08f;
-    background-color: #18c09017;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
-  }
-  h2 {
-    color: #ffc800;
-    font-weight: 400;
-    background-color: #ffc80017;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
-    margin: 10px 0;
-  }
-  h3 {
-    color: #ff0000;
-    font-weight: 400;
-    background-color: #ff000017;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 const TitleFilter = styled.div`
   position: absolute;
@@ -119,32 +78,6 @@ const TitleFilter = styled.div`
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  div {
-    position: relative;
-    padding-right: 5px;
-    &:hover {
-      background-color: #3b3b3b;
-      color: #dedee9;
-      transition: all 0.2s linear;
-    }
-    span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
-  }
-  h1 {
-    font-size: 16px;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-weight: 400;
-    cursor: pointer;
-    &:first-of-type {
-      margin-bottom: 10px;
-    }
-  }
 `;
 const SubjectFilter = styled.div`
   position: absolute;
@@ -154,42 +87,17 @@ const SubjectFilter = styled.div`
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  font-size: 14px;
+  font-size: 12px;
   div {
     position: relative;
-    padding: 3px;
+    padding: 4px;
+
     &:hover {
       background-color: #3b3b3b;
       color: #dedee9;
       transition: all 0.2s linear;
     }
-    span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
   }
-  span {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-weight: 400;
-    font-size: 16px;
-  }
-`;
-const Div = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 15px;
-`;
-const Arrows = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 `;
 
 const TableHeader = styled.th`
@@ -236,11 +144,12 @@ const RotatingArrow = styled(MdKeyboardArrowDown)`
 const FilterItem = styled.div`
   position: relative;
   padding: ${(props) => props.padding || "0"};
+  color: ${(props) => (props.active ? "white" : "black")} !important;
   background-color: ${(props) => (props.active ? "#3B3B3B" : "transparent")};
   border-radius: ${(props) => props.borderRadius || "0"};
   &:hover {
     background-color: #3b3b3b;
-    color: #dedee9;
+    color: #dedee9 !important;
     transition: all 0.2s linear;
   }
 `;
@@ -264,12 +173,18 @@ const FilterItemText = styled.h1`
   margin: ${(props) => props.margin || "0"};
   border-radius: 5px;
   padding: ${(props) => props.padding || "0"};
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  &:hover {
+    color: #dedee9 !important;
+  }
 `;
 
 const FilterCloseButton = styled.span`
   position: absolute;
-  left: 10px;
-  top: 3px;
+  left: -13px;
+  top: 4px;
   color: red;
   cursor: pointer;
   font-size: 14px;
@@ -280,6 +195,7 @@ const SubjectFilterItem = styled.div`
   gap: 5px;
   cursor: pointer;
   align-items: center;
+  color: ${(props) => (props.active ? "white" : "black")};
   background-color: ${(props) => (props.active ? "#3B3B3B" : "transparent")};
   margin-bottom: ${(props) => (props.isLast ? "0" : "10px")};
   border-radius: 10px;
@@ -562,8 +478,8 @@ const TransactionsList = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((transaction) => (
-            <TransactionRow key={transaction.id} {...transaction} />
+          {rows.map((transaction, index) => (
+            <TransactionRow key={index} {...transaction} />
           ))}
         </TableBody>
       </Table>
