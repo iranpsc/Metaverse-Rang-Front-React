@@ -14,7 +14,7 @@ import Button from "../../../../../../Components/Button";
 
 const Container = styled.div`
   display: flex;
-  width: 60%;
+  width: 100%;
   align-items: center;
   gap: 17px;
   flex-direction: column;

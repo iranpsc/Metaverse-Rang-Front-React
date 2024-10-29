@@ -14,13 +14,12 @@ import psc from "../../../../Assets/gif/psc.gif";
 import red from "../../../../Assets/gif/red-color.gif";
 import rial from "../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import yellow from "../../../../Assets/gif/yellow-color.gif";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import moment from "moment-jalaali";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -104,6 +103,7 @@ const Date = styled.div`
 
 const TransactionsTab = () => {
   const [transactions, setTransactions] = useState([]);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
@@ -130,14 +130,39 @@ const TransactionsTab = () => {
   });
   const [dateRange, setDateRange] = useState([null, null]);
 
-  const fetchTransactions = useCallback(async () => {
+  const fetchTransactions = async () => {
+    console.log(subject);
     if (!hasMore || isLoading) return;
-
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await Request(`user/transactions?page=${page}`);
+      const statusParams = [];
+      if (status.success) statusParams.push(1);
+      if (status.failed) statusParams.push(0);
+      if (status.pending) statusParams.push(-1);
+
+      const titleParams = [];
+      if (title.property_dealing) titleParams.push("trade");
+      if (title.property_buy) titleParams.push("order");
+
+      const subjectParams = [];
+      if (subject.blue) subjectParams.push("blue");
+      if (subject.red) subjectParams.push("red");
+      if (subject.yellow) subjectParams.push("yellow");
+      if (subject.psc) subjectParams.push("psc");
+      if (subject.rial) subjectParams.push("rial");
+      const params = new URLSearchParams({
+        page,
+        search: searched,
+        status: statusParams.join(","),
+        type: titleParams.join(","),
+        asset: subjectParams.join(","),
+        start_date_time: dateRange[0] || "",
+        end_date_time: dateRange[1] || "",
+      });
+
+      const response = await Request(`user/transactions?${params.toString()}`);
       const newTransactions = response.data.data;
 
       // Map asset GIFs to new transactions
@@ -165,7 +190,18 @@ const TransactionsTab = () => {
         return { ...transaction, assetGif };
       });
 
-      setTransactions((prev) => [...prev, ...processedTransactions]);
+      if (
+        searched ||
+        statusParams.length ||
+        titleParams.length ||
+        subjectParams.length ||
+        dateRange[0]
+      ) {
+        setFilteredTransactions(processedTransactions);
+      } else {
+        setTransactions((prev) => [...prev, ...processedTransactions]);
+      }
+
       setHasMore(response.data.links.next !== null);
     } catch (err) {
       setError(err.message);
@@ -173,11 +209,12 @@ const TransactionsTab = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [page, hasMore]);
+  };
 
   useEffect(() => {
+    console.log(subject);
     fetchTransactions();
-  }, [fetchTransactions]);
+  }, [page, hasMore, searched, status, title, subject, dateRange]);
 
   // IntersectionObserver setup
   useEffect(() => {
@@ -200,54 +237,6 @@ const TransactionsTab = () => {
       }
     };
   }, [hasMore, isLoading]);
-
-  // Helper function to convert Persian date string to moment object
-  const parsePersianDate = (dateString) => {
-    return moment(dateString, "jYYYY/jMM/jDD HH:mm:ss");
-  };
-
-  const filteredItems = transactions.filter((row) => {
-    const codeMatch = row.id.toString().includes(searched);
-    const statusMatch =
-      (!status.success && !status.failed && !status.pending) ||
-      (status.success && row?.status == "1") ||
-      (status.failed && row?.status == "0") ||
-      (status.pending && row?.status == "-1");
-
-    const titleMatch =
-      (!title.property_dealing && !title.property_buy) ||
-      (title.property_dealing && row?.type === "trade") ||
-      (title.property_buy && row?.type === "order");
-    const subjectMatch =
-      (!subject.blue &&
-        !subject.red &&
-        !subject.yellow &&
-        !subject.psc &&
-        !subject.rial) ||
-      (subject.blue && row.asset === "blue") ||
-      (subject.red && row.asset === "red") ||
-      (subject.yellow && row.asset === "yellow") ||
-      (subject.psc && row.asset === "psc") ||
-      (subject.rial && row.asset === "rial");
-
-    // Date range filter
-    let dateMatch = true;
-    if (dateRange[0] && dateRange[1]) {
-      try {
-        const rowDate = parsePersianDate(`${row.date} ${row.time}`);
-        const startDate = parsePersianDate(dateRange[0]);
-        const endDate = parsePersianDate(dateRange[1]);
-
-        dateMatch = rowDate.isBetween(startDate, endDate, null, "[]"); // '[]' includes the start and end dates
-        console.log(dateMatch);
-      } catch (error) {
-        console.error("Date parsing error:", error);
-        dateMatch = false;
-      }
-    }
-
-    return codeMatch && statusMatch && titleMatch && subjectMatch && dateMatch;
-  });
 
   return (
     <Container>
@@ -303,7 +292,7 @@ const TransactionsTab = () => {
         title={title}
         status={status}
         subject={subject}
-        rows={filteredItems}
+        rows={filteredTransactions.length ? filteredTransactions : transactions}
       />
 
       {isLoading && <div className="text-center py-4">Loading...</div>}

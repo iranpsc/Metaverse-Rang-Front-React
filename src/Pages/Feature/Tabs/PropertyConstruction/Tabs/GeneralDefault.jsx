@@ -9,6 +9,7 @@ const Container = styled.div`
   gap: 40px;
   padding: 0 20px;
   flex-direction: column;
+  overflow-y: scroll;
   @media (min-width: 1024px) {
     flex-direction: row;
   }
