@@ -9,10 +9,13 @@ import ErrorModal from "../ErrorModal";
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
 import ReactQuill from "react-quill";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import { convertPersianNumbersToEnglish } from "../../../../Services/Utility";
+import {
+  convertPersianNumbersToEnglish,
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../../Services/Utility";
 
 const Wrapper = styled.div`
-  direction: ltr;
   overflow-y: auto;
   height: 84%;
   padding-right: 15px;
@@ -27,7 +30,7 @@ const Container = styled.div`
   margin: 20px 0;
   display: flex;
   flex-direction: column;
-  direction: rtl;
+
   gap: 10px;
   @media (min-width: 1500px) {
     grid-template-columns: 2fr 3fr;
@@ -144,41 +147,48 @@ const IdentityInputs = ({
     requestData.append("video[name]", JSON.parse(uploadResponse).name);
     requestData.append("video[path]", JSON.parse(uploadResponse).path);
     requestData.append("verify_text_id", textVerify.id);
+    requestData.append("_method", "put");
 
     if (errorMessages.length === 0) {
       setIdentityError(false);
-      if (kyc.status == 1) {
-        Request("kyc", HTTP_METHOD.POST, requestData, {
-          "Content-Type": "multipart/form-data",
-        }).then((res) => {
+
+      Request(`kyc`, HTTP_METHOD.POST, requestData, {
+        "Content-Type": "multipart/form-data",
+      })
+        .then((res) => {
           setSubmitted(true);
+        })
+        .catch((error) => {
+          ToastError(error.response.data.message);
         });
-      } else if (kyc.status == -1) {
-        requestData.append("_method", "put");
-        Request(`kyc/${kyc?.id}`, HTTP_METHOD.POST, requestData, {
-          "Content-Type": "multipart/form-data",
-        }).then((res) => {
-          setSubmitted(true);
-        });
-      }
     } else {
       setIdentityError(true);
     }
   };
-
   return (
     <Wrapper identityError={identityError}>
       <Container>
-        {identityError && (
+        {errors.length > 0 && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
-            buttonText="مشاهده خطاها"
-            text="احراز هویت شما تایید نشده است، لطفا برسی و موارد ناقص را با دقت وارد کنید"
-            info="خطا در احراز هویت"
+            buttonText={getFieldTranslationByNames(
+              "authentication",
+              "view errors"
+            )}
+            text={getFieldTranslationByNames("authentication", "view errors")}
+            info={getFieldTranslationByNames(
+              "authentication",
+              "error in authentication"
+            )}
             type="error"
           />
         )}
-        <Title title="اطلاعات احراز هویت" />
+        <Title
+          title={getFieldTranslationByNames(
+            "authentication",
+            "authentication information"
+          )}
+        />
         <Inputs
           identityError={identityError}
           data={data}
@@ -195,7 +205,14 @@ const IdentityInputs = ({
           setTextVerify={setTextVerify}
           inputValues={inputValues}
         />
-        <Button large label="ارسال و ثبت اطلاعات" onclick={sendHandler} />
+        <Button
+          large
+          label={getFieldTranslationByNames(
+            "authentication",
+            "send information"
+          )}
+          onclick={sendHandler}
+        />
       </Container>
       {openErrorModal && (
         <ErrorModal setOpenErrorModal={setOpenErrorModal} errors={errors} />

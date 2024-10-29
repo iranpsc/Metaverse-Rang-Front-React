@@ -22,7 +22,7 @@ const ContainerMessage = styled.div`
   align-items: end;
   justify-content: space-around;
   flex-direction: column;
-  text-align: right;
+
   padding: 0.5rem;
   line-height: 2;
 `;

@@ -53,6 +53,7 @@ const Input = ({
   gif,
   onchange,
   disabled,
+  name,
 }) => {
   const isPersian = useLanguage();
   return (
@@ -63,6 +64,7 @@ const Input = ({
         value={value}
         onChange={onchange}
         disabled={disabled}
+        name={name}
       />
       <Span isPersian={isPersian}>
         {insideText}

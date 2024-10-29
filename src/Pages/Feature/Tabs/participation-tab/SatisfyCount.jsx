@@ -1,5 +1,9 @@
 import satisfy from "../../../../Assets/gif/satisfaction.gif";
 import styled from "styled-components";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 70px 30px;
@@ -57,15 +61,33 @@ const Second = styled.div`
 const SatisfyCount = () => {
   return (
     <Container>
-      <img width={100} height={100} src={satisfy} alt="رضایت" />
+      <img
+        width={100}
+        height={100}
+        src={satisfy}
+        alt={getFieldTranslationByNames("property-information", "satisfaction")}
+      />
       <First>
         <h3>۵.۰۴۸</h3>
-        <span>رضایت</span>
+        <span>
+          {getFieldTranslationByNames("property-information", "satisfaction")}
+        </span>
       </First>
       <Second>
-        <span>۳۴ روز</span>
+        <span>
+          {convertToPersian(27)}
+          {getFieldTranslationByNames("property-information", "day")}
+        </span>
         <span>|</span>
-        <span>۱۸ ساعت ۲۹ دقیقه ۴۵ ثانیه</span>
+        <span>
+          {" "}
+          {convertToPersian(12)}{" "}
+          {getFieldTranslationByNames("property-information", "hour")}{" "}
+          {convertToPersian(21)}{" "}
+          {getFieldTranslationByNames("property-information", "minutes")}{" "}
+          {convertToPersian(34)}{" "}
+          {getFieldTranslationByNames("property-information", "second")}{" "}
+        </span>
       </Second>
     </Container>
   );

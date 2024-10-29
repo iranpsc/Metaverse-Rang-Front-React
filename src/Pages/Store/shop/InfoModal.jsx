@@ -32,7 +32,7 @@ const Modal = styled.div`
 `;
 const Header = styled.div`
   display: flex;
-  direction: rtl;
+
   justify-content: space-between;
   margin-bottom: 30px;
   @media (max-width: 1023px) {
@@ -45,7 +45,7 @@ const Header = styled.div`
 const Title = styled.h3`
   font-size: 24px;
   font-weight: 600;
-  text-align: right;
+
   color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (max-width: 1023px) {
     font-size: 18px;
@@ -81,6 +81,32 @@ const CloseWrapper = styled.div`
 `;
 
 const InfoModal = ({ data, type, setOpenModal }) => {
+  const getAssetTranslation = () => {
+    if (data.asset === "yellow") {
+      return getFieldTranslationByNames("store", "yellow");
+    } else if (data.asset === "red") {
+      return getFieldTranslationByNames("store", "red");
+    } else if (data.asset === "blue") {
+      return getFieldTranslationByNames("store", "blue");
+    } else if (data.asset === "irr") {
+      return getFieldTranslationByNames("store", "irr");
+    } else if (data.asset === "psc") {
+      return getFieldTranslationByNames("store", "psc");
+    }
+  };
+  const getAssetTranslationDescription = () => {
+    if (data.asset === "yellow") {
+      return getFieldTranslationByNames("store", "description yellow");
+    } else if (data.asset === "red") {
+      return getFieldTranslationByNames("store", "description red");
+    } else if (data.asset === "blue") {
+      return getFieldTranslationByNames("store", "description blue");
+    } else if (data.asset === "irr") {
+      return getFieldTranslationByNames("store", "description rial");
+    } else if (data.asset === "psc") {
+      return getFieldTranslationByNames("store", "description psc");
+    }
+  };
   return (
     <BackGround>
       <Modal>
@@ -97,10 +123,8 @@ const InfoModal = ({ data, type, setOpenModal }) => {
           </CloseWrapper>
         </Header>
         <div>
-          <Title>
-            {type === "ابزار" ? `رنگ ${data.asset}` : `${data.asset}`}
-          </Title>
-          <Info>{data.asset}</Info>
+          <Title>{getAssetTranslation()}</Title>
+          <Info>{getAssetTranslationDescription()}</Info>
         </div>
       </Modal>
     </BackGround>

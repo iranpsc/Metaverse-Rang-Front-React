@@ -67,7 +67,7 @@ const ContainerMain = styled.div`
 `;
 
 const Icon = styled(ArowMenu)`
-  stroke: ${(props) => props.theme.colors.newColors.shades[90]};
+  stroke: ${(props) => props.theme.colors.newColors.otherColors.iconText};
   rotate: ${(props) => (props.isOpen ? "0" : "180deg")};
 `;
 

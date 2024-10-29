@@ -10,7 +10,7 @@ const ContainerSpecification = styled.div`
 const TitleSpecification = styled.div`
   width: 120px;
   background: white;
-  text-align: right;
+
   display: flex;
   align-items: center;
   justify-content: end;
@@ -39,10 +39,10 @@ const ValueSpecification = styled.div`
 `;
 
 export default function Specification({ title, value, style }) {
-    return (
-      <ContainerSpecification style={{...style}}>
-        <ValueSpecification>{value}</ValueSpecification>
-        <TitleSpecification>{title}</TitleSpecification>
-      </ContainerSpecification>
-    );
-  }
+  return (
+    <ContainerSpecification style={{ ...style }}>
+      <ValueSpecification>{value}</ValueSpecification>
+      <TitleSpecification>{title}</TitleSpecification>
+    </ContainerSpecification>
+  );
+}

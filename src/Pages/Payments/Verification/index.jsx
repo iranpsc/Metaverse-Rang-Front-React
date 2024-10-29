@@ -46,7 +46,7 @@ const Body = styled.div`
 
   & p {
     text-align: center;
-    direction: rtl;
+
     font-size: 18px;
     line-height: 40px;
   }
@@ -57,19 +57,17 @@ const Cell = styled.td`
   text-align: center;
 `;
 
-
 const LANG_CONVERT = {
-  blue: 'رنگ آبی',
-  red: 'رنگ قرمز',
-  yellow: 'رنگ زرد',
-  psc: 'PSC',
-  irr: 'ریال',
-}
-
+  blue: "رنگ آبی",
+  red: "رنگ قرمز",
+  yellow: "رنگ زرد",
+  psc: "PSC",
+  irr: "ریال",
+};
 
 function FailedTransaction() {
   const navigate = useNavigate();
-  
+
   return (
     <Container>
       <Header>
@@ -79,17 +77,23 @@ function FailedTransaction() {
 
       <Body className="red-box-shadow">
         <p>
-          متاسفانه درخواست شما با موفقیت انجام نشده است.<br/> جهت تلاش مجدد از
-          دکمه زیر برای برگشت به فروشگاه اقدام نمایید.
+          متاسفانه درخواست شما با موفقیت انجام نشده است.
+          <br /> جهت تلاش مجدد از دکمه زیر برای برگشت به فروشگاه اقدام نمایید.
         </p>
 
-        <img className="cursor-pointer" src={StoreImage} alt='#' width={100} onClick={() => navigate('/metaverse/store')}/>
+        <img
+          className="cursor-pointer"
+          src={StoreImage}
+          alt="#"
+          width={100}
+          onClick={() => navigate("/metaverse/store")}
+        />
       </Body>
     </Container>
-  )
+  );
 }
 
-function SuccessTransaction({ payment }) {  
+function SuccessTransaction({ payment }) {
   return (
     <Container>
       <Header>
@@ -98,9 +102,7 @@ function SuccessTransaction({ payment }) {
       </Header>
 
       <Body className="green-box-shadow">
-        <p>
-        از حمایتتان ممنونیم و آماده خدمت‌ رسانی مجدد به شما هستیم.
-        </p>
+        <p>از حمایتتان ممنونیم و آماده خدمت‌ رسانی مجدد به شما هستیم.</p>
 
         <table>
           <tr>
@@ -116,7 +118,7 @@ function SuccessTransaction({ payment }) {
         </table>
       </Body>
     </Container>
-  )
+  );
 }
 
 export default function Verification() {
@@ -124,15 +126,18 @@ export default function Verification() {
   const { Request } = useRequest();
 
   useLayoutEffect(() => {
-    Request('user/payments/latest').then(response => {
+    Request("user/payments/latest").then((response) => {
       setPayment(response.data.data);
     });
-
-  }, [])
+  }, []);
 
   return (
     <Modal title="وضعیت پرداخت" disabled>
-      {payment.status === 1 ? <SuccessTransaction payment={payment}/> : <FailedTransaction />}
+      {payment.status === 1 ? (
+        <SuccessTransaction payment={payment} />
+      ) : (
+        <FailedTransaction />
+      )}
     </Modal>
   );
 }

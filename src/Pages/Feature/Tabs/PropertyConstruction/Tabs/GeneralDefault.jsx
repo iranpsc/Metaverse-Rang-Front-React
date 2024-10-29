@@ -8,6 +8,12 @@ const Container = styled.div`
   width: 100%;
   gap: 40px;
   padding: 0 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 const GeneralDefault = () => {
   return (

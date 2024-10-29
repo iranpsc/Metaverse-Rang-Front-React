@@ -1,7 +1,8 @@
 import { IoIosClose } from "react-icons/io";
 import { TbMinimize } from "react-icons/tb";
 import styled from "styled-components";
-
+import { ReactComponent as Exit } from "../../Assets/svg/close.svg";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 const Div = styled.div`
   position: relative;
   display: flex;
@@ -52,42 +53,35 @@ const Icons = styled.div`
   }
 `;
 
-const CloseWrapper = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
+const ExitIcon = styled(Exit)`
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  background-color: rgb(59, 8, 8);
-  cursor: pointer;
-  @media (min-width: 998px) {
-    width: 40px;
-    height: 40px;
-  }
-  svg {
-    color: red;
-  }
 `;
 
-const Header = ({ show, setOpenEducation, setSize }) => {
+const Header = ({ show, setOpenEducation, setSize, title }) => {
   const handleMinimizeClick = (event) => {
     event.stopPropagation();
     setSize(true);
   };
 
   const handleCloseClick = (event) => {
-    event.stopPropagation();
     setOpenEducation(false);
   };
   return (
     <HeaderWrapper show={show}>
-      <Text>آموزش</Text>
+      <Text>
+        {title
+          ? getFieldTranslationByNames(title[0], title[1])
+          : getFieldTranslationByNames("training", "education")}
+      </Text>
       <Icons>
         <Div onClick={handleMinimizeClick}>
           <TbMinimize style={{ color: "#949494" }} />
         </Div>
-        <CloseWrapper onClick={handleCloseClick}>
+        <ExitIcon onClick={handleCloseClick}>
           <IoIosClose />
-        </CloseWrapper>
+        </ExitIcon>
       </Icons>
     </HeaderWrapper>
   );

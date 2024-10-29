@@ -5,6 +5,7 @@ import Button from "../../../../Components/Button";
 import OnOff from "../OnOff";
 import { AlertContext } from "../../../../Services/Reducers/AlertContext";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding-top: 20px;
@@ -12,7 +13,7 @@ const Container = styled.div`
   padding-right: 15px;
   height: 74%;
   overflow-y: auto;
-  direction: ltr;
+
   @media (min-width: 930px) {
     height: 75%;
   }
@@ -23,7 +24,6 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  direction: rtl;
   align-items: center;
   justify-content: space-between;
   background-color: ${(props) =>
@@ -50,30 +50,38 @@ const Settings = styled.div`
 `;
 
 const settings = [
-  { id: 1, label: "ارسال پیامک تسویه حساب تراکنش ها", key: "transactions_sms" },
-  { id: 2, label: "ارسال پیامک اطلاعیه های متاورس", key: "announcements_sms" },
+  {
+    id: 1,
+    label: "sending transaction settlement sms",
+    key: "transactions_sms",
+  },
+  {
+    id: 2,
+    label: "send text messages of metaverse notifications",
+    key: "announcements_sms",
+  },
   {
     id: 3,
-    label: "ارسال ایمیل تسویه حساب تراکنش ها",
+    label: "sending e-mail settlement of transactions",
     key: "transactions_email",
   },
   {
     id: 4,
-    label: "ارسال ایمیل اطلاعیه های متاورس",
+    label: "sending e-mail notifications of metaverse",
     key: "announcements_email",
   },
-  { id: 5, label: "ارسال پیامک تایید خرید", key: "trades_sms" },
-  { id: 6, label: "ارسال پیامک تذکر ارسال شده", key: "reports_sms" },
-  { id: 7, label: "ارسال ایمیل تایید خرید", key: "trades_email" },
-  { id: 8, label: "ارسال ایمیل تذکر ارسال شده", key: "reports_email" },
+  { id: 5, label: "send purchase confirmation sms", key: "trades_sms" },
+  { id: 6, label: "send reminder message sent", key: "reports_sms" },
+  { id: 7, label: "send purchase confirmation email", key: "trades_email" },
+  { id: 8, label: "send reminder email sent", key: "reports_email" },
   {
     id: 9,
-    label: "ارسال پیامک تایید برای ورود به حساب",
+    label: "send purchase confirmation email",
     key: "login_verification_sms",
   },
   {
     id: 10,
-    label: "ارسال ایمیل تایید برای ورود به متاورس",
+    label: "send a confirmation email to enter metaverse",
     key: "login_verification_email",
   },
 ];
@@ -129,7 +137,7 @@ const PublicTab = () => {
       <Settings>
         {settings.map((setting) => (
           <Wrapper key={setting.id}>
-            <p>{setting.label}</p>
+            <p>{getFieldTranslationByNames("setting", setting?.label)}</p>
             <OnOff
               label={setting?.label}
               isOn={!!generalSettings[setting.key]}
@@ -138,9 +146,11 @@ const PublicTab = () => {
           </Wrapper>
         ))}
       </Settings>
-      <div dir="rtl">
-        <Button label="بروزرسانی" onclick={handleSubmit} />
-      </div>
+
+      <Button
+        label={getFieldTranslationByNames("setting", "update")}
+        onclick={handleSubmit}
+      />
     </Container>
   );
 };

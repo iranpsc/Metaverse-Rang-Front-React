@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  direction: ltr;
+
   padding-right: 15px;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -33,7 +33,7 @@ const Wrapper = styled.div`
 const Text = styled.p`
   color: #ffffff;
   line-height: 1.5rem;
-  direction: rtl;
+
   font-weight: 100;
 `;
 

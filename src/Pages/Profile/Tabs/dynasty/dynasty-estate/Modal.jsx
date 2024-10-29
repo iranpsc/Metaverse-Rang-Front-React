@@ -17,7 +17,7 @@ const BackGround = styled.div`
 const ModalBody = styled.div`
   border-radius: 10px;
   background-color: #1a1a18;
-  direction: rtl;
+
   overflow-y: auto;
   padding: 20px;
   width: 700px;

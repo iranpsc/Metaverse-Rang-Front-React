@@ -17,7 +17,7 @@ import { FeatureContext } from "../../../Context/FeatureProvider";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  direction: ltr;
+
   padding-right: 15px;
   padding-top: 20px;
   gap: 30px;
@@ -34,7 +34,6 @@ const Wrapper = styled.div`
 const Text = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   line-height: 1.6rem;
-  direction: rtl;
 
   font-size: 16px;
 `;

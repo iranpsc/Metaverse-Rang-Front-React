@@ -6,7 +6,7 @@ const Container = styled.div`
   padding-right: 10px;
   height: ${(props) => (props.show ? "160px" : "")};
   overflow-y: auto;
-  direction: ltr;
+
   @media (max-width: 1400px) {
     height: ${(props) => (props.show ? "244px" : "")};
   }
@@ -18,7 +18,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    direction: rtl;
+
     h3 {
       color: #008bf8;
       font-weight: 500;
@@ -42,7 +42,7 @@ const Container = styled.div`
     font-weight: 500;
     line-height: 26px;
     text-align: justify;
-    direction: rtl;
+
     @media (max-width: 1400px) {
       display: ${(props) => (props.show ? "block" : "none")};
     }

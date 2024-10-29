@@ -20,7 +20,7 @@ const Table = styled.table`
   width: 100%;
   padding: 10px;
   border-spacing: 0;
-  direction: rtl;
+
   & td {
     text-align: center;
   }
@@ -61,7 +61,6 @@ export default function RequestReceived() {
     Request("dynasty/requests/recieved").then((response) => {
       setRecived(response.data.data);
     });
-   
   }, []);
   const [show, setShowMessage] = useState(false);
   const [items, setItems] = useState({});
@@ -98,7 +97,7 @@ export default function RequestReceived() {
                       color: "blue",
                       cursor: "pointer",
                       fontFamily: "Segoe UI",
-                      textTransform:"uppercase",
+                      textTransform: "uppercase",
                     }}
                     onClick={() =>
                       window.open(

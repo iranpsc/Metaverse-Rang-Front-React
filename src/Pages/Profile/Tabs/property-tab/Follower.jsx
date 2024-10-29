@@ -41,6 +41,7 @@ const Profile = styled.div`
     color: #0066ff;
     font-size: 16px;
     font-weight: 500;
+    text-transform: uppercase;
   }
   img {
     border-radius: 100%;
@@ -134,7 +135,7 @@ const Follower = ({
         <img src={profileImage} width={80} height={80} />
         <div>
           <h3>{name}</h3>
-          <a href={`https://rgb.irpsc.com/citizen/fa/${code}`} target="_blank">
+          <a href={`https://rgb.irpsc.com/fa/citizens/${code}`} target="_blank">
             {code}
           </a>
         </div>

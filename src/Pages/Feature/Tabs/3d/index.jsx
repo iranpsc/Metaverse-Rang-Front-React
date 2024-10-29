@@ -19,7 +19,7 @@ const DetailFeature = styled.div`
   gap: 6%;
 `;
 const ContainerSpecification = styled.div`
-  width:95%;
+  width: 95%;
   height: 150px;
   display: flex;
   border-radius: 5px;
@@ -30,7 +30,7 @@ const ContainerSpecification = styled.div`
 const TitleSpecification = styled.div`
   width: 120px;
   background: white;
-  text-align: right;
+
   display: flex;
   align-items: center;
   justify-content: end;
@@ -45,7 +45,7 @@ const TitleSpecification = styled.div`
 
 const ValueSpecification = styled.div`
   width: 100%;
-  height:fit-content;
+  height: fit-content;
   background-color: #e9e9e9;
   text-align: right !important;
   display: flex;
@@ -65,7 +65,15 @@ export default function UnitiTab() {
       </DetailFeature>
       <ContainerSpecification>
         <TitleSpecification>5566</TitleSpecification>
-        <ValueSpecification>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti doloribus non, ex ipsam reprehenderit modi deleniti, saepe illum similique quisquam quos delectus voluptatem eius consequuntur optio cumque! Repudiandae, consequuntur ipsam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi mollitia enim natus ipsam accusantium iusto consequatur illum rem magni, sunt quo omnis nostrum vel inventore similique asperiores aperiam cum at.</ValueSpecification>
+        <ValueSpecification>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+          doloribus non, ex ipsam reprehenderit modi deleniti, saepe illum
+          similique quisquam quos delectus voluptatem eius consequuntur optio
+          cumque! Repudiandae, consequuntur ipsam. Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Excepturi mollitia enim natus ipsam
+          accusantium iusto consequatur illum rem magni, sunt quo omnis nostrum
+          vel inventore similique asperiores aperiam cum at.
+        </ValueSpecification>
       </ContainerSpecification>
     </Container>
   );

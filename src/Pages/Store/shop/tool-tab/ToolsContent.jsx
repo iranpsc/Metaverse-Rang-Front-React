@@ -8,7 +8,6 @@ import useRequest from "../../../../Services/Hooks/useRequest";
 import { ScaleLoader } from "react-spinners";
 
 const Container = styled.div`
-  text-align: right;
   padding: 20px 15px 0 0;
   height: 70% !important;
   overflow-y: auto;
@@ -29,7 +28,6 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  direction: rtl;
   gap: 20px;
   margin-top: 20px;
   justify-content: ${({ loading }) => (loading ? "center" : "flex-start")};

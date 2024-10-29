@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
-
 import CardPhotos from "./CardPhotos";
 import InfoInputs from "./InfoInputs";
-
 import styled from "styled-components";
 import Title from "../../../../Components/Title";
 import Alert from "../../../../Components/Alert/Alert";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
-const Wrapper = styled.div`
-  direction: rtl;
-`;
+const Wrapper = styled.div``;
 const Container = styled.div`
   padding: 20px 15px 20px 0;
   display: flex;
   flex-direction: column;
-  direction: ltr;
   gap: 10px;
   overflow-y: auto;
   height: 71%;
@@ -27,20 +23,44 @@ const Container = styled.div`
     padding-right: 0;
   }
 `;
-const IdentityInfo = ({ data, inputValues, nationalCardImg }) => {
+
+const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
   const [showAlert, setShowAlert] = useState(true);
+
   useEffect(() => {
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 3000);
-  }, []);
+    if (!showPending) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showPending]);
+
   return (
     <Container>
       <Wrapper>
         {showAlert && (
-          <Alert text="احراز هویت شما با موفقیت انجام شده است" type="success" />
+          <Alert
+            text={
+              showPending
+                ? getFieldTranslationByNames(
+                    "authentication",
+                    "your request is under review"
+                  )
+                : getFieldTranslationByNames(
+                    "authentication",
+                    "your authentication has been successful"
+                  )
+            }
+            type={showPending ? "pending" : "success"}
+          />
         )}
-        <Title title="اطلاعات احراز هویت" />
+        <Title
+          title={getFieldTranslationByNames(
+            "authentication",
+            "authentication information"
+          )}
+        />
         <InfoInputs data={data} inputValues={inputValues} />
         <CardPhotos nationalCardImg={nationalCardImg} />
       </Wrapper>

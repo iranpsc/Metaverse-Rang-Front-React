@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
-  direction: ltr;
+
   overflow-y: auto;
   height: 550px;
   @media (min-width: 640px) {
@@ -52,7 +52,7 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   align-items: center;
-  direction: rtl;
+
   gap: 20px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -61,7 +61,6 @@ const Div = styled.div`
 `;
 
 const Date = styled.div`
-  direction: rtl;
   border-radius: 5px;
   border: 1px solid #454545;
   display: flex;
@@ -492,10 +491,10 @@ const SentList = () => {
 
     return codeMatch && statusMatch && memberMatch;
   });
-  
+
   return (
     <Container>
-      <div dir="rtl">
+      <div>
         <Title title="درخواست ارسالی" />
       </div>
       <Div>

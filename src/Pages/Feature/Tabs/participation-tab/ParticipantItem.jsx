@@ -8,7 +8,10 @@ import satisfy from "../../../../Assets/images/satisfy.png";
 import styled from "styled-components";
 import { useState } from "react";
 import TitleValue from "../../../Store/shop/TitleValue";
-import { convertToPersian } from "../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 import UserCode from "../../../../Components/UserCode";
 
 const Container = styled.div`
@@ -16,7 +19,6 @@ const Container = styled.div`
     props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   padding: 20px;
-  direction: rtl;
 `;
 const ParticipantSummary = styled.div`
   display: grid;
@@ -105,13 +107,42 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
       <Container>
         <Div>
           <ParticipantSummary>
-            <UserCode title="شناسه کاربر" code="HM-2000081" />
-            <TitleValue title="تاریخ و زمان" value={time} />
-            <TitleValue title="بدهی مشارکت" value={debt} />
-            <TitleValue title="میزان مشارکت" value={level} />
+            <UserCode
+              title={getFieldTranslationByNames(
+                "property-information",
+                "citizen id"
+              )}
+              code="HM-2000081"
+            />
+            <TitleValue
+              title={getFieldTranslationByNames(
+                "property-information",
+                "date and time"
+              )}
+              value={time}
+            />
+            <TitleValue
+              title={getFieldTranslationByNames(
+                "property-information",
+                "partnership debt"
+              )}
+              value={debt}
+            />
+            <TitleValue
+              title={getFieldTranslationByNames(
+                "property-information",
+                "participation rate"
+              )}
+              value={level}
+            />
             <SatisfyContainer>
               <Title>
-                <h3>رضایت لانچ شده</h3>
+                <h3>
+                  {getFieldTranslationByNames(
+                    "property-information",
+                    "satisfaction launched"
+                  )}
+                </h3>
                 <img src={satisfy} alt="pricing" width={18} height={18} />
               </Title>
               <span>{convertToPersian(satisfyCount)}</span>
@@ -141,16 +172,22 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
             {options.map((option) => (
               <ParticipantInfo key={option.id}>
                 <TitleValue
-                  title="تاریخ و زمان ثبت رضایت"
+                  title={getFieldTranslationByNames(
+                    "property-information",
+                    "registration date and time satisfaction"
+                  )}
                   value={option.submit}
                 />
-                <TitleValue
-                  title="تاریخ و زمان تغییر رضایت"
-                  value={option.change}
-                />
+
                 <SatisfyContainer>
                   <Title>
-                    <h3>رضایت لانچ شده</h3>
+                    <h3>
+                      {" "}
+                      {getFieldTranslationByNames(
+                        "property-information",
+                        "satisfaction launched"
+                      )}
+                    </h3>
                     <img src={satisfy} alt="pricing" width={18} height={18} />
                   </Title>
                   <span>{convertToPersian(satisfyCount)}</span>

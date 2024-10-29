@@ -4,7 +4,6 @@ export const Table = styled.table`
   margin: 0 0 40px 0;
   width: 100%;
   background-color: white;
-  direction: rtl;
 `;
 
 export const Thead = styled.div`

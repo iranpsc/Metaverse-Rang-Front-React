@@ -4,22 +4,20 @@ import { useEffect, useState } from "react";
 import useRequest from "../../Services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import ModalSm from "../../Components/Modal/ModalSm";
+import { getFieldTranslationByNames } from "../../Services/Utility";
+import NoNotification from "./NoNotification";
 
 const Div = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
   overflow-y: auto;
-  direction: ltr;
   padding-right: 15px;
-  height: 220px;
-  @media (min-width: 1000px) {
-    height: 300px;
-  }
 `;
 const Container = styled.div`
+  height: 77%;
   h4 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 10px;
@@ -40,20 +38,26 @@ const Notifications = () => {
   }, []);
 
   return (
-    <ModalSm title="اعلان ها">
+    <ModalSm title={["notification", "notifications"]}>
       <Container>
-        <h4 onClick={() => setNotifications([])}>حذف همه</h4>
+        <h4 onClick={() => setNotifications([])}>
+          {getFieldTranslationByNames("notification", "remove all")}
+        </h4>
 
         <Div>
-          {notifications.map((notif) => (
-            <NotifCard
-              setNotifications={setNotifications}
-              notifications={notifications}
-              key={notif.id}
-              id={notif.id}
-              data={notif}
-            />
-          ))}
+          {notifications.length === 0 ? (
+            <NoNotification />
+          ) : (
+            notifications.map((notif) => (
+              <NotifCard
+                setNotifications={setNotifications}
+                notifications={notifications}
+                key={notif.id}
+                id={notif.id}
+                data={notif}
+              />
+            ))
+          )}
         </Div>
       </Container>
     </ModalSm>

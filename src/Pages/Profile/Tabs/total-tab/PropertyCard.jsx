@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -43,7 +44,10 @@ const PropertyCard = ({ image, label, value }) => {
       <img width={40} height={40} loading="lazy" alt={label} src={image} />
       <div>
         <span>{label}</span>
-        <h3>{value}</h3>
+        <h3>
+          {value || 0}{" "}
+          {getFieldTranslationByNames("citizenship-account", "property")}
+        </h3>
       </div>
     </Container>
   );

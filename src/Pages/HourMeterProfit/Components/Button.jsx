@@ -65,7 +65,7 @@ const Button = ({ id, color, title, value, logo, onClick, cards }) => {
       <span>{title}</span>
       <div>
         <img width={24} height={24} src={logo} alt={title} />
-        <h3>{value}</h3>
+        <h3>{parseFloat(value).toFixed(3)}</h3>
       </div>
     </Container>
   );

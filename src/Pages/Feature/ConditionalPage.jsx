@@ -87,14 +87,14 @@ export default function ConditionalPage() {
         "property-information",
         "entering the property"
       ),
-      content: <EnterTab owner />,
+      content: <EnterTab />,
     },
     {
       title: getFieldTranslationByNames(
         "property-information",
         "physical information"
       ),
-      content: <PhysicTab owner />,
+      content: <PhysicTab />,
     },
     {
       title: getFieldTranslationByNames(

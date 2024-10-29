@@ -7,9 +7,12 @@ import { LuEye } from "react-icons/lu";
 import styled from "styled-components";
 import { useState } from "react";
 import Title from "../../../../Components/Title";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 
 const Container = styled.div`
-  direction: rtl;
   color: aliceblue;
 `;
 
@@ -70,10 +73,22 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
   return (
     <Container>
       <HeaderContainer>
-        <Title title="پیشتاز ورود به “ نام مجموعه ”" />
+        <Title
+          title={getFieldTranslationByNames(
+            "property-information",
+            "lead entry to"
+          )}
+        />
         <Onlines>
           <LuEye />
-          <p>تعداد نفرات آنلاین: ۲۰ نفر</p>
+          <p>
+            {getFieldTranslationByNames(
+              "property-information",
+              "number of citizens online"
+            )}{" "}
+            {convertToPersian(20)}{" "}
+            {getFieldTranslationByNames("property-information", "person")}
+          </p>
         </Onlines>
       </HeaderContainer>
       <EnterInputs data={data} />
@@ -84,14 +99,28 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
           setPayStatus={setPayStatus}
         />
       )}
-      <Title payed={payed} title="درباره مجموعه" />
+      <Title
+        payed={payed}
+        title={getFieldTranslationByNames(
+          "property-information",
+          "about the collection"
+        )}
+      />
       <Text>{data[0].inputs[4].about}</Text>
       {payed && !edit && (
         <Buttons>
           <Button blue onClick={() => setEdit(true)}>
-            ویرایش اطلاعات
+            {getFieldTranslationByNames(
+              "property-information",
+              "editing information"
+            )}
           </Button>
-          <Button onClick={() => {}}>ورود به ملک</Button>
+          <Button onClick={() => {}}>
+            {getFieldTranslationByNames(
+              "property-information",
+              "confirmation of entry to the property"
+            )}
+          </Button>
         </Buttons>
       )}
       {payStatus && (
@@ -102,7 +131,7 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
           setLoading={setLoading}
         />
       )}
-      {loading && <LoadingModal isMobile={isMobile} />}
+      {loading && <LoadingModal isMobile={isMobile} setOpen={setLoading} />}
     </Container>
   );
 };

@@ -4,6 +4,7 @@ import RichText from "./RichText";
 import styled from "styled-components";
 import { useState } from "react";
 import Button from "../../../../Components/Button";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Wrapper = styled.div`
   border-radius: 5px;
@@ -17,7 +18,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  direction: rtl;
+
   margin-top: 20px;
 `;
 const Field = styled.div`
@@ -111,7 +112,10 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
               onChange={(e) =>
                 setFields({ ...fields, activity: e.target.value })
               }
-              placeholder="رشته فعالیت"
+              placeholder={getFieldTranslationByNames(
+                "property-information",
+                "activity line"
+              )}
             />
           </div>
           <span>+</span>
@@ -120,25 +124,37 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
           value={fields.name}
           onchange={(e) => setFields({ ...fields, name: e.target.value })}
           key={inputs.first_row_info[1].id}
-          placeholder={inputs.first_row_info[1].title}
+          placeholder={getFieldTranslationByNames(
+            "property-information",
+            inputs.first_row_info[1].title
+          )}
         />
       </First>
       <Input
         value={fields.address}
         onchange={(e) => setFields({ ...fields, address: e.target.value })}
-        placeholder={inputs.second_row_info.title}
+        placeholder={getFieldTranslationByNames(
+          "property-information",
+          inputs.second_row_info.title
+        )}
       />
       <Third>
         <Input
           type="number"
           value={fields.post}
           onchange={(e) => setFields({ ...fields, post: e.target.value })}
-          placeholder="کد پستی فیزیکی مجموعه"
+          placeholder={getFieldTranslationByNames(
+            "property-information",
+            "the physical postal code of the collection"
+          )}
         />
         <Input
           value={fields.web}
           onchange={(e) => setFields({ ...fields, web: e.target.value })}
-          placeholder="آدرس وب سایت"
+          placeholder={getFieldTranslationByNames(
+            "property-information",
+            "website address"
+          )}
         />
       </Third>
       {/* <TextArea
@@ -150,8 +166,20 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
       <Wrapper>
         <RichText />
       </Wrapper>
-      <Text>ویرایش محتوای ثبت شده پس تایید سطوح بالا منتشر خواهد شد</Text>
-      <Button edit onclick={() => setEdit(false)} label="ویرایش اطلاعات" />
+      <Text>
+        {getFieldTranslationByNames(
+          "property-information",
+          "editing of registered content"
+        )}
+      </Text>
+      <Button
+        edit
+        onclick={() => setEdit(false)}
+        label={getFieldTranslationByNames(
+          "property-information",
+          "editing information"
+        )}
+      />{" "}
     </Container>
   );
 };

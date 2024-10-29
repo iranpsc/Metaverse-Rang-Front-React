@@ -73,7 +73,7 @@ const MemberCard = ({ status, code, date, time }) => {
           <h3>Sorena Qadiri</h3>
           <a
             h
-            href={`https://rgb.irpsc.com/citizen/fa/${code}`}
+            href={`https://rgb.irpsc.com/fa/citizens/${code}`}
             target="_blank"
           >
             HM-{code}

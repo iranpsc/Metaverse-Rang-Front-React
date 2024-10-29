@@ -5,7 +5,11 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import Title from "../../../../Components/Title";
 import Button from "../../../../Components/Button";
-import { ToastError, ToastSuccess } from "../../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+  ToastSuccess,
+} from "../../../../Services/Utility";
 import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../Services/Hooks/useRequest";
 
@@ -45,7 +49,6 @@ const Container = styled.div`
   border-radius: 5px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  direction: rtl;
 `;
 
 const Wrapper = styled.div`
@@ -95,13 +98,13 @@ const Div = styled.div`
 const items_info = [
   {
     id: 1,
-    title: "زمان تسویه حساب بازه زمانی | روزانه",
+    title: "settlement time period | daily",
     value: "",
     name: "checkout_days_count",
   },
   {
     id: 2,
-    title: "خروج اتوماتیک از حساب کاربری | دقیقه",
+    title: "automatic exit from the user account minutes",
     value: "",
     name: "automatic_logout",
   },
@@ -186,9 +189,13 @@ const Bank = () => {
 
   return (
     <Container>
-      <Title title="متغییر های الزامی" />
+      <Title
+        title={getFieldTranslationByNames("setting", "required variables")}
+      />
       <Select onChange={handleSelectChange} value={selectedValue}>
-        <option value="">شماره کارت</option>
+        <option value="">
+          {getFieldTranslationByNames("setting", "card number")}
+        </option>
         {options.map((item) => (
           <option value={item.label} key={item.id}>
             <IoCardOutline />
@@ -199,7 +206,7 @@ const Bank = () => {
       <Wrapper>
         {items.map((item) => (
           <Div error={item.error} id={item.id} key={item.id}>
-            <span>{item.title}</span>
+            <span>{getFieldTranslationByNames("setting", item.title)}</span>
             <input
               onChange={(e) => handleInputChange(e, item.id)}
               value={item.value}
@@ -209,7 +216,11 @@ const Bank = () => {
           </Div>
         ))}
       </Wrapper>
-      <Button full label="ذخیره شود" onclick={handleSaveButtonClick} />
+      <Button
+        full
+        label={getFieldTranslationByNames("setting", "save")}
+        onclick={handleSaveButtonClick}
+      />
     </Container>
   );
 };

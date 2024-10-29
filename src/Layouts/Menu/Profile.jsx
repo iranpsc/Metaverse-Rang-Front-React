@@ -6,13 +6,14 @@ import Fallowing from "./Following/Fallowing";
 import Dynasty from "./Dynasty/Dynasty";
 import Union from "./Union/Union";
 import BtnsMenu from "./BtnsMenu";
-
-import Anonymous from "../../Assets/images/anonymous.png";
+import { FaChevronDown } from "react-icons/fa";
+import Anonymous from "../../Assets/images/defulte-profile.png";
 import Message from "../../Assets/svg/message.svg";
 import ProfileMember from "../../Assets/svg/profileMember.svg";
 import Ticket from "../../Assets/svg/ticket.svg";
 import Setting from "../../Assets/svg/setting.svg";
 import { useNavigate } from "react-router-dom";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -32,10 +33,10 @@ const Btn = styled.button`
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${({ isOpenDrop, theme }) =>
-    isOpenDrop ? theme.openDropDown : "transparent"};
+  background: transparent;
   height: 49px;
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 const BtnNavigator = styled.button`
@@ -107,8 +108,10 @@ const ContainerMain = styled.div`
   width: 100%;
   overflow-y: auto;
   max-height: 78%;
-  border-top: 2px solid ${({ theme }) => theme.lineMenu};
-  border-bottom: 2px solid ${({ theme }) => theme.lineMenu};
+  border-top: 2px solid
+    ${({ theme }) => theme.colors.newColors.otherColors.iconBg};
+  border-bottom: 2px solid
+    ${({ theme }) => theme.colors.newColors.otherColors.iconBg};
   background-color: ${(props) => props.theme.colors.newColors.shades.bgOne};
 `;
 
@@ -127,8 +130,18 @@ const Level = styled.div`
   justify-content: center;
 `;
 
+const ChevronIcon = styled(FaChevronDown)`
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease;
+  transform: ${({ isOpenDrop }) =>
+    isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
+  margin-right: 60px;
+`;
+
 const Profile = () => {
   const [isOpenDrop, setIsOpenDrop] = useState(false);
+  const [isOpenMenu, setIsOpen] = useState(false);
   const { isOpen } = useMenuContext();
   const { getUser } = useAuth();
   const [user, setUser] = useState();
@@ -139,10 +152,16 @@ const Profile = () => {
 
   return (
     <>
-      <Btn isOpenDrop={isOpenDrop} onClick={() => setIsOpenDrop(!isOpenDrop)}>
+      <Btn
+        isOpenDrop={isOpenDrop}
+        onClick={() => {
+          setIsOpenDrop(!isOpenDrop), setIsOpen(!isOpenDrop);
+        }}
+      >
         <ImgUser src={user?.image || Anonymous} />
         <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
         <Text isOpen={isOpen}>{user?.code}</Text>
+        <ChevronIcon isOpenDrop={isOpenMenu} />
       </Btn>
 
       <ContainerMain>
@@ -157,23 +176,23 @@ const Profile = () => {
               <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
               <Text isOpen={!isOpen}>{user?.code}</Text>
             </Btn>
-            <BtnNavigator>
+            <BtnNavigator onClick={() => navigate("/metaverse/sanad")}>
               <Icon src={Ticket} />
-              ارسال سند
+              {getFieldTranslationByNames("central-page", "send document")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={Message} />
-              گفتگو
+              {getFieldTranslationByNames("central-page", "chat")}
             </BtnNavigator>
             <BtnNavigator onClick={() => navigate("/metaverse/profile")}>
               <Icon src={ProfileMember} />
-              پروفایل
+              {getFieldTranslationByNames("central-page", "profile")}
             </BtnNavigator>
             <BtnNavigator onClick={() => navigate("/metaverse/settings")}>
               <Icon src={Setting} />
-              تنظیمات
+              {getFieldTranslationByNames("setting", "settings")}
             </BtnNavigator>
-            <Fallowing />
+            {/* <Fallowing /> */}
             <Dynasty />
             <Union />
           </SubMenu>

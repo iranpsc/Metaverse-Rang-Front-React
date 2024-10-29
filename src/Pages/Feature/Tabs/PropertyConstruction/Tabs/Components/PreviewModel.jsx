@@ -82,7 +82,7 @@ const PreviewModel = ({ data }) => {
   `;
   const Header = styled.p`
     color: ${(props) => props.theme.colors.primary};
-    text-align: right;
+
     font-size: 16px;
     @media (min-width: 768px) {
       font-size: 18px;

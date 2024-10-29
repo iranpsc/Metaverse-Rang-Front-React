@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { convertToPersian } from "../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../Services/Utility";
 
 const Container = styled.div`
-  direction: ltr;
   overflow-y: auto;
   padding-right: 10px;
   height: 20rem;
@@ -35,7 +37,7 @@ const Option = styled.h2`
   padding: 15px 20px;
   white-space: nowrap;
   cursor: pointer;
-  direction: rtl;
+
   color: ${(props) =>
     props.option
       ? props.theme.colors.primary
@@ -58,7 +60,9 @@ const SideBar = ({ currencies, option, setOption }) => {
             onClick={() => setOption(item.id)}
             key={item.id}
           >
-            بسته {convertToPersian(item.id)}
+            {getFieldTranslationByNames("store", "pack of")}
+            {"  "}
+            {convertToPersian(item.id)}
           </Option>
         ))}
       </Wrapper>

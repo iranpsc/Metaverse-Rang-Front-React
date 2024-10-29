@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
 
 const Container = styled.div`
   border-radius: 10px;
@@ -16,9 +17,9 @@ const Container = styled.div`
 `;
 
 const Percent = styled.div`
-  border-left: 1px solid
+  ${(props) => (props.IsPersian ? "border-left" : "border-right")}: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
-  padding-left: 25px;
+  ${(props) => (props.IsPersian ? "padding-left" : "padding-right")}: 25px;
 `;
 const Title = styled.div`
   display: flex;
@@ -40,7 +41,6 @@ const ProgressContainer = styled.div`
   height: 8px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 28px;
-  direction: ltr;
 `;
 const ProgressBar = styled.div`
   background-color: ${(props) => props.theme.colors.primary};
@@ -68,6 +68,7 @@ const Level = () => {
   const [userId] = useContext(UserContext);
   const [user, setUser] = useState({});
   const { Request } = useRequest();
+  const IsPersian = useLanguage();
   useEffect(() => {
     Request(`users/${userId.id}/level`).then((response) => {
       setUser(response.data.data);
@@ -76,7 +77,7 @@ const Level = () => {
 
   return (
     <Container>
-      <Percent>
+      <Percent IsPersian={IsPersian}>
         <Title>
           <h2>{user?.latest_level?.name}</h2>
           <h3>{user?.score_percentage_to_next_level}%</h3>
@@ -99,6 +100,22 @@ const Level = () => {
               <ReactTooltip id={item.slug} place="top" content={item.name} />
             </div>
           ))}
+        {user.latest_level && (
+          <div>
+            <img
+              data-tooltip-id={user.latest_level.slug}
+              width={65}
+              height={65}
+              src={user.latest_level.image}
+              alt={user.latest_level.name}
+            />
+            <ReactTooltip
+              id={user.latest_level.slug}
+              place="top"
+              content={user.latest_level.name}
+            />
+          </div>
+        )}
       </LevelCount>
     </Container>
   );

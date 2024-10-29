@@ -1,36 +1,35 @@
+import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import TransactionRow from "./TransactionRow";
 import blue from "../../../../Assets/gif/blue-color.gif";
 import psc from "../../../../Assets/gif/psc.gif";
 import red from "../../../../Assets/gif/red-color.gif";
 import rial from "../../../../Assets/gif/rial.gif";
-import styled from "styled-components";
-import { useState } from "react";
 import yellow from "../../../../Assets/gif/yellow-color.gif";
+import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;
-  direction: rtl;
-  /* width: 73vw !important; */
   overflow-x: auto;
   min-height: 93vh;
   &::-webkit-scrollbar {
     display: none;
   }
   @media (min-width: 640px) {
-    /* width: 75vw !important; */
+    width: 75vw !important;
   }
   @media (min-width: 840px) {
     min-height: 80vh !important;
   }
   @media (min-width: 1024px) {
-    /* width: 83vw !important; */
+    width: 83vw !important;
   }
   @media (min-width: 1280px) {
-    /* width: 78.5vw !important; */
+    width: 78.5vw !important;
   }
   @media (min-width: 1360px) {
-    /* width: 78.5vw !important; */
+    width: 78.5vw !important;
   }
   @media (min-width: 1920px) {
     width: auto !important;
@@ -41,7 +40,7 @@ const Container = styled.div`
 
 const Table = styled.table`
   width: 1215px;
-  text-align: right;
+
   margin-top: 5px;
   border-collapse: collapse;
   border-top-right-radius: 10px;
@@ -67,7 +66,7 @@ const StatusFilter = styled.div`
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  font-size: 16px;
+
   div {
     position: relative;
     &:hover {
@@ -118,12 +117,14 @@ const TitleFilter = styled.div`
   width: 130px;
   padding: 15px;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   div {
     position: relative;
     padding-right: 5px;
     &:hover {
       background-color: #3b3b3b;
+      color: #dedee9;
       transition: all 0.2s linear;
     }
     span {
@@ -137,7 +138,7 @@ const TitleFilter = styled.div`
   }
   h1 {
     font-size: 16px;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 400;
     cursor: pointer;
     &:first-of-type {
@@ -148,16 +149,18 @@ const TitleFilter = styled.div`
 const SubjectFilter = styled.div`
   position: absolute;
   top: 65px;
-  width: 140px;
+  width: max-content;
   padding: 20px;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  font-size: 16px;
+  font-size: 14px;
   div {
     position: relative;
+    padding: 3px;
     &:hover {
       background-color: #3b3b3b;
+      color: #dedee9;
       transition: all 0.2s linear;
     }
     span {
@@ -196,29 +199,100 @@ const TableHeader = styled.th`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
   width: ${(props) =>
-    props.date ? "235px" : props.subject ? "130px" : props.title && "140px"};
-`;
-
-const Loader = styled.div`
-  margin: 10px 0;
-  padding-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  button {
-    background-color: transparent;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    border: none;
-  }
+    props.date ? "235px" : props.subject ? "165px" : props.title && "140px"};
 `;
 
 const subjects = [
-  { id: 1, label: "رنگ آبی", slug: "blue", gif: blue },
-  { id: 2, label: "رنگ قرمز", slug: "red", gif: red },
-  { id: 3, label: "رنگ زرد", slug: "yellow", gif: yellow },
-  { id: 4, label: "ریال", slug: "rial", gif: rial },
-  { id: 5, label: "PSC", slug: "psc", gif: psc },
+  { id: 1, label: "buy blue", slug: "blue", gif: blue },
+  { id: 2, label: "buy red", slug: "red", gif: red },
+  { id: 3, label: "buy yellow", slug: "yellow", gif: yellow },
+  { id: 4, label: "buy rial currency", slug: "rial", gif: rial },
+  { id: 5, label: "buy psc currency", slug: "psc", gif: psc },
 ];
+
+const TableBody = styled.tbody``;
+
+const TableHeaderText = styled.span``;
+
+const FilterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 15px;
+`;
+
+const FilterArrows = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const RotatingArrow = styled(MdKeyboardArrowDown)`
+  transform: ${(props) => (props.isOpen ? "rotate(180deg)" : "rotate(360deg)")};
+`;
+
+const FilterItem = styled.div`
+  position: relative;
+  padding: ${(props) => props.padding || "0"};
+  background-color: ${(props) => (props.active ? "#3B3B3B" : "transparent")};
+  border-radius: ${(props) => props.borderRadius || "0"};
+  &:hover {
+    background-color: #3b3b3b;
+    color: #dedee9;
+    transition: all 0.2s linear;
+  }
+`;
+
+const FilterItemText = styled.h1`
+  font-size: 16px;
+  color: ${(props) => {
+    if (props.variant === "success") return "#18c08f";
+    if (props.variant === "pending") return "#ffc800";
+    if (props.variant === "failed") return "#ff0000";
+    return props.theme.colors.newColors.shades.title;
+  }};
+  background-color: ${(props) => {
+    if (props.variant === "success") return "#18c09017";
+    if (props.variant === "pending") return "#ffc80017";
+    if (props.variant === "failed") return "#ff000017";
+    return "transparent";
+  }};
+  font-weight: 400;
+  cursor: pointer;
+  margin: ${(props) => props.margin || "0"};
+  border-radius: 5px;
+  padding: ${(props) => props.padding || "0"};
+`;
+
+const FilterCloseButton = styled.span`
+  position: absolute;
+  left: 10px;
+  top: 3px;
+  color: red;
+  cursor: pointer;
+  font-size: 14px;
+`;
+
+const SubjectFilterItem = styled.div`
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+  align-items: center;
+  background-color: ${(props) => (props.active ? "#3B3B3B" : "transparent")};
+  margin-bottom: ${(props) => (props.isLast ? "0" : "10px")};
+  border-radius: 10px;
+  padding: 3px;
+`;
+
+const SubjectFilterImage = styled.img`
+  width: 24px;
+  height: 26px;
+`;
+
+const SubjectFilterText = styled.h3``;
+
 const TransactionsList = ({
   rows,
   title,
@@ -228,232 +302,230 @@ const TransactionsList = ({
   setTitle,
   setSubject,
 }) => {
-  const [visibleRows, setVisibleRows] = useState(10);
-
   const [filters, setFilters] = useState({
     status: false,
     title: false,
     subject: false,
   });
 
-  const handleLoadMore = () => {
-    setVisibleRows((prevVisibleRows) => prevVisibleRows + 10);
-  };
-
   return (
     <Container>
       <Table>
         <TableHead>
           <TableRow>
-            <TableHeader>شناسه تراکنش</TableHeader>
-            <TableHeader date>تاریخ و ساعت ارسال</TableHeader>
             <TableHeader>
-              <Div>
-                وضعیت
-                <Arrows onClick={() => setFilters({ status: !filters.status })}>
-                  <MdKeyboardArrowDown
-                    style={{
-                      transform: `${
-                        filters.status ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
-                    }}
-                  />
-                </Arrows>
-              </Div>
+              <TableHeaderText>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "transaction id"
+                )}
+              </TableHeaderText>
+            </TableHeader>
+            <TableHeader date>
+              <TableHeaderText>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "date and time of sending"
+                )}
+              </TableHeaderText>
+            </TableHeader>
+            <TableHeader>
+              <FilterContainer>
+                <TableHeaderText>
+                  {getFieldTranslationByNames(
+                    "citizenship-account",
+                    "condition"
+                  )}
+                </TableHeaderText>
+                <FilterArrows
+                  onClick={() => setFilters({ status: !filters.status })}
+                >
+                  <RotatingArrow isOpen={filters.status} />
+                </FilterArrows>
+              </FilterContainer>
               {filters.status && (
                 <StatusFilter>
-                  <div
-                    style={{
-                      backgroundColor: `${status.success && "#3B3B3B"}`,
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <h1
+                  <FilterItem active={status.success} borderRadius="5px">
+                    <FilterItemText
+                      variant="success"
+                      padding="2px 18px"
                       onClick={() => {
                         setStatus({ ...status, success: true });
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      موفق
-                    </h1>
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "successful"
+                      )}
+                    </FilterItemText>
                     {status.success && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setStatus({ ...status, success: false });
                           setFilters({ ...filters, status: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      backgroundColor: `${status.pending && "#3B3B3B"}`,
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <h2
+                  </FilterItem>
+
+                  <FilterItem active={status.pending} borderRadius="5px">
+                    <FilterItemText
+                      variant="pending"
+                      padding="2px 18px"
                       onClick={() => {
                         setStatus({ ...status, pending: true });
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      معلق
-                    </h2>
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "suspended"
+                      )}
+                    </FilterItemText>
                     {status.pending && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setStatus({ ...status, pending: false });
                           setFilters({ ...filters, status: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      backgroundColor: `${status.failed && "#3B3B3B"}`,
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <h3
+                  </FilterItem>
+
+                  <FilterItem active={status.failed} borderRadius="5px">
+                    <FilterItemText
+                      variant="failed"
+                      padding="2px 18px"
                       onClick={() => {
                         setStatus({ ...status, failed: true });
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      ناموفق
-                    </h3>
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "unsuccessful"
+                      )}
+                    </FilterItemText>
                     {status.failed && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setStatus({ ...status, failed: false });
                           setFilters({ ...filters, status: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
+                  </FilterItem>
                 </StatusFilter>
               )}
             </TableHeader>
             <TableHeader title>
-              <Div>
-                عنوان
-                <Arrows onClick={() => setFilters({ title: !filters.title })}>
-                  <MdKeyboardArrowDown
-                    style={{
-                      transform: `${
-                        filters.title ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
-                    }}
-                  />
-                </Arrows>
-              </Div>
+              <FilterContainer>
+                <TableHeaderText>
+                  {getFieldTranslationByNames("citizenship-account", "title")}
+                </TableHeaderText>
+                <FilterArrows
+                  onClick={() => setFilters({ title: !filters.title })}
+                >
+                  <RotatingArrow isOpen={filters.title} />
+                </FilterArrows>
+              </FilterContainer>
               {filters.title && (
                 <TitleFilter>
-                  <div
-                    style={{
-                      backgroundColor: `${title.property_buy && "#3B3B3B"}`,
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <h1
+                  <FilterItem active={title.property_buy} borderRadius="10px">
+                    <FilterItemText
                       onClick={() => {
                         setTitle({ ...title, property_buy: true });
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {" "}
-                      خرید دارایی{" "}
-                    </h1>
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "purchase property"
+                      )}
+                    </FilterItemText>
                     {title.property_buy && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setTitle({ ...title, property_buy: false });
                           setFilters({ ...filters, title: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      backgroundColor: `${title.property_dealing && "#3B3B3B"}`,
-                      borderRadius: "10px",
-                    }}
+                  </FilterItem>
+                  <FilterItem
+                    active={title.property_dealing}
+                    borderRadius="10px"
                   >
-                    <h1
+                    <FilterItemText
                       onClick={() => {
                         setTitle({ ...title, property_dealing: true });
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {" "}
-                      معامله ملک{" "}
-                    </h1>
+                      {getFieldTranslationByNames(
+                        "citizenship-account",
+                        "real estate transaction"
+                      )}
+                    </FilterItemText>
                     {title.property_dealing && (
-                      <span
+                      <FilterCloseButton
                         onClick={() => {
                           setTitle({ ...title, property_dealing: false });
                           setFilters({ ...filters, title: false });
                         }}
                       >
                         X
-                      </span>
+                      </FilterCloseButton>
                     )}
-                  </div>
+                  </FilterItem>
                 </TitleFilter>
               )}
             </TableHeader>
             <TableHeader subject>
-              <Div>
-                موضوع
-                <Arrows
+              <FilterContainer>
+                <TableHeaderText>
+                  {getFieldTranslationByNames("citizenship-account", "issue")}
+                </TableHeaderText>
+                <FilterArrows
                   onClick={() => setFilters({ subject: !filters.subject })}
                 >
-                  <MdKeyboardArrowDown
-                    style={{
-                      transform: `${
-                        filters.subject ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
-                    }}
-                  />
-                </Arrows>
-              </Div>
+                  <RotatingArrow isOpen={filters.subject} />
+                </FilterArrows>
+              </FilterContainer>
               {filters.subject && (
                 <SubjectFilter>
-                  {subjects.map((item) => (
-                    <div
+                  {subjects.map((item, index) => (
+                    <SubjectFilterItem
+                      key={item.id}
+                      active={subject[item.slug]}
+                      isLast={index === subjects.length - 1}
                       onClick={() => {
                         setSubject((prev) => ({ ...prev, [item.slug]: true }));
                         setFilters({ ...filters, subject: false });
                       }}
-                      key={item.id}
-                      style={{
-                        display: "flex",
-                        gap: "5px",
-                        cursor: "pointer",
-                        alignItems: "center",
-                        backgroundColor: `${subject[item.slug] && "#3B3B3B"}`,
-                        marginBottom: `${item.id !== 5 && "10px"}`,
-                        borderRadius: "10px",
-                      }}
                     >
-                      <img
+                      <SubjectFilterImage
                         src={item.gif}
                         alt={item.slug}
-                        width={24}
-                        height={26}
                         loading="lazy"
                       />
-                      <h3>{item.label}</h3>
+                      <SubjectFilterText>
+                        {getFieldTranslationByNames(
+                          "citizenship-account",
+                          item.label
+                        )}
+                      </SubjectFilterText>
                       {subject[item.slug] && (
-                        <span
+                        <FilterCloseButton
                           onClick={(e) => {
                             setSubject((prev) => ({
                               ...prev,
@@ -464,28 +536,37 @@ const TransactionsList = ({
                           }}
                         >
                           X
-                        </span>
+                        </FilterCloseButton>
                       )}
-                    </div>
+                    </SubjectFilterItem>
                   ))}
                 </SubjectFilter>
               )}
             </TableHeader>
-            <TableHeader>مقدار</TableHeader>
-            <TableHeader>مشاهده و چاپ</TableHeader>
+            <TableHeader>
+              <TableHeaderText>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "the amount of"
+                )}
+              </TableHeaderText>
+            </TableHeader>
+            <TableHeader>
+              <TableHeaderText>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "view-print"
+                )}
+              </TableHeaderText>
+            </TableHeader>
           </TableRow>
         </TableHead>
-        <tbody>
-          {rows.slice(0, visibleRows).map((transaction) => (
+        <TableBody>
+          {rows.map((transaction) => (
             <TransactionRow key={transaction.id} {...transaction} />
           ))}
-        </tbody>
+        </TableBody>
       </Table>
-      {visibleRows < rows.length && (
-        <Loader>
-          <button onClick={handleLoadMore}>نمایش موارد بیشتر</button>
-        </Loader>
-      )}
     </Container>
   );
 };

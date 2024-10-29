@@ -1,3 +1,4 @@
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import Codes from "./Codes";
 import EditInput from "./EditInput";
 import EditLevelInput from "./EditLevelInput";
@@ -9,7 +10,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  direction: rtl;
 `;
 const First = styled.div`
   display: flex;
@@ -85,7 +85,10 @@ const EditInputs = ({ data, setData, setEdit, setPayed }) => {
             slug={input.slug}
             icon={input.icon}
             // onchange={changeHandler}
-            title={input.title}
+            title={getFieldTranslationByNames(
+              "entering-the-property",
+              input.title
+            )}
             key={input.id}
           />
         ))}
@@ -100,7 +103,10 @@ const EditInputs = ({ data, setData, setEdit, setPayed }) => {
             type={input.type}
             // onchange={changeHandler}
             // {...input}
-            title={input.title}
+            title={getFieldTranslationByNames(
+              "entering-the-property",
+              input.title
+            )}
             key={input.id}
           />
         ))}
@@ -114,14 +120,19 @@ const EditInputs = ({ data, setData, setEdit, setPayed }) => {
       <Wrapper>
         <RichText />
       </Wrapper>
-      <Title>درست کردن کد اختصاصی ورود</Title>
+      <Title>
+        {getFieldTranslationByNames(
+          "entering-the-property",
+          "creating a unique login code"
+        )}
+      </Title>
       <Codes />
       <Button
         onClick={() => {
           setEdit(false);
         }}
       >
-        ویرایش اطلاعات
+        {getFieldTranslationByNames("entering-the-property", input.title)}
       </Button>
     </Container>
   );

@@ -35,7 +35,7 @@ const UserCode = ({ title, code }) => {
         <HiOutlineUser size={20} />
         <span>{title}</span>
       </Div>
-      <a href={`https://rgb.irpsc.com/citizen/fa/${code}`} target="_blank">
+      <a href={`https://rgb.irpsc.com/fa/citizens/${code}`} target="_blank">
         {code}
       </a>
     </User>

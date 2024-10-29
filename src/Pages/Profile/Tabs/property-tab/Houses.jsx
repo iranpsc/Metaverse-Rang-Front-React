@@ -21,37 +21,7 @@ const Container = styled.div`
   padding-right: 15px;
   padding-top: 20px;
   overflow-y: auto;
-  height: 226px;
-  @media (min-width: 840px) {
-    height: 254px;
-  }
-  @media (min-width: 880px) {
-    height: 209px;
-  }
-  @media (min-width: 890px) {
-    height: 278px;
-  }
-  @media (min-width: 930px) {
-    height: 294px;
-  }
-  @media (min-width: 1024px) {
-    height: 381px;
-  }
-  @media (min-width: 1180px) {
-    height: 579px;
-  }
-  @media (min-width: 1280px) {
-    height: 561px;
-  }
-  @media (min-width: 1360px) {
-    height: 622px;
-  }
-  @media (min-width: 1400px) {
-    height: 538px;
-  }
-  @media (min-width: 1920px) {
-    height: 619px;
-  }
+  height: 70vh;
 `;
 
 const Provider = styled.div`
@@ -186,7 +156,7 @@ const Houses = () => {
           newProperties = {
             ...newProperties,
             name: "residential property",
-            photo: "/metaverse/src/Assets/images/house.png",
+            photo: house,
             color: "#ffc80021",
             slug: "house",
           };
@@ -194,7 +164,7 @@ const Houses = () => {
           newProperties = {
             ...newProperties,
             name: "commercial property",
-            photo: "/metaverse/src/Assets/images/building.png",
+            photo: business,
             color: "#ff000021",
             slug: "industry",
           };
@@ -202,7 +172,7 @@ const Houses = () => {
           newProperties = {
             ...newProperties,
             name: "educational property",
-            photo: "/metaverse/src/Assets/images/courthouse.png",
+            photo: education,
             color: "#0066ff21",
             slug: "education",
           };

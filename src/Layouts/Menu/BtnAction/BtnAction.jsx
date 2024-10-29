@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../Services/Hooks/useAuth";
 import { ReactComponent as ArowMenu } from "../../../Assets/svg/arowMenu.svg";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
+import useRequest from "../../../Services/Hooks/useRequest";
+import { removeItem } from "../../../Services/Utility/LocalStorage";
+import { useLanguage } from "../../../Services/Reducers/LanguageContext";
 
 const Btn = styled.div`
   min-height: ${(props) =>
@@ -61,8 +64,7 @@ const Div = styled.div`
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};
   ${(props) => {
-    const direction = document.body.dir || "ltr";
-    return direction === "ltr"
+    !props.isPersian
       ? `right: ${!props.isOpen ? "-220px" : "0"}`
       : `left: ${!props.isOpen ? "-220px" : "0"}`;
   }};
@@ -77,8 +79,7 @@ const Div = styled.div`
     position: absolute;
     top: 10px;
     ${(props) => {
-      const direction = document.body.dir || "ltr";
-      return direction === "ltr"
+      return !props.isPersian
         ? `left: ${!props.isOpen ? "-8px" : "0"} ;rotate:226deg;`
         : `right: ${!props.isOpen ? "-8px" : "0"} ;rotate: 45deg;`;
     }};
@@ -100,7 +101,8 @@ const BtnAction = () => {
   const { getUser } = useAuth();
   const [user, setUser] = useState();
   const [isClicked, setIsClicked] = useState(false);
-
+  const { Request, HTTP_METHOD } = useRequest();
+  const isPersian = useLanguage();
   useLayoutEffect(() => {
     setUser(getUser());
   }, []);
@@ -108,10 +110,15 @@ const BtnAction = () => {
   const handleClick = () => {
     setIsClicked(!isClicked);
   };
-
+  const logoutHandler = () => {
+    Request("auth/logout", HTTP_METHOD.POST, {}, {}, "development").then(() => {
+      removeItem("user");
+      window.location.reload();
+    });
+  };
   return (
     <Btn isOpen={isOpen} isClicked={isClicked} onClick={handleClick}>
-      <Div isOpen={isOpen} isClicked={isClicked}>
+      <Div isOpen={isOpen} isClicked={isClicked} isPersian={isPersian}>
         <TextDetail isOpen={isOpen} isClicked={isClicked}>
           {getFieldTranslationByNames(
             "Citizenship-profile",
@@ -121,7 +128,11 @@ const BtnAction = () => {
         <TextDetail isOpen={isOpen} isClicked={isClicked}>
           {getFieldTranslationByNames("Citizenship-profile", "home page")}
         </TextDetail>
-        <TextDetail isOpen={isOpen} isClicked={isClicked}>
+        <TextDetail
+          isOpen={isOpen}
+          isClicked={isClicked}
+          onClick={() => logoutHandler()}
+        >
           {getFieldTranslationByNames("central-page", "sign out")}
         </TextDetail>
       </Div>

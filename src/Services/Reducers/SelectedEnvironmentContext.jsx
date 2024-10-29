@@ -13,7 +13,12 @@ export const SelectedEnvironmentProvider = ({ children }) => {
   const [isSelectable, setIsSelectable] = useState(false);
 
   const addSelectedEnvironment = (data) => {
-    setSelectedEnvironment((prev) => ({ ...prev, ...data }));
+    setSelectedEnvironment((prev) => {
+      const updatedEnvironment = { ...prev, ...data };
+      console.log("Updated Environment:", updatedEnvironment);
+      return updatedEnvironment;
+    });
+    toggleIsSelectable(); // Add this line to toggle isSelectable
   };
 
   const updateFormState = (data) => {

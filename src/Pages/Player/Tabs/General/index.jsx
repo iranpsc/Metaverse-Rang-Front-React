@@ -140,8 +140,7 @@ const Note = styled.textarea`
   resize: none;
   width: 90%;
   height: 40px;
-  text-align: right;
-  direction: rtl;
+
   outline: none;
   border: 2px solid #707070 !important;
   border-radius: 8px;

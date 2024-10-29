@@ -5,6 +5,7 @@ import { IoIosClose } from "react-icons/io";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
 import Button from "../../../../Components/Button";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -24,7 +25,7 @@ const Modal = styled.div`
   border-radius: 10px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   overflow-y: auto;
-  direction: ltr;
+
   padding: 20px;
   z-index: 999;
   width: 415px;
@@ -92,7 +93,6 @@ const Info = styled.div`
   padding: 20px;
   border-radius: 10px;
   margin-top: 20px;
-  direction: rtl;
 `;
 const Row = styled.div`
   display: flex;
@@ -167,18 +167,48 @@ const PrintModal = ({
           </Div>
           {status == "0" ? (
             <>
-              <p>از خرید شما سپاس گذاریم</p>
-              <span>خرید شما با موفقیت ثبت شده است</span>
+              <p>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "thank you for your purchase"
+                )}
+              </p>
+              <span>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "your purchase has been successfully registered"
+                )}
+              </span>
             </>
           ) : status == "-138" ? (
             <>
-              <p>تراکنش شما انجام نشده است</p>
-              <span>متاسفانه تراکنش شما رد شده است</span>
+              <p>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "your transaction has not been completed"
+                )}
+              </p>
+              <span>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "unfortunately, your transaction has been rejected"
+                )}
+              </span>
             </>
           ) : (
             <>
-              <p>تراکنش شما در حال برسی است</p>
-              <span>تا دقایقی دیگر تراکنش شما برسی خواهد شد</span>
+              <p>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "your transaction is being processed"
+                )}
+              </p>
+              <span>
+                {getFieldTranslationByNames(
+                  "citizenship-account",
+                  "your transaction will be checked in a few minutes"
+                )}
+              </span>
             </>
           )}
         </Header>
@@ -191,27 +221,53 @@ const PrintModal = ({
             </Gif>
           </Row>
           <Row>
-            <Title>شناسه واریز</Title>
+            <Title>
+              {getFieldTranslationByNames("citizenship-account", "deposit id")}
+            </Title>
             <Value>{code}</Value>
           </Row>
           <Row>
-            <Title>تاریخ واریز</Title>
+            <Title>
+              {getFieldTranslationByNames(
+                "citizenship-account",
+                "date of deposit"
+              )}
+            </Title>
             <Value>{date}</Value>
           </Row>
           <Row>
-            <Title>ساعت واریز</Title>
+            <Title>
+              {getFieldTranslationByNames(
+                "citizenship-account",
+                "deposit time"
+              )}
+            </Title>
             <Value>{time}</Value>
           </Row>
           <Row>
-            <Title>عنوان پرداختی</Title>
+            <Title>
+              {getFieldTranslationByNames(
+                "citizenship-account",
+                "payment title"
+              )}
+            </Title>
             <Value>{title}</Value>
           </Row>
           <Row not={false}>
-            <Title>تعداد پرداختی</Title>
+            <Title>
+              {getFieldTranslationByNames("citizenship-account", "amount paid")}
+            </Title>
             <Value>{count}</Value>
           </Row>
           <div style={{ marginTop: "10px" }}>
-            <Button full label="چاپ تراکنش" onclick={handlePrint} />
+            <Button
+              full
+              label={getFieldTranslationByNames(
+                "citizenship-account",
+                "view-print"
+              )}
+              onclick={handlePrint}
+            />
           </div>
         </Info>
         <CloseWrapper onClick={() => setOpenPrint(false)}>

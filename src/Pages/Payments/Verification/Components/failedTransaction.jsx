@@ -38,7 +38,7 @@ const Body = styled.div`
 
   & p {
     text-align: center;
-    direction: rtl;
+
     font-size: 18px;
     line-height: 40px;
   }

@@ -9,6 +9,7 @@ import styled from "styled-components";
 import TextValueIcon from "../../../../Components/TextValueIcon";
 import Button from "../../../../Components/Button";
 import { Title } from "../../Styles";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div``;
 const Inputs = styled.div`
@@ -93,10 +94,17 @@ const AddSatisfy = () => {
 
   return (
     <Container>
-      <Title title="افزودن رضایت" />
+      <Title
+        title={getFieldTranslationByNames(
+          "property-information",
+          "add satisfaction"
+        )}
+      />
       <Info>
-        با مشارکت کردن در این بخش و اضافه کردن رضایت میتوانید در زمان ساخت این
-        ملک شریک شوید{" "}
+        {getFieldTranslationByNames(
+          "property-information",
+          "by participating in this section and adding consent"
+        )}
       </Info>
       <Inputs>
         <Div>
@@ -118,7 +126,10 @@ const AddSatisfy = () => {
             value={count}
             onChange={(e) => setCount(e.target.value)}
             type="number"
-            placeholder="تعداد رضایت"
+            placeholder={getFieldTranslationByNames(
+              "property-information",
+              "number of satisfaction"
+            )}
             maxLength={3}
             min={0}
             max={200}
@@ -134,7 +145,13 @@ const AddSatisfy = () => {
           very_long
         />
       </Inputs>
-      <Button label="ثبت رضایت" onclick={addHandler} />
+      <Button
+        label={getFieldTranslationByNames(
+          "property-information",
+          "record satisfaction"
+        )}
+        onclick={addHandler}
+      />
     </Container>
   );
 };

@@ -49,6 +49,7 @@ const Code = styled.a`
   font-weight: 500;
   color: #0066ff;
   text-decoration: none;
+  text-transform: uppercase;
 `;
 const Content = styled.div`
   display: flex;
@@ -94,7 +95,7 @@ const Info = () => {
         <div>
           <Title>{user?.name}</Title>
           <Code
-            href={`https://rgb.irpsc.com/citizen/fa/${user?.code}`}
+            href={`https://rgb.irpsc.com/fa/citizens/${user?.code}`}
             target="_blank"
           >
             {user?.code}

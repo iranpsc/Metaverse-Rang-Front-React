@@ -19,41 +19,8 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   padding: 20px 15px 20px 0;
-  height: 240px;
+  height: 90%;
   overflow-y: auto;
-  @media (min-width: 720px) {
-    height: 405px;
-  }
-  @media (min-width: 740px) {
-    height: 225px;
-  }
-  @media (min-width: 840px) {
-    height: 256px;
-  }
-  @media (min-width: 882px) {
-    height: 216px;
-  }
-  @media (min-width: 890px) {
-    height: 285px;
-  }
-  @media (min-width: 930px) {
-    height: 300px;
-  }
-  @media (min-width: 1024px) {
-    height: 410px;
-  }
-  @media (min-width: 1280px) {
-    height: 620px;
-  }
-  @media (min-width: 1366px) {
-    height: 845px;
-  }
-  @media (min-width: 1400px) {
-    height: 585px;
-  }
-  @media (min-width: 1920px) {
-    height: 755px;
-  }
 `;
 const P = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades[30]};
@@ -71,22 +38,27 @@ const CitizenTab = () => {
   const searchHandler = useCallback(() => {
     if (searched.trim() === "") return;
     setIsLoading(true);
-    searchAPI(Request, HTTP_METHOD, searched, true).then((response) => {
+    searchAPI(Request, HTTP_METHOD, searched).then((response) => {
       setData(response.data.data);
       setIsLoading(false);
     });
   }, [searched, Request, HTTP_METHOD]);
 
+  const handleInputChange = (e) => {
+    setSearched(e.target.value);
+    searchHandler(); // Trigger search on every keystroke
+  };
+
   return (
     <Container>
       <SearchInput
-        onchange={(e) => setSearched(e.target.value)}
+        onchange={handleInputChange} // Call search on every input change
         value={searched}
         placeholder={getFieldTranslationByNames(
           "search-in-metarang",
           "search for citizen name or id"
         )}
-        onSearch={searchHandler} // New prop to handle the search trigger
+        onSearch={searchHandler} // You can still keep this for the icon click event
       />
       {isLoading ? (
         <P>درحال دریافت اطلاعات</P>

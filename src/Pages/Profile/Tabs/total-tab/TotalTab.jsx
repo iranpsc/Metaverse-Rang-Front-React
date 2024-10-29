@@ -10,21 +10,15 @@ const Container = styled.div`
   padding-top: 20px;
   padding-right: 10px;
   padding-bottom: 19px;
-  direction: ltr;
+
   overflow-y: auto;
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
-  height: 73%;
-  @media (min-width: 930px) {
-    height: 78%;
-  }
-  @media (min-width: 1024px) {
-    height: 78%;
-  }
+
   @media (min-width: 1400px) {
     height: 80%;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 2fr;
   }
   @media (min-width: 1800px) {
     height: auto;
@@ -52,8 +46,8 @@ const TotalTab = () => {
         </>
       ) : (
         <>
-          <Details />
           <Bio />
+          <Details />
         </>
       )}
     </Container>

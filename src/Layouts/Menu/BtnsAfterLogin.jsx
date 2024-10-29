@@ -89,7 +89,7 @@ const Tooltip = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades[40]};
   border-radius: 10px;
   color: ${(props) => props.theme.colors.newColors.shades[100]};
-  text-align: right;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -180,6 +180,7 @@ const BtnsAfterLogin = () => {
           interactive={true}
           delay={50}
           animation="scale"
+          key={index}
         >
           <Btn
             key={index}

@@ -7,7 +7,7 @@ const Container = styled.div`
   border: 1px solid ${(props) => props.theme.colors.newColors.shades.title};
   padding: 5px 12px;
   color: #84858f;
-  direction: rtl;
+
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   display: grid;

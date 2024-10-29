@@ -7,6 +7,7 @@ import Ticket from "../../../Assets/svg/ticket.svg";
 import Setting from "../../../Assets/svg/setting.svg";
 import { ReactComponent as UnionIcon } from "../../../Assets/svg/union.svg";
 import { useState } from "react";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
@@ -67,7 +68,9 @@ const Union = () => {
     <>
       <Btn isOpenDrop={isOpenDrop}>
         <IconHeader isOpenDrop={isOpenDrop} />
-        <Text isOpen={isOpen}>اتحاد</Text>
+        <Text isOpen={isOpen}>
+          {getFieldTranslationByNames("central-page", "unity")}
+        </Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
         <BtnNavigator>

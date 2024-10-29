@@ -108,7 +108,7 @@ const Info = ({ item }) => {
           )}
           {item.id == 2 && (
             <a
-              href={`https://rgb.irpsc.com/citizen/fa/${item.value}`}
+              href={`https://rgb.irpsc.com/fa/citizens/${item.value}`}
               target="_blank"
             >
               {item.value}

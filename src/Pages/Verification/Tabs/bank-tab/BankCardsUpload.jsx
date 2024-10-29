@@ -5,6 +5,8 @@ import bank from "../../../../Assets/images/bank-melat.png";
 import styled from "styled-components";
 import { useState } from "react";
 import { getShebaInfo } from "@persian-tools/persian-tools";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../Services/Hooks/useRequest";
 
 const Container = styled.div`
   display: flex;
@@ -142,10 +144,13 @@ const BankCardsUpload = ({
   setOpenDeleteModal,
 }) => {
   const [deleteIndex, setDeleteIndex] = useState(null);
-
-  const handleDeleteCard = (index) => {
-    setDeleteIndex(index);
-    setOpenDeleteModal(true);
+  const { Request, HTTP_METHOD } = useRequest();
+  const handleDeleteCard = ({ index, id }) => {
+    console.log(id);
+    Request(`bank-accounts/${id}`, HTTP_METHOD.DELETE).then((response) => {
+      setDeleteIndex(index);
+      setOpenDeleteModal(true);
+    });
   };
 
   return (
@@ -153,11 +158,12 @@ const BankCardsUpload = ({
       <Container>
         <BankCard>
           {cards.map((card, i) => {
-            console.log(card);
             return (
               <UploadWrapper key={i}>
                 <Image>
-                  <IconWrapper onClick={() => handleDeleteCard(i)}>
+                  <IconWrapper
+                    onClick={() => handleDeleteCard({ index: i, id: card.id })}
+                  >
                     <HiOutlineTrash />
                   </IconWrapper>
                   <DisplayCard>
@@ -169,7 +175,13 @@ const BankCardsUpload = ({
                       <h2>{card.card_num}</h2>
                     </CardNumber>
                     <CardShaba>
-                      <span>شماره شبا</span>
+                      <span>
+                        {" "}
+                        {getFieldTranslationByNames(
+                          "authentication",
+                          "shaba number"
+                        )}
+                      </span>
                       <h3>{card.shaba_num}</h3>
                     </CardShaba>
                   </DisplayCard>
@@ -180,7 +192,14 @@ const BankCardsUpload = ({
 
           <UploadWrapper>
             <Upload onClick={() => setOpenAddModal(true)}>
-              +<span>افزودن کارت بانکی</span>
+              +
+              <span>
+                {" "}
+                {getFieldTranslationByNames(
+                  "authentication",
+                  "add a bank card"
+                )}
+              </span>
             </Upload>
           </UploadWrapper>
         </BankCard>

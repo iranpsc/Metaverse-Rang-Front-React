@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -15,7 +16,7 @@ const BackGround = styled.div`
 `;
 const Modal = styled.div`
   border-radius: 10px;
-  background-color: #000000;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   padding: 20px;
   width: 100%;
   max-width: 515px;
@@ -29,13 +30,13 @@ const Title = styled.h3`
   font-size: 24px;
   font-weight: 600;
   text-align: center;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (max-width: 1023px) {
     font-size: 18px;
   }
 `;
 const Info = styled.p`
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-weight: 400;
   text-align: justify;
   margin: 20px 0;
@@ -50,7 +51,6 @@ const Buttons = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: 20px;
-  direction: rtl;
 `;
 
 const Button = styled.button`
@@ -70,6 +70,7 @@ const Button = styled.button`
 const ConfirmCardDelete = ({ setOpenDeleteModal, setCards, deleteIndex }) => {
   const handleDelete = () => {
     setCards((prevCards) => {
+      console.log(deleteIndex);
       const updatedCards = [...prevCards];
       updatedCards.splice(deleteIndex, 1);
       return updatedCards;
@@ -80,15 +81,34 @@ const ConfirmCardDelete = ({ setOpenDeleteModal, setCards, deleteIndex }) => {
     <BackGround>
       <Modal>
         <div>
-          <Title>حذف کارت ثبت شده</Title>
-          <Info>آیا می خواهید این کارت را حذف کنید؟ </Info>
+          <Title>
+            {" "}
+            {getFieldTranslationByNames(
+              "authentication",
+              "delete the registered card"
+            )}
+          </Title>
+          <Info>
+            {" "}
+            {getFieldTranslationByNames(
+              "authentication",
+              "do you want to delete the card"
+            )}{" "}
+            {getFieldTranslationByNames(
+              "authentication",
+              "delete the card with"
+            )}
+          </Info>
         </div>
         <Buttons>
           <Button red onClick={handleDelete}>
-            بله، حذف کارت{" "}
+            {getFieldTranslationByNames(
+              "authentication",
+              "yes, remove the card"
+            )}
           </Button>
           <Button onClick={() => setOpenDeleteModal(false)}>
-            خیر، منصرف شدم
+            {getFieldTranslationByNames("authentication", "no, I gave up")}
           </Button>
         </Buttons>
       </Modal>

@@ -38,7 +38,7 @@ const Body = styled.div`
 
   & p {
     text-align: center;
-    direction: rtl;
+
     font-size: 18px;
     line-height: 40px;
   }
@@ -70,7 +70,7 @@ const Border = styled.div`
   width: 88%;
   background: #777;
 `;
-const FailedTransaction = ({data}) => {
+const FailedTransaction = ({ data }) => {
   return (
     <Container>
       <Header>

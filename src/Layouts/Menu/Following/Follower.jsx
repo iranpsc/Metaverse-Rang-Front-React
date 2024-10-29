@@ -11,6 +11,7 @@ import { ReactComponent as FollowingIcon } from "../../../Assets/svg/following.s
 import { useState } from "react";
 import useRequest from "../../../Services/Hooks/useRequest";
 import { useLayoutEffect } from "react";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
@@ -110,23 +111,26 @@ const Follower = () => {
           <SubMenu isOpenDrop={openDropdowns[user.id]} isOpen={isOpen}>
             <BtnNavigator>
               <Icon src={Ticket} />
-              ارسال سند
+              {getFieldTranslationByNames("central-page", "send document")}
             </BtnNavigator>
             <BtnNavigator disabled>
               <Icon src={Message} />
-              گفتگو
+              {getFieldTranslationByNames("central-page", "chat")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={ProfileMember} />
-              پروفایل
+              {getFieldTranslationByNames("central-page", "profile")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={CitizenProfile} />
-              مشخصات شهروندی
+              {getFieldTranslationByNames(
+                "Citizenship-profile",
+                "citizenship page"
+              )}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={Share} />
-              اشتراک
+              {getFieldTranslationByNames("central-page", "share")}
             </BtnNavigator>
           </SubMenu>
         </React.Fragment>

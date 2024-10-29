@@ -19,10 +19,11 @@ import yellow from "../../../../Assets/gif/yellow-color.gif";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
-  direction: ltr;
+
   overflow-y: auto;
   height: 550px;
   z-index: 10;
@@ -62,7 +63,7 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   align-items: center;
-  direction: rtl;
+
   gap: 20px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -71,7 +72,6 @@ const Div = styled.div`
 `;
 
 const Date = styled.div`
-  direction: rtl;
   border-radius: 5px;
   border: 1px solid #454545;
   display: flex;
@@ -103,20 +103,12 @@ const Date = styled.div`
 
 const TransactionsTab = () => {
   const [transactions, setTransactions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const { Request } = useRequest();
-  const observer = useRef();
-
-  useEffect(() => {
-    Request(`user/transactions?page=${page}`).then((res) => {
-      setTransactions((prevTransactions) => [
-        ...prevTransactions,
-        ...res.data.data,
-      ]);
-      setHasMore(res.data.links.next !== null);
-    });
-  }, [page]);
+  const loaderRef = useRef(null);
 
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
@@ -124,12 +116,10 @@ const TransactionsTab = () => {
     failed: false,
     pending: false,
   });
-
   const [title, setTitle] = useState({
     property_dealing: false,
     property_buy: false,
   });
-
   const [subject, setSubject] = useState({
     blue: false,
     red: false,
@@ -138,72 +128,128 @@ const TransactionsTab = () => {
     rial: false,
   });
 
-  const updatedTransactions = transactions.map((transaction) => {
-    let assetGif = null;
+  const fetchTransactions = useCallback(async () => {
+    if (!hasMore || isLoading) return;
 
-    switch (transaction.asset) {
-      case "yellow":
-        assetGif = yellow;
-        break;
-      case "red":
-        assetGif = red;
-        break;
-      case "blue":
-        assetGif = blue;
-        break;
-      case "psc":
-        assetGif = psc;
-        break;
-      case "rial":
-        assetGif = rial;
-        break;
-      default:
-        assetGif = null;
-        break;
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await Request(`user/transactions?page=${page}`);
+      const newTransactions = response.data.data;
+
+      // Map asset GIFs to new transactions
+      const processedTransactions = newTransactions.map((transaction) => {
+        let assetGif = null;
+        switch (transaction.asset) {
+          case "yellow":
+            assetGif = yellow;
+            break;
+          case "red":
+            assetGif = red;
+            break;
+          case "blue":
+            assetGif = blue;
+            break;
+          case "psc":
+            assetGif = psc;
+            break;
+          case "rial":
+            assetGif = rial;
+            break;
+          default:
+            assetGif = null;
+        }
+        return { ...transaction, assetGif };
+      });
+
+      setTransactions((prev) => [...prev, ...processedTransactions]);
+      setHasMore(response.data.links.next !== null);
+    } catch (err) {
+      setError(err.message);
+      console.error("Error fetching transactions:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [page, hasMore]);
+
+  useEffect(() => {
+    fetchTransactions();
+  }, [fetchTransactions]);
+
+  // IntersectionObserver setup
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !isLoading) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
     }
 
-    return { ...transaction, assetGif };
-  });
-  console.log(updatedTransactions);
-  const filteredItems = updatedTransactions.filter((row) => {
-    const codeMatch = row.id.includes(searched);
+    return () => {
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    };
+  }, [hasMore, isLoading]);
+
+  const filteredItems = transactions.filter((row, index) => {
+    const codeMatch = row.id.toString().includes(searched);
     const statusMatch =
       (!status.success && !status.failed && !status.pending) ||
-      (status.success && row?.status == "1") ||
-      (status.failed && row?.status == "0") ||
-      (status.pending && row?.status == "-1");
+      (status.success && row?.status === "1") ||
+      (status.failed && row?.status === "0") ||
+      (status.pending && row?.status === "-1");
     const titleMatch =
       (!title.property_dealing && !title.property_buy) ||
-      (title.property_dealing && row?.type === "معامله ملک") ||
-      (title.property_buy && row?.type === "خرید دارایی");
+      (title.property_dealing && row?.type === "trade") ||
+      (title.property_buy && row?.type === "order");
     const subjectMatch =
       (!subject.blue &&
         !subject.red &&
         !subject.yellow &&
         !subject.psc &&
         !subject.rial) ||
-      (subject.blue && row.asset === "رنگ آبی") ||
-      (subject.red && row.asset === "رنگ قرمز") ||
-      (subject.yellow && row.asset === "رنگ زرد") ||
-      (subject.psc && row.asset === "PSC") ||
-      (subject.rial && row.asset === "ریال");
+      (subject.blue && row.asset === "blue") ||
+      (subject.red && row.asset === "red") ||
+      (subject.yellow && row.asset === "yellow") ||
+      (subject.psc && row.asset === "psc") ||
+      (subject.rial && row.asset === "rial");
 
     return codeMatch && statusMatch && titleMatch && subjectMatch;
   });
+
   return (
     <Container>
-      <div dir="rtl">
-        <Title title="تراکنش ها" />
+      <div>
+        <Title
+          title={getFieldTranslationByNames(
+            "citizenship-account",
+            "transactions"
+          )}
+        />
       </div>
       <Div>
         <SearchInput
-          onchange={(e) => setSearched(e.target.value)}
+          onChange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder="جستجو شناسه تراکنش"
+          placeholder={getFieldTranslationByNames(
+            "citizenship-account",
+            "transaction id"
+          )}
         />
         <Date>
           <DatePicker
-            placeholder="تاریخ و ساعت"
+            placeholder={getFieldTranslationByNames(
+              "citizenship-account",
+              "date and time range"
+            )}
             className="bg-dark yellow"
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
@@ -214,6 +260,9 @@ const TransactionsTab = () => {
           <FaRegCalendarAlt size={20} />
         </Date>
       </Div>
+
+      {error && <div className="text-red-500">Error: {error}</div>}
+
       <TransactionsList
         setStatus={setStatus}
         setTitle={setTitle}
@@ -223,6 +272,9 @@ const TransactionsTab = () => {
         subject={subject}
         rows={filteredItems}
       />
+
+      {isLoading && <div className="text-center py-4">Loading...</div>}
+      {hasMore && <div ref={loaderRef} style={{ height: "20px" }} />}
     </Container>
   );
 };

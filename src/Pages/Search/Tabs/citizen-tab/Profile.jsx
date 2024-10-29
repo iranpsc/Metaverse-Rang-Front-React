@@ -31,7 +31,7 @@ const Profile = ({ user }) => {
       <Info>
         <h2>{user?.name}</h2>
         <a
-          href={`https://rgb.irpsc.com/citizen/fa/${user?.code}`}
+          href={`https://rgb.irpsc.com/fa/citizens/${user?.code}`}
           target="_blank"
         >
           {user.code}

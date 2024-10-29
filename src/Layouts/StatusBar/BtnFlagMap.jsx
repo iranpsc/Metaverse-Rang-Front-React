@@ -65,7 +65,7 @@ const Tooltip = styled.div`
     props.theme.colors.newColors.otherColors.menuBg};
   border-radius: 10px;
   color: #868b90;
-  text-align: right;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -147,7 +147,7 @@ const BtnFlagMap = () => {
   };
   return (
     <>
-      {flags.map((flag) => (
+      {flags.map((flag, index) => (
         <Tippy
           content={<Tooltip lang={i18n.language}>{flag.name}</Tooltip>}
           zIndex={10000}
@@ -155,6 +155,7 @@ const BtnFlagMap = () => {
           interactive={true}
           delay={50}
           animation="scale"
+          key={index}
         >
           <Btn key={flag.id} className={clickState[flag.id] ? "active" : ""}>
             <ContainerIcon>

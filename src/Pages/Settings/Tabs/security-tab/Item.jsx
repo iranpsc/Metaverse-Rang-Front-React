@@ -12,7 +12,6 @@ import {
 const Container = styled.div`
   border: 1px solid #454545;
   border-radius: 5px;
-  direction: rtl;
 `;
 
 const Option = styled.div`
@@ -87,7 +86,7 @@ const Item = ({ label, options, privacy }) => {
             <p>{getFieldTranslationByNames("setting", option.title)}</p>
             <OnOff
               label={option.title}
-              isOn={privacy[option.key] || false}
+              isOn={!privacy[option.key] || false}
               onToggle={(newValue) => handleToggle(option.key, newValue)}
             />
           </Option>

@@ -9,7 +9,7 @@ const Container = styled.div`
   width: 100%;
   border: 1px solid #777;
   border-radius: 10px;
-  direction: rtl;
+
   height: 100%;
   table thead tr {
     display: block;
@@ -22,7 +22,7 @@ const Container = styled.div`
 const Table = styled.table`
   width: 100%;
   border-spacing: 0;
-  direction: rtl;
+
   overflow-y: scroll;
   & td {
     text-align: center;
@@ -110,7 +110,9 @@ export default function TableFeature({ dynasty, setDynasty }) {
           <TableBody>
             {Object.keys(dynasty?.features).map((key) => (
               <Tr>
-                <td style={{textTransform:"uppercase",}}>{dynasty?.features[key].properties_id}</td>
+                <td style={{ textTransform: "uppercase" }}>
+                  {dynasty?.features[key].properties_id}
+                </td>
                 <td>{dynasty?.features[key].stability}</td>
                 <td>
                   <IconFeature

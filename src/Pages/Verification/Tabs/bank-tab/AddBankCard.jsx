@@ -7,8 +7,13 @@ import {
   getShebaInfo,
   verifyCardNumber,
 } from "@persian-tools/persian-tools";
-import { ToastError, ToastSuccess } from "../../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+  ToastSuccess,
+} from "../../../../Services/Utility";
 import { IoCloseCircleSharp, IoCloseSharp } from "react-icons/io5";
+import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -40,7 +45,6 @@ const Modal = styled.div`
 const Title = styled.h3`
   font-size: 24px;
   font-weight: 600;
-  text-align: right;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   @media (max-width: 1023px) {
     font-size: 18px;
@@ -76,7 +80,7 @@ const ErrorMessage = styled.div`
 const Close = styled.div`
   position: absolute;
   top: 10px;
-  left: 10px;
+  ${(props) => (props.isPersian ? "left" : "right")}: 10px;
   cursor: pointer;
   svg {
     color: red;
@@ -84,6 +88,7 @@ const Close = styled.div`
   }
 `;
 const AddBankCard = ({ setOpenAddModal, setCards }) => {
+  const isPersian = useLanguage();
   const [cardInfo, setCardInfo] = useState({
     card_num: "",
     shaba_num: "",
@@ -132,13 +137,15 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
   return (
     <BackGround>
       <Modal>
-        <Title>افزودن کارت</Title>
+        <Title>
+          {getFieldTranslationByNames("authentication", "add a bank card")}
+        </Title>
         <Close>
           <IoCloseCircleSharp onClick={() => setOpenAddModal(false)} />
         </Close>
         <Inputs>
           <EditInput
-            title="شماره کارت"
+            title={getFieldTranslationByNames("authentication", "card number")}
             type="number"
             value={cardInfo.card_num}
             onchange={(e) => {
@@ -152,7 +159,7 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
             }}
           />
           <EditInput
-            title="شماره شبا"
+            title={getFieldTranslationByNames("authentication", "shaba number")}
             type="number"
             value={cardInfo.shaba_num}
             onchange={(e) => {
@@ -167,7 +174,10 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
           />
         </Inputs>
         {errors.length > 0 && <ErrorMessage>{errors[0]}</ErrorMessage>}
-        <Button onClick={addCard}>افزودن کارت</Button>
+        <Button onClick={addCard}>
+          {" "}
+          {getFieldTranslationByNames("authentication", "add a bank card")}
+        </Button>
       </Modal>
     </BackGround>
   );

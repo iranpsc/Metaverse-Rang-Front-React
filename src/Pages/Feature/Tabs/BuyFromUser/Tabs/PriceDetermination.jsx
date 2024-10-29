@@ -20,7 +20,7 @@ const TextOffer = styled.textarea`
   resize: none;
   height: 50px;
   width: 65%;
-  text-align: right;
+
   margin-top: 8px;
   border-radius: 8px !important;
   font-size: 1rem !important;
@@ -28,8 +28,6 @@ const TextOffer = styled.textarea`
   color: #707070 !important;
   border: 1px solid #c2c2c2;
   font-family: "AzarMehr";
-  direction: rtl;
-  text-align: right;
 `;
 
 export default function PriceDetermination() {

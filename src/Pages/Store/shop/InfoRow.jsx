@@ -8,6 +8,7 @@ import InfoModal from "./InfoModal";
 import TitleValue from "./TitleValue";
 import { addCommas } from "@persian-tools/persian-tools";
 import useRequest from "../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../Services/Utility";
 
 const Wrapper = styled.div`
   border-radius: 5px;
@@ -46,6 +47,7 @@ const IconWrapper = styled.div`
     background-color: white;
   }
 `;
+
 const PhotoContainer = styled.div`
   width: 80px;
   height: 80px;
@@ -67,22 +69,36 @@ const PhotoContainer = styled.div`
   }
 `;
 
-const InfoRow = ({ data, type, shop }) => {
+const InfoRow = ({ data, type, shop, title }) => {
   const [openModal, setOpenModal] = useState(false);
   const { setAlert } = useContext(AlertContext);
+  const { Request, HTTP_METHOD } = useRequest();
+
   const buyHandler = () => {
     setAlert(true);
     setTimeout(() => {
       setAlert(false);
     }, 3000);
   };
-  const { Request, HTTP_METHOD } = useRequest();
 
   const paymentHandler = (asset, amount) => {
-    console.log(1);
     Request("order", HTTP_METHOD.POST, { asset, amount }).then((response) => {
       window.location.href = response?.data?.link;
     });
+  };
+
+  const getAssetTranslation = () => {
+    if (data.asset === "yellow") {
+      return getFieldTranslationByNames("store", "yellow");
+    } else if (data.asset === "red") {
+      return getFieldTranslationByNames("store", "red");
+    } else if (data.asset === "blue") {
+      return getFieldTranslationByNames("store", "blue");
+    } else if (data.asset === "irr") {
+      return getFieldTranslationByNames("store", "irr");
+    } else if (data.asset === "psc") {
+      return getFieldTranslationByNames("store", "psc");
+    }
   };
 
   return (
@@ -94,37 +110,32 @@ const InfoRow = ({ data, type, shop }) => {
               <div />
               <BsExclamationCircleFill onClick={() => setOpenModal(true)} />
             </IconWrapper>
-            <img
-              width={54}
-              height={54}
-              loading="lazy"
-              alt={data.image}
-              src={data.image}
-            />
+            <img width={54} height={54} alt={data.image} src={data.image} />
           </PhotoContainer>
           <TitleValue
             shop={shop}
-            title={`نوع ${type}`}
-            value={`${type === "ابزار" ? "رنگ" : ""} ${data.asset}`}
+            title={` ${getFieldTranslationByNames("store", "type of tool")}`}
+            value={getAssetTranslation()}
           />
         </div>
         <TitleValue
           shop={shop}
-          title={`تعداد ${type}`}
-          value={`${data.amount
-            .toLocaleString()
-            .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])} عدد`}
+          title={` ${getFieldTranslationByNames("store", "number of tools")}`}
+          value={`${data.amount.toLocaleString()} ${getFieldTranslationByNames(
+            "store",
+            "number"
+          )}`}
         />
         <TitleValue
           shop={shop}
-          title="مبلغ(تومان)"
-          value={`${addCommas((data.amount * data.unitPrice) / 10)
-            .toLocaleString()
-            .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])} تومان`}
+          title={`${getFieldTranslationByNames("store", "amount")}`}
+          value={`${addCommas(
+            (data.amount * data.unitPrice) / 10
+          )} ${getFieldTranslationByNames("store", "toman")}`}
         />
         <Button
           row
-          label="خرید"
+          label={getFieldTranslationByNames("store", "buy")}
           onclick={() => {
             paymentHandler(data.asset, data.amount);
           }}

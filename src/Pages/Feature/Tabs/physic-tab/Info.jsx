@@ -2,10 +2,10 @@ import { BiEditAlt } from "react-icons/bi";
 
 import styled from "styled-components";
 import Title from "../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   margin-top: 25px;
-  direction: rtl;
 `;
 const Button = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ const Button = styled.div`
 `;
 
 const Text = styled.p`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   line-height: 1.5rem;
   margin-top: 10px;
   @media (max-width: 1023px) {
@@ -51,12 +51,22 @@ const Edit = styled.span`
 const Info = ({ inputs, setEdit, edit }) => {
   return (
     <Container>
-      <Title title="هدف تاسیس" />
+      <Title
+        title={getFieldTranslationByNames(
+          "property-information",
+          "the purpose of the establishment"
+        )}
+      />
       <Text>{inputs.target}</Text>
       {edit && (
         <Button onClick={() => setEdit(true)}>
           <BiEditAlt />
-          <Edit>ویرایش اطلاعات</Edit>
+          <Edit>
+            {getFieldTranslationByNames(
+              "property-information",
+              "editing information"
+            )}
+          </Edit>
         </Button>
       )}
     </Container>

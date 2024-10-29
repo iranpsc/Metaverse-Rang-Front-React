@@ -5,7 +5,6 @@ import { IoEyeOutline } from "react-icons/io5";
 import { TfiWrite } from "react-icons/tfi";
 
 import styled from "styled-components";
-import { convertToPersian } from "../../Services/Utility";
 import { useState } from "react";
 import useRequest from "../../Services/Hooks/useRequest";
 
@@ -113,7 +112,7 @@ const Footer = ({ show, data }) => {
     <Container show={show}>
       <Right>
         <a
-          href={`https://rgb.irpsc.com/citizen/fa/${data?.creator_code}`}
+          href={`https://rgb.irpsc.com/fa/citizens/${data?.creator_code}`}
           target="_blank"
         >
           {data?.creator_code}
@@ -125,7 +124,7 @@ const Footer = ({ show, data }) => {
       <Left>
         {actions.map((item) => (
           <div key={item.id}>
-            <h3>{convertToPersian(item.value)} </h3>
+            <h3>{item.value} </h3>
             <span onClick={item.onClick}>{item.icon}</span>
           </div>
         ))}

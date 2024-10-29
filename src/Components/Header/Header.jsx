@@ -166,9 +166,9 @@ const Header = ({ title, long, loading, profile }) => {
           </>
         )}
 
-        <HelpIcon onClick={() => setOpenEducation(true)} />
+        <HelpIcon onClick={handleReportClick} />
 
-        <ReportIcon onClick={handleReportClick} />
+        <ReportIcon onClick={() => setOpenEducation(true)} />
 
         <ExitIcon onClick={handleExitClick} />
       </Icons>
