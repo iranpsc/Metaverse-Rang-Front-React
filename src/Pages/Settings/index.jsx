@@ -7,9 +7,7 @@ import PublicTab from "./Tabs/public-tab/PublicTab";
 import SecurityTab from "./Tabs/security-tab/SecurityTab";
 import About from "./Tabs/aboutme-tab/AboutMeTab";
 export default function Settings() {
-  
   const tabs = [
-
     {
       title: getFieldTranslationByNames("setting", "general settings"),
       content: <PublicTab />,
@@ -22,8 +20,10 @@ export default function Settings() {
       title: getFieldTranslationByNames("setting", "privacy"),
       content: <SecurityTab />,
     },
-   { title: "درباره  من", content: <About /> }
-
+    {
+      title: getFieldTranslationByNames("citizenship-account", "about me"),
+      content: <About />,
+    },
   ];
 
   const TabPanel = useTabs(tabs);

@@ -18,8 +18,7 @@ import weight from "../../../../Assets/images/settings/weight.png";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import { useEffect, useState } from "react";
 const Container = styled.div`
- margin-top: 20px;
-
+  margin-top: 20px;
 `;
 
 const Label = styled.label`
@@ -30,17 +29,17 @@ const Label = styled.label`
 
 const CheckboxContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr ;
+  grid-template-columns: 1fr 1fr;
   margin-bottom: 20px;
   @media (min-width: 944px) {
-    grid-template-columns: 1fr 1fr 1fr  ;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   @media (min-width: 1202px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr  ;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   @media (min-width: 1452px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 `;
 
@@ -49,7 +48,7 @@ const Div = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 15px;
-  
+
   h4 {
     color: ${(props) => (props.limitReached ? "red" : "#a0a0ab")};
     font-size: 14px;
@@ -109,47 +108,79 @@ const CheckboxLabel = styled.label`
 const Hobby = () => {
   const { state, dispatch } = useGlobalState();
   const maxHobbies = 5;
-  const selectedHobbiesCount = Object.keys(state.hobbies || {}).filter(key => state.hobbies[key] === 1).length; 
+  const selectedHobbiesCount = Object.keys(state.hobbies || {}).filter(
+    (key) => state.hobbies[key] === 1
+  ).length;
   const remainingHobbies = maxHobbies - selectedHobbiesCount;
   const limitReached = selectedHobbiesCount >= maxHobbies;
-  const localizedRemainingHobbies = convertToPersian(remainingHobbies); 
-  const [hobbyValue, setHobbyValue] = useState(state.hobbies || {}); 
+  const localizedRemainingHobbies = convertToPersian(remainingHobbies);
+  const [hobbyValue, setHobbyValue] = useState(state.hobbies || {});
 
   useEffect(() => {
     if (state.hobbies) {
-      setHobbyValue(state.hobbies); 
+      setHobbyValue(state.hobbies);
     }
-  }, [ state.hobbies]);
+  }, [state.hobbies]);
 
   const handleHobbyChange = (hobbyKey) => {
     const updatedHobbies = { ...hobbyValue };
-    updatedHobbies[hobbyKey] = updatedHobbies[hobbyKey] === 1 ? 0 : 1; 
+    updatedHobbies[hobbyKey] = updatedHobbies[hobbyKey] === 1 ? 0 : 1;
     setHobbyValue(updatedHobbies);
     dispatch({ type: "SET_HOBBIES", payload: updatedHobbies });
   };
 
   const hobbies = [
-    { id: 1, key: "music", name: "instruments and music" , icon: music },
-    { id: 2, key: "sport_health", name:"exercise and health", icon: weight },
-    { id: 3, key: "art", name:"art", icon: brush },
-    { id: 4, key: "language_culture", name:"language and culture", icon: lang },
-    { id: 5, key: "philosophy", name:"philosophy", icon: note },
-    { id: 6, key: "animals_nature", name:"animals and nature", icon: pet },
-    { id: 7, key: "aliens", name:"space creatures", icon: ghost },
-    { id: 8, key: "food_cooking", name:"food and cooking", icon: coffee },
-    { id: 9, key: "travel_leature", name:"travel and entertainment", icon: tree },
-    { id: 10, key: "manufacturing", name:"construction and production", icon: layer },
-    { id: 11, key: "science_technology", name:"science and technology", icon: cpu },
-    { id: 12, key: "space_time", name:"space and time", icon: clock },
-    { id: 13, key: "history", name:"history and civilization", icon: bubble },
-    { id: 14, key: "politics_economy", name:"politics and economics", icon: dollar },
+    { id: 1, key: "music", name: "instruments and music", icon: music },
+    { id: 2, key: "sport_health", name: "exercise and health", icon: weight },
+    { id: 3, key: "art", name: "meta art", icon: brush },
+    {
+      id: 4,
+      key: "language_culture",
+      name: "language and culture",
+      icon: lang,
+    },
+    { id: 5, key: "philosophy", name: "philosophy", icon: note },
+    { id: 6, key: "animals_nature", name: "animals and nature", icon: pet },
+    { id: 7, key: "aliens", name: "space creatures", icon: ghost },
+    { id: 8, key: "food_cooking", name: "food and cooking", icon: coffee },
+    {
+      id: 9,
+      key: "travel_leature",
+      name: "travel and entertainment",
+      icon: tree,
+    },
+    {
+      id: 10,
+      key: "manufacturing",
+      name: "construction and production",
+      icon: layer,
+    },
+    {
+      id: 11,
+      key: "science_technology",
+      name: "science and technology",
+      icon: cpu,
+    },
+    { id: 12, key: "space_time", name: "space and time", icon: clock },
+    { id: 13, key: "history", name: "history and civilization", icon: bubble },
+    {
+      id: 14,
+      key: "politics_economy",
+      name: "politics and economics",
+      icon: dollar,
+    },
   ];
 
   return (
     <Container>
       <Div limitReached={limitReached}>
-        <Label>{getFieldTranslationByNames("citizenship-account", "interests")}</Label>
-        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames("citizenship-account", "choose items")}`}</h4>
+        <Label>
+          {getFieldTranslationByNames("citizenship-account", "interests")}
+        </Label>
+        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames(
+          "citizenship-account",
+          "choose items"
+        )}`}</h4>
       </Div>
       <CheckboxContainer>
         {hobbies.map((hobby) => (
@@ -162,7 +193,9 @@ const Hobby = () => {
             />
             <div>
               <img src={hobby.icon} alt={hobby.name} width={24} height={24} />
-              <span>{getFieldTranslationByNames("citizenship-account", hobby.name)}</span>
+              <span>
+                {getFieldTranslationByNames("citizenship-account", hobby.name)}
+              </span>
             </div>
           </CheckboxLabel>
         ))}
