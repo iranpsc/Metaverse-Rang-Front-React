@@ -19,7 +19,10 @@ import yellow from "../../../../Assets/gif/yellow-color.gif";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -88,7 +91,7 @@ const Date = styled.div`
   }
   input {
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    width: 100%;
+    width: 200%;
     height: 100%;
     background-color: transparent;
     border: none;
@@ -97,7 +100,7 @@ const Date = styled.div`
       border: none;
       outline: none;
     }
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 
@@ -110,7 +113,12 @@ const TransactionsTab = () => {
   const [hasMore, setHasMore] = useState(true);
   const { Request } = useRequest();
   const loaderRef = useRef(null);
-
+  // Add this helper function to convert Persian numbers to English
+  const convertPersianToEnglish = (str) => {
+    if (!str) return str;
+    const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+    return str.replace(/[۰-۹]/g, (d) => persianNumbers.indexOf(d));
+  };
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
     success: false,
@@ -131,16 +139,14 @@ const TransactionsTab = () => {
   const [dateRange, setDateRange] = useState([null, null]);
 
   const fetchTransactions = async () => {
-    console.log(subject);
-    if (!hasMore || isLoading) return;
     setIsLoading(true);
     setError(null);
 
     try {
       const statusParams = [];
       if (status.success) statusParams.push(1);
-      if (status.failed) statusParams.push(0);
-      if (status.pending) statusParams.push(-1);
+      if (status.failed) statusParams.push(-138);
+      if (status.pending) statusParams.push(0);
 
       const titleParams = [];
       if (title.property_dealing) titleParams.push("trade");
@@ -152,20 +158,26 @@ const TransactionsTab = () => {
       if (subject.yellow) subjectParams.push("yellow");
       if (subject.psc) subjectParams.push("psc");
       if (subject.rial) subjectParams.push("rial");
+
       const params = new URLSearchParams({
         page,
         search: searched,
-        status: statusParams.join(","),
         type: titleParams.join(","),
         asset: subjectParams.join(","),
-        start_date_time: dateRange[0] || "",
-        end_date_time: dateRange[1] || "",
+      });
+
+      if (dateRange[0] && dateRange[1]) {
+        params.append("start_date_time", convertPersianToEnglish(dateRange[0]));
+        params.append("end_date_time", convertPersianToEnglish(dateRange[1]));
+      }
+
+      statusParams.forEach((status, index) => {
+        params.append(`status[${index}]`, status);
       });
 
       const response = await Request(`user/transactions?${params.toString()}`);
       const newTransactions = response.data.data;
 
-      // Map asset GIFs to new transactions
       const processedTransactions = newTransactions.map((transaction) => {
         let assetGif = null;
         switch (transaction.asset) {
@@ -181,7 +193,7 @@ const TransactionsTab = () => {
           case "psc":
             assetGif = psc;
             break;
-          case "rial":
+          case "irr":
             assetGif = rial;
             break;
           default:
@@ -190,31 +202,32 @@ const TransactionsTab = () => {
         return { ...transaction, assetGif };
       });
 
-      if (
+      // بررسی برای وجود فیلترها
+      const isFilterActive =
         searched ||
         statusParams.length ||
         titleParams.length ||
         subjectParams.length ||
-        dateRange[0]
-      ) {
+        dateRange[0];
+
+      if (isFilterActive) {
         setFilteredTransactions(processedTransactions);
       } else {
+        setFilteredTransactions([]); // ریست کردن filteredTransactions در صورت نبود فیلتر
         setTransactions((prev) => [...prev, ...processedTransactions]);
       }
 
       setHasMore(response.data.links.next !== null);
     } catch (err) {
-      setError(err.message);
-      console.error("Error fetching transactions:", err);
+      ToastError(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    console.log(subject);
     fetchTransactions();
-  }, [page, hasMore, searched, status, title, subject, dateRange]);
+  }, [page, searched, status, title, subject, dateRange]);
 
   // IntersectionObserver setup
   useEffect(() => {
@@ -263,7 +276,6 @@ const TransactionsTab = () => {
               "citizenship-account",
               "date and time range"
             )}
-            className="bg-dark yellow"
             format="YYYY/MM/DD HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
             calendar={persian}
@@ -273,7 +285,8 @@ const TransactionsTab = () => {
             value={dateRange}
             onChange={(dates) => {
               if (dates) {
-                setDateRange(dates.toString().split(","));
+                const [start, end] = dates.toString().split(",");
+                setDateRange([start, end || null]); // Set end to null if not provided
               } else {
                 setDateRange([null, null]);
               }
@@ -282,8 +295,6 @@ const TransactionsTab = () => {
           <FaRegCalendarAlt size={20} />
         </Date>
       </Div>
-
-      {error && <div className="text-red-500">Error: {error}</div>}
 
       <TransactionsList
         setStatus={setStatus}
