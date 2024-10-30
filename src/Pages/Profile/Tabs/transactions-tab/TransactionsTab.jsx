@@ -145,9 +145,9 @@ const TransactionsTab = () => {
 
     try {
       const statusParams = [];
-      if (status.success) statusParams.push(1);
+      if (status.success) statusParams.push(0);
       if (status.failed) statusParams.push(-138);
-      if (status.pending) statusParams.push(0);
+      if (status.pending) statusParams.push(1);
 
       const titleParams = [];
       if (title.property_dealing) titleParams.push("trade");

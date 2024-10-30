@@ -159,7 +159,7 @@ const PrintModal = ({
             <div />
             {status == "0" ? (
               <BsCheckCircleFill size={80} />
-            ) : status == "-138" ? (
+            ) : status == "1" ? (
               <AiFillCloseCircle size={80} />
             ) : (
               <IoReloadCircleSharp size={80} />

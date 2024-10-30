@@ -18,7 +18,7 @@ const Container = styled.div`
 const VodReply = ({ setData, responseId }) => {
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState([]);
-
+  console.log(files[0]);
   const containerRef = useRef(null);
   const { Request, HTTP_METHOD } = useRequest();
   const handleSendReply = () => {
@@ -26,15 +26,17 @@ const VodReply = ({ setData, responseId }) => {
 
     formData.append("response", message.replace(/<[^>]+>/g, ""));
 
-    if (files.length > 0 && files[0].file) {
-      formData.append("attachment", files[0].file);
+    if (files[0] && files[0] instanceof File) {
+      formData.append("attachment", files[0]);
     }
 
+    console.log(formData);
     Request(`tickets/response/${responseId}`, HTTP_METHOD.POST, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     }).then((res) => {
+      console.log(res);
       const lastResponse =
         res.data.data.responses[res.data.data.responses.length - 1];
       setData((prevData) => ({
