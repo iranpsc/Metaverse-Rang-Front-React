@@ -21,7 +21,7 @@ const Container = styled.div`
   padding-right: 15px;
   padding-top: 20px;
   overflow-y: auto;
-  height: 70vh;
+  height: 68vh;
 `;
 
 const Provider = styled.div`

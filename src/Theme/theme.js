@@ -42,7 +42,7 @@ export const lightTheme = {
         red: "#F03A47",
         yellow: "#FFC107",
         menuBg: "#FFFFFF",
-        themeBtn: "#F4F4F4",
+        themeBtn: "#cbced0",
         headerMenu: "#000000",
         iconBg: "#E9E9E9",
         iconText: "#353535",

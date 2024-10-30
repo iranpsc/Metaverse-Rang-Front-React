@@ -8,7 +8,7 @@ import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
+  width: ${(props) => (props.isOpen ? "100%" : "110%")};
   padding: ${(props) => (props.isOpen ? " 5px 10px" : "0px")};
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.themeBtn};
@@ -45,15 +45,17 @@ const Light = styled(LightSvg)`
   height: 18.364px;
   fill: ${(props) =>
     props.active && props.isActive
-      ? props.theme.colors.newColors.shades[20]
-      : "#868B90"};
+      ? props.theme.colors.newColors.shades.title
+      : props.theme.colors.newColors.shades.title};
 `;
 
 const Dark = styled(DarkSvg)`
   width: 18.364px;
   height: 18.364px;
   stroke: ${(props) =>
-    props.active ? props.theme.colors.newColors.shades[100] : "#868B90"};
+    props.active
+      ? props.theme.colors.newColors.shades.title
+      : props.theme.colors.newColors.shades.title};
 `;
 
 const ThemesBtn = () => {

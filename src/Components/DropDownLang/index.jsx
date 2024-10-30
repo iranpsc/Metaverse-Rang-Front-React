@@ -88,6 +88,7 @@ const TitleContainer = styled.div`
   gap: 10px;
 `;
 const ChevronIcon = styled(FaChevronDown)`
+  display: ${({ shouldHide }) => (shouldHide ? "none" : "block")};
   width: 12px;
   height: 12px;
   transition: transform 0.3s ease;
@@ -165,7 +166,8 @@ const DropDownLang = () => {
               {getFieldTranslationByNames("central-page", "language")}
             </Text>
           </TitleContainer>
-          <ChevronIcon isOpenDrop={isOpenDrop} /> {/* آیکون باز و بسته شدن */}
+          <ChevronIcon isOpenDrop={isOpenDrop} shouldHide={!isOpen} />{" "}
+          {/* آیکون باز و بسته شدن */}
         </Btn>
         {isOpenDrop && (
           <DropdownMenu isOpenDrop={isOpenDrop}>
