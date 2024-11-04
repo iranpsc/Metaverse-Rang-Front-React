@@ -14,7 +14,7 @@ import psc from "../../../../Assets/gif/psc.gif";
 import red from "../../../../Assets/gif/red-color.gif";
 import rial from "../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import yellow from "../../../../Assets/gif/yellow-color.gif";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
@@ -279,6 +279,11 @@ const TransactionsTab = () => {
     };
   }, [hasMore, isLoading]);
 
+  const handleSearch = useCallback((e) => {
+    const searchValue = e.target.value;
+    setSearched(searchValue);
+  }, []);
+
   return (
     <Container>
       <div>
@@ -291,7 +296,7 @@ const TransactionsTab = () => {
       </div>
       <Div>
         <SearchInput
-          onChange={(e) => setSearched(e.target.value)}
+          onchange={handleSearch}
           value={searched}
           placeholder={getFieldTranslationByNames(
             "citizenship-account",

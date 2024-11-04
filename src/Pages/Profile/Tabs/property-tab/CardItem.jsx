@@ -32,8 +32,11 @@ const Name = styled.div`
   gap: 4px;
   h3 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
+    @media (min-width: 1400px) {
+      font-size: 16px;
+    }
   }
   span {
     color: #ffc700;

@@ -25,7 +25,7 @@ const Colors = () => {
     {
       id: 1,
       gif: gif1,
-      label: getFieldTranslationByNames("citizenship-account", "satisfaction"),
+      label: getFieldTranslationByNames("citizenship-account", "impact"),
       value: wallet?.effect,
     },
     {
@@ -55,7 +55,7 @@ const Colors = () => {
     {
       id: 6,
       gif: gif6,
-      label: getFieldTranslationByNames("citizenship-account", "impact"),
+      label: getFieldTranslationByNames("citizenship-account", "psc"),
       value: wallet?.psc,
     },
   ];

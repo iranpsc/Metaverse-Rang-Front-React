@@ -137,7 +137,19 @@ const TransactionRow = ({
         </Status>
       </TableCell>
       <TableCell>
-        <Title>{type}</Title>
+        <Title>
+          {type == "order"
+            ? getFieldTranslationByNames(
+                "citizenship-account",
+                "purchase property"
+              )
+            : type == "trade"
+            ? getFieldTranslationByNames(
+                "citizenship-account",
+                "real estate transaction"
+              )
+            : type}
+        </Title>
       </TableCell>
       <TableCell>
         <Subject>

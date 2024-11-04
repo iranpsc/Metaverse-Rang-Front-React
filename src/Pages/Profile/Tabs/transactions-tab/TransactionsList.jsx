@@ -344,7 +344,10 @@ const TransactionsList = ({
             <TableHeader title>
               <FilterContainer>
                 <TableHeaderText>
-                  {getFieldTranslationByNames("citizenship-account", "title")}
+                  {getFieldTranslationByNames(
+                    "citizenship-account",
+                    "the title of the report"
+                  )}
                 </TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ title: !filters.title })}
@@ -409,7 +412,10 @@ const TransactionsList = ({
             <TableHeader subject>
               <FilterContainer>
                 <TableHeaderText>
-                  {getFieldTranslationByNames("citizenship-account", "issue")}
+                  {getFieldTranslationByNames(
+                    "citizenship-account",
+                    "select the subject of the report"
+                  )}
                 </TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ subject: !filters.subject })}

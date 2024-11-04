@@ -214,7 +214,12 @@ const PrintModal = ({
         </Header>
         <Info>
           <Row>
-            <Title>موضوع</Title>
+            <Title>
+              {getFieldTranslationByNames(
+                "citizenship-account",
+                "payment title"
+              )}
+            </Title>
             <Gif>
               <img loading="lazy" width={26} height={26} src={gif} alt={code} />
               <Value>خرید {count}</Value>
