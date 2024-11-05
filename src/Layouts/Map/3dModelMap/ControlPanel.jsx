@@ -79,7 +79,7 @@ const ControlPanel = ({
 
   return (
     <ModalPosition
-      title={"تنظیمات بنا"}
+      title={["property-information", "record satisfaction"]}
       position={"right"}
       action={"ChangeHiddenState"}
     >
