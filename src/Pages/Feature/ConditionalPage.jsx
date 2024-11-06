@@ -19,17 +19,16 @@ export default function ConditionalPage() {
   const [userId, setUserId] = useState(null);
   const [feature] = useContext(FeatureContext);
 
+  const commonSpecificationTab = {
+    title: getFieldTranslationByNames("property-information", "specification"),
+    content: <InfoTab />,
+  };
+
   const SellTabs = [
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
-    },
+    commonSpecificationTab,
     {
       title: getFieldTranslationByNames("property-information", "pricing"),
-      content: <SellerTab />,
+      content: <SellerTab seller />,
     },
     {
       title: getFieldTranslationByNames(
@@ -52,17 +51,15 @@ export default function ConditionalPage() {
       ),
       content: <PhysicTab owner />,
     },
+    {
+      title: getFieldTranslationByNames("property-information", "history"),
+      content: <HistoryTab />,
+    },
   ];
   const SellTabPanel = useTabs(SellTabs);
 
   const BuySystemTabs = [
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
-    },
+    commonSpecificationTab,
     {
       title: getFieldTranslationByNames("property-information", "buy"),
       content: <BuyerTabSystem />,
@@ -71,16 +68,10 @@ export default function ConditionalPage() {
   const BuySystemTabPanel = useTabs(BuySystemTabs);
 
   const BuyUserTabs = [
+    commonSpecificationTab,
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
-    },
-    {
-      title: getFieldTranslationByNames("property-information", "pricing"),
-      content: <SellerTab />,
+      title: getFieldTranslationByNames("property-information", "buy"),
+      content: <BuyerTab />,
     },
     {
       title: getFieldTranslationByNames(
@@ -110,55 +101,23 @@ export default function ConditionalPage() {
   ];
   const BuyUserTabPanel = useTabs(BuyUserTabs);
 
-  const AnonymousTabs = [
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
-    },
-  ];
+  const AnonymousTabs = [commonSpecificationTab];
   const AnonymousTabPanel = useTabs(AnonymousTabs);
 
-  const UnityTabs = [
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
-    },
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "entering the property"
-      ),
-      content: <UnityTab />,
-    },
-  ];
-  const UnityTabPanel = useTabs(UnityTabs);
   useEffect(() => {
     const user = getUser();
-
     if (user?.id) {
-      setUserId(parseInt(user?.id));
+      setUserId(parseInt(user.id));
     }
   }, [getUser]);
 
-  if (userId && FeatureColor(feature?.properties?.rgb)) {
-    if (feature.id == 6220) {
-      return UnityTabPanel;
-    } else if (feature.id == 6221) {
-      return UnityTabPanel;
-    } else if (feature?.owner_id === 1) {
-      return BuySystemTabPanel;
-    } else if (feature?.owner_id !== 1 && feature?.owner_id !== userId) {
-      return BuyUserTabPanel;
-    } else if (feature?.owner_id === userId) {
-      return SellTabPanel;
-    }
-  } else {
+  if (!userId || !FeatureColor(feature?.properties?.rgb)) {
     return AnonymousTabPanel;
   }
+
+  if (feature?.owner_id === 1) return BuySystemTabPanel;
+  if (feature?.owner_id === userId) return SellTabPanel;
+  if (feature?.owner_id !== userId) return BuyUserTabPanel;
+
+  return AnonymousTabPanel;
 }

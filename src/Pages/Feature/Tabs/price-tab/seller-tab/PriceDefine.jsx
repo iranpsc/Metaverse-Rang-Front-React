@@ -39,17 +39,20 @@ const Text = styled.p`
 `;
 
 const PriceDefine = () => {
-  const [assign, setAssign] = useState(false);
-  const [rial, setRial] = useState("");
-  const [psc, setPsc] = useState("");
-  const [errors, setErrors] = useState({
-    rial: "",
-    psc: "",
-  });
   const [feature] = useContext(FeatureContext);
   const [user] = useContext(UserContext);
   const { Request, HTTP_METHOD } = useRequest();
   const Navigate = useNavigate();
+
+  const [assign, setAssign] = useState(
+    feature?.properties?.price_irr ? true : false
+  );
+  const [rial, setRial] = useState(feature?.properties?.price_irr || "");
+  const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
+  const [errors, setErrors] = useState({
+    rial: "",
+    psc: "",
+  });
 
   const validateAndSubmit = () => {
     const userAge = TimeAgo(user?.birthdate);

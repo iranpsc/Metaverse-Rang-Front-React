@@ -70,16 +70,16 @@ const Print = styled.div`
 
 const Status = styled.h3`
   color: ${(props) =>
-    props.status == "1"
+    props.status == "0"
       ? "#18c090"
-      : props.status == "-138"
+      : props.status == "1"
       ? "#ffc800"
       : "#ff0000"};
   padding: 2px 18px;
   background-color: ${(props) =>
-    props.status == "1"
+    props.status == "0"
       ? "#18c09017"
-      : props.status == "-138"
+      : props.status == "1"
       ? "#ffc80017"
       : "#ff000017"};
   width: fit-content;
@@ -127,17 +127,29 @@ const TransactionRow = ({
       </TableCell>
       <TableCell>
         <Status status={status}>
-          {status == "1"
+          {status == "0"
             ? getFieldTranslationByNames("citizenship-account", "successful")
-            : status == "0"
-            ? getFieldTranslationByNames("citizenship-account", "unsuccessful")
             : status == "-138"
+            ? getFieldTranslationByNames("citizenship-account", "unsuccessful")
+            : status == "1"
             ? getFieldTranslationByNames("citizenship-account", "suspended")
             : "بب"}
         </Status>
       </TableCell>
       <TableCell>
-        <Title>{type}</Title>
+        <Title>
+          {type == "order"
+            ? getFieldTranslationByNames(
+                "citizenship-account",
+                "purchase property"
+              )
+            : type == "trade"
+            ? getFieldTranslationByNames(
+                "citizenship-account",
+                "real estate transaction"
+              )
+            : type}
+        </Title>
       </TableCell>
       <TableCell>
         <Subject>

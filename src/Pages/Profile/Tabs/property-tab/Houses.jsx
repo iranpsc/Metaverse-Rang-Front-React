@@ -53,7 +53,7 @@ const Provider = styled.div`
 const Filter = styled.div`
   position: absolute;
   top: 55px;
-  width: 160px;
+  width: 175px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -143,12 +143,19 @@ const Houses = () => {
   const [features, setFeatures] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
   const loadMoreFeatures = useCallback(() => {
-    if (loading) return;
+    if (loading || !hasMore) return;
 
     setLoading(true);
     Request(`my-features?page=${page}`).then((response) => {
+      if (!response.data.data.length || !response.data.links?.next) {
+        setHasMore(false);
+        setLoading(false);
+        return;
+      }
+
       const enhancedFeatures = response.data.data.map((feature) => {
         let newProperties = { ...feature.properties };
 
@@ -187,7 +194,7 @@ const Houses = () => {
       setPage((prevPage) => prevPage + 1);
       setLoading(false);
     });
-  }, [page, loading]);
+  }, [page, loading, hasMore]);
 
   useEffect(() => {
     loadMoreFeatures(); // Initial load
@@ -197,7 +204,7 @@ const Houses = () => {
     const handleScroll = (e) => {
       const bottom =
         e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-      if (bottom) {
+      if (bottom && !loading && hasMore) {
         loadMoreFeatures();
       }
     };
@@ -212,7 +219,7 @@ const Houses = () => {
         container.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [loadMoreFeatures]);
+  }, [loadMoreFeatures, loading, hasMore]);
 
   const filteredItems = features.filter((item) => {
     const query = searched.toUpperCase().trim();

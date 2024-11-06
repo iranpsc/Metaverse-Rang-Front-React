@@ -96,26 +96,31 @@ const IconWrapper = styled.div`
 const RestrictUser = () => {
   const [options, setOptions] = useState({
     record: false,
-    message: true,
-    sound: true,
+    message: false,
+    sound: false,
     email: false,
     location: false,
     pic: false,
     comment: false,
     user: false,
-    share: true,
+    share: false,
   });
 
   const { Request, HTTP_METHOD } = useRequest();
   const [user] = useContext(UserContext);
 
+  const [hasExistingLimitation, setHasExistingLimitation] = useState(false);
+
   useEffect(() => {
     Request(`users/${user?.id}/profile-limitations`, HTTP_METHOD.GET).then(
       (response) => {
-        setOptions(response.data.data.options);
+        if (response.data.data?.options) {
+          setOptions(response.data.data.options);
+          setHasExistingLimitation(true);
+        }
       }
     );
-  }, [user?.id, Request, HTTP_METHOD.GET]);
+  }, []);
 
   const handleIconClick = (slug) => {
     const updatedOptions = {
@@ -124,26 +129,57 @@ const RestrictUser = () => {
     };
     setOptions(updatedOptions);
 
-    const data = {
-      limited_user_id: user?.id,
-      options: {
-        follow: updatedOptions.user ? 1 : 0,
-        share: updatedOptions.share ? 1 : 0,
-        send_ticket: updatedOptions.comment ? 1 : 0,
-        view_profile_images: updatedOptions.pic ? 1 : 0,
-        view_features_locations: updatedOptions.location ? 1 : 0,
-        send_message: updatedOptions.message ? 1 : 0,
-      },
-      note: "", // You can change this to whatever note you need
-    };
+    const formData = new FormData();
 
-    Request("profile-limitations", HTTP_METHOD.POST, data)
-      .then((response) => {
-        console.log("Restrictions updated:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error updating restrictions:", error);
-      });
+    if (hasExistingLimitation) {
+      formData.append("options[follow]", updatedOptions.user ? "1" : "0");
+      formData.append("options[share]", updatedOptions.share ? "1" : "0");
+      formData.append(
+        "options[send_ticket]",
+        updatedOptions.comment ? "1" : "0"
+      );
+      formData.append(
+        "options[view_profile_images]",
+        updatedOptions.pic ? "1" : "0"
+      );
+      formData.append(
+        "options[view_features_locations]",
+        updatedOptions.location ? "1" : "0"
+      );
+      formData.append(
+        "options[send_message]",
+        updatedOptions.message ? "1" : "0"
+      );
+      formData.append("note", "");
+      formData.append("_method", "put");
+    } else {
+      formData.append("limited_user_id", user?.id);
+      formData.append("options[follow]", updatedOptions.user ? "1" : "0");
+      formData.append("options[share]", updatedOptions.share ? "1" : "0");
+      formData.append(
+        "options[send_ticket]",
+        updatedOptions.comment ? "1" : "0"
+      );
+      formData.append(
+        "options[view_profile_images]",
+        updatedOptions.pic ? "1" : "0"
+      );
+      formData.append(
+        "options[view_features_locations]",
+        updatedOptions.location ? "1" : "0"
+      );
+      formData.append(
+        "options[send_message]",
+        updatedOptions.message ? "1" : "0"
+      );
+      formData.append("note", "");
+    }
+
+    Request("profile-limitations", HTTP_METHOD.POST, formData, {
+      "Content-Type": "multipart/form-data",
+    }).catch((error) => {
+      console.error("Error updating restrictions:", error);
+    });
   };
 
   return (

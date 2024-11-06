@@ -27,13 +27,13 @@ const InfoIcon = styled.div`
 `;
 
 const Title = styled.div`
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.primaryText};
   font-size: 16px;
   font-weight: 400;
 `;
 
 const Value = styled.span`
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.otherColors.title};
   font-size: 12px;
   font-weight: 400;
   padding: 10px 15px;

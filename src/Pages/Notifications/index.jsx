@@ -13,6 +13,7 @@ const Div = styled.div`
   gap: 15px;
   overflow-y: auto;
   padding-right: 15px;
+  height: 100%;
 `;
 const Container = styled.div`
   height: 77%;
@@ -21,7 +22,7 @@ const Container = styled.div`
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 10px;
-    text-align: left;
+    width: fit-content;
     cursor: pointer;
     margin-top: 10px;
   }

@@ -10,6 +10,12 @@ import { FeatureContext } from "../../../Context/FeatureProvider";
 import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { FeatureSvg } from "../../../../../Services/Constants/FeatureType";
+import {
+  calculateFee,
+  getFieldTranslationByNames,
+  persianNumbers,
+  ToastError,
+} from "../../../../../Services/Utility";
 
 const InputsWrapper = styled.div`
   display: flex;
@@ -52,7 +58,7 @@ const SellerPriceInfo = () => {
       .catch((error) => {
         if (error.response.status === 410) {
           ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          return Navigate("/metaverse/confirmation");
+          Navigate("/metaverse/confirmation");
         } else {
           ToastError(error.response.data.message);
         }
@@ -62,28 +68,50 @@ const SellerPriceInfo = () => {
     <>
       <InputsWrapper>
         <Input
-          disabled
           value={rial}
           onchange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder="قیمت فروش (ریال)"
+          placeholder={`${getFieldTranslationByNames(
+            "property-information",
+            "sales price"
+          )} (${getFieldTranslationByNames("property-information", "rial")})`}
           insideText={<Rial />}
         />
         <Input
-          disabled
           value={psc}
           onchange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder="قیمت فروش (PSC)"
+          placeholder={`${getFieldTranslationByNames(
+            "property-information",
+            "sales price"
+          )} (${getFieldTranslationByNames("property-information", "psc")})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
       <ResultWrapper>
-        <TitleValue title="قیمت نهایی" value={`${rial} IRR / ${psc} PSC`} />
-        <TitleValue title="کارمزد" value="5%" />
+        <TitleValue
+          title={getFieldTranslationByNames(
+            "property-information",
+            "the final price"
+          )}
+          value={`${calculateFee(rial, 5)} ${getFieldTranslationByNames(
+            "property-information",
+            "rial"
+          )} / ${calculateFee(psc, 5)} ${getFieldTranslationByNames(
+            "property-information",
+            "psc"
+          )}`}
+        />
+        <TitleValue
+          title={getFieldTranslationByNames("property-information", "wage")}
+          value="5%"
+        />
       </ResultWrapper>
       <div>
-        <Button label="خرید" onclick={onSubmit} />
+        <Button
+          label={getFieldTranslationByNames("property-information", "buy")}
+          onclick={onSubmit}
+        />
       </div>
     </>
   );

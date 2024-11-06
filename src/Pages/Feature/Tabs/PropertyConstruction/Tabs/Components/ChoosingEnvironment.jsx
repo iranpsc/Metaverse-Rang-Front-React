@@ -12,14 +12,38 @@ const Container = styled.div`
   gap: 10px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   display: grid;
-  overflow-y: scroll;
-  width: 40%;
+
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    padding: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    overflow-y: visible;
+  }
+`;
+
+const ImgHolder = styled.div`
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  position: relative;
+
+  @media (max-width: 768px) {
+    height: 120px;
+  }
 `;
 
 const Img = styled.img`
   width: 100%;
   height: 180px;
   border-radius: 10px;
+
+  @media (max-width: 768px) {
+    height: 120px;
+    object-fit: cover;
+  }
 `;
 
 const ViewIcon = styled(Eye)`
@@ -38,13 +62,6 @@ const ViewHolder = styled.button`
   align-items: center;
   justify-content: center;
   border: none;
-`;
-
-const ImgHolder = styled.div`
-  width: 100%;
-  height: 180px;
-  border-radius: 10px;
-  position: relative;
 `;
 
 const SelectorEnvironment = styled.button`

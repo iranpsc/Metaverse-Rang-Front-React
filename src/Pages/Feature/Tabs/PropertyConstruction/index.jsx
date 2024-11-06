@@ -6,6 +6,15 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   gap: 10px;
+  width: 100%;
+  height: calc(100vh - 150px);
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: calc(100vh - 300px);
+    overflow-y: auto;
+  }
 `;
 const PropertyConstruction = () => {
   const [option, setOption] = useState(true);

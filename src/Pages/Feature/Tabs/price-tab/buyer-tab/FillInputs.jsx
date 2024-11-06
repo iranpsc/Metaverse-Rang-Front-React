@@ -3,7 +3,10 @@ import styled from "styled-components";
 import Rial from "../../../../../Components/Rial";
 import Psc from "../../../../../Components/Psc";
 import Input from "../../../../../Components/Input";
-import { convertToPersian } from "../../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../../Services/Utility";
 import TitleValue from "../../../../../Components/TitleValue";
 import Button from "../../../../../Components/Button";
 import SuggestText from "./SuggestText";
@@ -117,14 +120,20 @@ const FillInputs = ({
           value={rial}
           onchange={handleRialChange}
           type="number"
-          placeholder="پیشنهاد قیمت فروش (ریال)"
+          placeholder={`${getFieldTranslationByNames(
+            "property-information",
+            "sales price"
+          )} (${getFieldTranslationByNames("property-information", "rial")})`}
           insideText={<Rial />}
         />
         <Input
           value={psc}
           onchange={handlePscChange}
           type="number"
-          placeholder="پیشنهاد قیمت فروش (PSC)"
+          placeholder={`${getFieldTranslationByNames(
+            "property-information",
+            "sales price"
+          )} (${getFieldTranslationByNames("property-information", "psc")})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
@@ -132,26 +141,46 @@ const FillInputs = ({
       <Div>
         <SuggestText setValue={setSuggestText} value={suggestText} />
         <span style={{ color: "gray", fontSize: "14px" }}>
-          {1000 - suggestText.length} کاراکتر
+          {1000 - suggestText.length}{" "}
+          {getFieldTranslationByNames("property-information", "character")}
         </span>
       </Div>
       <ResultWrapper>
         <Wrapper>
-          <Title>قیمت نهایی</Title>
+          <Title>
+            {getFieldTranslationByNames(
+              "property-information",
+              "the final price"
+            )}
+          </Title>
           <Value>
-            {convertToPersian(rial)} IRR / {psc} PSC
+            {convertToPersian(rial)}{" "}
+            {getFieldTranslationByNames("property-information", "rial")} / {psc}{" "}
+            {getFieldTranslationByNames("property-information", "psc")}
           </Value>
         </Wrapper>
         <Sec>
           <TitleValue
-            title="مانده"
+            title={getFieldTranslationByNames(
+              "property-information",
+              "remaining"
+            )}
             value={convertToPersian(remainingAmount.toFixed(0))}
           />
-          <TitleValue title="کارمزد" value="5%" />
+          <TitleValue
+            title={getFieldTranslationByNames("property-information", "wage")}
+            value="5%"
+          />
         </Sec>
       </ResultWrapper>
       <div>
-        <Button label="ثبت پیشنهاد" onclick={onSubmit} />
+        <Button
+          label={getFieldTranslationByNames(
+            "property-information",
+            "register the offer"
+          )}
+          onclick={onSubmit}
+        />
       </div>
     </>
   );

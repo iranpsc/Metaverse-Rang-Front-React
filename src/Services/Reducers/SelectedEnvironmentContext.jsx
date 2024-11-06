@@ -6,16 +6,25 @@ export const useSelectedEnvironment = () =>
   useContext(SelectedEnvironmentContext);
 
 export const SelectedEnvironmentProvider = ({ children }) => {
-  const [selectedEnvironment, setSelectedEnvironment] = useState({});
-  const [confirmation, setConfirmation] = useState(false);
-  const [hiddenModel, setHiddenModel] = useState(false);
-  const [formState, setFormState] = useState({});
-  const [isSelectable, setIsSelectable] = useState(false);
+  const initialState = {
+    selectedEnvironment: {},
+    confirmation: false,
+    hiddenModel: false,
+    formState: {},
+    isSelectable: false,
+  };
+
+  const [selectedEnvironment, setSelectedEnvironment] = useState(
+    initialState.selectedEnvironment
+  );
+  const [confirmation, setConfirmation] = useState(initialState.confirmation);
+  const [hiddenModel, setHiddenModel] = useState(initialState.hiddenModel);
+  const [formState, setFormState] = useState(initialState.formState);
+  const [isSelectable, setIsSelectable] = useState(initialState.isSelectable);
 
   const addSelectedEnvironment = (data) => {
     setSelectedEnvironment((prev) => {
       const updatedEnvironment = { ...prev, ...data };
-      console.log("Updated Environment:", updatedEnvironment);
       return updatedEnvironment;
     });
     toggleIsSelectable(); // Add this line to toggle isSelectable
@@ -34,11 +43,11 @@ export const SelectedEnvironmentProvider = ({ children }) => {
   };
 
   const resetStates = () => {
-    setSelectedEnvironment({});
-    setConfirmation(false);
-    setHiddenModel(false);
-    setFormState({});
-    setIsSelectable(false);
+    setSelectedEnvironment(initialState.selectedEnvironment);
+    setConfirmation(initialState.confirmation);
+    setHiddenModel(initialState.hiddenModel);
+    setFormState(initialState.formState);
+    setIsSelectable(initialState.isSelectable);
   };
 
   return (

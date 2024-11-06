@@ -118,16 +118,17 @@ const handleDownload = (url, filename) => {
   document.body.removeChild(link);
 };
 const CitizenMessage = ({ data }) => {
+  console.log(data?.sender);
   return (
     <Container>
       <Content>
         <Header>
           <span>{data?.sender.name}</span>
           <a
-            href="https://rgb.irpsc.com/fa/citizens/hm-2000001"
+            href={`https://rgb.irpsc.com/fa/citizens/${data?.sender.code}`}
             target="_blank"
           >
-            HM-200020
+            {data?.sender.code}
           </a>
         </Header>
         <Text>

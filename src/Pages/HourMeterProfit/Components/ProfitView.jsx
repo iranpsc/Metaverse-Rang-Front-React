@@ -15,10 +15,7 @@ import {
 const Scroll = styled.div`
   padding: 30px 15px 20px;
   overflow-y: auto;
-  height: calc(100% - 115px);
-  @media (min-width: 1024px) {
-    height: calc(100% - 170px);
-  }
+  height: 100%;
 `;
 
 const Buttons = styled.div`
