@@ -8,13 +8,15 @@ import { ReactComponent as Help } from "../../../../../../Assets/svg/exclamation
 import { ReactComponent as Exit } from "../../../../../../Assets/svg/close.svg";
 import { ReactComponent as Report } from "../../../../../../Assets/svg/question.svg";
 import CanvasPreview from "./CanvasPreview";
+import { getFieldTranslationByNames } from "../../../../../../Services/Utility";
 
 const ContainerDetail = styled.div`
   width: 40%;
   height: 480px;
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
   gap: 20px;
   padding: 25px 20px;
   overflow-y: auto;
@@ -29,12 +31,12 @@ const Container = styled.div`
   padding: 10px;
 `;
 const TextTitle = styled.p`
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 18px;
   font-weight: 600;
 `;
 const TextDetail = styled.p`
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 600;
 `;
@@ -81,7 +83,7 @@ const PreviewModel = ({ data }) => {
     height: 40px;
   `;
   const Header = styled.p`
-    color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.newColors.shades.title};
 
     font-size: 16px;
     @media (min-width: 768px) {
@@ -136,12 +138,22 @@ const PreviewModel = ({ data }) => {
               onClick={() => setHidden(true)}
             />
           </div>
-          <Header>نمایشگر مدل ۳ بعدی</Header>
+          <Header>
+            {getFieldTranslationByNames(
+              "property-information",
+              "3d model display"
+            )}
+          </Header>
         </div>
         <div className="modal-body ">
           <Container>
             <ContainerDetail>
-              <TextTitle>جزییات بنا</TextTitle>
+              <TextTitle>
+                {getFieldTranslationByNames(
+                  "property-information",
+                  "details of the building"
+                )}
+              </TextTitle>
               {data[0].attributes.map((attribute, index) => (
                 <PHolder key={index}>
                   <TextTitle>{attribute.name}</TextTitle>
@@ -150,7 +162,9 @@ const PreviewModel = ({ data }) => {
               ))}
             </ContainerDetail>
             <CanvasContainer>
-              <CanvasPreview link={data[0].file.url} />
+              <CanvasPreview
+                link={`https://middle.irpsc.com/app/?url=${data[0].file.url}`}
+              />
             </CanvasContainer>
           </Container>
           {showModal && (

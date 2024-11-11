@@ -170,7 +170,10 @@ const SatisfactionLunch = ({
           Error={error}
         />
         <TextValueIcon
-          title="زمان کسر شده"
+          title={getFieldTranslationByNames(
+            "property-information",
+            "construction time"
+          )}
           icon={<Icon />}
           value={calculatedValue.toFixed(2)}
         />
