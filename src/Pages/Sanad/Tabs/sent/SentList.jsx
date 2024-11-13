@@ -98,6 +98,19 @@ const Date = styled.div`
     }
     font-size: 16px;
   }
+  ${({ disabled }) =>
+    disabled &&
+    `
+    background-color: #e0e0e0; // Example disabled background color
+    pointer-events: none;
+    opacity: 0.6;
+    svg {
+      color: #a0a0a0; // Example disabled icon color
+    }
+    input {
+      color: #a0a0a0; // Example disabled text color
+    }
+  `}
 `;
 const rows_items = [
   {
@@ -215,7 +228,7 @@ const SentList = ({ setShowDetails }) => {
             "search document title"
           )}
         />
-        <Date>
+        <Date disabled>
           <DatePicker
             placeholder={getFieldTranslationByNames(
               "send-vod",
@@ -227,6 +240,7 @@ const SentList = ({ setShowDetails }) => {
             calendar={persian}
             locale={persian_fa}
             calendarPosition="bottom-right"
+            disabled={true}
           />
           <FaRegCalendarAlt size={20} />
         </Date>

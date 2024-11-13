@@ -7,7 +7,7 @@ import styled from "styled-components";
 const Container = styled.div``;
 const Messages = ({ data: initialData }) => {
   const [data, setData] = useState(initialData);
-  console.log(data);
+
   return (
     <Container>
       <CitizenMessage data={data} />
