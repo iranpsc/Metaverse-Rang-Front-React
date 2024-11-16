@@ -398,35 +398,37 @@ const items = [
   {
     id: 9,
     label: "infractions",
-    options: [],
+    options: [
+      {
+        id: 1,
+        title: "complaints",
+        key: "bought_golden_keys",
+      },
+      {
+        id: 2,
+        title: "notice",
+        key: "notice",
+      },
+      {
+        id: 3,
+        title: "violation of the rules",
+        key: "violation_of_the_rules",
+      },
+      {
+        id: 4,
+        title: "show life status",
+        key: "warning",
+      },
+      {
+        id: 5,
+        title: "sum of negative points",
+        key: "negative_points",
+      },
+    ],
   },
+
   {
     id: 10,
-    label: "complaints",
-    options: [],
-  },
-  {
-    id: 11,
-    label: "",
-    options: [],
-  },
-  {
-    id: 12,
-    label: "violation of the rules",
-    options: [],
-  },
-  {
-    id: 13,
-    label: "show life status",
-    options: [],
-  },
-  {
-    id: 14,
-    label: "sum of negative points",
-    options: [],
-  },
-  {
-    id: 15,
     label: "family lineage",
     options: [
       {

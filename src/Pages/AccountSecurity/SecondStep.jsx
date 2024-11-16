@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import useRequest from "../../Services/Hooks/useRequest";
 import { setItem } from "../../Services/Utility/LocalStorage";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames, ToastError } from "../../Services/Utility";
 
 const Codes = styled.div`
   display: flex;
@@ -210,7 +210,7 @@ const SecondStep = ({ setStep, time }) => {
         })
         .catch(() => {
           setErrors(true);
-          toast.error("کد وارد شده صحیح نمی‌باشد. لطفاً دوباره تلاش کنید.");
+          ToastError("کد وارد شده صحیح نمی‌باشد. لطفاً دوباره تلاش کنید.");
         });
     } else {
       setErrors(true);
