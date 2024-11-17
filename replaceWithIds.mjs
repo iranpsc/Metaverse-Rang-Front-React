@@ -43,33 +43,57 @@ async function processFile(filePath, translationMap) {
     let modified = false;
     let newContent = content;
 
-    const regex = /title=\{?\[["'](.*?)["'],\s*["'](.*?)["']\]\}?/g;
-    const matches = [...content.matchAll(regex)];
+    const functionRegex =
+      /getFieldTranslationByNames\s*\(\s*["'](.*?)["']\s*,\s*["'](.*?)["']\s*\)/g;
+    const functionMatches = [...content.matchAll(functionRegex)];
 
-    if (matches.length === 0) return false;
+    if (functionMatches.length > 0) {
+      console.log(`\n📝 Processing function calls in: ${filePath}`);
 
-    console.log(`\n📝 Processing file: ${filePath}`);
+      for (const match of functionMatches) {
+        const [fullMatch, modalName, fieldName] = match;
+        const key = `${modalName}:${fieldName}`;
+        const translation = translationMap.get(key);
 
-    for (const match of matches) {
-      const [fullMatch, modalName, fieldName] = match;
-      const key = `${modalName}:${fieldName}`;
-      const translation = translationMap.get(key);
+        if (translation) {
+          const newCall = `getFieldTranslationByNames(${translation.id})`;
+          newContent = newContent.replace(fullMatch, newCall);
+          modified = true;
 
-      if (translation) {
-        const newTitle = `title={${translation.id}}`;
-        newContent = newContent.replace(fullMatch, newTitle);
-        modified = true;
+          console.log(`✅ Successful function replacement:`);
+          console.log(`   Before: ${fullMatch}`);
+          console.log(`   After: ${newCall}`);
+        }
+      }
+    }
 
-        console.log(`✅ Successful replacement:`);
-        console.log(`   Before: ${fullMatch}`);
-        console.log(`   After: ${newTitle}`);
-        console.log(
-          `   [Modal: ${modalName}, Field: ${fieldName}, ID: ${translation.id}]`
+    const menuItemRegex = /translationKey:\s*["'](.*?)["']/g;
+    const menuMatches = [...content.matchAll(menuItemRegex)];
+
+    if (menuMatches.length > 0) {
+      console.log(`\n📝 Processing menu items in: ${filePath}`);
+
+      for (const match of menuMatches) {
+        const [fullMatch, fieldName] = match;
+        const key = `central-page:${fieldName}`;
+        const translation = translationMap.get(key);
+
+        if (translation) {
+          const newItem = `translationId: ${translation.id}`;
+          newContent = newContent.replace(fullMatch, newItem);
+          modified = true;
+
+          console.log(`✅ Successful menu item replacement:`);
+          console.log(`   Before: ${fullMatch}`);
+          console.log(`   After: ${newItem}`);
+        }
+      }
+
+      if (modified) {
+        newContent = newContent.replace(
+          /getFieldTranslationByNames\s*\(\s*["']central-page["']\s*,\s*item\.translationKey\s*\)/g,
+          "getFieldTranslationByNames(item.translationId)"
         );
-      } else {
-        console.log(`⚠️ Translation not found:`);
-        console.log(`   Modal: ${modalName}`);
-        console.log(`   Field: ${fieldName}`);
       }
     }
 

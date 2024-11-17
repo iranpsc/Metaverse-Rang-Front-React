@@ -87,42 +87,42 @@ const ValueBtn = styled.span`
 `;
 
 const menuItems = [
-  { icon: GiftIcon, translationKey: "challenges", navigate: "" },
+  { icon: GiftIcon, translationId: 3716, navigate: "" },
   {
     icon: AccountSecurityIcon,
-    translationKey: "account security",
+    translationId: 3709,
     navigate: "confirmation",
   },
   {
     icon: CentralSearch,
-    translationKey: "central search",
+    translationId: 3723,
     navigate: "search",
   },
   {
     icon: GlobalStatisticsIcon,
-    translationKey: "global statistics",
+    translationId: 3730,
     navigate: "",
   },
-  { icon: FamilyTreeIcon, translationKey: "family tree", navigate: "dynasty" },
-  { icon: RobotIcon, translationKey: "vod guide", navigate: "" },
+  { icon: FamilyTreeIcon, translationId: 3737, navigate: "dynasty" },
+  { icon: RobotIcon, translationId: 3744, navigate: "" },
   {
     icon: ProfitIcon,
-    translationKey: "accumulated earnings",
+    translationId: 3751,
     navigate: "hour-profit",
   },
   {
     icon: KycIcon,
-    translationKey: "identify verification",
+    translationId: 3758,
     navigate: "verification",
   },
-  { icon: CalendarIcon, translationKey: "calendar", navigate: "" },
-  { icon: StoreIcon, translationKey: "store", navigate: "store" },
+  { icon: CalendarIcon, translationId: 4128, navigate: "" },
+  { icon: StoreIcon, translationId: 3772, navigate: "store" },
   {
     icon: NotifIcon,
-    translationKey: "notifications",
+    translationId: 3779,
     navigate: "notifications",
   },
-  { icon: ReportIcon, translationKey: "reports", navigate: "report" },
+  { icon: ReportIcon, translationId: 3786, navigate: "report" },
 ];
 
 const BtnsMenu = () => {
@@ -174,7 +174,7 @@ const BtnsMenu = () => {
               isOpen={isOpen}
               isSelected={selectedItem === item.translationKey}
             >
-              {getFieldTranslationByNames("central-page", item.translationKey)}
+              {getFieldTranslationByNames(item.translationId)}
             </Text>
           </div>
           {item.translationKey === "accumulated earnings" && user && (
