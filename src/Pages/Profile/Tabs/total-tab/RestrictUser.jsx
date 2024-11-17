@@ -17,10 +17,25 @@ import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const icons = [
   { id: 1, slug: "share", label: "sharing", icon: <FiShare2 /> },
-  { id: 2, slug: "user", label: "to follow", icon: <RiUserForbidLine /> },
-  { id: 3, slug: "comment", label: "send message", icon: <BiMessageDetail /> },
-  { id: 4, slug: "pic", label: "view images", icon: <CiImageOn /> },
-  { id: 5, slug: "location", label: "voice message", icon: <FaEarDeaf /> },
+  { id: 2, slug: "follow", label: "to follow", icon: <RiUserForbidLine /> },
+  {
+    id: 3,
+    slug: "send_message",
+    label: "send message",
+    icon: <BiMessageDetail />,
+  },
+  {
+    id: 4,
+    slug: "view_profile_images",
+    label: "view images",
+    icon: <CiImageOn />,
+  },
+  {
+    id: 5,
+    slug: "view_features_locations",
+    label: "voice message",
+    icon: <FaEarDeaf />,
+  },
   {
     id: 6,
     slug: "email",
@@ -28,7 +43,7 @@ const icons = [
     icon: <MdOutlineMailOutline />,
   },
   { id: 7, slug: "sound", label: "voice conversation", icon: <BiVolumeMute /> },
-  { id: 8, slug: "message", label: "", icon: <BiMessageSquareDetail /> },
+  { id: 8, slug: "send_ticket", label: "", icon: <BiMessageSquareDetail /> },
   { id: 9, slug: "record", label: "", icon: <FaCircle /> },
 ];
 
@@ -96,13 +111,13 @@ const IconWrapper = styled.div`
 const RestrictUser = () => {
   const [options, setOptions] = useState({
     record: false,
-    message: false,
+    send_message: false,
     sound: false,
     email: false,
-    location: false,
-    pic: false,
-    comment: false,
-    user: false,
+    view_features_locations: false,
+    view_profile_images: false,
+    send_ticket: false,
+    follow: false,
     share: false,
   });
 
@@ -115,7 +130,21 @@ const RestrictUser = () => {
     Request(`users/${user?.id}/profile-limitations`, HTTP_METHOD.GET).then(
       (response) => {
         if (response.data.data?.options) {
-          setOptions(response.data.data.options);
+          const convertedOptions = Object.entries(
+            response.data.data.options
+          ).reduce(
+            (acc, [key, value]) => ({
+              ...acc,
+              [key]: value === "1",
+            }),
+            {}
+          );
+
+          setOptions({
+            ...options,
+            ...convertedOptions,
+            id: response.data.data.id,
+          });
           setHasExistingLimitation(true);
         }
       }
@@ -130,62 +159,42 @@ const RestrictUser = () => {
     setOptions(updatedOptions);
 
     const formData = new FormData();
+    const optionsToSend = [
+      "follow",
+      "share",
+      "send_ticket",
+      "view_profile_images",
+      "view_features_locations",
+      "send_message",
+    ];
 
+    optionsToSend.forEach((key) => {
+      formData.append(`options[${key}]`, updatedOptions[key] ? "1" : "0");
+    });
+
+    formData.append("note", "");
     if (hasExistingLimitation) {
-      formData.append("options[follow]", updatedOptions.user ? "1" : "0");
-      formData.append("options[share]", updatedOptions.share ? "1" : "0");
-      formData.append(
-        "options[send_ticket]",
-        updatedOptions.comment ? "1" : "0"
-      );
-      formData.append(
-        "options[view_profile_images]",
-        updatedOptions.pic ? "1" : "0"
-      );
-      formData.append(
-        "options[view_features_locations]",
-        updatedOptions.location ? "1" : "0"
-      );
-      formData.append(
-        "options[send_message]",
-        updatedOptions.message ? "1" : "0"
-      );
-      formData.append("note", "");
       formData.append("_method", "put");
-    } else {
-      formData.append("limited_user_id", user?.id);
-      formData.append("options[follow]", updatedOptions.user ? "1" : "0");
-      formData.append("options[share]", updatedOptions.share ? "1" : "0");
-      formData.append(
-        "options[send_ticket]",
-        updatedOptions.comment ? "1" : "0"
-      );
-      formData.append(
-        "options[view_profile_images]",
-        updatedOptions.pic ? "1" : "0"
-      );
-      formData.append(
-        "options[view_features_locations]",
-        updatedOptions.location ? "1" : "0"
-      );
-      formData.append(
-        "options[send_message]",
-        updatedOptions.message ? "1" : "0"
-      );
-      formData.append("note", "");
     }
 
-    Request("profile-limitations", HTTP_METHOD.POST, formData, {
-      "Content-Type": "multipart/form-data",
-    }).catch((error) => {
+    Request(
+      hasExistingLimitation
+        ? `profile-limitations/${options.id}`
+        : "profile-limitations",
+      HTTP_METHOD.POST,
+      formData,
+      {
+        "Content-Type": "multipart/form-data",
+      }
+    ).catch((error) => {
       console.error("Error updating restrictions:", error);
     });
   };
-
+  console.log(options);
   return (
     <Container>
       <Title>
-        {getFieldTranslationByNames("citizenship-account", "limitation")}
+        {getFieldTranslationByNames(8720)}
       </Title>
       <Icons>
         {icons.map((icon) => (

@@ -83,7 +83,7 @@ const Dropdown = ({ options, value, onChange, label }) => {
         <DropdownList>
           <SearchInput
             type="text"
-            placeholder={getFieldTranslationByNames("citizenship-account", "search")}
+            placeholder={getFieldTranslationByNames(285)}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

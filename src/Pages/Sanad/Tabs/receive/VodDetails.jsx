@@ -102,10 +102,7 @@ const VodDetails = ({ setShowDetails, data }) => {
       <Container>
         <Header>
           <Title
-            title={getFieldTranslationByNames(
-              "send-vod",
-              "document information"
-            )}
+            title={getFieldTranslationByNames(14796)}
           />
           <div onClick={() => setShowDetails(false)}>X</div>
         </Header>

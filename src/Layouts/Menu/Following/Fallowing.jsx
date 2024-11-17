@@ -59,7 +59,7 @@ const Fallowing = () => {
         <IconHeader isOpenDrop={isOpenDrop} />
         <Text isOpen={isOpen}>
           {" "}
-          {getFieldTranslationByNames("citizenship-account", "following")}
+          {getFieldTranslationByNames(294)}
         </Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>

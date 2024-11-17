@@ -31,7 +31,7 @@ const SidebarOptions = ({ option, setOption }) => {
   return (
     <Wrapper>
       <Option option={option === true} onClick={() => setOption(true)}>
-        {getFieldTranslationByNames("property-information", "seller's price")}
+        {getFieldTranslationByNames(6795)}
       </Option>
     </Wrapper>
   );

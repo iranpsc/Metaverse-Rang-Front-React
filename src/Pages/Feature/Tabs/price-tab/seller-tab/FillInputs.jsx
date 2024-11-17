@@ -129,10 +129,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           value={rial}
           onchange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
-            "property-information",
-            "sales price"
-          )} (${getFieldTranslationByNames("property-information", "psc")})`}
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(14488)})`}
           insideText={<Rial />}
           errorMessage={errors.rial}
         />
@@ -140,10 +137,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           value={psc}
           onchange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
-            "property-information",
-            "sales price"
-          )} (${getFieldTranslationByNames("property-information", "psc")})`}
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(14488)})`}
           insideText={<Psc />}
           errorMessage={errors.psc}
         />
@@ -151,25 +145,19 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
       <ResultWrapper>
         <Wrapper>
           <Title>
-            {getFieldTranslationByNames(
-              "property-information",
-              "the final price"
-            )}
+            {getFieldTranslationByNames(6781)}
           </Title>
           <Value>
             {calculateFee(rial)} IRR / {calculateFee(psc)} PSC
           </Value>
         </Wrapper>
         <TitleValue
-          title={getFieldTranslationByNames("property-information", "wage")}
+          title={getFieldTranslationByNames(6788)}
           value="5%"
         />
       </ResultWrapper>
       <Button
-        label={getFieldTranslationByNames(
-          "property-information",
-          "price determination"
-        )}
+        label={getFieldTranslationByNames(6747)}
         onclick={priceHandler}
       />
     </Div>

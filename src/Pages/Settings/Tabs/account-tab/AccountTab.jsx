@@ -63,18 +63,12 @@ const AccountTab = () => {
     if (Object.keys(settings).length > 0) {
       setEmailChange((prevState) => ({
         ...prevState,
-        warn: `${settings.email_reset_count}  ${getFieldTranslationByNames(
-          "setting",
-          "you can change your email"
-        )}`,
+        warn: `${settings.email_reset_count}  ${getFieldTranslationByNames(15055)}`,
       }));
 
       setMobileChange((prevState) => ({
         ...prevState,
-        warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(
-          "setting",
-          "you can change your email"
-        )}`,
+        warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(15055)}`,
       }));
     }
   }, [settings]);

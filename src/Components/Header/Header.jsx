@@ -161,7 +161,7 @@ const Header = ({
   };
   return (
     <HeaderWrapper>
-      <Text long={long}>{getFieldTranslationByNames(title[0], title[1])}</Text>
+      <Text long={long}>{getFieldTranslationByNames(title)}</Text>
       <Icons>
         {loading && (
           <FullWrapper>

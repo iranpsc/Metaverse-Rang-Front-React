@@ -83,32 +83,20 @@ const ConfirmCardDelete = ({ setOpenDeleteModal, setCards, deleteIndex }) => {
         <div>
           <Title>
             {" "}
-            {getFieldTranslationByNames(
-              "authentication",
-              "delete the registered card"
-            )}
+            {getFieldTranslationByNames(10708)}
           </Title>
           <Info>
             {" "}
-            {getFieldTranslationByNames(
-              "authentication",
-              "do you want to delete the card"
-            )}{" "}
-            {getFieldTranslationByNames(
-              "authentication",
-              "delete the card with"
-            )}
+            {getFieldTranslationByNames(10715)}{" "}
+            {getFieldTranslationByNames(10722)}
           </Info>
         </div>
         <Buttons>
           <Button red onClick={handleDelete}>
-            {getFieldTranslationByNames(
-              "authentication",
-              "yes, remove the card"
-            )}
+            {getFieldTranslationByNames(10729)}
           </Button>
           <Button onClick={() => setOpenDeleteModal(false)}>
-            {getFieldTranslationByNames("authentication", "no, I gave up")}
+            {getFieldTranslationByNames(10736)}
           </Button>
         </Buttons>
       </Modal>

@@ -77,7 +77,7 @@ const EditNote = ({ setIsEditing, data }) => {
       <Buttons>
         <Button
           fit
-          label={getFieldTranslationByNames("send-vod", "save")}
+          label={getFieldTranslationByNames(14950)}
           onclick={handleSave}
         />
         <Button

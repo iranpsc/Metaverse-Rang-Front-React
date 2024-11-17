@@ -67,8 +67,8 @@ const Buttons = ({ user }) => {
       id: 1,
       icon: isFollowed ? <RiUserUnfollowLine /> : <TiUserAddOutline />,
       label: isFollowed
-        ? getFieldTranslationByNames("search-in-metarang", "friend request")
-        : getFieldTranslationByNames("search-in-metarang", "friend request"),
+        ? getFieldTranslationByNames(6298)
+        : getFieldTranslationByNames(6298),
       onClick: isFollowed
         ? () => onUnFollowHandler(user?.id)
         : () => onFollowHandler(user?.id),
@@ -76,13 +76,13 @@ const Buttons = ({ user }) => {
     {
       id: 2,
       icon: <BiCommentDots />,
-      label: getFieldTranslationByNames("search-in-metarang", "online chat"),
+      label: getFieldTranslationByNames(6305),
       onClick: () => {},
     },
     {
       id: 3,
       icon: <MdOutlineMailOutline />,
-      label: getFieldTranslationByNames("search-in-metarang", "send message"),
+      label: getFieldTranslationByNames(6312),
       onClick: () =>
         Navigate("/metaverse/sanad", {
           state: { code: user?.code, user: user?.id },

@@ -106,10 +106,7 @@ const PriceDefine = () => {
   return (
     <Wrapper>
       <Text>
-        {getFieldTranslationByNames(
-          "property-information",
-          "you can price your property"
-        )}
+        {getFieldTranslationByNames(6753)}
       </Text>
       {!assign && (
         <FillInputs

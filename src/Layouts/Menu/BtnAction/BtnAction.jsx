@@ -120,20 +120,17 @@ const BtnAction = () => {
     <Btn isOpen={isOpen} isClicked={isClicked} onClick={handleClick}>
       <Div isOpen={isOpen} isClicked={isClicked} isPersian={isPersian}>
         <TextDetail isOpen={isOpen} isClicked={isClicked}>
-          {getFieldTranslationByNames(
-            "Citizenship-profile",
-            "citizenship page"
-          )}
+          {getFieldTranslationByNames(1899)}
         </TextDetail>
         <TextDetail isOpen={isOpen} isClicked={isClicked}>
-          {getFieldTranslationByNames("Citizenship-profile", "home page")}
+          {getFieldTranslationByNames(4465)}
         </TextDetail>
         <TextDetail
           isOpen={isOpen}
           isClicked={isClicked}
           onClick={() => logoutHandler()}
         >
-          {getFieldTranslationByNames("central-page", "sign out")}
+          {getFieldTranslationByNames(3702)}
         </TextDetail>
       </Div>
       <TextContainer isOpen={isOpen}>

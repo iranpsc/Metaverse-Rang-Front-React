@@ -144,7 +144,7 @@ const SendNote = ({ files, setFiles }) => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("send-vod", "note attachment")}
+        title={getFieldTranslationByNames(15020)}
       />
       <Wrapper>
         {files.length < 5 && (

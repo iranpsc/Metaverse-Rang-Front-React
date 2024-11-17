@@ -55,17 +55,17 @@ const SaveInfo = () => {
   return (
     <>
       {successMessage && (
-        <Alert type="success" text={getFieldTranslationByNames("citizenship-account", "your information has been successfully saved")} />
+        <Alert type="success" text={getFieldTranslationByNames(15006)} />
       )}
 
       <Header>
         <Text>
-          <Title title={getFieldTranslationByNames("citizenship-account", "about me")} />
+          <Title title={getFieldTranslationByNames(8706)} />
           <p>
-            {getFieldTranslationByNames("citizenship-account", "in this section, write descriptions about yourself so that citizens can get to know you")}
+            {getFieldTranslationByNames(9182)}
           </p>
         </Text>
-        <Button label={getFieldTranslationByNames("citizenship-account", "saved")} fit onclick={saveData} />
+        <Button label={getFieldTranslationByNames(9995)} fit onclick={saveData} />
       </Header>
     </>
   );

@@ -117,7 +117,7 @@ export const ToastSuccess = (message) => {
   });
 };
 
-export const getFieldTranslationByNames = (modalName, fieldName) => {
+export const getFieldTranslationByNames = (fieldId) => {
   const resources = i18n.store.data;
 
   if (
@@ -128,27 +128,21 @@ export const getFieldTranslationByNames = (modalName, fieldName) => {
     return "Translation resources not found";
   }
 
-  const modal = resources[i18n.language].translation.modals.find(
-    (modal) => modal.name === modalName
-  );
+  const modals = resources[i18n.language].translation.modals;
 
-  if (!modal) {
-    return `Modal '${modalName}' not found`;
-  }
-
-  for (let i = 0; i < modal.tabs.length; i++) {
-    const tab = modal.tabs[i];
-
-    if (tab.fields && tab.fields.length > 0) {
-      const field = tab.fields.find((field) => field.name === fieldName);
-
-      if (field && field.translation) {
+  // جستجو در تمام مودال‌ها و تب‌ها برای پیدا کردن فیلد با ID مورد نظر
+  for (const modal of modals) {
+    for (const tab of modal.tabs || []) {
+      const field = tab.fields?.find(
+        (field) => field.id.toString() === fieldId.toString()
+      );
+      if (field?.translation) {
         return field.translation;
       }
     }
   }
 
-  return `Field '${fieldName}' translation not found in modal '${modalName}'`;
+  return `Translation for ID '${fieldId}' not found`;
 };
 
 export const getFieldsByTabName = (modalName, tabName) => {

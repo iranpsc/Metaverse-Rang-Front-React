@@ -49,16 +49,13 @@ const LoadingModal = ({ isMobile, setOpen }) => {
     >
       <Header
         loading
-        title={["property-information", "entering the property"]}
+        title={5151}
         setOpenEducation={setOpen}
       />
       <Loader>
         <img src={loader} width={130} height={130} alt="loader" />
         <Text>
-          {getFieldTranslationByNames(
-            "property-information",
-            "this collection will be downloaded"
-          )}
+          {getFieldTranslationByNames(7040)}
         </Text>
       </Loader>
     </StyledRnd>

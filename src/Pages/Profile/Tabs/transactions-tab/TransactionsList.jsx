@@ -231,27 +231,18 @@ const TransactionsList = ({
           <TableRow>
             <TableHeader>
               <TableHeaderText>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "transaction id"
-                )}
+                {getFieldTranslationByNames(330)}
               </TableHeaderText>
             </TableHeader>
             <TableHeader date>
               <TableHeaderText>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "date and time of sending"
-                )}
+                {getFieldTranslationByNames(333)}
               </TableHeaderText>
             </TableHeader>
             <TableHeader>
               <FilterContainer>
                 <TableHeaderText>
-                  {getFieldTranslationByNames(
-                    "citizenship-account",
-                    "condition"
-                  )}
+                  {getFieldTranslationByNames(336)}
                 </TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ status: !filters.status })}
@@ -270,10 +261,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames(
-                        "citizenship-account",
-                        "successful"
-                      )}
+                      {getFieldTranslationByNames(8874)}
                     </FilterItemText>
                     {status.success && (
                       <FilterCloseButton
@@ -296,10 +284,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames(
-                        "citizenship-account",
-                        "suspended"
-                      )}
+                      {getFieldTranslationByNames(8888)}
                     </FilterItemText>
                     {status.pending && (
                       <FilterCloseButton
@@ -322,10 +307,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames(
-                        "citizenship-account",
-                        "unsuccessful"
-                      )}
+                      {getFieldTranslationByNames(8881)}
                     </FilterItemText>
                     {status.failed && (
                       <FilterCloseButton
@@ -364,10 +346,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {getFieldTranslationByNames(
-                        "citizenship-account",
-                        "purchase property"
-                      )}
+                      {getFieldTranslationByNames(8860)}
                     </FilterItemText>
                     {title.property_buy && (
                       <FilterCloseButton
@@ -390,10 +369,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {getFieldTranslationByNames(
-                        "citizenship-account",
-                        "real estate transaction"
-                      )}
+                      {getFieldTranslationByNames(8867)}
                     </FilterItemText>
                     {title.property_dealing && (
                       <FilterCloseButton
@@ -467,18 +443,12 @@ const TransactionsList = ({
             </TableHeader>
             <TableHeader>
               <TableHeaderText>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "the amount of"
-                )}
+                {getFieldTranslationByNames(345)}
               </TableHeaderText>
             </TableHeader>
             <TableHeader>
               <TableHeaderText>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "view-print"
-                )}
+                {getFieldTranslationByNames(348)}
               </TableHeaderText>
             </TableHeader>
           </TableRow>

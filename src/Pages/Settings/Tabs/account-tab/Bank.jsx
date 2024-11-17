@@ -190,11 +190,11 @@ const Bank = () => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("setting", "required variables")}
+        title={getFieldTranslationByNames(7915)}
       />
       <Select onChange={handleSelectChange} value={selectedValue}>
         <option value="">
-          {getFieldTranslationByNames("setting", "card number")}
+          {getFieldTranslationByNames(7922)}
         </option>
         {options.map((item) => (
           <option value={item.label} key={item.id}>
@@ -218,7 +218,7 @@ const Bank = () => {
       </Wrapper>
       <Button
         full
-        label={getFieldTranslationByNames("setting", "save")}
+        label={getFieldTranslationByNames(7866)}
         onclick={handleSaveButtonClick}
       />
     </Container>

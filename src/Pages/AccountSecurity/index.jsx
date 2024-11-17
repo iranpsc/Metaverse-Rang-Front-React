@@ -3,7 +3,7 @@ import AccountSecurity from "./AccountSecurity";
 
 const AccountSecurityModal = () => {
   return (
-    <ModalXs title={["account-security", "account security"]}>
+    <ModalXs title={168}>
       <AccountSecurity />
     </ModalXs>
   );

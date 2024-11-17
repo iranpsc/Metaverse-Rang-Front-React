@@ -35,10 +35,10 @@ const Sidebar = ({ setMenu, menu }) => {
   return (
     <Container>
       <Label menu={menu === 1} onClick={() => setMenu(1)}>
-        {getFieldTranslationByNames("send-vod", "documents received")}
+        {getFieldTranslationByNames(14691)}
       </Label>
       <Label menu={menu === 2} onClick={() => setMenu(2)}>
-        {getFieldTranslationByNames("send-vod", "submitted documents")}
+        {getFieldTranslationByNames(14698)}
       </Label>
     </Container>
   );

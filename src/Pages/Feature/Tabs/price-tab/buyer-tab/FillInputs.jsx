@@ -120,20 +120,14 @@ const FillInputs = ({
           value={rial}
           onchange={handleRialChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
-            "property-information",
-            "sales price"
-          )} (${getFieldTranslationByNames("property-information", "rial")})`}
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(6760)})`}
           insideText={<Rial />}
         />
         <Input
           value={psc}
           onchange={handlePscChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
-            "property-information",
-            "sales price"
-          )} (${getFieldTranslationByNames("property-information", "psc")})`}
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(14488)})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
@@ -142,43 +136,34 @@ const FillInputs = ({
         <SuggestText setValue={setSuggestText} value={suggestText} />
         <span style={{ color: "gray", fontSize: "14px" }}>
           {1000 - suggestText.length}{" "}
-          {getFieldTranslationByNames("property-information", "character")}
+          {getFieldTranslationByNames(6837)}
         </span>
       </Div>
       <ResultWrapper>
         <Wrapper>
           <Title>
-            {getFieldTranslationByNames(
-              "property-information",
-              "the final price"
-            )}
+            {getFieldTranslationByNames(6781)}
           </Title>
           <Value>
             {convertToPersian(rial)}{" "}
-            {getFieldTranslationByNames("property-information", "rial")} / {psc}{" "}
-            {getFieldTranslationByNames("property-information", "psc")}
+            {getFieldTranslationByNames(6760)} / {psc}{" "}
+            {getFieldTranslationByNames(14488)}
           </Value>
         </Wrapper>
         <Sec>
           <TitleValue
-            title={getFieldTranslationByNames(
-              "property-information",
-              "remaining"
-            )}
+            title={getFieldTranslationByNames(6844)}
             value={convertToPersian(remainingAmount.toFixed(0))}
           />
           <TitleValue
-            title={getFieldTranslationByNames("property-information", "wage")}
+            title={getFieldTranslationByNames(6788)}
             value="5%"
           />
         </Sec>
       </ResultWrapper>
       <div>
         <Button
-          label={getFieldTranslationByNames(
-            "property-information",
-            "register the offer"
-          )}
+          label={getFieldTranslationByNames(6851)}
           onclick={onSubmit}
         />
       </div>

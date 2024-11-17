@@ -114,7 +114,7 @@ const SendFiles = ({ setFiles }) => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("send-vod", "document attachment")}
+        title={getFieldTranslationByNames(14635)}
       />
       <Files>
         {previews.map((preview, index) => (

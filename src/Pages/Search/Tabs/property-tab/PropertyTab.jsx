@@ -49,20 +49,14 @@ const PropertyTab = () => {
       <SearchInput
         onchange={handleInputChange} // Call search on every input change
         value={searched}
-        placeholder={getFieldTranslationByNames(
-          "search-in-metarang",
-          "search for property address or id"
-        )}
+        placeholder={getFieldTranslationByNames(222)}
         onSearch={searchHandler} // You can still keep this for the icon click event
       />
       {isLoading ? (
         <P>درحال دریافت اطلاعات</P>
       ) : data.length === 0 ? (
         <P>
-          {getFieldTranslationByNames(
-            "search-in-metarang",
-            "there is no information, search"
-          )}
+          {getFieldTranslationByNames(225)}
         </P>
       ) : (
         <Wrapper>

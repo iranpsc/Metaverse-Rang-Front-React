@@ -76,16 +76,10 @@ const ErrorModal = ({ setOpenErrorModal, errors }) => {
         <div>
           <Title>
             {" "}
-            {getFieldTranslationByNames(
-              "authentication",
-              "authentication errors"
-            )}
+            {getFieldTranslationByNames(10610)}
           </Title>
           <Info>
-            {getFieldTranslationByNames(
-              "authentication",
-              "your authentication has not been verified, please review and record incomplete items carefully"
-            )}
+            {getFieldTranslationByNames(10596)}
           </Info>
         </div>
         <Div>

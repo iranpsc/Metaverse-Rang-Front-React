@@ -239,10 +239,7 @@ const Houses = () => {
     <Container id="scrollable-container">
       <div>
         <Title
-          title={getFieldTranslationByNames(
-            "citizenship-account",
-            "real estates"
-          )}
+          title={getFieldTranslationByNames(288)}
         />
       </div>
       <Div>
@@ -250,10 +247,7 @@ const Houses = () => {
           <FiSearch size={34} />
           <input
             type="text"
-            placeholder={getFieldTranslationByNames(
-              "citizenship-account",
-              "search"
-            )}
+            placeholder={getFieldTranslationByNames(285)}
             value={searched}
             onChange={(e) => setSearched(e.target.value)}
           />
@@ -262,19 +256,10 @@ const Houses = () => {
           <Select onClick={() => setOpen(!open)}>
             <span>
               {property.industry
-                ? getFieldTranslationByNames(
-                    "citizenship-account",
-                    "commercial property"
-                  )
+                ? getFieldTranslationByNames(8650)
                 : property.education
-                ? getFieldTranslationByNames(
-                    "citizenship-account",
-                    "educational property"
-                  )
-                : getFieldTranslationByNames(
-                    "citizenship-account",
-                    "residential property"
-                  )}
+                ? getFieldTranslationByNames(8664)
+                : getFieldTranslationByNames(8657)}
             </span>
             <MdKeyboardArrowDown
               style={{
@@ -295,10 +280,7 @@ const Houses = () => {
                 }}
               >
                 <h1>
-                  {getFieldTranslationByNames(
-                    "citizenship-account",
-                    "commercial property"
-                  )}
+                  {getFieldTranslationByNames(8650)}
                 </h1>
                 {property.industry && (
                   <span
@@ -323,10 +305,7 @@ const Houses = () => {
                 }}
               >
                 <h1>
-                  {getFieldTranslationByNames(
-                    "citizenship-account",
-                    "educational property"
-                  )}
+                  {getFieldTranslationByNames(8664)}
                 </h1>
                 {property.education && (
                   <span
@@ -354,10 +333,7 @@ const Houses = () => {
                 }}
               >
                 <h1>
-                  {getFieldTranslationByNames(
-                    "citizenship-account",
-                    "residential property"
-                  )}
+                  {getFieldTranslationByNames(8657)}
                 </h1>
                 {property.house && (
                   <span

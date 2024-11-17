@@ -42,7 +42,7 @@ const Profile = ({ item }) => {
       </IconWrapper>
       <Info>
         <h2>
-          {getFieldTranslationByNames("search-in-metarang", "property id")}
+          {getFieldTranslationByNames(228)}
         </h2>
         <p onClick={() => Navigate(`/metaverse/feature/${item?.id}`)}>
           {item?.feature_properties_id}

@@ -28,16 +28,16 @@ const Text = styled.div`
     props.theme.colors.newColors.otherColors.bgContainer};
   padding: 12px;
   border-radius: 10px;
-  p {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 16px;
-    font-weight: 400;
-    text-align: right;
-  }
+  p,
   h4 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
+  }
+  p {
+    text-align: right;
+  }
+  h4 {
     width: fit-content;
     margin-right: auto;
     margin-top: 10px;
@@ -53,10 +53,8 @@ const Files = styled.div`
   margin-right: auto;
   width: fit-content;
   div {
-    &:first-of-type {
-      display: flex;
-      gap: 12px;
-    }
+    display: flex;
+    gap: 12px;
   }
   h4 {
     color: #a0a0a0ab;
@@ -84,8 +82,8 @@ const Download = styled.img`
   position: absolute;
   bottom: 5px;
   left: 5px;
-  width: 36px;
-  height: 36px;
+  width: 36px !important;
+  height: 36px !important;
   cursor: pointer;
 `;
 
@@ -99,15 +97,12 @@ const Image = styled.div`
   overflow: hidden;
   border: 1px solid gray;
   img {
-    &:first-of-type {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
-// Image downloader function
 const handleDownload = (url, filename) => {
   const link = document.createElement("a");
   link.href = url;
@@ -117,56 +112,93 @@ const handleDownload = (url, filename) => {
   link.click();
   document.body.removeChild(link);
 };
+
 const CitizenMessage = ({ data }) => {
-  console.log(data?.sender);
+  const citizenResponses = data?.responses?.filter(
+    (response) => response.responser_name === data?.sender?.name
+  );
+
+  const renderMessage = (content, date, time, attachment) => (
+    <>
+      <Text>
+        <p>{SanitizeHTML(content)}</p>
+        <h4>
+          {date} | {time}
+        </h4>
+      </Text>
+      {attachment && (
+        <Files>
+          <div>
+            <Image>
+              <img src={attachment} alt="file" />
+              <Download
+                src={download}
+                alt="download"
+                onClick={() => handleDownload(attachment, "photo.png")}
+              />
+            </Image>
+          </div>
+          {date} | {time}
+        </Files>
+      )}
+    </>
+  );
+
   return (
-    <Container>
-      <Content>
-        <Header>
-          <span>{data?.sender.name}</span>
-          <a
-            href={`https://rgb.irpsc.com/fa/citizens/${data?.sender.code}`}
-            target="_blank"
-          >
-            {data?.sender.code}
-          </a>
-        </Header>
-        <Text>
-          <p>{SanitizeHTML(data?.content)}</p>
-          <h4>
-            {data?.date} | {data?.time}
-          </h4>
-        </Text>
-        {data?.attachment ? (
-          <Files>
-            <div>
-              <Image>
-                <img
-                  src={data?.attachment}
-                  alt="file"
-                  width={200}
-                  height={179}
-                />
-                <Download
-                  src={download}
-                  alt="download"
-                  width={36}
-                  height={36}
-                  onClick={() => handleDownload(data?.attachment, "photo.png")}
-                />
-              </Image>
-            </div>
-            {data?.date} | {data?.time}
-          </Files>
-        ) : null}
-      </Content>
-      <Avatar
-        src={data?.sender["profile-photo"]} // Use bracket notation for properties with hyphens
-        alt="avatar"
-        width={50}
-        height={50}
-      />
-    </Container>
+    <>
+      <Container>
+        <Content>
+          <Header>
+            <span>{data?.sender?.name}</span>
+            <a
+              href={`https://rgb.irpsc.com/fa/citizens/${data?.sender?.code}`}
+              target="_blank"
+            >
+              {data?.sender.code}
+            </a>
+          </Header>
+          {renderMessage(
+            data?.content,
+            data?.date,
+            data?.time,
+            data?.attachment
+          )}
+        </Content>
+        <Avatar
+          src={data?.sender["profile-photo"] || avatar}
+          alt="avatar"
+          width={50}
+          height={50}
+        />
+      </Container>
+      {citizenResponses?.map((response) => (
+        <Container key={response.id}>
+          <Content>
+            <Header>
+              <span>{data?.sender?.name}</span>
+              <a
+                href={`https://rgb.irpsc.com/fa/citizens/${data?.sender?.code}`}
+                target="_blank"
+              >
+                {data?.sender.code}
+              </a>
+            </Header>
+            {renderMessage(
+              response.response,
+              response.date,
+              response.time,
+              response.attachment
+            )}
+          </Content>
+          <Avatar
+            src={data?.sender["profile-photo"] || avatar}
+            alt="avatar"
+            width={50}
+            height={50}
+          />
+        </Container>
+      ))}
+    </>
   );
 };
 

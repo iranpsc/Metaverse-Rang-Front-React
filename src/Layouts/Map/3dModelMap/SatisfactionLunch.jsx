@@ -155,30 +155,24 @@ const SatisfactionLunch = ({
 
   return (
     <ModalXs
-      title={["property-information", "record satisfaction"]}
+      title={7166}
       handleExitClick={handleExitClick}
       handelSubmitEnvironment={handelSubmitEnvironment}
     >
       <Container>
         <InputNumber
-          placeholder={getFieldTranslationByNames(
-            "property-information",
-            "record satisfaction"
-          )}
+          placeholder={getFieldTranslationByNames(7166)}
           value={inputValue}
           onChange={handleInputChange}
           Error={error}
         />
         <TextValueIcon
-          title="زمان کسر شده"
+          title={getFieldTranslationByNames(5332)}
           icon={<Icon />}
           value={calculatedValue.toFixed(2)}
         />
         <Submit
-          text={getFieldTranslationByNames(
-            "property-information",
-            "record satisfaction"
-          )}
+          text={getFieldTranslationByNames(7166)}
           type="primary"
           options={{
             style: {

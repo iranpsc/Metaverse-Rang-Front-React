@@ -75,7 +75,7 @@ const VodReply = ({ setData, responseId }) => {
 
       <Button
         fit
-        label={getFieldTranslationByNames("send-vod", "post a reply")}
+        label={getFieldTranslationByNames(14838)}
         onclick={handleSendReply}
       />
     </Container>
