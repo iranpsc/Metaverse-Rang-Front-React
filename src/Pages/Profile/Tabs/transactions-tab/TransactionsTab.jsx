@@ -288,27 +288,18 @@ const TransactionsTab = () => {
     <Container>
       <div>
         <Title
-          title={getFieldTranslationByNames(
-            "citizenship-account",
-            "transactions"
-          )}
+          title={getFieldTranslationByNames(357)}
         />
       </div>
       <Div>
         <SearchInput
           onchange={handleSearch}
           value={searched}
-          placeholder={getFieldTranslationByNames(
-            "citizenship-account",
-            "transaction id"
-          )}
+          placeholder={getFieldTranslationByNames(330)}
         />
         <Date>
           <DatePicker
-            placeholder={getFieldTranslationByNames(
-              "citizenship-account",
-              "date and time range"
-            )}
+            placeholder={getFieldTranslationByNames(9028)}
             format="YYYY/MM/DD HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
             calendar={persian}

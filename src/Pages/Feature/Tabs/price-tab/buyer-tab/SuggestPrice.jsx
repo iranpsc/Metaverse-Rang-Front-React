@@ -83,10 +83,7 @@ const SuggestPrice = () => {
   return (
     <Wrapper>
       <Text>
-        {getFieldTranslationByNames(
-          "property-information",
-          "your suggested price"
-        )}
+        {getFieldTranslationByNames(6816)}
       </Text>
       {!assign && (
         <FillInputs

@@ -95,16 +95,10 @@ const AddSatisfy = () => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames(
-          "property-information",
-          "add satisfaction"
-        )}
+        title={getFieldTranslationByNames(7110)}
       />
       <Info>
-        {getFieldTranslationByNames(
-          "property-information",
-          "by participating in this section and adding consent"
-        )}
+        {getFieldTranslationByNames(7117)}
       </Info>
       <Inputs>
         <Div>
@@ -126,10 +120,7 @@ const AddSatisfy = () => {
             value={count}
             onChange={(e) => setCount(e.target.value)}
             type="number"
-            placeholder={getFieldTranslationByNames(
-              "property-information",
-              "number of satisfaction"
-            )}
+            placeholder={getFieldTranslationByNames(7229)}
             maxLength={3}
             min={0}
             max={200}
@@ -146,10 +137,7 @@ const AddSatisfy = () => {
         />
       </Inputs>
       <Button
-        label={getFieldTranslationByNames(
-          "property-information",
-          "record satisfaction"
-        )}
+        label={getFieldTranslationByNames(7166)}
         onclick={addHandler}
       />
     </Container>

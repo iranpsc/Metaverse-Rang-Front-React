@@ -157,7 +157,7 @@ const WriteNoteInput = ({ description, onChange }) => {
 
   return (
     <>
-      <Label>{getFieldTranslationByNames("send-vod", "write your note")}</Label>
+      <Label>{getFieldTranslationByNames(15000)}</Label>
       <EditorContainer>
         <ReactQuill
           value={description}
@@ -170,7 +170,7 @@ const WriteNoteInput = ({ description, onChange }) => {
       <Char isOverLimit={isOverLimit}>
         <span>
           {convertToPersian(remainingChars)}{" "}
-          {getFieldTranslationByNames("send-vod", "character")}
+          {getFieldTranslationByNames(14628)}
         </span>
         <CiEdit size={20} />
       </Char>

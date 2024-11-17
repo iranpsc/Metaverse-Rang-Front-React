@@ -79,10 +79,10 @@ const Header = () => {
         <Logo src={LogoIcon} />
         <ContainerText isOpen={isOpen}>
           <Title>
-            {getFieldTranslationByNames("central-page", "meta rgb")}
+            {getFieldTranslationByNames(3688)}
           </Title>
           <Details>
-            {getFieldTranslationByNames("central-page", "metaverse rang")}
+            {getFieldTranslationByNames(10799)}
           </Details>
         </ContainerText>
       </ContainerMain>

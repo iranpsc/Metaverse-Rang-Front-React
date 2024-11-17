@@ -221,14 +221,11 @@ const Inputs = () => {
       <Container>
         <InputWrapper>
           <Label>
-            {getFieldTranslationByNames("send-vod", "send the document to")}
+            {getFieldTranslationByNames(14551)}
           </Label>
           <Select value={state.subject} onChange={subjectHandler}>
             <option value="">
-              {getFieldTranslationByNames(
-                "send-vod",
-                "select the document category"
-              )}
+              {getFieldTranslationByNames(14565)}
             </option>
             {options.map((option) => (
               <option value={option.value} key={option.id}>
@@ -239,14 +236,11 @@ const Inputs = () => {
         </InputWrapper>
         <InputWrapper>
           <Label>
-            {getFieldTranslationByNames("send-vod", "document title")}
+            {getFieldTranslationByNames(14726)}
           </Label>
           <Input
             type="text"
-            placeholder={getFieldTranslationByNames(
-              "send-vod",
-              "document title"
-            )}
+            placeholder={getFieldTranslationByNames(14726)}
             value={state.title}
             onChange={titleHandler}
           />
@@ -256,10 +250,7 @@ const Inputs = () => {
       {state.subject === "citizen" && (
         <CitizenInputWrapper ref={dropdownRef}>
           <Label>
-            {getFieldTranslationByNames(
-              "send-vod",
-              "the citizen or citizens in question"
-            )}
+            {getFieldTranslationByNames(14649)}
           </Label>
           <SelectedCitizens>
             {selectedCitizens.map((citizen) => (
@@ -276,10 +267,7 @@ const Inputs = () => {
             rows={2}
             placeholder={
               selectedCitizens.length === 0
-                ? getFieldTranslationByNames(
-                    "send-vod",
-                    "the citizen or citizens in question"
-                  )
+                ? getFieldTranslationByNames(14649)
                 : ""
             }
             value={searchTerm}
@@ -299,20 +287,14 @@ const Inputs = () => {
                 ))
               ) : (
                 <DropdownItem>
-                  {getFieldTranslationByNames(
-                    "send-vod",
-                    "citizenship not found"
-                  )}
+                  {getFieldTranslationByNames(14663)}
                 </DropdownItem>
               )}
             </Dropdown>
           )}
           <CitizenWarning>
             <CgDanger size={20} />
-            {getFieldTranslationByNames(
-              "send-vod",
-              "the maximum number of citizens allowed is 9 people"
-            )}
+            {getFieldTranslationByNames(14656)}
           </CitizenWarning>
         </CitizenInputWrapper>
       )}

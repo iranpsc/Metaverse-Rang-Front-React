@@ -61,9 +61,9 @@ const SideBar = ({ tools, option, setOption }) => {
             onClick={() => setOption(item.id)}
             key={item.id}
           >
-            {getFieldTranslationByNames("store", "pack of")}
+            {getFieldTranslationByNames(6641)}
             {convertToPersian(item.number)}
-            {getFieldTranslationByNames("store", "pieces")}
+            {getFieldTranslationByNames(6648)}
           </Option>
         ))}
       </Wrapper>

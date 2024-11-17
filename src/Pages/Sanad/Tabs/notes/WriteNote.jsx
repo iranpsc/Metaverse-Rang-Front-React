@@ -106,13 +106,13 @@ const WriteNote = () => {
     <Container>
       <Title
         right
-        title={getFieldTranslationByNames("send-vod", "write a note")}
+        title={getFieldTranslationByNames(14922)}
       />
       <Subject>
-        <Label>{getFieldTranslationByNames("send-vod", "title")}</Label>
+        <Label>{getFieldTranslationByNames(14929)}</Label>
         <input
           type="text"
-          placeholder={getFieldTranslationByNames("send-vod", "title")}
+          placeholder={getFieldTranslationByNames(14929)}
           value={title}
           onChange={(e) => title.length < 201 && setTitle(e.target.value)}
         />
@@ -122,7 +122,7 @@ const WriteNote = () => {
       <div>
         <Button
           fit
-          label={getFieldTranslationByNames("send-vod", "save")}
+          label={getFieldTranslationByNames(14950)}
           onclick={handleSaveNote}
         />
       </div>

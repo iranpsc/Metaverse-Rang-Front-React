@@ -28,10 +28,7 @@ const SellerPrice = () => {
   return (
     <Wrapper>
       <Text>
-        {getFieldTranslationByNames(
-          "property-information",
-          "this vod is priced by the seller"
-        )}
+        {getFieldTranslationByNames(6809)}
       </Text>
       <SellerPriceInfo />
     </Wrapper>

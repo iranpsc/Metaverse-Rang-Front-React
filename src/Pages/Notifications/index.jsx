@@ -39,10 +39,10 @@ const Notifications = () => {
   }, []);
 
   return (
-    <ModalSm title={["notification", "notifications"]}>
+    <ModalSm title={10449}>
       <Container>
         <h4 onClick={() => setNotifications([])}>
-          {getFieldTranslationByNames("notification", "remove all")}
+          {getFieldTranslationByNames(10463)}
         </h4>
 
         <Div>

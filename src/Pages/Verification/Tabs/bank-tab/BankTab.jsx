@@ -46,23 +46,14 @@ const BankTab = ({ setOpenErrorModal, openErrorModal }) => {
     <Container>
       <Wrapper>
         <Title
-          title={getFieldTranslationByNames("authentication", "bank cards")}
+          title={getFieldTranslationByNames(10646)}
         />
         {isError && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
-            buttonText={getFieldTranslationByNames(
-              "authentication",
-              "view errors"
-            )}
-            text={getFieldTranslationByNames(
-              "authentication",
-              "error in new card registration, card information is not entered correctly"
-            )}
-            info={getFieldTranslationByNames(
-              "authentication",
-              "card registration error"
-            )}
+            buttonText={getFieldTranslationByNames(10603)}
+            text={getFieldTranslationByNames(10673)}
+            info={getFieldTranslationByNames(10666)}
             type="error"
           />
         )}

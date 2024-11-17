@@ -20,39 +20,30 @@ export default function ConditionalPage() {
   const [feature] = useContext(FeatureContext);
 
   const commonSpecificationTab = {
-    title: getFieldTranslationByNames("property-information", "specification"),
+    title: getFieldTranslationByNames(6725),
     content: <InfoTab />,
   };
 
   const SellTabs = [
     commonSpecificationTab,
     {
-      title: getFieldTranslationByNames("property-information", "pricing"),
+      title: getFieldTranslationByNames(7264),
       content: <SellerTab seller />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "construction of the building"
-      ),
+      title: getFieldTranslationByNames(5158),
       content: <PropertyConstruction />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "entering the property"
-      ),
+      title: getFieldTranslationByNames(5151),
       content: <EnterTab owner />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "physical information"
-      ),
+      title: getFieldTranslationByNames(5165),
       content: <PhysicTab owner />,
     },
     {
-      title: getFieldTranslationByNames("property-information", "history"),
+      title: getFieldTranslationByNames(5269),
       content: <HistoryTab />,
     },
   ];
@@ -61,7 +52,7 @@ export default function ConditionalPage() {
   const BuySystemTabs = [
     commonSpecificationTab,
     {
-      title: getFieldTranslationByNames("property-information", "buy"),
+      title: getFieldTranslationByNames(5144),
       content: <BuyerTabSystem />,
     },
   ];
@@ -70,32 +61,23 @@ export default function ConditionalPage() {
   const BuyUserTabs = [
     commonSpecificationTab,
     {
-      title: getFieldTranslationByNames("property-information", "buy"),
+      title: getFieldTranslationByNames(5144),
       content: <BuyerTab />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "entering the property"
-      ),
+      title: getFieldTranslationByNames(5151),
       content: <EnterTab />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "physical information"
-      ),
+      title: getFieldTranslationByNames(5165),
       content: <PhysicTab />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "participation in construction"
-      ),
+      title: getFieldTranslationByNames(7103),
       content: <ParticipationTab />,
     },
     {
-      title: getFieldTranslationByNames("property-information", "history"),
+      title: getFieldTranslationByNames(5269),
       content: <HistoryTab />,
     },
   ];

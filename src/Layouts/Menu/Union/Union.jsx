@@ -69,7 +69,7 @@ const Union = () => {
       <Btn isOpenDrop={isOpenDrop}>
         <IconHeader isOpenDrop={isOpenDrop} />
         <Text isOpen={isOpen}>
-          {getFieldTranslationByNames("central-page", "unity")}
+          {getFieldTranslationByNames(3849)}
         </Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>

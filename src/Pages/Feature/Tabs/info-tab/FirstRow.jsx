@@ -31,16 +31,13 @@ const FirstRow = ({ feature }) => {
   const first_row_info = [
     {
       id: 1,
-      title: getFieldTranslationByNames("property-information", "property id"),
+      title: getFieldTranslationByNames(5074),
       value: feature?.properties?.id,
       icon: <MdOutlineHome />,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames(
-        "property-information",
-        "property owner"
-      ),
+      title: getFieldTranslationByNames(5081),
       value:
         feature?.properties?.owner === "rgb"
           ? "سیستم"
@@ -49,7 +46,7 @@ const FirstRow = ({ feature }) => {
     },
     {
       id: 3,
-      title: getFieldTranslationByNames("property-information", "condition"),
+      title: getFieldTranslationByNames(5088),
       value: COMBINE_FEATURE[feature?.properties?.rgb],
       icon: <BsCardChecklist />,
     },

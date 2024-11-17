@@ -125,7 +125,7 @@ const VodCard = ({ data }) => {
           <p>#{data.code}</p>
         </Texts>
         <Socials>
-          <h3>{getFieldTranslationByNames("send-vod", "document sharing")}</h3>
+          <h3>{getFieldTranslationByNames(14803)}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -141,22 +141,22 @@ const VodCard = ({ data }) => {
       </Info>
       <Content>
         <Subject>
-          <Label>{getFieldTranslationByNames("send-vod", "sender")}</Label>
+          <Label>{getFieldTranslationByNames(14733)}</Label>
           <h2>{data.sender.name}</h2>
         </Subject>
         <Status status={data?.status}>
-          <Label>{getFieldTranslationByNames("send-vod", "status")}</Label>
+          <Label>{getFieldTranslationByNames(14740)}</Label>
           <h2>
             {data?.status === "confirmed"
-              ? getFieldTranslationByNames("send-vod", "answered")
+              ? getFieldTranslationByNames(14768)
               : data?.status === "pending"
-              ? getFieldTranslationByNames("send-vod", "not opened")
-              : getFieldTranslationByNames("send-vod", "closed")}
+              ? getFieldTranslationByNames(14775)
+              : getFieldTranslationByNames(14782)}
           </h2>
         </Status>
         <Date>
           <Label>
-            {getFieldTranslationByNames("send-vod", "date and time of sending")}
+            {getFieldTranslationByNames(14747)}
           </Label>
           <h2>
             {data?.date} | {data?.time}
@@ -167,16 +167,13 @@ const VodCard = ({ data }) => {
             fit
             onclick={() => onCloseTicket()}
             grayTheme
-            label={getFieldTranslationByNames(
-              "send-vod",
-              "document registration"
-            )}
+            label={getFieldTranslationByNames(14817)}
           />
           <Button
             fit
             onclick={() => onCloseTicket()}
             grayTheme
-            label={getFieldTranslationByNames("send-vod", "close document")}
+            label={getFieldTranslationByNames(14810)}
           />
         </Buttons>
       </Content>

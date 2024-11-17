@@ -146,24 +146,18 @@ const ReceivedList = () => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("send-vod", "documents received")}
+        title={getFieldTranslationByNames(14691)}
       />
 
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder={getFieldTranslationByNames(
-            "send-vod",
-            "search document title"
-          )}
+          placeholder={getFieldTranslationByNames(14705)}
         />
         <Date disabled>
           <DatePicker
-            placeholder={getFieldTranslationByNames(
-              "send-vod",
-              "date and time of the document"
-            )}
+            placeholder={getFieldTranslationByNames(14712)}
             className="bg-dark yellow"
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}

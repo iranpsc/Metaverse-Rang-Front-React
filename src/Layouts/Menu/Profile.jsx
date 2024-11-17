@@ -178,19 +178,19 @@ const Profile = () => {
             </Btn>
             <BtnNavigator onClick={() => navigate("/metaverse/sanad")}>
               <Icon src={Ticket} />
-              {getFieldTranslationByNames("central-page", "send document")}
+              {getFieldTranslationByNames(3814)}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={Message} />
-              {getFieldTranslationByNames("central-page", "chat")}
+              {getFieldTranslationByNames(3821)}
             </BtnNavigator>
             <BtnNavigator onClick={() => navigate("/metaverse/profile")}>
               <Icon src={ProfileMember} />
-              {getFieldTranslationByNames("central-page", "profile")}
+              {getFieldTranslationByNames(3828)}
             </BtnNavigator>
             <BtnNavigator onClick={() => navigate("/metaverse/settings")}>
               <Icon src={Setting} />
-              {getFieldTranslationByNames("setting", "settings")}
+              {getFieldTranslationByNames(7965)}
             </BtnNavigator>
             {/* <Fallowing /> */}
             <Dynasty />

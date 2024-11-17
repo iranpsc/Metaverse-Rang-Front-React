@@ -9,7 +9,7 @@ export default function Verification() {
   const [openErrorModal, setOpenErrorModal] = useState(false);
   const tabs = [
     {
-      title: getFieldTranslationByNames("authentication", "authentication"),
+      title: getFieldTranslationByNames(10470),
       content: (
         <IdentityTab
           openErrorModal={openErrorModal}
@@ -18,7 +18,7 @@ export default function Verification() {
       ),
     },
     {
-      title: getFieldTranslationByNames("authentication", "bank verification"),
+      title: getFieldTranslationByNames(10477),
       content: (
         <BankTab
           openErrorModal={openErrorModal}
@@ -31,7 +31,7 @@ export default function Verification() {
   const TabPanel = useTabs(tabs);
 
   return (
-    <Modal type="modal-section-md" title={["authentication", "authentication"]}>
+    <Modal type="modal-section-md" title={10470}>
       {TabPanel}
     </Modal>
   );

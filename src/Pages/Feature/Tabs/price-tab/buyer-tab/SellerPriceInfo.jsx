@@ -71,45 +71,30 @@ const SellerPriceInfo = () => {
           value={rial}
           onchange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
-            "property-information",
-            "sales price"
-          )} (${getFieldTranslationByNames("property-information", "rial")})`}
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(6760)})`}
           insideText={<Rial />}
         />
         <Input
           value={psc}
           onchange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
-            "property-information",
-            "sales price"
-          )} (${getFieldTranslationByNames("property-information", "psc")})`}
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(14488)})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
       <ResultWrapper>
         <TitleValue
-          title={getFieldTranslationByNames(
-            "property-information",
-            "the final price"
-          )}
-          value={`${calculateFee(rial, 5)} ${getFieldTranslationByNames(
-            "property-information",
-            "rial"
-          )} / ${calculateFee(psc, 5)} ${getFieldTranslationByNames(
-            "property-information",
-            "psc"
-          )}`}
+          title={getFieldTranslationByNames(6781)}
+          value={`${calculateFee(rial, 5)} ${getFieldTranslationByNames(6760)} / ${calculateFee(psc, 5)} ${getFieldTranslationByNames(14488)}`}
         />
         <TitleValue
-          title={getFieldTranslationByNames("property-information", "wage")}
+          title={getFieldTranslationByNames(6788)}
           value="5%"
         />
       </ResultWrapper>
       <div>
         <Button
-          label={getFieldTranslationByNames("property-information", "buy")}
+          label={getFieldTranslationByNames(5144)}
           onclick={onSubmit}
         />
       </div>

@@ -81,68 +81,44 @@ const InputsGeneralDefault = () => {
         <InputSize>
           <Input
             name="activity_line"
-            placeholder={getFieldTranslationByNames(
-              "property-information",
-              "activity line"
-            )}
+            placeholder={getFieldTranslationByNames(7054)}
             onchange={handleChange}
           />
         </InputSize>
         <Input
           name="name"
-          placeholder={getFieldTranslationByNames(
-            "property-information",
-            "collection name"
-          )}
+          placeholder={getFieldTranslationByNames(7061)}
           onchange={handleChange}
         />
       </DivHeader>
       <Input
         name="address"
-        placeholder={getFieldTranslationByNames(
-          "property-information",
-          "physical address of the complex"
-        )}
+        placeholder={getFieldTranslationByNames(5207)}
         onchange={handleChange}
       />
       <DivHeader>
         <Input
           name="postal_code"
-          placeholder={getFieldTranslationByNames(
-            "property-information",
-            "the physical postal code of the collection"
-          )}
+          placeholder={getFieldTranslationByNames(5214)}
           onchange={handleChange}
         />
         <Input
           name="website"
-          placeholder={getFieldTranslationByNames(
-            "property-information",
-            "website address"
-          )}
+          placeholder={getFieldTranslationByNames(5221)}
           onchange={handleChange}
         />
       </DivHeader>
       <Input
         name="description"
-        placeholder={getFieldTranslationByNames(
-          "property-information",
-          "the purpose of the establishment"
-        )}
+        placeholder={getFieldTranslationByNames(7089)}
         style={{ height: "220px" }}
         onchange={handleChange}
       />
       <P>
-        {getFieldTranslationByNames(
-          "property-information",
-          "when building a structure on the property, the possibility of pricing the property is closed and you will not be able to sell the property until the construction is finished."
-        )}
+        {getFieldTranslationByNames(5235)}
       </P>
       <Button
-        label={getFieldTranslationByNames(
-          "property-information",
-          "default property construction"
-        )}
+        label={getFieldTranslationByNames(5242)}
         onclick={handleButtonClick}
       />
     </Container>

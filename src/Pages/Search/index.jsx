@@ -7,14 +7,11 @@ import PropertyTab from "./Tabs/property-tab/PropertyTab";
 export default function Search() {
   const tabs = [
     {
-      title: getFieldTranslationByNames("search-in-metarang", "citizen search"),
+      title: getFieldTranslationByNames(6326),
       content: <CitizenTab />,
     },
     {
-      title: getFieldTranslationByNames(
-        "search-in-metarang",
-        "property search"
-      ),
+      title: getFieldTranslationByNames(6333),
       content: <PropertyTab />,
     },
   ];
@@ -22,7 +19,7 @@ export default function Search() {
   const TabPanel = useTabs(tabs, 0, true);
   return (
     <ModalPosition
-      title={["search-in-metarang", "central search"]}
+      title={6319}
       position={"left"}
     >
       {TabPanel}

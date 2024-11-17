@@ -48,10 +48,7 @@ const SellerPriceInfo = () => {
     <>
       <InputsWrapper>
         <TextValueIcon
-          title={getFieldTranslationByNames(
-            "property-information",
-            "sales price"
-          )}
+          title={getFieldTranslationByNames(6774)}
           value={feature.properties.stability}
           valueIcon={FeatureColor(feature.properties.rgb)}
           very_long
@@ -59,7 +56,7 @@ const SellerPriceInfo = () => {
       </InputsWrapper>
 
       <Button
-        label={getFieldTranslationByNames("property-information", "buy")}
+        label={getFieldTranslationByNames(5144)}
         onclick={onSubmit}
       />
     </>

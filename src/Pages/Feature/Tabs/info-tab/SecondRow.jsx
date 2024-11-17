@@ -30,46 +30,31 @@ const SecondRow = ({ feature }) => {
   const second_row_info = [
     {
       id: 1,
-      title: getFieldTranslationByNames(
-        "property-information",
-        "density | floor"
-      ),
+      title: getFieldTranslationByNames(5102),
       value: feature?.properties?.density,
       icon: <HiOutlineBuildingOffice />,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames(
-        "property-information",
-        "build a package"
-      ),
+      title: getFieldTranslationByNames(5116),
       value: 10,
       icon: <LuPackageOpen />,
     },
     {
       id: 3,
-      title: getFieldTranslationByNames(
-        "property-information",
-        "building permits"
-      ),
+      title: getFieldTranslationByNames(5123),
       value: "آزاد",
       icon: <MdOutlinePlaylistAddCheckCircle />,
     },
     {
       id: 4,
-      title: getFieldTranslationByNames(
-        "property-information",
-        "square meter area"
-      ),
+      title: getFieldTranslationByNames(5095),
       value: feature?.properties?.area,
       icon: <RxLayout />,
     },
     {
       id: 5,
-      title: getFieldTranslationByNames(
-        "property-information",
-        "monthly profit"
-      ),
+      title: getFieldTranslationByNames(5109),
       value: (feature?.properties?.area * feature?.properties?.density) / 100,
       icon: <RiCloseCircleLine />,
     },

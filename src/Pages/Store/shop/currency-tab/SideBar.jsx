@@ -60,7 +60,7 @@ const SideBar = ({ currencies, option, setOption }) => {
             onClick={() => setOption(item.id)}
             key={item.id}
           >
-            {getFieldTranslationByNames("store", "pack of")}
+            {getFieldTranslationByNames(6641)}
             {"  "}
             {convertToPersian(item.id)}
           </Option>

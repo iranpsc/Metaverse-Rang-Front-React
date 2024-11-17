@@ -112,10 +112,7 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
               onChange={(e) =>
                 setFields({ ...fields, activity: e.target.value })
               }
-              placeholder={getFieldTranslationByNames(
-                "property-information",
-                "activity line"
-              )}
+              placeholder={getFieldTranslationByNames(7054)}
             />
           </div>
           <span>+</span>
@@ -143,18 +140,12 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
           type="number"
           value={fields.post}
           onchange={(e) => setFields({ ...fields, post: e.target.value })}
-          placeholder={getFieldTranslationByNames(
-            "property-information",
-            "the physical postal code of the collection"
-          )}
+          placeholder={getFieldTranslationByNames(5214)}
         />
         <Input
           value={fields.web}
           onchange={(e) => setFields({ ...fields, web: e.target.value })}
-          placeholder={getFieldTranslationByNames(
-            "property-information",
-            "website address"
-          )}
+          placeholder={getFieldTranslationByNames(5221)}
         />
       </Third>
       {/* <TextArea
@@ -167,18 +158,12 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
         <RichText />
       </Wrapper>
       <Text>
-        {getFieldTranslationByNames(
-          "property-information",
-          "editing of registered content"
-        )}
+        {getFieldTranslationByNames(7096)}
       </Text>
       <Button
         edit
         onclick={() => setEdit(false)}
-        label={getFieldTranslationByNames(
-          "property-information",
-          "editing information"
-        )}
+        label={getFieldTranslationByNames(6991)}
       />{" "}
     </Container>
   );

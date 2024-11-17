@@ -78,18 +78,15 @@ const ThirdStep = ({ setStep, time }) => {
     <Container>
       <Div>
         <h3>
-          {getFieldTranslationByNames("account-security", "time remaining")}
+          {getFieldTranslationByNames(10442)}
         </h3>
         <h4>
           {formatTime(timer)}{" "}
-          {getFieldTranslationByNames("account-security", "minutes")}
+          {getFieldTranslationByNames(174)}
         </h4>
       </Div>
       <p onClick={() => setStep(1)}>
-        {getFieldTranslationByNames(
-          "account-security",
-          "i want to increase the time"
-        )}
+        {getFieldTranslationByNames(183)}
       </p>
     </Container>
   );

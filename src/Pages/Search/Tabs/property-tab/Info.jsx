@@ -44,25 +44,22 @@ const Info = ({ item }) => {
   const items = [
     {
       id: 1,
-      title: getFieldTranslationByNames(
-        "search-in-metarang",
-        "property address"
-      ),
+      title: getFieldTranslationByNames(243),
       value: item?.address,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames("search-in-metarang", "owner id"),
+      title: getFieldTranslationByNames(234),
       value: item?.owner_code,
     },
     {
       id: 3,
-      title: getFieldTranslationByNames("search-in-metarang", "psc pricing"),
+      title: getFieldTranslationByNames(240),
       value: item?.price_psc,
     },
     {
       id: 4,
-      title: getFieldTranslationByNames("search-in-metarang", "irr pricing"),
+      title: getFieldTranslationByNames(237),
       value: item?.price_irr,
     },
   ];

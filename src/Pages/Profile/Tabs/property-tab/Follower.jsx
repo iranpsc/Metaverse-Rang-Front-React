@@ -143,7 +143,7 @@ const Follower = ({
       <Buttons>
         {follow ? (
           <Button onClick={unFollowHandler} gray>
-            {getFieldTranslationByNames("citizenship-account", "unfollow")}
+            {getFieldTranslationByNames(8818)}
           </Button>
         ) : (
           <Container onClick={onFollowHandler}>
@@ -152,12 +152,12 @@ const Follower = ({
             </span>
             <h3>
               {" "}
-              {getFieldTranslationByNames("citizenship-account", "following")}
+              {getFieldTranslationByNames(294)}
             </h3>
           </Container>
         )}
         <Button onClick={deleteHandler}>
-          {getFieldTranslationByNames("citizenship-account", "remove")}
+          {getFieldTranslationByNames(8846)}
         </Button>
       </Buttons>
     </Card>

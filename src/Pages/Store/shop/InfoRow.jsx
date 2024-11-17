@@ -89,15 +89,15 @@ const InfoRow = ({ data, type, shop, title }) => {
 
   const getAssetTranslation = () => {
     if (data.asset === "yellow") {
-      return getFieldTranslationByNames("store", "yellow");
+      return getFieldTranslationByNames(78);
     } else if (data.asset === "red") {
-      return getFieldTranslationByNames("store", "red");
+      return getFieldTranslationByNames(81);
     } else if (data.asset === "blue") {
-      return getFieldTranslationByNames("store", "blue");
+      return getFieldTranslationByNames(84);
     } else if (data.asset === "irr") {
-      return getFieldTranslationByNames("store", "irr");
+      return getFieldTranslationByNames(10813);
     } else if (data.asset === "psc") {
-      return getFieldTranslationByNames("store", "psc");
+      return getFieldTranslationByNames(10820);
     }
   };
 
@@ -114,28 +114,25 @@ const InfoRow = ({ data, type, shop, title }) => {
           </PhotoContainer>
           <TitleValue
             shop={shop}
-            title={` ${getFieldTranslationByNames("store", "type of tool")}`}
+            title={` ${getFieldTranslationByNames(6690)}`}
             value={getAssetTranslation()}
           />
         </div>
         <TitleValue
           shop={shop}
-          title={` ${getFieldTranslationByNames("store", "number of tools")}`}
-          value={`${data.amount.toLocaleString()} ${getFieldTranslationByNames(
-            "store",
-            "number"
-          )}`}
+          title={` ${getFieldTranslationByNames(6683)}`}
+          value={`${data.amount.toLocaleString()} ${getFieldTranslationByNames(87)}`}
         />
         <TitleValue
           shop={shop}
-          title={`${getFieldTranslationByNames("store", "amount")}`}
+          title={`${getFieldTranslationByNames(6676)}`}
           value={`${addCommas(
             (data.amount * data.unitPrice) / 10
-          )} ${getFieldTranslationByNames("store", "toman")}`}
+          )} ${getFieldTranslationByNames(75)}`}
         />
         <Button
           row
-          label={getFieldTranslationByNames("store", "buy")}
+          label={getFieldTranslationByNames(6634)}
           onclick={() => {
             paymentHandler(data.asset, data.amount);
           }}

@@ -133,37 +133,34 @@ const Ip = () => {
   };
 
   return (
-    <Modal title={getFieldTranslationByNames("ip-checker", "access level")}>
+    <Modal title={getFieldTranslationByNames(3296)}>
       <Container>
         {!isEmail ? (
           <>
             <Header>
-              {getFieldTranslationByNames("ip-checker", "unauthorized ip")}
+              {getFieldTranslationByNames(3352)}
             </Header>
             <TapIp>{ip}</TapIp>
             <P>
-              {getFieldTranslationByNames("ip-checker", "your IP is known")}
+              {getFieldTranslationByNames(3359)}
             </P>
             <Details style={{ marginTop: "24px" }}>
-              {getFieldTranslationByNames("ip-checker", "if you use a")}
+              {getFieldTranslationByNames(3366)}
               <span style={{ fontWeight: 500, color: "red" }}>
-                {getFieldTranslationByNames("ip-checker", "vpn")}{" "}
+                {getFieldTranslationByNames(3373)}{" "}
               </span>
-              {getFieldTranslationByNames("ip-checker", "turn it off")}
+              {getFieldTranslationByNames(3870)}
             </Details>
             <Details>
-              {getFieldTranslationByNames("ip-checker", "then reload the page")}
+              {getFieldTranslationByNames(3877)}
             </Details>
             <Details>
-              {getFieldTranslationByNames("ip-checker", "otherwise, click")}
+              {getFieldTranslationByNames(3604)}
             </Details>
 
             <Submit
               type="secondary"
-              text={getFieldTranslationByNames(
-                "ip-checker",
-                "ip authorization"
-              )}
+              text={getFieldTranslationByNames(3611)}
               responsive
               options={{
                 onClick: onIpSender,
@@ -176,31 +173,22 @@ const Ip = () => {
         ) : (
           <>
             <Header style={{ color: "#18C08F" }}>
-              {getFieldTranslationByNames("ip-checker", "check ip status")}
+              {getFieldTranslationByNames(3303)}
             </Header>
             <P>
-              {getFieldTranslationByNames(
-                "ip-checker",
-                "time required 24 hours"
-              )}
+              {getFieldTranslationByNames(3310)}
             </P>
             <Details style={{ marginTop: "25px" }}>
-              {getFieldTranslationByNames("ip-checker", "to inform about")}
+              {getFieldTranslationByNames(3317)}
             </Details>
             <Details>
-              {getFieldTranslationByNames(
-                "ip-checker",
-                "enter your email below"
-              )}
+              {getFieldTranslationByNames(3639)}
             </Details>
             <ContainerInput>
               <Input
                 name="email"
                 type="email"
-                placeholder={getFieldTranslationByNames(
-                  "ip-checker",
-                  "enter your email"
-                )}
+                placeholder={getFieldTranslationByNames(3646)}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 options={{
@@ -213,7 +201,7 @@ const Ip = () => {
             <Submit
               className="mt-2"
               type="secondary"
-              text={getFieldTranslationByNames("ip-checker", "let me know")}
+              text={getFieldTranslationByNames(3660)}
               responsive
               options={{
                 onClick: onEmailSender,
@@ -226,7 +214,7 @@ const Ip = () => {
         )}
       </Container>
       <Information>
-        {getFieldTranslationByNames("ip-checker", "for more information")}
+        {getFieldTranslationByNames(3667)}
         <br />
         <a
           href="https://rgb.irpsc.com/overview"
@@ -234,9 +222,9 @@ const Ip = () => {
           rel="noreferrer"
           className="link text-1 "
         >
-          {getFieldTranslationByNames("ip-checker", "website")}
+          {getFieldTranslationByNames(3681)}
         </a>{" "}
-        {getFieldTranslationByNames("ip-checker", "visit the")}
+        {getFieldTranslationByNames(3674)}
       </Information>
     </Modal>
   );

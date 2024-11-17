@@ -80,7 +80,7 @@ const ControlPanel = ({
 
   return (
     <ModalPosition
-      title={["property-information", "building settings"]}
+      title={6221}
       position={"right"}
       action={"ChangeHiddenState"}
     >
@@ -88,7 +88,7 @@ const ControlPanel = ({
         <ContainerHeader>
           <Diver />
           <Title>
-            {getFieldTranslationByNames("property-information", "rotate")}
+            {getFieldTranslationByNames(6228)}
           </Title>
           <Label>
             <RotationCounter>{rotationX}°</RotationCounter>
@@ -104,10 +104,7 @@ const ControlPanel = ({
         </ContainerHeader>
 
         <Submit
-          text={getFieldTranslationByNames(
-            "property-information",
-            "registration and confirmation"
-          )}
+          text={getFieldTranslationByNames(6235)}
           type="primary"
           options={{
             style: {

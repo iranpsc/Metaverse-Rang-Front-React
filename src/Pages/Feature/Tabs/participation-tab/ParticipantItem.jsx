@@ -108,40 +108,25 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
         <Div>
           <ParticipantSummary>
             <UserCode
-              title={getFieldTranslationByNames(
-                "property-information",
-                "citizen id"
-              )}
+              title={getFieldTranslationByNames(7180)}
               code="HM-2000081"
             />
             <TitleValue
-              title={getFieldTranslationByNames(
-                "property-information",
-                "date and time"
-              )}
+              title={getFieldTranslationByNames(7187)}
               value={time}
             />
             <TitleValue
-              title={getFieldTranslationByNames(
-                "property-information",
-                "partnership debt"
-              )}
+              title={getFieldTranslationByNames(7194)}
               value={debt}
             />
             <TitleValue
-              title={getFieldTranslationByNames(
-                "property-information",
-                "participation rate"
-              )}
+              title={getFieldTranslationByNames(7201)}
               value={level}
             />
             <SatisfyContainer>
               <Title>
                 <h3>
-                  {getFieldTranslationByNames(
-                    "property-information",
-                    "satisfaction launched"
-                  )}
+                  {getFieldTranslationByNames(7208)}
                 </h3>
                 <img src={satisfy} alt="pricing" width={18} height={18} />
               </Title>
@@ -172,10 +157,7 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
             {options.map((option) => (
               <ParticipantInfo key={option.id}>
                 <TitleValue
-                  title={getFieldTranslationByNames(
-                    "property-information",
-                    "registration date and time satisfaction"
-                  )}
+                  title={getFieldTranslationByNames(7243)}
                   value={option.submit}
                 />
 
@@ -183,10 +165,7 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
                   <Title>
                     <h3>
                       {" "}
-                      {getFieldTranslationByNames(
-                        "property-information",
-                        "satisfaction launched"
-                      )}
+                      {getFieldTranslationByNames(7208)}
                     </h3>
                     <img src={satisfy} alt="pricing" width={18} height={18} />
                   </Title>

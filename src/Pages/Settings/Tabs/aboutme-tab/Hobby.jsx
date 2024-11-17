@@ -175,12 +175,9 @@ const Hobby = () => {
     <Container>
       <Div limitReached={limitReached}>
         <Label>
-          {getFieldTranslationByNames("citizenship-account", "interests")}
+          {getFieldTranslationByNames(9224)}
         </Label>
-        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames(
-          "citizenship-account",
-          "choose items"
-        )}`}</h4>
+        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames(9280)}`}</h4>
       </Div>
       <CheckboxContainer>
         {hobbies.map((hobby) => (

@@ -25,17 +25,17 @@ const Info = ({ user }) => {
   const items = [
     {
       id: 1,
-      title: getFieldTranslationByNames("citizenship-account", "level"),
+      title: getFieldTranslationByNames(8678),
       value: user?.level,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames("search-in-metarang", "followers"),
+      title: getFieldTranslationByNames(204),
       value: user?.followers,
     },
     {
       id: 3,
-      title: getFieldTranslationByNames("search-in-metarang", "unity"),
+      title: getFieldTranslationByNames(207),
       value: "-",
     },
   ];

@@ -19,7 +19,7 @@ const ThirdRow = ({ feature }) => {
 
   return (
     <TextValueIcon
-      title={getFieldTranslationByNames("property-information", "address")}
+      title={getFieldTranslationByNames(5130)}
       value={reversedAddress} // Using the reversed address here
       icon={<GrLocation />}
     />

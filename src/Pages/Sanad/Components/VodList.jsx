@@ -133,12 +133,12 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
         <div key={filterKey}>
           <h1 onClick={() => handleFilterClick(filterKey)}>
             {filterKey === "confirmed"
-              ? getFieldTranslationByNames("send-vod", "answered")
+              ? getFieldTranslationByNames(14768)
               : filterKey === "pending"
-              ? getFieldTranslationByNames("send-vod", "not opened")
+              ? getFieldTranslationByNames(14775)
               : filterKey === "failed"
-              ? getFieldTranslationByNames("send-vod", "closed")
-              : getFieldTranslationByNames("send-vod", "read")}
+              ? getFieldTranslationByNames(14782)
+              : getFieldTranslationByNames(14789)}
           </h1>
           {status[filterKey] && (
             <span onClick={() => handleFilterClick(filterKey)}>X</span>
@@ -154,17 +154,17 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
         <TableHead>
           <tr>
             <TableHeader>
-              {getFieldTranslationByNames("send-vod", "document code")}
+              {getFieldTranslationByNames(14719)}
             </TableHeader>
             <TableHeader>
-              {getFieldTranslationByNames("send-vod", "document title")}
+              {getFieldTranslationByNames(14726)}
             </TableHeader>
             <TableHeader>
-              <Div>{getFieldTranslationByNames("send-vod", "sender")}</Div>
+              <Div>{getFieldTranslationByNames(14733)}</Div>
             </TableHeader>
             <TableHeader>
               <Div>
-                {getFieldTranslationByNames("send-vod", "status")}
+                {getFieldTranslationByNames(14740)}
                 <Arrows onClick={() => setFilters({ status: !filters.status })}>
                   <MdKeyboardArrowDown
                     style={{
@@ -178,13 +178,10 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
               {filters.status && renderStatusFilters()}
             </TableHeader>
             <TableHeader>
-              {getFieldTranslationByNames(
-                "send-vod",
-                "date and time of sending"
-              )}
+              {getFieldTranslationByNames(14747)}
             </TableHeader>
             <TableHeader>
-              {getFieldTranslationByNames("send-vod", "view the document")}
+              {getFieldTranslationByNames(14754)}
             </TableHeader>
           </tr>
         </TableHead>

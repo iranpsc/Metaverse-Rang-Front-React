@@ -147,7 +147,7 @@ const Buttons = ({ item }) => {
   const items = [
     {
       id: 1,
-      label: getFieldTranslationByNames("search-in-metarang", "buy"),
+      label: getFieldTranslationByNames(6340),
       icon: <LuShoppingCart />,
       onClick: () =>
         Navigate(`/metaverse/feature/${item?.id}`, {
@@ -156,7 +156,7 @@ const Buttons = ({ item }) => {
     },
     {
       id: 2,
-      label: getFieldTranslationByNames("search-in-metarang", "suggested"),
+      label: getFieldTranslationByNames(6347),
       icon: <HiOutlineCurrencyDollar />,
       onClick: () => {
         Navigate(`/metaverse/feature/${item?.id}`, {
@@ -166,7 +166,7 @@ const Buttons = ({ item }) => {
     },
     {
       id: 3,
-      label: getFieldTranslationByNames("search-in-metarang", "location"),
+      label: getFieldTranslationByNames(6354),
       icon: <HiOutlineLocationMarker />,
       onClick: () => {
         flyToPosition({

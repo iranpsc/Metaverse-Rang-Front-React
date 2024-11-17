@@ -123,19 +123,13 @@ const WriteVodTab = () => {
   return (
     <Container ref={containerRef}>
       <Title
-        title={getFieldTranslationByNames("send-vod", "writing the document")}
+        title={getFieldTranslationByNames(14523)}
         right
       />
       {alert && (
         <Alert
           type="success"
-          text={`${getFieldTranslationByNames(
-            "send-vod",
-            "your document titled"
-          )} ${state.title} ${getFieldTranslationByNames(
-            "send-vod",
-            "submitted successfully"
-          )}`}
+          text={`${getFieldTranslationByNames(14677)} ${state.title} ${getFieldTranslationByNames(14684)}`}
         />
       )}
       <Inputs />
@@ -144,7 +138,7 @@ const WriteVodTab = () => {
 
       <Button
         fit
-        label={getFieldTranslationByNames("send-vod", "send the document")}
+        label={getFieldTranslationByNames(14642)}
         onclick={sendVod}
       />
 

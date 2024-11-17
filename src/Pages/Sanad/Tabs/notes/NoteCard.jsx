@@ -128,7 +128,7 @@ const NoteCard = ({ data }) => {
           <p>#{data?.id}</p>
         </Texts>
         <Socials>
-          <h3>{getFieldTranslationByNames("send-vod", "share notes")}</h3>
+          <h3>{getFieldTranslationByNames(15090)}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -144,21 +144,18 @@ const NoteCard = ({ data }) => {
       </Info>
       <Content>
         <Subject>
-          <Label>{getFieldTranslationByNames("send-vod", "registrar")}</Label>
+          <Label>{getFieldTranslationByNames(15111)}</Label>
           <h2>{data?.name}</h2>
         </Subject>
         <Status status={data?.status}>
           <Label>
-            {getFieldTranslationByNames(
-              "send-vod",
-              "date of note registration"
-            )}
+            {getFieldTranslationByNames(15104)}
           </Label>
           <h2>{data?.date}</h2>
         </Status>
         <Date>
           <Label>
-            {getFieldTranslationByNames("send-vod", "latest update")}
+            {getFieldTranslationByNames(15097)}
           </Label>
           <h2>{data?.date}</h2>
         </Date>
@@ -172,11 +169,11 @@ const NoteCard = ({ data }) => {
         >
           <Button onClick={removeNoteHandler}>
             <GoTrash size={22} />
-            <h4>{getFieldTranslationByNames("send-vod", "remove")}</h4>
+            <h4>{getFieldTranslationByNames(15083)}</h4>
           </Button>
           <Button onClick={() => setIsEditing(true)}>
             <CiEdit size={22} />
-            <h4>{getFieldTranslationByNames("send-vod", "edit")}</h4>
+            <h4>{getFieldTranslationByNames(15076)}</h4>
           </Button>
         </div>
       </Content>

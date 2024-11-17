@@ -13,7 +13,7 @@ const Container = styled.div`
 const Rial = ({ color }) => {
   return (
     <Container color={color}>
-      <span>{getFieldTranslationByNames("property-information", "rial")}</span>
+      <span>{getFieldTranslationByNames(6760)}</span>
       <img width={26} alt="rial" src={rialGif} />
     </Container>
   );

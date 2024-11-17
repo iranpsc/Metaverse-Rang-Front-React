@@ -171,23 +171,14 @@ const IdentityInputs = ({
         {errors.length > 0 && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
-            buttonText={getFieldTranslationByNames(
-              "authentication",
-              "view errors"
-            )}
-            text={getFieldTranslationByNames("authentication", "view errors")}
-            info={getFieldTranslationByNames(
-              "authentication",
-              "error in authentication"
-            )}
+            buttonText={getFieldTranslationByNames(10603)}
+            text={getFieldTranslationByNames(10603)}
+            info={getFieldTranslationByNames(10589)}
             type="error"
           />
         )}
         <Title
-          title={getFieldTranslationByNames(
-            "authentication",
-            "authentication information"
-          )}
+          title={getFieldTranslationByNames(10484)}
         />
         <Inputs
           identityError={identityError}
@@ -207,10 +198,7 @@ const IdentityInputs = ({
         />
         <Button
           large
-          label={getFieldTranslationByNames(
-            "authentication",
-            "send information"
-          )}
+          label={getFieldTranslationByNames(10568)}
           onclick={sendHandler}
         />
       </Container>

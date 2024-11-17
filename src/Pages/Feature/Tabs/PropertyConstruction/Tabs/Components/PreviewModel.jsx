@@ -139,20 +139,14 @@ const PreviewModel = ({ data }) => {
             />
           </div>
           <Header>
-            {getFieldTranslationByNames(
-              "property-information",
-              "3d model display"
-            )}
+            {getFieldTranslationByNames(5276)}
           </Header>
         </div>
         <div className="modal-body ">
           <Container>
             <ContainerDetail>
               <TextTitle>
-                {getFieldTranslationByNames(
-                  "property-information",
-                  "details of the building"
-                )}
+                {getFieldTranslationByNames(5283)}
               </TextTitle>
               {data[0].attributes.map((attribute, index) => (
                 <PHolder key={index}>

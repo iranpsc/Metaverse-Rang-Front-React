@@ -276,7 +276,7 @@ const VideoRecord = ({
   return (
     <Container>
       <Title>
-        {getFieldTranslationByNames("authentication", "video authentication")}
+        {getFieldTranslationByNames(10533)}
       </Title>
       <Div>
         <ContainerRecorder>
@@ -311,22 +311,19 @@ const VideoRecord = ({
 
         <Info>
           <h4>
-            {getFieldTranslationByNames(
-              "authentication",
-              "authentication text, please read this text in the video"
-            )}
+            {getFieldTranslationByNames(10540)}
           </h4>
           <p>
             {textVerify.text} {user.code}
           </p>
           <div>
             <h3>
-              {getFieldTranslationByNames("authentication", "reading time")}
+              {getFieldTranslationByNames(10554)}
             </h3>
             <h5>
               {timeLeft}
               <span>
-                {getFieldTranslationByNames("authentication", "seconds")}
+                {getFieldTranslationByNames(10561)}
               </span>
             </h5>
           </div>

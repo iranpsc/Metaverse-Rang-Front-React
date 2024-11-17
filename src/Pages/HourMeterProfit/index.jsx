@@ -7,17 +7,14 @@ import { getFieldTranslationByNames } from "../../Services/Utility";
 const HourMeterProfit = () => {
   const tabs = [
     {
-      title: getFieldTranslationByNames(
-        "hour-meter-profit",
-        "property interest"
-      ),
+      title: getFieldTranslationByNames(153),
       content: <ProfitView />,
     },
   ];
   const TabPanel = useTabs(tabs, 0, true);
   return (
     <ModalPosition
-      title={["hour-meter-profit", "hourly profit absorption"]}
+      title={150}
       position={"right"}
     >
       {TabPanel}
