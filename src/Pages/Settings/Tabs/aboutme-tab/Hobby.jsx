@@ -130,43 +130,43 @@ const Hobby = () => {
   };
 
   const hobbies = [
-    { id: 1, key: "music", name: "instruments and music", icon: music },
-    { id: 2, key: "sport_health", name: "exercise and health", icon: weight },
-    { id: 3, key: "art", name: "meta art", icon: brush },
+    { id: 1, key: "music", translationId: 9231, icon: music },
+    { id: 2, key: "sport_health", translationId: 9238, icon: weight },
+    { id: 3, key: "art", translationId: 9245, icon: brush },
     {
       id: 4,
       key: "language_culture",
-      name: "language and culture",
+      translationId: 9252,
       icon: lang,
     },
-    { id: 5, key: "philosophy", name: "philosophy", icon: note },
-    { id: 6, key: "animals_nature", name: "animals and nature", icon: pet },
-    { id: 7, key: "aliens", name: "space creatures", icon: ghost },
-    { id: 8, key: "food_cooking", name: "food and cooking", icon: coffee },
+    { id: 5, key: "philosophy", translationId: 9259, icon: note },
+    { id: 6, key: "animals_nature", translationId: 9266, icon: pet },
+    { id: 7, key: "aliens", translationId: 9273, icon: ghost },
+    { id: 8, key: "food_cooking", translationId: 9287, icon: coffee },
     {
       id: 9,
       key: "travel_leature",
-      name: "travel and entertainment",
+      translationId: 9294,
       icon: tree,
     },
     {
       id: 10,
       key: "manufacturing",
-      name: "construction and production",
+      translationId: 9301,
       icon: layer,
     },
     {
       id: 11,
       key: "science_technology",
-      name: "science and technology",
+      translationId: 9308,
       icon: cpu,
     },
-    { id: 12, key: "space_time", name: "space and time", icon: clock },
-    { id: 13, key: "history", name: "history and civilization", icon: bubble },
+    { id: 12, key: "space_time", translationId: 9315, icon: clock },
+    { id: 13, key: "history", translationId: 9322, icon: bubble },
     {
       id: 14,
       key: "politics_economy",
-      name: "politics and economics",
+      translationId: 9329,
       icon: dollar,
     },
   ];
@@ -191,7 +191,7 @@ const Hobby = () => {
             <div>
               <img src={hobby.icon} alt={hobby.name} width={24} height={24} />
               <span>
-                {getFieldTranslationByNames("citizenship-account", hobby.name)}
+                {getFieldTranslationByNames(hobby.translationId)}
               </span>
             </div>
           </CheckboxLabel>
