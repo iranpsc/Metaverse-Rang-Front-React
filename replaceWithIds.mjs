@@ -97,6 +97,144 @@ async function processFile(filePath, translationMap) {
       }
     }
 
+    const dynamicFieldRegex =
+      /getFieldTranslationByNames\s*\(\s*["'](.*?)["']\s*,\s*([^)]+)\)/g;
+    const dynamicMatches = [...content.matchAll(dynamicFieldRegex)];
+
+    if (dynamicMatches.length > 0) {
+      console.log(`\n📝 Processing dynamic field calls in: ${filePath}`);
+
+      for (const match of dynamicMatches) {
+        const [fullMatch, modalName, fieldExpression] = match;
+
+        if (!fieldExpression.includes("setting?.label")) continue;
+
+        const settingsArrayMatch = content.match(
+          /const\s+settings\s*=\s*\[([\s\S]*?)\]/
+        );
+        if (settingsArrayMatch) {
+          const settingsContent = settingsArrayMatch[1];
+          const labelRegex = /label:\s*["'](.*?)["']/g;
+          const labels = [...settingsContent.matchAll(labelRegex)];
+
+          for (const labelMatch of labels) {
+            const fieldName = labelMatch[1];
+            const key = `${modalName}:${fieldName}`;
+            const translation = translationMap.get(key);
+
+            if (translation) {
+              const newCall = `getFieldTranslationByNames(${translation.id})`;
+              const specificCallRegex = new RegExp(
+                `getFieldTranslationByNames\\s*\\(\\s*["']setting["']\\s*,\\s*setting\\?\\.label\\)\\s*(?=})`,
+                "g"
+              );
+              newContent = newContent.replace(specificCallRegex, newCall);
+              modified = true;
+
+              console.log(`✅ Successful dynamic field replacement:`);
+              console.log(`   Before: ${fullMatch}`);
+              console.log(`   After: ${newCall}`);
+            }
+          }
+        }
+      }
+    }
+
+    const settingsArrayRegex = /const\s+settings\s*=\s*\[([\s\S]*?)\];/;
+    const settingsMatch = content.match(settingsArrayRegex);
+
+    if (settingsMatch) {
+      const labelRegex = /label:\s*["'](.*?)["']/g;
+      const labels = [...settingsMatch[1].matchAll(labelRegex)];
+
+      const labelToId = new Map();
+
+      for (const [, label] of labels) {
+        const key = `setting:${label}`;
+        const translation = translationMap.get(key);
+        if (translation) {
+          labelToId.set(label, translation.id);
+        }
+      }
+
+      let newSettingsContent = settingsMatch[1];
+      for (const [label, id] of labelToId) {
+        const labelRegexStr = `label:\\s*["']${label}["']`;
+        newSettingsContent = newSettingsContent.replace(
+          new RegExp(labelRegexStr, "g"),
+          `translationId: ${id}`
+        );
+      }
+
+      newContent = newContent.replace(
+        settingsArrayRegex,
+        `const settings = [${newSettingsContent}];`
+      );
+
+      newContent = newContent.replace(
+        /getFieldTranslationByNames\(["']setting["'],\s*setting\?\.label\)/g,
+        "getFieldTranslationByNames(setting?.translationId)"
+      );
+
+      modified = true;
+    }
+
+    const itemsArrayRegex = /const\s+items\s*=\s*\[([\s\S]*?)\];/;
+    const itemsMatch = content.match(itemsArrayRegex);
+
+    if (itemsMatch) {
+      let itemsContent = itemsMatch[1];
+
+      const labelRegex = /label:\s*["'](.*?)["']/g;
+      const labels = [...itemsContent.matchAll(labelRegex)];
+
+      for (const [fullMatch, label] of labels) {
+        const key = `setting:${label}`;
+        const translation = translationMap.get(key);
+        if (translation) {
+          itemsContent = itemsContent.replace(
+            fullMatch,
+            `translationId: ${translation.id}`
+          );
+        }
+      }
+
+      const titleRegex = /title:\s*["'](.*?)["']/g;
+      const titles = [...itemsContent.matchAll(titleRegex)];
+
+      for (const [fullMatch, title] of titles) {
+        const key = `setting:${title}`;
+        const translation = translationMap.get(key);
+        if (translation) {
+          itemsContent = itemsContent.replace(
+            fullMatch,
+            `translationId: ${translation.id}`
+          );
+        }
+      }
+
+      newContent = newContent.replace(
+        itemsArrayRegex,
+        `const items = [${itemsContent}];`
+      );
+
+      modified = true;
+    }
+
+    if (filePath.includes("Item.jsx")) {
+      newContent = newContent.replace(
+        /getFieldTranslationByNames\(["']setting["'],\s*label\)/g,
+        "getFieldTranslationByNames(translationId)"
+      );
+
+      newContent = newContent.replace(
+        /getFieldTranslationByNames\(["']setting["'],\s*option\.title\)/g,
+        "getFieldTranslationByNames(option.translationId)"
+      );
+
+      modified = true;
+    }
+
     if (modified) {
       await fs.writeFile(filePath, newContent);
       console.log(`✅ File ${filePath} updated successfully`);
