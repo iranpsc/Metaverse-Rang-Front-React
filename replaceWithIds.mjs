@@ -43,34 +43,34 @@ async function processFile(filePath, translationMap) {
     let modified = false;
     let newContent = content;
 
-    const hobbiesArrayRegex = /const\s+hobbies\s*=\s*\[([\s\S]*?)\];/;
-    const hobbiesMatch = content.match(hobbiesArrayRegex);
+    const optionsArrayRegex = /const\s+options\s*=\s*\[([\s\S]*?)\];/;
+    const optionsMatch = content.match(optionsArrayRegex);
 
-    if (hobbiesMatch) {
-      let hobbiesContent = hobbiesMatch[1];
+    if (optionsMatch) {
+      let optionsContent = optionsMatch[1];
 
-      const nameRegex = /name:\s*["'](.*?)["']/g;
-      const names = [...hobbiesContent.matchAll(nameRegex)];
+      const labelRegex = /label:\s*["'](.*?)["']/g;
+      const labels = [...optionsContent.matchAll(labelRegex)];
 
-      for (const [fullMatch, name] of names) {
-        const key = `citizenship-account:${name}`;
+      for (const [fullMatch, label] of labels) {
+        const key = `citizenship-account:${label}`;
         const translation = translationMap.get(key);
         if (translation) {
-          hobbiesContent = hobbiesContent.replace(
+          optionsContent = optionsContent.replace(
             fullMatch,
             `translationId: ${translation.id}`
           );
           modified = true;
           console.log(
-            `✅ Replaced hobby name: "${name}" with ID: ${translation.id}`
+            `✅ Replaced option label: "${label}" with ID: ${translation.id}`
           );
         }
       }
 
       if (modified) {
         newContent = newContent.replace(
-          hobbiesArrayRegex,
-          `const hobbies = [${hobbiesContent}];`
+          optionsArrayRegex,
+          `const options = [${optionsContent}];`
         );
       }
     }
@@ -78,12 +78,8 @@ async function processFile(filePath, translationMap) {
     const patterns = [
       {
         regex:
-          /getFieldTranslationByNames\(["']citizenship-account["'],\s*hobby\.name\)/g,
-        replace: `getFieldTranslationByNames(hobby.translationId)`,
-      },
-      {
-        regex: /getFieldTranslationByNames\((\d+)\)/g,
-        replace: (match, id) => `getFieldTranslationByNames(${id})`,
+          /getFieldTranslationByNames\(["']citizenship-account["'],\s*option\.label\)/g,
+        replace: `getFieldTranslationByNames(option.translationId)`,
       },
       {
         regex: /getFieldTranslationByNames\(["'](.*?)["'],\s*["'](.*?)["']\)/g,

@@ -71,19 +71,19 @@ const CountryCity = () => {
   const options = [
     {
       type: "cities",
-      label: "the city you love so much",
+      translationId: 9336,
       stateValue: state.loved_city,
       actionType: "SET_CITY"
     },
     {
       type: "countries",
-      label: "country you love very much",
+      translationId: 9343,
       stateValue: state.loved_country,
       actionType: "SET_COUNTRY"
     },
     {
       type: "languages",
-      label: "language you like very much",
+      translationId: 9350,
       stateValue: state.loved_language,
       actionType: "SET_LANGUAGE"
     }
@@ -93,11 +93,11 @@ const CountryCity = () => {
     <Container>
       {options.map((option) => (
         <SelectContainer key={option.type}>
-          <Label>{getFieldTranslationByNames("citizenship-account", option.label)}</Label>
+          <Label>{getFieldTranslationByNames(option.translationId)}</Label>
           <Dropdown
             options={fields[option.type].map((field) => field.translation)}
             value={getTranslation(option.type, option.stateValue)}
-            label={getFieldTranslationByNames("citizenship-account", option.label)}
+            label={getFieldTranslationByNames(option.translationId)}
             onChange={(translation) => handleFieldChange(option.type, translation, option.actionType)}
           />
         </SelectContainer>
