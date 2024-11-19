@@ -43,68 +43,90 @@ async function processFile(filePath, translationMap) {
     let modified = false;
     let newContent = content;
 
-    const optionsArrayRegex = /const\s+options\s*=\s*\[([\s\S]*?)\];/;
-    const optionsMatch = content.match(optionsArrayRegex);
-
-    if (optionsMatch) {
-      let optionsContent = optionsMatch[1];
-
-      const labelRegex = /label:\s*["'](.*?)["']/g;
-      const labels = [...optionsContent.matchAll(labelRegex)];
-
-      for (const [fullMatch, label] of labels) {
-        const key = `citizenship-account:${label}`;
-        const translation = translationMap.get(key);
-        if (translation) {
-          optionsContent = optionsContent.replace(
-            fullMatch,
-            `translationId: ${translation.id}`
-          );
-          modified = true;
-          console.log(
-            `✅ Replaced option label: "${label}" with ID: ${translation.id}`
-          );
-        }
-      }
-
-      if (modified) {
-        newContent = newContent.replace(
-          optionsArrayRegex,
-          `const options = [${optionsContent}];`
-        );
-      }
-    }
-
     const patterns = [
       {
-        regex:
-          /getFieldTranslationByNames\(["']citizenship-account["'],\s*option\.label\)/g,
-        replace: `getFieldTranslationByNames(option.translationId)`,
+        regex: /useState\(\{[\s\S]*?title:\s*["'](.*?)["'][\s\S]*?inputs:\s*\[([\s\S]*?)\]\s*\}\)/g,
+        replace: (match, title, inputs) => {
+          const titleKey = `setting:${title}`;
+          const titleTranslation = translationMap.get(titleKey);
+          
+          let newInputs = inputs;
+          const labelRegex = /label:\s*["'](.*?)["']/g;
+          const labelMatches = [...inputs.matchAll(labelRegex)];
+          
+          for (const [labelMatch, label] of labelMatches) {
+            const labelKey = `setting:${label}`;
+            const labelTranslation = translationMap.get(labelKey);
+            if (labelTranslation) {
+              newInputs = newInputs.replace(
+                labelMatch,
+                `translationId: ${labelTranslation.id}`
+              );
+            }
+          }
+          
+          return `useState({
+            translationId: ${titleTranslation?.id || 'null'},
+            inputs: [${newInputs}]
+          })`;
+        }
       },
+
       {
-        regex: /getFieldTranslationByNames\(["'](.*?)["'],\s*["'](.*?)["']\)/g,
+        regex: /const\s+items_info\s*=\s*\[([\s\S]*?)\];/g,
+        replace: (match, items) => {
+          let newItems = items;
+          const titleRegex = /title:\s*["'](.*?)["']/g;
+          const titleMatches = [...items.matchAll(titleRegex)];
+          
+          for (const [titleMatch, title] of titleMatches) {
+            const titleKey = `setting:${title}`;
+            const titleTranslation = translationMap.get(titleKey);
+            if (titleTranslation) {
+              newItems = newItems.replace(
+                titleMatch,
+                `translationId: ${titleTranslation.id}`
+              );
+            }
+          }
+          
+          return `const items_info = [${newItems}];`;
+        }
+      },
+
+      {
+        regex: /getFieldTranslationByNames\(["'](.*?)["'],\s*(?:["'](.*?)["']|.*?\.(?:title|label))\)/g,
         replace: (match, modalName, fieldName) => {
+          if (!fieldName) {
+            return match.replace(/\.(?:title|label)/, '.translationId');
+          }
           const key = `${modalName}:${fieldName}`;
           const translation = translationMap.get(key);
-          return translation
-            ? `getFieldTranslationByNames(${translation.id})`
-            : match;
-        },
+          return translation ? 
+            `getFieldTranslationByNames(${translation.id})` : 
+            match;
+        }
       },
+
+      {
+        regex: /getFieldTranslationByNames\((\d+)\)/g,
+        replace: (match) => match
+      }
     ];
 
     for (const pattern of patterns) {
       const matches = [...newContent.matchAll(pattern.regex)];
       for (const match of matches) {
-        const replacement =
-          typeof pattern.replace === "function"
-            ? pattern.replace(...match)
-            : pattern.replace;
-
+        const replacement = typeof pattern.replace === 'function' ? 
+          pattern.replace(...match) : 
+          pattern.replace;
+          
         if (replacement && replacement !== match[0]) {
           newContent = newContent.replace(match[0], replacement);
           modified = true;
-          console.log(`✅ Replaced: ${match[0]} with: ${replacement}`);
+          console.log(`✅ Replaced in ${filePath}:`);
+          console.log(`   Before: ${match[0]}`);
+          console.log(`   After: ${replacement}`);
         }
       }
     }
