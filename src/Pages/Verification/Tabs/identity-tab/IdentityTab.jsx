@@ -4,13 +4,13 @@ import IdentityInputs from "./IdentityInputs";
 import { useState, useEffect } from "react";
 
 const initialDetails = [
-  { id: 1, slug: "fname", label: "name" },
-  { id: 2, slug: "lname", label: "last name" },
-  { id: 3, slug: "melli_code", label: "national code" },
+  { id: 1, slug: "fname", label: 10491 },
+  { id: 2, slug: "lname", label: 10498 },
+  { id: 3, slug: "melli_code", label: 10505 },
   {
     id: 4,
     slug: "province",
-    label: "province",
+    label: 10512,
     options: [
       { id: 1, city: "آذربایجان شرقی" },
       { id: 2, city: "آذربایجان غربی" },
@@ -45,11 +45,11 @@ const initialDetails = [
       { id: 31, city: "یزد" },
     ],
   },
-  { id: 5, slug: "birthdate", label: "date of birth" },
+  { id: 5, slug: "birthdate", label: 10519 },
   {
     id: 6,
     slug: "gender",
-    label: "gender",
+    label: 10526,
     options: [
       { id: 0, gender: "جنسیت" },
       { id: 1, gender: "مرد" },
