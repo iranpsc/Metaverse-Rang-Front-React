@@ -122,7 +122,6 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
           onchange={(e) => setFields({ ...fields, name: e.target.value })}
           key={inputs.first_row_info[1].id}
           placeholder={getFieldTranslationByNames(
-            "property-information",
             inputs.first_row_info[1].title
           )}
         />
@@ -130,10 +129,7 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
       <Input
         value={fields.address}
         onchange={(e) => setFields({ ...fields, address: e.target.value })}
-        placeholder={getFieldTranslationByNames(
-          "property-information",
-          inputs.second_row_info.title
-        )}
+        placeholder={getFieldTranslationByNames(inputs.second_row_info.title)}
       />
       <Third>
         <Input
@@ -157,9 +153,7 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
       <Wrapper>
         <RichText />
       </Wrapper>
-      <Text>
-        {getFieldTranslationByNames(7096)}
-      </Text>
+      <Text>{getFieldTranslationByNames(7096)}</Text>
       <Button
         edit
         onclick={() => setEdit(false)}

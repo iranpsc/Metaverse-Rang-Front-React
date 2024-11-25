@@ -110,55 +110,55 @@ const Tooltip = styled.div`
   }
 `;
 const menuItems = [
-  { icon: HomeIcon, translationKey: "home", link: "https://rgb.irpsc.com/" },
+  { icon: HomeIcon, translationId: 4065, link: "https://rgb.irpsc.com/" },
   {
     icon: NewsIcon,
-    translationKey: "news",
+    translationId: 4072,
     link: "https://rgb.irpsc.com/home-news",
   },
   {
     icon: BlogIcon,
-    translationKey: "articles",
+    translationId: 4093,
     link: "https://rgb.irpsc.com/home-blogs",
   },
   {
     icon: ChallengeIcon,
-    translationKey: "competitions",
+    translationId: 4422,
     link: "https://rgb.irpsc.com/home-competitions",
   },
   {
     icon: TrainingIcon,
-    translationKey: "trainings",
+    translationId: 6571,
     link: "https://rgb.irpsc.com/trainings",
   },
   {
     icon: AboutIcon,
-    translationKey: "about",
+    translationId: 4107,
     link: "https://rgb.irpsc.com/about",
   },
   {
     icon: ContactIcon,
-    translationKey: "contact",
+    translationId: 4114,
     link: "https://rgb.irpsc.com/contact",
   },
   {
     icon: RobotIcon,
-    translationKey: "version",
+    translationId: 6613,
     link: "https://rgb.irpsc.com/version",
   },
   {
     icon: CalendarIcon,
-    translationKey: "calendar",
+    translationId: 4128,
     link: "https://rgb.irpsc.com/Calendar",
   },
   {
     icon: CitizenIcon,
-    translationKey: "citizens",
+    translationId: 4135,
     link: "https://rgb.irpsc.com/",
   },
   {
     icon: ViewIcon,
-    translationKey: "overview",
+    translationId: 4142,
     link: "https://rgb.irpsc.com/overview",
   },
 ];
@@ -172,7 +172,7 @@ const BtnsAfterLogin = () => {
         <Tippy
           content={
             <Tooltip lang={lang.i18n.language}>
-              {getFieldTranslationByNames("central-page", item.translationKey)}
+              {getFieldTranslationByNames(item.translationId)}
             </Tooltip>
           }
           zIndex={10000}
@@ -191,7 +191,7 @@ const BtnsAfterLogin = () => {
           >
             <Icon src={item.icon} />
             <Text isOpen={isOpen}>
-              {getFieldTranslationByNames("central-page", item.translationKey)}
+              {getFieldTranslationByNames(item.translationId)}
             </Text>
           </Btn>
         </Tippy>

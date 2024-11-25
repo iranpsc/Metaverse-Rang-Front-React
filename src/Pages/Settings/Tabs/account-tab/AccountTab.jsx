@@ -32,20 +32,20 @@ const AccountTab = () => {
   const { Request } = useRequest();
 
   const [emailChange, setEmailChange] = useState({
-    title: "changing the login email to metaverse",
+    title: 7824,
     warn: "",
     inputs: [
-      { id: 1, type: "text", label: "new email", value: "" },
-      { id: 2, type: "number", label: "verification code", value: "" },
+      { id: 1, type: "text", label: 7852, value: "" },
+      { id: 2, type: "number", label: 7859, value: "" },
     ],
   });
 
   const [mobileChange, setMobileChange] = useState({
-    title: "change mobile number across the metaverse",
+    title: 7838,
     warn: "",
     inputs: [
-      { id: 1, type: "number", label: "new phone number", value: "" },
-      { id: 2, type: "number", label: "confirmation", value: "" },
+      { id: 1, type: "number", label: 7880, value: "" },
+      { id: 2, type: "number", label: 7887, value: "" },
     ],
   });
 
@@ -63,12 +63,16 @@ const AccountTab = () => {
     if (Object.keys(settings).length > 0) {
       setEmailChange((prevState) => ({
         ...prevState,
-        warn: `${settings.email_reset_count}  ${getFieldTranslationByNames(15055)}`,
+        warn: `${settings.email_reset_count}  ${getFieldTranslationByNames(
+          15055
+        )}`,
       }));
 
       setMobileChange((prevState) => ({
         ...prevState,
-        warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(15055)}`,
+        warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(
+          15055
+        )}`,
       }));
     }
   }, [settings]);

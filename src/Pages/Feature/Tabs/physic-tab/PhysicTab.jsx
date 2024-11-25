@@ -11,33 +11,33 @@ const rows_inputs = {
   first_row_info: [
     {
       id: 1,
-      title: "activity line",
+      title: 7054,
       value: "QA31-10789",
       icon: <MdOutlineHome />,
     },
     {
       id: 2,
-      title: "collection name",
+      title: 7061,
       value: "QA31-10789",
       icon: <HiOutlineBuildingOffice />,
     },
   ],
   second_row_info: {
     id: 1,
-    title: "physical address of the complex",
+    title: 7068,
     value: "تهران، خیابان انقلاب، کوی گلها، ساختمان بهاران ",
     icon: <GrLocation />,
   },
   third_row_info: [
     {
       id: 1,
-      title: "the physical postal code of the collection",
+      title: 7075,
       value: "۱۲",
       icon: <TbPhoto />,
     },
     {
       id: 2,
-      title: "website address",
+      title: 7082,
       value: "۲۳۲.۴۴",
       icon: <IoLink />,
     },

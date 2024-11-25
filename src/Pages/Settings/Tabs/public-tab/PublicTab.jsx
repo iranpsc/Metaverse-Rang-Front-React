@@ -46,42 +46,42 @@ const Settings = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  margin-bottom: 30px;  
+  margin-bottom: 30px;
 `;
 
 const settings = [
   {
     id: 1,
-    label: "sending transaction settlement sms",
+    translationId: 7782,
     key: "transactions_sms",
   },
   {
     id: 2,
-    label: "send text messages of metaverse notifications",
+    translationId: 7747,
     key: "announcements_sms",
   },
   {
     id: 3,
-    label: "sending e-mail settlement of transactions",
+    translationId: 7789,
     key: "transactions_email",
   },
   {
     id: 4,
-    label: "sending e-mail notifications of metaverse",
+    translationId: 7754,
     key: "announcements_email",
   },
-  { id: 5, label: "send purchase confirmation sms", key: "trades_sms" },
-  { id: 6, label: "send reminder message sent", key: "reports_sms" },
-  { id: 7, label: "send purchase confirmation email", key: "trades_email" },
-  { id: 8, label: "send reminder email sent", key: "reports_email" },
+  { id: 5, translationId: 7796, key: "trades_sms" },
+  { id: 6, translationId: 7761, key: "reports_sms" },
+  { id: 7, translationId: 7810, key: "trades_email" },
+  { id: 8, translationId: 7768, key: "reports_email" },
   {
     id: 9,
-    label: "send purchase confirmation email",
+    translationId: 7810,
     key: "login_verification_sms",
   },
   {
     id: 10,
-    label: "send a confirmation email to enter metaverse",
+    translationId: 7775,
     key: "login_verification_email",
   },
 ];
@@ -137,7 +137,7 @@ const PublicTab = () => {
       <Settings>
         {settings.map((setting) => (
           <Wrapper key={setting.id}>
-            <p>{getFieldTranslationByNames("setting", setting?.label)}</p>
+            <p>{getFieldTranslationByNames(setting?.translationId)}</p>
             <OnOff
               label={setting?.label}
               isOn={!!generalSettings[setting.key]}
@@ -147,10 +147,7 @@ const PublicTab = () => {
         ))}
       </Settings>
 
-      <Button
-        label={getFieldTranslationByNames(7817)}
-        onclick={handleSubmit}
-      />
+      <Button label={getFieldTranslationByNames(7817)} onclick={handleSubmit} />
     </Container>
   );
 };

@@ -19,10 +19,7 @@ const EnterInputs = ({ data }) => {
             (
               <Input
                 {...input}
-                title={getFieldTranslationByNames(
-                  "property-information",
-                  input.title
-                )}
+                title={getFieldTranslationByNames(input.title)}
                 key={input.id}
               />
             )

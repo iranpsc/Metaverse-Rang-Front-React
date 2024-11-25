@@ -60,9 +60,20 @@ const Label = styled.div`
   }
 `;
 
-const Item = ({ label, options, privacy }) => {
+const Item = ({ translationId, options, privacy }) => {
   const [show, setShow] = useState(false);
   const { Request, HTTP_METHOD } = useRequest();
+
+  // تابع کمکی برای نمایش امن ترجمه
+  const safeTranslation = (id) => {
+    try {
+      if (!id) return "";
+      return getFieldTranslationByNames(id) || "";
+    } catch {
+      return "";
+    }
+  };
+
   const handleToggle = (optionKey, newValue) => {
     Request("privacy", HTTP_METHOD.POST, {
       key: optionKey,
@@ -77,13 +88,13 @@ const Item = ({ label, options, privacy }) => {
   return (
     <Container>
       <Label show={show}>
-        <h3>{getFieldTranslationByNames("setting", label)}</h3>
+        <h3>{safeTranslation(translationId)}</h3>
         <IoIosArrowDropdownCircle onClick={() => setShow(!show)} />
       </Label>
       <Options show={show}>
         {options.map((option) => (
           <Option key={option.id}>
-            <p>{getFieldTranslationByNames("setting", option.title)}</p>
+            <p>{safeTranslation(option.translationId)}</p>
             <OnOff
               label={option.title}
               isOn={!privacy[option.key] || false}

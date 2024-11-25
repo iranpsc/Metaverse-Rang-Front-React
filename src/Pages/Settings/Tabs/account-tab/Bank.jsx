@@ -98,13 +98,13 @@ const Div = styled.div`
 const items_info = [
   {
     id: 1,
-    title: "settlement time period | daily",
+    translationId: 7929,
     value: "",
     name: "checkout_days_count",
   },
   {
     id: 2,
-    title: "automatic exit from the user account minutes",
+    translationId: 7936,
     value: "",
     name: "automatic_logout",
   },
@@ -189,13 +189,9 @@ const Bank = () => {
 
   return (
     <Container>
-      <Title
-        title={getFieldTranslationByNames(7915)}
-      />
+      <Title title={getFieldTranslationByNames(7915)} />
       <Select onChange={handleSelectChange} value={selectedValue}>
-        <option value="">
-          {getFieldTranslationByNames(7922)}
-        </option>
+        <option value="">{getFieldTranslationByNames(7922)}</option>
         {options.map((item) => (
           <option value={item.label} key={item.id}>
             <IoCardOutline />
@@ -206,7 +202,7 @@ const Bank = () => {
       <Wrapper>
         {items.map((item) => (
           <Div error={item.error} id={item.id} key={item.id}>
-            <span>{getFieldTranslationByNames("setting", item.title)}</span>
+            <span>{getFieldTranslationByNames(item.translationId)}</span>
             <input
               onChange={(e) => handleInputChange(e, item.id)}
               value={item.value}

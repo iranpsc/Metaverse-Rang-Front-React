@@ -77,7 +77,7 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
     <Container>
       {data.slice(0, 3).map((item) => (
         <EditInput
-          title={getFieldTranslationByNames("authentication", item.label)}
+          title={getFieldTranslationByNames(item.label)}
           value={inputValues[item.slug]}
           onchange={handleInputChange}
           key={item.id}

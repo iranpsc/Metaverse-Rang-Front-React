@@ -43,33 +43,91 @@ async function processFile(filePath, translationMap) {
     let modified = false;
     let newContent = content;
 
-    const regex = /title=\{?\[["'](.*?)["'],\s*["'](.*?)["']\]\}?/g;
-    const matches = [...content.matchAll(regex)];
+    const patterns = [
+      {
+        regex: /useState\(\{[\s\S]*?title:\s*["'](.*?)["'][\s\S]*?inputs:\s*\[([\s\S]*?)\]\s*\}\)/g,
+        replace: (match, title, inputs) => {
+          const titleKey = `setting:${title}`;
+          const titleTranslation = translationMap.get(titleKey);
+          
+          let newInputs = inputs;
+          const labelRegex = /label:\s*["'](.*?)["']/g;
+          const labelMatches = [...inputs.matchAll(labelRegex)];
+          
+          for (const [labelMatch, label] of labelMatches) {
+            const labelKey = `setting:${label}`;
+            const labelTranslation = translationMap.get(labelKey);
+            if (labelTranslation) {
+              newInputs = newInputs.replace(
+                labelMatch,
+                `translationId: ${labelTranslation.id}`
+              );
+            }
+          }
+          
+          return `useState({
+            translationId: ${titleTranslation?.id || 'null'},
+            inputs: [${newInputs}]
+          })`;
+        }
+      },
 
-    if (matches.length === 0) return false;
+      {
+        regex: /const\s+items_info\s*=\s*\[([\s\S]*?)\];/g,
+        replace: (match, items) => {
+          let newItems = items;
+          const titleRegex = /title:\s*["'](.*?)["']/g;
+          const titleMatches = [...items.matchAll(titleRegex)];
+          
+          for (const [titleMatch, title] of titleMatches) {
+            const titleKey = `setting:${title}`;
+            const titleTranslation = translationMap.get(titleKey);
+            if (titleTranslation) {
+              newItems = newItems.replace(
+                titleMatch,
+                `translationId: ${titleTranslation.id}`
+              );
+            }
+          }
+          
+          return `const items_info = [${newItems}];`;
+        }
+      },
 
-    console.log(`\n📝 Processing file: ${filePath}`);
+      {
+        regex: /getFieldTranslationByNames\(["'](.*?)["'],\s*(?:["'](.*?)["']|.*?\.(?:title|label))\)/g,
+        replace: (match, modalName, fieldName) => {
+          if (!fieldName) {
+            return match.replace(/\.(?:title|label)/, '.translationId');
+          }
+          const key = `${modalName}:${fieldName}`;
+          const translation = translationMap.get(key);
+          return translation ? 
+            `getFieldTranslationByNames(${translation.id})` : 
+            match;
+        }
+      },
 
-    for (const match of matches) {
-      const [fullMatch, modalName, fieldName] = match;
-      const key = `${modalName}:${fieldName}`;
-      const translation = translationMap.get(key);
+      {
+        regex: /getFieldTranslationByNames\((\d+)\)/g,
+        replace: (match) => match
+      }
+    ];
 
-      if (translation) {
-        const newTitle = `title={${translation.id}}`;
-        newContent = newContent.replace(fullMatch, newTitle);
-        modified = true;
-
-        console.log(`✅ Successful replacement:`);
-        console.log(`   Before: ${fullMatch}`);
-        console.log(`   After: ${newTitle}`);
-        console.log(
-          `   [Modal: ${modalName}, Field: ${fieldName}, ID: ${translation.id}]`
-        );
-      } else {
-        console.log(`⚠️ Translation not found:`);
-        console.log(`   Modal: ${modalName}`);
-        console.log(`   Field: ${fieldName}`);
+    for (const pattern of patterns) {
+      const matches = [...newContent.matchAll(pattern.regex)];
+      for (const match of matches) {
+        const replacement = typeof pattern.replace === 'function' ? 
+          pattern.replace(...match) : 
+          pattern.replace;
+          
+        if (replacement && replacement !== match[0]) {
+          newContent = newContent.replace(match[0], replacement);
+          modified = true;
+          console.log(`✅ Replaced in ${filePath}:`);
+          console.log(`   Before: ${match[0]}`);
+          console.log(`   After: ${replacement}`);
+        }
       }
     }
 

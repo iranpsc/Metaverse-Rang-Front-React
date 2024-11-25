@@ -14,7 +14,7 @@ const enterData = [
     inputs: [
       {
         id: 1,
-        title: "entrance fee",
+        title: 6872,
         value: "20",
         slug: "psc",
         type: "number",
@@ -22,7 +22,7 @@ const enterData = [
       },
       {
         id: 2,
-        title: "entrance fee",
+        title: 6872,
         value: "300000",
         slug: "rial",
         type: "number",
@@ -30,24 +30,24 @@ const enterData = [
       },
       {
         id: 3,
-        title: "rank",
+        title: 6886,
         value: "QA31-10789",
         slug: "level",
         type: "string",
         icon: <HiOutlineBuildingOffice />,
       },
       {
-        id: 4,
+        id: 14509,
         title: "level",
         icon: <MdOutlineHome />,
         levels: [
-          "same level",
+          6921,
           "other than this level",
           "same level and higher level",
           "the same level and a lower level",
         ],
         options: [
-          "citizen",
+          14390,
           "journalist",
           "contributor",
           "developer",

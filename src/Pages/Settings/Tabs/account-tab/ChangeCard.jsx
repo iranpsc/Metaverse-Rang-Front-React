@@ -163,7 +163,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
 
   return (
     <Container id={id}>
-      <Title title={getFieldTranslationByNames("setting", title)} />
+      <Title title={getFieldTranslationByNames(title)} />
       {warn && (
         <Warn>
           <RiErrorWarningLine size={22} />
@@ -179,7 +179,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
                 inputValues.find((input) => input.id === item.id)?.value || ""
               }
               onchange={(e) => handleInputChange(item.id, e.target.value)}
-              title={getFieldTranslationByNames("setting", item.label)}
+              title={getFieldTranslationByNames(item.label)}
               error={
                 inputErrors.find((input) => input.id === item.id)?.error || ""
               }
