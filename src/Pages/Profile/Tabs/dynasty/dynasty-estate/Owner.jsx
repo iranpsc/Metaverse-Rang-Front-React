@@ -1,6 +1,7 @@
+import Title from "../../../../../Components/Title";
 import Details from "./Details";
 import Model3D from "./Model3D";
-import Title from "../../../Title";
+
 import styled from "styled-components";
 
 const Container = styled.div``;

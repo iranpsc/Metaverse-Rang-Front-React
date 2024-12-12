@@ -1,5 +1,6 @@
+import Title from "../../../../../Components/Title";
 import List from "./List";
-import Title from "../../../Title";
+
 import styled from "styled-components";
 
 const Container = styled.div``;

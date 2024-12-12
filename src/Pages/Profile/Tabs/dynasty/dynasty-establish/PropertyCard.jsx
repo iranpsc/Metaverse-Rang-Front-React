@@ -1,4 +1,4 @@
-import Button from "../../../Button";
+import Button from "../../../../../Components/Button";
 import house from "../../../../assets/images/profile/house.png";
 import styled from "styled-components";
 
