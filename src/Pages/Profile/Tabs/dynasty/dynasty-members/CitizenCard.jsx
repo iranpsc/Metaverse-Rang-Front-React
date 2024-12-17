@@ -1,8 +1,8 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import down from "../../../../assets/images/profile/downcitizen.png";
-import level1 from "../../../../assets/images/profile/level1.png";
-import level2 from "../../../../assets/images/profile/level2.png";
-import level3 from "../../../../assets/images/profile/level3.png";
+import down from "../../../../../Assets/images/downcitizen.png";
+import level1 from "../../../../../Assets/images/level1.png";
+import level2 from "../../../../../Assets/images/level2.png";
+import level3 from "../../../../../Assets/images/level3.png";
 import styled from "styled-components";
 
 const levels = [

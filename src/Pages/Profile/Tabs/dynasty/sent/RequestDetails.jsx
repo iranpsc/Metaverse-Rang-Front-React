@@ -1,10 +1,10 @@
-import Button from "../../../Button";
+import Button from "../../../../../Components/Button";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import MemberCard from "./MemberCard";
-import Title from "../../../Title";
-import { convertToPersian } from "../../../../lib/convertToPersian";
-import gift from "../../../../assets/images/player/satisfy.png";
-import pscGif from "../../../../assets/images/profile/psc.gif";
+import Title from "../../../../../Components/Title";
+import { convertToPersian } from "../../../../../Services/Utility";
+import gift from "../../../../../Assets/gif/satisfy.png";
+import pscGif from "../../../../../Assets/gif/psc.gif";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -107,7 +107,15 @@ const Buttons = styled.div`
   margin-top: 30px;
 `;
 
-const RequestDetails = ({ setShowDetails, status, psc, gif,  code, date, time }) => {
+const RequestDetails = ({
+  setShowDetails,
+  status,
+  psc,
+  gif,
+  code,
+  date,
+  time,
+}) => {
   return (
     <Back>
       <Container>

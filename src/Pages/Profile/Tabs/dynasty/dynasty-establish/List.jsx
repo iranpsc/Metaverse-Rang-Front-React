@@ -1,10 +1,10 @@
 import Row from "./Row";
-import cav from "../../../../assets/images/profile/cav.gif";
-import gif from "../../../../assets/images/profile/satisfaction.gif";
-import limit from "../../../../assets/images/profile/limit-of-influence.gif";
-import psc from "../../../../assets/images/profile/psc.gif";
-import pscplus from "../../../../assets/images/profile/pscplus.gif";
-import rial from "../../../../assets/images/profile/rial.gif";
+import cav from "../../../../../Assets/gif/cav.gif";
+import gif from "../../../../../Assets/gif/satisfaction.gif";
+import limit from "../../../../../Assets/gif/limit-of-influence.gif";
+import psc from "../../../../../Assets/gif/psc.gif";
+import pscplus from "../../../../../Assets/gif/pscplus.gif";
+import rial from "../../../../../Assets/gif/rial.gif";
 import styled from "styled-components";
 
 const Container = styled.div`

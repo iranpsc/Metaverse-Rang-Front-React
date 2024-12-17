@@ -1,4 +1,4 @@
-import Button from "../../../Button";
+import Button from "../../../../../Components/Button";
 import styled from "styled-components";
 
 const BackGround = styled.div`

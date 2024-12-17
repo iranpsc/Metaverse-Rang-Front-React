@@ -1,5 +1,5 @@
-import { convertToPersian } from "../../../../lib/convertToPersian";
 import styled from "styled-components";
+import { convertToPersian } from "../../../../../Services/Utility";
 
 const TableRow = styled.tr`
   background-color: transparent;

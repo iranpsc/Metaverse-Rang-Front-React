@@ -1,6 +1,6 @@
-import Button from "../../../../../Components/Button";
-import house from "../../../../assets/images/profile/house.png";
+import house from "../../../../../Assets/images/house.png";
 import styled from "styled-components";
+import Button from "../../../../../Components/Button";
 
 const Right = styled.div`
   display: flex;

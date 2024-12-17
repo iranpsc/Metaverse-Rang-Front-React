@@ -1,7 +1,9 @@
-import SearchInput from "../../../../../Components/SearchInput";
+
 import PropertyCard from "./PropertyCard";
+import Title from "../../../../../Components/Title";
 
 import styled from "styled-components";
+import SearchInput from "../../../../../Components/SearchInput";
 
 const Container = styled.div``;
 const Div = styled.div`
