@@ -8,7 +8,7 @@ const TableRow = styled.tr`
 const TableCell = styled.td`
   padding: 15px 20px;
   border-bottom: 1px solid #454545;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   padding-right: 30px;
   div {
     width: fit-content;

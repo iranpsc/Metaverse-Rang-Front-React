@@ -12,7 +12,8 @@ const levels = [
 ];
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border: 1px solid transparent;
   margin-top: 20px;
   border-radius: 5px;
@@ -25,15 +26,15 @@ const Container = styled.div`
   justify-content: space-between;
   transition: all 0.2s linear;
   &:hover {
-    border: 1px solid #0066ff;
+    border: 1px solid ${(props) => props.theme.colors.primary};
   }
   h2 {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 20px;
     font-weight: 700;
   }
   h5 {
-    color: #0066ff;
+    color: ${(props) => props.theme.colors.primary};
     font-size: 16px;
     font-weight: 500;
   }

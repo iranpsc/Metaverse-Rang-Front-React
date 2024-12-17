@@ -9,7 +9,8 @@ const Wrapper = styled.div`
   padding: 20px;
   margin-top: 20px;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   display: grid;
   @media (min-width: 1366px) {
     grid-template-columns: 2fr 1fr;

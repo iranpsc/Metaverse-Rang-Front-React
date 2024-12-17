@@ -16,14 +16,15 @@ const BackGround = styled.div`
 `;
 const ModalBody = styled.div`
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
 
   overflow-y: auto;
   padding: 20px;
   width: 700px;
   max-height: 577px;
   p {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 400;
     font-size: 14px;
     line-height: 28px;
@@ -50,7 +51,7 @@ const Header = styled.div`
   span {
     font-size: 24px;
     font-weight: 600;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 

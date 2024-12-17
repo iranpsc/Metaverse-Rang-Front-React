@@ -8,7 +8,7 @@ const Top = styled.div`
   div {
     margin-top: 10px;
     p {
-      color: #ffffff;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-weight: 400;
       font-size: 16px;
     }
