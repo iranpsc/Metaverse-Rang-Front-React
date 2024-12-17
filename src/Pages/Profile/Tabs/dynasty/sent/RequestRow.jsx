@@ -1,7 +1,7 @@
 import { LuEye } from "react-icons/lu";
 import RequestDetails from "./RequestDetails";
 import { convertToPersian } from "../../../../../Services/Utility";
-import gift from "../../../../../Assets/gif/satisfy.png";
+import gift from "../../../../../Assets/images/satisfy.png";
 import pscGif from "../../../../../Assets/gif/psc.gif";
 import styled from "styled-components";
 import { useState } from "react";

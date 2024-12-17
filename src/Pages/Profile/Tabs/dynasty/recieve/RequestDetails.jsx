@@ -3,7 +3,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import MemberCard from "../sent/MemberCard";
 import Title from "../../../../../Components/Title";
 import { convertToPersian } from "../../../../../Services/Utility";
-import gift from "../../../../../Assets/satisfy.png";
+import gift from "../../../../../Assets/images/satisfy.png";
 import pscGif from "../../../../../Assets/gif/psc.gif";
 import styled from "styled-components";
 
