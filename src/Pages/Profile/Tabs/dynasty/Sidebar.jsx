@@ -16,7 +16,7 @@ const Label = styled.div`
   font-weight: 500;
   color: ${(props) =>
     props.menu
-      ? props.theme.colors.newColors.otherColors.primary
+      ? props.theme.colors.primary
       : props.theme.colors.newColors.shades[30]};
   padding: 8px 25px;
   cursor: pointer;

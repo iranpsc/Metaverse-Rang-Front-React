@@ -2,7 +2,8 @@ import avatar from "../../../../../Assets/images/slide.png";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   padding: 20px;
   border-radius: 5px;
   display: grid;
@@ -16,17 +17,17 @@ const Profile = styled.div`
   align-items: center;
   gap: 20px;
   &:hover img {
-    box-shadow: 0px 10px 25px -5px #0066ff40;
-    border: 2px solid #0066ff;
+    box-shadow: 0px 10px 25px -5px ${(props) => props.theme.colors.primary};
+    border: 2px solid ${(props) => props.theme.colors.primary};
   }
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 18px;
     font-weight: 500;
   }
   a {
     text-decoration: none;
-    color: #0066ff;
+    color: ${(props) => props.theme.colors.primary};
     font-size: 16px;
     font-weight: 500;
   }
@@ -39,25 +40,26 @@ const Profile = styled.div`
 
 const Status = styled.div`
   h2 {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 14px;
     font-weight: 600;
   }
   h3 {
     font-size: 16px;
     font-weight: 400;
-    color: #18c08f;
+    color: ${(props) =>
+      props.theme.colors.newColors.otherColors.secondaryBtnText};
     margin-top: 4px;
   }
 `;
 const Date = styled.div`
   h2 {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 14px;
     font-weight: 600;
   }
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
     margin-top: 4px;

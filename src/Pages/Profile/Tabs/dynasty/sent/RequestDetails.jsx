@@ -13,7 +13,8 @@ const Container = styled.div`
   height: 80%;
   position: relative;
   border-radius: 10px;
-  background-color: #000000;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   overflow-y: auto;
   padding: 20px;
   z-index: 999;
@@ -29,18 +30,18 @@ const Header = styled.div`
     cursor: pointer;
     gap: 12px;
     h3 {
-      color: #ffffff;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-size: 18px;
       font-weight: 400;
     }
     svg {
-      color: #949494;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
     }
   }
 `;
 
 const Info = styled.div`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 400;
   margin-top: 30px;
@@ -61,7 +62,7 @@ const Div = styled.div`
   align-items: center;
   gap: 4px;
   h3 {
-    color: #868b90;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 20px;
     font-weight: 500;
   }
@@ -96,7 +97,7 @@ const Back = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(5px);
+
   background-color: rgba(0, 0, 0, 0.713);
 `;
 

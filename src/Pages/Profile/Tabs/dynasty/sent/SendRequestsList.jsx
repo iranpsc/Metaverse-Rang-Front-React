@@ -47,7 +47,8 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px !important;
   overflow: hidden !important;
 `;
@@ -59,12 +60,14 @@ const StatusFilter = styled.div`
   width: 169px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   font-size: 16px;
   div {
     position: relative;
     &:hover {
-      background-color: #3b3b3b;
+      background-color: ${(props) =>
+        props.theme.colors.newColors.otherColors.inputBg};
       transition: all 0.2s linear;
     }
     span {
@@ -79,14 +82,14 @@ const StatusFilter = styled.div`
 
   h1 {
     font-weight: 400;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     border-radius: 5px;
     padding: 2px 18px;
     cursor: pointer;
   }
   h2 {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 400;
     font-size: 16px;
     border-radius: 5px;
@@ -95,7 +98,7 @@ const StatusFilter = styled.div`
     margin: 10px 0;
   }
   h3 {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 400;
     font-size: 16px;
     border-radius: 5px;
@@ -110,12 +113,14 @@ const TitleFilter = styled.div`
   width: 130px;
   padding: 15px;
   border-radius: 10px;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   div {
     position: relative;
     padding-right: 5px;
     &:hover {
-      background-color: #3b3b3b;
+      background-color: ${(props) =>
+        props.theme.colors.newColors.otherColors.inputBg};
       transition: all 0.2s linear;
     }
     span {
@@ -129,7 +134,7 @@ const TitleFilter = styled.div`
   }
   h1 {
     font-size: 16px;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 400;
     cursor: pointer;
     &:first-of-type {
@@ -156,7 +161,7 @@ const TableHeader = styled.th`
   padding: 20px;
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
 `;
 
@@ -168,7 +173,7 @@ const Loader = styled.div`
   justify-content: center;
   button {
     background-color: transparent;
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     border: none;
   }
 `;

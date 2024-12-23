@@ -4,6 +4,7 @@ import level1 from "../../../../../Assets/images/level1.png";
 import level2 from "../../../../../Assets/images/level2.png";
 import level3 from "../../../../../Assets/images/level3.png";
 import styled from "styled-components";
+import { ReactComponent as FlagIcon } from "../../../../../Assets/svg/flag.svg";
 
 const levels = [
   { id: "1", label: "سطح 1", image: level1 },
@@ -50,7 +51,7 @@ const Image = styled.div`
 `;
 const Level = styled.div`
   p {
-    color: #969696;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 500;
     font-size: 16px;
     margin-bottom: 10px;
@@ -67,15 +68,20 @@ const Footer = styled.div`
   width: 90%;
   border-radius: 10px;
   padding: 18px 14px;
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.containerPrimary};
   justify-content: space-between;
   span {
-    color: #ffc700;
+    color: ${(props) => props.theme.colors.primary};
     font-size: 16px;
     font-weight: 500;
   }
 `;
-
+const Flag = styled(FlagIcon)`
+  width: 20px;
+  height: 20px;
+  stroke: ${(props) => props.theme.colors.primary};
+`;
 const CitizenCard = ({ name, code, image }) => {
   return (
     <Container>
@@ -110,7 +116,7 @@ const CitizenCard = ({ name, code, image }) => {
       </Level>
       <Footer>
         <span>جزییات شهروند</span>
-        <img alt="down" src={down} width={17} height={19} />
+        <Flag />
       </Footer>
     </Container>
   );

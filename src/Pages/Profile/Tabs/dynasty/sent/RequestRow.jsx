@@ -13,7 +13,7 @@ const TableRow = styled.tr`
 const TableCell = styled.td`
   padding: 15px 20px;
   border-bottom: 1px solid #454545;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
 `;
 
 const Image = styled.img`
@@ -25,13 +25,13 @@ const Image = styled.img`
 const Code = styled.h2`
   font-size: 16px;
   font-weight: 500;
-  color: #ffd000;
+  color: ${(props) => props.theme.colors.primary};
 `;
 
 const Date = styled.h3`
   font-size: 16px;
   font-weight: 400;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
 `;
 
 const Title = styled.h3`
@@ -48,23 +48,24 @@ const Subject = styled.div`
 const View = styled.div`
   width: 40px;
   height: 40px;
-  background-color: #3b3b3b;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   &:hover {
-    background-color: #ffc700;
+    background-color: ${(props) => props.theme.colors.primary};
     transition: all 0.2s linear;
   }
   svg {
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 
 const Status = styled.h3`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   width: fit-content;
   font-size: 16px;
   border-radius: 0.25rem;
@@ -76,7 +77,7 @@ const Div = styled.div`
   align-items: center;
   gap: 4px;
   h3 {
-    color: #868b90;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 500;
   }

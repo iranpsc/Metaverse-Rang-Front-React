@@ -68,14 +68,16 @@ const Date = styled.div`
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   height: 48px;
   padding: 0 10px;
   svg {
-    color: gray;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
   }
   input {
-    color: gray;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
+
     width: 100%;
     height: 100%;
     background-color: transparent;
