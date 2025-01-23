@@ -5,6 +5,7 @@ import axios from "axios";
 import Resumable from "resumablejs";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import * as Sentry from "@sentry/react";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -134,6 +135,21 @@ const Record = styled.div`
   }
 `;
 
+const getSupportedMimeType = () => {
+  const possibleTypes = [
+    "video/webm;codecs=vp8,opus",
+    "video/webm",
+    "video/mp4",
+    "video/x-matroska;codecs=avc1",
+  ];
+
+  return (
+    possibleTypes.find((type) => {
+      return MediaRecorder.isTypeSupported(type);
+    }) || "video/webm"
+  );
+};
+
 const VideoRecord = ({
   setVideoError,
   setVideoURLParent,
@@ -191,8 +207,11 @@ const VideoRecord = ({
       setVideoError(false);
       setVideoUploadError(false); // Clear the error when recording starts
 
+      const mimeType = getSupportedMimeType();
+
       mediaRecorderRef.current = new MediaRecorder(stream, {
-        mimeType: "video/webm",
+        mimeType: mimeType,
+        videoBitsPerSecond: 2500000, // 2.5Mbps
       });
 
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -229,6 +248,7 @@ const VideoRecord = ({
       }, 1000);
     } catch (err) {
       console.error("Error accessing media devices.", err);
+      Sentry.captureException(err);
       setError(
         "دسترسی به دوربین یا میکروفون ممکن نیست. لطفاً تنظیمات دستگاه خود را بررسی کنید."
       );
@@ -262,22 +282,27 @@ const VideoRecord = ({
 
     resumable.on("fileError", (file, message) => {
       console.error("File upload error:", message);
+      Sentry.captureException(new Error(`File upload error: ${message}`));
       setError("خطا در آپلود ویدیو. لطفاً دوباره تلاش کنید.");
       setVideoUploadError(true); // Set the error if the upload fails
     });
   };
 
   useEffect(() => {
-    axios.get("https://admin.rgb.irpsc.com/api/kyc-verify-text").then((res) => {
-      setTextVerify(res.data);
-    });
+    axios
+      .get("https://admin.rgb.irpsc.com/api/kyc-verify-text")
+      .then((res) => {
+        setTextVerify(res.data);
+      })
+      .catch((err) => {
+        Sentry.captureException(err);
+        console.error("Error fetching verify text:", err);
+      });
   }, []);
 
   return (
     <Container>
-      <Title>
-        {getFieldTranslationByNames(10533)}
-      </Title>
+      <Title>{getFieldTranslationByNames(10533)}</Title>
       <Div>
         <ContainerRecorder>
           <Record
@@ -286,9 +311,14 @@ const VideoRecord = ({
             hasError={videoUploadError} // Add the error state to control border color
           >
             {capturing ? (
-              <video ref={videoRef} autoPlay muted />
+              <video ref={videoRef} autoPlay muted playsInline />
             ) : videoURL ? (
-              <video ref={videoRef} src={videoURL} onClick={handlePlayClick} />
+              <video
+                ref={videoRef}
+                src={videoURL}
+                onClick={handlePlayClick}
+                playsInline
+              />
             ) : (
               <>
                 <HiOutlineCamera size={50} />
@@ -310,21 +340,15 @@ const VideoRecord = ({
         </ContainerRecorder>
 
         <Info>
-          <h4>
-            {getFieldTranslationByNames(10540)}
-          </h4>
+          <h4>{getFieldTranslationByNames(10540)}</h4>
           <p>
             {textVerify.text} {user.code}
           </p>
           <div>
-            <h3>
-              {getFieldTranslationByNames(10554)}
-            </h3>
+            <h3>{getFieldTranslationByNames(10554)}</h3>
             <h5>
               {timeLeft}
-              <span>
-                {getFieldTranslationByNames(10561)}
-              </span>
+              <span>{getFieldTranslationByNames(10561)}</span>
             </h5>
           </div>
         </Info>
@@ -334,4 +358,7 @@ const VideoRecord = ({
   );
 };
 
-export default VideoRecord;
+// Wrap the component with Sentry error boundary
+export default Sentry.withErrorBoundary(VideoRecord, {
+  fallback: (props) => <div>خطایی رخ داده است. لطفا صفحه را رفرش کنید.</div>,
+});

@@ -147,6 +147,10 @@ const IdentityInputs = ({
     requestData.append("video[name]", JSON.parse(uploadResponse).name);
     requestData.append("video[path]", JSON.parse(uploadResponse).path);
     requestData.append("verify_text_id", textVerify.id);
+    requestData.append(
+      "gender",
+      inputValues.gender === "مرد" ? "male" : "female"
+    );
     requestData.append("_method", "put");
 
     if (errorMessages.length === 0) {
@@ -177,9 +181,7 @@ const IdentityInputs = ({
             type="error"
           />
         )}
-        <Title
-          title={getFieldTranslationByNames(10484)}
-        />
+        <Title title={getFieldTranslationByNames(10484)} />
         <Inputs
           identityError={identityError}
           data={data}
