@@ -58,6 +58,7 @@ const Button = ({
   fit,
   textColor,
   grayTheme,
+  style,
 }) => {
   return (
     <ButtonElement
@@ -71,6 +72,7 @@ const Button = ({
       fit={fit}
       textColor={textColor}
       grayTheme={grayTheme}
+      style={style}
     >
       {label}
     </ButtonElement>

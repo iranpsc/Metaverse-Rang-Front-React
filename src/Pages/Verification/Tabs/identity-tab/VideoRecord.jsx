@@ -157,6 +157,7 @@ const VideoRecord = ({
   setUploadResponse,
   textVerify,
   setTextVerify,
+  setIsVideoUploaded, // Add this new prop
 }) => {
   const [capturing, setCapturing] = useState(false);
   const [videoURL, setVideoURL] = useState(null);
@@ -191,6 +192,7 @@ const VideoRecord = ({
     setVideoError(true);
     setVideoUploadError(true); // Set the error for video upload
     setVideoURLParent(null);
+    setIsVideoUploaded(false); // Reset when video is deleted
     chunks.current = [];
     setShowPlayButton(true);
   };
@@ -278,6 +280,7 @@ const VideoRecord = ({
     resumable.on("fileSuccess", (file, response) => {
       setUploadResponse(response);
       setVideoUploadError(false); // Clear the error if the upload is successful
+      setIsVideoUploaded(true); // Set to true when upload succeeds
     });
 
     resumable.on("fileError", (file, message) => {
@@ -285,6 +288,7 @@ const VideoRecord = ({
       Sentry.captureException(new Error(`File upload error: ${message}`));
       setError("خطا در آپلود ویدیو. لطفاً دوباره تلاش کنید.");
       setVideoUploadError(true); // Set the error if the upload fails
+      setIsVideoUploaded(false); // Set to false on error
     });
   };
 

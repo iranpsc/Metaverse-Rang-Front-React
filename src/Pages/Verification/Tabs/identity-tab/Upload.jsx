@@ -20,6 +20,7 @@ const Upload = ({
   inputValues,
   textVerify,
   setTextVerify,
+  setIsVideoUploaded,
 }) => {
   return (
     <Container>
@@ -30,6 +31,7 @@ const Upload = ({
         setUploadResponse={setUploadResponse}
         textVerify={textVerify}
         setTextVerify={setTextVerify}
+        setIsVideoUploaded={setIsVideoUploaded}
       />
       <UploadCards
         setNationImageURL={setNationImageURL}

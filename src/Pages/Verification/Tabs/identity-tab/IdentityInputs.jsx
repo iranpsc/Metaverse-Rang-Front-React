@@ -53,6 +53,7 @@ const IdentityInputs = ({
   const [videoURL, setVideoURL] = useState(null);
   const [nationImageURL, setNationImageURL] = useState(null);
   const [uploadResponse, setUploadResponse] = useState(null);
+  const [isVideoUploaded, setIsVideoUploaded] = useState(false);
   const [textVerify, setTextVerify] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
   const sendHandler = () => {
@@ -197,11 +198,13 @@ const IdentityInputs = ({
           textVerify={textVerify}
           setTextVerify={setTextVerify}
           inputValues={inputValues}
+          setIsVideoUploaded={setIsVideoUploaded}
         />
         <Button
           large
           label={getFieldTranslationByNames(10568)}
           onclick={sendHandler}
+          disabled={isVideoUploaded ? false : "pending"}
         />
       </Container>
       {openErrorModal && (
