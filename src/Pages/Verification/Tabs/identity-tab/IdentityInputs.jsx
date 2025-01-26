@@ -14,6 +14,7 @@ import {
   getFieldTranslationByNames,
   ToastError,
 } from "../../../../Services/Utility";
+import * as Sentry from "@sentry/react";
 
 const Wrapper = styled.div`
   overflow-y: auto;
@@ -157,17 +158,51 @@ const IdentityInputs = ({
     if (errorMessages.length === 0) {
       setIdentityError(false);
 
+      // Track the form submission in Sentry
+      Sentry.addBreadcrumb({
+        category: "identity",
+        message: "Identity verification form submitted",
+        level: "info",
+        data: {
+          fname: inputValues.fname,
+          lname: inputValues.lname,
+          melli_code: inputValues.melli_code,
+          province: inputValues.province,
+          birthdate: inputValues.birthdate,
+          gender: inputValues.gender,
+          hasVideo: !!videoURL,
+          hasNationalCard: !!nationImageURL,
+        },
+      });
+
       Request(`kyc`, HTTP_METHOD.POST, requestData, {
         "Content-Type": "multipart/form-data",
       })
         .then((res) => {
+          Sentry.captureMessage(
+            "Identity verification submitted successfully",
+            {
+              level: "info",
+            }
+          );
           setSubmitted(true);
         })
         .catch((error) => {
+          Sentry.captureException(error, {
+            tags: {
+              section: "identity-verification",
+            },
+          });
           ToastError(error.response.data.message);
         });
     } else {
       setIdentityError(true);
+      Sentry.captureMessage("Identity verification form validation failed", {
+        level: "warning",
+        extra: {
+          errors: errorMessages,
+        },
+      });
     }
   };
   return (
