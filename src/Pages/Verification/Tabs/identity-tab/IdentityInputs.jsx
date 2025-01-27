@@ -159,30 +159,22 @@ const IdentityInputs = ({
       setIdentityError(false);
 
       // Track the form submission in Sentry
-      Sentry.addBreadcrumb({
-        category: "identity",
-        message: "Identity verification form submitted",
-        level: "info",
-        data: {
-          fname: inputValues.fname,
-          lname: inputValues.lname,
-          melli_code: inputValues.melli_code,
-          province: inputValues.province,
-          birthdate: inputValues.birthdate,
-          gender: inputValues.gender,
-          hasVideo: !!videoURL,
-          hasNationalCard: !!nationImageURL,
-        },
-      });
 
       Request(`kyc`, HTTP_METHOD.POST, requestData, {
         "Content-Type": "multipart/form-data",
       })
         .then((res) => {
+          Sentry.addBreadcrumb({
+            category: "identity",
+            message: "Identity verification form submitted",
+            level: "info",
+            data: requestData,
+          });
           Sentry.captureMessage(
             "Identity verification submitted successfully",
             {
               level: "info",
+              data: res,
             }
           );
           setSubmitted(true);
