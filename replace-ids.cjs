@@ -35,8 +35,8 @@ async function processFile(filePath, idMapping) {
   try {
     let content = await fs.readFile(filePath, "utf8");
 
-    // Regular expression to find title patterns
-    const regex = /title[:\s]*[={]?\s*(\d+)/g;
+    // Regular expression to find title patterns within <Modal> component
+    const regex = /<Modal[^>]*\btitle\s*=\s*{(\d+)}[^>]*>/g;
 
     // Replace numeric IDs with unique_ids
     content = content.replace(regex, (match, numericId) => {

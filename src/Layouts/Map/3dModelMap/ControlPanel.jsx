@@ -80,7 +80,7 @@ const ControlPanel = ({
 
   return (
     <ModalPosition
-      title={6221}
+      title={"462"}
       position={"right"}
       action={"ChangeHiddenState"}
     >

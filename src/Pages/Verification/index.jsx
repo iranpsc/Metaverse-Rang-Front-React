@@ -31,7 +31,7 @@ export default function Verification() {
   const TabPanel = useTabs(tabs);
 
   return (
-    <Modal type="modal-section-md" title={10470}>
+    <Modal type="modal-section-md" title={"867"}>
       {TabPanel}
     </Modal>
   );

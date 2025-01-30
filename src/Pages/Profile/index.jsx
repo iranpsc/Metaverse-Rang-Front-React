@@ -30,5 +30,5 @@ export default function Profile() {
 
   const TabPanel = useTabs(tabs);
 
-  return <Modal title={351}>{TabPanel}</Modal>;
+  return <Modal title={"56"}>{TabPanel}</Modal>;
 }

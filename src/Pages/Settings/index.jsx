@@ -28,5 +28,5 @@ export default function Settings() {
 
   const TabPanel = useTabs(tabs);
 
-  return <Modal title={7965}>{TabPanel}</Modal>;
+  return <Modal title={"642"}>{TabPanel}</Modal>;
 }

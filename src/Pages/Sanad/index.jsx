@@ -29,7 +29,7 @@ export default function Sanad() {
   return (
     <GlobalNoteStateProvider>
       <GlobalVodStateProvider>
-        <Modal title={14530}>{TabPanel}</Modal>
+        <Modal title={"1315"}>{TabPanel}</Modal>
       </GlobalVodStateProvider>
     </GlobalNoteStateProvider>
   );

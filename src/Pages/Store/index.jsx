@@ -22,7 +22,7 @@ export default function Store() {
   const TabPanel = useTabs(tabs);
 
   return (
-    <Modal title={165}>
+    <Modal title={"30"}>
       {TabPanel}
       <ShopInfo />
     </Modal>

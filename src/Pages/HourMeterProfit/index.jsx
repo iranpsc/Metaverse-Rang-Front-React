@@ -14,7 +14,7 @@ const HourMeterProfit = () => {
   const TabPanel = useTabs(tabs, 0, true);
   return (
     <ModalPosition
-      title={150}
+      title={"26"}
       position={"right"}
     >
       {TabPanel}

@@ -19,7 +19,7 @@ export default function Search() {
   const TabPanel = useTabs(tabs, 0, true);
   return (
     <ModalPosition
-      title={6319}
+      title={"232"}
       position={"left"}
     >
       {TabPanel}
