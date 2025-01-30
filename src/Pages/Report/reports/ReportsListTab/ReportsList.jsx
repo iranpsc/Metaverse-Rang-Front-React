@@ -135,7 +135,6 @@ const TableHeader = styled.th`
   text-align: start;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
-  width: ${(props) => (props.date ? "300px" : "auto")};
 
 `;
 
@@ -191,9 +190,9 @@ const ReportsList = ({
         <TableHead>
           <TableRow>
             
-            <TableHeader><Div>{getFieldTranslationByNames("1383")}</Div></TableHeader>
-            <TableHeader style={{ width: "120px" }} ><Div>{getFieldTranslationByNames("19")}</Div></TableHeader>
-            <TableHeader>
+            <TableHeader style={{ width: "0%",whiteSpace:"nowrap" }}><Div>{getFieldTranslationByNames("1383")}</Div></TableHeader>
+            <TableHeader style={{ width: "40%" }} ><Div>{getFieldTranslationByNames("19")}</Div></TableHeader>
+            <TableHeader style={{ width: "12%",whiteSpace:"nowrap" }}>
               <Div>
                 {getFieldTranslationByNames("746")}
                 <Arrows
@@ -434,11 +433,11 @@ const ReportsList = ({
 
 
 
-            <TableHeader>
+            <TableHeader style={{ width: "16%",whiteSpace:"nowrap" }}>
             <Div>{getFieldTranslationByNames("64")}</Div>
 
             </TableHeader>
-            <TableHeader>{getFieldTranslationByNames("1380")}</TableHeader>
+            <TableHeader style={{ width: "10%",whiteSpace:"nowrap" }}>{getFieldTranslationByNames("1380")}</TableHeader>
           </TableRow>
         </TableHead>
         <tbody>

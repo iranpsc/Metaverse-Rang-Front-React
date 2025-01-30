@@ -82,7 +82,7 @@ const ReportRow = ({
   const [date, time] = datetime.split(" ");
 
   const truncateTitle = (titleString) => {
-    return titleString.length > 40 ? titleString.substring(0, 40) + '...' : titleString;
+    return titleString.length > 60 ? titleString.substring(0, 60) + '...' : titleString;
   };
   const fetchReportDetails = async () => {
     try {
