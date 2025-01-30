@@ -5,78 +5,80 @@ import ReportsInfo from "./reports/ReportsInfo";
 import { useLocation } from "react-router-dom";
 import { ReportStateProvider } from "./reports/GlobalReportStateProvider";
 import { getFieldTranslationByNames } from "../../Services/Utility/index";
+
+
+const getTranslation = (index) => getFieldTranslationByNames(index);
+const pageTranslations = {
+  "sanad-1": 14523,
+  "sanad-2": 14537,
+  "sanad-3": 14544,
+  "profile-1": 315,
+  "profile-2": 8692,
+  "profile-3": 324,
+  "settings-1": 7943,
+  "settings-2": 7950,
+  "settings-3": 7957,
+  "settings-4": 655,
+  "search-1": 6326,
+  "search-2": 6333,
+  "dynasty-1": 1555,
+  "dynasty-2": 1571,
+  "dynasty-3": 1575,
+  "dynasty-4": 1579,
+  "hour-profit-1": 153,
+  "verification-1": 10470,
+  "verification-2": 10477,
+  "store-1": 731,
+  "store-2": 735,
+  "report-1": 15300,
+  "report-2": 15300,
+};
+
+const titleTranslations = {
+  "store": 3772,
+  "settings": 7965,
+  "profile": 3828,
+  "sanad": 3814,
+  "confirmation": 168,
+  "search": 6319,
+  "dynasty": 3737,
+  "hour-profit": 3751,
+  "verification": 3758,
+  "notifications": 3779,
+};
+
+// تابع برای ترجمه صفحه
+const translateLocationPage = (page) => {
+  const translationId = pageTranslations[page];
+  return translationId ? getTranslation(translationId) : page;
+};
+
+// تابع برای استخراج عنوان از href
+const getTitleFromHref = (href) => {
+  return href ? href.split("/").pop() : "";
+};
+
 export default function Report() {
   const location = useLocation();
   const { href, locationPage } = location.state || {};
-  getFieldTranslationByNames("footer-menu", "metaverse color")
   const [title, setTitle] = useState();
-  const [subdomain, setSubdomain] = useState(getFieldTranslationByNames("report", "error report"));
-  const getTitleFromHref = (href) => {
-    return href ? href.split("/").pop() : "";
-  };
-  const translateLocationPage = (page) => {
-    const translations = {
-      "sanad-1": getFieldTranslationByNames("send-vod", "writing the document"),
-      "sanad-2": getFieldTranslationByNames("send-vod", "list of documents"),
-      "sanad-3": getFieldTranslationByNames("send-vod", "note"),
-      "profile-1": getFieldTranslationByNames("citizenship-account", "general"),
-      "profile-2": getFieldTranslationByNames("citizenship-account", "property"),
-      "profile-3": getFieldTranslationByNames("citizenship-account", "transactions"),
-      "settings-1": getFieldTranslationByNames("setting", "general settings"),
-      "settings-2": getFieldTranslationByNames("setting", "access management"),
-      "settings-3": getFieldTranslationByNames("setting", "privacy"),
-      "settings-4": getFieldTranslationByNames("citizenship-account", "about me"),
-      "search-1": getFieldTranslationByNames("search-in-metarang", "citizen search"),
-      "search-2": getFieldTranslationByNames("search-in-metarang", "property search"),
-      "dynasty-1": getFieldTranslationByNames("dynasty", "family dynasty"),
-      "dynasty-2": getFieldTranslationByNames("dynasty", "members"),
-      "dynasty-3":getFieldTranslationByNames("dynasty", "submitted request") ,
-      "dynasty-4": getFieldTranslationByNames("dynasty", "request received"),
-      "hour-profit-1": getFieldTranslationByNames("hour-meter-profit", "property interest"),
-      "verification-1": getFieldTranslationByNames("authentication", "authentication"),
-      "verification-2": getFieldTranslationByNames("authentication", "bank verification"),
-      "store-1": getFieldTranslationByNames("store", "tools"),
-      "store-2": getFieldTranslationByNames("store", "currencies"),
-      "report-1": getFieldTranslationByNames("report", "error report"),
-      "report-2": getFieldTranslationByNames("report", "error report"),
-      
-    };
-    
-    return translations[page] || page; 
-  };
-  const setInitialValues = () => {
-    const extractedTitle = getTitleFromHref(href);
-    const titleTranslations = {
-      "store": getFieldTranslationByNames("store", "store"),
-      "settings": getFieldTranslationByNames("setting", "settings"),
-      "profile": getFieldTranslationByNames("central-page", "profile"),
-      "sanad": getFieldTranslationByNames("central-page", "send document"),
-      "confirmation": getFieldTranslationByNames("central-page", "account security"),
-      "search": getFieldTranslationByNames("central-page", "central search"),
-      "dynasty": getFieldTranslationByNames("central-page", "family tree"),
-      "hour-profit": getFieldTranslationByNames("central-page", "accumulated earnings"),
-      "verification": getFieldTranslationByNames("central-page", "identify verification"),
-      "notifications": getFieldTranslationByNames("notification", "notifications"),
-    };
-
-    setTitle(titleTranslations[extractedTitle] || getFieldTranslationByNames("footer-menu", "metaverse color"));
-
-    if (locationPage && locationPage !== "") {
-      setSubdomain(translateLocationPage(locationPage));
-    }
-  };
+  const [subdomain, setSubdomain] = useState(getTranslation(15300));
 
   useEffect(() => {
-    setInitialValues(); 
+    const extractedTitle = getTitleFromHref(href);
+    setTitle(titleTranslations[extractedTitle] ? getTranslation(titleTranslations[extractedTitle]) : getTranslation(2215));
+    if (locationPage) {
+      setSubdomain(translateLocationPage(locationPage));
+    }
   }, [href, locationPage]);
 
   const tabs = [
     {
-      title: getFieldTranslationByNames("report", "error report"),
+      title: getTranslation(15300),
       content: <ReportsInfo active="error_report" title={title} subdomain={subdomain} />
     },
     {
-      title: getFieldTranslationByNames("report", "list of reports"),
+      title: getTranslation(126),
       content: <ReportsInfo active="reports_list" title={title} subdomain={subdomain} />
     }
   ];
@@ -85,7 +87,7 @@ export default function Report() {
 
   return (
     <ReportStateProvider>
-      <Modal type="modal-section-xl" title={["central-page", "reports"]}>
+      <Modal type="modal-section-xl" title={[132]}>
         {TabPanel}
       </Modal>
     </ReportStateProvider>
