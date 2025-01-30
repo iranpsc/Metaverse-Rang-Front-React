@@ -14,6 +14,7 @@ import {
   getFieldTranslationByNames,
   ToastError,
 } from "../../../../Services/Utility";
+import * as Sentry from "@sentry/react";
 
 const Wrapper = styled.div`
   overflow-y: auto;
@@ -53,6 +54,7 @@ const IdentityInputs = ({
   const [videoURL, setVideoURL] = useState(null);
   const [nationImageURL, setNationImageURL] = useState(null);
   const [uploadResponse, setUploadResponse] = useState(null);
+  const [isVideoUploaded, setIsVideoUploaded] = useState(false);
   const [textVerify, setTextVerify] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
   const sendHandler = () => {
@@ -147,11 +149,14 @@ const IdentityInputs = ({
     requestData.append("video[name]", JSON.parse(uploadResponse).name);
     requestData.append("video[path]", JSON.parse(uploadResponse).path);
     requestData.append("verify_text_id", textVerify.id);
+    requestData.append(
+      "gender",
+      inputValues.gender === "مرد" ? "male" : "female"
+    );
     requestData.append("_method", "put");
 
     if (errorMessages.length === 0) {
       setIdentityError(false);
-
       Request(`kyc`, HTTP_METHOD.POST, requestData, {
         "Content-Type": "multipart/form-data",
       })
@@ -159,10 +164,21 @@ const IdentityInputs = ({
           setSubmitted(true);
         })
         .catch((error) => {
+          Sentry.captureException(error, {
+            tags: {
+              section: "identity-verification",
+            },
+          });
           ToastError(error.response.data.message);
         });
     } else {
       setIdentityError(true);
+      Sentry.captureMessage("Identity verification form validation failed", {
+        level: "warning",
+        extra: {
+          errors: errorMessages,
+        },
+      });
     }
   };
   return (
@@ -177,9 +193,7 @@ const IdentityInputs = ({
             type="error"
           />
         )}
-        <Title
-          title={getFieldTranslationByNames(10484)}
-        />
+        <Title title={getFieldTranslationByNames(10484)} />
         <Inputs
           identityError={identityError}
           data={data}
@@ -195,11 +209,13 @@ const IdentityInputs = ({
           textVerify={textVerify}
           setTextVerify={setTextVerify}
           inputValues={inputValues}
+          setIsVideoUploaded={setIsVideoUploaded}
         />
         <Button
           large
           label={getFieldTranslationByNames(10568)}
           onclick={sendHandler}
+          disabled={isVideoUploaded ? false : "pending"}
         />
       </Container>
       {openErrorModal && (

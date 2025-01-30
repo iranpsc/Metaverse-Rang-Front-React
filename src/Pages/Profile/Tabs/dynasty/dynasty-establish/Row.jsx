@@ -1,53 +1,52 @@
-import { convertToPersian } from "../../../../lib/convertToPersian";
 import styled from "styled-components";
+import { convertToPersian } from "../../../../../Services/Utility";
 
 const TableRow = styled.tr`
   background-color: transparent;
+  &:nth-child(odd) {
+    background-color: #f9fafb; /* equivalent to slate-50 */
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  transition: background-color 0.2s ease-in-out;
 `;
 
 const TableCell = styled.td`
   padding: 15px 20px;
-  border-bottom: 1px solid #454545;
-  color: #ffffff;
   padding-right: 30px;
+  border-bottom: 1px solid #454545;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+
   div {
-    width: fit-content;
+    display: inline-block; /* Ensures proper alignment */
+    width: auto;
   }
 `;
 
 const Code = styled.h2`
   font-size: 16px;
   font-weight: 500;
+  margin: 0; /* Removes default margin for h2 */
 `;
 
-const Row = ({ name, psc, plus, cage, gif, rial }) => {
+const Row = ({
+  name = "",
+  psc = "",
+  plus = "",
+  cage = "",
+  gif = "",
+  rial = "",
+}) => {
+  const renderContent = (content) => <Code>{convertToPersian(content)}</Code>;
+
   return (
-    <TableRow className="odd:bg-slate-50 hover:bg-black/10 py-5 duration-200">
-      <TableCell>
-        <div>
-          <Code>{name}</Code>
-        </div>
-      </TableCell>
-      <TableCell>
-        <div>
-          <Code>{convertToPersian(psc)}</Code>
-        </div>
-      </TableCell>
-      <TableCell>
-        <div>
-          <Code>{convertToPersian(plus)}</Code>
-        </div>
-      </TableCell>
-      <TableCell>
-        <div>
-          <Code>{convertToPersian(cage)}</Code>
-        </div>
-      </TableCell>
-      <TableCell>
-        <div>
-          <Code>{convertToPersian(rial)}</Code>
-        </div>
-      </TableCell>
+    <TableRow>
+      {[name, psc, plus, cage, rial].map((value, index) => (
+        <TableCell key={index}>
+          <div>{renderContent(value)}</div>
+        </TableCell>
+      ))}
       <TableCell>
         <div>
           <Code>{gif}</Code>

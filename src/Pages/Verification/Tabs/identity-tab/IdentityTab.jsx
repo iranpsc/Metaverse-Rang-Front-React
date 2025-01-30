@@ -12,6 +12,7 @@ const initialDetails = [
     slug: "province",
     label: 10512,
     options: [
+      { id: 0, city: "انتخاب کنید" },
       { id: 1, city: "آذربایجان شرقی" },
       { id: 2, city: "آذربایجان غربی" },
       { id: 3, city: "اردبیل" },

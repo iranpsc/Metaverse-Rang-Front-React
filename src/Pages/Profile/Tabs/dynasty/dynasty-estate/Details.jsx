@@ -2,7 +2,8 @@ import { AiOutlineExclamationCircle } from "react-icons/ai";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: #000000;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   padding: 20px;
   display: flex;
@@ -15,12 +16,12 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   h3 {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 20px;
     font-weight: 600;
   }
   span {
-    color: #ffc700;
+    color: ${(props) => props.theme.colors.primary};
     font-size: 16px;
     font-weight: 600;
   }
@@ -29,12 +30,12 @@ const KeyValue = styled.div`
   display: flex;
   justify-content: space-between;
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 500;
     font-size: 18px;
   }
   span {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 18px;
     font-weight: 500;
   }

@@ -1,10 +1,10 @@
-import Button from "../../../Button";
+import Button from "../../../../../Components/Button";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import MemberCard from "../sent/MemberCard";
-import Title from "../../../Title";
-import { convertToPersian } from "../../../../lib/convertToPersian";
-import gift from "../../../../assets/images/player/satisfy.png";
-import pscGif from "../../../../assets/images/profile/psc.gif";
+import Title from "../../../../../Components/Title";
+import { convertToPersian } from "../../../../../Services/Utility";
+import gift from "../../../../../Assets/images/satisfy.png";
+import pscGif from "../../../../../Assets/gif/psc.gif";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -13,7 +13,8 @@ const Container = styled.div`
   height: 80%;
   position: relative;
   border-radius: 10px;
-  background-color: #000000;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   overflow-y: auto;
   padding: 20px;
   z-index: 999;
@@ -29,18 +30,18 @@ const Header = styled.div`
     cursor: pointer;
     gap: 12px;
     h3 {
-      color: #ffffff;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-size: 18px;
       font-weight: 400;
     }
     svg {
-      color: #949494;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
     }
   }
 `;
 
 const Info = styled.div`
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 400;
   margin-top: 30px;
@@ -61,7 +62,7 @@ const Div = styled.div`
   align-items: center;
   gap: 4px;
   h3 {
-    color: #868b90;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 20px;
     font-weight: 500;
   }
@@ -96,7 +97,6 @@ const Back = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(5px);
   background-color: rgba(0, 0, 0, 0.713);
 `;
 

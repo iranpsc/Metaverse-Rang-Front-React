@@ -12,4 +12,14 @@ export default defineConfig({
       swiper: "swiper",
     },
   },
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        sourcemapPathTransform: (relativeSourcePath, sourcemapPath) => {
+          return `~/${relativeSourcePath}`;
+        },
+      },
+    },
+  },
 });
