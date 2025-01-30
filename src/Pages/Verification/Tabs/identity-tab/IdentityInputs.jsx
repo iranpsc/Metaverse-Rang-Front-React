@@ -151,7 +151,7 @@ const IdentityInputs = ({
     requestData.append("verify_text_id", textVerify.id);
     requestData.append(
       "gender",
-      inputValues.gender === "مرد" ? "male" : "female"
+      inputValues.gender === "877" ? "male" : "female"
     );
     requestData.append("_method", "put");
 

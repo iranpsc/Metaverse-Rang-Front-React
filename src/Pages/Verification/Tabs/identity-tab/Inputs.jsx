@@ -93,7 +93,9 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
         name={data[3].slug}
       >
         {data[3].options.map((option) => (
-          <option key={option.id}>{option.city}</option>
+          <option key={option.id}>
+            {getFieldTranslationByNames(option.city) || option.city}
+          </option>
         ))}
       </Select>
 
@@ -120,7 +122,9 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
         identityError={data[5]?.error}
       >
         {data[5].options.map((option) => (
-          <option key={option.id}>{option.gender}</option>
+          <option key={option.id}>
+            {getFieldTranslationByNames(option.gender)}
+          </option>
         ))}
       </Select>
     </Container>
