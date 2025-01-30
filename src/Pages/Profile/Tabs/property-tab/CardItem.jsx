@@ -190,32 +190,26 @@ const CardItem = ({
             <img src={photo} />
           </ImageWrapper>
           <Name>
-            <h3>{getFieldTranslationByNames("citizenship-account", name)}</h3>
+            <h3>{getFieldTranslationByNames(name)}</h3>
             <span>{id}</span>
           </Name>
         </PhotoName>
         <Address>
-          <span>
-            {getFieldTranslationByNames("59")}
-          </span>
+          <span>{getFieldTranslationByNames("59")}</span>
           <p data-tooltip-id={address}>{address}</p>
           <StyledTooltip id={address} place="top" content={address} />
         </Address>
       </Right>
       <Left>
         <Meter>
-          <span>
-            {getFieldTranslationByNames("347")}
-          </span>
+          <span>{getFieldTranslationByNames("347")}</span>
           <p>{area}</p>
         </Meter>
         {isDeleted ? (
           <div />
         ) : (
           <Price>
-            <span>
-              {getFieldTranslationByNames("60")}
-            </span>
+            <span>{getFieldTranslationByNames("60")}</span>
             <Div>
               <div>
                 <img width={24} height={24} src={rialpng} />

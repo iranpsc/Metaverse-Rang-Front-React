@@ -38,7 +38,7 @@ const enterData = [
       },
       {
         id: 14509,
-        title: "level",
+        title: "724",
         icon: <MdOutlineHome />,
         levels: [
           6921,

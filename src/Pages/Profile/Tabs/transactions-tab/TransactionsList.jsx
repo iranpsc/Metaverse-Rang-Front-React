@@ -111,11 +111,11 @@ const TableHeader = styled.th`
 `;
 
 const subjects = [
-  { id: 1, label: "buy blue", slug: "blue", gif: blue },
-  { id: 2, label: "buy red", slug: "red", gif: red },
-  { id: 3, label: "buy yellow", slug: "yellow", gif: yellow },
-  { id: 4, label: "buy rial currency", slug: "rial", gif: rial },
-  { id: 5, label: "buy psc currency", slug: "psc", gif: psc },
+  { id: 1, label: "buy blue", slug: "753", gif: blue },
+  { id: 2, label: "buy red", slug: "754", gif: red },
+  { id: 3, label: "buy yellow", slug: "755", gif: yellow },
+  { id: 4, label: "buy rial currency", slug: "756", gif: rial },
+  { id: 5, label: "buy psc currency", slug: "757", gif: psc },
 ];
 
 const TableBody = styled.tbody``;
@@ -326,10 +326,7 @@ const TransactionsList = ({
             <TableHeader title>
               <FilterContainer>
                 <TableHeaderText>
-                  {getFieldTranslationByNames(
-                    "citizenship-account",
-                    "the title of the report"
-                  )}
+                  {getFieldTranslationByNames("746")}
                 </TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ title: !filters.title })}
@@ -388,10 +385,7 @@ const TransactionsList = ({
             <TableHeader subject>
               <FilterContainer>
                 <TableHeaderText>
-                  {getFieldTranslationByNames(
-                    "citizenship-account",
-                    "select the subject of the report"
-                  )}
+                  {getFieldTranslationByNames("750")}
                 </TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ subject: !filters.subject })}
@@ -417,10 +411,7 @@ const TransactionsList = ({
                         loading="lazy"
                       />
                       <SubjectFilterText>
-                        {getFieldTranslationByNames(
-                          "citizenship-account",
-                          item.label
-                        )}
+                        {getFieldTranslationByNames(item.slug)}
                       </SubjectFilterText>
                       {subject[item.slug] && (
                         <FilterCloseButton
