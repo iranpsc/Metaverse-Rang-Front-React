@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import loaderGif from "../Assets/gif/ajax-loader.gif";
 
 const ButtonElement = styled.button`
   border-radius: 10px;
@@ -34,7 +35,9 @@ const ButtonElement = styled.button`
       : props.theme.colors.newColors.primaryText};
   color: ${(props) => (props.textColor ? props.textColor : "")};
   font-family: inherit;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @media (max-width: 840px) {
     width: ${(props) => (props.row ? "55px" : props.full && "100%")};
     height: ${(props) => props.row && "35px"};
@@ -43,6 +46,11 @@ const ButtonElement = styled.button`
 
   @media (min-width: 998px) {
     height: 50px;
+  }
+  img {
+    width: 25px;
+    height: 25px;
+    margin: 0 3px;
   }
 `;
 
@@ -74,7 +82,8 @@ const Button = ({
       grayTheme={grayTheme}
       style={style}
     >
-      {label}
+      {label}{" "}
+      {disabled === "pending" && <img src={loaderGif} alt="Loading..." />}
     </ButtonElement>
   );
 };

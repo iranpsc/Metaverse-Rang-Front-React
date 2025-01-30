@@ -265,7 +265,7 @@ const VideoRecord = ({
   const uploadVideo = (file) => {
     const resumable = new Resumable({
       target: "https://api.rgb.irpsc.com/api/upload",
-      chunkSize: 1 * 1024 * 1024,
+      chunkSize: 100 * 1024 * 1024,
       simultaneousUploads: 4,
       testChunks: false,
       throttleProgressCallbacks: 1,

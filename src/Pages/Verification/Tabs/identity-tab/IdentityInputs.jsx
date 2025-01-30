@@ -157,26 +157,10 @@ const IdentityInputs = ({
 
     if (errorMessages.length === 0) {
       setIdentityError(false);
-
-      // Track the form submission in Sentry
-
       Request(`kyc`, HTTP_METHOD.POST, requestData, {
         "Content-Type": "multipart/form-data",
       })
         .then((res) => {
-          Sentry.addBreadcrumb({
-            category: "identity",
-            message: "Identity verification form submitted",
-            level: "info",
-            data: requestData,
-          });
-          Sentry.captureMessage(
-            "Identity verification submitted successfully",
-            {
-              level: "info",
-              data: res,
-            }
-          );
           setSubmitted(true);
         })
         .catch((error) => {
