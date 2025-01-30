@@ -37,13 +37,13 @@ const EnterCode = ({ setPayStatus }) => {
   return (
     <Container>
       <Input
-        placeholder={getFieldTranslationByNames(6956)}
+        placeholder={getFieldTranslationByNames("535")}
         onchange={() => {}}
       />
       <Div>
         <Button
           fit
-          label={getFieldTranslationByNames(6900)}
+          label={getFieldTranslationByNames("536")}
           onclick={() => setPayStatus(true)}
         />
       </Div>

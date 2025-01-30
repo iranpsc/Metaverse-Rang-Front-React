@@ -7,11 +7,11 @@ import PropertyTab from "./Tabs/property-tab/PropertyTab";
 export default function Search() {
   const tabs = [
     {
-      title: getFieldTranslationByNames(6326),
+      title: getFieldTranslationByNames("470"),
       content: <CitizenTab />,
     },
     {
-      title: getFieldTranslationByNames(6333),
+      title: getFieldTranslationByNames("471"),
       content: <PropertyTab />,
     },
   ];

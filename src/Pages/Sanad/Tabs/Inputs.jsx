@@ -221,11 +221,11 @@ const Inputs = () => {
       <Container>
         <InputWrapper>
           <Label>
-            {getFieldTranslationByNames(14551)}
+            {getFieldTranslationByNames("1318")}
           </Label>
           <Select value={state.subject} onChange={subjectHandler}>
             <option value="">
-              {getFieldTranslationByNames(14565)}
+              {getFieldTranslationByNames("1320")}
             </option>
             {options.map((option) => (
               <option value={option.value} key={option.id}>
@@ -236,11 +236,11 @@ const Inputs = () => {
         </InputWrapper>
         <InputWrapper>
           <Label>
-            {getFieldTranslationByNames(14726)}
+            {getFieldTranslationByNames("1319")}
           </Label>
           <Input
             type="text"
-            placeholder={getFieldTranslationByNames(14726)}
+            placeholder={getFieldTranslationByNames("1319")}
             value={state.title}
             onChange={titleHandler}
           />
@@ -250,7 +250,7 @@ const Inputs = () => {
       {state.subject === "citizen" && (
         <CitizenInputWrapper ref={dropdownRef}>
           <Label>
-            {getFieldTranslationByNames(14649)}
+            {getFieldTranslationByNames("1329")}
           </Label>
           <SelectedCitizens>
             {selectedCitizens.map((citizen) => (
@@ -267,7 +267,7 @@ const Inputs = () => {
             rows={2}
             placeholder={
               selectedCitizens.length === 0
-                ? getFieldTranslationByNames(14649)
+                ? getFieldTranslationByNames("1329")
                 : ""
             }
             value={searchTerm}
@@ -287,14 +287,14 @@ const Inputs = () => {
                 ))
               ) : (
                 <DropdownItem>
-                  {getFieldTranslationByNames(14663)}
+                  {getFieldTranslationByNames("1331")}
                 </DropdownItem>
               )}
             </Dropdown>
           )}
           <CitizenWarning>
             <CgDanger size={20} />
-            {getFieldTranslationByNames(14656)}
+            {getFieldTranslationByNames("1330")}
           </CitizenWarning>
         </CitizenInputWrapper>
       )}

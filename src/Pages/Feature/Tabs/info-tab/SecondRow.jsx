@@ -30,31 +30,31 @@ const SecondRow = ({ feature }) => {
   const second_row_info = [
     {
       id: 1,
-      title: getFieldTranslationByNames(5102),
+      title: getFieldTranslationByNames("348"),
       value: feature?.properties?.density,
       icon: <HiOutlineBuildingOffice />,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames(5116),
+      title: getFieldTranslationByNames("350"),
       value: 10,
       icon: <LuPackageOpen />,
     },
     {
       id: 3,
-      title: getFieldTranslationByNames(5123),
+      title: getFieldTranslationByNames("351"),
       value: "آزاد",
       icon: <MdOutlinePlaylistAddCheckCircle />,
     },
     {
       id: 4,
-      title: getFieldTranslationByNames(5095),
+      title: getFieldTranslationByNames("347"),
       value: feature?.properties?.area,
       icon: <RxLayout />,
     },
     {
       id: 5,
-      title: getFieldTranslationByNames(5109),
+      title: getFieldTranslationByNames("349"),
       value: (feature?.properties?.area * feature?.properties?.density) / 100,
       icon: <RiCloseCircleLine />,
     },

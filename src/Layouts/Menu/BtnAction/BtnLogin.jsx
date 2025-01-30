@@ -58,7 +58,7 @@ const BtnLogin = () => {
     <Btn isOpen={isOpen} onClick={handleClick}>
       <Icon src={LoginIcon} />
       <Text isOpen={isOpen}>
-        {getFieldTranslationByNames(15)}
+        {getFieldTranslationByNames("4")}
       </Text>
     </Btn>
   );

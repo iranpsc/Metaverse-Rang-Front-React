@@ -161,18 +161,18 @@ const SatisfactionLunch = ({
     >
       <Container>
         <InputNumber
-          placeholder={getFieldTranslationByNames(7166)}
+          placeholder={getFieldTranslationByNames("561")}
           value={inputValue}
           onChange={handleInputChange}
           Error={error}
         />
         <TextValueIcon
-          title={getFieldTranslationByNames(5332)}
+          title={getFieldTranslationByNames("379")}
           icon={<Icon />}
           value={calculatedValue.toFixed(2)}
         />
         <Submit
-          text={getFieldTranslationByNames(7166)}
+          text={getFieldTranslationByNames("561")}
           type="primary"
           options={{
             style: {

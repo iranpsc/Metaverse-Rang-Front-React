@@ -128,7 +128,7 @@ const NoteCard = ({ data }) => {
           <p>#{data?.id}</p>
         </Texts>
         <Socials>
-          <h3>{getFieldTranslationByNames(15090)}</h3>
+          <h3>{getFieldTranslationByNames("1367")}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -144,18 +144,18 @@ const NoteCard = ({ data }) => {
       </Info>
       <Content>
         <Subject>
-          <Label>{getFieldTranslationByNames(15111)}</Label>
+          <Label>{getFieldTranslationByNames("1370")}</Label>
           <h2>{data?.name}</h2>
         </Subject>
         <Status status={data?.status}>
           <Label>
-            {getFieldTranslationByNames(15104)}
+            {getFieldTranslationByNames("1369")}
           </Label>
           <h2>{data?.date}</h2>
         </Status>
         <Date>
           <Label>
-            {getFieldTranslationByNames(15097)}
+            {getFieldTranslationByNames("1368")}
           </Label>
           <h2>{data?.date}</h2>
         </Date>
@@ -169,11 +169,11 @@ const NoteCard = ({ data }) => {
         >
           <Button onClick={removeNoteHandler}>
             <GoTrash size={22} />
-            <h4>{getFieldTranslationByNames(15083)}</h4>
+            <h4>{getFieldTranslationByNames("738")}</h4>
           </Button>
           <Button onClick={() => setIsEditing(true)}>
             <CiEdit size={22} />
-            <h4>{getFieldTranslationByNames(15076)}</h4>
+            <h4>{getFieldTranslationByNames("460")}</h4>
           </Button>
         </div>
       </Content>

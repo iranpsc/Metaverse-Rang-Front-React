@@ -187,13 +187,13 @@ const IdentityInputs = ({
         {errors.length > 0 && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
-            buttonText={getFieldTranslationByNames(10603)}
-            text={getFieldTranslationByNames(10603)}
-            info={getFieldTranslationByNames(10589)}
+            buttonText={getFieldTranslationByNames("882")}
+            text={getFieldTranslationByNames("882")}
+            info={getFieldTranslationByNames("880")}
             type="error"
           />
         )}
-        <Title title={getFieldTranslationByNames(10484)} />
+        <Title title={getFieldTranslationByNames("869")} />
         <Inputs
           identityError={identityError}
           data={data}
@@ -213,7 +213,7 @@ const IdentityInputs = ({
         />
         <Button
           large
-          label={getFieldTranslationByNames(10568)}
+          label={getFieldTranslationByNames("877")}
           onclick={sendHandler}
           disabled={isVideoUploaded ? false : "pending"}
         />

@@ -83,11 +83,11 @@ const Following = () => {
     <Container>
       <div style={{ marginBottom: "20px" }}>
         <Title
-          title={getFieldTranslationByNames(294)}
+          title={getFieldTranslationByNames("55")}
         />
       </div>
       <SearchInput
-        placeholder={getFieldTranslationByNames(285)}
+        placeholder={getFieldTranslationByNames("57")}
         value={searched}
         onchange={(e) => setSearched(e.target.value)}
       />

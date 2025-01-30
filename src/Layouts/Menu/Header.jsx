@@ -79,10 +79,10 @@ const Header = () => {
         <Logo src={LogoIcon} />
         <ContainerText isOpen={isOpen}>
           <Title>
-            {getFieldTranslationByNames(3688)}
+            {getFieldTranslationByNames("148")}
           </Title>
           <Details>
-            {getFieldTranslationByNames(10799)}
+            {getFieldTranslationByNames("256")}
           </Details>
         </ContainerText>
       </ContainerMain>

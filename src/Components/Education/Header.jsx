@@ -73,7 +73,7 @@ const Header = ({ show, setOpenEducation, setSize, title }) => {
       <Text>
         {title
           ? getFieldTranslationByNames(title[0], title[1])
-          : getFieldTranslationByNames(6396)}
+          : getFieldTranslationByNames("479")}
       </Text>
       <Icons>
         <Div onClick={handleMinimizeClick}>

@@ -107,7 +107,7 @@ const NoteDetails = ({ data, setShowDetails }) => {
         <Container>
           <Header>
             <Title
-              title={getFieldTranslationByNames(14978)}
+              title={getFieldTranslationByNames("1358")}
             />
             <div onClick={() => setShowDetails(false)}>X</div>
           </Header>

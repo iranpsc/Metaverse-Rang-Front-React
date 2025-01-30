@@ -147,7 +147,7 @@ const PublicTab = () => {
         ))}
       </Settings>
 
-      <Button label={getFieldTranslationByNames(7817)} onclick={handleSubmit} />
+      <Button label={getFieldTranslationByNames("411")} onclick={handleSubmit} />
     </Container>
   );
 };

@@ -9,7 +9,7 @@ export default function Verification() {
   const [openErrorModal, setOpenErrorModal] = useState(false);
   const tabs = [
     {
-      title: getFieldTranslationByNames(10470),
+      title: getFieldTranslationByNames("867"),
       content: (
         <IdentityTab
           openErrorModal={openErrorModal}
@@ -18,7 +18,7 @@ export default function Verification() {
       ),
     },
     {
-      title: getFieldTranslationByNames(10477),
+      title: getFieldTranslationByNames("868"),
       content: (
         <BankTab
           openErrorModal={openErrorModal}

@@ -125,7 +125,7 @@ const VodCard = ({ data }) => {
           <p>#{data.code}</p>
         </Texts>
         <Socials>
-          <h3>{getFieldTranslationByNames(14803)}</h3>
+          <h3>{getFieldTranslationByNames("1348")}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -141,22 +141,22 @@ const VodCard = ({ data }) => {
       </Info>
       <Content>
         <Subject>
-          <Label>{getFieldTranslationByNames(14733)}</Label>
+          <Label>{getFieldTranslationByNames("1340")}</Label>
           <h2>{data.sender.name}</h2>
         </Subject>
         <Status status={data?.status}>
-          <Label>{getFieldTranslationByNames(14740)}</Label>
+          <Label>{getFieldTranslationByNames("1341")}</Label>
           <h2>
             {data?.status === "confirmed"
-              ? getFieldTranslationByNames(14768)
+              ? getFieldTranslationByNames("1343")
               : data?.status === "pending"
-              ? getFieldTranslationByNames(14775)
-              : getFieldTranslationByNames(14782)}
+              ? getFieldTranslationByNames("1344")
+              : getFieldTranslationByNames("1345")}
           </h2>
         </Status>
         <Date>
           <Label>
-            {getFieldTranslationByNames(14747)}
+            {getFieldTranslationByNames("64")}
           </Label>
           <h2>
             {data?.date} | {data?.time}
@@ -167,13 +167,13 @@ const VodCard = ({ data }) => {
             fit
             onclick={() => onCloseTicket()}
             grayTheme
-            label={getFieldTranslationByNames(14817)}
+            label={getFieldTranslationByNames("1350")}
           />
           <Button
             fit
             onclick={() => onCloseTicket()}
             grayTheme
-            label={getFieldTranslationByNames(14810)}
+            label={getFieldTranslationByNames("1349")}
           />
         </Buttons>
       </Content>

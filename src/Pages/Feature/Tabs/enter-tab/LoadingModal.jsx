@@ -55,7 +55,7 @@ const LoadingModal = ({ isMobile, setOpen }) => {
       <Loader>
         <img src={loader} width={130} height={130} alt="loader" />
         <Text>
-          {getFieldTranslationByNames(7040)}
+          {getFieldTranslationByNames("552")}
         </Text>
       </Loader>
     </StyledRnd>

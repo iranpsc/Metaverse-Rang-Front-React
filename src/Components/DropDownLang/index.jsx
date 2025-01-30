@@ -148,7 +148,7 @@ const DropDownLang = () => {
     <Tippy
       content={
         <Tooltip>
-          {getFieldTranslationByNames(6082)}
+          {getFieldTranslationByNames("456")}
         </Tooltip>
       }
       zIndex={10000}
@@ -163,7 +163,7 @@ const DropDownLang = () => {
             {" "}
             <Icon src={LangIcon} />
             <Text shouldHide={!isOpen}>
-              {getFieldTranslationByNames(6082)}
+              {getFieldTranslationByNames("456")}
             </Text>
           </TitleContainer>
           <ChevronIcon isOpenDrop={isOpenDrop} shouldHide={!isOpen} />{" "}
@@ -175,13 +175,13 @@ const DropDownLang = () => {
               onClick={() => changeLanguage("en")}
               isSelected={currentLang === "en"}
             >
-              {getFieldTranslationByNames(13529)}
+              {getFieldTranslationByNames("1191")}
             </DropdownItem>
             <DropdownItem
               onClick={() => changeLanguage("fa")}
               isSelected={currentLang === "fa"}
             >
-              {getFieldTranslationByNames(13788)}
+              {getFieldTranslationByNames("1228")}
             </DropdownItem>
           </DropdownMenu>
         )}

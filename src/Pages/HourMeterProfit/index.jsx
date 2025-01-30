@@ -7,7 +7,7 @@ import { getFieldTranslationByNames } from "../../Services/Utility";
 const HourMeterProfit = () => {
   const tabs = [
     {
-      title: getFieldTranslationByNames(153),
+      title: getFieldTranslationByNames("27"),
       content: <ProfitView />,
     },
   ];

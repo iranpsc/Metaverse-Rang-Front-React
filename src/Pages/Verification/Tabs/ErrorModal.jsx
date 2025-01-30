@@ -76,10 +76,10 @@ const ErrorModal = ({ setOpenErrorModal, errors }) => {
         <div>
           <Title>
             {" "}
-            {getFieldTranslationByNames(10610)}
+            {getFieldTranslationByNames("883")}
           </Title>
           <Info>
-            {getFieldTranslationByNames(10596)}
+            {getFieldTranslationByNames("881")}
           </Info>
         </div>
         <Div>

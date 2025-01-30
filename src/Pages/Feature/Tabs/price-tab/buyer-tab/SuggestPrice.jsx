@@ -83,7 +83,7 @@ const SuggestPrice = () => {
   return (
     <Wrapper>
       <Text>
-        {getFieldTranslationByNames(6816)}
+        {getFieldTranslationByNames("527")}
       </Text>
       {!assign && (
         <FillInputs

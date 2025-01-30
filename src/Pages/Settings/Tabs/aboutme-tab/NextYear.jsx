@@ -61,7 +61,7 @@ const NextYear = () => {
 
   return (
     <>
-      <Label>{getFieldTranslationByNames(643)}</Label>
+      <Label>{getFieldTranslationByNames("92")}</Label>
       <EditorContainer>
         <ReactQuill 
           value={predictionValue} 
@@ -72,7 +72,7 @@ const NextYear = () => {
       </EditorContainer >
       
       <Char isOverLimit={isOverLimit} >
-        <span>{localizedRemainingChars} {getFieldTranslationByNames(9217)}</span>
+        <span>{localizedRemainingChars} {getFieldTranslationByNames("530")}</span>
         <CiEdit size={20} />
       </Char>
     </>

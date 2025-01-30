@@ -139,14 +139,14 @@ const PreviewModel = ({ data }) => {
             />
           </div>
           <Header>
-            {getFieldTranslationByNames(5276)}
+            {getFieldTranslationByNames("371")}
           </Header>
         </div>
         <div className="modal-body ">
           <Container>
             <ContainerDetail>
               <TextTitle>
-                {getFieldTranslationByNames(5283)}
+                {getFieldTranslationByNames("372")}
               </TextTitle>
               {data[0].attributes.map((attribute, index) => (
                 <PHolder key={index}>

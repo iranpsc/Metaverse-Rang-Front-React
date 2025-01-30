@@ -189,9 +189,9 @@ const Bank = () => {
 
   return (
     <Container>
-      <Title title={getFieldTranslationByNames(7915)} />
+      <Title title={getFieldTranslationByNames("635")} />
       <Select onChange={handleSelectChange} value={selectedValue}>
-        <option value="">{getFieldTranslationByNames(7922)}</option>
+        <option value="">{getFieldTranslationByNames("636")}</option>
         {options.map((item) => (
           <option value={item.label} key={item.id}>
             <IoCardOutline />
@@ -214,7 +214,7 @@ const Bank = () => {
       </Wrapper>
       <Button
         full
-        label={getFieldTranslationByNames(7866)}
+        label={getFieldTranslationByNames("629")}
         onclick={handleSaveButtonClick}
       />
     </Container>

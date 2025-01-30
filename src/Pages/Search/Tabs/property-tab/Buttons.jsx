@@ -147,7 +147,7 @@ const Buttons = ({ item }) => {
   const items = [
     {
       id: 1,
-      label: getFieldTranslationByNames(6340),
+      label: getFieldTranslationByNames("353"),
       icon: <LuShoppingCart />,
       onClick: () =>
         Navigate(`/metaverse/feature/${item?.id}`, {
@@ -156,7 +156,7 @@ const Buttons = ({ item }) => {
     },
     {
       id: 2,
-      label: getFieldTranslationByNames(6347),
+      label: getFieldTranslationByNames("472"),
       icon: <HiOutlineCurrencyDollar />,
       onClick: () => {
         Navigate(`/metaverse/feature/${item?.id}`, {
@@ -166,7 +166,7 @@ const Buttons = ({ item }) => {
     },
     {
       id: 3,
-      label: getFieldTranslationByNames(6354),
+      label: getFieldTranslationByNames("473"),
       icon: <HiOutlineLocationMarker />,
       onClick: () => {
         flyToPosition({

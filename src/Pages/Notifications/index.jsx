@@ -42,7 +42,7 @@ const Notifications = () => {
     <ModalSm title={10449}>
       <Container>
         <h4 onClick={() => setNotifications([])}>
-          {getFieldTranslationByNames(10463)}
+          {getFieldTranslationByNames("866")}
         </h4>
 
         <Div>

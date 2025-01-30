@@ -87,12 +87,12 @@ const EnterConfirmModal = ({ data, setPayStatus, setPayed, setLoading }) => {
     <BackGround>
       <Modal>
         <Title>
-          {getFieldTranslationByNames(6998)}
+          {getFieldTranslationByNames("548")}
         </Title>
         <Info>
-          {getFieldTranslationByNames(7012)}
+          {getFieldTranslationByNames("549")}
           {convertToPersian(20)}
-          {getFieldTranslationByNames(7026)}
+          {getFieldTranslationByNames("550")}
         </Info>
         <Inputs>
           {data[0].inputs.slice(0, 2).map((input) => (
@@ -101,10 +101,10 @@ const EnterConfirmModal = ({ data, setPayStatus, setPayed, setLoading }) => {
         </Inputs>
         <Buttons>
           <Button blue onClick={enterHandler}>
-            {getFieldTranslationByNames(6900)}
+            {getFieldTranslationByNames("536")}
           </Button>
           <Button onClick={() => setPayStatus(false)}>
-            {getFieldTranslationByNames(7033)}
+            {getFieldTranslationByNames("551")}
           </Button>
         </Buttons>
       </Modal>

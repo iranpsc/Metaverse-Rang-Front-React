@@ -111,23 +111,23 @@ const Follower = () => {
           <SubMenu isOpenDrop={openDropdowns[user.id]} isOpen={isOpen}>
             <BtnNavigator>
               <Icon src={Ticket} />
-              {getFieldTranslationByNames(3814)}
+              {getFieldTranslationByNames("241")}
             </BtnNavigator>
             <BtnNavigator disabled>
               <Icon src={Message} />
-              {getFieldTranslationByNames(3821)}
+              {getFieldTranslationByNames("242")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={ProfileMember} />
-              {getFieldTranslationByNames(3828)}
+              {getFieldTranslationByNames("243")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={CitizenProfile} />
-              {getFieldTranslationByNames(1899)}
+              {getFieldTranslationByNames("162")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={Share} />
-              {getFieldTranslationByNames(3835)}
+              {getFieldTranslationByNames("244")}
             </BtnNavigator>
           </SubMenu>
         </React.Fragment>

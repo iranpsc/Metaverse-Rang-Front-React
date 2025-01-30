@@ -239,7 +239,7 @@ const Houses = () => {
     <Container id="scrollable-container">
       <div>
         <Title
-          title={getFieldTranslationByNames(288)}
+          title={getFieldTranslationByNames("58")}
         />
       </div>
       <Div>
@@ -247,7 +247,7 @@ const Houses = () => {
           <FiSearch size={34} />
           <input
             type="text"
-            placeholder={getFieldTranslationByNames(285)}
+            placeholder={getFieldTranslationByNames("57")}
             value={searched}
             onChange={(e) => setSearched(e.target.value)}
           />
@@ -256,10 +256,10 @@ const Houses = () => {
           <Select onClick={() => setOpen(!open)}>
             <span>
               {property.industry
-                ? getFieldTranslationByNames(8650)
+                ? getFieldTranslationByNames("475")
                 : property.education
-                ? getFieldTranslationByNames(8664)
-                : getFieldTranslationByNames(8657)}
+                ? getFieldTranslationByNames("476")
+                : getFieldTranslationByNames("477")}
             </span>
             <MdKeyboardArrowDown
               style={{
@@ -280,7 +280,7 @@ const Houses = () => {
                 }}
               >
                 <h1>
-                  {getFieldTranslationByNames(8650)}
+                  {getFieldTranslationByNames("475")}
                 </h1>
                 {property.industry && (
                   <span
@@ -305,7 +305,7 @@ const Houses = () => {
                 }}
               >
                 <h1>
-                  {getFieldTranslationByNames(8664)}
+                  {getFieldTranslationByNames("476")}
                 </h1>
                 {property.education && (
                   <span
@@ -333,7 +333,7 @@ const Houses = () => {
                 }}
               >
                 <h1>
-                  {getFieldTranslationByNames(8657)}
+                  {getFieldTranslationByNames("477")}
                 </h1>
                 {property.house && (
                   <span

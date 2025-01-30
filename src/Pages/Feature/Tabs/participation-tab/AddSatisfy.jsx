@@ -95,10 +95,10 @@ const AddSatisfy = () => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames(7110)}
+        title={getFieldTranslationByNames("557")}
       />
       <Info>
-        {getFieldTranslationByNames(7117)}
+        {getFieldTranslationByNames("558")}
       </Info>
       <Inputs>
         <Div>
@@ -120,7 +120,7 @@ const AddSatisfy = () => {
             value={count}
             onChange={(e) => setCount(e.target.value)}
             type="number"
-            placeholder={getFieldTranslationByNames(7229)}
+            placeholder={getFieldTranslationByNames("559")}
             maxLength={3}
             min={0}
             max={200}
@@ -137,7 +137,7 @@ const AddSatisfy = () => {
         />
       </Inputs>
       <Button
-        label={getFieldTranslationByNames(7166)}
+        label={getFieldTranslationByNames("561")}
         onclick={addHandler}
       />
     </Container>

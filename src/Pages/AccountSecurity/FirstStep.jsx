@@ -110,9 +110,9 @@ const FirstStep = ({ setStep, time, setTime }) => {
 
   return (
     <Container>
-      <h3>{getFieldTranslationByNames(10400)}</h3>
+      <h3>{getFieldTranslationByNames("858")}</h3>
       <p>
-        {getFieldTranslationByNames(171)}
+        {getFieldTranslationByNames("32")}
       </p>
       <Div isPersian={isPersian}>
         <div>
@@ -135,7 +135,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
           onChange={(e) => setTime(e.target.value)}
           type="number"
           name="time"
-          placeholder={getFieldTranslationByNames(10400)}
+          placeholder={getFieldTranslationByNames("858")}
           maxLength={3}
           min={0}
           max={200}
@@ -153,12 +153,12 @@ const FirstStep = ({ setStep, time, setTime }) => {
         )}
         {time !== "" && (
           <Min isPersian={isPersian}>
-            {getFieldTranslationByNames(174)}
+            {getFieldTranslationByNames("33")}
           </Min>
         )}
       </Div>
       <button onClick={onSendHandler}>
-        {getFieldTranslationByNames(10407)}
+        {getFieldTranslationByNames("859")}
       </button>
     </Container>
   );

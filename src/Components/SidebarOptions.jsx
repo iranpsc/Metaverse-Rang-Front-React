@@ -32,13 +32,13 @@ const SidebarOptions = ({ option, setOption, seller }) => {
     <Wrapper>
       <Option option={option === true} onClick={() => setOption(true)}>
         {seller
-          ? getFieldTranslationByNames(6732)
-          : getFieldTranslationByNames(6795)}
+          ? getFieldTranslationByNames("517")
+          : getFieldTranslationByNames("524")}
       </Option>
       <Option option={option === false} onClick={() => setOption(false)}>
         {seller
-          ? getFieldTranslationByNames(6747)
-          : getFieldTranslationByNames(6802)}
+          ? getFieldTranslationByNames("519")
+          : getFieldTranslationByNames("525")}
       </Option>
     </Wrapper>
   );

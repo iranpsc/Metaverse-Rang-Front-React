@@ -196,7 +196,7 @@ const CardItem = ({
         </PhotoName>
         <Address>
           <span>
-            {getFieldTranslationByNames(297)}
+            {getFieldTranslationByNames("59")}
           </span>
           <p data-tooltip-id={address}>{address}</p>
           <StyledTooltip id={address} place="top" content={address} />
@@ -205,7 +205,7 @@ const CardItem = ({
       <Left>
         <Meter>
           <span>
-            {getFieldTranslationByNames(5095)}
+            {getFieldTranslationByNames("347")}
           </span>
           <p>{area}</p>
         </Meter>
@@ -214,7 +214,7 @@ const CardItem = ({
         ) : (
           <Price>
             <span>
-              {getFieldTranslationByNames(303)}
+              {getFieldTranslationByNames("60")}
             </span>
             <Div>
               <div>
@@ -231,12 +231,12 @@ const CardItem = ({
         {isDeleted ? (
           <Button
             fit
-            label={getFieldTranslationByNames(7264)}
+            label={getFieldTranslationByNames("352")}
             onclick={() => setIsDeleted(false)}
           />
         ) : (
           <Delete onClick={() => setIsDeleted(true)}>
-            {getFieldTranslationByNames(8804)}
+            {getFieldTranslationByNames("736")}
           </Delete>
         )}
       </Left>
