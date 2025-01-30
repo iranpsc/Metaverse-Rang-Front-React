@@ -124,13 +124,13 @@ const CitizenWarning = styled.div`
 
 const Inputs = () => {
   const options = [
-    { id: 1, label: "1", value: "citizen" },
-    { id: 2, label: "security of citizens", value: "citizens_safety" },
-    { id: 3, label: "technical support", value: "technical_support" },
-    { id: 4, label: "investment", value: "investment" },
-    { id: 5, label: "inspection", value: "inspection" },
-    { id: 6, label: "protection", value: "protection" },
-    { id: 7, label: "general management of z.t.b", value: "ztb" },
+    { id: 1, label: "1", value: "382" },
+    { id: 2, label: "1321", value: "citizens_safety" },
+    { id: 3, label: "1322", value: "technical_support" },
+    { id: 4, label: "1323", value: "investment" },
+    { id: 5, label: "1324", value: "inspection" },
+    { id: 6, label: "1325", value: "protection" },
+    { id: 7, label: "1326", value: "ztb" },
   ];
 
   const { state, dispatch } = useGlobalState();
@@ -220,24 +220,18 @@ const Inputs = () => {
     <Wrapper>
       <Container>
         <InputWrapper>
-          <Label>
-            {getFieldTranslationByNames("1318")}
-          </Label>
+          <Label>{getFieldTranslationByNames("1318")}</Label>
           <Select value={state.subject} onChange={subjectHandler}>
-            <option value="">
-              {getFieldTranslationByNames("1320")}
-            </option>
+            <option value="">{getFieldTranslationByNames("1320")}</option>
             {options.map((option) => (
               <option value={option.value} key={option.id}>
-                {getFieldTranslationByNames("send-vod", option.label)}
+                {getFieldTranslationByNames(option.label)}
               </option>
             ))}
           </Select>
         </InputWrapper>
         <InputWrapper>
-          <Label>
-            {getFieldTranslationByNames("1319")}
-          </Label>
+          <Label>{getFieldTranslationByNames("1319")}</Label>
           <Input
             type="text"
             placeholder={getFieldTranslationByNames("1319")}
@@ -249,9 +243,7 @@ const Inputs = () => {
 
       {state.subject === "citizen" && (
         <CitizenInputWrapper ref={dropdownRef}>
-          <Label>
-            {getFieldTranslationByNames("1329")}
-          </Label>
+          <Label>{getFieldTranslationByNames("1329")}</Label>
           <SelectedCitizens>
             {selectedCitizens.map((citizen) => (
               <SelectedCitizen key={citizen.id}>

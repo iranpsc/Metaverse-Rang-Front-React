@@ -35,8 +35,8 @@ const AccountTab = () => {
     title: "624",
     warn: "",
     inputs: [
-      { id: 1, type: "text", label: 7852, value: "" },
-      { id: 2, type: "number", label: 7859, value: "" },
+      { id: 1, type: "text", label: "627", value: "" },
+      { id: 2, type: "number", label: "628", value: "" },
     ],
   });
 
@@ -44,8 +44,8 @@ const AccountTab = () => {
     title: "625",
     warn: "",
     inputs: [
-      { id: 1, type: "number", label: 7880, value: "" },
-      { id: 2, type: "number", label: 7887, value: "" },
+      { id: 1, type: "number", label: "631", value: "" },
+      { id: 2, type: "number", label: "34", value: "" },
     ],
   });
 
@@ -63,12 +63,16 @@ const AccountTab = () => {
     if (Object.keys(settings).length > 0) {
       setEmailChange((prevState) => ({
         ...prevState,
-        warn: `${settings.email_reset_count}  ${getFieldTranslationByNames("1364")}`,
+        warn: `${settings.email_reset_count}  ${getFieldTranslationByNames(
+          "1364"
+        )}`,
       }));
 
       setMobileChange((prevState) => ({
         ...prevState,
-        warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames("1364")}`,
+        warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(
+          "1364"
+        )}`,
       }));
     }
   }, [settings]);

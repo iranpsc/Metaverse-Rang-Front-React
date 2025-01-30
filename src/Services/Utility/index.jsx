@@ -119,7 +119,6 @@ export const ToastSuccess = (message) => {
 
 export const getFieldTranslationByNames = (fieldId) => {
   const resources = i18n.store.data;
-
   if (
     !resources ||
     !resources[i18n.language] ||
@@ -132,7 +131,7 @@ export const getFieldTranslationByNames = (fieldId) => {
 
   for (const modal of modals) {
     for (const tab of modal.tabs || []) {
-      const field = tab.fields?.find((field) => field.unique_id === fieldId);
+      const field = tab.fields?.find((field) => field.unique_id == fieldId);
       if (field?.translation) {
         return field.translation;
       }
