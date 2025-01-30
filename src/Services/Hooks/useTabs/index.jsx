@@ -49,43 +49,44 @@ const TabContainer = styled.div`
   display: flex;
   border-bottom: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
-  margin-bottom: 10px;
 `;
 // Create a function that uses the tabs and current index
 function useTabs(tabs, current, fullHeight) {
-  // Set active tab to current index or 0
-  const [activeTab, setActiveTab] = useState(current || 0);
-  // Get current location
-
+  const [activeTab, setActiveTab] = useState(current !== undefined ? current : 0);
   const Location = useLocation();
   const newStr = Location.pathname.replace(/\/metaverse\//g, "") + "-";
   const [locationPage, setLocationPage] = useState("");
-  // Update location page on active tab change
   Location.state = { ...Location.state, locationPage };
+
+  useEffect(() => {
+    if (current !== undefined) {
+      setActiveTab(current);
+    }
+  }, [current]);
+
   useEffect(() => {
     setLocationPage(newStr + (activeTab + 1));
-  }, [activeTab, Location, current]);
+  }, [activeTab, Location]);
+
   useEffect(() => {
-    if (Location.state && Location.state.activePageNumber) {
+    if (Location.state && Location.state.activePageNumber !== undefined) {
       setActiveTab(Location.state.activePageNumber);
     }
   }, [Location]);
 
-  // Return the TabContainer component with the appropriate styling and content
   return (
     <TabsWrapper fullHeight={fullHeight}>
       <TabContainer>
         {tabs.map((tab, index) => (
           <Tab
-            key={index} // Use tab index as key
-            active={activeTab === index} // Add active prop
+            key={index}
+            active={activeTab === index}
             onClick={() => {
-              setActiveTab(index);
+              setActiveTab(index); 
               Location.state = {
                 ...Location.state,
                 activePageNumber: index,
                 locationPage,
-                activeTab,
               };
             }}
           >
@@ -97,6 +98,7 @@ function useTabs(tabs, current, fullHeight) {
     </TabsWrapper>
   );
 }
+
 
 // Export the useTabs function
 export default useTabs;

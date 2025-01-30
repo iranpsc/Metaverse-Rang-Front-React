@@ -57,6 +57,14 @@ export default function Routers() {
         />
 
         <Route
+          path="profile/confirmation"
+          element={
+            <PrivateRoute>
+              <AccountSecurityModal />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="report"
           element={
             <PrivateRoute>

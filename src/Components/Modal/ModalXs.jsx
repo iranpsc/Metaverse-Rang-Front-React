@@ -19,9 +19,9 @@ const Modal = styled.div`
   border-radius: 10px;
   padding: 15px 20px;
 `;
-const ModalXs = ({ children, title, handleExitClick }) => {
+const ModalXs = ({ children, title, handleExitClick,onClose  }) => {
   return (
-    <Container>
+    <Container onClick={onClose}> {/* اجرای onClose هنگام کلیک روی پس‌زمینه */}
       <Modal>
         <Header title={title} handleExit={handleExitClick} />
         {children}

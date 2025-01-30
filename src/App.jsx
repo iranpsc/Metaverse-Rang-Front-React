@@ -24,6 +24,8 @@ import Routers from "./Layouts/Map/Routers.jsx";
 import { getFieldTranslationByNames } from "./Services/Utility/index.jsx";
 import { LanguageProvider } from "./Services/Reducers/LanguageContext.jsx";
 import RotateDevice from "./Components/RotateDevice";
+import { AccountSecurityProvider } from "./Services/Reducers/accountSecurityContext.jsx"; // ایمپورت کانتکست
+
 const Container = styled.section`
   display: flex;
   width: 100%;
@@ -57,7 +59,8 @@ function App() {
     });
   }, []);
 
-  return (
+  return (    <AccountSecurityProvider>
+
     <MapProvider>
       <ThemeProviderContext>
         <LanguageProvider>
@@ -92,6 +95,8 @@ function App() {
         </LanguageProvider>
       </ThemeProviderContext>
     </MapProvider>
+    </AccountSecurityProvider>
+
   );
 }
 

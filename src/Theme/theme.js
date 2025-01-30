@@ -61,6 +61,9 @@ export const lightTheme = {
         btnIconText: "#353535",
         gray: "#898989",
         containerPrimary: "#F5F9FF",
+        offerbg:"#D7FBF0",
+        offerbg2:"#FF00001F"
+
       },
     },
   },
@@ -140,6 +143,10 @@ export const darkTheme = {
         btnIconText: "#949494",
         gray: "#969696",
         containerPrimary: "#2C2C2C",
+        offerbg:"#1A352B",
+        offerbg2:"#3F1614"
+
+
       },
     },
   },

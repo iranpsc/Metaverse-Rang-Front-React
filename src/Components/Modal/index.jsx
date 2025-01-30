@@ -9,7 +9,7 @@ const ModalContainer = styled.div`
   padding: 15px 14px;
   max-width: 800px;
   width: 81%;
-  z-index: 2000;
+  z-index: 12;
   position: absolute;
   right: 0;
   @media (min-width: 1023px) {
