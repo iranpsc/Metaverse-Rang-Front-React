@@ -60,7 +60,7 @@ export default function Report() {
   const location = useLocation();
   const { href, locationPage } = location.state || {};
   const [title, setTitle] = useState();
-  const [subdomain, setSubdomain] = useState(getTranslation(1386));
+  const [subdomain, setSubdomain] = useState(getTranslation("1386"));
 
   useEffect(() => {
     const extractedTitle = getTitleFromHref(href);
@@ -85,7 +85,7 @@ export default function Report() {
 console.log(getFieldTranslationByNames("241"))
   return (
     <ReportStateProvider>
-      <Modal type="modal-section-xl" title={["23"]}>
+      <Modal type="modal-section-xl" title={("23")}>
         {TabPanel}
       </Modal>
     </ReportStateProvider>
