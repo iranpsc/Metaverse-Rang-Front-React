@@ -131,11 +131,11 @@ const ReportCard = ({
         <Texts>
           <Title title={truncateTitle(reportDetails.title)} />
           <p>
-          {getFieldTranslationByNames("report", "write your report from page")}{" "}<span>{domain}</span> {getFieldTranslationByNames("report", "section")}
+          {getFieldTranslationByNames("1376")}{" "}<span>{domain}</span> {getFieldTranslationByNames("1377")}
             <span>{" "} {subdomain}</span> </p>
         </Texts>
         <Socials isPersian={isPersian}>
-  <h3>{getFieldTranslationByNames("central-page", "share")}</h3>
+  <h3>{getFieldTranslationByNames("244")}</h3>
   <div>
     {socials.map((item) => (
       <div key={item.id} style={{ width: 24, height: 24 }}>
@@ -148,25 +148,25 @@ const ReportCard = ({
       </Info>
       <Content>
         <Code>
-          <Label>{getFieldTranslationByNames("report", "report code")} </Label>
+          <Label>{getFieldTranslationByNames("1383")} </Label>
           <h2>#{convertToPersian(code)}</h2>
         </Code>
        {/* <Subject>
-          <Label>{getFieldTranslationByNames("report", "subject")}</Label>
+          <Label>{getFieldTranslationByNames("746")}</Label>
           <h2>{member}</h2>
         </Subject>*/}
         <Status status={status}>
-          <Label>{getFieldTranslationByNames("property-information", "condition")}</Label>
+          <Label>{getFieldTranslationByNames("65")}</Label>
           <h2>
             {status === "confirmed"
-              ? getFieldTranslationByNames("report", "answered")
+              ? getFieldTranslationByNames("1343")
               : status === "pending"
-              ? getFieldTranslationByNames("report", "under review")
-              : getFieldTranslationByNames("report", "under review")}{/*getFieldTranslationByNames("report", "closed")*/}
+              ? getFieldTranslationByNames("852")
+              : getFieldTranslationByNames("852")}{/*getFieldTranslationByNames("1345")*/}
           </h2>
         </Status>
         <Date>
-          <Label>{getFieldTranslationByNames("citizenship-account", "date and time sending")}</Label>
+          <Label>{getFieldTranslationByNames("850")}</Label>
           <h2>
           {date} | {time}
           </h2>

@@ -1,222 +1,117 @@
-import { promises as fs } from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import axios from "axios";
+const fs = require("fs").promises;
+const path = require("path");
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-async function fetchJsonData(jsonUrl) {
+// Function to read and parse the JSON file
+async function readTranslationFile(filePath) {
   try {
-    const response = await axios.get(jsonUrl);
-    return response.data;
+    const data = await fs.readFile(filePath, "utf8");
+    return JSON.parse(data);
   } catch (error) {
-    console.error("❌ Error fetching JSON:", error.message);
-    throw error;
+    console.error("Error reading translation file:", error);
+    return null;
   }
 }
 
-function createTranslationMap(jsonData) {
-  const translationMap = new Map();
+// Function to create ID to unique_id mapping from JSON structure
+function createIdMapping(jsonData) {
+  const mapping = new Map();
 
-  for (const modal of jsonData.modals) {
-    const modalName = modal.name;
-    for (const tab of modal.tabs || []) {
-      for (const field of tab.fields || []) {
-        const key = `${modalName}:${field.name}`;
-        translationMap.set(key, {
-          id: field.id,
-          translation: field.translation,
-          modalName,
-          fieldName: field.name,
+  // Traverse modals
+  if (jsonData.modals) {
+    jsonData.modals.forEach((modal) => {
+      if (modal.tabs) {
+        modal.tabs.forEach((tab) => {
+          if (tab.fields) {
+            tab.fields.forEach((field) => {
+              if (field.id && field.unique_id) {
+                mapping.set(field.id.toString(), field.unique_id);
+                // Also map the field name if available
+                if (field.name) {
+                  mapping.set(field.name, field.unique_id);
+                }
+              }
+            });
+          }
         });
       }
-    }
+    });
   }
 
-  return translationMap;
+  return mapping;
 }
 
-async function processFile(filePath, translationMap) {
+// Function to process a single file
+async function processFile(filePath, idMapping) {
   try {
-    const content = await fs.readFile(filePath, "utf8");
-    let modified = false;
-    let newContent = content;
+    let content = await fs.readFile(filePath, "utf8");
 
-    const patterns = [
-      {
-        regex: /useState\(\{[\s\S]*?title:\s*["'](.*?)["'][\s\S]*?inputs:\s*\[([\s\S]*?)\]\s*\}\)/g,
-        replace: (match, title, inputs) => {
-          const titleKey = `setting:${title}`;
-          const titleTranslation = translationMap.get(titleKey);
-          
-          let newInputs = inputs;
-          const labelRegex = /label:\s*["'](.*?)["']/g;
-          const labelMatches = [...inputs.matchAll(labelRegex)];
-          
-          for (const [labelMatch, label] of labelMatches) {
-            const labelKey = `setting:${label}`;
-            const labelTranslation = translationMap.get(labelKey);
-            if (labelTranslation) {
-              newInputs = newInputs.replace(
-                labelMatch,
-                `translationId: ${labelTranslation.id}`
-              );
-            }
-          }
-          
-          return `useState({
-            translationId: ${titleTranslation?.id || 'null'},
-            inputs: [${newInputs}]
-          })`;
-        }
-      },
+    // Match both single and double parameter patterns
+    const regex = /getFieldTranslationByNames\("([^"]+)"(?:,\s*"([^"]+)")?\)/g;
 
-      {
-        regex: /const\s+items_info\s*=\s*\[([\s\S]*?)\];/g,
-        replace: (match, items) => {
-          let newItems = items;
-          const titleRegex = /title:\s*["'](.*?)["']/g;
-          const titleMatches = [...items.matchAll(titleRegex)];
-          
-          for (const [titleMatch, title] of titleMatches) {
-            const titleKey = `setting:${title}`;
-            const titleTranslation = translationMap.get(titleKey);
-            if (titleTranslation) {
-              newItems = newItems.replace(
-                titleMatch,
-                `translationId: ${titleTranslation.id}`
-              );
-            }
-          }
-          
-          return `const items_info = [${newItems}];`;
-        }
-      },
-
-      {
-        regex: /getFieldTranslationByNames\(["'](.*?)["'],\s*(?:["'](.*?)["']|.*?\.(?:title|label))\)/g,
-        replace: (match, modalName, fieldName) => {
-          if (!fieldName) {
-            return match.replace(/\.(?:title|label)/, '.translationId');
-          }
-          const key = `${modalName}:${fieldName}`;
-          const translation = translationMap.get(key);
-          return translation ? 
-            `getFieldTranslationByNames(${translation.id})` : 
-            match;
-        }
-      },
-
-      {
-        regex: /getFieldTranslationByNames\((\d+)\)/g,
-        replace: (match) => match
+    content = content.replace(regex, (match, param1, param2) => {
+      // If single parameter, check if it's numeric
+      if (!param2) {
+        if (!isNaN(param1)) return match;
+        const uniqueId = idMapping.get(param1);
+        return uniqueId ? `getFieldTranslationByNames("${uniqueId}")` : match;
       }
-    ];
 
-    for (const pattern of patterns) {
-      const matches = [...newContent.matchAll(pattern.regex)];
-      for (const match of matches) {
-        const replacement = typeof pattern.replace === 'function' ? 
-          pattern.replace(...match) : 
-          pattern.replace;
-          
-        if (replacement && replacement !== match[0]) {
-          newContent = newContent.replace(match[0], replacement);
-          modified = true;
-          console.log(`✅ Replaced in ${filePath}:`);
-          console.log(`   Before: ${match[0]}`);
-          console.log(`   After: ${replacement}`);
-        }
+      // If double parameter, check second parameter
+      if (!isNaN(param2)) return match;
+      const uniqueId = idMapping.get(param2);
+      return uniqueId ? `getFieldTranslationByNames("${uniqueId}")` : match;
+    });
+
+    await fs.writeFile(filePath, content, "utf8");
+    console.log(`Processed: ${filePath}`);
+  } catch (error) {
+    console.error(`Error processing file ${filePath}:`, error);
+  }
+}
+
+// ...existing code...
+// Main function to process all files in a directory
+async function processDirectory(directoryPath, idMapping) {
+  try {
+    const files = await fs.readdir(directoryPath, { withFileTypes: true });
+
+    for (const file of files) {
+      const fullPath = path.join(directoryPath, file.name);
+
+      if (file.isDirectory()) {
+        // Recursively process subdirectories
+        await processDirectory(fullPath, idMapping);
+      } else if (
+        file.name.endsWith(".js") ||
+        file.name.endsWith(".jsx") ||
+        file.name.endsWith(".tsx")
+      ) {
+        // Process JavaScript/React files
+        await processFile(fullPath, idMapping);
       }
     }
-
-    if (modified) {
-      await fs.writeFile(filePath, newContent);
-      console.log(`✅ File ${filePath} updated successfully`);
-      return true;
-    }
-
-    return false;
   } catch (error) {
-    console.error(`❌ Error processing file ${filePath}:`, error.message);
-    return false;
+    console.error("Error processing directory:", error);
   }
 }
 
-async function scanDirectory(dirPath, translationMap) {
-  try {
-    const entries = await fs.readdir(dirPath, { withFileTypes: true });
-    let stats = {
-      scanned: 0,
-      modified: 0,
-      errors: 0,
-    };
+// Main execution
+async function main() {
+  const translationFilePath = "./fa.json"; // Path to your JSON file
+  const sourceCodeDir = "./src"; // Path to your React project source code
 
-    for (const entry of entries) {
-      const fullPath = path.join(dirPath, entry.name);
+  // Read and parse the translation file
+  const translationData = await readTranslationFile(translationFilePath);
+  if (!translationData) return;
 
-      if (entry.isDirectory()) {
-        if (!["node_modules", "build", "dist", ".git"].includes(entry.name)) {
-          const subStats = await scanDirectory(fullPath, translationMap);
-          stats.scanned += subStats.scanned;
-          stats.modified += subStats.modified;
-          stats.errors += subStats.errors;
-        }
-      } else if (entry.isFile() && /\.(js|jsx|ts|tsx)$/.test(entry.name)) {
-        stats.scanned++;
-        try {
-          const wasModified = await processFile(fullPath, translationMap);
-          if (wasModified) stats.modified++;
-        } catch (error) {
-          stats.errors++;
-          console.error(`❌ Error in file ${fullPath}:`, error.message);
-        }
-      }
-    }
+  // Create ID to unique_id mapping
+  const idMapping = createIdMapping(translationData);
 
-    return stats;
-  } catch (error) {
-    console.error(`❌ Error scanning directory ${dirPath}:`, error.message);
-    return { scanned: 0, modified: 0, errors: 1 };
-  }
+  // Process all files in the source directory
+  await processDirectory(sourceCodeDir, idMapping);
+
+  console.log("Processing completed!");
 }
 
-async function updateTranslations(srcPath, jsonUrl) {
-  try {
-    console.log("📥 Fetching JSON file...");
-    const jsonData = await fetchJsonData(jsonUrl);
-    console.log("✅ JSON file fetched successfully");
-
-    console.log("🗺️ Creating translation map...");
-    const translationMap = createTranslationMap(jsonData);
-    console.log(
-      `✅ Translation map created with ${translationMap.size} entries`
-    );
-
-    console.log(`\n🔍 Starting scan of directory ${srcPath}`);
-    const stats = await scanDirectory(srcPath, translationMap);
-
-    console.log("\n📊 Final Report:");
-    console.log(`📁 Total files scanned: ${stats.scanned}`);
-    console.log(`✏️ Files modified: ${stats.modified}`);
-    console.log(`❌ Errors encountered: ${stats.errors}`);
-
-    console.log("\n✨ Operation completed successfully");
-  } catch (error) {
-    console.error("❌ Error running the program:", error.message);
-    process.exit(1);
-  }
-}
-
-const srcPath = process.argv[2] || "./src";
-const jsonUrl = process.argv[3] || "https://rgb.irpsc.com/lang/fa.json";
-
-if (!srcPath) {
-  console.error("❌ Please provide the src path");
-  console.error("Usage: node replaceWithIds.mjs <src-path> [json-url]");
-  process.exit(1);
-}
-
-console.log("🚀 Starting replacement operation...\n");
-updateTranslations(srcPath, jsonUrl);
+// Run the script
+main().catch(console.error);

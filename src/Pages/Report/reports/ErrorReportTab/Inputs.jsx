@@ -50,11 +50,11 @@ const Title = styled.div`
 
 const Inputs = () => {
   const options = [
-    { id: 1, label: getFieldTranslationByNames("report", "display error"), value: "displayError" },
-    { id: 2, label: getFieldTranslationByNames("report", "error in spelling"), value: "spellingError" },
-    { id: 3, label: getFieldTranslationByNames("report", "error in coding"), value: "codingError" },
-    { id: 4, label: getFieldTranslationByNames("report", "slow system fps"), value: "FPSError" },
-    { id: 5, label: getFieldTranslationByNames("report", "respectful"), value: "disrespect" },
+    { id: 1, label: getFieldTranslationByNames("1385"), value: "displayError" },
+    { id: 2, label: getFieldTranslationByNames("15"), value: "spellingError" },
+    { id: 3, label: getFieldTranslationByNames("16"), value: "codingError" },
+    { id: 4, label: getFieldTranslationByNames("17"), value: "FPSError" },
+    { id: 5, label: getFieldTranslationByNames("18"), value: "disrespect" },
   ];
 
   const { state, dispatch } = useReportsGlobalState();
@@ -72,9 +72,9 @@ const Inputs = () => {
   return (
     <Container>
       <Subject>
-        <Label>{getFieldTranslationByNames("report", "issue")}</Label>
+        <Label>{getFieldTranslationByNames("24")}</Label>
         <select value={state.subject} onChange={(e) => subjectHandler(e)}>
-          <option value="">{getFieldTranslationByNames("report", "issue")}</option>
+          <option value="">{getFieldTranslationByNames("24")}</option>
           {options.map((option) => (
             <option value={option.value} key={option.id}>
               {option.label}
@@ -83,10 +83,10 @@ const Inputs = () => {
         </select>
       </Subject>
       <Title>
-        <Label>{getFieldTranslationByNames("report", "title")}</Label>
+        <Label>{getFieldTranslationByNames("19")}</Label>
         <input
           type="text"
-          placeholder={getFieldTranslationByNames("report", "title")}
+          placeholder={getFieldTranslationByNames("19")}
           value={state.title}
           onChange={(e) => titleHandler(e)}
           maxLength={130} // محدودیت 200 کاراکتر

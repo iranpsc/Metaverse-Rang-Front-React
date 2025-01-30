@@ -91,31 +91,31 @@ const ErrorReportTab = ({ title, subdomain }) => {
           setAlert(false);
         }, 3000);
       } catch (error) {
-        setError(getFieldTranslationByNames("misc", "an error occurred"));
+        setError(getFieldTranslationByNames("1387"));
       }
     } else {
-      setError(getFieldTranslationByNames("report", "all fields must be filled before sending the report"));
+      setError(getFieldTranslationByNames("1379"));
     }
   };
   
   
   return (
     <Container ref={containerRef}>
-      <Title title={getFieldTranslationByNames("report", "error report")} right />
+      <Title title={getFieldTranslationByNames("1386")} right />
       <p>
-      {getFieldTranslationByNames("report", "write your report from page")}{" "}<span>{title}</span>{" "}{getFieldTranslationByNames("report", "section")} <span>{subdomain}</span>{" "}
+      {getFieldTranslationByNames("1376")}{" "}<span>{title}</span>{" "}{getFieldTranslationByNames("1377")} <span>{subdomain}</span>{" "}
       </p>
       {alert && (
         <Alert
           type="success"
-          text={getFieldTranslationByNames("training", "your report has been registered and will be reviewed as soon")}
+          text={getFieldTranslationByNames("461")}
         />
       )}
       <Inputs />
       <Description />
       <SendFiles />
       <div>
-        <Button fit label={getFieldTranslationByNames("training", "submit report")} onclick={sendReport} />
+        <Button fit label={getFieldTranslationByNames("193")} onclick={sendReport} />
       </div>
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>

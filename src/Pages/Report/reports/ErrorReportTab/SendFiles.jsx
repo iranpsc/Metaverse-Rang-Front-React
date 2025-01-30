@@ -125,7 +125,7 @@ const SendFiles = () => {
 
   return (
     <Container>
-      <Title title={getFieldTranslationByNames("report", "appendix to the report")} />
+      <Title title={getFieldTranslationByNames("21")} />
       <Files>
         {previews.map((preview, index) => (
           <FilePreview key={index}>

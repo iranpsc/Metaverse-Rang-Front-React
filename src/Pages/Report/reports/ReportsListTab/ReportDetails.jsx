@@ -113,7 +113,7 @@ const ReportDetails = ({
     <Back>
       <Container>
         <Header>
-          <Title title={getFieldTranslationByNames("send-vod", "writing the document")}/>
+          <Title title={getFieldTranslationByNames("1314")}/>
           <div onClick={() => setShowDetails(false)}>X</div>
         </Header>
         <Div>

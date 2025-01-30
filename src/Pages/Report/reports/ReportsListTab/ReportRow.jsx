@@ -102,15 +102,15 @@ const ReportRow = ({
   const translateMember = (member) => {
     switch (member) {
       case "spellingError":
-        return getFieldTranslationByNames("report", "error in spelling");
+        return getFieldTranslationByNames("15");
       case "FPSError":
-        return getFieldTranslationByNames("report", "slow system fps");
+        return getFieldTranslationByNames("17");
       case "displayError":
-        return getFieldTranslationByNames("report", "display error");
+        return getFieldTranslationByNames("1385");
       case "codingError":
-        return getFieldTranslationByNames("report", "error in coding");
+        return getFieldTranslationByNames("16");
       case "disrespect":
-        return getFieldTranslationByNames("report", "respectful");
+        return getFieldTranslationByNames("18");
       default:
         return member; // اگر مقدار دیگری بود، همان مقدار را برمی‌گرداند
     }
@@ -146,10 +146,10 @@ const ReportRow = ({
             }}
           >
             {status === "confirmed"
-              ? getFieldTranslationByNames("report", "answered")
+              ? getFieldTranslationByNames("1343")
               : status === "pending"
-                ? getFieldTranslationByNames("report", "under review")
-                : getFieldTranslationByNames("report", "closed")}
+                ? getFieldTranslationByNames("852")
+                : getFieldTranslationByNames("1345")}
           </Title>
         </TableCell>*/} 
         <TableCell>

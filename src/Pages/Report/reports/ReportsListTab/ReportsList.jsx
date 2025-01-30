@@ -191,11 +191,11 @@ const ReportsList = ({
         <TableHead>
           <TableRow>
             
-            <TableHeader><Div>{getFieldTranslationByNames("report", "report code")}</Div></TableHeader>
-            <TableHeader style={{ width: "120px" }} ><Div>{getFieldTranslationByNames("report", "title")}</Div></TableHeader>
+            <TableHeader><Div>{getFieldTranslationByNames("1383")}</Div></TableHeader>
+            <TableHeader style={{ width: "120px" }} ><Div>{getFieldTranslationByNames("19")}</Div></TableHeader>
             <TableHeader>
               <Div>
-                {getFieldTranslationByNames("report", "subject")}
+                {getFieldTranslationByNames("746")}
                 <Arrows
                   className="arrow-container"
 
@@ -221,7 +221,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("report", "display error")}
+                      {getFieldTranslationByNames("1385")}
                     </h1>
                     {member.displayError && (
                       <span
@@ -246,7 +246,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("report", "error in spelling")}
+                      {getFieldTranslationByNames("15")}
                     </h2>
                     {member.spellingError && (
                       <span
@@ -271,7 +271,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("report", "error in coding")}
+                      {getFieldTranslationByNames("16")}
                     </h3>
                     {member.codingError && (
                       <span
@@ -296,7 +296,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("report", "slow system fps")}
+                      {getFieldTranslationByNames("17")}
                     </h3>
                     {member.FPSError && (
                       <span
@@ -321,7 +321,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("report", "respectful")}
+                      {getFieldTranslationByNames("18")}
                     </h3>
                     {member.disrespect && (
                       <span
@@ -339,7 +339,7 @@ const ReportsList = ({
             </TableHeader>
            {/* <TableHeader style={{ width: "120px" }}>
               <Div>
-                {getFieldTranslationByNames("property-information", "condition")}
+                {getFieldTranslationByNames("65")}
                 <Arrows
                   className="arrow-container"
 
@@ -365,7 +365,7 @@ const ReportsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames("report", "answered")}
+                      {getFieldTranslationByNames("1343")}
                     </h1>
                     {status.confirmed && (
                       <span
@@ -390,7 +390,7 @@ const ReportsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames("report", "under review")}
+                      {getFieldTranslationByNames("852")}
                     </h1>
                     {status.pending && (
                       <span
@@ -415,7 +415,7 @@ const ReportsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames("report", "closed")}
+                      {getFieldTranslationByNames("1345")}
                     </h1>
                     {status.failed && (
                       <span
@@ -435,10 +435,10 @@ const ReportsList = ({
 
 
             <TableHeader>
-            <Div>{getFieldTranslationByNames("send-vod", "date and time of sending")}</Div>
+            <Div>{getFieldTranslationByNames("64")}</Div>
 
             </TableHeader>
-            <TableHeader>{getFieldTranslationByNames("report", "view the report")}</TableHeader>
+            <TableHeader>{getFieldTranslationByNames("1380")}</TableHeader>
           </TableRow>
         </TableHead>
         <tbody>
@@ -458,7 +458,7 @@ const ReportsList = ({
             handleLoadMore();
             setVisibleRows((prev) => prev + 10); 
           }}>
-            {getFieldTranslationByNames("property-information", "view more items")}
+            {getFieldTranslationByNames("368")}
           </button>
         </Loader>
       )}

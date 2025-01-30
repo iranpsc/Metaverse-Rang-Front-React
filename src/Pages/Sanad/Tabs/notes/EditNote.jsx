@@ -83,7 +83,7 @@ const EditNote = ({ setIsEditing, data }) => {
         <Button
           grayTheme
           fit
-          label={getFieldTranslationByNames("send-vod", "cancel")}
+          label={getFieldTranslationByNames("833")}
           onclick={() => setIsEditing(false)}
         />
       </Buttons>

@@ -139,18 +139,18 @@ const ReportsListTab = ({ title, subdomain }) => {
   return (
     <Container>
       <div>
-        <Title title={getFieldTranslationByNames("report", "list of reports")} />
+        <Title title={getFieldTranslationByNames("22")} />
       </div>
       <Div>
         <SearchInput
-          placeholder={getFieldTranslationByNames("report", "search report title")}
+          placeholder={getFieldTranslationByNames("1381")}
           value={searched}
           onchange={(e) => setSearched(e.target.value)}
         />
        
         <Date>
           <DatePicker
-            placeholder={getFieldTranslationByNames("report", "report date and time")}
+            placeholder={getFieldTranslationByNames("1382")}
             className={isDarkMode ? "bg-dark yellow" : ""}
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
