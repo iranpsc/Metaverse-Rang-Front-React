@@ -47,13 +47,11 @@ const titleTranslations = {
   "notifications": 3779,
 };
 
-// تابع برای ترجمه صفحه
 const translateLocationPage = (page) => {
   const translationId = pageTranslations[page];
   return translationId ? getTranslation(translationId) : page;
 };
 
-// تابع برای استخراج عنوان از href
 const getTitleFromHref = (href) => {
   return href ? href.split("/").pop() : "";
 };
