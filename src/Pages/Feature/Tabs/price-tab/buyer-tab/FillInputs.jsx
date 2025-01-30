@@ -3,7 +3,10 @@ import styled from "styled-components";
 import Rial from "../../../../../Components/Rial";
 import Psc from "../../../../../Components/Psc";
 import Input from "../../../../../Components/Input";
-import { convertToPersian } from "../../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../../Services/Utility";
 import TitleValue from "../../../../../Components/TitleValue";
 import Button from "../../../../../Components/Button";
 import SuggestText from "./SuggestText";
@@ -117,14 +120,14 @@ const FillInputs = ({
           value={rial}
           onchange={handleRialChange}
           type="number"
-          placeholder="پیشنهاد قیمت فروش (ریال)"
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(6760)})`}
           insideText={<Rial />}
         />
         <Input
           value={psc}
           onchange={handlePscChange}
           type="number"
-          placeholder="پیشنهاد قیمت فروش (PSC)"
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(14488)})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
@@ -132,26 +135,37 @@ const FillInputs = ({
       <Div>
         <SuggestText setValue={setSuggestText} value={suggestText} />
         <span style={{ color: "gray", fontSize: "14px" }}>
-          {1000 - suggestText.length} کاراکتر
+          {1000 - suggestText.length}{" "}
+          {getFieldTranslationByNames(6837)}
         </span>
       </Div>
       <ResultWrapper>
         <Wrapper>
-          <Title>قیمت نهایی</Title>
+          <Title>
+            {getFieldTranslationByNames(6781)}
+          </Title>
           <Value>
-            {convertToPersian(rial)} IRR / {psc} PSC
+            {convertToPersian(rial)}{" "}
+            {getFieldTranslationByNames(6760)} / {psc}{" "}
+            {getFieldTranslationByNames(14488)}
           </Value>
         </Wrapper>
         <Sec>
           <TitleValue
-            title="مانده"
+            title={getFieldTranslationByNames(6844)}
             value={convertToPersian(remainingAmount.toFixed(0))}
           />
-          <TitleValue title="کارمزد" value="5%" />
+          <TitleValue
+            title={getFieldTranslationByNames(6788)}
+            value="5%"
+          />
         </Sec>
       </ResultWrapper>
       <div>
-        <Button label="ثبت پیشنهاد" onclick={onSubmit} />
+        <Button
+          label={getFieldTranslationByNames(6851)}
+          onclick={onSubmit}
+        />
       </div>
     </>
   );

@@ -33,7 +33,7 @@ const CardPhotos = ({ nationalCardImg }) => {
     <Container>
       <div>
         <Title>
-          {getFieldTranslationByNames("authentication", "national card image")}
+          {getFieldTranslationByNames(10575)}
         </Title>
         <ImageWrapper>
           <img src={nationalCardImg} alt="nation" />

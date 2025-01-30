@@ -75,8 +75,7 @@ const Input = ({ id, icon, title, value, options, long, smallValue }) => {
       </InfoIcon>
       <Value smallValue={smallValue}>
         {id === 1 || id === 2 ? convertToPersian(+value) : value}
-        {id === 4 &&
-          getFieldTranslationByNames("property-information", options[0])}
+        {id === 4 && getFieldTranslationByNames(options[0])}
       </Value>
     </Item>
   );

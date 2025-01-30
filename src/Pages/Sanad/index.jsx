@@ -11,15 +11,15 @@ import { GlobalNoteStateProvider } from "./Tabs/GlobalNoteStateProvider";
 export default function Sanad() {
   const tabs = [
     {
-      title: getFieldTranslationByNames("send-vod", "writing the document"),
+      title: getFieldTranslationByNames(14523),
       content: <WriteVodTab />,
     },
     {
-      title: getFieldTranslationByNames("send-vod", "list of documents"),
+      title: getFieldTranslationByNames(14537),
       content: <VodListTab />,
     },
     {
-      title: getFieldTranslationByNames("send-vod", "note"),
+      title: getFieldTranslationByNames(14544),
       content: <NotesListTab />,
     },
   ];
@@ -29,7 +29,7 @@ export default function Sanad() {
   return (
     <GlobalNoteStateProvider>
       <GlobalVodStateProvider>
-        <Modal title={["send-vod", "documents"]}>{TabPanel}</Modal>
+        <Modal title={14530}>{TabPanel}</Modal>
       </GlobalVodStateProvider>
     </GlobalNoteStateProvider>
   );

@@ -27,20 +27,14 @@ const Inputs = ({ inputs }) => {
             key={row.id}
             icon={row.icon}
             value={row.value}
-            title={getFieldTranslationByNames(
-              "property-information",
-              row.title
-            )}
+            title={getFieldTranslationByNames(row.title)}
           />
         ))}
       </First>
       <TextValueIcon
         long
         smallValue
-        title={getFieldTranslationByNames(
-          "property-information",
-          inputs.second_row_info.title
-        )}
+        title={getFieldTranslationByNames(inputs.second_row_info.title)}
         value={inputs.second_row_info.value}
         icon={inputs.second_row_info.icon}
       />
@@ -50,10 +44,7 @@ const Inputs = ({ inputs }) => {
             key={row.id}
             icon={row.icon}
             value={row.value}
-            title={getFieldTranslationByNames(
-              "property-information",
-              row.title
-            )}
+            title={getFieldTranslationByNames(row.title)}
           />
         ))}
       </Third>

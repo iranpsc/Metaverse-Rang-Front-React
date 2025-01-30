@@ -87,21 +87,12 @@ const EnterConfirmModal = ({ data, setPayStatus, setPayed, setLoading }) => {
     <BackGround>
       <Modal>
         <Title>
-          {getFieldTranslationByNames(
-            "property-information",
-            "confirmation of entry to the property"
-          )}
+          {getFieldTranslationByNames(6998)}
         </Title>
         <Info>
-          {getFieldTranslationByNames(
-            "property-information",
-            "by paying the fee, the amount of"
-          )}
+          {getFieldTranslationByNames(7012)}
           {convertToPersian(20)}
-          {getFieldTranslationByNames(
-            "property-information",
-            "will be deducted from your account and you will enter the collection"
-          )}
+          {getFieldTranslationByNames(7026)}
         </Info>
         <Inputs>
           {data[0].inputs.slice(0, 2).map((input) => (
@@ -110,16 +101,10 @@ const EnterConfirmModal = ({ data, setPayStatus, setPayed, setLoading }) => {
         </Inputs>
         <Buttons>
           <Button blue onClick={enterHandler}>
-            {getFieldTranslationByNames(
-              "property-information",
-              "payment and entry"
-            )}
+            {getFieldTranslationByNames(6900)}
           </Button>
           <Button onClick={() => setPayStatus(false)}>
-            {getFieldTranslationByNames(
-              "property-information",
-              "I don't want to"
-            )}
+            {getFieldTranslationByNames(7033)}
           </Button>
         </Buttons>
       </Modal>

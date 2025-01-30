@@ -24,7 +24,7 @@ import Routers from "./Layouts/Map/Routers.jsx";
 import { getFieldTranslationByNames } from "./Services/Utility/index.jsx";
 import { LanguageProvider } from "./Services/Reducers/LanguageContext.jsx";
 import { LoaderProvider } from "./Services/Reducers/LoaderProvider.jsx";
-
+import RotateDevice from "./Components/RotateDevice";
 const Container = styled.section`
   display: flex;
   width: 100%;
@@ -70,6 +70,7 @@ function App() {
                   <MapContextProvider>
                     <AlertProvider>
                       <BrowserRouter>
+                        <RotateDevice />
                         <Routers />
                         <Container>
                           <MenuContextProvider>

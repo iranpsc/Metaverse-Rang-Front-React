@@ -25,37 +25,37 @@ const Colors = () => {
     {
       id: 1,
       gif: gif1,
-      label: getFieldTranslationByNames("citizenship-account", "satisfaction"),
+      label: getFieldTranslationByNames(8636),
       value: wallet?.effect,
     },
     {
       id: 2,
       gif: gif2,
-      label: getFieldTranslationByNames("citizenship-account", "yellow color"),
+      label: getFieldTranslationByNames(261),
       value: wallet?.yellow,
     },
     {
       id: 3,
       gif: gif3,
-      label: getFieldTranslationByNames("citizenship-account", "get red color"),
+      label: getFieldTranslationByNames(258),
       value: wallet?.red,
     },
     {
       id: 4,
       gif: gif4,
-      label: getFieldTranslationByNames("citizenship-account", "blue color"),
+      label: getFieldTranslationByNames(255),
       value: wallet?.blue,
     },
     {
       id: 5,
       gif: gif5,
-      label: getFieldTranslationByNames("citizenship-account", "rial"),
+      label: getFieldTranslationByNames(252),
       value: wallet?.irr,
     },
     {
       id: 6,
       gif: gif6,
-      label: getFieldTranslationByNames("citizenship-account", "impact"),
+      label: getFieldTranslationByNames(249),
       value: wallet?.psc,
     },
   ];

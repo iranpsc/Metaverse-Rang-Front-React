@@ -8,12 +8,20 @@ import Submit from "../../../Components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvironmentContext";
 import { WalletContext } from "../../../Services/Reducers/WalletContext";
 import useRequest from "../../../Services/Hooks/useRequest";
-import { ToastError, ToastSuccess } from "../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+  ToastSuccess,
+} from "../../../Services/Utility";
 
 const Icon = styled(WatchIcon)`
   stroke: ${(props) => props.theme.colors.primary};
 `;
-
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 const SatisfactionLunch = ({
   position,
   rotation,
@@ -147,31 +155,33 @@ const SatisfactionLunch = ({
 
   return (
     <ModalXs
-      title="ثبت رضایت"
+      title={7166}
       handleExitClick={handleExitClick}
       handelSubmitEnvironment={handelSubmitEnvironment}
     >
-      <InputNumber
-        placeholder="ثبت رضایت"
-        value={inputValue}
-        onChange={handleInputChange}
-        Error={error}
-      />
-      <TextValueIcon
-        title="زمان کسر شده"
-        icon={<Icon />}
-        value={calculatedValue.toFixed(2)}
-      />
-      <Submit
-        text="ثبت رضایت و تایید بنا"
-        type="primary"
-        options={{
-          style: {
-            alignSelf: "start",
-          },
-          onClick: handleSubmit,
-        }}
-      />
+      <Container>
+        <InputNumber
+          placeholder={getFieldTranslationByNames(7166)}
+          value={inputValue}
+          onChange={handleInputChange}
+          Error={error}
+        />
+        <TextValueIcon
+          title={getFieldTranslationByNames(5332)}
+          icon={<Icon />}
+          value={calculatedValue.toFixed(2)}
+        />
+        <Submit
+          text={getFieldTranslationByNames(7166)}
+          type="primary"
+          options={{
+            style: {
+              alignSelf: "start",
+            },
+            onClick: handleSubmit,
+          }}
+        />
+      </Container>
     </ModalXs>
   );
 };

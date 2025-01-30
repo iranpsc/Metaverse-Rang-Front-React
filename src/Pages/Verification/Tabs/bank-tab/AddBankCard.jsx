@@ -138,14 +138,14 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
     <BackGround>
       <Modal>
         <Title>
-          {getFieldTranslationByNames("authentication", "add a bank card")}
+          {getFieldTranslationByNames(10659)}
         </Title>
         <Close>
           <IoCloseCircleSharp onClick={() => setOpenAddModal(false)} />
         </Close>
         <Inputs>
           <EditInput
-            title={getFieldTranslationByNames("authentication", "card number")}
+            title={getFieldTranslationByNames(10694)}
             type="number"
             value={cardInfo.card_num}
             onchange={(e) => {
@@ -159,7 +159,7 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
             }}
           />
           <EditInput
-            title={getFieldTranslationByNames("authentication", "shaba number")}
+            title={getFieldTranslationByNames(10652)}
             type="number"
             value={cardInfo.shaba_num}
             onchange={(e) => {
@@ -176,7 +176,7 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
         {errors.length > 0 && <ErrorMessage>{errors[0]}</ErrorMessage>}
         <Button onClick={addCard}>
           {" "}
-          {getFieldTranslationByNames("authentication", "add a bank card")}
+          {getFieldTranslationByNames(10659)}
         </Button>
       </Modal>
     </BackGround>

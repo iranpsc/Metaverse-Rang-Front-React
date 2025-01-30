@@ -107,10 +107,7 @@ const NoteDetails = ({ data, setShowDetails }) => {
         <Container>
           <Header>
             <Title
-              title={getFieldTranslationByNames(
-                "send-vod",
-                "title of the note"
-              )}
+              title={getFieldTranslationByNames(14978)}
             />
             <div onClick={() => setShowDetails(false)}>X</div>
           </Header>

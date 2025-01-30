@@ -127,7 +127,7 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
     <Container>
       <NationCard>
         <Title>
-          {getFieldTranslationByNames("authentication", "national card image")}
+          {getFieldTranslationByNames(10575)}
         </Title>
         <UploadWrapper hasError={imageError}>
           {!nationImage && (

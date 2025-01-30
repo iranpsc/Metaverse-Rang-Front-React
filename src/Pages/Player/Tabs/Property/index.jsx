@@ -6,15 +6,15 @@ import Following from "./Tabs/Following";
 export default function Property() {
   const tabs = [
     {
-      name: getFieldTranslationByNames("citizenship-account", "real estates"),
+      name: getFieldTranslationByNames(288),
       component: <Features />,
     },
     {
-      name: getFieldTranslationByNames("citizenship-account", "followers"),
+      name: getFieldTranslationByNames(291),
       component: <Following />,
     },
     {
-      name: getFieldTranslationByNames("citizenship-account", "following"),
+      name: getFieldTranslationByNames(294),
       component: <Followers />,
     },
   ];

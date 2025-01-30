@@ -8,6 +8,7 @@ import {
   calculateFee,
   ToastSuccess,
   ToastError,
+  getFieldTranslationByNames,
 } from "../../../../../Services/Utility";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
@@ -81,7 +82,9 @@ const SuggestPrice = () => {
 
   return (
     <Wrapper>
-      <Text>قیمت پیشنهادی شما</Text>
+      <Text>
+        {getFieldTranslationByNames(6816)}
+      </Text>
       {!assign && (
         <FillInputs
           rial={rial}

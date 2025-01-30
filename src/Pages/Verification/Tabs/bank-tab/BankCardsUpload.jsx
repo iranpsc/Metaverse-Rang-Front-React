@@ -177,10 +177,7 @@ const BankCardsUpload = ({
                     <CardShaba>
                       <span>
                         {" "}
-                        {getFieldTranslationByNames(
-                          "authentication",
-                          "shaba number"
-                        )}
+                        {getFieldTranslationByNames(10652)}
                       </span>
                       <h3>{card.shaba_num}</h3>
                     </CardShaba>
@@ -195,10 +192,7 @@ const BankCardsUpload = ({
               +
               <span>
                 {" "}
-                {getFieldTranslationByNames(
-                  "authentication",
-                  "add a bank card"
-                )}
+                {getFieldTranslationByNames(10659)}
               </span>
             </Upload>
           </UploadWrapper>

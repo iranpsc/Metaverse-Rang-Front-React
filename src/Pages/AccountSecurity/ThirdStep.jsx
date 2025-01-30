@@ -34,19 +34,19 @@ const Div = styled.div`
 `;
 
 const ThirdStep = ({ setStep, time }) => {
-  // تلاش برای بازیابی تایمر از localStorage
   const [timer, setTimer] = useState(() => {
-    const savedTimer = localStorage.getItem("timer");
-    const savedTimestamp = localStorage.getItem("timestamp");
+    const endTime = localStorage.getItem("security_end_time");
 
-    if (savedTimer !== null && savedTimestamp !== null) {
-      const elapsed = Math.floor(
-        (Date.now() - parseInt(savedTimestamp, 10)) / 1000
+    if (endTime) {
+      const remaining = Math.max(
+        0,
+        Math.floor((parseInt(endTime) - Date.now()) / 1000)
       );
-      const adjustedTimer = parseInt(savedTimer, 10) - elapsed;
-      return adjustedTimer > 0 ? adjustedTimer : 0;
+      return remaining;
     }
 
+    const end = Date.now() + time * 60 * 1000;
+    localStorage.setItem("security_end_time", end.toString());
     return time * 60;
   });
 
@@ -54,18 +54,14 @@ const ThirdStep = ({ setStep, time }) => {
     const interval = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer > 0) {
-          const newTimer = prevTimer - 1;
-          localStorage.setItem("timer", newTimer); // ذخیره‌ی مقدار جدید در localStorage
-          return newTimer;
+          return prevTimer - 1;
         }
-        return prevTimer; // If the timer is 0, just return 0, don't decrement further
+        clearInterval(interval);
+        return 0;
       });
     }, 1000);
 
-    return () => {
-      localStorage.setItem("timestamp", Date.now()); // ذخیره‌ی زمان خروج
-      clearInterval(interval); // Clear interval on component unmount
-    };
+    return () => clearInterval(interval);
   }, []);
 
   const formatTime = (timeItem) => {
@@ -82,18 +78,15 @@ const ThirdStep = ({ setStep, time }) => {
     <Container>
       <Div>
         <h3>
-          {getFieldTranslationByNames("account-security", "time remaining")}
+          {getFieldTranslationByNames(10442)}
         </h3>
         <h4>
-          {formatTime(timer).toLocaleString()}{" "}
-          {getFieldTranslationByNames("account-security", "minutes")}
+          {formatTime(timer)}{" "}
+          {getFieldTranslationByNames(174)}
         </h4>
       </Div>
       <p onClick={() => setStep(1)}>
-        {getFieldTranslationByNames(
-          "account-security",
-          "i want to increase the time"
-        )}
+        {getFieldTranslationByNames(183)}
       </p>
     </Container>
   );

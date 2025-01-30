@@ -121,10 +121,7 @@ const ProfitCard = ({
         </Value>
       </Content>
       <Footer>
-        {getFieldTranslationByNames(
-          "hour-meter-profit",
-          "last collection time :"
-        )}
+        {getFieldTranslationByNames(6389)}
         <h4>{dead_line}</h4>
       </Footer>
     </Card>

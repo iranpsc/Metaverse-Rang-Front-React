@@ -98,6 +98,19 @@ const Date = styled.div`
     }
     font-size: 16px;
   }
+  ${({ disabled }) =>
+    disabled &&
+    `
+    background-color: #e0e0e0; // Example disabled background color
+    pointer-events: none;
+    opacity: 0.6;
+    svg {
+      color: #a0a0a0; // Example disabled icon color
+    }
+    input {
+      color: #a0a0a0; // Example disabled text color
+    }
+  `}
 `;
 const ReceivedList = () => {
   const [rows, setRows] = useState([]);
@@ -133,30 +146,25 @@ const ReceivedList = () => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("send-vod", "documents received")}
+        title={getFieldTranslationByNames(14691)}
       />
 
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder={getFieldTranslationByNames(
-            "send-vod",
-            "search document title"
-          )}
+          placeholder={getFieldTranslationByNames(14705)}
         />
-        <Date>
+        <Date disabled>
           <DatePicker
-            placeholder={getFieldTranslationByNames(
-              "send-vod",
-              "date and time of the document"
-            )}
+            placeholder={getFieldTranslationByNames(14712)}
             className="bg-dark yellow"
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
             calendar={persian}
             locale={persian_fa}
             calendarPosition="bottom-right"
+            disabled={true}
           />
           <FaRegCalendarAlt size={20} />
         </Date>

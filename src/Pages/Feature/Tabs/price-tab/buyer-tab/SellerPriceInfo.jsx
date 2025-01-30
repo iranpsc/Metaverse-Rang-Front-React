@@ -10,6 +10,12 @@ import { FeatureContext } from "../../../Context/FeatureProvider";
 import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { FeatureSvg } from "../../../../../Services/Constants/FeatureType";
+import {
+  calculateFee,
+  getFieldTranslationByNames,
+  persianNumbers,
+  ToastError,
+} from "../../../../../Services/Utility";
 
 const InputsWrapper = styled.div`
   display: flex;
@@ -52,7 +58,7 @@ const SellerPriceInfo = () => {
       .catch((error) => {
         if (error.response.status === 410) {
           ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          return Navigate("/metaverse/confirmation");
+          Navigate("/metaverse/confirmation");
         } else {
           ToastError(error.response.data.message);
         }
@@ -62,28 +68,35 @@ const SellerPriceInfo = () => {
     <>
       <InputsWrapper>
         <Input
-          disabled
           value={rial}
           onchange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder="قیمت فروش (ریال)"
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(6760)})`}
           insideText={<Rial />}
         />
         <Input
-          disabled
           value={psc}
           onchange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder="قیمت فروش (PSC)"
+          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(14488)})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
       <ResultWrapper>
-        <TitleValue title="قیمت نهایی" value={`${rial} IRR / ${psc} PSC`} />
-        <TitleValue title="کارمزد" value="5%" />
+        <TitleValue
+          title={getFieldTranslationByNames(6781)}
+          value={`${calculateFee(rial, 5)} ${getFieldTranslationByNames(6760)} / ${calculateFee(psc, 5)} ${getFieldTranslationByNames(14488)}`}
+        />
+        <TitleValue
+          title={getFieldTranslationByNames(6788)}
+          value="5%"
+        />
       </ResultWrapper>
       <div>
-        <Button label="خرید" onclick={onSubmit} />
+        <Button
+          label={getFieldTranslationByNames(5144)}
+          onclick={onSubmit}
+        />
       </div>
     </>
   );

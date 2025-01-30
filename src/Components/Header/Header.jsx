@@ -120,11 +120,19 @@ const FullWrapper = styled.div`
   }
 `;
 
-const Header = ({ title, long, loading, profile }) => {
+const Header = ({
+  title,
+  long,
+  loading,
+  profile,
+  action,
+  setShowContainer,
+  handleExit,
+}) => {
   const [openEducation, setOpenEducation] = useState(false);
   const location = useLocation();
   const navigation = useNavigate();
-  // const { resetStates } = useSelectedEnvironment();
+  const { resetStates } = useSelectedEnvironment();
 
   const newStr = location.pathname.replace(/\/metaverse\//g, "") + "-";
   const locationPage = location?.state?.locationPage;
@@ -137,17 +145,22 @@ const Header = ({ title, long, loading, profile }) => {
     });
   };
   const handleExitClick = () => {
+    if (handleExit) {
+      handleExit();
+      return;
+    }
+
     navigation(-1);
     if (setShowContainer) {
       setShowContainer(false);
     }
-    // if (action === "ChangeHiddenState") {
-    //   resetStates(); // Reset all states
-    // }
+    if (action === "ChangeHiddenState") {
+      resetStates();
+    }
   };
   return (
     <HeaderWrapper>
-      <Text long={long}>{getFieldTranslationByNames(title[0], title[1])}</Text>
+      <Text long={long}>{getFieldTranslationByNames(title)}</Text>
       <Icons>
         {loading && (
           <FullWrapper>

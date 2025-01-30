@@ -85,29 +85,26 @@ const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
       <Results>
         <Result
           title={
-            (getFieldTranslationByNames("property-information", "sales price"),
-            getFieldTranslationByNames("property-information", "rial"))
+            (getFieldTranslationByNames(6774),
+            getFieldTranslationByNames(6760))
           }
           value={rial}
         />
         <Result
           title={
-            (getFieldTranslationByNames("property-information", "sales price"),
-            getFieldTranslationByNames("property-information", "psc"))
+            (getFieldTranslationByNames(6774),
+            getFieldTranslationByNames(14488))
           }
           value={psc}
         />
         <ResultWrapper>
-          {getFieldTranslationByNames(
-            "property-information",
-            "the final price"
-          )}
+          {getFieldTranslationByNames(6781)}
           <Value>
             {convertToPersian(rial)} IRR / {convertToPersian(psc)} PSC
           </Value>
         </ResultWrapper>
         <Result
-          title={getFieldTranslationByNames("property-information", "wage")}
+          title={getFieldTranslationByNames(6788)}
           value={"5%"}
         />
       </Results>

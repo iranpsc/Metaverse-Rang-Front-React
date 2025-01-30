@@ -33,34 +33,25 @@ const RealEstate = () => {
     {
       id: 1,
       image: property1,
-      label: getFieldTranslationByNames("citizenship-account", "satisfaction"),
+      label: getFieldTranslationByNames(264),
       value: wallet?.effect,
     },
     {
       id: 2,
       image: property2,
-      label: getFieldTranslationByNames(
-        "citizenship-account",
-        "commercial property"
-      ),
+      label: getFieldTranslationByNames(8650),
       value: assets?.tejari_features_count,
     },
     {
       id: 3,
       image: property3,
-      label: getFieldTranslationByNames(
-        "citizenship-account",
-        "residential property"
-      ),
+      label: getFieldTranslationByNames(8657),
       value: assets?.maskoni_features_count,
     },
     {
       id: 4,
       image: property4,
-      label: getFieldTranslationByNames(
-        "citizenship-account",
-        "educational property"
-      ),
+      label: getFieldTranslationByNames(8664),
       value: assets?.amoozeshi_features_count,
     },
   ];

@@ -18,6 +18,7 @@ const AccountSecurity = () => {
       setTime(storedSecurity.time);
     } else {
       removeItem("account_security");
+      removeItem("security_end_time");
       setStep(1);
     }
   }, []);

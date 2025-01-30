@@ -19,11 +19,11 @@ const Modal = styled.div`
   border-radius: 10px;
   padding: 15px 20px;
 `;
-const ModalXs = ({ children, title }) => {
+const ModalXs = ({ children, title, handleExitClick }) => {
   return (
     <Container>
       <Modal>
-        <Header title={title} />
+        <Header title={title} handleExit={handleExitClick} />
         {children}
       </Modal>
     </Container>

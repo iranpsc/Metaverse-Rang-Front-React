@@ -137,22 +137,19 @@ const EmailVerification = () => {
 
   return (
     <Modal
-      title={getFieldTranslationByNames(
-        "register",
-        "citizen account activation"
-      )}
+      title={getFieldTranslationByNames(3506)}
     >
       <Container>
         <Header>
-          <br /> {getFieldTranslationByNames("register", "an email address")}
+          <br /> {getFieldTranslationByNames(3513)}
           <br /> {data.email} <br />
-          {getFieldTranslationByNames("register", "sent")}
+          {getFieldTranslationByNames(3520)}
         </Header>
         <Details>
-          {getFieldTranslationByNames("register", "to confirm and activate")}
+          {getFieldTranslationByNames(3527)}
         </Details>
         <Details>
-          {getFieldTranslationByNames("register", "on the link in the email")}
+          {getFieldTranslationByNames(3534)}
         </Details>
         {rerenderButton && (
           <Submit
@@ -173,7 +170,7 @@ const EmailVerification = () => {
           </Submit>
         )}
         <Link onClick={resendEmailHandler}>
-          {getFieldTranslationByNames("register", "re-send the email")}
+          {getFieldTranslationByNames(3569)}
         </Link>
         <Information>
           {getFieldTranslationByNames(
@@ -187,9 +184,9 @@ const EmailVerification = () => {
             rel="noreferrer"
             className="link text-1 "
           >
-            {getFieldTranslationByNames("login", "terms of service contract")}
+            {getFieldTranslationByNames(3863)}
           </a>
-          {getFieldTranslationByNames("login", "you agree")}
+          {getFieldTranslationByNames(3498)}
         </Information>
       </Container>
     </Modal>

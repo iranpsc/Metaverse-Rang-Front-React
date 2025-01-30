@@ -1,7 +1,9 @@
+
 import PropertyCard from "./PropertyCard";
-import SearchInput from "../../../SearchInput";
-import Title from "../../../Title";
+import Title from "../../../../../Components/Title";
+
 import styled from "styled-components";
+import SearchInput from "../../../../../Components/SearchInput";
 
 const Container = styled.div``;
 const Div = styled.div`
@@ -30,7 +32,7 @@ const PropertySelect = ({ setMode }) => {
       </Top>
       <Div>
         {[...Array(10)].map((item) => (
-          <PropertyCard onClick={() => setMode(2)} label='انتخاب' key={item} />
+          <PropertyCard onClick={() => setMode(2)} label="انتخاب" key={item} />
         ))}
       </Div>
     </Container>

@@ -42,7 +42,7 @@ export const lightTheme = {
         red: "#F03A47",
         yellow: "#FFC107",
         menuBg: "#FFFFFF",
-        themeBtn: "#F4F4F4",
+        themeBtn: "#cbced0",
         headerMenu: "#000000",
         iconBg: "#E9E9E9",
         iconText: "#353535",
@@ -60,7 +60,8 @@ export const lightTheme = {
         btnIconBg: "#E9E9E9",
         btnIconText: "#353535",
         gray: "#898989",
-        confirmed:"#D4E9FA"
+        confirmed:"#D4E9FA",
+        containerPrimary: "#F5F9FF",
       },
     },
   },
@@ -139,8 +140,8 @@ export const darkTheme = {
         btnIconBg: "#3B3B3B",
         btnIconText: "#949494",
         gray: "#969696",
-        confirmed:"#ffc70021"
-
+        confirmed:"#ffc70021",
+        containerPrimary: "#2C2C2C",
       },
     },
   },

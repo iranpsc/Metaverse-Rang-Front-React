@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import useRequest from "../../Services/Hooks/useRequest";
 import { setItem } from "../../Services/Utility/LocalStorage";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames, ToastError } from "../../Services/Utility";
 
 const Codes = styled.div`
   display: flex;
@@ -210,7 +210,7 @@ const SecondStep = ({ setStep, time }) => {
         })
         .catch(() => {
           setErrors(true);
-          toast.error("کد وارد شده صحیح نمی‌باشد. لطفاً دوباره تلاش کنید.");
+          ToastError("کد وارد شده صحیح نمی‌باشد. لطفاً دوباره تلاش کنید.");
         });
     } else {
       setErrors(true);
@@ -261,13 +261,10 @@ const SecondStep = ({ setStep, time }) => {
   return (
     <Container>
       <h3>
-        {getFieldTranslationByNames("account-security", "account verification")}
+        {getFieldTranslationByNames(10414)}
       </h3>
       <p>
-        {getFieldTranslationByNames(
-          "account-security",
-          "enter the 6-digit code sent to the"
-        )}
+        {getFieldTranslationByNames(10421)}
       </p>
       <Codes>
         {[...Array(6)].map((_, index) => (
@@ -291,17 +288,14 @@ const SecondStep = ({ setStep, time }) => {
         </h4>
         {timer !== 0 ? (
           <span>
-            {getFieldTranslationByNames(
-              "account-security",
-              "until resend the code"
-            )}
+            {getFieldTranslationByNames(10435)}
           </span>
         ) : (
           <h2 onClick={resetHandler}>ارسال مجدد کد</h2>
         )}
       </div>
       <button disabled={!allValuesNotEmpty} onClick={nextStep}>
-        {getFieldTranslationByNames("account-security", "continue")}
+        {getFieldTranslationByNames(10407)}
       </button>
     </Container>
   );

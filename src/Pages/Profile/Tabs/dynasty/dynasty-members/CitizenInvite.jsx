@@ -1,9 +1,10 @@
-import Button from "../../../Button";
 import CitizenCard from "./CitizenCard";
-import SearchInput from "../../../SearchInput";
-import Title from "../../../Title";
-import citizen from "../../../../assets/images/profile/slide.png";
+
+import citizen from "../../../../../Assets/images/profile.png";
 import styled from "styled-components";
+import Button from "../../../../../Components/Button";
+import Title from "../../../../../Components/Title";
+import SearchInput from "../../../../../Components/SearchInput";
 
 const Container = styled.div`
   padding: 20px 0;

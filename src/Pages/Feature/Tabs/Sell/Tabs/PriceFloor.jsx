@@ -114,10 +114,7 @@ export default function PriceFloor() {
         </label>
         <Submit
           type="primary"
-          text={getFieldTranslationByNames(
-            "property-information",
-            "price determination"
-          )}
+          text={getFieldTranslationByNames(6747)}
         />
       </Form>
     </Container>

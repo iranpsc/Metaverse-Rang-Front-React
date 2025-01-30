@@ -32,25 +32,13 @@ const SidebarOptions = ({ option, setOption, seller }) => {
     <Wrapper>
       <Option option={option === true} onClick={() => setOption(true)}>
         {seller
-          ? getFieldTranslationByNames(
-              "property-information",
-              getFieldTranslationByNames("property-information", "property id")
-            )
-          : getFieldTranslationByNames(
-              "property-information",
-              "seller's price"
-            )}
+          ? getFieldTranslationByNames(6732)
+          : getFieldTranslationByNames(6795)}
       </Option>
       <Option option={option === false} onClick={() => setOption(false)}>
         {seller
-          ? getFieldTranslationByNames(
-              "property-information",
-              getFieldTranslationByNames("property-information", "property id")
-            )
-          : getFieldTranslationByNames(
-              "property-information",
-              "proposed price"
-            )}
+          ? getFieldTranslationByNames(6747)
+          : getFieldTranslationByNames(6802)}
       </Option>
     </Wrapper>
   );

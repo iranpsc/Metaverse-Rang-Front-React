@@ -18,41 +18,54 @@ const Container = styled.div`
 const VodReply = ({ setData, responseId }) => {
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState([]);
-
+  console.log(files[0]);
   const containerRef = useRef(null);
   const { Request, HTTP_METHOD } = useRequest();
   const handleSendReply = () => {
     const formData = new FormData();
 
-    formData.append("response", message.replace(/<[^>]+>/g, ""));
+    const cleanMessage = message.replace(/<[^>]+>/g, "").trim();
+    if (!cleanMessage) return;
 
-    if (files.length > 0 && files[0].file) {
+    formData.append("response", cleanMessage);
+
+    if (files.length > 0 && files[0]?.file instanceof File) {
       formData.append("attachment", files[0].file);
     }
 
     Request(`tickets/response/${responseId}`, HTTP_METHOD.POST, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }).then((res) => {
-      const lastResponse =
-        res.data.data.responses[res.data.data.responses.length - 1];
-      setData((prevData) => ({
-        ...prevData,
-        responses: Array.isArray(prevData.responses)
-          ? [...prevData.responses, lastResponse]
-          : [lastResponse],
-      }));
+      "Content-Type": "multipart/form-data",
+    })
+      .then((res) => {
+        const newResponse = {
+          response: cleanMessage,
+          attachment: files[0]?.file,
+          created_at: new Date().toISOString(),
+        };
 
-      setMessage("");
-      setFiles([]);
+        setData((prevData) => ({
+          ...prevData,
+          responses: Array.isArray(prevData.responses)
+            ? [...prevData.responses, newResponse]
+            : [newResponse],
+        }));
 
-      if (containerRef.current) {
-        containerRef.current.scrollIntoView({
-          behavior: "smooth",
-        });
-      }
-    });
+        setMessage("");
+        setFiles([]);
+
+        if (containerRef.current) {
+          containerRef.current.scrollIntoView({
+            behavior: "smooth",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to send reply:", error);
+        if (error.response) {
+          console.error("Server response:", error.response.data);
+          console.error("Status code:", error.response.status);
+        }
+      });
   };
 
   return (
@@ -62,7 +75,7 @@ const VodReply = ({ setData, responseId }) => {
 
       <Button
         fit
-        label={getFieldTranslationByNames("send-vod", "post a reply")}
+        label={getFieldTranslationByNames(14838)}
         onclick={handleSendReply}
       />
     </Container>

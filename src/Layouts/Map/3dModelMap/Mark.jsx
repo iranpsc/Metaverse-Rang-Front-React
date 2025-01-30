@@ -20,22 +20,20 @@ import * as turf from "@turf/turf";
 
 const calculateSquareCoordinates = (center, area) => {
   const R = 6378137; // Radius of the Earth in meters
-  const sideLength = Math.sqrt(area); // طول ضلع مربع از ریشه دوم مساحت
-  const halfSideLength = sideLength / 2; // نصف طول ضلع به متر
+  const sideLength = Math.sqrt(area);
+  const halfSideLength = sideLength / 2;
   const deltaLat = (halfSideLength / R) * (180 / Math.PI);
   const deltaLng =
     (halfSideLength / (R * Math.cos((Math.PI * center.latitude) / 180))) *
     (180 / Math.PI);
 
-  const coordinates = [
+  return [
     [center.longitude - deltaLng, center.latitude + deltaLat],
     [center.longitude + deltaLng, center.latitude + deltaLat],
     [center.longitude + deltaLng, center.latitude - deltaLat],
     [center.longitude - deltaLng, center.latitude - deltaLat],
     [center.longitude - deltaLng, center.latitude + deltaLat],
   ];
-
-  return coordinates;
 };
 
 const FBXModel = memo(({ url, rotation, setLoading }) => {
@@ -48,7 +46,11 @@ const FBXModel = memo(({ url, rotation, setLoading }) => {
   const fbxRef = useRef();
   return (
     <group ref={fbxRef} rotation={rotation} scale={0.0097}>
-      <hemisphereLight args={["#ffffff", "#60666C"]} position={[1, 4.5, 3]} />
+      <hemisphereLight
+        args={["#ffffff", "#60666C"]}
+        intensity={12}
+        position={[1, 4.5, 3]}
+      />
       <primitive object={fbx} />
     </group>
   );
@@ -58,10 +60,10 @@ const Mark = memo(() => {
   const { selectedEnvironment } = useSelectedEnvironment();
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [rotationX, setRotationX] = useState(0);
-  const [isLoading, setIsLoading] = useState(false); // Initialize as false
-  const [showCanvas, setShowCanvas] = useState(true); // New state to control canvas rendering
-  const [showPolygon, setShowPolygon] = useState(true); // New state to control polygon visibility
-  const [environmentFixed, setEnvironmentFixed] = useState(false); // New state to control environment fixing
+  const [isLoading, setIsLoading] = useState(false);
+  const [showCanvas, setShowCanvas] = useState(true);
+  const [showPolygon, setShowPolygon] = useState(true);
+  const [environmentFixed, setEnvironmentFixed] = useState(false);
   const map = useMap();
   const center = map.current.getCenter();
   const desiredSlug = "area";
@@ -131,14 +133,14 @@ const Mark = memo(() => {
 
   const handleExit = useCallback(() => {
     setIsConfirmed(false);
-    setShowCanvas(false); // Hide canvas before rendering polygon
-    setTimeout(() => setShowCanvas(true), 0); // Show canvas after a brief delay
+    setShowCanvas(false);
+    setTimeout(() => setShowCanvas(true), 0);
   }, []);
 
   const handelSubmitEnvironment = useCallback(() => {
     setIsConfirmed(false);
-    setShowPolygon(false); // Hide polygon when environment is submitted
-    setEnvironmentFixed(true); // Fix the environment
+    setShowPolygon(false);
+    setEnvironmentFixed(true);
   }, []);
 
   return (

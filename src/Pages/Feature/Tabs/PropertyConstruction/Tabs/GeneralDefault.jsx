@@ -9,9 +9,8 @@ const Container = styled.div`
   gap: 40px;
   padding: 0 20px;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  @media (min-width: 768px) {
+  overflow-y: scroll;
+  @media (min-width: 1024px) {
     flex-direction: row;
   }
 `;

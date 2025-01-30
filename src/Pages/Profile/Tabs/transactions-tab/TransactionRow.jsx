@@ -72,14 +72,14 @@ const Status = styled.h3`
   color: ${(props) =>
     props.status == "0"
       ? "#18c090"
-      : props.status == "-1"
+      : props.status == "1"
       ? "#ffc800"
       : "#ff0000"};
   padding: 2px 18px;
   background-color: ${(props) =>
     props.status == "0"
       ? "#18c09017"
-      : props.status == "-1"
+      : props.status == "1"
       ? "#ffc80017"
       : "#ff000017"};
   width: fit-content;
@@ -102,11 +102,11 @@ const TransactionRow = ({
   const getAssetTitle = (assetType) => {
     switch (assetType) {
       case "red":
-        return getFieldTranslationByNames("citizenship-account", "buy red");
+        return getFieldTranslationByNames(8965);
       case "blue":
-        return getFieldTranslationByNames("citizenship-account", "buy blue");
+        return getFieldTranslationByNames(8958);
       case "yellow":
-        return getFieldTranslationByNames("citizenship-account", "buy yellow");
+        return getFieldTranslationByNames(8972);
       default:
         return assetType;
     }
@@ -128,16 +128,22 @@ const TransactionRow = ({
       <TableCell>
         <Status status={status}>
           {status == "0"
-            ? getFieldTranslationByNames("citizenship-account", "successful")
+            ? getFieldTranslationByNames(8874)
             : status == "-138"
-            ? getFieldTranslationByNames("citizenship-account", "unsuccessful")
+            ? getFieldTranslationByNames(8881)
             : status == "1"
-            ? getFieldTranslationByNames("citizenship-account", "suspended")
+            ? getFieldTranslationByNames(8888)
             : "بب"}
         </Status>
       </TableCell>
       <TableCell>
-        <Title>{type}</Title>
+        <Title>
+          {type == "order"
+            ? getFieldTranslationByNames(8860)
+            : type == "trade"
+            ? getFieldTranslationByNames(8867)
+            : type}
+        </Title>
       </TableCell>
       <TableCell>
         <Subject>

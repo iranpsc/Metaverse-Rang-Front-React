@@ -1,6 +1,6 @@
-import Button from "../../../Button";
-import house from "../../../../assets/images/profile/house.png";
+import house from "../../../../../Assets/images/house.png";
 import styled from "styled-components";
+import Button from "../../../../../Components/Button";
 
 const Right = styled.div`
   display: flex;
@@ -9,12 +9,13 @@ const Right = styled.div`
 `;
 const Center = styled.div`
   h3 {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
+
     font-weight: 600;
     font-size: 14px;
   }
   h4 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
   }
@@ -24,7 +25,8 @@ const Image = styled.div`
   width: 80px;
   border-radius: 5px;
   padding: 10px;
-  background-color: #302b16;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,11 +37,11 @@ const Info = styled.div`
   gap: 10px;
   h3 {
     font-size: 18px;
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 600;
   }
   h4 {
-    color: #ffc700;
+    color: ${(props) => props.theme.colors.primary};
     font-size: 14px;
     font-weight: 500;
   }
@@ -48,7 +50,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   padding: 10px 10px 10px 20px;
   border-radius: 5px;
 `;

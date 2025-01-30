@@ -25,13 +25,10 @@ const Notes = ({ notes }) => {
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>
-        <Title title={getFieldTranslationByNames("send-vod", "notes")} />
+        <Title title={getFieldTranslationByNames(14957)} />
       </div>
       <SearchInput
-        placeholder={getFieldTranslationByNames(
-          "send-vod",
-          "search note title"
-        )}
+        placeholder={getFieldTranslationByNames(14964)}
         onchange={(e) => setSearchTerm(e.target.value)}
       />
       <NotesList notes={filteredNotes} />

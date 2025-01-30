@@ -159,7 +159,7 @@ const PrintModal = ({
             <div />
             {status == "0" ? (
               <BsCheckCircleFill size={80} />
-            ) : status == "-138" ? (
+            ) : status == "1" ? (
               <AiFillCloseCircle size={80} />
             ) : (
               <IoReloadCircleSharp size={80} />
@@ -168,53 +168,37 @@ const PrintModal = ({
           {status == "0" ? (
             <>
               <p>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "thank you for your purchase"
-                )}
+                {getFieldTranslationByNames(8895)}
               </p>
               <span>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "your purchase has been successfully registered"
-                )}
+                {getFieldTranslationByNames(8902)}
               </span>
             </>
           ) : status == "-138" ? (
             <>
               <p>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "your transaction has not been completed"
-                )}
+                {getFieldTranslationByNames(9014)}
               </p>
               <span>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "unfortunately, your transaction has been rejected"
-                )}
+                {getFieldTranslationByNames(9021)}
               </span>
             </>
           ) : (
             <>
               <p>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "your transaction is being processed"
-                )}
+                {getFieldTranslationByNames(9000)}
               </p>
               <span>
-                {getFieldTranslationByNames(
-                  "citizenship-account",
-                  "your transaction will be checked in a few minutes"
-                )}
+                {getFieldTranslationByNames(9007)}
               </span>
             </>
           )}
         </Header>
         <Info>
           <Row>
-            <Title>موضوع</Title>
+            <Title>
+              {getFieldTranslationByNames(8937)}
+            </Title>
             <Gif>
               <img loading="lazy" width={26} height={26} src={gif} alt={code} />
               <Value>خرید {count}</Value>
@@ -222,50 +206,38 @@ const PrintModal = ({
           </Row>
           <Row>
             <Title>
-              {getFieldTranslationByNames("citizenship-account", "deposit id")}
+              {getFieldTranslationByNames(8916)}
             </Title>
             <Value>{code}</Value>
           </Row>
           <Row>
             <Title>
-              {getFieldTranslationByNames(
-                "citizenship-account",
-                "date of deposit"
-              )}
+              {getFieldTranslationByNames(8923)}
             </Title>
             <Value>{date}</Value>
           </Row>
           <Row>
             <Title>
-              {getFieldTranslationByNames(
-                "citizenship-account",
-                "deposit time"
-              )}
+              {getFieldTranslationByNames(8930)}
             </Title>
             <Value>{time}</Value>
           </Row>
           <Row>
             <Title>
-              {getFieldTranslationByNames(
-                "citizenship-account",
-                "payment title"
-              )}
+              {getFieldTranslationByNames(8937)}
             </Title>
             <Value>{title}</Value>
           </Row>
           <Row not={false}>
             <Title>
-              {getFieldTranslationByNames("citizenship-account", "amount paid")}
+              {getFieldTranslationByNames(8944)}
             </Title>
             <Value>{count}</Value>
           </Row>
           <div style={{ marginTop: "10px" }}>
             <Button
               full
-              label={getFieldTranslationByNames(
-                "citizenship-account",
-                "view-print"
-              )}
+              label={getFieldTranslationByNames(348)}
               onclick={handlePrint}
             />
           </div>

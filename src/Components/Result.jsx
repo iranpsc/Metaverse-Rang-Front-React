@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 import { convertToPersian } from "../Services/Utility";
 
@@ -9,17 +8,17 @@ const Wrapper = styled.div`
   gap: 5px;
   @media (min-width: 1200px) {
     align-items: center;
-}
+  }
 `;
 
 const Title = styled.h3`
-  color: #a0a0ab;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 14px;
   font-weight: 500;
 `;
 
 const Value = styled.p`
-  color: #dedee9;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 400;
 `;

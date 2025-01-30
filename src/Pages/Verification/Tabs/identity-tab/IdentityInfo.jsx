@@ -43,23 +43,14 @@ const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
           <Alert
             text={
               showPending
-                ? getFieldTranslationByNames(
-                    "authentication",
-                    "your request is under review"
-                  )
-                : getFieldTranslationByNames(
-                    "authentication",
-                    "your authentication has been successful"
-                  )
+                ? getFieldTranslationByNames(15146)
+                : getFieldTranslationByNames(10624)
             }
             type={showPending ? "pending" : "success"}
           />
         )}
         <Title
-          title={getFieldTranslationByNames(
-            "authentication",
-            "authentication information"
-          )}
+          title={getFieldTranslationByNames(10484)}
         />
         <InfoInputs data={data} inputValues={inputValues} />
         <CardPhotos nationalCardImg={nationalCardImg} />

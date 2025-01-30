@@ -1,5 +1,6 @@
+import Title from "../../../../../Components/Title";
 import List from "./List";
-import Title from "../../../Title";
+
 import styled from "styled-components";
 
 const Container = styled.div``;
@@ -7,7 +8,7 @@ const Top = styled.div`
   div {
     margin-top: 10px;
     p {
-      color: #ffffff;
+      color: ${(props) => props.theme.colors.newColors.shades.title};
       font-weight: 400;
       font-size: 16px;
     }

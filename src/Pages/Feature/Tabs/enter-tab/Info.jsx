@@ -74,20 +74,14 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
     <Container>
       <HeaderContainer>
         <Title
-          title={getFieldTranslationByNames(
-            "property-information",
-            "lead entry to"
-          )}
+          title={getFieldTranslationByNames(6858)}
         />
         <Onlines>
           <LuEye />
           <p>
-            {getFieldTranslationByNames(
-              "property-information",
-              "number of citizens online"
-            )}{" "}
+            {getFieldTranslationByNames(7047)}{" "}
             {convertToPersian(20)}{" "}
-            {getFieldTranslationByNames("property-information", "person")}
+            {getFieldTranslationByNames(14516)}
           </p>
         </Onlines>
       </HeaderContainer>
@@ -101,25 +95,16 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
       )}
       <Title
         payed={payed}
-        title={getFieldTranslationByNames(
-          "property-information",
-          "about the collection"
-        )}
+        title={getFieldTranslationByNames(6914)}
       />
       <Text>{data[0].inputs[4].about}</Text>
       {payed && !edit && (
         <Buttons>
           <Button blue onClick={() => setEdit(true)}>
-            {getFieldTranslationByNames(
-              "property-information",
-              "editing information"
-            )}
+            {getFieldTranslationByNames(6991)}
           </Button>
           <Button onClick={() => {}}>
-            {getFieldTranslationByNames(
-              "property-information",
-              "confirmation of entry to the property"
-            )}
+            {getFieldTranslationByNames(6998)}
           </Button>
         </Buttons>
       )}

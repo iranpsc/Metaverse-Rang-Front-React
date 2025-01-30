@@ -83,28 +83,28 @@ const CloseWrapper = styled.div`
 const InfoModal = ({ data, type, setOpenModal }) => {
   const getAssetTranslation = () => {
     if (data.asset === "yellow") {
-      return getFieldTranslationByNames("store", "yellow");
+      return getFieldTranslationByNames(78);
     } else if (data.asset === "red") {
-      return getFieldTranslationByNames("store", "red");
+      return getFieldTranslationByNames(81);
     } else if (data.asset === "blue") {
-      return getFieldTranslationByNames("store", "blue");
+      return getFieldTranslationByNames(84);
     } else if (data.asset === "irr") {
-      return getFieldTranslationByNames("store", "irr");
+      return getFieldTranslationByNames(10813);
     } else if (data.asset === "psc") {
-      return getFieldTranslationByNames("store", "psc");
+      return getFieldTranslationByNames(10820);
     }
   };
   const getAssetTranslationDescription = () => {
     if (data.asset === "yellow") {
-      return getFieldTranslationByNames("store", "description yellow");
+      return getFieldTranslationByNames(6655);
     } else if (data.asset === "red") {
-      return getFieldTranslationByNames("store", "description red");
+      return getFieldTranslationByNames(6662);
     } else if (data.asset === "blue") {
-      return getFieldTranslationByNames("store", "description blue");
+      return getFieldTranslationByNames(6669);
     } else if (data.asset === "irr") {
-      return getFieldTranslationByNames("store", "description rial");
+      return getFieldTranslationByNames(6711);
     } else if (data.asset === "psc") {
-      return getFieldTranslationByNames("store", "description psc");
+      return getFieldTranslationByNames(6718);
     }
   };
   return (

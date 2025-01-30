@@ -32,10 +32,7 @@ const InfoInputs = ({ data, inputValues }) => {
       {Object.values(inputValues).map((item, index) => (
         <TitleValue
           value={item}
-          title={getFieldTranslationByNames(
-            "authentication",
-            data[index]?.label
-          )}
+          title={getFieldTranslationByNames(data[index]?.label)}
           key={item.id}
         />
       ))}

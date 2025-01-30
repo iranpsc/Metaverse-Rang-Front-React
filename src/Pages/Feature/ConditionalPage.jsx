@@ -19,146 +19,87 @@ export default function ConditionalPage() {
   const [userId, setUserId] = useState(null);
   const [feature] = useContext(FeatureContext);
 
+  const commonSpecificationTab = {
+    title: getFieldTranslationByNames(6725),
+    content: <InfoTab />,
+  };
+
   const SellTabs = [
+    commonSpecificationTab,
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
+      title: getFieldTranslationByNames(7264),
+      content: <SellerTab seller />,
     },
     {
-      title: getFieldTranslationByNames("property-information", "pricing"),
-      content: <SellerTab />,
-    },
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "construction of the building"
-      ),
+      title: getFieldTranslationByNames(5158),
       content: <PropertyConstruction />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "entering the property"
-      ),
+      title: getFieldTranslationByNames(5151),
       content: <EnterTab owner />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "physical information"
-      ),
+      title: getFieldTranslationByNames(5165),
       content: <PhysicTab owner />,
+    },
+    {
+      title: getFieldTranslationByNames(5269),
+      content: <HistoryTab />,
     },
   ];
   const SellTabPanel = useTabs(SellTabs);
 
   const BuySystemTabs = [
+    commonSpecificationTab,
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
-    },
-    {
-      title: getFieldTranslationByNames("property-information", "buy"),
+      title: getFieldTranslationByNames(5144),
       content: <BuyerTabSystem />,
     },
   ];
   const BuySystemTabPanel = useTabs(BuySystemTabs);
 
   const BuyUserTabs = [
+    commonSpecificationTab,
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
+      title: getFieldTranslationByNames(5144),
+      content: <BuyerTab />,
     },
     {
-      title: getFieldTranslationByNames("property-information", "pricing"),
-      content: <SellerTab />,
-    },
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "entering the property"
-      ),
+      title: getFieldTranslationByNames(5151),
       content: <EnterTab />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "physical information"
-      ),
+      title: getFieldTranslationByNames(5165),
       content: <PhysicTab />,
     },
     {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "participation in construction"
-      ),
+      title: getFieldTranslationByNames(7103),
       content: <ParticipationTab />,
     },
     {
-      title: getFieldTranslationByNames("property-information", "history"),
+      title: getFieldTranslationByNames(5269),
       content: <HistoryTab />,
     },
   ];
   const BuyUserTabPanel = useTabs(BuyUserTabs);
 
-  const AnonymousTabs = [
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
-    },
-  ];
+  const AnonymousTabs = [commonSpecificationTab];
   const AnonymousTabPanel = useTabs(AnonymousTabs);
 
-  const UnityTabs = [
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "specification"
-      ),
-      content: <InfoTab />,
-    },
-    {
-      title: getFieldTranslationByNames(
-        "property-information",
-        "entering the property"
-      ),
-      content: <UnityTab />,
-    },
-  ];
-  const UnityTabPanel = useTabs(UnityTabs);
   useEffect(() => {
     const user = getUser();
-
     if (user?.id) {
-      setUserId(parseInt(user?.id));
+      setUserId(parseInt(user.id));
     }
   }, [getUser]);
 
-  if (userId && FeatureColor(feature?.properties?.rgb)) {
-    if (feature.id == 6220) {
-      return UnityTabPanel;
-    } else if (feature.id == 6221) {
-      return UnityTabPanel;
-    } else if (feature?.owner_id === 1) {
-      return BuySystemTabPanel;
-    } else if (feature?.owner_id !== 1 && feature?.owner_id !== userId) {
-      return BuyUserTabPanel;
-    } else if (feature?.owner_id === userId) {
-      return SellTabPanel;
-    }
-  } else {
+  if (!userId || !FeatureColor(feature?.properties?.rgb)) {
     return AnonymousTabPanel;
   }
+
+  if (feature?.owner_id === 1) return BuySystemTabPanel;
+  if (feature?.owner_id === userId) return SellTabPanel;
+  if (feature?.owner_id !== userId) return BuyUserTabPanel;
+
+  return AnonymousTabPanel;
 }

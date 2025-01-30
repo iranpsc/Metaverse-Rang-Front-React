@@ -1,7 +1,7 @@
 import Modal from "./Modal";
 import PropertyCard from "../dynasty-establish/PropertyCard";
-import SearchInput from "../../../SearchInput";
-import Title from "../../../Title";
+import SearchInput from "../../../../../Components/SearchInput";
+import Title from "../../../../../Components/Title";
 import styled from "styled-components";
 import { useState } from "react";
 

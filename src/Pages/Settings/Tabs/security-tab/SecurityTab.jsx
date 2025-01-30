@@ -52,11 +52,11 @@ const Container = styled.div`
 const items = [
   {
     id: 1,
-    label: "real specifications",
+    translationId: 7971,
     options: [
       {
         id: 1,
-        title: "nationality",
+        translationId: 7978,
         key: "nationality",
       },
       {
@@ -66,186 +66,186 @@ const items = [
       },
       {
         id: 3,
-        title: "last name",
+        translationId: 7992,
         key: "lname",
       },
       {
         id: 4,
-        title: "date of birth",
+        translationId: 7999,
         key: "birthdate",
       },
       {
         id: 5,
-        title: "phone number",
+        translationId: 8006,
         key: "phone",
       },
       {
         id: 6,
-        title: "email",
+        translationId: 8013,
         key: "email",
       },
       {
         id: 7,
-        title: "address",
+        translationId: 8020,
         key: "address",
       },
       {
         id: 8,
-        title: "name",
+        translationId: 8027,
         key: "name",
       },
     ],
   },
   {
     id: 2,
-    label: "citizenship profile",
+    translationId: 8034,
     options: [
       {
         id: 1,
-        title: "about",
+        translationId: 8041,
         key: "about",
       },
       {
         id: 2,
-        title: "registery date",
+        translationId: 8048,
         key: "registered_at",
       },
       {
         id: 3,
-        title: "position or direction",
+        translationId: 8055,
         key: "position",
       },
       {
         id: 4,
-        title: "score",
+        translationId: 8069,
         key: "score",
       },
       {
         id: 5,
-        title: "permissions",
+        translationId: 8076,
         key: "licenses",
       },
       {
         id: 6,
-        title: "license points",
+        translationId: 8083,
         key: "license_score",
       },
       {
         id: 7,
-        title: "avatar",
+        translationId: 8090,
         key: "avatar",
       },
       {
         id: 8,
-        title: "job",
+        translationId: 8097,
         key: "occupation",
       },
       {
         id: 9,
-        title: "education",
+        translationId: 8104,
         key: "education",
       },
       {
         id: 10,
-        title: "favorite city",
+        translationId: 8111,
         key: "loved_city",
       },
       {
         id: 11,
-        title: "favorite country",
+        translationId: 8118,
         key: "loved_country",
       },
       {
         id: 12,
-        title: "favorite language",
+        translationId: 8125,
         key: "loved_language",
       },
       {
         id: 13,
-        title: "forecast",
+        translationId: 8132,
         key: "prediction",
       },
       {
         id: 14,
-        title: "pleasant memory",
+        translationId: 8139,
         key: "memory",
       },
       {
         id: 15,
-        title: "favorites",
+        translationId: 8146,
         key: "passions",
       },
     ],
   },
   {
     id: 3,
-    label: "real estates",
+    translationId: 8153,
     options: [
       {
         id: 1,
-        title: "educational vods",
+        translationId: 8160,
         key: "amoozeshi_features",
       },
       {
         id: 2,
-        title: "commercial vods",
+        translationId: 8174,
         key: "tejari_features",
       },
       {
         id: 3,
-        title: "tourism vods",
+        translationId: 8181,
         key: "gardeshgari_features",
       },
       {
         id: 4,
-        title: "green space vods",
+        translationId: 8188,
         key: "fazasabz_features",
       },
       {
         id: 5,
-        title: "health vods",
+        translationId: 8195,
         key: "behdashti_features",
       },
       {
         id: 6,
-        title: "administrative vods",
+        translationId: 8202,
         key: "edari_features",
       },
       {
         id: 7,
-        title: "exhibition vods",
+        translationId: 8209,
         key: "nemayeshgah_features",
       },
     ],
   },
   {
     id: 4,
-    label: "citizenship relations",
+    translationId: 8216,
     options: [
       {
         id: 1,
-        title: "list of followers",
+        translationId: 8223,
         key: "followers",
       },
       {
         id: 2,
-        title: "list of followings",
+        translationId: 8237,
         key: "following",
       },
       {
         id: 3,
-        title: "number of followings",
+        translationId: 8244,
         key: "following_count",
       },
     ],
   },
   {
     id: 5,
-    label: "licenses received",
+    translationId: 8251,
     options: [
       {
         id: 1,
-        title: "permission to create a store",
+        translationId: 8258,
 
         key: "establish_store_license",
       },
@@ -261,32 +261,32 @@ const items = [
       },
       {
         id: 4,
-        title: "permission to establish a school",
+        translationId: 8279,
         key: "establish_amoozeshgah_license",
       },
       {
         id: 5,
-        title: "journalism license",
+        translationId: 8286,
         key: "reporter_license",
       },
       {
         id: 6,
-        title: "contributor license",
+        translationId: 8293,
         key: "cooporation_license",
       },
       {
         id: 7,
-        title: "developer license",
+        translationId: 8300,
         key: "developer_license",
       },
       {
         id: 8,
-        title: "express license",
+        translationId: 8307,
         key: "inspection_license",
       },
       {
         id: 9,
-        title: "merchant license",
+        translationId: 8314,
         key: "trading_license",
       },
       {
@@ -308,155 +308,157 @@ const items = [
   },
   {
     id: 6,
-    label: "transactions",
+    translationId: 8363,
     options: [
       {
         id: 1,
-        title: "show Riyal transactions",
+        translationId: 8370,
         key: "irr_transactions",
         value: true,
       },
       {
         id: 2,
-        title: "show PSC transactions",
+        translationId: 8377,
         key: "psc_transactions",
       },
       {
         id: 3,
-        title: "show transactions in blue color",
+        translationId: 8384,
         key: "blue_transactions",
       },
       {
         id: 4,
-        title: "show transactions in yellow",
+        translationId: 8391,
         key: "yellow_transactions",
       },
       {
         id: 5,
-        title: "show transactions in red",
+        translationId: 8398,
         key: "red_transactions",
       },
       {
         id: 6,
-        title: "show sold product",
+        translationId: 8419,
         key: "sold_products",
       },
       {
         id: 7,
-        title: "show purchased properties",
+        translationId: 8412,
         key: "bought_products",
       },
     ],
   },
   {
     id: 7,
-    label: "rewards received",
+    translationId: 8433,
     options: [
       {
         id: 1,
-        title: "show the bonus received rial",
+        translationId: 8440,
         key: "recieved_irr_prizes",
       },
       {
         id: 2,
-        title: "show psc bonus received",
+        translationId: 8447,
         key: "recieved_psc_prizes",
       },
       {
         id: 3,
-        title: "show yellow bonus received",
+        translationId: 8454,
         key: "recieved_yellow_prizes",
       },
       {
         id: 4,
-        title: "show blue bonus received",
+        translationId: 8461,
         key: "recieved_blue_prizes",
       },
       {
         id: 5,
-        title: "show red bonus received",
+        translationId: 8468,
         key: "recieved_red_prizes",
       },
     ],
   },
   {
     id: 8,
-    label: "display the purchased golden key",
+    translationId: 8503,
     options: [
       {
         id: 1,
-        title: "show spent golden keys",
+        translationId: 8510,
         key: "bought_golden_keys",
       },
       {
         id: 2,
-        title: "show spent golden keys",
+        translationId: 8510,
         key: "used_golden_keys",
       },
     ],
   },
   {
     id: 9,
-    label: "infractions",
-    options: [],
-  },
-  {
-    id: 10,
-    label: "complaints",
-    options: [],
-  },
-  {
-    id: 11,
-    label: "notice",
-    options: [],
-  },
-  {
-    id: 12,
-    label: "violation of the rules",
-    options: [],
-  },
-  {
-    id: 13,
-    label: "show life status",
-    options: [],
-  },
-  {
-    id: 14,
-    label: "sum of negative points",
-    options: [],
-  },
-  {
-    id: 15,
-    label: "family lineage",
+    translationId: 8531,
     options: [
       {
         id: 1,
-        title: "display the image of the members of the dynasty",
+        translationId: 8538,
+        key: "bought_golden_keys",
+      },
+      {
+        id: 2,
+        translationId: 8545,
+        key: "notice",
+      },
+      {
+        id: 3,
+        translationId: 8552,
+        key: "violation_of_the_rules",
+      },
+      {
+        id: 4,
+        translationId: 8559,
+        key: "warning",
+      },
+      {
+        id: 5,
+        translationId: 8566,
+        key: "negative_points",
+      },
+    ],
+  },
+
+  {
+    id: 10,
+    translationId: 8573,
+    options: [
+      {
+        id: 1,
+        translationId: 8580,
         key: "dynasty_members_photo",
       },
       {
         id: 2,
-        title: "view profiles of dynasty members",
+        translationId: 8587,
         key: "dynasty_members_info",
       },
       {
         id: 3,
-        title: "dynasty reward",
+        translationId: 8595,
         key: "recieved_dynasty_satisfaction_prizes",
       },
       {
         id: 4,
-        title: "riyal bonus received in psc unit from dynasty members",
+        translationId: 8601,
         key: "recieved_dynasty_referral_profit_prizes",
       },
       {
         id: 5,
-        title: "show satisfaction bonus",
+        translationId: 8608,
         key: "recieved_satisfaction_prizes",
       },
       {
         id: 6,
-        title: "show satisfaction bonus",
+        translationId: 8608,
         key: "recieved_satisfaction_prizes",
       },
     ],
@@ -480,11 +482,22 @@ const SecurityTab = () => {
   const [itemsWithValues, setItemsWithValues] = useState([]);
 
   const searchedItems = itemsWithValues.filter((item) => {
-    const filteredOptions = item.options.filter(
-      (option) =>
-        option.title.includes(searched) || item.label.includes(searched)
+    const filteredOptions = item.options.filter((option) =>
+      option.translationId
+        ? getFieldTranslationByNames(option.translationId)
+            ?.toLowerCase()
+            ?.includes(searched.toLowerCase()) ||
+          getFieldTranslationByNames(item.translationId)
+            ?.toLowerCase()
+            ?.includes(searched.toLowerCase())
+        : ""
     );
-    return filteredOptions.length > 0 || item.label.includes(searched);
+    return (
+      filteredOptions.length > 0 ||
+      getFieldTranslationByNames(item.translationId)
+        ?.toLowerCase()
+        ?.includes(searched.toLowerCase())
+    );
   });
 
   const { Request } = useRequest();

@@ -112,10 +112,7 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
               onChange={(e) =>
                 setFields({ ...fields, activity: e.target.value })
               }
-              placeholder={getFieldTranslationByNames(
-                "property-information",
-                "activity line"
-              )}
+              placeholder={getFieldTranslationByNames(7054)}
             />
           </div>
           <span>+</span>
@@ -125,7 +122,6 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
           onchange={(e) => setFields({ ...fields, name: e.target.value })}
           key={inputs.first_row_info[1].id}
           placeholder={getFieldTranslationByNames(
-            "property-information",
             inputs.first_row_info[1].title
           )}
         />
@@ -133,28 +129,19 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
       <Input
         value={fields.address}
         onchange={(e) => setFields({ ...fields, address: e.target.value })}
-        placeholder={getFieldTranslationByNames(
-          "property-information",
-          inputs.second_row_info.title
-        )}
+        placeholder={getFieldTranslationByNames(inputs.second_row_info.title)}
       />
       <Third>
         <Input
           type="number"
           value={fields.post}
           onchange={(e) => setFields({ ...fields, post: e.target.value })}
-          placeholder={getFieldTranslationByNames(
-            "property-information",
-            "the physical postal code of the collection"
-          )}
+          placeholder={getFieldTranslationByNames(5214)}
         />
         <Input
           value={fields.web}
           onchange={(e) => setFields({ ...fields, web: e.target.value })}
-          placeholder={getFieldTranslationByNames(
-            "property-information",
-            "website address"
-          )}
+          placeholder={getFieldTranslationByNames(5221)}
         />
       </Third>
       {/* <TextArea
@@ -166,19 +153,11 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
       <Wrapper>
         <RichText />
       </Wrapper>
-      <Text>
-        {getFieldTranslationByNames(
-          "property-information",
-          "editing of registered content"
-        )}
-      </Text>
+      <Text>{getFieldTranslationByNames(7096)}</Text>
       <Button
         edit
         onclick={() => setEdit(false)}
-        label={getFieldTranslationByNames(
-          "property-information",
-          "editing information"
-        )}
+        label={getFieldTranslationByNames(6991)}
       />{" "}
     </Container>
   );

@@ -55,15 +55,15 @@ const NotesList = ({ notes }) => {
         <TableHead>
           <TableRow>
             <TableHeader style={{ width: "100px" }}>
-              <div>{getFieldTranslationByNames("send-vod", "note code")}</div>
+              <div>{getFieldTranslationByNames(14971)}</div>
             </TableHeader>
             <TableHeader style={{ width: "350px" }}>
               <div>
-                {getFieldTranslationByNames("send-vod", "title of the note")}
+                {getFieldTranslationByNames(14978)}
               </div>
             </TableHeader>
             <TableHeader style={{ width: "210px" }}>
-              <div>{getFieldTranslationByNames("send-vod", "operation")}</div>
+              <div>{getFieldTranslationByNames(14985)}</div>
             </TableHeader>
           </TableRow>
         </TableHead>

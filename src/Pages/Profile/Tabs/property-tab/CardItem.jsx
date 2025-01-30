@@ -32,8 +32,11 @@ const Name = styled.div`
   gap: 4px;
   h3 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
+    @media (min-width: 1400px) {
+      font-size: 16px;
+    }
   }
   span {
     color: #ffc700;
@@ -193,7 +196,7 @@ const CardItem = ({
         </PhotoName>
         <Address>
           <span>
-            {getFieldTranslationByNames("citizenship-account", "address")}
+            {getFieldTranslationByNames(297)}
           </span>
           <p data-tooltip-id={address}>{address}</p>
           <StyledTooltip id={address} place="top" content={address} />
@@ -202,10 +205,7 @@ const CardItem = ({
       <Left>
         <Meter>
           <span>
-            {getFieldTranslationByNames(
-              "property-information",
-              "square meter area"
-            )}
+            {getFieldTranslationByNames(5095)}
           </span>
           <p>{area}</p>
         </Meter>
@@ -214,7 +214,7 @@ const CardItem = ({
         ) : (
           <Price>
             <span>
-              {getFieldTranslationByNames("citizenship-account", "price")}
+              {getFieldTranslationByNames(303)}
             </span>
             <Div>
               <div>
@@ -231,15 +231,12 @@ const CardItem = ({
         {isDeleted ? (
           <Button
             fit
-            label={getFieldTranslationByNames(
-              "property-information",
-              "pricing"
-            )}
+            label={getFieldTranslationByNames(7264)}
             onclick={() => setIsDeleted(false)}
           />
         ) : (
           <Delete onClick={() => setIsDeleted(true)}>
-            {getFieldTranslationByNames("citizenship-account", "remove price")}
+            {getFieldTranslationByNames(8804)}
           </Delete>
         )}
       </Left>

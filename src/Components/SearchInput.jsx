@@ -1,5 +1,7 @@
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
+import { useCallback } from "react";
+import debounce from "lodash/debounce";
 
 const Container = styled.div`
   height: 50px;
@@ -32,14 +34,26 @@ const Container = styled.div`
 `;
 
 const SearchInput = ({ placeholder, value, onchange }) => {
+  const debouncedSearch = useCallback(
+    debounce((value) => {
+      onchange({ target: { value } });
+    }, 500),
+    [onchange]
+  );
+
+  const handleChange = (e) => {
+    const searchTerm = e.target.value;
+    debouncedSearch(searchTerm);
+  };
+
   return (
     <Container>
       <FiSearch size={34} />
       <input
         type="text"
         placeholder={placeholder}
-        value={value}
-        onChange={onchange}
+        defaultValue={value}
+        onChange={handleChange}
       />
     </Container>
   );

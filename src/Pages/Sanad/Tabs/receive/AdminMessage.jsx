@@ -105,6 +105,10 @@ const Download = styled.img`
 `;
 
 const AdminMessage = ({ data }) => {
+  const adminResponses = data?.responses?.filter(
+    (response) => response.responser_name !== data?.sender?.name
+  );
+
   const handleDownload = (url) => {
     const link = document.createElement("a");
     link.href = url;
@@ -113,45 +117,57 @@ const AdminMessage = ({ data }) => {
     link.click();
     document.body.removeChild(link);
   };
+
+  if (!adminResponses || adminResponses.length === 0) {
+    return null;
+  }
+
   return (
-    <Container>
-      <Content>
-        <Header>
-          <span>{data.responser_name}</span>
-          <a
-            href="https://rgb.irpsc.com/fa/citizens/hm-2000001"
-            target="_blank"
-          >
-            HM-200020
-          </a>
-        </Header>
-        <Text>
-          <p>{SanitizeHTML(data.response)}</p>
-          <h4>
-            {" "}
-            {data?.date} | {data?.time}
-          </h4>
-        </Text>
-        {data.attachment && (
-          <FilesContainer>
-            <Files>
-              <FileItem>
-                {data.attachment && <img src={data.attachment} />}
-                <Download
-                  src={data.attachment}
-                  onClick={() => handleDownload(data.attachment)}
-                />
-              </FileItem>
-            </Files>
-            <h4>
-              {" "}
-              {data?.date} | {data?.time}
-            </h4>
-          </FilesContainer>
-        )}
-      </Content>
-      <img src={avatar} alt="avatar" width={50} height={50} />
-    </Container>
+    <>
+      {adminResponses.map((response) => (
+        <Container key={response.id}>
+          <Content>
+            <Header>
+              <span>{response.responser_name}</span>
+              <a
+                href={`https://rgb.irpsc.com/fa/citizens/${data.code}`}
+                target="_blank"
+              >
+                {data.code}
+              </a>
+            </Header>
+            <Text>
+              <p>{SanitizeHTML(response.response)}</p>
+              <h4>
+                {response.date} | {response.time}
+              </h4>
+            </Text>
+            {response.attachment && (
+              <FilesContainer>
+                <Files>
+                  <FileItem>
+                    <img src={response.attachment} />
+                    <Download
+                      src={download}
+                      onClick={() => handleDownload(response.attachment)}
+                    />
+                  </FileItem>
+                </Files>
+                <h4>
+                  {response.date} | {response.time}
+                </h4>
+              </FilesContainer>
+            )}
+          </Content>
+          <img
+            src={data["profile-photo"]}
+            alt="avatar"
+            width={50}
+            height={50}
+          />
+        </Container>
+      ))}
+    </>
   );
 };
 

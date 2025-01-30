@@ -118,17 +118,17 @@ const VodRow = ({
             {(() => {
               switch (status) {
                 case 0:
-                  return getFieldTranslationByNames("send-vod", "new");
+                  return getFieldTranslationByNames(15132);
                 case 1:
-                  return getFieldTranslationByNames("send-vod", "answered");
+                  return getFieldTranslationByNames(14768);
                 case 2:
-                  return getFieldTranslationByNames("send-vod", "read");
+                  return getFieldTranslationByNames(14789);
                 case 3:
-                  return getFieldTranslationByNames("send-vod", "not opened");
+                  return getFieldTranslationByNames(14775);
                 case 4:
-                  return getFieldTranslationByNames("send-vod", "read");
+                  return getFieldTranslationByNames(14789);
                 case 5:
-                  return getFieldTranslationByNames("send-vod", "closed");
+                  return getFieldTranslationByNames(14782);
                 default:
                   return "";
               }

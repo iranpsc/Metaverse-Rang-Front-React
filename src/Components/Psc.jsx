@@ -13,7 +13,7 @@ const Container = styled.div`
 const Psc = ({ color }) => {
   return (
     <Container color={color}>
-      <span>{getFieldTranslationByNames("property-information", "psc")}</span>
+      <span>{getFieldTranslationByNames(14488)}</span>
       <img width={26} alt="psc" src={pscGif} />
     </Container>
   );

@@ -157,12 +157,12 @@ const MapPolygons = () => {
       )}
       {zoom >= 14 && buildingModels.length > 0 && (
         <Canvas latitude={36} longitude={50}>
-          {buildingModels.map((model) => {
+          {buildingModels.map((model, index) => {
             const proxyFbxUrl = `https://middle.irpsc.com/app/?url=${model.file.url}`;
 
             return (
               <Coordinates
-                key={`${model.id}-coordinates`}
+                key={`${model.id}-${model.building.position}-${index}`}
                 latitude={parseFloat(model.building.position.split(",")[0])}
                 longitude={parseFloat(model.building.position.split(",")[1])}
               >
@@ -170,7 +170,7 @@ const MapPolygons = () => {
                   url={proxyFbxUrl}
                   rotation={[0, 0, 0]}
                   setLoading={setIsLoading}
-                  uniqueKey={`${model.id}-model`}
+                  uniqueKey={`${model.id}-${index}-model`}
                 />
               </Coordinates>
             );

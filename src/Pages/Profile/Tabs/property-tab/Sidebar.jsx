@@ -34,13 +34,13 @@ const Sidebar = ({ setMenu, menu }) => {
   return (
     <Container>
       <Label menu={menu === 1} onClick={() => setMenu(1)}>
-        {getFieldTranslationByNames("citizenship-account", "real estates")}
+        {getFieldTranslationByNames(288)}
       </Label>
       <Label menu={menu === 2} onClick={() => setMenu(2)}>
-        {getFieldTranslationByNames("citizenship-account", "following")}
+        {getFieldTranslationByNames(294)}
       </Label>
       <Label menu={menu === 3} onClick={() => setMenu(3)}>
-        {getFieldTranslationByNames("citizenship-account", "followers")}
+        {getFieldTranslationByNames(291)}
       </Label>
     </Container>
   );

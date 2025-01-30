@@ -75,17 +75,23 @@ const ErrorMessage = styled.div`
   margin: 10px 0;
 `;
 
-const SendFiles = ({ fileUrl, onFileChange }) => {
+const SendFiles = ({ files, onFilesChange }) => {
   const [preview, setPreview] = useState("");
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
   const MAX_FILE_SIZE_MB = 9;
 
   useEffect(() => {
-    if (fileUrl) {
-      setPreview(fileUrl);
+    if (files && files.length > 0) {
+      const file = files[0];
+      const previewUrl = file.type.startsWith("image/")
+        ? URL.createObjectURL(file)
+        : nonPhoto;
+      setPreview(previewUrl);
+    } else {
+      setPreview("");
     }
-  }, [fileUrl]);
+  }, [files]);
 
   const fileHandler = (e) => {
     setError("");
@@ -97,18 +103,13 @@ const SendFiles = ({ fileUrl, onFileChange }) => {
           `سایز ${newFile.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`
         );
       } else {
-        const newPreview = newFile.type.startsWith("image/")
-          ? URL.createObjectURL(newFile)
-          : nonPhoto;
-        setPreview(newPreview);
-        onFileChange(newFile);
+        onFilesChange([newFile]);
       }
     }
   };
 
   const removeFile = () => {
-    setPreview("");
-    onFileChange(null); // Notify parent of file removal
+    onFilesChange([]);
   };
 
   const handleDivClick = () => {
@@ -118,7 +119,7 @@ const SendFiles = ({ fileUrl, onFileChange }) => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("send-vod", "document attachment")}
+        title={getFieldTranslationByNames(14635)}
       />
       <Files>
         {preview && (

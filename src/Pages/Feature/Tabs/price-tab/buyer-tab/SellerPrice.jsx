@@ -1,3 +1,4 @@
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 import SellerPriceInfo from "./SellerPriceInfo";
 import styled from "styled-components";
 
@@ -27,8 +28,7 @@ const SellerPrice = () => {
   return (
     <Wrapper>
       <Text>
-        این VOD توسط فروشنده قیمت گذاری شده است شما می توایند این ملک را به دو
-        قیمت فروشنده به صورت ریال و PSC خریداری کنید{" "}
+        {getFieldTranslationByNames(6809)}
       </Text>
       <SellerPriceInfo />
     </Wrapper>

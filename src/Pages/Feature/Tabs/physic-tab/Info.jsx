@@ -52,20 +52,14 @@ const Info = ({ inputs, setEdit, edit }) => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames(
-          "property-information",
-          "the purpose of the establishment"
-        )}
+        title={getFieldTranslationByNames(7089)}
       />
       <Text>{inputs.target}</Text>
       {edit && (
         <Button onClick={() => setEdit(true)}>
           <BiEditAlt />
           <Edit>
-            {getFieldTranslationByNames(
-              "property-information",
-              "editing information"
-            )}
+            {getFieldTranslationByNames(6991)}
           </Edit>
         </Button>
       )}

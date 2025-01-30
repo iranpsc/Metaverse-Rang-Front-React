@@ -15,10 +15,7 @@ import {
 const Scroll = styled.div`
   padding: 30px 15px 20px;
   overflow-y: auto;
-  height: calc(100% - 115px);
-  @media (min-width: 1024px) {
-    height: calc(100% - 170px);
-  }
+  height: 100%;
 `;
 
 const Buttons = styled.div`
@@ -30,28 +27,19 @@ const Buttons = styled.div`
 
 const karbariMapping = {
   m: {
-    title: getFieldTranslationByNames(
-      "hour-meter-profit",
-      "residential property"
-    ),
+    title: getFieldTranslationByNames(6382),
     logo: house,
     color: "#FFC700",
     background: "#ffc80021",
   },
   t: {
-    title: getFieldTranslationByNames(
-      "hour-meter-profit",
-      "commercial property"
-    ),
+    title: getFieldTranslationByNames(6368),
     logo: building,
     color: "#FF0000",
     background: "#ff000021",
   },
   a: {
-    title: getFieldTranslationByNames(
-      "hour-meter-profit",
-      "educational property"
-    ),
+    title: getFieldTranslationByNames(6375),
     logo: education,
     color: "#0066FF",
     background: "#0066ff21",
@@ -85,30 +73,21 @@ const ProfitView = () => {
         setButtons([
           {
             id: 1,
-            title: getFieldTranslationByNames(
-              "hour-meter-profit",
-              "commercial real estate profits"
-            ),
+            title: getFieldTranslationByNames(156),
             logo: building,
             value: parseFloat(data.additional.total_tejari_profit),
             color: "#FF0000",
           },
           {
             id: 2,
-            title: getFieldTranslationByNames(
-              "hour-meter-profit",
-              "residential property interest"
-            ),
+            title: getFieldTranslationByNames(159),
             logo: house,
             value: parseFloat(data.additional.total_maskoni_profit),
             color: "#FFC700",
           },
           {
             id: 3,
-            title: getFieldTranslationByNames(
-              "hour-meter-profit",
-              "educational property interest"
-            ),
+            title: getFieldTranslationByNames(6361),
             logo: education,
             value: parseFloat(data.additional.total_amozeshi_profit),
             color: "#0066FF",

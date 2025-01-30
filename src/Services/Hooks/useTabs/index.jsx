@@ -14,19 +14,18 @@ const TabsWrapper = styled.div`
   @media (min-width: 998px) {
     padding-bottom: 70px;
   }
-
-
 `;
 
 // Create a styled Tab component
 const Tab = styled.h3`
+  white-space: nowrap;
   color: ${(props) =>
     props.active
       ? props.theme.colors.primary
       : props.theme.colors.newColors.shades[30]};
   font-weight: 500;
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   padding: 8px 26px;
   cursor: pointer;
   border-bottom: 2px solid

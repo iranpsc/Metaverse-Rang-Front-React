@@ -88,6 +88,7 @@ const TitleContainer = styled.div`
   gap: 10px;
 `;
 const ChevronIcon = styled(FaChevronDown)`
+  display: ${({ shouldHide }) => (shouldHide ? "none" : "block")};
   width: 12px;
   height: 12px;
   transition: transform 0.3s ease;
@@ -147,7 +148,7 @@ const DropDownLang = () => {
     <Tippy
       content={
         <Tooltip>
-          {getFieldTranslationByNames("central-page", "language")}
+          {getFieldTranslationByNames(6082)}
         </Tooltip>
       }
       zIndex={10000}
@@ -162,10 +163,11 @@ const DropDownLang = () => {
             {" "}
             <Icon src={LangIcon} />
             <Text shouldHide={!isOpen}>
-              {getFieldTranslationByNames("central-page", "language")}
+              {getFieldTranslationByNames(6082)}
             </Text>
           </TitleContainer>
-          <ChevronIcon isOpenDrop={isOpenDrop} /> {/* آیکون باز و بسته شدن */}
+          <ChevronIcon isOpenDrop={isOpenDrop} shouldHide={!isOpen} />{" "}
+          {/* آیکون باز و بسته شدن */}
         </Btn>
         {isOpenDrop && (
           <DropdownMenu isOpenDrop={isOpenDrop}>
@@ -173,13 +175,13 @@ const DropDownLang = () => {
               onClick={() => changeLanguage("en")}
               isSelected={currentLang === "en"}
             >
-              {getFieldTranslationByNames("misc", "english")}
+              {getFieldTranslationByNames(13529)}
             </DropdownItem>
             <DropdownItem
               onClick={() => changeLanguage("fa")}
               isSelected={currentLang === "fa"}
             >
-              {getFieldTranslationByNames("misc", "persian")}
+              {getFieldTranslationByNames(13788)}
             </DropdownItem>
           </DropdownMenu>
         )}

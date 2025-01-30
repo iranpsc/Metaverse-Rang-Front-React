@@ -103,7 +103,7 @@ const Info = () => {
           </Code>
         </div>
         <span>
-          {getFieldTranslationByNames("citizenship-account", "Membership from")}{" "}
+          {getFieldTranslationByNames(267)}{" "}
           {user?.registered_at}
         </span>
       </Header>
@@ -111,7 +111,7 @@ const Info = () => {
         <Follow>
           <Count>{user?.followers_count}</Count>
           <span>
-            {getFieldTranslationByNames("citizenship-account", "followers")}
+            {getFieldTranslationByNames(291)}
           </span>
         </Follow>
         <div
@@ -120,7 +120,7 @@ const Info = () => {
         <Follow>
           <Count>{user?.following_count}</Count>
           <span>
-            {getFieldTranslationByNames("citizenship-account", "following")}
+            {getFieldTranslationByNames(294)}
           </span>
         </Follow>
       </Content>
@@ -136,7 +136,7 @@ const Info = () => {
           <ButtonIcon
             grow
             icon={<LuShare2 />}
-            label={getFieldTranslationByNames("citizenship-account", "sharing")}
+            label={getFieldTranslationByNames(8783)}
             onclick={() => setOpenShare(true)}
           />
         </Upper>

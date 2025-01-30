@@ -18,7 +18,11 @@ const ModalPosition = ({ children, title, position, action }) => {
   return (
     showContainer && (
       <Container position={position} style={springs}>
-        <Header title={title} />
+        <Header
+          title={title}
+          action={action}
+          setShowContainer={setShowContainer}
+        />
         {children}
       </Container>
     )

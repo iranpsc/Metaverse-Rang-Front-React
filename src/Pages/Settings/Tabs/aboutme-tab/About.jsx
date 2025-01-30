@@ -38,7 +38,7 @@ const About = () => {
 
   return (
     <>
-      <Label>{getFieldTranslationByNames("citizenship-account", "write about yourself")}</Label>
+      <Label>{getFieldTranslationByNames(9189)}</Label>
 
       <EditorContainer>
         <ReactQuill
@@ -50,7 +50,7 @@ const About = () => {
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
-        <span>{localizedRemainingChars} {getFieldTranslationByNames("citizenship-account", "character")}</span>
+        <span>{localizedRemainingChars} {getFieldTranslationByNames(9217)}</span>
         <CiEdit size={20} />
       </Char>
     </>

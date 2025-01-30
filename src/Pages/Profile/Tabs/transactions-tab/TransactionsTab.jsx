@@ -19,7 +19,10 @@ import yellow from "../../../../Assets/gif/yellow-color.gif";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -88,7 +91,7 @@ const Date = styled.div`
   }
   input {
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    width: 100%;
+    width: 200%;
     height: 100%;
     background-color: transparent;
     border: none;
@@ -97,19 +100,25 @@ const Date = styled.div`
       border: none;
       outline: none;
     }
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 
 const TransactionsTab = () => {
   const [transactions, setTransactions] = useState([]);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const { Request } = useRequest();
   const loaderRef = useRef(null);
-
+  // Add this helper function to convert Persian numbers to English
+  const convertPersianToEnglish = (str) => {
+    if (!str) return str;
+    const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+    return str.replace(/[۰-۹]/g, (d) => persianNumbers.indexOf(d));
+  };
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
     success: false,
@@ -127,18 +136,58 @@ const TransactionsTab = () => {
     psc: false,
     rial: false,
   });
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [filterPage, setFilterPage] = useState(1);
 
-  const fetchTransactions = useCallback(async () => {
-    if (!hasMore || isLoading) return;
-
+  const fetchTransactions = async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await Request(`user/transactions?page=${page}`);
+      const statusParams = [];
+      if (status.success) statusParams.push(0);
+      if (status.failed) statusParams.push(-138);
+      if (status.pending) statusParams.push(1);
+
+      const titleParams = [];
+      if (title.property_dealing) titleParams.push("trade");
+      if (title.property_buy) titleParams.push("order");
+
+      const subjectParams = [];
+      if (subject.blue) subjectParams.push("blue");
+      if (subject.red) subjectParams.push("red");
+      if (subject.yellow) subjectParams.push("yellow");
+      if (subject.psc) subjectParams.push("psc");
+      if (subject.rial) subjectParams.push("rial");
+
+      const isFilterActive =
+        searched ||
+        statusParams.length ||
+        titleParams.length ||
+        subjectParams.length ||
+        dateRange[0];
+
+      const currentPage = isFilterActive ? filterPage : page;
+
+      const params = new URLSearchParams({
+        page: currentPage,
+        search: searched,
+        type: titleParams.join(","),
+        asset: subjectParams.join(","),
+      });
+
+      if (dateRange[0] && dateRange[1]) {
+        params.append("start_date_time", convertPersianToEnglish(dateRange[0]));
+        params.append("end_date_time", convertPersianToEnglish(dateRange[1]));
+      }
+
+      statusParams.forEach((status, index) => {
+        params.append(`status[${index}]`, status);
+      });
+
+      const response = await Request(`user/transactions?${params.toString()}`);
       const newTransactions = response.data.data;
 
-      // Map asset GIFs to new transactions
       const processedTransactions = newTransactions.map((transaction) => {
         let assetGif = null;
         switch (transaction.asset) {
@@ -154,7 +203,7 @@ const TransactionsTab = () => {
           case "psc":
             assetGif = psc;
             break;
-          case "rial":
+          case "irr":
             assetGif = rial;
             break;
           default:
@@ -163,26 +212,57 @@ const TransactionsTab = () => {
         return { ...transaction, assetGif };
       });
 
-      setTransactions((prev) => [...prev, ...processedTransactions]);
+      if (isFilterActive) {
+        setFilteredTransactions(processedTransactions);
+      } else {
+        setFilteredTransactions([]);
+        setTransactions((prev) =>
+          currentPage === 1
+            ? processedTransactions
+            : [...prev, ...processedTransactions]
+        );
+      }
+
       setHasMore(response.data.links.next !== null);
     } catch (err) {
-      setError(err.message);
-      console.error("Error fetching transactions:", err);
+      ToastError(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
-  }, [page, hasMore]);
+  };
 
   useEffect(() => {
+    const isFilterActive =
+      searched ||
+      Object.values(status).some(Boolean) ||
+      Object.values(title).some(Boolean) ||
+      Object.values(subject).some(Boolean) ||
+      dateRange[0];
+
+    if (isFilterActive) {
+      setFilterPage(1);
+    }
+
     fetchTransactions();
-  }, [fetchTransactions]);
+  }, [page, searched, status, title, subject, dateRange]);
 
   // IntersectionObserver setup
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && !isLoading) {
-          setPage((prevPage) => prevPage + 1);
+          const isFilterActive =
+            searched ||
+            Object.values(status).some(Boolean) ||
+            Object.values(title).some(Boolean) ||
+            Object.values(subject).some(Boolean) ||
+            dateRange[0];
+
+          if (isFilterActive) {
+            setFilterPage((prev) => prev + 1);
+          } else {
+            setPage((prev) => prev + 1);
+          }
         }
       },
       { threshold: 0.5 }
@@ -199,69 +279,46 @@ const TransactionsTab = () => {
     };
   }, [hasMore, isLoading]);
 
-  const filteredItems = transactions.filter((row, index) => {
-    const codeMatch = row.id.toString().includes(searched);
-    const statusMatch =
-      (!status.success && !status.failed && !status.pending) ||
-      (status.success && row?.status === "1") ||
-      (status.failed && row?.status === "0") ||
-      (status.pending && row?.status === "-1");
-    const titleMatch =
-      (!title.property_dealing && !title.property_buy) ||
-      (title.property_dealing && row?.type === "trade") ||
-      (title.property_buy && row?.type === "order");
-    const subjectMatch =
-      (!subject.blue &&
-        !subject.red &&
-        !subject.yellow &&
-        !subject.psc &&
-        !subject.rial) ||
-      (subject.blue && row.asset === "blue") ||
-      (subject.red && row.asset === "red") ||
-      (subject.yellow && row.asset === "yellow") ||
-      (subject.psc && row.asset === "psc") ||
-      (subject.rial && row.asset === "rial");
-
-    return codeMatch && statusMatch && titleMatch && subjectMatch;
-  });
+  const handleSearch = useCallback((e) => {
+    const searchValue = e.target.value;
+    setSearched(searchValue);
+  }, []);
 
   return (
     <Container>
       <div>
         <Title
-          title={getFieldTranslationByNames(
-            "citizenship-account",
-            "transactions"
-          )}
+          title={getFieldTranslationByNames(357)}
         />
       </div>
       <Div>
         <SearchInput
-          onChange={(e) => setSearched(e.target.value)}
+          onchange={handleSearch}
           value={searched}
-          placeholder={getFieldTranslationByNames(
-            "citizenship-account",
-            "transaction id"
-          )}
+          placeholder={getFieldTranslationByNames(330)}
         />
         <Date>
           <DatePicker
-            placeholder={getFieldTranslationByNames(
-              "citizenship-account",
-              "date and time range"
-            )}
-            className="bg-dark yellow"
-            format="YYYY/DD/MM HH:mm:ss"
+            placeholder={getFieldTranslationByNames(9028)}
+            format="YYYY/MM/DD HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
             calendar={persian}
             locale={persian_fa}
             calendarPosition="bottom-right"
+            range
+            value={dateRange}
+            onChange={(dates) => {
+              if (dates) {
+                const [start, end] = dates.toString().split(",");
+                setDateRange([start, end || null]); // Set end to null if not provided
+              } else {
+                setDateRange([null, null]);
+              }
+            }}
           />
           <FaRegCalendarAlt size={20} />
         </Date>
       </Div>
-
-      {error && <div className="text-red-500">Error: {error}</div>}
 
       <TransactionsList
         setStatus={setStatus}
@@ -270,7 +327,7 @@ const TransactionsTab = () => {
         title={title}
         status={status}
         subject={subject}
-        rows={filteredItems}
+        rows={filteredTransactions.length ? filteredTransactions : transactions}
       />
 
       {isLoading && <div className="text-center py-4">Loading...</div>}

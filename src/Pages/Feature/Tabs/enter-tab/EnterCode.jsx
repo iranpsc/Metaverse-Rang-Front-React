@@ -37,19 +37,13 @@ const EnterCode = ({ setPayStatus }) => {
   return (
     <Container>
       <Input
-        placeholder={getFieldTranslationByNames(
-          "property-information",
-          "exclusive login code"
-        )}
+        placeholder={getFieldTranslationByNames(6956)}
         onchange={() => {}}
       />
       <Div>
         <Button
           fit
-          label={getFieldTranslationByNames(
-            "property-information",
-            "payment and entry"
-          )}
+          label={getFieldTranslationByNames(6900)}
           onclick={() => setPayStatus(true)}
         />
       </Div>
