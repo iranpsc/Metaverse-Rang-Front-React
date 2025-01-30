@@ -23,6 +23,7 @@ import { AlertProvider } from "./Services/Reducers/AlertContext.jsx";
 import Routers from "./Layouts/Map/Routers.jsx";
 import { getFieldTranslationByNames } from "./Services/Utility/index.jsx";
 import { LanguageProvider } from "./Services/Reducers/LanguageContext.jsx";
+import { LoaderProvider } from "./Services/Reducers/LoaderProvider.jsx";
 import RotateDevice from "./Components/RotateDevice";
 const Container = styled.section`
   display: flex;
@@ -58,6 +59,7 @@ function App() {
   }, []);
 
   return (
+    <LoaderProvider>
     <MapProvider>
       <ThemeProviderContext>
         <LanguageProvider>
@@ -92,6 +94,8 @@ function App() {
         </LanguageProvider>
       </ThemeProviderContext>
     </MapProvider>
+    </LoaderProvider>
+
   );
 }
 

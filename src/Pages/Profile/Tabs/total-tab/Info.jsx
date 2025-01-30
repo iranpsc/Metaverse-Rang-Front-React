@@ -89,6 +89,7 @@ const Info = () => {
       setUser(response.data.data);
     });
   }, []);
+  console.log(user);
   return (
     <Container>
       <Header>
