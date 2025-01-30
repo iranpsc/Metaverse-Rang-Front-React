@@ -98,13 +98,13 @@ const Div = styled.div`
 const items_info = [
   {
     id: 1,
-    translationId: 7929,
+    translationId: "637",
     value: "",
     name: "checkout_days_count",
   },
   {
     id: 2,
-    translationId: 7936,
+    translationId: "638",
     value: "",
     name: "automatic_logout",
   },
