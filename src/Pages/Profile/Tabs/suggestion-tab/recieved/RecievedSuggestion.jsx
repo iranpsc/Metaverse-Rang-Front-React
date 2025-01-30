@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { mainContainer, Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../Services/Hooks/useRequest/index";
 import { useLocation } from "react-router-dom"; // استفاده از useLocation
+import { convertToPersian, getFieldTranslationByNames } from "../../../../../Services/Utility/index";
 
 const Container = mainContainer;
 
@@ -19,27 +20,27 @@ const RecievedSuggestion = () => {
       try {
         const response = await Request("buy-requests/recieved", "GET");
         console.log("Received data:", response.data.data);
-  
+
         if (response.data && Array.isArray(response.data.data)) {
           const formattedSuggestions = response.data.data.map((item) => ({
             id: item.id,
             property: {
-              image: meter || 444,
-              location: item.feature_properties.address || 444,
-              code: item.feature_properties.id || 444,
-              value: item.feature_properties.price_psc || 444,
-              rial: item.price_irr || 444,
-              psc: item.price_psc || 444,
+              image: meter,
+              location: item.feature_properties.address,
+              code: item.feature_properties.id,
+              value: item.feature_properties.price_psc,
+              rial: item.price_irr,
+              psc: item.price_psc,
               coordinates: item.feature_coordinates || [],
             },
             suggestions_list: [
               {
-                id: item.id || 444,
-                code: item.buyer.code || 444,
-                date: item.created_at || 444,
-                rial: item.price_irr || 444,
-                psc: item.price_psc || 444,
-                percent: "210" || 444, // مقدار فرضی
+                id: item.id,
+                code: item.buyer.code,
+                date: item.created_at,
+                rial: item.price_irr,
+                psc: item.price_psc,
+                percent: "210", // مقدار فرضی
                 information: item.note,
               },
             ],
@@ -52,20 +53,38 @@ const RecievedSuggestion = () => {
         console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchSuggestions();
   }, [location]);
+  const convertSuggestions = (suggestions) => {
+    return suggestions.map((suggestion) => ({
+      ...suggestion,
+      property: {
+        ...suggestion.property,
+        code: convertToPersian(suggestion.property.code),
+        value: convertToPersian(suggestion.property.value), // بررسی برای null/undefined
+        psc: convertToPersian(suggestion.property.psc),
+        
+      },
+      suggestions_list: suggestion.suggestions_list.map((item) => ({
+        ...item,
+        date: convertToPersian(item.date),
+        psc: convertToPersian(item.psc),
+        percent: convertToPersian(item.percent),
+      })),
+    }));
+  };
 
   const handleRejectProposal = (suggestionId, proposerId) => {
     setSuggestions((prevSuggestions) =>
       prevSuggestions.map((suggestion) =>
         suggestion.id === suggestionId
           ? {
-              ...suggestion,
-              suggestions_list: suggestion.suggestions_list.filter(
-                (proposer) => proposer.id !== proposerId
-              ),
-            }
+            ...suggestion,
+            suggestions_list: suggestion.suggestions_list.filter(
+              (proposer) => proposer.id !== proposerId
+            ),
+          }
           : suggestion
       )
     );
@@ -79,7 +98,7 @@ const RecievedSuggestion = () => {
     <Container>
       <Title right title="پیشنهادات دریافتی" /> {/* عنوان به فارسی */}
       <Wrapper>
-        {validSuggestions.map((suggestion) => (
+        {convertSuggestions(validSuggestions).map((suggestion) => (
           <Suggestion
             key={suggestion.id}
             {...suggestion}

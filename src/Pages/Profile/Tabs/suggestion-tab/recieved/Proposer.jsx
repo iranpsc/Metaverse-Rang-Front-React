@@ -119,7 +119,7 @@ const Proposer = ({
             <img src={person} alt={code} width={60} height={60} />
             <div>
               <p>{getFieldTranslationByNames(9070)}</p>
-              <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">{code}</a>
+              <a href={`https://rgb.irpsc.com/fa/citizen/${code}`}>{convertToPersian(code)}</a>
             </div>
           </Person>
           <Time>
@@ -134,7 +134,7 @@ const Proposer = ({
           <Prices>
             <div>
               <img width={24} height={24} src={rialpng} />
-              <span>{rial}</span>
+              <span>{convertToPersian(rial)}</span>
             </div>
             <img width={1} height={24} src={line} />
             <div>

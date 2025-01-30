@@ -18,7 +18,7 @@ export default function Profile() {
     { title: getFieldTranslationByNames(15013), content: <PropertyTab /> },
     { title: getFieldTranslationByNames(357), content: <TransactionsTab /> },
     { title: getFieldTranslationByNames(358), content: <DynastyTab /> },
-    { title: getFieldTranslationByNames(8790), content: <SuggestionTab /> },
+    { title: getFieldTranslationByNames(735), content: <SuggestionTab /> },
   ];
 
   useEffect(() => {

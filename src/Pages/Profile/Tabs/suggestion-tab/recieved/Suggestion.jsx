@@ -7,7 +7,7 @@ import red from "../../../../../Assets/images/profile/red-color.gif";
 import rial from "../../../../../Assets/images/profile/rial.gif";
 import styled from "styled-components";
 import { SuggestionsContainer, Location, Property, Value, Suggestions, AreaContainer, StyledSVG, Polygon } from "../suggestionStyles";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility/index";
+import { getFieldTranslationByNames,convertToPersian } from "../../../../../Services/Utility/index";
 import { useLanguage } from "../../../../../Services/Reducers/LanguageContext";
 
 const Container = SuggestionsContainer;
@@ -115,7 +115,7 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
             <Prices isPersian={isPersian}>
               <div>
                 <img width={24} height={24} src={rial} />
-                <span>{property.rial}</span>
+                <span>{convertToPersian(property.rial)}</span>
               </div>
               <img width={1} height={24} src={line} />
               <div>
