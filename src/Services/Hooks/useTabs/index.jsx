@@ -16,7 +16,6 @@ const TabsWrapper = styled.div`
   }
 
 
-
 `;
 
 // Create a styled Tab component
@@ -51,7 +50,6 @@ const TabContainer = styled.div`
   display: flex;
   border-bottom: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
-  margin-bottom: 10px;
 `;
 // Create a function that uses the tabs and current index
 function useTabs(tabs, current, fullHeight) {
