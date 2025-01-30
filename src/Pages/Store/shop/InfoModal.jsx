@@ -83,28 +83,28 @@ const CloseWrapper = styled.div`
 const InfoModal = ({ data, type, setOpenModal }) => {
   const getAssetTranslation = () => {
     if (data.asset === "yellow") {
-      return getFieldTranslationByNames(78);
+      return getFieldTranslationByNames("11");
     } else if (data.asset === "red") {
-      return getFieldTranslationByNames(81);
+      return getFieldTranslationByNames("12");
     } else if (data.asset === "blue") {
-      return getFieldTranslationByNames(84);
+      return getFieldTranslationByNames("13");
     } else if (data.asset === "irr") {
-      return getFieldTranslationByNames(10813);
+      return getFieldTranslationByNames("906");
     } else if (data.asset === "psc") {
-      return getFieldTranslationByNames(10820);
+      return getFieldTranslationByNames("47");
     }
   };
   const getAssetTranslationDescription = () => {
     if (data.asset === "yellow") {
-      return getFieldTranslationByNames(6655);
+      return getFieldTranslationByNames("506");
     } else if (data.asset === "red") {
-      return getFieldTranslationByNames(6662);
+      return getFieldTranslationByNames("507");
     } else if (data.asset === "blue") {
-      return getFieldTranslationByNames(6669);
+      return getFieldTranslationByNames("508");
     } else if (data.asset === "irr") {
-      return getFieldTranslationByNames(6711);
+      return getFieldTranslationByNames("514");
     } else if (data.asset === "psc") {
-      return getFieldTranslationByNames(6718);
+      return getFieldTranslationByNames("515");
     }
   };
   return (

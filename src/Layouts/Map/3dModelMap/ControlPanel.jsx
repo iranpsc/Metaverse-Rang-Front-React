@@ -80,7 +80,7 @@ const ControlPanel = ({
 
   return (
     <ModalPosition
-      title={6221}
+      title={"462"}
       position={"right"}
       action={"ChangeHiddenState"}
     >
@@ -88,7 +88,7 @@ const ControlPanel = ({
         <ContainerHeader>
           <Diver />
           <Title>
-            {getFieldTranslationByNames(6228)}
+            {getFieldTranslationByNames("463")}
           </Title>
           <Label>
             <RotationCounter>{rotationX}°</RotationCounter>
@@ -104,7 +104,7 @@ const ControlPanel = ({
         </ContainerHeader>
 
         <Submit
-          text={getFieldTranslationByNames(6235)}
+          text={getFieldTranslationByNames("464")}
           type="primary"
           options={{
             style: {

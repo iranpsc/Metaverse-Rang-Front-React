@@ -102,11 +102,11 @@ const TransactionRow = ({
   const getAssetTitle = (assetType) => {
     switch (assetType) {
       case "red":
-        return getFieldTranslationByNames(8965);
+        return getFieldTranslationByNames("754");
       case "blue":
-        return getFieldTranslationByNames(8958);
+        return getFieldTranslationByNames("753");
       case "yellow":
-        return getFieldTranslationByNames(8972);
+        return getFieldTranslationByNames("755");
       default:
         return assetType;
     }
@@ -128,20 +128,20 @@ const TransactionRow = ({
       <TableCell>
         <Status status={status}>
           {status == "0"
-            ? getFieldTranslationByNames(8874)
+            ? getFieldTranslationByNames("741")
             : status == "-138"
-            ? getFieldTranslationByNames(8881)
+            ? getFieldTranslationByNames("742")
             : status == "1"
-            ? getFieldTranslationByNames(8888)
+            ? getFieldTranslationByNames("743")
             : "بب"}
         </Status>
       </TableCell>
       <TableCell>
         <Title>
           {type == "order"
-            ? getFieldTranslationByNames(8860)
+            ? getFieldTranslationByNames("739")
             : type == "trade"
-            ? getFieldTranslationByNames(8867)
+            ? getFieldTranslationByNames("740")
             : type}
         </Title>
       </TableCell>

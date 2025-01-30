@@ -231,18 +231,18 @@ const TransactionsList = ({
           <TableRow>
             <TableHeader>
               <TableHeaderText>
-                {getFieldTranslationByNames(330)}
+                {getFieldTranslationByNames("63")}
               </TableHeaderText>
             </TableHeader>
             <TableHeader date>
               <TableHeaderText>
-                {getFieldTranslationByNames(333)}
+                {getFieldTranslationByNames("64")}
               </TableHeaderText>
             </TableHeader>
             <TableHeader>
               <FilterContainer>
                 <TableHeaderText>
-                  {getFieldTranslationByNames(336)}
+                  {getFieldTranslationByNames("65")}
                 </TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ status: !filters.status })}
@@ -261,7 +261,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8874)}
+                      {getFieldTranslationByNames("741")}
                     </FilterItemText>
                     {status.success && (
                       <FilterCloseButton
@@ -284,7 +284,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8888)}
+                      {getFieldTranslationByNames("743")}
                     </FilterItemText>
                     {status.pending && (
                       <FilterCloseButton
@@ -307,7 +307,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8881)}
+                      {getFieldTranslationByNames("742")}
                     </FilterItemText>
                     {status.failed && (
                       <FilterCloseButton
@@ -346,7 +346,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8860)}
+                      {getFieldTranslationByNames("739")}
                     </FilterItemText>
                     {title.property_buy && (
                       <FilterCloseButton
@@ -369,7 +369,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8867)}
+                      {getFieldTranslationByNames("740")}
                     </FilterItemText>
                     {title.property_dealing && (
                       <FilterCloseButton
@@ -443,12 +443,12 @@ const TransactionsList = ({
             </TableHeader>
             <TableHeader>
               <TableHeaderText>
-                {getFieldTranslationByNames(345)}
+                {getFieldTranslationByNames("66")}
               </TableHeaderText>
             </TableHeader>
             <TableHeader>
               <TableHeaderText>
-                {getFieldTranslationByNames(348)}
+                {getFieldTranslationByNames("67")}
               </TableHeaderText>
             </TableHeader>
           </TableRow>

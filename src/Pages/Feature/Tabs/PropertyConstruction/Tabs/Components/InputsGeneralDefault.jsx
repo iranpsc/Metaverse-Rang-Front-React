@@ -81,44 +81,44 @@ const InputsGeneralDefault = () => {
         <InputSize>
           <Input
             name="activity_line"
-            placeholder={getFieldTranslationByNames(7054)}
+            placeholder={getFieldTranslationByNames("360")}
             onchange={handleChange}
           />
         </InputSize>
         <Input
           name="name"
-          placeholder={getFieldTranslationByNames(7061)}
+          placeholder={getFieldTranslationByNames("361")}
           onchange={handleChange}
         />
       </DivHeader>
       <Input
         name="address"
-        placeholder={getFieldTranslationByNames(5207)}
+        placeholder={getFieldTranslationByNames("362")}
         onchange={handleChange}
       />
       <DivHeader>
         <Input
           name="postal_code"
-          placeholder={getFieldTranslationByNames(5214)}
+          placeholder={getFieldTranslationByNames("363")}
           onchange={handleChange}
         />
         <Input
           name="website"
-          placeholder={getFieldTranslationByNames(5221)}
+          placeholder={getFieldTranslationByNames("364")}
           onchange={handleChange}
         />
       </DivHeader>
       <Input
         name="description"
-        placeholder={getFieldTranslationByNames(7089)}
+        placeholder={getFieldTranslationByNames("365")}
         style={{ height: "220px" }}
         onchange={handleChange}
       />
       <P>
-        {getFieldTranslationByNames(5235)}
+        {getFieldTranslationByNames("366")}
       </P>
       <Button
-        label={getFieldTranslationByNames(5242)}
+        label={getFieldTranslationByNames("367")}
         onclick={handleButtonClick}
       />
     </Container>

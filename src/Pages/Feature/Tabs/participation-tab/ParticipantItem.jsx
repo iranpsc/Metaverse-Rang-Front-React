@@ -108,25 +108,25 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
         <Div>
           <ParticipantSummary>
             <UserCode
-              title={getFieldTranslationByNames(7180)}
+              title={getFieldTranslationByNames("563")}
               code="HM-2000081"
             />
             <TitleValue
-              title={getFieldTranslationByNames(7187)}
+              title={getFieldTranslationByNames("564")}
               value={time}
             />
             <TitleValue
-              title={getFieldTranslationByNames(7194)}
+              title={getFieldTranslationByNames("565")}
               value={debt}
             />
             <TitleValue
-              title={getFieldTranslationByNames(7201)}
+              title={getFieldTranslationByNames("566")}
               value={level}
             />
             <SatisfyContainer>
               <Title>
                 <h3>
-                  {getFieldTranslationByNames(7208)}
+                  {getFieldTranslationByNames("567")}
                 </h3>
                 <img src={satisfy} alt="pricing" width={18} height={18} />
               </Title>
@@ -157,7 +157,7 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
             {options.map((option) => (
               <ParticipantInfo key={option.id}>
                 <TitleValue
-                  title={getFieldTranslationByNames(7243)}
+                  title={getFieldTranslationByNames("571")}
                   value={option.submit}
                 />
 
@@ -165,7 +165,7 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
                   <Title>
                     <h3>
                       {" "}
-                      {getFieldTranslationByNames(7208)}
+                      {getFieldTranslationByNames("567")}
                     </h3>
                     <img src={satisfy} alt="pricing" width={18} height={18} />
                   </Title>

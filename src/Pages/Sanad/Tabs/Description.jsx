@@ -162,7 +162,7 @@ const Description = () => {
 
   return (
     <>
-      <Label> {getFieldTranslationByNames(14621)}</Label>
+      <Label> {getFieldTranslationByNames("1327")}</Label>
       <EditorContainer>
         <ReactQuill
           value={state.description}
@@ -174,7 +174,7 @@ const Description = () => {
       <Char isOverLimit={isOverLimit}>
         <span>
           {convertToPersian(remainingChars)}{" "}
-          {getFieldTranslationByNames(14628)}
+          {getFieldTranslationByNames("530")}
         </span>
         <CiEdit size={20} />
       </Char>

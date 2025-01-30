@@ -119,7 +119,7 @@ const SendFiles = ({ files, onFilesChange }) => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames(14635)}
+        title={getFieldTranslationByNames("1328")}
       />
       <Files>
         {preview && (

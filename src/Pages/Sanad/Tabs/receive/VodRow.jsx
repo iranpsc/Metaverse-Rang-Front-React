@@ -118,17 +118,17 @@ const VodRow = ({
             {(() => {
               switch (status) {
                 case 0:
-                  return getFieldTranslationByNames(15132);
+                  return getFieldTranslationByNames("1373");
                 case 1:
-                  return getFieldTranslationByNames(14768);
+                  return getFieldTranslationByNames("1343");
                 case 2:
-                  return getFieldTranslationByNames(14789);
+                  return getFieldTranslationByNames("1346");
                 case 3:
-                  return getFieldTranslationByNames(14775);
+                  return getFieldTranslationByNames("1344");
                 case 4:
-                  return getFieldTranslationByNames(14789);
+                  return getFieldTranslationByNames("1346");
                 case 5:
-                  return getFieldTranslationByNames(14782);
+                  return getFieldTranslationByNames("1345");
                 default:
                   return "";
               }

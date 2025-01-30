@@ -119,8 +119,6 @@ export const ToastSuccess = (message) => {
 
 export const getFieldTranslationByNames = (fieldId) => {
   const resources = i18n.store.data;
-  const adjustedFieldId =
-    i18n.language === "fa" ? fieldId : parseInt(fieldId) + 1;
 
   if (
     !resources ||
@@ -134,16 +132,14 @@ export const getFieldTranslationByNames = (fieldId) => {
 
   for (const modal of modals) {
     for (const tab of modal.tabs || []) {
-      const field = tab.fields?.find(
-        (field) => field.id.toString() === adjustedFieldId.toString()
-      );
+      const field = tab.fields?.find((field) => field.unique_id === fieldId);
       if (field?.translation) {
         return field.translation;
       }
     }
   }
 
-  return `Translation for ID '${adjustedFieldId}' not found`;
+  return `Translation for ID '${fieldId} not found`;
 };
 
 export const getFieldsByTabName = (modalName, tabName) => {

@@ -28,7 +28,7 @@ const SellerPrice = () => {
   return (
     <Wrapper>
       <Text>
-        {getFieldTranslationByNames(6809)}
+        {getFieldTranslationByNames("526")}
       </Text>
       <SellerPriceInfo />
     </Wrapper>

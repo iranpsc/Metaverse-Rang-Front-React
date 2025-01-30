@@ -46,7 +46,7 @@ const PropertyCard = ({ image, label, value }) => {
         <span>{label}</span>
         <h3>
           {value || 0}{" "}
-          {getFieldTranslationByNames(15013)}
+          {getFieldTranslationByNames("150")}
         </h3>
       </div>
     </Container>

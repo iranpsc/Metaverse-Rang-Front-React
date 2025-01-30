@@ -70,7 +70,7 @@ const Dynasty = () => {
       <Btn isOpenDrop={isOpenDrop}>
         <IconHeader isOpenDrop={isOpenDrop} />
         <Text isOpen={isOpen}>
-          {getFieldTranslationByNames(3842)}
+          {getFieldTranslationByNames("158")}
         </Text>
       </Btn>
       {/* <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>

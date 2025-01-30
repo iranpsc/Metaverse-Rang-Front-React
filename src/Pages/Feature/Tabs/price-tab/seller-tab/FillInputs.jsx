@@ -129,7 +129,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           value={rial}
           onchange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(14488)})`}
+          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("47")})`}
           insideText={<Rial />}
           errorMessage={errors.rial}
         />
@@ -137,7 +137,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           value={psc}
           onchange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(14488)})`}
+          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("47")})`}
           insideText={<Psc />}
           errorMessage={errors.psc}
         />
@@ -145,19 +145,19 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
       <ResultWrapper>
         <Wrapper>
           <Title>
-            {getFieldTranslationByNames(6781)}
+            {getFieldTranslationByNames("522")}
           </Title>
           <Value>
             {calculateFee(rial)} IRR / {calculateFee(psc)} PSC
           </Value>
         </Wrapper>
         <TitleValue
-          title={getFieldTranslationByNames(6788)}
+          title={getFieldTranslationByNames("523")}
           value="5%"
         />
       </ResultWrapper>
       <Button
-        label={getFieldTranslationByNames(6747)}
+        label={getFieldTranslationByNames("519")}
         onclick={priceHandler}
       />
     </Div>

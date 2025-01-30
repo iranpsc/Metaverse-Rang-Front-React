@@ -195,7 +195,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
 
       <Button
         full
-        label={getFieldTranslationByNames(7866)}
+        label={getFieldTranslationByNames("629")}
         onclick={handleSave}
       />
     </Container>

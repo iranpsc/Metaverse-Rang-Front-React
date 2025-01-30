@@ -89,15 +89,15 @@ const InfoRow = ({ data, type, shop, title }) => {
 
   const getAssetTranslation = () => {
     if (data.asset === "yellow") {
-      return getFieldTranslationByNames(78);
+      return getFieldTranslationByNames("11");
     } else if (data.asset === "red") {
-      return getFieldTranslationByNames(81);
+      return getFieldTranslationByNames("12");
     } else if (data.asset === "blue") {
-      return getFieldTranslationByNames(84);
+      return getFieldTranslationByNames("13");
     } else if (data.asset === "irr") {
-      return getFieldTranslationByNames(10813);
+      return getFieldTranslationByNames("906");
     } else if (data.asset === "psc") {
-      return getFieldTranslationByNames(10820);
+      return getFieldTranslationByNames("47");
     }
   };
 
@@ -114,25 +114,25 @@ const InfoRow = ({ data, type, shop, title }) => {
           </PhotoContainer>
           <TitleValue
             shop={shop}
-            title={` ${getFieldTranslationByNames(6690)}`}
+            title={` ${getFieldTranslationByNames("511")}`}
             value={getAssetTranslation()}
           />
         </div>
         <TitleValue
           shop={shop}
-          title={` ${getFieldTranslationByNames(6683)}`}
-          value={`${data.amount.toLocaleString()} ${getFieldTranslationByNames(87)}`}
+          title={` ${getFieldTranslationByNames("510")}`}
+          value={`${data.amount.toLocaleString()} ${getFieldTranslationByNames("14")}`}
         />
         <TitleValue
           shop={shop}
-          title={`${getFieldTranslationByNames(6676)}`}
+          title={`${getFieldTranslationByNames("509")}`}
           value={`${addCommas(
             (data.amount * data.unitPrice) / 10
-          )} ${getFieldTranslationByNames(75)}`}
+          )} ${getFieldTranslationByNames("10")}`}
         />
         <Button
           row
-          label={getFieldTranslationByNames(6634)}
+          label={getFieldTranslationByNames("353")}
           onclick={() => {
             paymentHandler(data.asset, data.amount);
           }}

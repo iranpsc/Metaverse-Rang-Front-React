@@ -99,7 +99,7 @@ const CitizenMessage = ({ data }) => {
     <Container>
       <Content>
         <Files>
-          <h2>{getFieldTranslationByNames(15118)}</h2>
+          <h2>{getFieldTranslationByNames("1371")}</h2>
           <p>{stripHtmlTags(data?.content)}</p>
           <div>
             {filePreview.url && (

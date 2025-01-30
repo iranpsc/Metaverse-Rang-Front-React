@@ -31,7 +31,7 @@ const ParticipantList = () => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames(7173)}
+        title={getFieldTranslationByNames("562")}
       />
 
       <Wrapper>

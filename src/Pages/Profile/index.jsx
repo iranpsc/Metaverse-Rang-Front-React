@@ -8,20 +8,20 @@ import TransactionsTab from "./Tabs/transactions-tab/TransactionsTab";
 export default function Profile() {
   const tabs = [
     {
-      title: getFieldTranslationByNames(360),
+      title: getFieldTranslationByNames("62"),
       content: <TotalTab />,
     },
     {
-      title: getFieldTranslationByNames(15013),
+      title: getFieldTranslationByNames("150"),
       content: <PropertyTab />,
     },
     {
-      title: getFieldTranslationByNames(357),
+      title: getFieldTranslationByNames("61"),
       content: <TransactionsTab />,
     },
   ];
 
   const TabPanel = useTabs(tabs);
 
-  return <Modal title={351}>{TabPanel}</Modal>;
+  return <Modal title={"56"}>{TabPanel}</Modal>;
 }

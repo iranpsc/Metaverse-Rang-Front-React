@@ -39,7 +39,7 @@ const Memory = () => {
 
   return (
     <>
-      <Label>{getFieldTranslationByNames(647)}</Label>
+      <Label>{getFieldTranslationByNames("93")}</Label>
       <EditorContainer>
         <ReactQuill
           value={memoryValue} 
@@ -51,7 +51,7 @@ const Memory = () => {
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
-        <span>{localizedRemainingChars} {getFieldTranslationByNames(9217)}</span>
+        <span>{localizedRemainingChars} {getFieldTranslationByNames("530")}</span>
         <CiEdit size={20} />
       </Char>
     </>

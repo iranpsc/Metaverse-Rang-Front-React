@@ -99,7 +99,7 @@ const Row = ({ id, code, title, publish_date, name, description, files }) => {
               <FiTrash2 size={20} />
             </div>
             <Button
-              label={getFieldTranslationByNames(14992)}
+              label={getFieldTranslationByNames("147")}
               grayTheme
               onclick={onClickHandler}
             />

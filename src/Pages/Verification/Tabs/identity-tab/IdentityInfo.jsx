@@ -43,14 +43,14 @@ const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
           <Alert
             text={
               showPending
-                ? getFieldTranslationByNames(15146)
-                : getFieldTranslationByNames(10624)
+                ? getFieldTranslationByNames("1375")
+                : getFieldTranslationByNames("885")
             }
             type={showPending ? "pending" : "success"}
           />
         )}
         <Title
-          title={getFieldTranslationByNames(10484)}
+          title={getFieldTranslationByNames("869")}
         />
         <InfoInputs data={data} inputValues={inputValues} />
         <CardPhotos nationalCardImg={nationalCardImg} />

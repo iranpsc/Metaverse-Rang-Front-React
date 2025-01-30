@@ -35,7 +35,7 @@ const PhysicEdit = ({ setEdit, inputs, setInputs }) => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames(6991)}
+        title={getFieldTranslationByNames("537")}
       />{" "}
       <EditInputs inputs={inputs} setInputs={setInputs} setEdit={setEdit} />
     </Container>

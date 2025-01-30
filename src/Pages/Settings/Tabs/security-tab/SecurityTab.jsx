@@ -52,11 +52,11 @@ const Container = styled.div`
 const items = [
   {
     id: 1,
-    translationId: 7971,
+    translationId: "643",
     options: [
       {
         id: 1,
-        translationId: 7978,
+        translationId: "644",
         key: "nationality",
       },
       {
@@ -66,186 +66,186 @@ const items = [
       },
       {
         id: 3,
-        translationId: 7992,
+        translationId: "646",
         key: "lname",
       },
       {
         id: 4,
-        translationId: 7999,
+        translationId: "83",
         key: "birthdate",
       },
       {
         id: 5,
-        translationId: 8006,
+        translationId: "84",
         key: "phone",
       },
       {
         id: 6,
-        translationId: 8013,
+        translationId: "85",
         key: "email",
       },
       {
         id: 7,
-        translationId: 8020,
+        translationId: "59",
         key: "address",
       },
       {
         id: 8,
-        translationId: 8027,
+        translationId: "647",
         key: "name",
       },
     ],
   },
   {
     id: 2,
-    translationId: 8034,
+    translationId: "254",
     options: [
       {
         id: 1,
-        translationId: 8041,
+        translationId: "259",
         key: "about",
       },
       {
         id: 2,
-        translationId: 8048,
+        translationId: "648",
         key: "registered_at",
       },
       {
         id: 3,
-        translationId: 8055,
+        translationId: "649",
         key: "position",
       },
       {
         id: 4,
-        translationId: 8069,
+        translationId: "650",
         key: "score",
       },
       {
         id: 5,
-        translationId: 8076,
+        translationId: "154",
         key: "licenses",
       },
       {
         id: 6,
-        translationId: 8083,
+        translationId: "651",
         key: "license_score",
       },
       {
         id: 7,
-        translationId: 8090,
+        translationId: "652",
         key: "avatar",
       },
       {
         id: 8,
-        translationId: 8097,
+        translationId: "86",
         key: "occupation",
       },
       {
         id: 9,
-        translationId: 8104,
+        translationId: "479",
         key: "education",
       },
       {
         id: 10,
-        translationId: 8111,
+        translationId: "653",
         key: "loved_city",
       },
       {
         id: 11,
-        translationId: 8118,
+        translationId: "654",
         key: "loved_country",
       },
       {
         id: 12,
-        translationId: 8125,
+        translationId: "655",
         key: "loved_language",
       },
       {
         id: 13,
-        translationId: 8132,
+        translationId: "656",
         key: "prediction",
       },
       {
         id: 14,
-        translationId: 8139,
+        translationId: "93",
         key: "memory",
       },
       {
         id: 15,
-        translationId: 8146,
+        translationId: "94",
         key: "passions",
       },
     ],
   },
   {
     id: 3,
-    translationId: 8153,
+    translationId: "58",
     options: [
       {
         id: 1,
-        translationId: 8160,
+        translationId: "657",
         key: "amoozeshi_features",
       },
       {
         id: 2,
-        translationId: 8174,
+        translationId: "659",
         key: "tejari_features",
       },
       {
         id: 3,
-        translationId: 8181,
+        translationId: "660",
         key: "gardeshgari_features",
       },
       {
         id: 4,
-        translationId: 8188,
+        translationId: "661",
         key: "fazasabz_features",
       },
       {
         id: 5,
-        translationId: 8195,
+        translationId: "662",
         key: "behdashti_features",
       },
       {
         id: 6,
-        translationId: 8202,
+        translationId: "663",
         key: "edari_features",
       },
       {
         id: 7,
-        translationId: 8209,
+        translationId: "664",
         key: "nemayeshgah_features",
       },
     ],
   },
   {
     id: 4,
-    translationId: 8216,
+    translationId: "665",
     options: [
       {
         id: 1,
-        translationId: 8223,
+        translationId: "666",
         key: "followers",
       },
       {
         id: 2,
-        translationId: 8237,
+        translationId: "668",
         key: "following",
       },
       {
         id: 3,
-        translationId: 8244,
+        translationId: "669",
         key: "following_count",
       },
     ],
   },
   {
     id: 5,
-    translationId: 8251,
+    translationId: "670",
     options: [
       {
         id: 1,
-        translationId: 8258,
+        translationId: "671",
 
         key: "establish_store_license",
       },
@@ -261,32 +261,32 @@ const items = [
       },
       {
         id: 4,
-        translationId: 8279,
+        translationId: "674",
         key: "establish_amoozeshgah_license",
       },
       {
         id: 5,
-        translationId: 8286,
+        translationId: "675",
         key: "reporter_license",
       },
       {
         id: 6,
-        translationId: 8293,
+        translationId: "676",
         key: "cooporation_license",
       },
       {
         id: 7,
-        translationId: 8300,
+        translationId: "677",
         key: "developer_license",
       },
       {
         id: 8,
-        translationId: 8307,
+        translationId: "678",
         key: "inspection_license",
       },
       {
         id: 9,
-        translationId: 8314,
+        translationId: "679",
         key: "trading_license",
       },
       {
@@ -308,120 +308,120 @@ const items = [
   },
   {
     id: 6,
-    translationId: 8363,
+    translationId: "61",
     options: [
       {
         id: 1,
-        translationId: 8370,
+        translationId: "685",
         key: "irr_transactions",
         value: true,
       },
       {
         id: 2,
-        translationId: 8377,
+        translationId: "686",
         key: "psc_transactions",
       },
       {
         id: 3,
-        translationId: 8384,
+        translationId: "687",
         key: "blue_transactions",
       },
       {
         id: 4,
-        translationId: 8391,
+        translationId: "688",
         key: "yellow_transactions",
       },
       {
         id: 5,
-        translationId: 8398,
+        translationId: "689",
         key: "red_transactions",
       },
       {
         id: 6,
-        translationId: 8419,
+        translationId: "692",
         key: "sold_products",
       },
       {
         id: 7,
-        translationId: 8412,
+        translationId: "691",
         key: "bought_products",
       },
     ],
   },
   {
     id: 7,
-    translationId: 8433,
+    translationId: "694",
     options: [
       {
         id: 1,
-        translationId: 8440,
+        translationId: "695",
         key: "recieved_irr_prizes",
       },
       {
         id: 2,
-        translationId: 8447,
+        translationId: "696",
         key: "recieved_psc_prizes",
       },
       {
         id: 3,
-        translationId: 8454,
+        translationId: "697",
         key: "recieved_yellow_prizes",
       },
       {
         id: 4,
-        translationId: 8461,
+        translationId: "698",
         key: "recieved_blue_prizes",
       },
       {
         id: 5,
-        translationId: 8468,
+        translationId: "699",
         key: "recieved_red_prizes",
       },
     ],
   },
   {
     id: 8,
-    translationId: 8503,
+    translationId: "704",
     options: [
       {
         id: 1,
-        translationId: 8510,
+        translationId: "705",
         key: "bought_golden_keys",
       },
       {
         id: 2,
-        translationId: 8510,
+        translationId: "705",
         key: "used_golden_keys",
       },
     ],
   },
   {
     id: 9,
-    translationId: 8531,
+    translationId: "708",
     options: [
       {
         id: 1,
-        translationId: 8538,
+        translationId: "709",
         key: "bought_golden_keys",
       },
       {
         id: 2,
-        translationId: 8545,
+        translationId: "710",
         key: "notice",
       },
       {
         id: 3,
-        translationId: 8552,
+        translationId: "711",
         key: "violation_of_the_rules",
       },
       {
         id: 4,
-        translationId: 8559,
+        translationId: "712",
         key: "warning",
       },
       {
         id: 5,
-        translationId: 8566,
+        translationId: "713",
         key: "negative_points",
       },
     ],
@@ -429,36 +429,36 @@ const items = [
 
   {
     id: 10,
-    translationId: 8573,
+    translationId: "714",
     options: [
       {
         id: 1,
-        translationId: 8580,
+        translationId: "715",
         key: "dynasty_members_photo",
       },
       {
         id: 2,
-        translationId: 8587,
+        translationId: "716",
         key: "dynasty_members_info",
       },
       {
         id: 3,
-        translationId: 8595,
+        translationId: "717",
         key: "recieved_dynasty_satisfaction_prizes",
       },
       {
         id: 4,
-        translationId: 8601,
+        translationId: "718",
         key: "recieved_dynasty_referral_profit_prizes",
       },
       {
         id: 5,
-        translationId: 8608,
+        translationId: "719",
         key: "recieved_satisfaction_prizes",
       },
       {
         id: 6,
-        translationId: 8608,
+        translationId: "719",
         key: "recieved_satisfaction_prizes",
       },
     ],

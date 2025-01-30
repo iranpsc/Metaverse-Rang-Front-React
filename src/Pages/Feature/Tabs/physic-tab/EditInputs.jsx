@@ -112,7 +112,7 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
               onChange={(e) =>
                 setFields({ ...fields, activity: e.target.value })
               }
-              placeholder={getFieldTranslationByNames(7054)}
+              placeholder={getFieldTranslationByNames("360")}
             />
           </div>
           <span>+</span>
@@ -136,12 +136,12 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
           type="number"
           value={fields.post}
           onchange={(e) => setFields({ ...fields, post: e.target.value })}
-          placeholder={getFieldTranslationByNames(5214)}
+          placeholder={getFieldTranslationByNames("363")}
         />
         <Input
           value={fields.web}
           onchange={(e) => setFields({ ...fields, web: e.target.value })}
-          placeholder={getFieldTranslationByNames(5221)}
+          placeholder={getFieldTranslationByNames("364")}
         />
       </Third>
       {/* <TextArea
@@ -153,11 +153,11 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
       <Wrapper>
         <RichText />
       </Wrapper>
-      <Text>{getFieldTranslationByNames(7096)}</Text>
+      <Text>{getFieldTranslationByNames("556")}</Text>
       <Button
         edit
         onclick={() => setEdit(false)}
-        label={getFieldTranslationByNames(6991)}
+        label={getFieldTranslationByNames("537")}
       />{" "}
     </Container>
   );

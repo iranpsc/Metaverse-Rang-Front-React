@@ -20,30 +20,30 @@ export default function ConditionalPage() {
   const [feature] = useContext(FeatureContext);
 
   const commonSpecificationTab = {
-    title: getFieldTranslationByNames(6725),
+    title: getFieldTranslationByNames("516"),
     content: <InfoTab />,
   };
 
   const SellTabs = [
     commonSpecificationTab,
     {
-      title: getFieldTranslationByNames(7264),
+      title: getFieldTranslationByNames("352"),
       content: <SellerTab seller />,
     },
     {
-      title: getFieldTranslationByNames(5158),
+      title: getFieldTranslationByNames("355"),
       content: <PropertyConstruction />,
     },
     {
-      title: getFieldTranslationByNames(5151),
+      title: getFieldTranslationByNames("354"),
       content: <EnterTab owner />,
     },
     {
-      title: getFieldTranslationByNames(5165),
+      title: getFieldTranslationByNames("356"),
       content: <PhysicTab owner />,
     },
     {
-      title: getFieldTranslationByNames(5269),
+      title: getFieldTranslationByNames("325"),
       content: <HistoryTab />,
     },
   ];
@@ -52,7 +52,7 @@ export default function ConditionalPage() {
   const BuySystemTabs = [
     commonSpecificationTab,
     {
-      title: getFieldTranslationByNames(5144),
+      title: getFieldTranslationByNames("353"),
       content: <BuyerTabSystem />,
     },
   ];
@@ -61,23 +61,23 @@ export default function ConditionalPage() {
   const BuyUserTabs = [
     commonSpecificationTab,
     {
-      title: getFieldTranslationByNames(5144),
+      title: getFieldTranslationByNames("353"),
       content: <BuyerTab />,
     },
     {
-      title: getFieldTranslationByNames(5151),
+      title: getFieldTranslationByNames("354"),
       content: <EnterTab />,
     },
     {
-      title: getFieldTranslationByNames(5165),
+      title: getFieldTranslationByNames("356"),
       content: <PhysicTab />,
     },
     {
-      title: getFieldTranslationByNames(7103),
+      title: getFieldTranslationByNames("357"),
       content: <ParticipationTab />,
     },
     {
-      title: getFieldTranslationByNames(5269),
+      title: getFieldTranslationByNames("325"),
       content: <HistoryTab />,
     },
   ];

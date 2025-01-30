@@ -73,14 +73,14 @@ const EducationsAndJob = () => {
     <Container>
       <div>
         <Label htmlFor="education">
-          {getFieldTranslationByNames(9203)}
+          {getFieldTranslationByNames("479")}
         </Label>
         <Select
           id="education"
           value={state.education || ""} 
           onChange={handleEducationChange}
         >
-          <option value="">{getFieldTranslationByNames(9203)}</option>
+          <option value="">{getFieldTranslationByNames("479")}</option>
           {educationFields.map((field) => (
             <option key={field.name} value={field.name}>
               {field.translation}
@@ -90,14 +90,14 @@ const EducationsAndJob = () => {
       </div>
       <div>
         <Label htmlFor="job">
-          {getFieldTranslationByNames(9210)}
+          {getFieldTranslationByNames("783")}
         </Label>
         <Input
           id="job"
           value={state.occupation || ""} 
           onChange={handleJobChange}
-          maxLength={25}
-          placeholder={getFieldTranslationByNames(9210)}
+          placeholder={getFieldTranslationByNames("783")}
+          maxLength={25} 
         />
       </div>
     </Container>

@@ -36,7 +36,7 @@ useEffect(() => {
 
   return (
     <>
-      <Label >{getFieldTranslationByNames(9364)}</Label>
+      <Label >{getFieldTranslationByNames("801")}</Label>
 
       <EditorContainer >
         <ReactQuill
@@ -49,7 +49,7 @@ useEffect(() => {
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
-        <span>{localizedRemainingChars} {getFieldTranslationByNames(9217)}</span>
+        <span>{localizedRemainingChars} {getFieldTranslationByNames("530")}</span>
         <CiEdit size={20} />
       </Char>
     </>

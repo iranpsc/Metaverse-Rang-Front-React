@@ -133,12 +133,12 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
         <div key={filterKey}>
           <h1 onClick={() => handleFilterClick(filterKey)}>
             {filterKey === "confirmed"
-              ? getFieldTranslationByNames(14768)
+              ? getFieldTranslationByNames("1343")
               : filterKey === "pending"
-              ? getFieldTranslationByNames(14775)
+              ? getFieldTranslationByNames("1344")
               : filterKey === "failed"
-              ? getFieldTranslationByNames(14782)
-              : getFieldTranslationByNames(14789)}
+              ? getFieldTranslationByNames("1345")
+              : getFieldTranslationByNames("1346")}
           </h1>
           {status[filterKey] && (
             <span onClick={() => handleFilterClick(filterKey)}>X</span>
@@ -154,17 +154,17 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
         <TableHead>
           <tr>
             <TableHeader>
-              {getFieldTranslationByNames(14719)}
+              {getFieldTranslationByNames("1339")}
             </TableHeader>
             <TableHeader>
-              {getFieldTranslationByNames(14726)}
+              {getFieldTranslationByNames("1319")}
             </TableHeader>
             <TableHeader>
-              <Div>{getFieldTranslationByNames(14733)}</Div>
+              <Div>{getFieldTranslationByNames("1340")}</Div>
             </TableHeader>
             <TableHeader>
               <Div>
-                {getFieldTranslationByNames(14740)}
+                {getFieldTranslationByNames("1341")}
                 <Arrows onClick={() => setFilters({ status: !filters.status })}>
                   <MdKeyboardArrowDown
                     style={{
@@ -178,10 +178,10 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
               {filters.status && renderStatusFilters()}
             </TableHeader>
             <TableHeader>
-              {getFieldTranslationByNames(14747)}
+              {getFieldTranslationByNames("64")}
             </TableHeader>
             <TableHeader>
-              {getFieldTranslationByNames(14754)}
+              {getFieldTranslationByNames("1342")}
             </TableHeader>
           </tr>
         </TableHead>

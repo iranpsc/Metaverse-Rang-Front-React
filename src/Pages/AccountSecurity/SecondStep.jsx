@@ -261,10 +261,10 @@ const SecondStep = ({ setStep, time }) => {
   return (
     <Container>
       <h3>
-        {getFieldTranslationByNames(10414)}
+        {getFieldTranslationByNames("860")}
       </h3>
       <p>
-        {getFieldTranslationByNames(10421)}
+        {getFieldTranslationByNames("861")}
       </p>
       <Codes>
         {[...Array(6)].map((_, index) => (
@@ -288,14 +288,14 @@ const SecondStep = ({ setStep, time }) => {
         </h4>
         {timer !== 0 ? (
           <span>
-            {getFieldTranslationByNames(10435)}
+            {getFieldTranslationByNames("863")}
           </span>
         ) : (
           <h2 onClick={resetHandler}>ارسال مجدد کد</h2>
         )}
       </div>
       <button disabled={!allValuesNotEmpty} onClick={nextStep}>
-        {getFieldTranslationByNames(10407)}
+        {getFieldTranslationByNames("859")}
       </button>
     </Container>
   );
