@@ -9,42 +9,42 @@ import { getFieldTranslationByNames } from "../../Services/Utility/index";
 
 const getTranslation = (index) => getFieldTranslationByNames(index);
 const pageTranslations = {
-  "sanad-1": 14523,
-  "sanad-2": 14537,
-  "sanad-3": 14544,
-  "profile-1": 315,
-  "profile-2": 8692,
-  "profile-3": 324,
-  "settings-1": 7943,
-  "settings-2": 7950,
-  "settings-3": 7957,
-  "settings-4": 655,
-  "search-1": 6326,
-  "search-2": 6333,
-  "dynasty-1": 1555,
-  "dynasty-2": 1571,
-  "dynasty-3": 1575,
-  "dynasty-4": 1579,
-  "hour-profit-1": 153,
-  "verification-1": 10470,
-  "verification-2": 10477,
-  "store-1": 731,
-  "store-2": 735,
-  "report-1": 15300,
-  "report-2": 15300,
+  "sanad-1": "1314",
+  "sanad-2": "1316",
+  "sanad-3": "1317",
+  "profile-1": "62",
+  "profile-2": "150",
+  "profile-3": "61",
+  "settings-1": "639",
+  "settings-2": "640",
+  "settings-3": "641",
+  "settings-4": "95",
+  "search-1": "470",
+  "search-2": "471",
+  "dynasty-1": "111",
+  "dynasty-2": "112",
+  "dynasty-3": "113",
+  "dynasty-4": "114",
+  "hour-profit-1": "27",
+  "verification-1": "867",
+  "verification-2": "868",
+  "store-1": "109",
+  "store-2": "110",
+  "report-1": "1386",
+  "report-2": "1386",
 };
 
 const titleTranslations = {
-  "store": 3772,
-  "settings": 7965,
-  "profile": 3828,
-  "sanad": 3814,
-  "confirmation": 168,
-  "search": 6319,
-  "dynasty": 3737,
-  "hour-profit": 3751,
-  "verification": 3758,
-  "notifications": 3779,
+  "store": "30",
+  "settings": "642",
+  "profile": "243",
+  "sanad": "241",
+  "confirmation": "31",
+  "search": "232",
+  "dynasty": "234",
+  "hour-profit": "236",
+  "verification": "237",
+  "notifications": "238",
 };
 
 const translateLocationPage = (page) => {
@@ -60,11 +60,11 @@ export default function Report() {
   const location = useLocation();
   const { href, locationPage } = location.state || {};
   const [title, setTitle] = useState();
-  const [subdomain, setSubdomain] = useState(getTranslation(15300));
+  const [subdomain, setSubdomain] = useState(getTranslation(1386));
 
   useEffect(() => {
     const extractedTitle = getTitleFromHref(href);
-    setTitle(titleTranslations[extractedTitle] ? getTranslation(titleTranslations[extractedTitle]) : getTranslation(2215));
+    setTitle(titleTranslations[extractedTitle] ? getTranslation(titleTranslations[extractedTitle]) : getTranslation("188"));
     if (locationPage) {
       setSubdomain(translateLocationPage(locationPage));
     }
@@ -72,20 +72,20 @@ export default function Report() {
 
   const tabs = [
     {
-      title: getTranslation(15300),
+      title: getTranslation("1386"),
       content: <ReportsInfo active="error_report" title={title} subdomain={subdomain} />
     },
     {
-      title: getTranslation(126),
+      title: getTranslation("22"),
       content: <ReportsInfo active="reports_list" title={title} subdomain={subdomain} />
     }
   ];
 
   const TabPanel = useTabs(tabs);
-
+console.log(getFieldTranslationByNames("241"))
   return (
     <ReportStateProvider>
-      <Modal type="modal-section-xl" title={[132]}>
+      <Modal type="modal-section-xl" title={["23"]}>
         {TabPanel}
       </Modal>
     </ReportStateProvider>
