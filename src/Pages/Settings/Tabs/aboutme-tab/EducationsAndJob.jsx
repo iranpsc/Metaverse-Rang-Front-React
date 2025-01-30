@@ -97,6 +97,7 @@ const EducationsAndJob = () => {
           value={state.occupation || ""} 
           onChange={handleJobChange}
           placeholder={getFieldTranslationByNames("783")}
+          maxLength={25} 
         />
       </div>
     </Container>

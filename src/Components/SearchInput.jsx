@@ -6,7 +6,7 @@ import debounce from "lodash/debounce";
 const Container = styled.div`
   height: 50px;
   border-radius: 5px;
-  border: 1px solid ${(props) => props.theme.colors.newColors.shades.title};
+  border: 1px solid #454545;
   padding: 5px 12px;
   color: #84858f;
 
@@ -21,6 +21,7 @@ const Container = styled.div`
       props.theme.colors.newColors.otherColors.inputBg};
   }
   input {
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     height: 100%;
     background-color: transparent;
     font-size: 18px;

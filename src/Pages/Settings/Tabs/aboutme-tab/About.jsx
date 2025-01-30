@@ -1,12 +1,11 @@
 import "react-quill/dist/quill.snow.css";
 import { CiEdit } from "react-icons/ci";
 import ReactQuill from "react-quill";
-import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import { useEffect, useState } from "react";
 import { convertToPersian } from "../../../../Services/Utility/index";
-import { EditorContainer,Label, Char} from "./editorContainerStyle";
+import { EditorContainer,Label, Char,formats,modules} from "../../../../Components/editorContainerStyle";
 
 
 const About = () => {
@@ -22,47 +21,20 @@ const About = () => {
   }, [ state.about]);
 
   const handleChange = (value) => {
+    setAboutValue(value);
     if (value.length <= charLimit) {
-      setAboutValue(value);
       dispatch({ type: "SET_ABOUT", payload: value });
     }
   };
-
+  const handleKeyDown = (event) => {
+    if (aboutValue.length >= charLimit && event.key !== "Backspace" && event.key !== "Delete") {
+      event.preventDefault(); 
+    }
+  };
   const currentLength = aboutValue.length;
   const remainingChars = charLimit - currentLength;
   const isOverLimit = remainingChars <= 0;
-
   const localizedRemainingChars = convertToPersian(remainingChars);
-
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
-      ],
-      ["link", "image", "code-block"],
-      [{ align: [] }],
-    ],
-  };
-
-  const formats = [
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "code-block",
-    "align",
-  ];
 
   return (
     <>
@@ -72,6 +44,7 @@ const About = () => {
         <ReactQuill
           value={aboutValue}
           onChange={handleChange}
+          onKeyDown={handleKeyDown} 
           modules={modules}
           formats={formats}
         />

@@ -1,11 +1,8 @@
 import Modal from "../../Components/Modal";
 import useTabs from "../../Services/Hooks/useTabs";
 import { getFieldTranslationByNames } from "../../Services/Utility";
-import DynastyTab from "./Tabs/dynasty/DynastyTab";
-
 import PropertyTab from "./Tabs/property-tab/PropertyTab";
 import TotalTab from "./Tabs/total-tab/TotalTab";
-
 import TransactionsTab from "./Tabs/transactions-tab/TransactionsTab";
 
 export default function Profile() {
@@ -21,10 +18,6 @@ export default function Profile() {
     {
       title: getFieldTranslationByNames("61"),
       content: <TransactionsTab />,
-    },
-    {
-      title: getFieldTranslationByNames(358),
-      content: <DynastyTab />,
     },
   ];
 

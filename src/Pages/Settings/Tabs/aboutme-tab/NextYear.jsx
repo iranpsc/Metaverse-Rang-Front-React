@@ -5,7 +5,7 @@ import { convertToPersian } from "../../../../Services/Utility/index";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import { useState,useEffect } from "react";
-import { EditorContainer,Label, Char} from "./editorContainerStyle";
+import { EditorContainer,Label, Char,formats,modules} from "../../../../Components/editorContainerStyle";
 
 const NextYear = () => {
   const { state, dispatch } = useGlobalState();
@@ -18,47 +18,23 @@ const NextYear = () => {
   }, [ state.prediction]);
   
 
-  const handleChange = (value) => {
-    if (value.length <= charLimit) {
+  const handleChange = (value) => {    
       setPredictionValue(value); 
+
+    if (value.length <= charLimit) {
       dispatch({ type: "SET_PREDICTION", payload: value });
     }
   };
-
+  const handleKeyDown = (event) => {
+    if (predictionValue.length >= charLimit && event.key !== "Backspace" && event.key !== "Delete") {
+      event.preventDefault(); 
+    }
+  };
   const currentLength = predictionValue.length;
   const remainingChars = charLimit - currentLength;
   const isOverLimit = remainingChars <= 0;
   const localizedRemainingChars=  convertToPersian(remainingChars);
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
-      ],
-      ["link", "image", "code-block"],
-      [{ align: [] }],
-    ],
-  };
-
-  const formats = [
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "code-block",
-    "align",
-  ];
-
+  
   return (
     <>
       <Label>{getFieldTranslationByNames("92")}</Label>
@@ -66,6 +42,8 @@ const NextYear = () => {
         <ReactQuill 
           value={predictionValue} 
           onChange={handleChange} 
+          onKeyDown={handleKeyDown} 
+
           modules={modules}
           formats={formats}
         />

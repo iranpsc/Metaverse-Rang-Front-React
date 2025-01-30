@@ -7,7 +7,6 @@ export const EditorContainer = styled.div`
   color: white;
   margin: 10px auto;
   height: 212px;
-  overflow: auto;
 
   .ql-toolbar {
     background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
@@ -16,9 +15,11 @@ export const EditorContainer = styled.div`
   }
 
   .ql-container {
-    background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+    background-color:${(props) => props.theme.colors.newColors.otherColors.inputBg};
     color: ${(props) => props.theme.colors.newColors.shades.title};
     border: none;
+    overflow: auto;
+    max-height: 150px;
   }
 
   .ql-editor {
@@ -74,3 +75,46 @@ export const Char = styled.div`
     font-weight: 400;
   }
 `;
+export const formats = [
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "code-block",
+  "align",
+];
+//برای استفاده در کامپوننت های درباره من 
+export const modules = {
+  toolbar: [
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    ["link", "image", "code-block"],
+    [{ align: [] }],
+  ],
+};
+
+//توجه شود که با بالایی فرق دارد برای استفاده در کامپوننت های گزارش  خطا
+export const modulesWithoutImage  = {
+  toolbar: [
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    ["link", "code-block"],
+    [{ align: [] }],
+  ],
+};

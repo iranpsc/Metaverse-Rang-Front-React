@@ -1,0 +1,11 @@
+Model Information:
+* title:	Whopper
+* source:	https://sketchfab.com/3d-models/whopper-dbf8c8806eb44a488c7a5dd3e5372fa2
+* author:	Fnafmaster (https://sketchfab.com/nadzlucy)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Whopper" (https://sketchfab.com/3d-models/whopper-dbf8c8806eb44a488c7a5dd3e5372fa2) by Fnafmaster (https://sketchfab.com/nadzlucy) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
