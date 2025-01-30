@@ -14,7 +14,7 @@ const enterData = [
     inputs: [
       {
         id: 1,
-        title: 6872,
+        title: "253",
         value: "20",
         slug: "psc",
         type: "number",
@@ -22,7 +22,7 @@ const enterData = [
       },
       {
         id: 2,
-        title: 6872,
+        title: "253",
         value: "300000",
         slug: "rial",
         type: "number",
@@ -30,7 +30,7 @@ const enterData = [
       },
       {
         id: 3,
-        title: 6886,
+        title: "534",
         value: "QA31-10789",
         slug: "level",
         type: "string",

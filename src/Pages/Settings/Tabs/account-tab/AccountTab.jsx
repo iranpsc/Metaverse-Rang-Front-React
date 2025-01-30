@@ -32,7 +32,7 @@ const AccountTab = () => {
   const { Request } = useRequest();
 
   const [emailChange, setEmailChange] = useState({
-    title: 7824,
+    title: "624",
     warn: "",
     inputs: [
       { id: 1, type: "text", label: 7852, value: "" },
@@ -41,7 +41,7 @@ const AccountTab = () => {
   });
 
   const [mobileChange, setMobileChange] = useState({
-    title: 7838,
+    title: "625",
     warn: "",
     inputs: [
       { id: 1, type: "number", label: 7880, value: "" },

@@ -35,14 +35,14 @@ async function processFile(filePath, idMapping) {
   try {
     let content = await fs.readFile(filePath, "utf8");
 
-    // Regular expression to find translationId patterns
-    const regex = /translationId[:\s]*(\d+)/g;
+    // Regular expression to find title patterns
+    const regex = /title[:\s]*[={]?\s*(\d+)/g;
 
     // Replace numeric IDs with unique_ids
     content = content.replace(regex, (match, numericId) => {
       const uniqueId = idMapping.get(numericId);
       if (uniqueId) {
-        return `translationId: "${uniqueId}"`;
+        return match.replace(numericId, `"${uniqueId}"`);
       }
       console.warn(
         `No unique_id found for numeric ID: ${numericId} in file: ${filePath}`
