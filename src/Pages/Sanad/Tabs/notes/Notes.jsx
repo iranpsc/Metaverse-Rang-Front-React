@@ -25,10 +25,10 @@ const Notes = ({ notes }) => {
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>
-        <Title title={getFieldTranslationByNames(14957)} />
+        <Title title={getFieldTranslationByNames("1355")} />
       </div>
       <SearchInput
-        placeholder={getFieldTranslationByNames(14964)}
+        placeholder={getFieldTranslationByNames("1356")}
         onchange={(e) => setSearchTerm(e.target.value)}
       />
       <NotesList notes={filteredNotes} />

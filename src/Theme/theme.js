@@ -60,6 +60,7 @@ export const lightTheme = {
         btnIconBg: "#E9E9E9",
         btnIconText: "#353535",
         gray: "#898989",
+        confirmed:"#D4E9FA",
         containerPrimary: "#F5F9FF",
         offerbg:"#D7FBF0",
         offerbg2:"#FF00001F"
@@ -142,6 +143,7 @@ export const darkTheme = {
         btnIconBg: "#3B3B3B",
         btnIconText: "#949494",
         gray: "#969696",
+        confirmed:"#ffc70021",
         containerPrimary: "#2C2C2C",
         offerbg:"#1A352B",
         offerbg2:"#3F1614"

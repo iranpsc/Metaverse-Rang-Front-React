@@ -86,11 +86,11 @@ const ThemesBtn = () => {
       {isOpen ? (
         <>
           <Btn active={isActive} onClick={handleDarkClick}>
-            {isOpen && getFieldTranslationByNames(4170)}
+            {isOpen && getFieldTranslationByNames("266")}
             <Dark active={isActive ? true : undefined} />
           </Btn>
           <Btn active={!isActive} onClick={handleLightClick}>
-            {isOpen && getFieldTranslationByNames(4163)}
+            {isOpen && getFieldTranslationByNames("265")}
             <Light active={!isActive ? true : undefined} />
           </Btn>
         </>

@@ -27,19 +27,19 @@ const Buttons = styled.div`
 
 const karbariMapping = {
   m: {
-    title: getFieldTranslationByNames(6382),
+    title: getFieldTranslationByNames("477"),
     logo: house,
     color: "#FFC700",
     background: "#ffc80021",
   },
   t: {
-    title: getFieldTranslationByNames(6368),
+    title: getFieldTranslationByNames("475"),
     logo: building,
     color: "#FF0000",
     background: "#ff000021",
   },
   a: {
-    title: getFieldTranslationByNames(6375),
+    title: getFieldTranslationByNames("476"),
     logo: education,
     color: "#0066FF",
     background: "#0066ff21",
@@ -73,21 +73,21 @@ const ProfitView = () => {
         setButtons([
           {
             id: 1,
-            title: getFieldTranslationByNames(156),
+            title: getFieldTranslationByNames("28"),
             logo: building,
             value: parseFloat(data.additional.total_tejari_profit),
             color: "#FF0000",
           },
           {
             id: 2,
-            title: getFieldTranslationByNames(159),
+            title: getFieldTranslationByNames("29"),
             logo: house,
             value: parseFloat(data.additional.total_maskoni_profit),
             color: "#FFC700",
           },
           {
             id: 3,
-            title: getFieldTranslationByNames(6361),
+            title: getFieldTranslationByNames("474"),
             logo: education,
             value: parseFloat(data.additional.total_amozeshi_profit),
             color: "#0066FF",

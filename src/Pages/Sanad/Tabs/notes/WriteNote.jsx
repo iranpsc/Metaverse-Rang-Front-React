@@ -106,13 +106,13 @@ const WriteNote = () => {
     <Container>
       <Title
         right
-        title={getFieldTranslationByNames(14922)}
+        title={getFieldTranslationByNames("1354")}
       />
       <Subject>
-        <Label>{getFieldTranslationByNames(14929)}</Label>
+        <Label>{getFieldTranslationByNames("19")}</Label>
         <input
           type="text"
-          placeholder={getFieldTranslationByNames(14929)}
+          placeholder={getFieldTranslationByNames("19")}
           value={title}
           onChange={(e) => title.length < 201 && setTitle(e.target.value)}
         />
@@ -122,7 +122,7 @@ const WriteNote = () => {
       <div>
         <Button
           fit
-          label={getFieldTranslationByNames(14950)}
+          label={getFieldTranslationByNames("629")}
           onclick={handleSaveNote}
         />
       </div>

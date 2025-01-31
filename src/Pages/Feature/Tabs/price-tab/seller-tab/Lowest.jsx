@@ -123,7 +123,7 @@ const Lowest = () => {
   return (
     <Wrapper>
       <Text>
-        {getFieldTranslationByNames(6739)}
+        {getFieldTranslationByNames("518")}
       </Text>
       <Div>
         <InputWrapper>
@@ -139,7 +139,7 @@ const Lowest = () => {
         </InputWrapper>
       </Div>
       <Button
-        label={getFieldTranslationByNames(6747)}
+        label={getFieldTranslationByNames("519")}
         onclick={onSubmit}
       />
     </Wrapper>

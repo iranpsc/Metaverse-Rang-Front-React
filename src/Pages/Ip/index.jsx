@@ -133,34 +133,34 @@ const Ip = () => {
   };
 
   return (
-    <Modal title={getFieldTranslationByNames(3296)}>
+    <Modal title={getFieldTranslationByNames("196")}>
       <Container>
         {!isEmail ? (
           <>
             <Header>
-              {getFieldTranslationByNames(3352)}
+              {getFieldTranslationByNames("200")}
             </Header>
             <TapIp>{ip}</TapIp>
             <P>
-              {getFieldTranslationByNames(3359)}
+              {getFieldTranslationByNames("201")}
             </P>
             <Details style={{ marginTop: "24px" }}>
-              {getFieldTranslationByNames(3366)}
+              {getFieldTranslationByNames("202")}
               <span style={{ fontWeight: 500, color: "red" }}>
-                {getFieldTranslationByNames(3373)}{" "}
+                {getFieldTranslationByNames("203")}{" "}
               </span>
-              {getFieldTranslationByNames(3870)}
+              {getFieldTranslationByNames("247")}
             </Details>
             <Details>
-              {getFieldTranslationByNames(3877)}
+              {getFieldTranslationByNames("248")}
             </Details>
             <Details>
-              {getFieldTranslationByNames(3604)}
+              {getFieldTranslationByNames("226")}
             </Details>
 
             <Submit
               type="secondary"
-              text={getFieldTranslationByNames(3611)}
+              text={getFieldTranslationByNames("227")}
               responsive
               options={{
                 onClick: onIpSender,
@@ -173,22 +173,22 @@ const Ip = () => {
         ) : (
           <>
             <Header style={{ color: "#18C08F" }}>
-              {getFieldTranslationByNames(3303)}
+              {getFieldTranslationByNames("197")}
             </Header>
             <P>
-              {getFieldTranslationByNames(3310)}
+              {getFieldTranslationByNames("198")}
             </P>
             <Details style={{ marginTop: "25px" }}>
-              {getFieldTranslationByNames(3317)}
+              {getFieldTranslationByNames("199")}
             </Details>
             <Details>
-              {getFieldTranslationByNames(3639)}
+              {getFieldTranslationByNames("228")}
             </Details>
             <ContainerInput>
               <Input
                 name="email"
                 type="email"
-                placeholder={getFieldTranslationByNames(3646)}
+                placeholder={getFieldTranslationByNames("2")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 options={{
@@ -201,7 +201,7 @@ const Ip = () => {
             <Submit
               className="mt-2"
               type="secondary"
-              text={getFieldTranslationByNames(3660)}
+              text={getFieldTranslationByNames("229")}
               responsive
               options={{
                 onClick: onEmailSender,
@@ -214,7 +214,7 @@ const Ip = () => {
         )}
       </Container>
       <Information>
-        {getFieldTranslationByNames(3667)}
+        {getFieldTranslationByNames("224")}
         <br />
         <a
           href="https://rgb.irpsc.com/overview"
@@ -222,9 +222,9 @@ const Ip = () => {
           rel="noreferrer"
           className="link text-1 "
         >
-          {getFieldTranslationByNames(3681)}
+          {getFieldTranslationByNames("225")}
         </a>{" "}
-        {getFieldTranslationByNames(3674)}
+        {getFieldTranslationByNames("204")}
       </Information>
     </Modal>
   );

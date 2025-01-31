@@ -121,7 +121,7 @@ const ProfitCard = ({
         </Value>
       </Content>
       <Footer>
-        {getFieldTranslationByNames(6389)}
+        {getFieldTranslationByNames("478")}
         <h4>{dead_line}</h4>
       </Footer>
     </Card>

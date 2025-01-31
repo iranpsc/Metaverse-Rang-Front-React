@@ -71,19 +71,19 @@ const CountryCity = () => {
   const options = [
     {
       type: "cities",
-      translationId: 9336,
+      translationId: "797",
       stateValue: state.loved_city,
       actionType: "SET_CITY"
     },
     {
       type: "countries",
-      translationId: 9343,
+      translationId: "798",
       stateValue: state.loved_country,
       actionType: "SET_COUNTRY"
     },
     {
       type: "languages",
-      translationId: 9350,
+      translationId: "799",
       stateValue: state.loved_language,
       actionType: "SET_LANGUAGE"
     }

@@ -25,17 +25,17 @@ const Info = ({ user }) => {
   const items = [
     {
       id: 1,
-      title: getFieldTranslationByNames(8678),
+      title: getFieldTranslationByNames("724"),
       value: user?.level,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames(204),
+      title: getFieldTranslationByNames("38"),
       value: user?.followers,
     },
     {
       id: 3,
-      title: getFieldTranslationByNames(207),
+      title: getFieldTranslationByNames("39"),
       value: "-",
     },
   ];

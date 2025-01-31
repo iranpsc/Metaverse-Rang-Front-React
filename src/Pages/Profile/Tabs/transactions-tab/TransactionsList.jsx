@@ -111,11 +111,11 @@ const TableHeader = styled.th`
 `;
 
 const subjects = [
-  { id: 1, label: "buy blue", slug: "blue", gif: blue },
-  { id: 2, label: "buy red", slug: "red", gif: red },
-  { id: 3, label: "buy yellow", slug: "yellow", gif: yellow },
-  { id: 4, label: "buy rial currency", slug: "rial", gif: rial },
-  { id: 5, label: "buy psc currency", slug: "psc", gif: psc },
+  { id: 1, label: "buy blue", slug: "753", gif: blue },
+  { id: 2, label: "buy red", slug: "754", gif: red },
+  { id: 3, label: "buy yellow", slug: "755", gif: yellow },
+  { id: 4, label: "buy rial currency", slug: "756", gif: rial },
+  { id: 5, label: "buy psc currency", slug: "757", gif: psc },
 ];
 
 const TableBody = styled.tbody``;
@@ -231,18 +231,18 @@ const TransactionsList = ({
           <TableRow>
             <TableHeader>
               <TableHeaderText>
-                {getFieldTranslationByNames(330)}
+                {getFieldTranslationByNames("63")}
               </TableHeaderText>
             </TableHeader>
             <TableHeader date>
               <TableHeaderText>
-                {getFieldTranslationByNames(333)}
+                {getFieldTranslationByNames("64")}
               </TableHeaderText>
             </TableHeader>
             <TableHeader>
               <FilterContainer>
                 <TableHeaderText>
-                  {getFieldTranslationByNames(336)}
+                  {getFieldTranslationByNames("65")}
                 </TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ status: !filters.status })}
@@ -261,7 +261,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8874)}
+                      {getFieldTranslationByNames("741")}
                     </FilterItemText>
                     {status.success && (
                       <FilterCloseButton
@@ -284,7 +284,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8888)}
+                      {getFieldTranslationByNames("743")}
                     </FilterItemText>
                     {status.pending && (
                       <FilterCloseButton
@@ -307,7 +307,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, status: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8881)}
+                      {getFieldTranslationByNames("742")}
                     </FilterItemText>
                     {status.failed && (
                       <FilterCloseButton
@@ -326,10 +326,7 @@ const TransactionsList = ({
             <TableHeader title>
               <FilterContainer>
                 <TableHeaderText>
-                  {getFieldTranslationByNames(
-                    "citizenship-account",
-                    "the title of the report"
-                  )}
+                  {getFieldTranslationByNames("746")}
                 </TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ title: !filters.title })}
@@ -346,7 +343,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8860)}
+                      {getFieldTranslationByNames("739")}
                     </FilterItemText>
                     {title.property_buy && (
                       <FilterCloseButton
@@ -369,7 +366,7 @@ const TransactionsList = ({
                         setFilters({ ...filters, title: false });
                       }}
                     >
-                      {getFieldTranslationByNames(8867)}
+                      {getFieldTranslationByNames("740")}
                     </FilterItemText>
                     {title.property_dealing && (
                       <FilterCloseButton
@@ -388,10 +385,7 @@ const TransactionsList = ({
             <TableHeader subject>
               <FilterContainer>
                 <TableHeaderText>
-                  {getFieldTranslationByNames(
-                    "citizenship-account",
-                    "select the subject of the report"
-                  )}
+                  {getFieldTranslationByNames("750")}
                 </TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ subject: !filters.subject })}
@@ -417,10 +411,7 @@ const TransactionsList = ({
                         loading="lazy"
                       />
                       <SubjectFilterText>
-                        {getFieldTranslationByNames(
-                          "citizenship-account",
-                          item.label
-                        )}
+                        {getFieldTranslationByNames(item.slug)}
                       </SubjectFilterText>
                       {subject[item.slug] && (
                         <FilterCloseButton
@@ -443,12 +434,12 @@ const TransactionsList = ({
             </TableHeader>
             <TableHeader>
               <TableHeaderText>
-                {getFieldTranslationByNames(345)}
+                {getFieldTranslationByNames("66")}
               </TableHeaderText>
             </TableHeader>
             <TableHeader>
               <TableHeaderText>
-                {getFieldTranslationByNames(348)}
+                {getFieldTranslationByNames("67")}
               </TableHeaderText>
             </TableHeader>
           </TableRow>

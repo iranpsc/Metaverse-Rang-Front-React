@@ -52,36 +52,36 @@ const Settings = styled.div`
 const settings = [
   {
     id: 1,
-    translationId: 7782,
+    translationId: "620",
     key: "transactions_sms",
   },
   {
     id: 2,
-    translationId: 7747,
+    translationId: "615",
     key: "announcements_sms",
   },
   {
     id: 3,
-    translationId: 7789,
+    translationId: "621",
     key: "transactions_email",
   },
   {
     id: 4,
-    translationId: 7754,
+    translationId: "616",
     key: "announcements_email",
   },
-  { id: 5, translationId: 7796, key: "trades_sms" },
-  { id: 6, translationId: 7761, key: "reports_sms" },
-  { id: 7, translationId: 7810, key: "trades_email" },
-  { id: 8, translationId: 7768, key: "reports_email" },
+  { id: 5, translationId: "622", key: "trades_sms" },
+  { id: 6, translationId: "617", key: "reports_sms" },
+  { id: 7, translationId: "623", key: "trades_email" },
+  { id: 8, translationId: "618", key: "reports_email" },
   {
     id: 9,
-    translationId: 7810,
+    translationId: "623",
     key: "login_verification_sms",
   },
   {
     id: 10,
-    translationId: 7775,
+    translationId: "619",
     key: "login_verification_email",
   },
 ];
@@ -147,7 +147,7 @@ const PublicTab = () => {
         ))}
       </Settings>
 
-      <Button label={getFieldTranslationByNames(7817)} onclick={handleSubmit} />
+      <Button label={getFieldTranslationByNames("411")} onclick={handleSubmit} />
     </Container>
   );
 };

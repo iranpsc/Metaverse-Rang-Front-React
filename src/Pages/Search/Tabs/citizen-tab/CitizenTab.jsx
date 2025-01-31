@@ -54,14 +54,14 @@ const CitizenTab = () => {
       <SearchInput
         onchange={handleInputChange} // Call search on every input change
         value={searched}
-        placeholder={getFieldTranslationByNames(189)}
+        placeholder={getFieldTranslationByNames("36")}
         onSearch={searchHandler} // You can still keep this for the icon click event
       />
       {isLoading ? (
         <P>درحال دریافت اطلاعات</P>
       ) : data.length === 0 ? (
         <P>
-          {getFieldTranslationByNames(225)}
+          {getFieldTranslationByNames("37")}
         </P>
       ) : (
         <Wrapper>

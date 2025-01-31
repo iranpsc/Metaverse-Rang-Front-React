@@ -25,37 +25,37 @@ const Colors = () => {
     {
       id: 1,
       gif: gif1,
-      label: getFieldTranslationByNames(8636),
+      label: getFieldTranslationByNames("723"),
       value: wallet?.effect,
     },
     {
       id: 2,
       gif: gif2,
-      label: getFieldTranslationByNames(261),
+      label: getFieldTranslationByNames("51"),
       value: wallet?.yellow,
     },
     {
       id: 3,
       gif: gif3,
-      label: getFieldTranslationByNames(258),
+      label: getFieldTranslationByNames("50"),
       value: wallet?.red,
     },
     {
       id: 4,
       gif: gif4,
-      label: getFieldTranslationByNames(255),
+      label: getFieldTranslationByNames("49"),
       value: wallet?.blue,
     },
     {
       id: 5,
       gif: gif5,
-      label: getFieldTranslationByNames(252),
+      label: getFieldTranslationByNames("48"),
       value: wallet?.irr,
     },
     {
       id: 6,
       gif: gif6,
-      label: getFieldTranslationByNames(249),
+      label: getFieldTranslationByNames("47"),
       value: wallet?.psc,
     },
   ];

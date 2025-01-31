@@ -165,7 +165,7 @@ const ReplyInput = ({ message, setMessage }) => {
   return (
     <>
       <Label>
-        {getFieldTranslationByNames(14824)}
+        {getFieldTranslationByNames("1351")}
       </Label>
       <EditorContainer>
         <ReactQuill
@@ -179,7 +179,7 @@ const ReplyInput = ({ message, setMessage }) => {
       <Char isOverLimit={isOverLimit}>
         <span>
           {convertToPersian(remainingChars)}{" "}
-          {getFieldTranslationByNames(14628)}
+          {getFieldTranslationByNames("530")}
         </span>
         <CiEdit size={20} />
       </Char>

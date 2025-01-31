@@ -11,7 +11,7 @@ export default function Feature() {
     <FeatureProvider id={id}>
       <Modal
         type="modal-section-xl"
-        title={5067}
+        title={"345"}
       >
         <ConditionalPage />
       </Modal>

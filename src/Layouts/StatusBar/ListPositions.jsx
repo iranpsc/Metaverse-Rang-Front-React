@@ -159,12 +159,12 @@ const TooltipContent = ({ imgSrc, name, lang, href, onlineUser }) => {
           <Hr />
           <ContainerTextTooltip>
             <Text>{onlineUser} </Text>
-            {getFieldTranslationByNames(3905)}
+            {getFieldTranslationByNames("252")}
           </ContainerTextTooltip>
           <Hr />
           <ContainerTextTooltip>
             <Text>0</Text>
-            {getFieldTranslationByNames(3912)}
+            {getFieldTranslationByNames("253")}
           </ContainerTextTooltip>
         </Tooltip>
       }
@@ -201,7 +201,7 @@ const ListPositions = () => {
         ))}
       </ContainerList>
       <BtnAllList>
-        {getFieldTranslationByNames(4003)}
+        {getFieldTranslationByNames("251")}
       </BtnAllList>
     </Container>
   );

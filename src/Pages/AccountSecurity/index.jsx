@@ -25,7 +25,7 @@ const AccountSecurityModal = () => {
   
 
   return (
-    <ModalXs title={168} onClose={handleClose}> {/* ارسال تابع handleClose برای بستن مدال */}
+    <ModalXs title={"31"} onClose={handleClose}> {/* ارسال تابع handleClose برای بستن مدال */}
       <AccountSecurity />
     </ModalXs>
   );

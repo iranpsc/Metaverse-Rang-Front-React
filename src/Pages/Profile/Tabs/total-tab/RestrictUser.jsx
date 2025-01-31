@@ -194,7 +194,7 @@ const RestrictUser = () => {
   return (
     <Container>
       <Title>
-        {getFieldTranslationByNames(8720)}
+        {getFieldTranslationByNames("726")}
       </Title>
       <Icons>
         {icons.map((icon) => (

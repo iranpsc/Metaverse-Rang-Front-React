@@ -110,55 +110,55 @@ const Tooltip = styled.div`
   }
 `;
 const menuItems = [
-  { icon: HomeIcon, translationId: 4065, link: "https://rgb.irpsc.com/" },
+  { icon: HomeIcon, translationId: "149", link: "https://rgb.irpsc.com/" },
   {
     icon: NewsIcon,
-    translationId: 4072,
+    translationId: "255",
     link: "https://rgb.irpsc.com/home-news",
   },
   {
     icon: BlogIcon,
-    translationId: 4093,
+    translationId: "258",
     link: "https://rgb.irpsc.com/home-blogs",
   },
   {
     icon: ChallengeIcon,
-    translationId: 4422,
+    translationId: "297",
     link: "https://rgb.irpsc.com/home-competitions",
   },
   {
     icon: TrainingIcon,
-    translationId: 6571,
+    translationId: "87",
     link: "https://rgb.irpsc.com/trainings",
   },
   {
     icon: AboutIcon,
-    translationId: 4107,
+    translationId: "259",
     link: "https://rgb.irpsc.com/about",
   },
   {
     icon: ContactIcon,
-    translationId: 4114,
+    translationId: "260",
     link: "https://rgb.irpsc.com/contact",
   },
   {
     icon: RobotIcon,
-    translationId: 6613,
+    translationId: "261",
     link: "https://rgb.irpsc.com/version",
   },
   {
     icon: CalendarIcon,
-    translationId: 4128,
+    translationId: "262",
     link: "https://rgb.irpsc.com/Calendar",
   },
   {
     icon: CitizenIcon,
-    translationId: 4135,
+    translationId: "263",
     link: "https://rgb.irpsc.com/",
   },
   {
     icon: ViewIcon,
-    translationId: 4142,
+    translationId: "264",
     link: "https://rgb.irpsc.com/overview",
   },
 ];

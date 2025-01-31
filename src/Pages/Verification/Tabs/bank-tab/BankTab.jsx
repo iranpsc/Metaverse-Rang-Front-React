@@ -46,14 +46,14 @@ const BankTab = ({ setOpenErrorModal, openErrorModal }) => {
     <Container>
       <Wrapper>
         <Title
-          title={getFieldTranslationByNames(10646)}
+          title={getFieldTranslationByNames("888")}
         />
         {isError && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
-            buttonText={getFieldTranslationByNames(10603)}
-            text={getFieldTranslationByNames(10673)}
-            info={getFieldTranslationByNames(10666)}
+            buttonText={getFieldTranslationByNames("882")}
+            text={getFieldTranslationByNames("892")}
+            info={getFieldTranslationByNames("891")}
             type="error"
           />
         )}

@@ -5,7 +5,7 @@ import { convertToPersian } from "../../../../Services/Utility/index";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import { useEffect, useState } from "react";
-import { EditorContainer,Label, Char} from "./editorContainerStyle";
+import { EditorContainer,Label, Char,formats,modules} from "../../../../Components/editorContainerStyle";
 
 const Opportunity = () => {
   const { state, dispatch } = useGlobalState();
@@ -18,61 +18,38 @@ useEffect(() => {
 }, [ state.opportunity]);
 
   const handleChange = (value) => {
+    setOpportunityValue(value);
+
     if (value.length <= charLimit) {
-      setOpportunityValue(value);
       dispatch({ type: "SET_OPPORTUNITY", payload: value });
     }
   };
-
+  const handleKeyDown = (event) => {
+    if (opportunityValue.length >= charLimit && event.key !== "Backspace" && event.key !== "Delete") {
+      event.preventDefault(); 
+    }
+  };
   const currentLength = opportunityValue.length;
   const remainingChars = charLimit - currentLength;
   const isOverLimit = remainingChars <= 0;
   const localizedRemainingChars = convertToPersian(remainingChars);
 
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
-      ],
-      ["link", "image", "code-block"],
-      [{ align: [] }],
-    ],
-  };
-
-  const formats = [
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "code-block",
-    "align",
-  ];
-
   return (
     <>
-      <Label >{getFieldTranslationByNames(9364)}</Label>
+      <Label >{getFieldTranslationByNames("801")}</Label>
 
       <EditorContainer >
         <ReactQuill
           value={opportunityValue}
           onChange={handleChange}
+          onKeyDown={handleKeyDown} 
+
           modules={modules}
           formats={formats}
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
-        <span>{localizedRemainingChars} {getFieldTranslationByNames(9217)}</span>
+        <span>{localizedRemainingChars} {getFieldTranslationByNames("530")}</span>
         <CiEdit size={20} />
       </Char>
     </>

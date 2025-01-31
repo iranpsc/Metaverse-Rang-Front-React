@@ -23,6 +23,7 @@ import { AlertProvider } from "./Services/Reducers/AlertContext.jsx";
 import Routers from "./Layouts/Map/Routers.jsx";
 import { getFieldTranslationByNames } from "./Services/Utility/index.jsx";
 import { LanguageProvider } from "./Services/Reducers/LanguageContext.jsx";
+import { LoaderProvider } from "./Services/Reducers/LoaderProvider.jsx";
 import RotateDevice from "./Components/RotateDevice";
 import { AccountSecurityProvider } from "./Services/Reducers/accountSecurityContext.jsx"; // ایمپورت کانتکست
 
@@ -59,45 +60,47 @@ function App() {
     });
   }, []);
 
-  return (    <AccountSecurityProvider>
+  return (
 
-    <MapProvider>
-      <ThemeProviderContext>
-        <LanguageProvider>
-          <UserProvider>
-            <WalletProvider>
-              <FollowProvider>
-                <SelectedEnvironmentProvider>
-                  <MapContextProvider>
-                    <AlertProvider>
-                      <BrowserRouter>
-                        <RotateDevice />
-                        <Routers />
-                        <Container>
-                          <MenuContextProvider>
-                            <Menu />
-                          </MenuContextProvider>
-                          <MapTreeD />
-                          <StatusBar />
-                        </Container>
+    <AccountSecurityProvider>
+      <LoaderProvider>
+        <MapProvider>
+          <ThemeProviderContext>
+            <LanguageProvider>
+              <UserProvider>
+                <WalletProvider>
+                  <FollowProvider>
+                    <SelectedEnvironmentProvider>
+                      <MapContextProvider>
+                        <AlertProvider>
+                          <BrowserRouter>
+                            <RotateDevice />
+                            <Routers />
+                            <Container>
+                              <MenuContextProvider>
+                                <Menu />
+                              </MenuContextProvider>
+                              <MapTreeD />
+                              <StatusBar />
+                            </Container>
 
-                        <Toaster
-                          containerStyle={{ zIndex: 100000, marginBottom: 48 }}
-                          position="bottom-right"
-                        />
-                      </BrowserRouter>
-                    </AlertProvider>
-                  </MapContextProvider>
-                </SelectedEnvironmentProvider>
-              </FollowProvider>
-            </WalletProvider>
-          </UserProvider>
-        </LanguageProvider>
-      </ThemeProviderContext>
-    </MapProvider>
+                            <Toaster
+                              containerStyle={{ zIndex: 100000, marginBottom: 48 }}
+                              position="bottom-right"
+                            />
+                          </BrowserRouter>
+                        </AlertProvider>
+                      </MapContextProvider>
+                    </SelectedEnvironmentProvider>
+                  </FollowProvider>
+                </WalletProvider>
+              </UserProvider>
+            </LanguageProvider>
+          </ThemeProviderContext>
+        </MapProvider>
+      </LoaderProvider>
     </AccountSecurityProvider>
-
-  );
-}
+  )
+};
 
 export default App;

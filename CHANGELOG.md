@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.83 (2025-01-30)
+
+### 1.1.82 (2025-01-30)
+
+
+### Bug Fixes
+
+* update translation keys in report and error report components ([1dcc796](https://github.com/iranpsc/Metaverse-Rang-Front-React/commit/1dcc796d0973aa7fcd71f443ae428c91edd6f1bc))
+
+### 1.1.81 (2025-01-30)
+
+### 1.1.80 (2025-01-30)
+
+### 1.1.79 (2025-01-30)
+
+### 1.1.78 (2025-01-30)
+
+### 1.1.77 (2025-01-30)
+
+### 1.1.76 (2025-01-30)
+
+### 1.1.75 (2025-01-30)
+
+### 1.1.74 (2025-01-30)
+
 ### 1.1.73 (2024-12-12)
 
 ### 1.1.72 (2024-11-25)

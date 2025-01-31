@@ -44,22 +44,22 @@ const Info = ({ item }) => {
   const items = [
     {
       id: 1,
-      title: getFieldTranslationByNames(243),
+      title: getFieldTranslationByNames("46"),
       value: item?.address,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames(234),
+      title: getFieldTranslationByNames("43"),
       value: item?.owner_code,
     },
     {
       id: 3,
-      title: getFieldTranslationByNames(240),
+      title: getFieldTranslationByNames("45"),
       value: item?.price_psc,
     },
     {
       id: 4,
-      title: getFieldTranslationByNames(237),
+      title: getFieldTranslationByNames("44"),
       value: item?.price_irr,
     },
   ];

@@ -114,7 +114,7 @@ const SendFiles = ({ setFiles }) => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames(14635)}
+        title={getFieldTranslationByNames("1328")}
       />
       <Files>
         {previews.map((preview, index) => (

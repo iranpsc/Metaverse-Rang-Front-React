@@ -7,14 +7,14 @@ import { getFieldTranslationByNames } from "../../Services/Utility";
 const HourMeterProfit = () => {
   const tabs = [
     {
-      title: getFieldTranslationByNames(153),
+      title: getFieldTranslationByNames("27"),
       content: <ProfitView />,
     },
   ];
   const TabPanel = useTabs(tabs, 0, true);
   return (
     <ModalPosition
-      title={150}
+      title={"26"}
       position={"right"}
     >
       {TabPanel}

@@ -10,11 +10,11 @@ import { getFieldTranslationByNames } from "../../Services/Utility";
 export default function Store() {
   const tabs = [
     {
-      title: getFieldTranslationByNames(731),
+      title: getFieldTranslationByNames("109"),
       content: <ToolTab />,
     },
     {
-      title: getFieldTranslationByNames(735),
+      title: getFieldTranslationByNames("110"),
       content: <CurrencyTab />,
     },
   ];
@@ -22,7 +22,7 @@ export default function Store() {
   const TabPanel = useTabs(tabs);
 
   return (
-    <Modal title={165}>
+    <Modal title={"30"}>
       {TabPanel}
       <ShopInfo />
     </Modal>

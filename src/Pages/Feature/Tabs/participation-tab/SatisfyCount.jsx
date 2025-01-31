@@ -65,28 +65,28 @@ const SatisfyCount = () => {
         width={100}
         height={100}
         src={satisfy}
-        alt={getFieldTranslationByNames(7124)}
+        alt={getFieldTranslationByNames("52")}
       />
       <First>
         <h3>۵.۰۴۸</h3>
         <span>
-          {getFieldTranslationByNames(7124)}
+          {getFieldTranslationByNames("52")}
         </span>
       </First>
       <Second>
         <span>
           {convertToPersian(27)}
-          {getFieldTranslationByNames(7138)}
+          {getFieldTranslationByNames("380")}
         </span>
         <span>|</span>
         <span>
           {" "}
           {convertToPersian(12)}{" "}
-          {getFieldTranslationByNames(7145)}{" "}
+          {getFieldTranslationByNames("560")}{" "}
           {convertToPersian(21)}{" "}
-          {getFieldTranslationByNames(7152)}{" "}
+          {getFieldTranslationByNames("33")}{" "}
           {convertToPersian(34)}{" "}
-          {getFieldTranslationByNames(7159)}{" "}
+          {getFieldTranslationByNames("488")}{" "}
         </span>
       </Second>
     </Container>

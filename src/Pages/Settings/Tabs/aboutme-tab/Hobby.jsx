@@ -130,43 +130,43 @@ const Hobby = () => {
   };
 
   const hobbies = [
-    { id: 1, key: "music", translationId: 9231, icon: music },
-    { id: 2, key: "sport_health", translationId: 9238, icon: weight },
-    { id: 3, key: "art", translationId: 9245, icon: brush },
+    { id: 1, key: "music", translationId: "785", icon: music },
+    { id: 2, key: "sport_health", translationId: "786", icon: weight },
+    { id: 3, key: "art", translationId: "96", icon: brush },
     {
       id: 4,
       key: "language_culture",
-      translationId: 9252,
+      translationId: "787",
       icon: lang,
     },
-    { id: 5, key: "philosophy", translationId: 9259, icon: note },
-    { id: 6, key: "animals_nature", translationId: 9266, icon: pet },
-    { id: 7, key: "aliens", translationId: 9273, icon: ghost },
-    { id: 8, key: "food_cooking", translationId: 9287, icon: coffee },
+    { id: 5, key: "philosophy", translationId: "99", icon: note },
+    { id: 6, key: "animals_nature", translationId: "788", icon: pet },
+    { id: 7, key: "aliens", translationId: "789", icon: ghost },
+    { id: 8, key: "food_cooking", translationId: "791", icon: coffee },
     {
       id: 9,
       key: "travel_leature",
-      translationId: 9294,
+      translationId: "792",
       icon: tree,
     },
     {
       id: 10,
       key: "manufacturing",
-      translationId: 9301,
+      translationId: "793",
       icon: layer,
     },
     {
       id: 11,
       key: "science_technology",
-      translationId: 9308,
+      translationId: "794",
       icon: cpu,
     },
-    { id: 12, key: "space_time", translationId: 9315, icon: clock },
-    { id: 13, key: "history", translationId: 9322, icon: bubble },
+    { id: 12, key: "space_time", translationId: "795", icon: clock },
+    { id: 13, key: "history", translationId: "107", icon: bubble },
     {
       id: 14,
       key: "politics_economy",
-      translationId: 9329,
+      translationId: "796",
       icon: dollar,
     },
   ];
@@ -175,9 +175,9 @@ const Hobby = () => {
     <Container>
       <Div limitReached={limitReached}>
         <Label>
-          {getFieldTranslationByNames(9224)}
+          {getFieldTranslationByNames("784")}
         </Label>
-        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames(9280)}`}</h4>
+        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames("790")}`}</h4>
       </Div>
       <CheckboxContainer>
         {hobbies.map((hobby) => (

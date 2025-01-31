@@ -168,28 +168,28 @@ const PrintModal = ({
           {status == "0" ? (
             <>
               <p>
-                {getFieldTranslationByNames(8895)}
+                {getFieldTranslationByNames("744")}
               </p>
               <span>
-                {getFieldTranslationByNames(8902)}
+                {getFieldTranslationByNames("745")}
               </span>
             </>
           ) : status == "-138" ? (
             <>
               <p>
-                {getFieldTranslationByNames(9014)}
+                {getFieldTranslationByNames("761")}
               </p>
               <span>
-                {getFieldTranslationByNames(9021)}
+                {getFieldTranslationByNames("762")}
               </span>
             </>
           ) : (
             <>
               <p>
-                {getFieldTranslationByNames(9000)}
+                {getFieldTranslationByNames("759")}
               </p>
               <span>
-                {getFieldTranslationByNames(9007)}
+                {getFieldTranslationByNames("760")}
               </span>
             </>
           )}
@@ -197,7 +197,7 @@ const PrintModal = ({
         <Info>
           <Row>
             <Title>
-              {getFieldTranslationByNames(8937)}
+              {getFieldTranslationByNames("750")}
             </Title>
             <Gif>
               <img loading="lazy" width={26} height={26} src={gif} alt={code} />
@@ -206,38 +206,38 @@ const PrintModal = ({
           </Row>
           <Row>
             <Title>
-              {getFieldTranslationByNames(8916)}
+              {getFieldTranslationByNames("747")}
             </Title>
             <Value>{code}</Value>
           </Row>
           <Row>
             <Title>
-              {getFieldTranslationByNames(8923)}
+              {getFieldTranslationByNames("748")}
             </Title>
             <Value>{date}</Value>
           </Row>
           <Row>
             <Title>
-              {getFieldTranslationByNames(8930)}
+              {getFieldTranslationByNames("749")}
             </Title>
             <Value>{time}</Value>
           </Row>
           <Row>
             <Title>
-              {getFieldTranslationByNames(8937)}
+              {getFieldTranslationByNames("750")}
             </Title>
             <Value>{title}</Value>
           </Row>
           <Row not={false}>
             <Title>
-              {getFieldTranslationByNames(8944)}
+              {getFieldTranslationByNames("751")}
             </Title>
             <Value>{count}</Value>
           </Row>
           <div style={{ marginTop: "10px" }}>
             <Button
               full
-              label={getFieldTranslationByNames(348)}
+              label={getFieldTranslationByNames("67")}
               onclick={handlePrint}
             />
           </div>

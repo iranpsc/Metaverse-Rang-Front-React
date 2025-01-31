@@ -143,7 +143,7 @@ const Follower = ({
       <Buttons>
         {follow ? (
           <Button onClick={unFollowHandler} gray>
-            {getFieldTranslationByNames(8818)}
+            {getFieldTranslationByNames("737")}
           </Button>
         ) : (
           <Container onClick={onFollowHandler}>
@@ -152,12 +152,12 @@ const Follower = ({
             </span>
             <h3>
               {" "}
-              {getFieldTranslationByNames(294)}
+              {getFieldTranslationByNames("55")}
             </h3>
           </Container>
         )}
         <Button onClick={deleteHandler}>
-          {getFieldTranslationByNames(8846)}
+          {getFieldTranslationByNames("738")}
         </Button>
       </Buttons>
     </Card>

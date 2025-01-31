@@ -74,14 +74,14 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
     <Container>
       <HeaderContainer>
         <Title
-          title={getFieldTranslationByNames(6858)}
+          title={getFieldTranslationByNames("533")}
         />
         <Onlines>
           <LuEye />
           <p>
-            {getFieldTranslationByNames(7047)}{" "}
+            {getFieldTranslationByNames("553")}{" "}
             {convertToPersian(20)}{" "}
-            {getFieldTranslationByNames(14516)}
+            {getFieldTranslationByNames("1313")}
           </p>
         </Onlines>
       </HeaderContainer>
@@ -95,16 +95,16 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
       )}
       <Title
         payed={payed}
-        title={getFieldTranslationByNames(6914)}
+        title={getFieldTranslationByNames("538")}
       />
       <Text>{data[0].inputs[4].about}</Text>
       {payed && !edit && (
         <Buttons>
           <Button blue onClick={() => setEdit(true)}>
-            {getFieldTranslationByNames(6991)}
+            {getFieldTranslationByNames("537")}
           </Button>
           <Button onClick={() => {}}>
-            {getFieldTranslationByNames(6998)}
+            {getFieldTranslationByNames("548")}
           </Button>
         </Buttons>
       )}

@@ -216,18 +216,18 @@ const SentList = ({ setShowDetails }) => {
     <Container>
       <div>
         <Title
-          title={getFieldTranslationByNames(14698)}
+          title={getFieldTranslationByNames("1336")}
         />
       </div>
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder={getFieldTranslationByNames(14705)}
+          placeholder={getFieldTranslationByNames("1337")}
         />
         <Date disabled>
           <DatePicker
-            placeholder={getFieldTranslationByNames(14712)}
+            placeholder={getFieldTranslationByNames("1338")}
             className="bg-dark yellow"
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}

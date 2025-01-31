@@ -9,24 +9,24 @@ import About from "./Tabs/aboutme-tab/AboutMeTab";
 export default function Settings() {
   const tabs = [
     {
-      title: getFieldTranslationByNames(7943),
+      title: getFieldTranslationByNames("639"),
       content: <PublicTab />,
     },
     {
-      title: getFieldTranslationByNames(7950),
+      title: getFieldTranslationByNames("640"),
       content: <AccountTab />,
     },
     {
-      title: getFieldTranslationByNames(7957),
+      title: getFieldTranslationByNames("641"),
       content: <SecurityTab />,
     },
     {
-      title: getFieldTranslationByNames(8706),
+      title: getFieldTranslationByNames("95"),
       content: <About />,
     },
   ];
 
   const TabPanel = useTabs(tabs);
 
-  return <Modal title={7965}>{TabPanel}</Modal>;
+  return <Modal title={"642"}>{TabPanel}</Modal>;
 }

@@ -162,7 +162,7 @@ const Houses = () => {
         if (feature.properties.karbari === "m") {
           newProperties = {
             ...newProperties,
-            name: "residential property",
+            name: "477",
             photo: house,
             color: "#ffc80021",
             slug: "house",
@@ -170,7 +170,7 @@ const Houses = () => {
         } else if (feature.properties.karbari === "t") {
           newProperties = {
             ...newProperties,
-            name: "commercial property",
+            name: "475",
             photo: business,
             color: "#ff000021",
             slug: "industry",
@@ -178,7 +178,7 @@ const Houses = () => {
         } else if (feature.properties.karbari === "a") {
           newProperties = {
             ...newProperties,
-            name: "educational property",
+            name: "476",
             photo: education,
             color: "#0066ff21",
             slug: "education",
@@ -238,16 +238,14 @@ const Houses = () => {
   return (
     <Container id="scrollable-container">
       <div>
-        <Title
-          title={getFieldTranslationByNames(288)}
-        />
+        <Title title={getFieldTranslationByNames("58")} />
       </div>
       <Div>
         <Search>
           <FiSearch size={34} />
           <input
             type="text"
-            placeholder={getFieldTranslationByNames(285)}
+            placeholder={getFieldTranslationByNames("57")}
             value={searched}
             onChange={(e) => setSearched(e.target.value)}
           />
@@ -256,10 +254,10 @@ const Houses = () => {
           <Select onClick={() => setOpen(!open)}>
             <span>
               {property.industry
-                ? getFieldTranslationByNames(8650)
+                ? getFieldTranslationByNames("475")
                 : property.education
-                ? getFieldTranslationByNames(8664)
-                : getFieldTranslationByNames(8657)}
+                ? getFieldTranslationByNames("476")
+                : getFieldTranslationByNames("477")}
             </span>
             <MdKeyboardArrowDown
               style={{
@@ -279,9 +277,7 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>
-                  {getFieldTranslationByNames(8650)}
-                </h1>
+                <h1>{getFieldTranslationByNames("475")}</h1>
                 {property.industry && (
                   <span
                     onClick={(e) => {
@@ -304,9 +300,7 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>
-                  {getFieldTranslationByNames(8664)}
-                </h1>
+                <h1>{getFieldTranslationByNames("476")}</h1>
                 {property.education && (
                   <span
                     onClick={(e) => {
@@ -332,9 +326,7 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>
-                  {getFieldTranslationByNames(8657)}
-                </h1>
+                <h1>{getFieldTranslationByNames("477")}</h1>
                 {property.house && (
                   <span
                     onClick={(e) => {

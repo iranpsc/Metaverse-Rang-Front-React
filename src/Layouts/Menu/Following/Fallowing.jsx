@@ -59,7 +59,7 @@ const Fallowing = () => {
         <IconHeader isOpenDrop={isOpenDrop} />
         <Text isOpen={isOpen}>
           {" "}
-          {getFieldTranslationByNames(294)}
+          {getFieldTranslationByNames("55")}
         </Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>

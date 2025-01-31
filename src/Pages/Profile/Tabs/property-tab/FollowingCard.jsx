@@ -83,12 +83,12 @@ const FollowingCard = ({ name, code, id, profile_photos }) => {
       </Profile>
       {follow ? (
         <Button gray onClick={unFollowHandler}>
-          {getFieldTranslationByNames(294)}
+          {getFieldTranslationByNames("55")}
         </Button>
       ) : (
         <Button onClick={onFollowHandler}>
           {" "}
-          {getFieldTranslationByNames(8832)}
+          {getFieldTranslationByNames("733")}
         </Button>
       )}
     </Card>

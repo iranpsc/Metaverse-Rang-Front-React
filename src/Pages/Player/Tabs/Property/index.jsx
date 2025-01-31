@@ -6,15 +6,15 @@ import Following from "./Tabs/Following";
 export default function Property() {
   const tabs = [
     {
-      name: getFieldTranslationByNames(288),
+      name: getFieldTranslationByNames("58"),
       component: <Features />,
     },
     {
-      name: getFieldTranslationByNames(291),
+      name: getFieldTranslationByNames("38"),
       component: <Following />,
     },
     {
-      name: getFieldTranslationByNames(294),
+      name: getFieldTranslationByNames("55"),
       component: <Followers />,
     },
   ];

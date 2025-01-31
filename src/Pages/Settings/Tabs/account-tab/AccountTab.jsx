@@ -32,20 +32,20 @@ const AccountTab = () => {
   const { Request } = useRequest();
 
   const [emailChange, setEmailChange] = useState({
-    title: 7824,
+    title: "624",
     warn: "",
     inputs: [
-      { id: 1, type: "text", label: 7852, value: "" },
-      { id: 2, type: "number", label: 7859, value: "" },
+      { id: 1, type: "text", label: "627", value: "" },
+      { id: 2, type: "number", label: "628", value: "" },
     ],
   });
 
   const [mobileChange, setMobileChange] = useState({
-    title: 7838,
+    title: "625",
     warn: "",
     inputs: [
-      { id: 1, type: "number", label: 7880, value: "" },
-      { id: 2, type: "number", label: 7887, value: "" },
+      { id: 1, type: "number", label: "631", value: "" },
+      { id: 2, type: "number", label: "34", value: "" },
     ],
   });
 
@@ -64,14 +64,14 @@ const AccountTab = () => {
       setEmailChange((prevState) => ({
         ...prevState,
         warn: `${settings.email_reset_count}  ${getFieldTranslationByNames(
-          15055
+          "1364"
         )}`,
       }));
 
       setMobileChange((prevState) => ({
         ...prevState,
         warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(
-          15055
+          "1364"
         )}`,
       }));
     }

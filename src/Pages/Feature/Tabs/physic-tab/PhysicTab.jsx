@@ -11,33 +11,33 @@ const rows_inputs = {
   first_row_info: [
     {
       id: 1,
-      title: 7054,
+      title: "360",
       value: "QA31-10789",
       icon: <MdOutlineHome />,
     },
     {
       id: 2,
-      title: 7061,
+      title: "361",
       value: "QA31-10789",
       icon: <HiOutlineBuildingOffice />,
     },
   ],
   second_row_info: {
     id: 1,
-    title: 7068,
+    title: "554",
     value: "تهران، خیابان انقلاب، کوی گلها، ساختمان بهاران ",
     icon: <GrLocation />,
   },
   third_row_info: [
     {
       id: 1,
-      title: 7075,
+      title: "555",
       value: "۱۲",
       icon: <TbPhoto />,
     },
     {
       id: 2,
-      title: 7082,
+      title: "225",
       value: "۲۳۲.۴۴",
       icon: <IoLink />,
     },

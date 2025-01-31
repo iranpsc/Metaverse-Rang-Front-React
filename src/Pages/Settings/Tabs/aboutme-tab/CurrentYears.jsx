@@ -114,7 +114,7 @@ const CurrentYears = () => {
   return (
     <Container>
       <Div>
-        <Label>{getFieldTranslationByNames(9371)}</Label>
+        <Label>{getFieldTranslationByNames("802")}</Label>
         <div>
           <DropdownButton onClick={toggleDropdown}>
             <span>{selectedYear}</span>
@@ -127,20 +127,20 @@ const CurrentYears = () => {
           {isOpen && (
             <DropdownMenu>
               <DropdownItem  onClick={() => selectYear(convertToPersian("1403"))}>
-                {getFieldTranslationByNames(9385)} {convertToPersian("1403")}
+                {getFieldTranslationByNames("803")} {convertToPersian("1403")}
               </DropdownItem>
               <DropdownItem onClick={() => selectYear(convertToPersian("1402"))}>
-                {getFieldTranslationByNames(9385)} {convertToPersian("1402")}
+                {getFieldTranslationByNames("803")} {convertToPersian("1402")}
               </DropdownItem>
               <DropdownItem onClick={() => selectYear(convertToPersian("1401"))}>
-                {getFieldTranslationByNames(9385)} {convertToPersian("1401")}
+                {getFieldTranslationByNames("803")} {convertToPersian("1401")}
               </DropdownItem>
             </DropdownMenu>
           )}
         </div>
       </Div>
       <Content>
-        <Label>{getFieldTranslationByNames(9392)}</Label>
+        <Label>{getFieldTranslationByNames("804")}</Label>
         {yearContent[selectedYear]}
       </Content>
     </Container>

@@ -102,7 +102,7 @@ const VodDetails = ({ setShowDetails, data }) => {
       <Container>
         <Header>
           <Title
-            title={getFieldTranslationByNames(14796)}
+            title={getFieldTranslationByNames("1347")}
           />
           <div onClick={() => setShowDetails(false)}>X</div>
         </Header>

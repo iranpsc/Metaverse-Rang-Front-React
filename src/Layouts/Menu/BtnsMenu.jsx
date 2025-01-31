@@ -87,42 +87,42 @@ const ValueBtn = styled.span`
 `;
 
 const menuItems = [
-  { icon: GiftIcon, translationId: 3716, navigate: "" },
+  { icon: GiftIcon, translationId: "231", navigate: "" },
   {
     icon: AccountSecurityIcon,
-    translationId: 3709,
+    translationId: "31",
     navigate: "confirmation",
   },
   {
     icon: CentralSearch,
-    translationId: 3723,
+    translationId: "232",
     navigate: "search",
   },
   {
     icon: GlobalStatisticsIcon,
-    translationId: 3730,
+    translationId: "233",
     navigate: "",
   },
-  { icon: FamilyTreeIcon, translationId: 3737, navigate: "dynasty" },
-  { icon: RobotIcon, translationId: 3744, navigate: "" },
+  { icon: FamilyTreeIcon, translationId: "234", navigate: "dynasty" },
+  { icon: RobotIcon, translationId: "235", navigate: "" },
   {
     icon: ProfitIcon,
-    translationId: 3751,
+    translationId: "236",
     navigate: "hour-profit",
   },
   {
     icon: KycIcon,
-    translationId: 3758,
+    translationId: "237",
     navigate: "verification",
   },
-  { icon: CalendarIcon, translationId: 4128, navigate: "" },
-  { icon: StoreIcon, translationId: 3772, navigate: "store" },
+  { icon: CalendarIcon, translationId: "262", navigate: "" },
+  { icon: StoreIcon, translationId: "30", navigate: "store" },
   {
     icon: NotifIcon,
-    translationId: 3779,
+    translationId: "238",
     navigate: "notifications",
   },
-  { icon: ReportIcon, translationId: 3786, navigate: "report" },
+  { icon: ReportIcon, translationId: "23", navigate: "report" },
 ];
 
 const BtnsMenu = () => {

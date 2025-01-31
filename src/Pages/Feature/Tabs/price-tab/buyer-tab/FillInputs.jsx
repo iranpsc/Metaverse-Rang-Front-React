@@ -120,14 +120,14 @@ const FillInputs = ({
           value={rial}
           onchange={handleRialChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(6760)})`}
+          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
         />
         <Input
           value={psc}
           onchange={handlePscChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames(6774)} (${getFieldTranslationByNames(14488)})`}
+          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("47")})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
@@ -136,34 +136,34 @@ const FillInputs = ({
         <SuggestText setValue={setSuggestText} value={suggestText} />
         <span style={{ color: "gray", fontSize: "14px" }}>
           {1000 - suggestText.length}{" "}
-          {getFieldTranslationByNames(6837)}
+          {getFieldTranslationByNames("530")}
         </span>
       </Div>
       <ResultWrapper>
         <Wrapper>
           <Title>
-            {getFieldTranslationByNames(6781)}
+            {getFieldTranslationByNames("522")}
           </Title>
           <Value>
             {convertToPersian(rial)}{" "}
-            {getFieldTranslationByNames(6760)} / {psc}{" "}
-            {getFieldTranslationByNames(14488)}
+            {getFieldTranslationByNames("48")} / {psc}{" "}
+            {getFieldTranslationByNames("47")}
           </Value>
         </Wrapper>
         <Sec>
           <TitleValue
-            title={getFieldTranslationByNames(6844)}
+            title={getFieldTranslationByNames("531")}
             value={convertToPersian(remainingAmount.toFixed(0))}
           />
           <TitleValue
-            title={getFieldTranslationByNames(6788)}
+            title={getFieldTranslationByNames("523")}
             value="5%"
           />
         </Sec>
       </ResultWrapper>
       <div>
         <Button
-          label={getFieldTranslationByNames(6851)}
+          label={getFieldTranslationByNames("532")}
           onclick={onSubmit}
         />
       </div>

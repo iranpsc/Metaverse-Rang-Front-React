@@ -24,7 +24,7 @@ const NoNotification = () => {
     <Container>
       <FiInbox />
       <h2>
-        {getFieldTranslationByNames(10456)}
+        {getFieldTranslationByNames("865")}
       </h2>
     </Container>
   );
