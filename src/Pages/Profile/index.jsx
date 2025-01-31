@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import PropertyTab from "./Tabs/property-tab/PropertyTab";
 import TotalTab from "./Tabs/total-tab/TotalTab";
 import SuggestionTab from "./Tabs/suggestion-tab/SuggestionTab";
-import PropertyTab from "./Tabs/property-tab/PropertyTab";
-import TotalTab from "./Tabs/total-tab/TotalTab";
 import TransactionsTab from "./Tabs/transactions-tab/TransactionsTab";
 
 export default function Profile() {
@@ -19,7 +17,7 @@ export default function Profile() {
     { title: getFieldTranslationByNames("62"), content: <TotalTab /> },
     { title: getFieldTranslationByNames("150"), content: <PropertyTab /> },
     { title: getFieldTranslationByNames("61"), content: <TransactionsTab /> },
-    { title: getFieldTranslationByNames(358), content: <DynastyTab /> },
+    //{ title: getFieldTranslationByNames(358), content: <DynastyTab /> },
     { title: getFieldTranslationByNames("735"), content: <SuggestionTab /> },
   ];
 
