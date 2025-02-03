@@ -24,8 +24,10 @@ const Header = styled.div`
     color: ${(props) => props.theme.colors.primary};
     font-size: 16px;
     font-weight: 600;
+    text-transform: uppercase;
   }
 `;
+
 const KeyValue = styled.div`
   display: flex;
   justify-content: space-between;
@@ -41,37 +43,50 @@ const KeyValue = styled.div`
   }
 `;
 
-const Details = () => {
+const Details = ({ data }) => {
+  if (!data?.["dynasty-feature"]) {
+    return null;
+  }
+
+  const {
+    properties_id: propertyId,
+    area,
+    density,
+    "feature-profit-increase": profitIncrease,
+    "family-members-count": membersCount,
+    "last-updated": lastUpdated,
+  } = data["dynasty-feature"];
+
   return (
     <Container>
       <Header>
         <h3>جزییات ملک</h3>
-        <span>QA31-11213</span>
+        <span>{propertyId}</span>
       </Header>
       <KeyValue>
         <h3>متراژ</h3>
-        <span>۲۱۰</span>
+        <span>{area}</span>
       </KeyValue>
       <KeyValue>
         <h3>تراکم</h3>
-        <span>۲</span>
+        <span>{density}</span>
       </KeyValue>
       <KeyValue>
         <h3 style={{ display: "flex", alignItems: "center", gap: "4px" }}>
           افزایش سود از ملک
           <AiOutlineExclamationCircle />
         </h3>
-        <span>۱٪</span>
+        <span>{profitIncrease}٪</span>
       </KeyValue>
       <KeyValue>
         <h3>تعداد اعضا</h3>
-        <span>۸</span>
+        <span>{membersCount}</span>
       </KeyValue>
       <KeyValue>
         <h3 style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-          قابلیت انتقال <AiOutlineExclamationCircle />
+          آخرین بروزرسانی <AiOutlineExclamationCircle />
         </h3>
-        <span>۲۰ : ۱۲ : ۴۴</span>
+        <span>{lastUpdated}</span>
       </KeyValue>
     </Container>
   );

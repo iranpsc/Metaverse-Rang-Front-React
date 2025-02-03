@@ -16,13 +16,13 @@ const Wrapper = styled.div`
     grid-template-columns: 2fr 1fr;
   }
 `;
-const Owner = () => {
+const Owner = ({ data }) => {
   return (
     <Container>
       <Title title="ملک سلسله" />
       <Wrapper>
         <Model3D />
-        <Details />
+        <Details data={data} />
       </Wrapper>
     </Container>
   );

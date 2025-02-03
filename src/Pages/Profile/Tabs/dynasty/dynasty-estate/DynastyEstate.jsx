@@ -3,18 +3,18 @@ import Owner from "./Owner";
 import styled from "styled-components";
 
 const Container = styled.div`
-padding: 20px 0;
-display: flex;
-flex-direction: column;
-gap: 20px;
-height: 530px;
-overflow-y: auto;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 75%;
+  overflow-y: auto;
 `;
 
-const DynastyEstate = () => {
+const DynastyEstate = ({ data }) => {
   return (
     <Container>
-      <Owner />
+      <Owner data={data} />
       <Convert />
     </Container>
   );
