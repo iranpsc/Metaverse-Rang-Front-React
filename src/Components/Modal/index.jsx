@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Header from "../Header/Header";
 import { useTranslation } from "react-i18next";
 import { getFieldTranslationByNames } from "../../Services/Utility";
+import { useAccountSecurity } from "../../Services/Reducers/accountSecurityContext"; 
 
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -9,14 +10,14 @@ const ModalContainer = styled.div`
   padding: 15px 14px;
   max-width: 800px;
   width: 81%;
-  z-index: 2000;
+  z-index: 12;
   position: absolute;
   right: 0;
   @media (min-width: 1023px) {
     height: 94%;
     max-width: 1330px;
     max-height: 782px;
-    position: static; /* برای غیر فعال کردن position */
+    position: static;
     right: auto;
     border-radius: 10px;
   }
@@ -45,8 +46,13 @@ const Container = styled.div`
   z-index: 10;
 `;
 const Modal = ({ children, title }) => {
+  const { setSectionId,setSelectedItemId } = useAccountSecurity();
+  const handleClose = () => {
+    setSectionId(null);
+    setSelectedItemId(null);
+  };
   return (
-    <Container>
+    <Container  onClick={handleClose}>
       <ModalContainer>
         <Header title={title} />
         {children}

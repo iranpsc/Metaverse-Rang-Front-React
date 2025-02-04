@@ -12,6 +12,8 @@ const ProfileModal = () => {
     { key: "property", label: "دارایی" },
     { key: "transactions", label: "تراکنش ها" },
     { key: "dynasty", label: "سلسله" },
+    { key: "SuggestionTab", label: "پیشنهادات" },
+
   ];
 
   return (

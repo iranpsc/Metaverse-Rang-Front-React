@@ -56,7 +56,7 @@ const ButtonElement = styled.button`
 
 const Button = ({
   label,
-  onclick,
+  onClick,
   row,
   color,
   edit,
@@ -75,7 +75,7 @@ const Button = ({
       edit={edit}
       row={row}
       color={color}
-      onClick={onclick}
+      onClick={onClick}
       disabled={disabled}
       fit={fit}
       textColor={textColor}
