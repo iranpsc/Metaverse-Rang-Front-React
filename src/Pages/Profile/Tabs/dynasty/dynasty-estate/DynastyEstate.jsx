@@ -15,7 +15,7 @@ const DynastyEstate = ({ data }) => {
   return (
     <Container>
       <Owner data={data} />
-      <Convert />
+      <Convert data={data} />
     </Container>
   );
 };

@@ -56,7 +56,7 @@ const Container = styled.div`
   border-radius: 5px;
 `;
 
-const PropertyCard = ({ onClick, label }) => {
+const PropertyCard = ({ onClick, label, propertyId, area, stability }) => {
   return (
     <Container>
       <Right>
@@ -65,14 +65,20 @@ const PropertyCard = ({ onClick, label }) => {
         </Image>
         <Info>
           <h3>شناسه زمین</h3>
-          <h4>QA31-11213</h4>
+          <h4>{propertyId}</h4>
         </Info>
       </Right>
       <Center>
         <h3>متراژ</h3>
-        <h4>۱۲۰</h4>
+        <h4>{area}</h4>
+        {stability && (
+          <>
+            <h3>پایداری</h3>
+            <h4>{stability}</h4>
+          </>
+        )}
       </Center>
-      <Button label={label} onclick={onClick} />
+      <Button label={label} onclick={() => onClick(propertyId)} />
     </Container>
   );
 };
