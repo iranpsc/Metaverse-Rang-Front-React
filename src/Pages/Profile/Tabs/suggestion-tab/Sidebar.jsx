@@ -44,10 +44,10 @@ const Sidebar = ({ setMenu, menu }) => {
   return (
     <Container>
       <Label menu={menu === 1} isPersian={isPersian} onClick={() => setMenu(1)}>
-        {getFieldTranslationByNames(9035)}{" "}
+        {getFieldTranslationByNames("764")}{" "}
       </Label>
       <Label menu={menu === 2} isPersian={isPersian} onClick={() => setMenu(2)}>
-        {getFieldTranslationByNames(9042)}{" "}
+        {getFieldTranslationByNames("765")}{" "}
       </Label>
     </Container>
   );

@@ -4,14 +4,19 @@ import vector from "../../../../Assets/images/profile/Vector.png";
 export const Info = styled.div`
   @media (min-width: 1366px) {
     ${({ isPersian, theme }) => `
-  ${isPersian ? `border-left: 1px solid ${theme.colors.newColors.otherColors.themeBtn};` : `border-right: 1px solid ${theme.colors.newColors.otherColors.themeBtn};`}
-  ${isPersian ? 'padding-left: 15px;' : 'padding-right: 15px;'}
-`}  }
+  ${isPersian
+      ? `border-left: 1px solid ${theme.colors.newColors.otherColors.themeBtn};`
+      : `border-right: 1px solid ${theme.colors.newColors.otherColors.themeBtn};`
+    }
+  ${isPersian ? "padding-left: 15px;" : "padding-right: 15px;"}
+`}
+  }
 `;
 export const SuggestionsContainer = styled.div`
+
   background-color: ${(props) => props.theme.colors.newColors.otherColors.menuBg};
   padding: 10px;
-border-radius: 5px;
+  border-radius: 5px;
 `;
 
 export const Wrapper = styled.div`
@@ -26,8 +31,7 @@ export const mainContainer = styled.div`
   height: 100%;
   width: 100%;
   overflow-y: auto;
-  padding-right: 15px; 
- 
+  padding-right: 15px;
 `;
 export const Location = styled.div`
   display: flex;
@@ -36,11 +40,12 @@ export const Location = styled.div`
   align-items: center;
   gap: 20px;
   p {
-    color: ${(props) => (props.theme.colors.newColors.shades[30])};
+    color: ${(props) => props.theme.colors.newColors.shades[30]};
     font-size: 16px;
     font-weight: 600;
   }
   h3 {
+    cursor: pointer;
     color: #ffc700;
     font-size: 14px;
     font-weight: 500;
@@ -48,8 +53,8 @@ export const Location = styled.div`
   }
 `;
 export const Property = styled.div`
-white-space: nowrap;
-display: flex;
+  white-space: nowrap;
+  display: flex;
   flex-direction: column;
   align-items: start;
   gap: 10px;
@@ -71,12 +76,12 @@ export const Value = styled.div`
     font-weight: 600;
   }
   span {
-    color: ${(props) => (props.theme.colors.newColors.shades[30])};
+    color: ${(props) => props.theme.colors.newColors.shades[30]};
     font-size: 18px;
     font-weight: 500;
   }
 `;
- export const Suggestions = styled.div`
+export const Suggestions = styled.div`
   display: grid;
   gap: 20px;
   padding: 20px 0;
@@ -100,14 +105,21 @@ export const StyledSVG = styled.svg`
   height: 100%;
 `;
 export const Polygon = styled.polygon`
-  fill: white;
-  stroke-width: 1;
+    //color: ${({ percent }) => (percent > 0 ? "#18C08F" : "#FF0000")};
+
+    fill: ${({ karbari }) =>
+    karbari === "m" ? "#fae52b" :
+      karbari === "t" ? "#FF0000" :
+        karbari === "a" ? "#2f00ff" : "#ffff"
+  };  stroke-width: 1;
   transform: ${(props) =>
     props.hasXGreaterThan50 ? "rotate(250deg)" : "rotate(270deg)"};
 `;
 export const proposerContainer = styled.div`
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.menuBg};
-  border: 1px solid ${(props) => (props.theme.colors.newColors.otherColors.inputBorder)};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   padding: 20px;
   border-radius: 10px;
   display: grid;
@@ -116,16 +128,16 @@ export const proposerContainer = styled.div`
     grid-template-columns: 1fr 243px;
   }
 `;
-//این قسمت برای رنگ ها سود یا ضرر باکس Suggested price هست
 export const BasePrice = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color:${(props) => (props.theme.colors.newColors.otherColors.offerbg)};
+  background-color: ${({ percent, theme }) => percent > 0 ? theme.colors.newColors.otherColors.offerbg : theme.colors.newColors.otherColors.offerbg2};
+
   border-radius: 6px;
   padding: 12px;
   h3 {
-    color:${(props) => (props.theme.colors.newColors.shades[30])} ;
+    color: ${(props) => props.theme.colors.newColors.shades[30]};
     font-size: 14px;
     font-weight: 500;
   }
@@ -135,13 +147,12 @@ export const Prices = styled.div`
   align-items: center;
   gap: 12px;
   span {
-    color: ${(props) => (props.theme.colors.newColors.shades[30])};
-    ;
+    color: ${(props) => props.theme.colors.newColors.shades[30]};
     font-size: 18px;
     font-weight: 500;
   }
   h3 {
-    color: #18c08f;
+    color: ${({ percent }) => (percent > 0 ? "#18C08F" : "#FF0000")};
     font-size: 18px;
     font-weight: 600;
   }
@@ -169,8 +180,8 @@ export const Text = styled.div`
   padding-bottom: 20px;
   border-bottom: 1px solid inputBorder;
   p {
-    color: ${(props) => (props.theme.colors.newColors.shades[30])};
-    font-size: 16px;  
+    color: ${(props) => props.theme.colors.newColors.shades[30]};
+    font-size: 16px;
     font-weight: 400;
   }
   span {

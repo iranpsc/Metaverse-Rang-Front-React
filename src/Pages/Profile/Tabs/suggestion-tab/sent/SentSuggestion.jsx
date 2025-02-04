@@ -1,132 +1,150 @@
 import Suggestion from "./Suggestion";
 import Title from "../../../../../Components/Title";
 import meter from "../../../../../Assets/images/profile/meter.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { convertToPersian, getFieldTranslationByNames } from "../../../../../Services/Utility/index";
 import useRequest from "../../../../../Services/Hooks/useRequest/index";
 import { mainContainer, Wrapper } from "../suggestionStyles";
-import {  useLocation } from "react-router-dom"; // اضافه کردن useLocation
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import moment from "moment-jalaali";
+import { useAccountSecurity } from "../../../../../Services/Reducers/accountSecurityContext";
 
 const Container = mainContainer;
 
 const SentSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
   const { Request } = useRequest();
-  const location = useLocation(); // گرفتن اطلاعات مسیر فعلی
-  const navigate = useNavigate(); // تعریف هوک useNavigate
-  // درخواست داده‌ها از API
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { selectedItemId } = useAccountSecurity();
+  const containerRef = useRef(null);
+
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
         const response = await Request("buy-requests", "GET");
-        //console.log("Received data:", response.data.data);
+        const data = response?.data?.data;
 
-        if (response.data && Array.isArray(response.data.data)) {
-          const formattedSuggestions = response.data.data.map((item) => ({
+        if (!Array.isArray(data)) {
+          console.error("Invalid data format:", response.data);
+          return;
+        }
+
+        const formattedSuggestions = data.map((item) => {
+          const gracePeriod = item.requested_grace_period;
+          let remainingHours = 0,
+            remainingMinutes = 0,
+            remainingSeconds = 0;
+
+          if (gracePeriod) {
+            const graceDate = moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate();
+            const diffTime = Math.max(0, graceDate - new Date());
+
+            remainingHours = Math.floor(diffTime / (1000 * 60 * 60));
+            remainingMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+            remainingSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
+          }
+
+          return {
             id: item.id,
             property: {
               image: meter,
-              location: item.feature_properties.address,
-              code: item.feature_properties.id,
-              owner: item.seller.code,
+              location: item.feature_properties?.address,
+              code: item.feature_properties?.id,
+              owner: item.seller?.code,
               date: item.created_at,
-              value: item.feature_properties.price_psc,
-              rial: item.price_irr,
-              psc: item.price_psc,
+              value: item.feature_properties?.stability,
               coordinates: item.feature_coordinates || [],
+              karbari: item.feature_properties?.karbari,
             },
             suggestions_list: [
               {
                 id: item.id,
-                code: item.seller.code,
+                code: item.seller?.code,
                 date: item.created_at,
                 rial: item.price_irr,
                 psc: item.price_psc,
-                percent: "210", // مقدار فرضی
-                initialHours: 0,
-                initialMinutes: 0,
-                initialSeconds: 0,
+                percent: "210",
+                initialHours: remainingHours,
+                initialMinutes: remainingMinutes,
+                initialSeconds: remainingSeconds,
                 information: item.note,
               },
             ],
-          }));
-          setSuggestions(formattedSuggestions); // ذخیره داده‌ها در state
-        } else {
-          console.error("Invalid data format from API:", response.data);
-        }
+          };
+        });
+
+        setSuggestions(formattedSuggestions);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchSuggestions();
+  }, [location]);
 
-  }, [location]); 
-
-  // تبدیل داده‌ها به فارسی
-  const convertSuggestions = (suggestions) => {
-    return suggestions.map((suggestion) => ({
+  const convertSuggestions = (suggestions) =>
+    suggestions.map((suggestion) => ({
       ...suggestion,
       property: {
         ...suggestion.property,
+        owner: suggestion.property.owner.toUpperCase(),
         value: convertToPersian(suggestion.property.value),
-        code: convertToPersian(suggestion.property.code),
-        rial: convertToPersian(suggestion.property.rial),
-        psc: convertToPersian(suggestion.property.psc),
+        code: suggestion.property.code.toUpperCase(),
         date: convertToPersian(suggestion.property.date),
       },
       suggestions_list: suggestion.suggestions_list.map((item) => ({
         ...item,
-        code: convertToPersian(item.code),
-        date: convertToPersian(item.date),
         rial: convertToPersian(item.rial),
         psc: convertToPersian(item.psc),
-        percent: convertToPersian(item.percent),
       })),
     }));
-  };
+
+useEffect(() => {
+  if (!selectedItemId || suggestions.length === 0 || !containerRef.current) return;
+
+  if (selectedItemId === suggestions[0]?.id) return;
+
+  setTimeout(() => {
+    const element = document.getElementById(`suggestion-${selectedItemId}`);
+    if (!element || !containerRef.current.contains(element)) return;
+
+    const { clientHeight: containerHeight } = containerRef.current;
+    const { offsetTop: elementOffset, clientHeight: elementHeight } = element;
+
+    containerRef.current.scrollTo({
+      top: elementOffset - containerHeight / 2 + elementHeight / 2,
+      behavior: "smooth",
+    });
+  }, 200);
+}, [suggestions, selectedItemId]);
+
 
   const handleRejectProposal = async (suggestionId) => {
     try {
-      const response = await Request(
-        `buy-requests/delete/${suggestionId}`,
-        "DELETE",
-        {},
-        {},
-        "production"
-      );
+      const response = await Request(`buy-requests/delete/${suggestionId}`, "DELETE", {}, {}, "production");
 
-      // بررسی وضعیت پاسخ
-      if (response.status === 200 || response.status === 204) {
-        setSuggestions((prevSuggestions) =>
-          prevSuggestions.filter((suggestion) => suggestion.id !== suggestionId)
-        );
+      if ([200, 204].includes(response.status)) {
+        setSuggestions((prev) => prev.filter((s) => s.id !== suggestionId));
       } else {
         console.error("Error deleting suggestion:", response);
       }
     } catch (error) {
       console.error("Error caught:", error);
-         navigate("confirmation"); // هدایت کاربر به مسیر confirmation
-
+      navigate("/metaverse/confirmation", {
+        state: { locationPage: "profile-4", sectionId: "send-suggestion", itemId: suggestionId },
+      });
     }
   };
 
-  const validSuggestions = suggestions.filter(
-    (suggestion) => suggestion.suggestions_list.length > 0
-  );
-
   return (
-    <Container>
-     
-      <Title right title={getFieldTranslationByNames(9042)} />
+    <Container ref={containerRef}>
+      <Title right title={getFieldTranslationByNames("765")} />
       <Wrapper>
-        {convertSuggestions(validSuggestions).map((suggestion) => (
-          <Suggestion
-            key={suggestion.id}
-            {...suggestion}
-            onRejectProposal={handleRejectProposal}
-          />
+        {convertSuggestions(suggestions.filter((s) => s.suggestions_list.length > 0)).map((suggestion) => (
+          <div key={suggestion.id} id={`suggestion-${suggestion.id}`}>
+            <Suggestion {...suggestion} onRejectProposal={handleRejectProposal} />
+          </div>
         ))}
       </Wrapper>
     </Container>
@@ -134,3 +152,4 @@ const SentSuggestion = () => {
 };
 
 export default SentSuggestion;
+

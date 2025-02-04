@@ -60,77 +60,58 @@ const Buttons = styled.div`
 
 const Container = proposerContainer;
 
-
-
-
-
 const Proposer = ({
-  code,
-  date,
   rial,
   psc,
   onReject,
   information,
-  initialHours,
-  initialMinutes,
-  initialSeconds,
+  initialHours = 0,
+  initialMinutes = 0,
+  initialSeconds = 0,
 }) => {
-  const [hours, setHours] = useState(initialHours);
-  const [minutes, setMinutes] = useState(initialMinutes);
-  const [seconds, setSeconds] = useState(initialSeconds);
+  const [time, setTime] = useState({
+    hours: initialHours,
+    minutes: initialMinutes,
+    seconds: initialSeconds,
+  });
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExploding, setIsExploding] = useState(false);
   const isPersian = useLanguage();
 
   useEffect(() => {
+    if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) return;
+
     const countdown = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds((prevSeconds) => prevSeconds - 1);
-      } else {
-        if (minutes > 0) {
-          setMinutes((prevMinutes) => prevMinutes - 1);
-          setSeconds(59);
-        } else if (hours > 0) {
-          setHours((prevHours) => prevHours - 1);
-          setMinutes(59);
-          setSeconds(59);
-        } else {
-          clearInterval(countdown);
-        }
-      }
+      setTime(({ hours, minutes, seconds }) => {
+        if (seconds > 0) return { hours, minutes, seconds: seconds - 1 };
+        if (minutes > 0) return { hours, minutes: minutes - 1, seconds: 59 };
+        if (hours > 0) return { hours: hours - 1, minutes: 59, seconds: 59 };
+        clearInterval(countdown);
+        return { hours: 0, minutes: 0, seconds: 0 };
+      });
     }, 1000);
 
     return () => clearInterval(countdown);
-  }, [seconds, minutes, hours]);
-
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded);
-  };
+  }, [time]);
 
   return (
     <Container>
       <Info isPersian={isPersian}>
-        <Price >
-          <h3> {getFieldTranslationByNames(9112)}</h3>
+        <Price>
+          <h3>{getFieldTranslationByNames("773")}</h3>
           <Prices>
-            <div>
-              <img width={24} height={24} src={rialpng} alt="Rial" />
-              <span>{rial}</span>
-            </div>
+            <PriceItem src={rialpng} value={rial} />
             <img width={1} height={24} src={line} alt="Line" />
-            <div>
-              <img width={24} height={24} src={pscpng} alt="PSC" />
-              <span>{psc}</span>
-            </div>
+            <PriceItem src={pscpng} value={psc} />
           </Prices>
         </Price>
         <Text>
           <p>
-            {information && information.length > 277 ? (
+            {information?.length > 277 ? (
               <>
-                {isExpanded ? information : `${information.slice(0, 277)}...`}{" "}
-                <span onClick={handleToggle}>
-                  {isExpanded ? getFieldTranslationByNames(10617) : getFieldTranslationByNames(9119)}
+                {isExpanded ? information : `${information.slice(0, 277)}...`}
+                <span onClick={() => setIsExpanded(!isExpanded)}>
+                  {getFieldTranslationByNames(isExpanded ? "884" : "774")}
                 </span>
               </>
             ) : (
@@ -138,59 +119,57 @@ const Proposer = ({
             )}
           </p>
         </Text>
-
-
       </Info>
       <ProposalStatus>
-        <p>{getFieldTranslationByNames(9147)}</p>
+        <p>{getFieldTranslationByNames("777")}</p>
         <TimeSection>
-          <TimeBox>
-            {convertToPersian(hours.toString().padStart(2, "0"))}
-            <span>{getFieldTranslationByNames(9168)}</span>
-          </TimeBox>
-          <TimeBox>
-            {convertToPersian(minutes.toString().padStart(2, "0"))}
-            <span>{getFieldTranslationByNames(9161)}</span>
-          </TimeBox>
-          <TimeBox>
-            {convertToPersian(seconds.toString().padStart(2, "0"))}
-            <span>{getFieldTranslationByNames(9154)}</span>
-          </TimeBox>
+          {["hours", "minutes", "seconds"].map((unit, index) => (
+            <TimeBox key={index}>
+              {convertToPersian(time[unit].toString().padStart(2, "0"))}
+              <span>{getFieldTranslationByNames(["560", "33", "778"][index])}</span>
+            </TimeBox>
+          ))}
         </TimeSection>
         <Buttons>
-        <RejectButton
-  onClick={async () => {
-    const isDeleted = await onReject(); // اجرای تابع onReject و انتظار نتیجه
-    if (isDeleted) {
-      setIsExploding(true); // تنظیم انیمیشن تنها در صورت موفقیت
-      setTimeout(() => setIsExploding(false), 3000); // بازنشانی انیمیشن بعد از مدت زمان مشخص
-    }
-  }}
->
-  {getFieldTranslationByNames(9126)}
-  {isExploding && (
-    <ConfettiExplosion
-      zIndex={99999}
-      particleCount={150}
-      duration={3000}
-      colors={["#C30000"]}
-      particleSize={5}
-      height="100vh"
-      width={400}
-      style={{
-        position: "absolute", // موقعیت‌دهی نسبت به والد موجود
-        left: "50%",          // مرکز افقی
-        top: "50%",           // مرکز عمودی
-        transform: "translate(-50%, -50%)", // تنظیم دقیق به مرکز
-      }}
-    />
-  )}
-</RejectButton>
-{" "}
+          <RejectButton
+            onClick={() => {
+              onReject();
+              setIsExploding(true);
+              setTimeout(() => setIsExploding(false), 3000);
+            }}
+          >
+            {getFieldTranslationByNames("775")}
+            {isExploding && <ConfettiEffect />}
+          </RejectButton>
         </Buttons>
       </ProposalStatus>
     </Container>
   );
 };
+
+const PriceItem = ({ src, value }) => (
+  <div>
+    <img width={24} height={24} src={src} alt="Currency" />
+    <span>{value}</span>
+  </div>
+);
+
+const ConfettiEffect = () => (
+  <ConfettiExplosion
+    zIndex={10}
+    particleCount={150}
+    duration={3000}
+    colors={["#C30000"]}
+    particleSize={5}
+    height="100vh"
+    width={400}
+    style={{
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
+    }}
+  />
+);
 
 export default Proposer;

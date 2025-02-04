@@ -7,10 +7,13 @@ import person from "../../../../../Assets/images/profile/slide.png";
 import pscpng from "../../../../../Assets/images/profile/psc.gif";
 import rialpng from "../../../../../Assets/images/profile/rial.gif";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "../../../../../Services/Reducers/LanguageContext";
-
 import { Info, proposerContainer, BasePrice, Prices, RejectButton, Text } from "../suggestionStyles";
+import useRequest from "../../../../../Services/Hooks/useRequest/index";
+import { useNavigate } from "react-router-dom";
+import { useAccountSecurity } from "../../../../../Services/Reducers/accountSecurityContext";
+
 const Price = BasePrice;
 const ProposalStatus = styled.div``;
 
@@ -80,7 +83,7 @@ const Buttons = styled.div`
 
 const Div = styled.div`
   padding-bottom: 16px;
-  border-bottom: 1px solid #454545;
+  border-bottom: 1px solid #a0a0ab;
 `;
 const Remained = styled.div`
   display: flex;
@@ -88,12 +91,16 @@ const Remained = styled.div`
   justify-content: center;
   padding: 9px 22px;
   border-radius: 10px;
-  border: 1px solid #454545;
+  border: 1px solid #a0a0ab;
   color: #949494;
   font-size: 16px;
   font-weight: 400;
 `;
+const StyledArrowUp = styled(MdOutlineKeyboardArrowUp)`
 
+  color: ${({ percent }) => (percent > 0 ? "#18C08F" : "#FF0000")};
+  rotate: ${({ percent }) => (percent > 0 ? "" : "180deg")};
+`;
 const Proposer = ({
   code,
   date,
@@ -102,36 +109,66 @@ const Proposer = ({
   information,
   percent,
   onReject,
+  onAccept,
+  property,
+  id
 }) => {
-  const [day, setDay] = useState(0);
+  const { selectedItemId } = useAccountSecurity();
+  const itemRef = useRef(null);
+
+  useEffect(() => {
+    if (selectedItemId && selectedItemId === id && itemRef.current) {
+      itemRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [selectedItemId]);
+  const [day, setDay] = useState(property.gracePeriod || 0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExploding, setIsExploding] = useState(false);
+  const [isExplodingAccept, setIsExplodingAccept] = useState(false);
   const isPersian = useLanguage();
-
+  const { Request } = useRequest();
+  const navigate = useNavigate();
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
   };
+  const handleGracePeriod = async (selectedDay) => {
+    if (!id) return console.error("Error: id is undefined!");
+
+    try {
+      await Request(`buy-requests/add-grace-period/${id}`, "POST", new FormData().append("grace_period", selectedDay.toString()), {
+        headers: { "Content-Type": "multipart/form-data" },
+      }, "production");
+      setDay(selectedDay);
+    } catch (error) {
+      console.error("Error caught:", error);
+      navigate("/metaverse/confirmation", {
+        state: { locationPage: "profile-4", sectionId: "received-suggestion", itemId: id },
+      });
+    }
+  };
+
+
   return (
     <Container>
       <Info isPersian={isPersian}>
         <Header>
           <Person>
-            <img src={person} alt={code} width={60} height={60} />
+            <img src={property.profile_photo} alt={code} width={60} height={60} />
             <div>
-              <p>{getFieldTranslationByNames(9070)}</p>
-              <a href={`https://rgb.irpsc.com/fa/citizen/${code}`}>{convertToPersian(code)}</a>
+              <p>{getFieldTranslationByNames("768")}</p>
+              <a target="blank" href={`https://rgb.irpsc.com/fa/citizen/${code}`}>{code.toUpperCase()}</a>
             </div>
           </Person>
           <Time>
             <div>
-              <p>{getFieldTranslationByNames(9077)}</p>
-              <h3>{date}</h3>
+              <p>{getFieldTranslationByNames("769")}</p>
+              <h3>{convertToPersian(date)}</h3>
             </div>
           </Time>
         </Header>
-        <Price>
-          <h3>{getFieldTranslationByNames(9112)}</h3>
-          <Prices>
+        <Price percent={percent}>
+          <h3>{getFieldTranslationByNames("773")}</h3>
+          <Prices percent={percent}>
             <div>
               <img width={24} height={24} src={rialpng} />
               <span>{convertToPersian(rial)}</span>
@@ -139,21 +176,28 @@ const Proposer = ({
             <img width={1} height={24} src={line} />
             <div>
               <img width={24} height={24} src={pscpng} />
-              <span>{psc}</span>
+              <span>{convertToPersian(psc)}</span>
             </div>
             <img width={1} height={24} src={line} />
             <div>
-              <MdOutlineKeyboardArrowUp style={{ color: "#18C08F" }} />
-              <h3>{percent}</h3>
+              <StyledArrowUp percent={percent} />
+              <h3>{convertToPersian(Math.abs(percent))}%</h3>
             </div>
           </Prices>
         </Price>
         <Text>
           <p>
-            {isExpanded ? information : `${information.slice(0, 227)}...`}{" "}
-            <span onClick={handleToggle}>
-              {isExpanded ? getFieldTranslationByNames(10617) : getFieldTranslationByNames(9119)}
-            </span>
+            {information && information.length > 277 ? (
+              <>
+                {isExpanded ? information : `${information.slice(0, 277)}...`}{" "}
+                <span onClick={handleToggle}>
+                  {isExpanded ? getFieldTranslationByNames("884") : getFieldTranslationByNames("774")}
+                </span>
+              </>
+            ) : (
+              information || ""
+            )}
+
           </p>
         </Text>
       </Info>
@@ -161,24 +205,30 @@ const Proposer = ({
         {day === 0 && (
           <Days>
             <Button
-              onclick={() => setDay(7)}
-              label={`${convertToPersian(7)} ${getFieldTranslationByNames(9105)} `}
+              onClick={() => {
+                handleGracePeriod(7);
+              }}
+              label={`${convertToPersian(7)} ${getFieldTranslationByNames("772")} `}
               color="#3B3B3B"
               textColor="#949494"
               full
             />
             <Button
-              onclick={() => setDay(1)}
-              label={`${convertToPersian(1)} ${getFieldTranslationByNames(9105)} `}
+              onClick={() => {
+                handleGracePeriod(1);
+              }}
+              label={`${convertToPersian(1)} ${getFieldTranslationByNames("772")} `}
               color="#3B3B3B"
               textColor="#949494"
               full
             />
           </Days>
+
+
         )}
         {day !== 0 && (
           <Div>
-            <Remained>{convertToPersian(day)} {getFieldTranslationByNames(15671)}</Remained>
+            <Remained>{convertToPersian(day)} {getFieldTranslationByNames("1413")}</Remained>
           </Div>
         )}
         <Buttons>
@@ -188,10 +238,10 @@ const Proposer = ({
               setIsExploding(!isExploding);
             }}
           >
-            {getFieldTranslationByNames(9126)}
+            {getFieldTranslationByNames("775")}
             {isExploding && (
               <ConfettiExplosion
-                zIndex={99999}
+                zIndex={10}
                 particleCount={150}
                 duration={3000}
                 colors={["#C30000"]}
@@ -199,26 +249,51 @@ const Proposer = ({
                 height="100vh"
                 width={400}
                 style={{
-                  position: "absolute", // موقعیت‌دهی نسبت به والد موجود
-                  left: "50%",          // مرکز افقی
-                  top: "50%",           // مرکز عمودی
-                  transform: "translate(-50%, -50%)", // تنظیم دقیق به مرکز
+                  position: "absolute", 
+                  left: "50%",          
+                  top: "50%",           
+                  transform: "translate(-50%, -50%)", 
                 }}
               />
 
 
             )}
           </RejectButton>
+          <div style={{position:"relative"}}>
           <Button
-            label={getFieldTranslationByNames(9133)}
-
+            label={getFieldTranslationByNames("776")}
             color="#18C08F"
             textColor="#FFFFFF"
+            onClick={() => {
+              setIsExplodingAccept(true);
+
+              onAccept();
+            }}
             full
           />
+
+        {isExplodingAccept && (
+         
+         <ConfettiExplosion
+         zIndex={10}
+         particleCount={150}
+         duration={3000}
+         colors={["#18C08F"]}
+         particleSize={5}
+         height="100vh"
+         width={400}
+         style={{
+           position: "absolute", 
+           left: "50%",          
+           top: "50%",           
+           transform: "translate(-50%, -50%)", 
+         }}
+       />
+        )}
+         </div>
         </Buttons>
       </ProposalStatus>
-    </Container>
+    </Container >
   );
 };
 

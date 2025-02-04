@@ -1,18 +1,25 @@
 import { createContext, useContext, useState } from "react";
 
-// ایجاد Context
 const AccountSecurityContext = createContext();
 
-// Provider برای مدیریت مقدار در سراسر برنامه
 export const AccountSecurityProvider = ({ children }) => {
   const [accountSecurity, setAccountSecurity] = useState(false);
+  const [sectionId, setSectionId] = useState(null); 
+  const [selectedItemId, setSelectedItemId] = useState(null);
 
   return (
-    <AccountSecurityContext.Provider value={{ accountSecurity, setAccountSecurity }}>
-      {children}
+<AccountSecurityContext.Provider
+  value={{
+    accountSecurity,
+    setAccountSecurity,
+    sectionId,
+    setSectionId,
+    selectedItemId,
+    setSelectedItemId, 
+  }}
+>      {children}
     </AccountSecurityContext.Provider>
   );
 };
 
-// هوک سفارشی برای دسترسی به مقدار کانتکست
 export const useAccountSecurity = () => useContext(AccountSecurityContext);
