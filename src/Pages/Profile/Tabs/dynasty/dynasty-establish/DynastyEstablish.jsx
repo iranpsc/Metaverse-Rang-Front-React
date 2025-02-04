@@ -12,7 +12,7 @@ const DynastyEstablish = ({ members, setMode }) => {
   return (
     <Container>
       <Establish members={members} />
-      <PropertySelect setMode={setMode} />
+      <PropertySelect setMode={setMode} data={members} />
     </Container>
   );
 };

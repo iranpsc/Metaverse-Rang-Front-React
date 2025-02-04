@@ -37,7 +37,6 @@ const DynastyEstablishEstate = ({ mode, setMode }) => {
 
     fetchMembers();
   }, [setMode]);
-  console.log(data);
   switch (mode) {
     case 1:
       return <DynastyEstablish members={data} setMode={setMode} />;
