@@ -1,5 +1,6 @@
 import Button from "../../../../../Components/Button";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -62,32 +63,59 @@ const Buttons = styled.div`
   margin-top: 30px;
 `;
 
-const Modal = ({ setModal }) => {
+const Modal = ({ setModal, onConfirm, date }) => {
+  const calculateTimeRemaining = () => {
+    const targetDate = new Date(
+      date.split(" ")[0].split("/").reverse().join("/")
+    );
+    const currentDate = new Date();
+
+    if (currentDate > targetDate) {
+      return null;
+    }
+
+    const diffTime = Math.abs(targetDate - currentDate);
+    const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+
+    return { days, hours, minutes };
+  };
+
+  const timeRemaining = calculateTimeRemaining();
+
   return (
     <BackGround>
       <ModalBody>
         <Header>
-          <span>شهروند گرامی</span>
+          <span>{getFieldTranslationByNames("122")}</span>
           <Close onClick={() => setModal(false)}>X</Close>
         </Header>
-        <p>
-          جا به جایی ملک سلسله با ملک جدید پس از گذشت ۲۲ روز و ۱۲ ساعت و ۳۴
-          دقیقه امکان پذیر است.
-        </p>
-        <p>
-          در صورت تمایل به جابجایی سریعتر از زمان مقرر مبلغ ۱٪ سود ملک قبلی شما
-          مسدود و به مدت یکماه قابلیت فروش ملک قبلی سلسله امکان پذیر نمیباشد.
-        </p>
+        {timeRemaining ? (
+          <>
+            <p>
+              {getFieldTranslationByNames(821)}
+              {timeRemaining.days} {getFieldTranslationByNames(380)},
+              {timeRemaining.hours} {getFieldTranslationByNames(560)},
+              {timeRemaining.minutes} {getFieldTranslationByNames(33)}
+              {getFieldTranslationByNames(1409)}
+            </p>
+          </>
+        ) : (
+          <p>{getFieldTranslationByNames(1439)}</p>
+        )}
         <Buttons>
           <Button
-            label="بله, قبول میکنم"
+            label={getFieldTranslationByNames("823")}
             color="#18C08F"
-            onclick={() => setModal(false)}
+            onclick={onConfirm}
             fit
             textColor="#D7FBF0"
           />
           <Button
-            label="خیر, نمی پذیرم"
+            label={getFieldTranslationByNames("824")}
             color="#C30000"
             onclick={() => setModal(false)}
             fit

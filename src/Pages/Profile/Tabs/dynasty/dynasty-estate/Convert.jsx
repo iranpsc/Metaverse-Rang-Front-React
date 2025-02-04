@@ -22,14 +22,21 @@ const Div = styled.div`
 
 const Convert = ({ data }) => {
   const [modal, setModal] = useState(false);
+  const [selectedPropertyId, setSelectedPropertyId] = useState(null);
   const { Request, HTTP_METHOD } = useRequest();
   const Navigate = useNavigate();
 
   const updateDynasty = (id) => {
-    Request(`dynasty/${data.id}/update/${id}`, HTTP_METHOD.POST)
+    setSelectedPropertyId(id);
+    setModal(true);
+  };
+
+  const handleConfirm = () => {
+    Request(`dynasty/${data.id}/update/${selectedPropertyId}`, HTTP_METHOD.POST)
       .then((response) => {
         setDynasty({ ...response.data.data });
         ToastSuccess("VOD جدید با موفقیت بروز گردید.");
+        setModal(false);
       })
       .catch((error) => {
         if (error.response.status === 410) {
@@ -37,6 +44,7 @@ const Convert = ({ data }) => {
           return Navigate("/metaverse/confirmation");
         }
         ToastError(error.response.data.message);
+        setModal(false);
       });
   };
 
@@ -58,7 +66,13 @@ const Convert = ({ data }) => {
             />
           ))}
       </Wrapper>
-      {modal && <Modal setModal={setModal} />}
+      {modal && (
+        <Modal
+          setModal={setModal}
+          onConfirm={handleConfirm}
+          date={data["dynasty-feature"]["last-updated"]}
+        />
+      )}
     </Container>
   );
 };
