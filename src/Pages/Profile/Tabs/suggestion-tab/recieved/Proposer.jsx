@@ -132,7 +132,6 @@ const Proposer = ({
     setIsExpanded(!isExpanded);
   };const handleGracePeriod = async (selectedDay) => {
     if (!id) return console.error("Error: id is undefined!");
-    console.log(id);
     try {
       const response = await Request(`buy-requests/add-grace-period/${id}`, "POST", JSON.stringify({ grace_period: selectedDay }), {
         headers: { "Content-Type": "application/json" },
