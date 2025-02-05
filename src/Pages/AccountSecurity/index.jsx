@@ -21,6 +21,7 @@ const AccountSecurityModal = () => {
       const { sectionId } = location.state || {};
 
       if (sectionId && ["send-suggestion", "received-suggestion"].includes(sectionId)) {
+        console.log("Closing modal with ID:", selectedItemId);
 
         setSectionId(sectionId);
         setAccountSecurity(true);
