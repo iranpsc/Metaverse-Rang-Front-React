@@ -6,7 +6,7 @@ import { mainContainer, Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../Services/Hooks/useRequest/index";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
-import {  getFieldTranslationByNames } from "../../../../../Services/Utility/index";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility/index";
 import { useAccountSecurity } from "../../../../../Services/Reducers/accountSecurityContext";
 
 const Container = mainContainer;
@@ -28,7 +28,12 @@ const RecievedSuggestion = () => {
           const formattedSuggestions = data.map((item) => {
             const { area = 0, density = 0, karbari = "", address, id, stability, price_psc } = item.feature_properties || {};
             const gracePeriod = item.requested_grace_period || null;
-            const remainingDays = gracePeriod ? Math.ceil((moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate() - new Date()) / (1000 * 60 * 60 * 24)) : null;
+
+            const remainingDays = gracePeriod
+              ? Math.ceil((moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate() - new Date()) / (1000 * 60 * 60 * 24))
+              : null;
+
+            const gracePeriodRemainingDays = remainingDays <= 0 ? 0 : remainingDays;
 
             const karbariValues = { t: 30000, m: 10000, a: 60000 };
             const karbariValue = karbariValues[karbari] || 0;
@@ -53,7 +58,7 @@ const RecievedSuggestion = () => {
                 profile_photo: item.buyer?.profile_photo || "",
                 coordinates: item.feature_coordinates || [],
                 karbari,
-                gracePeriod: remainingDays,
+                gracePeriod: gracePeriodRemainingDays,
               },
               suggestions_list: [
                 {
@@ -77,6 +82,8 @@ const RecievedSuggestion = () => {
         console.error("Error fetching data:", error);
       }
     };
+
+
 
     fetchSuggestions();
   }, [location]);
