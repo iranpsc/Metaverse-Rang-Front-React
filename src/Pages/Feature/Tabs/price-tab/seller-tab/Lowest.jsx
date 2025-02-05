@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../../Components/Button";
 import { UserContext } from "../../../../../Services/Reducers/UserContext";
@@ -11,6 +11,7 @@ import {
   ToastError,
   ToastSuccess,
 } from "../../../../../Services/Utility";
+import ResultInfo from "../../../Components/ResultInfo";
 
 const Wrapper = styled.div`
   display: flex;
@@ -76,10 +77,18 @@ const Span = styled.span`
 const Lowest = () => {
   const [percentage, setPercentage] = useState("");
   const [user] = useContext(UserContext);
-  const [feature, setFeature] = useContext(FeatureContext);
+  const [feature, refreshFeature] = useContext(FeatureContext);
   const Navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
 
+  const [assign, setAssign] = useState(
+    feature?.properties?.price_irr ? true : false
+  );
+  const [rial, setRial] = useState(feature?.properties?.price_irr || "");
+  const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
+  useEffect(() => {
+    setPercentage(feature?.properties?.minimum_price_percentage || "");
+  }, []);
   const onSubmit = () => {
     if (TimeAgo(user?.birthdate) >= 18) {
       if (percentage < 80) {
@@ -101,13 +110,7 @@ const Lowest = () => {
       { minimum_price_percentage: percentage }
     )
       .then(() => {
-        setFeature((feature) => ({
-          ...feature,
-          properties: {
-            ...feature.properties,
-            minimum_price_percentage: percentage,
-          },
-        }));
+        refreshFeature();
         ToastSuccess("حداقل قیمت پیشنهادی شما با موفقیت ثبت شد.");
       })
       .catch((error) => {
@@ -119,12 +122,9 @@ const Lowest = () => {
         }
       });
   };
-
   return (
     <Wrapper>
-      <Text>
-        {getFieldTranslationByNames("518")}
-      </Text>
+      <Text>{getFieldTranslationByNames("518")}</Text>
       <Div>
         <InputWrapper>
           <Input
@@ -138,10 +138,16 @@ const Lowest = () => {
           <Span>%</Span>
         </InputWrapper>
       </Div>
-      <Button
-        label={getFieldTranslationByNames("519")}
-        onclick={onSubmit}
-      />
+      <Button label={getFieldTranslationByNames("519")} onClick={onSubmit} />
+      {assign && (
+        <ResultInfo
+          rial={rial}
+          setRial={setRial}
+          psc={psc}
+          setPsc={setPsc}
+          setAssign={setAssign}
+        />
+      )}
     </Wrapper>
   );
 };
