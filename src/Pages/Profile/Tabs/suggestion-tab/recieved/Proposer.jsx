@@ -130,13 +130,12 @@ const Proposer = ({
   const navigate = useNavigate();
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
-  };
-  const handleGracePeriod = async (selectedDay) => {
+  };const handleGracePeriod = async (selectedDay) => {
     if (!id) return console.error("Error: id is undefined!");
-
+    console.log(id);
     try {
-      await Request(`buy-requests/add-grace-period/${id}`, "POST", new FormData().append("grace_period", selectedDay.toString()), {
-        headers: { "Content-Type": "multipart/form-data" },
+      const response = await Request(`buy-requests/add-grace-period/${id}`, "POST", JSON.stringify({ grace_period: selectedDay }), {
+        headers: { "Content-Type": "application/json" },
       }, "production");
       setDay(selectedDay);
     } catch (error) {
@@ -146,7 +145,7 @@ const Proposer = ({
       });
     }
   };
-
+  
 
   return (
     <Container>
@@ -249,48 +248,48 @@ const Proposer = ({
                 height="100vh"
                 width={400}
                 style={{
-                  position: "absolute", 
-                  left: "50%",          
-                  top: "50%",           
-                  transform: "translate(-50%, -50%)", 
+                  position: "absolute",
+                  left: "50%",
+                  top: "50%",
+                  transform: "translate(-50%, -50%)",
                 }}
               />
 
 
             )}
           </RejectButton>
-          <div style={{position:"relative"}}>
-          <Button
-            label={getFieldTranslationByNames("776")}
-            color="#18C08F"
-            textColor="#FFFFFF"
-            onClick={() => {
-              setIsExplodingAccept(true);
+          <div style={{ position: "relative" }}>
+            <Button
+              label={getFieldTranslationByNames("776")}
+              color="#18C08F"
+              textColor="#FFFFFF"
+              onClick={() => {
+                setIsExplodingAccept(true);
 
-              onAccept();
-            }}
-            full
-          />
+                onAccept();
+              }}
+              full
+            />
 
-        {isExplodingAccept && (
-         
-         <ConfettiExplosion
-         zIndex={10}
-         particleCount={150}
-         duration={3000}
-         colors={["#18C08F"]}
-         particleSize={5}
-         height="100vh"
-         width={400}
-         style={{
-           position: "absolute", 
-           left: "50%",          
-           top: "50%",           
-           transform: "translate(-50%, -50%)", 
-         }}
-       />
-        )}
-         </div>
+            {isExplodingAccept && (
+
+              <ConfettiExplosion
+                zIndex={10}
+                particleCount={150}
+                duration={3000}
+                colors={["#18C08F"]}
+                particleSize={5}
+                height="100vh"
+                width={400}
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  top: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+              />
+            )}
+          </div>
         </Buttons>
       </ProposalStatus>
     </Container >
