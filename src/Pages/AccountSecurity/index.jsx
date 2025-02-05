@@ -32,6 +32,7 @@ const AccountSecurityModal = () => {
             itemId: selectedItemId,
           },
         });
+        
       }
     },
     [location.state, navigate, setSectionId, setAccountSecurity, selectedItemId]
