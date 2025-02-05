@@ -1,6 +1,7 @@
+import useRequest from "../../../../../Services/Hooks/useRequest";
 import CitizenInvite from "./CitizenInvite";
 import FamilyTree from "./FamilyTree";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const tree_members = {
   parent: [],
@@ -146,11 +147,31 @@ const citizen_items = [
   },
 ];
 
-
 const DynastyMembers = () => {
   const [members, setMembers] = useState(tree_members);
   const [citizens, setCitizens] = useState(citizen_items);
   const [mode, setMode] = useState(1);
+  const { Request } = useRequest();
+
+  const [family, setFamily] = useState([]);
+  const [membersData, setMembersData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const dynastyResponse = await Request("dynasty");
+      setDynastyId(dynastyResponse.data.data);
+      setMode(1);
+      if (dynastyResponse.data.data["user-has-dynasty"]) {
+        const familyResponse = await Request(
+          `dynasty/${dynastyResponse.data.data.id}/family/${dynastyResponse.data.data.family_id}`
+        );
+        setFamily(familyResponse.data.data);
+        setMode(2);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       {mode === 1 && <FamilyTree setMode={setMode} members={members} />}

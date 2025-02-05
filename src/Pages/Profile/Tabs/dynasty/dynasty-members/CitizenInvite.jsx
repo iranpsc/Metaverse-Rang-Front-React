@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Button from "../../../../../Components/Button.jsx";
 import Title from "../../../../../Components/Title.jsx";
 import SearchInput from "../../../../../Components/SearchInput.jsx";
+import { useState } from "react";
 
 const Container = styled.div`
   padding: 20px 0;

@@ -26,7 +26,6 @@ const Card = styled.div`
 `;
 const Inner = styled.div`
   background-color: #1a1a18;
-
   z-index: 2;
   border-radius: 5px;
   padding: 20px;
