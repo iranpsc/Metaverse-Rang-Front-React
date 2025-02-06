@@ -7,17 +7,14 @@ export default function FeatureProvider({ children, id }) {
   const [feature, setFeature] = useState({});
   const { Request } = useRequest();
 
-  const refreshFeature = async () => {
-    const response = await Request(`features/${id}`);
-    setFeature(response.data.data);
-  };
-
   useEffect(() => {
-    refreshFeature();
+    Request(`features/${id}`).then((response) => {
+      setFeature(response.data.data);
+    });
   }, []);
 
   return (
-    <FeatureContext.Provider value={[feature, setFeature, refreshFeature]}>
+    <FeatureContext.Provider value={[feature, setFeature]}>
       {children}
     </FeatureContext.Provider>
   );

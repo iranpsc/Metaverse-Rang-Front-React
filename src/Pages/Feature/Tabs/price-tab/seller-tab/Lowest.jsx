@@ -77,7 +77,7 @@ const Span = styled.span`
 const Lowest = () => {
   const [percentage, setPercentage] = useState("");
   const [user] = useContext(UserContext);
-  const [feature, refreshFeature] = useContext(FeatureContext);
+  const [feature, setFeature] = useContext(FeatureContext);
   const Navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
 
@@ -110,7 +110,14 @@ const Lowest = () => {
       { minimum_price_percentage: percentage }
     )
       .then(() => {
-        refreshFeature();
+        setFeature((feature) => ({
+          ...feature,
+          properties: {
+            ...feature.properties,
+            minimum_price_percentage: percentage,
+          },
+        }));
+        ToastSuc;
         ToastSuccess("حداقل قیمت پیشنهادی شما با موفقیت ثبت شد.");
       })
       .catch((error) => {
