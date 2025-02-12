@@ -82,9 +82,7 @@ const SuggestPrice = () => {
 
   return (
     <Wrapper>
-      <Text>
-        {getFieldTranslationByNames("527")}
-      </Text>
+      <Text>{getFieldTranslationByNames("527")}</Text>
       {!assign && (
         <FillInputs
           rial={rial}
@@ -96,7 +94,6 @@ const SuggestPrice = () => {
           onSubmit={handleSubmit}
           errors={errors}
           totalIrr={totalIrr}
-          remainingAmount={totalIrr - rial - psc * 900}
         />
       )}
       {assign && <ResultInfo rial={rial} psc={psc} setAssign={setAssign} />}

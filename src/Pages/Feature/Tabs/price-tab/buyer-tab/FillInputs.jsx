@@ -99,20 +99,29 @@ const FillInputs = ({
   onSubmit,
   errors,
   totalIrr,
-  remainingAmount,
 }) => {
   const handleRialChange = (e) => {
     const value = e.target.value;
+    if (value === "") {
+      setRial("");
+      setPsc("");
+      return;
+    }
     setRial(value);
     setPsc((parseFloat(value) / 900).toFixed(2));
   };
 
   const handlePscChange = (e) => {
     const value = e.target.value;
+    if (value === "") {
+      setPsc("");
+      setRial("");
+      return;
+    }
     setPsc(value);
     setRial((parseFloat(value) * 900).toFixed(0));
   };
-
+  const remainingAmount = totalIrr - rial - psc * 900;
   return (
     <>
       <InputsWrapper>
@@ -120,14 +129,18 @@ const FillInputs = ({
           value={rial}
           onchange={handleRialChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("48")})`}
+          placeholder={`${getFieldTranslationByNames(
+            "521"
+          )} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
         />
         <Input
           value={psc}
           onchange={handlePscChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("47")})`}
+          placeholder={`${getFieldTranslationByNames(
+            "521"
+          )} (${getFieldTranslationByNames("47")})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
@@ -135,37 +148,27 @@ const FillInputs = ({
       <Div>
         <SuggestText setValue={setSuggestText} value={suggestText} />
         <span style={{ color: "gray", fontSize: "14px" }}>
-          {1000 - suggestText.length}{" "}
-          {getFieldTranslationByNames("530")}
+          {1000 - suggestText.length} {getFieldTranslationByNames("530")}
         </span>
       </Div>
       <ResultWrapper>
         <Wrapper>
-          <Title>
-            {getFieldTranslationByNames("522")}
-          </Title>
+          <Title>{getFieldTranslationByNames("522")}</Title>
           <Value>
-            {convertToPersian(rial)}{" "}
-            {getFieldTranslationByNames("48")} / {psc}{" "}
-            {getFieldTranslationByNames("47")}
+            {convertToPersian(rial)} {getFieldTranslationByNames("48")} /{" "}
+            {convertToPersian(psc)} {getFieldTranslationByNames("47")}
           </Value>
         </Wrapper>
         <Sec>
           <TitleValue
             title={getFieldTranslationByNames("531")}
-            value={convertToPersian(remainingAmount.toFixed(0))}
+            value={remainingAmount}
           />
-          <TitleValue
-            title={getFieldTranslationByNames("523")}
-            value="5%"
-          />
+          <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
         </Sec>
       </ResultWrapper>
       <div>
-        <Button
-          label={getFieldTranslationByNames("532")}
-          onclick={onSubmit}
-        />
+        <Button label={getFieldTranslationByNames("532")} onclick={onSubmit} />
       </div>
     </>
   );
