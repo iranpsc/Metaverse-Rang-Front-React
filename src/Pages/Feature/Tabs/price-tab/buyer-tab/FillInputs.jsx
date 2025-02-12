@@ -162,9 +162,12 @@ const FillInputs = ({
         <Sec>
           <TitleValue
             title={getFieldTranslationByNames("531")}
-            value={remainingAmount}
+            value={convertToPersian(remainingAmount)}
           />
-          <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
+          <TitleValue
+            title={getFieldTranslationByNames("523")}
+            value={`${convertToPersian(5)}%`}
+          />
         </Sec>
       </ResultWrapper>
       <div>
