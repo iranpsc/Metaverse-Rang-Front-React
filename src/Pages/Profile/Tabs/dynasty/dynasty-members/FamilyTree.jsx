@@ -205,6 +205,7 @@ const Add = styled.div`
 `;
 
 const FamilyTree = ({ members, setMode }) => {
+  console.log(members);
   return (
     <Container>
       <Title right title="اعضای سلسله" />
