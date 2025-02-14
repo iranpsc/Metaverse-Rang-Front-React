@@ -12,6 +12,7 @@ import {
 } from "../../../../../Services/Utility";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
+import { to } from "react-spring";
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,16 +42,16 @@ const SuggestPrice = () => {
   const { Request, HTTP_METHOD } = useRequest();
   const navigate = useNavigate();
 
-  const [assign, setAssign] = useState(false);
-  const [rial, setRial] = useState("");
-  const [psc, setPsc] = useState("");
-  const [suggestText, setSuggestText] = useState("");
-  const [errors, setErrors] = useState({});
   const totalArea = feature?.properties?.density * feature?.properties?.area;
   const totalIrr =
     totalArea *
     FeaturePrice(feature?.properties?.rgb) *
     (feature?.properties?.minimum_price_percentage / 100);
+  const [assign, setAssign] = useState(false);
+  const [rial, setRial] = useState(totalIrr / 2);
+  const [psc, setPsc] = useState(totalIrr / 2 / 900);
+  const [suggestText, setSuggestText] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = () => {
     const totalPrice = parseFloat(rial) + parseFloat(psc) * 900;

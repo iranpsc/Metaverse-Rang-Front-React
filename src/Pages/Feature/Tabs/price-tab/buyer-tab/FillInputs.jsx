@@ -7,6 +7,7 @@ import Button from "../../../../../Components/Button";
 import TitleValue from "../../../../../Components/TitleValue";
 import SuggestText from "./SuggestText";
 import {
+  calculateFee,
   convertToPersian,
   getFieldTranslationByNames,
 } from "../../../../../Services/Utility";
@@ -16,7 +17,7 @@ const PSC_TO_RIAL_RATE = 900;
 const SUGGEST_TEXT_MAX_LENGTH = 1000;
 
 // Styled components moved to separate file for better organization
-const {
+import {
   InputsWrapper,
   ResultWrapper,
   Wrapper,
@@ -25,7 +26,7 @@ const {
   SuggestWrapper,
   Sec,
   ErrorText,
-} = require("./FillInputs.styles");
+} from "./FillInputs.styles";
 
 const FillInputs = ({
   rial,
@@ -65,18 +66,18 @@ const FillInputs = ({
     <>
       <InputsWrapper>
         <Input
-          value={rial}
+          value={convertToPersian(rial)}
           onchange={handleRialChange}
-          type="number"
+          type="text"
           placeholder={`${getFieldTranslationByNames(
             "521"
           )} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
         />
         <Input
-          value={psc}
+          value={convertToPersian(psc)}
           onchange={handlePscChange}
-          type="number"
+          type="text"
           placeholder={`${getFieldTranslationByNames(
             "521"
           )} (${getFieldTranslationByNames("47")})`}
@@ -97,8 +98,10 @@ const FillInputs = ({
         <Wrapper>
           <Title>{getFieldTranslationByNames("522")}</Title>
           <Value>
-            {convertToPersian(rial)} {getFieldTranslationByNames("48")} /{" "}
-            {convertToPersian(psc)} {getFieldTranslationByNames("47")}
+            {convertToPersian(calculateFee(rial))}{" "}
+            {getFieldTranslationByNames("48")} /{" "}
+            {convertToPersian(calculateFee(psc))}{" "}
+            {getFieldTranslationByNames("47")}
           </Value>
         </Wrapper>
         <Sec>
