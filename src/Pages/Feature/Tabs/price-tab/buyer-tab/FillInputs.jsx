@@ -66,18 +66,18 @@ const FillInputs = ({
     <>
       <InputsWrapper>
         <Input
-          value={convertToPersian(rial)}
+          value={rial}
           onchange={handleRialChange}
-          type="text"
+          type="number"
           placeholder={`${getFieldTranslationByNames(
             "521"
           )} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
         />
         <Input
-          value={convertToPersian(psc)}
+          value={psc}
           onchange={handlePscChange}
-          type="text"
+          type="number"
           placeholder={`${getFieldTranslationByNames(
             "521"
           )} (${getFieldTranslationByNames("47")})`}
