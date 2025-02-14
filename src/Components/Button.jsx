@@ -56,7 +56,7 @@ const ButtonElement = styled.button`
 
 const Button = ({
   label,
-  onClick,
+  onClick, // keep only onClick, remove onclick
   row,
   color,
   edit,
@@ -67,6 +67,7 @@ const Button = ({
   textColor,
   grayTheme,
   style,
+  onclick,
 }) => {
   return (
     <ButtonElement
@@ -75,7 +76,7 @@ const Button = ({
       edit={edit}
       row={row}
       color={color}
-      onClick={onClick}
+      onClick={onClick ? onClick : onclick} // keep only one onClick prop
       disabled={disabled}
       fit={fit}
       textColor={textColor}

@@ -11,12 +11,11 @@ export default function FeatureProvider({ children, id }) {
     Request(`features/${id}`).then((response) => {
       setFeature(response.data.data);
     });
-
   }, []);
 
   return (
     <FeatureContext.Provider value={[feature, setFeature]}>
-      { children }
+      {children}
     </FeatureContext.Provider>
   );
 }
