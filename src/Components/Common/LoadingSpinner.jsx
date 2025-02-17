@@ -11,6 +11,7 @@ const SpinnerWrapper = styled.div`
   align-items: center;
   height: ${(props) => (props.fullScreen ? "100%" : "100%")};
   width: 100%;
+  gap: 5px;
 `;
 
 const SpinnerContainer = styled.div`
@@ -57,7 +58,7 @@ const LoadingSpinner = ({
   color = "#3498db",
   backgroundColor = "#f3f3f3",
   textColor = "#666",
-  text = "loading...",
+  text = "  loading",
   fullScreen = false,
 }) => {
   return (
