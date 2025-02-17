@@ -76,10 +76,17 @@ const TreeMember = ({ item }) => {
       <Image>
         <Status />
         <Chat src={chat} width={28} height={28} alt="chat" />
-        <img src={member} alt="member" width={80} height={80} />
+        <img
+          src={item.profile_photo || member}
+          alt="member"
+          width={80}
+          height={80}
+        />
       </Image>
-      <h3>{item.role}</h3>
-      <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">{item.code}</a>
+      <h3>{item.relationship}</h3>
+      <a href={`https://rgb.irpsc.com/fa/citizen/${item.code}`} target="_blank">
+        {item.code}
+      </a>
     </Container>
   );
 };

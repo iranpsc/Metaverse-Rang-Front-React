@@ -204,14 +204,14 @@ const Add = styled.div`
   }
 `;
 
-const FamilyTree = ({ members, setMode }) => {
+const FamilyTree = ({ members, setMode, ownerImg }) => {
   console.log(members);
   return (
     <Container>
       <Title right title="اعضای سلسله" />
       <Tree>
         <Head>
-          <img src={member} width={110} height={110} />
+          <img src={ownerImg || member} width={110} height={110} />
         </Head>
         <Family>
           <Sibling>
