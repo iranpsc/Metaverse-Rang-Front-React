@@ -57,7 +57,7 @@ const Status = styled.div`
   width: 14px;
   height: 14px;
   border-radius: 100%;
-  background-color: #18c08f;
+  background-color: ${(props) => (props.online ? "#18c08f" : "#808080")};
   position: absolute;
   bottom: 5px;
   right: 10px;
@@ -74,7 +74,7 @@ const TreeMember = ({ item }) => {
   return (
     <Container>
       <Image>
-        <Status />
+        <Status online={item.online} />
         <Chat src={chat} width={28} height={28} alt="chat" />
         <img
           src={item.profile_photo || member}

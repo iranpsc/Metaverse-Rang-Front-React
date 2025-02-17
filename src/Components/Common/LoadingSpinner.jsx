@@ -62,14 +62,14 @@ const LoadingSpinner = ({
 }) => {
   return (
     <SpinnerWrapper fullScreen={fullScreen}>
-      <SpinnerContainer size={size}>
-        <Spinner color={color} backgroundColor={backgroundColor} />
-      </SpinnerContainer>
       {text && (
         <LoadingText size={size} textColor={textColor}>
           {text}
         </LoadingText>
       )}
+      <SpinnerContainer size={size}>
+        <Spinner color={color} backgroundColor={backgroundColor} />
+      </SpinnerContainer>
     </SpinnerWrapper>
   );
 };

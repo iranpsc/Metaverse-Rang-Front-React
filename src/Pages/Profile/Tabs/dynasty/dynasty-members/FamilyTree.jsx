@@ -10,7 +10,7 @@ const Container = styled.div`
   padding: 20px 25px;
   overflow-x: auto; /* Enable horizontal scrolling */
   overflow-y: auto; /* Enable vertical scrolling */
-  direction: ltr;
+
   height: 230px;
   width: 535px;
   @media (min-width: 720px) {
