@@ -3,6 +3,7 @@ import useRequest from "../../../../../Services/Hooks/useRequest";
 import CitizenInvite from "./CitizenInvite";
 import FamilyTree from "./FamilyTree";
 import LoadingSpinner from "../../../../../Components/Common/LoadingSpinner";
+import { use } from "react";
 
 const DynastyMembers = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +17,7 @@ const DynastyMembers = () => {
   const [mode, setMode] = useState(1);
   const [family, setFamily] = useState([]);
   const { Request } = useRequest();
-
+  const [citizen, setCitizen] = useState([]);
   const categorizeMembers = (familyData) => {
     const categories = {
       parent: [],
@@ -101,6 +102,7 @@ const DynastyMembers = () => {
           mode={mode}
           members={members}
           setMembers={setMembers}
+          citizens={citizen}
         />
       )}
     </div>
