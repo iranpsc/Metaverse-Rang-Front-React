@@ -6,6 +6,8 @@ import Button from "../../../../../Components/Button.jsx";
 import Title from "../../../../../Components/Title.jsx";
 import SearchInput from "../../../../../Components/SearchInput.jsx";
 import { useState } from "react";
+import useRequest from "../../../../../Services/Hooks/useRequest";
+import { ToastError } from "../../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px 0;
@@ -86,22 +88,40 @@ const SelectButton = styled.button`
   cursor: pointer;
   font-family: inherit;
 `;
-const CitizenInvite = ({ citizens, setMode, mode, members, setMembers }) => {
+const CitizenInvite = ({ setMode, mode, members, setMembers }) => {
   const [searched, setSearched] = useState("");
   const [openDetails, setOpenDetails] = useState(false);
   const [selectedCitizen, setSelectedCitizen] = useState(null);
+  const [citizens, setCitizens] = useState([]);
+  const { Request, HTTP_METHOD } = useRequest();
 
   const handleSearch = (e) => {
     setSearched(e.target.value);
+    if (e.target.value) {
+      Request("dynasty/search", HTTP_METHOD.POST, {
+        searchTerm: e.target.value,
+      })
+        .then((response) => {
+          if (response.data) {
+            setCitizens([response.data]);
+          }
+        })
+        .catch((error) => {
+          ToastError("خطا در جستجوی کاربر");
+          setCitizens([]);
+        });
+    } else {
+      setCitizens([]);
+    }
   };
 
-  const filteredCitizens = citizens.filter(
-    (citizen) =>
-      citizen.name.toLowerCase().includes(searched.toLowerCase()) ||
-      citizen.code.toLowerCase().includes(searched.toLowerCase())
-  );
-
   const handleCitizenClick = (citizen) => {
+    if (!citizen.verified) {
+      ToastError(
+        "شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید"
+      );
+      return;
+    }
     setSelectedCitizen(citizen);
   };
 
@@ -129,7 +149,7 @@ const CitizenInvite = ({ citizens, setMode, mode, members, setMembers }) => {
         </Header>
         <Citizens>
           {searched !== "" &&
-            filteredCitizens.map((citizen) => (
+            citizens.map((citizen) => (
               <CitizenCard
                 key={citizen.id}
                 mode={mode}
