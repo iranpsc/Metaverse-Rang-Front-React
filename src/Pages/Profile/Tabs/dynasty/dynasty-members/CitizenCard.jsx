@@ -140,7 +140,9 @@ const CitizenCard = ({ id, name, code, image, age, onClick, isSelected }) => {
           />
         </Image>
         <h2>{name}</h2>
-        <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">{code}</a>
+        <a href={`https://rgb.irpsc.com/fa/citizen/${code}`} target="_blank">
+          {code}
+        </a>
         <Level>
           <p>سطح توسعه دهنده</p>
           <div>
