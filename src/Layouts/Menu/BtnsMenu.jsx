@@ -144,14 +144,14 @@ const BtnsMenu = () => {
       (item) => `/metaverse/${item.navigate}` === location.pathname
     );
     if (currentItem) {
-      setSelectedItem(currentItem.translationKey);
+      setSelectedItem(currentItem.translationId);
     } else {
       setSelectedItem(null); // No item selected if the route doesn't match
     }
   }, [location.pathname]);
 
   const handleClick = (item) => {
-    setSelectedItem(item.translationKey); // Set selected item on click
+    setSelectedItem(item.translationId); // Set selected item on click
     navigate(`/metaverse/${item.navigate}`);
   };
 
@@ -161,28 +161,28 @@ const BtnsMenu = () => {
         <Btn
           key={index}
           isOpen={isOpen}
-          isSelected={selectedItem === item.translationKey} // Check if the item is selected
+          isSelected={selectedItem === item.translationId} // Check if the item is selected
           onClick={() => handleClick(item)}
-          disabled={item.navigate === "" && item.translationKey !== "sign out"}
+          disabled={item.navigate === "" && item.translationId !== "sign out"}
         >
           <div>
             <Icon
               src={item.icon}
-              isSelected={selectedItem === item.translationKey}
+              isSelected={selectedItem === item.translationId}
             />
             <Text
               isOpen={isOpen}
-              isSelected={selectedItem === item.translationKey}
+              isSelected={selectedItem === item.translationId}
             >
               {getFieldTranslationByNames(item.translationId)}
             </Text>
           </div>
-          {item.translationKey === "accumulated earnings" && user && (
+          {item.translationId === "236" && user && (
             <ValueBtn isOpen={isOpen}>
               %{user.hourly_profit_time_percentage}
             </ValueBtn>
           )}
-          {item.translationKey === "notifications" && user && (
+          {item.translationId === "238" && user && (
             <ValueBtn isOpen={isOpen}>{user.notifications}</ValueBtn>
           )}
         </Btn>
