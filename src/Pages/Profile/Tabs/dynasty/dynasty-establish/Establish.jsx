@@ -1,4 +1,5 @@
 import Title from "../../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 import List from "./List";
 
 import styled from "styled-components";
@@ -19,10 +20,10 @@ const Establish = ({ members }) => {
   return (
     <Container>
       <Top>
-        <Title title="تاسیس سلسله" />
+        <Title title={getFieldTranslationByNames(807)} />
         <div>
-          <p>با تاسیس سلسله از پاداش و خروجی های فوق العاده بهرمند شوید.</p>
-          <p>برای تاسیس سلسله ملک خود را انتخاب کنید.</p>
+          <p>{getFieldTranslationByNames(806)}</p>
+          <p>{getFieldTranslationByNames(808)}</p>
         </div>
       </Top>
       <List members={members} />

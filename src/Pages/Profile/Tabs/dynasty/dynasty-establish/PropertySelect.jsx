@@ -5,6 +5,7 @@ import styled from "styled-components";
 import SearchInput from "../../../../../Components/SearchInput";
 import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 const Container = styled.div``;
 const Div = styled.div`
@@ -40,9 +41,9 @@ const PropertySelect = ({ setMode, data }) => {
   return (
     <Container>
       <Top>
-        <Title title="انتخاب ملک" />
+        <Title title={getFieldTranslationByNames(809)} />
         <SearchInput
-          placeholder="جستجو شناسه..."
+          placeholder={getFieldTranslationByNames(849)}
           onchange={() => {}}
           value=""
         />
@@ -54,7 +55,7 @@ const PropertySelect = ({ setMode, data }) => {
               key={feature.id}
               propertyId={feature.properties_id}
               stability={feature.stability}
-              label="انتقال"
+              label={getFieldTranslationByNames(818)}
               onClick={(id) => selectDynasty(feature.id)}
             />
           ))}

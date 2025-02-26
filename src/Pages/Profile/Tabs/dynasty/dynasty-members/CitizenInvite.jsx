@@ -63,6 +63,7 @@ const CitizenInvite = ({ setMode, mode, members, setMembers }) => {
 
   const renderDetailsModal = () => {
     if (!openDetails || !selectedCitizen) return null;
+    console.log(selectedCitizen);
 
     const Component =
       selectedCitizen.age < 18 ? UnderEighteenMember : SpouseSubmit;

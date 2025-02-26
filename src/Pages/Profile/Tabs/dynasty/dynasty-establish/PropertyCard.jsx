@@ -1,6 +1,7 @@
 import house from "../../../../../Assets/images/house.png";
 import styled from "styled-components";
 import Button from "../../../../../Components/Button";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 const Right = styled.div`
   display: flex;
@@ -64,16 +65,16 @@ const PropertyCard = ({ onClick, label, propertyId, area, stability }) => {
           <img src={house} alt="property" width={50} height={50} />
         </Image>
         <Info>
-          <h3>شناسه زمین</h3>
+          <h3>{getFieldTranslationByNames(810)}</h3>
           <h4>{propertyId}</h4>
         </Info>
       </Right>
       <Center>
-        <h3>متراژ</h3>
+        <h3>{getFieldTranslationByNames(811)}</h3>
         <h4>{area}</h4>
         {stability && (
           <>
-            <h3>پایداری</h3>
+            <h3>{getFieldTranslationByNames(117)}</h3>
             <h4>{stability}</h4>
           </>
         )}

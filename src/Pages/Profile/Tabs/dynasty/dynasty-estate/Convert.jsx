@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -51,8 +52,8 @@ const Convert = ({ data }) => {
   return (
     <Container>
       <Div>
-        <Title title="انتقال ملک" />
-        <SearchInput placeholder="جستجوی شناسه..." />
+        <Title title={getFieldTranslationByNames(809)} />
+        <SearchInput placeholder={getFieldTranslationByNames(849)} />
       </Div>
       <Wrapper>
         {data?.features &&
@@ -61,7 +62,7 @@ const Convert = ({ data }) => {
               key={feature.id}
               propertyId={feature.properties_id}
               stability={feature.stability}
-              label="انتقال"
+              label={getFieldTranslationByNames(818)}
               onClick={(id) => updateDynasty(id)}
             />
           ))}
