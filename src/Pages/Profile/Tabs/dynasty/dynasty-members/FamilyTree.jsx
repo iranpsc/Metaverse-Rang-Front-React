@@ -4,6 +4,7 @@ import TreeMember from "./TreeMember";
 import member from "../../../../../Assets/images/user.png";
 import styled from "styled-components";
 import Title from "../../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 // Container with explicit width and scroll
 const Container = styled.div`
@@ -208,7 +209,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
   console.log(members);
   return (
     <Container>
-      <Title right title="اعضای سلسله" />
+      <Title right title={getFieldTranslationByNames(112)} />
       <Tree>
         <Head>
           <img src={ownerImg || member} width={110} height={110} />
@@ -218,7 +219,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
             {members.siblings.length < 4 && (
               <Add onClick={() => setMode(2)}>
                 <FaPlus size={32} />
-                <span>افزودن خواهر یا برادر</span>
+                <span>{getFieldTranslationByNames(826)}</span>
               </Add>
             )}
             {members.siblings.map((sibling, i) => (
@@ -233,7 +234,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
             {members.parent.length < 2 && (
               <Add onClick={() => setMode(2)}>
                 <FaPlus size={32} />
-                <span>افزودن والدین</span>
+                <span>{getFieldTranslationByNames(1396)}</span>
               </Add>
             )}
             {members.parent.map((item, i) => (
@@ -250,7 +251,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
             {members.children.length < 4 && (
               <Add onClick={() => setMode(2)}>
                 <FaPlus size={32} />
-                <span>افزودن فرزند</span>
+                <span> {getFieldTranslationByNames(827)}</span>
               </Add>
             )}
             {members.children.map((child, i) => (
@@ -265,7 +266,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
             {members.spouse.length < 1 && (
               <Add onClick={() => setMode(2)}>
                 <FaPlus size={32} />
-                <span>افزودن همسر</span>
+                <span>{getFieldTranslationByNames(1397)}</span>
               </Add>
             )}
             {members.spouse.map((item, i) => (

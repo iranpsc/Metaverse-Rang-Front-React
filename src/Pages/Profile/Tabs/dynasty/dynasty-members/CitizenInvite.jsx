@@ -7,7 +7,10 @@ import Button from "../../../../../Components/Button";
 import Title from "../../../../../Components/Title";
 import SearchInput from "../../../../../Components/SearchInput";
 import useRequest from "../../../../../Services/Hooks/useRequest";
-import { ToastError } from "../../../../../Services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../../../Services/Utility";
 import {
   Container,
   Header,
@@ -82,10 +85,10 @@ const CitizenInvite = ({ setMode, mode, members, setMembers }) => {
     <>
       <Container>
         <Header>
-          <Title title="دعوت شهروند" />
+          <Title title={getFieldTranslationByNames(832)} />
           <SearchInput
             value={searched}
-            placeholder="نام یا شناسه کاربری شهروند مورد نظر خود را جستجو کنید"
+            placeholder={getFieldTranslationByNames(831)}
             onchange={handleSearch}
           />
         </Header>
@@ -109,13 +112,13 @@ const CitizenInvite = ({ setMode, mode, members, setMembers }) => {
             disabled={!selectedCitizen}
             onClick={() => selectedCitizen && setOpenDetails(true)}
           >
-            انتخاب
+            {getFieldTranslationByNames(132)}
           </SelectButton>
           <Button
             fit
             color="#C30000"
             textColor="#FFFFFF"
-            label="لغو"
+            label={getFieldTranslationByNames(833)}
             onclick={() => setMode(1)}
           />
         </Buttons>

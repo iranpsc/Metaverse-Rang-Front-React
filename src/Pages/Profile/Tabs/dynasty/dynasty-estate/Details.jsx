@@ -57,37 +57,27 @@ const Details = ({ data }) => {
     "last-updated": lastUpdated,
   } = data["dynasty-feature"];
 
+  const renderKeyValue = (labelId, value, icon = false) => (
+    <KeyValue>
+      <h3 style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+        {getFieldTranslationByNames(labelId)}
+        {icon && <AiOutlineExclamationCircle />}
+      </h3>
+      <span>{value}</span>
+    </KeyValue>
+  );
+
   return (
     <Container>
       <Header>
-        <h3>جزییات ملک</h3>
+        <h3>{getFieldTranslationByNames(813)}</h3>
         <span>{propertyId}</span>
       </Header>
-      <KeyValue>
-        <h3>متراژ</h3>
-        <span>{area}</span>
-      </KeyValue>
-      <KeyValue>
-        <h3>تراکم</h3>
-        <span>{density}</span>
-      </KeyValue>
-      <KeyValue>
-        <h3 style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-          افزایش سود از ملک
-          <AiOutlineExclamationCircle />
-        </h3>
-        <span>{profitIncrease}٪</span>
-      </KeyValue>
-      <KeyValue>
-        <h3>تعداد اعضا</h3>
-        <span>{membersCount}</span>
-      </KeyValue>
-      <KeyValue>
-        <h3 style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-          آخرین بروزرسانی <AiOutlineExclamationCircle />
-        </h3>
-        <span>{lastUpdated}</span>
-      </KeyValue>
+      {renderKeyValue(373, area)}
+      {renderKeyValue(117, density)}
+      {renderKeyValue(814, `${profitIncrease}٪`, true)}
+      {renderKeyValue(815, membersCount)}
+      {renderKeyValue(1368, lastUpdated, true)}
     </Container>
   );
 };
