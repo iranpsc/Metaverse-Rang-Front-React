@@ -1,5 +1,6 @@
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>
