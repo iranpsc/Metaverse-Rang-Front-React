@@ -164,7 +164,7 @@ const CitizenCard = ({ id, name, code, image, age, onClick, isSelected }) => {
         </Level>
         <Footer>
           <span>{getFieldTranslationByNames(1398)}</span>
-          <img alt="down" src={down} width={17} height={19} />
+          <img alt="down" src={down} width={17} height={19} loading="lazy" />
         </Footer>
       </Inner>
     </Card>
