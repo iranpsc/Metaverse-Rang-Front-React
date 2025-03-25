@@ -7,7 +7,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: 92%;
+  height: 73%;
+  @media (max-width: 768px) {
+    height: 80%;
+  }
   overflow-y: auto;
 `;
 
