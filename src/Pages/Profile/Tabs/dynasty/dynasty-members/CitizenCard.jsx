@@ -6,6 +6,7 @@ import level1 from "../../../../../Assets/images/level1.png";
 import level2 from "../../../../../Assets/images/level2.png";
 import level3 from "../../../../../Assets/images/level3.png";
 import citizen from "../../../../../Assets/images/profile.png";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 const levels = [
   { id: "1", label: "سطح 1", image: level1 },
   { id: "2", label: "سطح 2", image: level2 },
@@ -162,7 +163,7 @@ const CitizenCard = ({ id, name, code, image, age, onClick, isSelected }) => {
           </div>
         </Level>
         <Footer>
-          <span>مشخصات شهروند</span>
+          <span>{getFieldTranslationByNames(1398)}</span>
           <img alt="down" src={down} width={17} height={19} />
         </Footer>
       </Inner>
