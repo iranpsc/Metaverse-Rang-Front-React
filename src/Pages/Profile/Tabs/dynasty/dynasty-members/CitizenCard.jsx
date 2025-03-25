@@ -132,7 +132,7 @@ const CitizenCard = ({ id, name, code, image, age, onClick, isSelected }) => {
       <Inner>
         <Image>
           <img
-            src={citizen}
+            src={image || citizen}
             alt="citizen"
             loading="lazy"
             width={120}
