@@ -47,13 +47,6 @@ export default function useAuth() {
           "development"
         ),
         Request(
-          "following",
-          HTTP_METHOD.GET,
-          {},
-          { Authorization: `Bearer ${user?.token}` },
-          "development"
-        ),
-        Request(
           "auth/me",
           HTTP_METHOD.POST,
           {},

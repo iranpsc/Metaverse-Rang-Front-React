@@ -6,50 +6,26 @@ import Button from "../../../../../Components/Button";
 
 import SearchInput from "../../../../../Components/SearchInput";
 import OnOff from "../../../../Settings/Tabs/OnOff";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 const settings = [
-  { id: 1, label: "قابلیت خرید از فروشگاه متارنگ" },
-  { id: 2, label: "قابلیت شرکت در پروژه های اتحادی" },
-  { id: 3, label: "قابلیت فروش املاک و متغلات در متارنگ" },
-  { id: 4, label: "قابلیت شرکت در چالش ها" },
-  { id: 5, label: "قابلیت خارج کردن سرمایه از متارنگ" },
-  { id: 6, label: "قابلیت شرکت در مسابقات" },
-  { id: 7, label: "قابلیت ورود بخ اتحاد ها " },
-  { id: 8, label: "قابلیت تاسیس فروشگاه با دفتر کار" },
-  { id: 9, label: "قابلیت مدیریت سلسله" },
-  { id: 10, label: "قابلیت همکاری در ساخت بنا" },
+  { id: 1, label: 836 },
+  { id: 2, label: 837 },
+  { id: 3, label: 838 },
+  { id: 4, label: 839 },
+  { id: 5, label: 840 },
+  { id: 6, label: 841 },
+  { id: 7, label: 138 },
+  { id: 8, label: 842 },
+  { id: 9, label: 843 },
+  { id: 10, label: 845 },
 ];
 
 const Container = styled.div`
-  direction: ltr;
   padding: 0 15px;
   height: 80%;
   width: 70%;
   background-color: #000000;
   overflow-y: auto;
-  /* @media (min-width: 890px) {
-    height: 257px;
-  }
-  @media (min-width: 880px) {
-    height: 190px;
-  }
-  @media (min-width: 910px) {
-    height: 260px;
-  }
-  @media (min-width: 930px) {
-    height: 274px;
-  }
-  @media (min-width: 1024px) {
-    height: 380px;
-  }
-  @media (min-width: 1180px) {
-    height: 577px;
-  }
-  @media (min-width: 1280px) {
-    height: 560px;
-  }
-  @media (min-width: 1366px) {
-    height: 620px;
-  } */
 `;
 
 const Header = styled.div`
@@ -194,11 +170,11 @@ const UnderEighteenMember = ({
           <SearchInput placeholder="نام کاربری فرزند خود را جستجو کنید..." />
         </Header>
         <MemberCard selectedCitizen={selectedCitizen} />
-        <Title right title="ثبت محدودیت های فرزند زیر 18" />
+        <Title right title={getFieldTranslationByNames(835)} />
         <Settings>
           {settings.map((setting) => (
             <Wrapper key={setting.id}>
-              <p>{setting.label}</p>
+              <p>{getFieldTranslationByNames(setting.label)}</p>
               <OnOff label={setting?.label} />
             </Wrapper>
           ))}

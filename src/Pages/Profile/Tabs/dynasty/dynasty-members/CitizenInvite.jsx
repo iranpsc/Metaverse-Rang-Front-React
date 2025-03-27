@@ -80,7 +80,6 @@ const CitizenInvite = ({ setMode, mode, members, setMembers }) => {
       />
     );
   };
-  console.log(citizens);
   return (
     <>
       <Container>
