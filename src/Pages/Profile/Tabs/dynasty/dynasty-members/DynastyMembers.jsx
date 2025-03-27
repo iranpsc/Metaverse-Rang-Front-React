@@ -14,7 +14,7 @@ const DynastyMembers = () => {
     spouse: [],
     children: [],
   });
-  const [mode, setMode] = useState(1);
+  const [mode, setMode] = useState({ mode: 1, type: null });
   const [family, setFamily] = useState([]);
   const { Request } = useRequest();
   const [citizen, setCitizen] = useState([]);
@@ -67,7 +67,7 @@ const DynastyMembers = () => {
 
         setFamily(familyResponse.data.data);
         setMembers(categorizeMembers(familyResponse.data.data));
-        setMode(1);
+        setMode({ mode: 1, type: null });
       } catch (err) {
         setError("Failed to fetch dynasty members");
         console.error(err);
@@ -89,17 +89,18 @@ const DynastyMembers = () => {
 
   return (
     <div>
-      {mode === 1 && (
+      {mode.mode === 1 && (
         <FamilyTree
           setMode={setMode}
           members={members}
           ownerImg={family[0]?.profile_photo}
         />
       )}
-      {mode === 2 && (
+      {mode.mode === 2 && (
         <CitizenInvite
           setMode={setMode}
           mode={mode}
+          memberType={mode.type}
           members={members}
           setMembers={setMembers}
           citizens={citizen}

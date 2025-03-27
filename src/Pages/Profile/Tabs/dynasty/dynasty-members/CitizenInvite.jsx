@@ -19,7 +19,7 @@ import {
   SelectButton,
 } from "./styles/CitizenInvite.styles";
 
-const CitizenInvite = ({ setMode, mode, members, setMembers }) => {
+const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
   const [searched, setSearched] = useState("");
   const [openDetails, setOpenDetails] = useState(false);
   const [selectedCitizen, setSelectedCitizen] = useState(null);
@@ -66,20 +66,36 @@ const CitizenInvite = ({ setMode, mode, members, setMembers }) => {
 
   const renderDetailsModal = () => {
     if (!openDetails || !selectedCitizen) return null;
-    console.log(selectedCitizen);
 
-    const Component =
-      selectedCitizen.age < 18 ? UnderEighteenMember : SpouseSubmit;
+    // Handle children under 18
+    if (memberType === "children" && selectedCitizen.age < 18) {
+      return (
+        <UnderEighteenMember
+          setOpenDetails={closeModal}
+          selectedCitizen={selectedCitizen}
+          members={members}
+          setMembers={setMembers}
+          setMode={setMode}
+          memberType={memberType}
+        />
+      );
+    }
+
+    // Handle spouse
+
+    // Handle all other cases (parent, siblings, adult children)
     return (
-      <Component
+      <SpouseSubmit
         setOpenDetails={closeModal}
         selectedCitizen={selectedCitizen}
         members={members}
         setMembers={setMembers}
         setMode={setMode}
+        memberType={memberType}
       />
     );
   };
+
   return (
     <>
       <Container>
@@ -129,8 +145,9 @@ const CitizenInvite = ({ setMode, mode, members, setMembers }) => {
 
 CitizenInvite.propTypes = {
   setMode: PropTypes.func.isRequired,
-  mode: PropTypes.number.isRequired,
-  members: PropTypes.array.isRequired,
+  mode: PropTypes.object.isRequired, // Changed to object since mode now has type
+  memberType: PropTypes.string.isRequired,
+  members: PropTypes.object.isRequired, // Changed to object to match the actual shape
   setMembers: PropTypes.func.isRequired,
 };
 

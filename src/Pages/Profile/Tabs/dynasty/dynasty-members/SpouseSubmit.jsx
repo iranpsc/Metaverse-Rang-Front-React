@@ -156,7 +156,7 @@ const SpouseSubmit = ({
       }
     }
   };
-
+  console.log(selectedCitizen);
   return (
     <Background>
       <Container>

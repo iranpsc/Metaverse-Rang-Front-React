@@ -206,7 +206,10 @@ const Add = styled.div`
 `;
 
 const FamilyTree = ({ members, setMode, ownerImg }) => {
-  console.log(members);
+  const handleAddMember = (type) => {
+    setMode({ mode: 2, type });
+  };
+
   return (
     <Container>
       <Title right title={getFieldTranslationByNames(112)} />
@@ -217,7 +220,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
         <Family>
           <Sibling>
             {members.siblings.length < 4 && (
-              <Add onClick={() => setMode(2)}>
+              <Add onClick={() => handleAddMember("siblings")}>
                 <FaPlus size={32} />
                 <span>{getFieldTranslationByNames(826)}</span>
               </Add>
@@ -232,7 +235,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
           </Sibling>
           <Parent>
             {members.parent.length < 2 && (
-              <Add onClick={() => setMode(2)}>
+              <Add onClick={() => handleAddMember("parent")}>
                 <FaPlus size={32} />
                 <span>{getFieldTranslationByNames(1396)}</span>
               </Add>
@@ -249,9 +252,9 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
         <Children>
           <Childs>
             {members.children.length < 4 && (
-              <Add onClick={() => setMode(2)}>
+              <Add onClick={() => handleAddMember("children")}>
                 <FaPlus size={32} />
-                <span> {getFieldTranslationByNames(827)}</span>
+                <span>{getFieldTranslationByNames(827)}</span>
               </Add>
             )}
             {members.children.map((child, i) => (
@@ -264,7 +267,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
           </Childs>
           <Spouse>
             {members.spouse.length < 1 && (
-              <Add onClick={() => setMode(2)}>
+              <Add onClick={() => handleAddMember("spouse")}>
                 <FaPlus size={32} />
                 <span>{getFieldTranslationByNames(1397)}</span>
               </Add>
