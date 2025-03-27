@@ -26,7 +26,7 @@ const Convert = ({ data }) => {
   const [selectedPropertyId, setSelectedPropertyId] = useState(null);
   const { Request, HTTP_METHOD } = useRequest();
   const Navigate = useNavigate();
-
+  console.log(data);
   const updateDynasty = (id) => {
     setSelectedPropertyId(id);
     setModal(true);

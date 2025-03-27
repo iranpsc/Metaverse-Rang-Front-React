@@ -98,7 +98,9 @@ const Modal = ({ setModal, onConfirm, date }) => {
           <span>{getFieldTranslationByNames("122")}</span>
           <Close onClick={() => setModal(false)}>X</Close>
         </Header>
-        {timeRemaining ? (
+        {isNaN(timeRemaining?.days) ? (
+          <p>{getFieldTranslationByNames(1439)}</p>
+        ) : (
           <p>
             {getFieldTranslationByNames(821)}
             {timeRemaining.days} {getFieldTranslationByNames(380)},
@@ -106,8 +108,6 @@ const Modal = ({ setModal, onConfirm, date }) => {
             {timeRemaining.minutes} {getFieldTranslationByNames(33)}
             {getFieldTranslationByNames(1409)}
           </p>
-        ) : (
-          <p>{getFieldTranslationByNames(1439)}</p>
         )}
         <Buttons>
           <Button
