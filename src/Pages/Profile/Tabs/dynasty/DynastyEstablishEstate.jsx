@@ -39,7 +39,9 @@ const DynastyEstablishEstate = ({ mode, setMode }) => {
   }, [setMode]);
   switch (mode) {
     case 1:
-      return <DynastyEstablish members={data} setMode={setMode} />;
+      return (
+        <DynastyEstablish members={data} setMode={setMode} setData={setData} />
+      );
     case 2:
       return <DynastyEstate data={data} />;
     default:

@@ -21,13 +21,13 @@ const Top = styled.div`
   justify-content: space-between;
 `;
 
-const PropertySelect = ({ setMode, data }) => {
+const PropertySelect = ({ setMode, data, setData }) => {
   const { Request, HTTP_METHOD } = useRequest();
   const Navigate = useNavigate();
   const selectDynasty = (id) => {
     Request(`dynasty/create/${id}`, HTTP_METHOD.POST)
       .then((response) => {
-        setDynasty({ ...response.data.data });
+        setData({ ...response.data.data });
         ToastSuccess("سلسله با موفقیت تاسیس شد.");
       })
       .catch((error) => {
