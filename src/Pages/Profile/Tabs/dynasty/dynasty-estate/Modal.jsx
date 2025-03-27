@@ -113,7 +113,7 @@ const Modal = ({ setModal, onConfirm, date }) => {
           <Button
             label={getFieldTranslationByNames("823")}
             color="#18C08F"
-            onClick={onConfirm}
+            onclick={onConfirm}
             fit
             textColor="#D7FBF0"
           />
