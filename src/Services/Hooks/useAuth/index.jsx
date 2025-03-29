@@ -37,28 +37,26 @@ export default function useAuth() {
     const LocalStorageData = { token: user.token, expire: expire };
 
     setItem("user", LocalStorageData);
-    const [walletResponse, followingResponse, profileResponse] =
-      await Promise.all([
-        Request(
-          "user/wallet",
-          HTTP_METHOD.GET,
-          {},
-          { Authorization: `Bearer ${user?.token}` },
-          "development"
-        ),
-        Request(
-          "auth/me",
-          HTTP_METHOD.POST,
-          {},
-          { Authorization: `Bearer ${user?.token}` },
-          "development"
-        ),
-      ]);
+    const [walletResponse, profileResponse] = await Promise.all([
+      Request(
+        "user/wallet",
+        HTTP_METHOD.GET,
+        {},
+        { Authorization: `Bearer ${user?.token}` },
+        "development"
+      ),
+      Request(
+        "auth/me",
+        HTTP_METHOD.POST,
+        {},
+        { Authorization: `Bearer ${user?.token}` },
+        "development"
+      ),
+    ]);
     setWallet({
       type: WalletContextTypes.ADD_WALLET,
       payload: walletResponse.data.data,
     });
-    setFollow(followingResponse.data.data);
     setUserState(AddUserAction(profileResponse.data.data));
   };
 

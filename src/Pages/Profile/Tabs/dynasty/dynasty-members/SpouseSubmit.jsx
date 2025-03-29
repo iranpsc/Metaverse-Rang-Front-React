@@ -5,43 +5,20 @@ import { toast } from "react-toastify";
 import Title from "../../../../../Components/Title";
 import Button from "../../../../../Components/Button";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import ModalLg from "../../../../../Components/Modal/ModalLg";
 
-const Container = styled.div`
-  height: 80%;
-  width: 70%;
-  background-color: #000000;
-  direction: ltr;
-  padding: 15px;
-  overflow-y: auto;
-  /* @media (min-width: 890px) {
-    height: 258px;
-  }
-  @media (min-width: 880px) {
-    height: 187px;
-  }
-  @media (min-width: 930px) {
-    height: 274px;
-  }
-  @media (min-width: 910px) {
-    height: 254px;
-  }
-  @media (min-width: 1024px) {
-    height: 380px;
-  }
-  @media (min-width: 1280px) {
-    height: auto;
-  } */
-  /* @media (min-width: 1400px) {
-    padding-right: 0;
-  } */
-`;
-
-const Header = styled.div`
-  display: grid;
-
-  grid-template-columns: 100px 400px;
-  justify-content: space-between;
-`;
+const settings = [
+  { id: 1, label: 836 },
+  { id: 2, label: 837 },
+  { id: 3, label: 838 },
+  { id: 4, label: 839 },
+  { id: 5, label: 840 },
+  { id: 6, label: 841 },
+  { id: 7, label: 138 },
+  { id: 8, label: 842 },
+  { id: 9, label: 843 },
+  { id: 10, label: 845 },
+];
 
 const Buttons = styled.div`
   display: flex;
@@ -64,27 +41,42 @@ const Texts = styled.div`
     }
   }
 `;
+const Settings = styled.div`
+  display: grid;
+  gap: 20px;
+  margin-bottom: 30px;
+  margin-top: 15px;
 
-const Background = styled.div`
-  z-index: 999;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(5px);
-  background-color: rgba(0, 0, 0, 0.713);
+  @media (min-width: 1366px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
+const Wrapper = styled.div`
+  display: flex;
 
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1a1a18;
+  border-radius: 5px;
+  padding: 10px;
+  p {
+    font-weight: 500;
+    color: white;
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    p {
+      font-size: 16px;
+    }
+  }
+`;
 const SpouseSubmit = ({
   setOpenDetails,
   selectedCitizen,
   members,
   setMembers,
   setMode,
+  memberType,
 }) => {
   const handleAccept = () => {
     if (selectedCitizen) {
@@ -157,53 +149,47 @@ const SpouseSubmit = ({
       }
     }
   };
-  console.log(selectedCitizen);
   return (
-    <Background>
-      <Container>
-        <Header>
-          <Title title={getFieldTranslationByNames(832)} />
-        </Header>
-        <MemberCard selectedCitizen={selectedCitizen} />
-        <Texts>
-          <p>
-            در صورت تایید (شهروند مورد نظر به عنوان همسر) یک پیام تاییدیه برای
-            شهروند ارسال میشود و در صورت تایید اطلاعات سلسله در بانک اطلاعات
-            مرکزی متارنگ ذخیره خواهد شد. سلسله خانوادگی قابلیت ویرایش نخواهد
-            داشت و همسر شما در آینده نمی تواند شما را حذف کند و همچنین شما نیز
-            نمیتوانید همسر خود را حذف نمایید.
-          </p>
-          <p>
-            قابلیت ویرایش تنظیمات دسترسی همسر شما در هر زمان به صورت یک طرفه از
-            سمت شما امکان پذیر است.
-          </p>
-          <p>
-            همسر شما تنها تا قبل از سن قانونی توسط شما محدود خواهد شد. (سن
-            قانونی ۱۸)
-          </p>
-          <p>
-            جریمه‌هایی که در خصوص دروغ‌گویی توسط دادگاه متارنگ در نظر گرفته
-            می‌شود بسیار سنگین خواهد بود
-          </p>
-        </Texts>
-        <Buttons>
-          <Button
-            label={getFieldTranslationByNames(823)}
-            color="#18C08F"
-            onclick={handleAccept} // Fixed typo here
-            fit
-            textColor="#D7FBF0"
-          />
-          <Button
-            label={getFieldTranslationByNames(824)}
-            color="#C30000"
-            onclick={() => setOpenDetails(false)}
-            fit
-            textColor="#FFFFFF"
-          />
-        </Buttons>
-      </Container>
-    </Background>
+    <ModalLg titleId={832} setShowModal={setOpenDetails}>
+      <MemberCard selectedCitizen={selectedCitizen} memberType={memberType} />
+      <Texts>
+        {memberType === "children" ? (
+          <Settings>
+            {settings.map((setting) => (
+              <Wrapper key={setting.id}>
+                <p>{getFieldTranslationByNames(setting.label)}</p>
+                <OnOff label={setting?.label} />
+              </Wrapper>
+            ))}
+          </Settings>
+        ) : (
+          <>
+            <p>
+              {getFieldTranslationByNames(1401)} {memberType == ""}{" "}
+              {getFieldTranslationByNames(1402)} {selectedCitizen.name}{" "}
+              {getFieldTranslationByNames(1403)}
+            </p>
+            <p>{getFieldTranslationByNames(1404)}</p>
+          </>
+        )}
+      </Texts>
+      <Buttons>
+        <Button
+          label={getFieldTranslationByNames(823)}
+          color="#18C08F"
+          onclick={handleAccept} // Fixed typo here
+          fit
+          textColor="#D7FBF0"
+        />
+        <Button
+          label={getFieldTranslationByNames(824)}
+          color="#C30000"
+          onclick={() => setOpenDetails(false)}
+          fit
+          textColor="#FFFFFF"
+        />
+      </Buttons>
+    </ModalLg>
   );
 };
 

@@ -73,8 +73,8 @@ const Profile = styled.div`
     transition: all 0.2s linear;
   }
 `;
-
-const MemberCard = ({ selectedCitizen }) => {
+const MemberCard = ({ selectedCitizen, memberType }) => {
+  console.log(memberType);
   return (
     <Container>
       <Right>
@@ -83,7 +83,10 @@ const MemberCard = ({ selectedCitizen }) => {
           <img src={avatar} width={80} height={80} />
           <div>
             <h3>{selectedCitizen?.name}</h3>
-            <a href="https://rgb.irpsc.com/fa/citizen/hm-2000001">
+            <a
+              href={`https://rgb.irpsc.com/fa/citizen/${selectedCitizen?.code}`}
+              target="_blank"
+            >
               {selectedCitizen?.code}
             </a>
           </div>

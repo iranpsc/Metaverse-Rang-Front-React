@@ -47,16 +47,7 @@ const Div = styled.div`
   }
 `;
 
-const VodDetails = ({
-  setShowDetails,
-  status,
-  code,
-  date,
-  time,
-  member,
-  domain,
-  subdomain,
-}) => {
+const VodDetails = ({ setShowDetails, member }) => {
   return (
     <ModalLg setShowModal={setShowDetails} titleId={1347}>
       <Div>
