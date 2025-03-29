@@ -166,7 +166,7 @@ const UnderEighteenMember = ({
     <Background>
       <Container>
         <Header>
-          <Title title="دعوت فرزند" />
+          <Title title={getFieldTranslationByNames(832)} />
           {/* <SearchInput placeholder="نام کاربری فرزند خود را جستجو کنید..." /> */}
         </Header>
         <MemberCard selectedCitizen={selectedCitizen} />
