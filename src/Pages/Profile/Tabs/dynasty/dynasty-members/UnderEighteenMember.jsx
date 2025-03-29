@@ -167,7 +167,7 @@ const UnderEighteenMember = ({
       <Container>
         <Header>
           <Title title="دعوت فرزند" />
-          <SearchInput placeholder="نام کاربری فرزند خود را جستجو کنید..." />
+          {/* <SearchInput placeholder="نام کاربری فرزند خود را جستجو کنید..." /> */}
         </Header>
         <MemberCard selectedCitizen={selectedCitizen} />
         <Title right title={getFieldTranslationByNames(835)} />
@@ -181,14 +181,14 @@ const UnderEighteenMember = ({
         </Settings>
         <Buttons>
           <Button
-            label="بله, قبول میکنم"
+            label={getFieldTranslationByNames(823)}
             color="#18C08F"
             onclick={handleAccept}
             fit
             textColor="#D7FBF0"
           />
           <Button
-            label="خیر, نمی پذیرم"
+            label={getFieldTranslationByNames(824)}
             color="#C30000"
             onclick={() => setOpenDetails(false)}
             fit
