@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import Title from "../../../../../Components/Title";
 import Button from "../../../../../Components/Button";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 const Container = styled.div`
   height: 80%;
@@ -161,7 +162,7 @@ const SpouseSubmit = ({
     <Background>
       <Container>
         <Header>
-          <Title title="ثبت همسر" />
+          <Title title={getFieldTranslationByNames(832)} />
         </Header>
         <MemberCard selectedCitizen={selectedCitizen} />
         <Texts>
@@ -187,14 +188,14 @@ const SpouseSubmit = ({
         </Texts>
         <Buttons>
           <Button
-            label="بله, قبول میکنم"
+            label={getFieldTranslationByNames(823)}
             color="#18C08F"
             onclick={handleAccept} // Fixed typo here
             fit
             textColor="#D7FBF0"
           />
           <Button
-            label="خیر, نمی پذیرم"
+            label={getFieldTranslationByNames(824)}
             color="#C30000"
             onclick={() => setOpenDetails(false)}
             fit
