@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   padding: 20px 0;
-  direction: ltr;
+
   display: grid;
   height: 232px;
   padding-right: 15px;

@@ -1,12 +1,13 @@
 import { IoRadioButtonOnOutline } from "react-icons/io5";
 import avatar from "../../../../../Assets/images/profile.png";
-
 import styled from "styled-components";
-import { convertToPersian } from "../../../../../Services/Utility";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../../Services/Utility";
 
 const Container = styled.div`
   background-color: #1a1a18;
-
   border-radius: 5px;
   padding: 20px;
   display: grid;
@@ -74,7 +75,22 @@ const Profile = styled.div`
   }
 `;
 const MemberCard = ({ selectedCitizen, memberType }) => {
-  console.log(memberType);
+  // Get translated member type
+  const getTranslatedMemberType = (type) => {
+    switch (type) {
+      case "parent":
+        return getFieldTranslationByNames(1396); // والدین
+      case "spouse":
+        return getFieldTranslationByNames(1397); // همسر
+      case "siblings":
+        return getFieldTranslationByNames(826); // خواهر و برادر
+      case "children":
+        return getFieldTranslationByNames(827); // فرزندان
+      default:
+        return type;
+    }
+  };
+
   return (
     <Container>
       <Right>
@@ -94,7 +110,7 @@ const MemberCard = ({ selectedCitizen, memberType }) => {
       </Right>
       <Center>
         <h4>نسبت</h4>
-        <h3>{selectedCitizen?.role}</h3>
+        <h3>{getTranslatedMemberType(memberType)}</h3>
       </Center>
       <Left>
         <h4>سن</h4>

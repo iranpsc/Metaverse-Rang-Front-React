@@ -87,7 +87,7 @@ const Container = styled.div`
     text-align: center;
     width: fit-content;
     margin: 0 auto;
-    direction: ltr;
+
     h4 {
       color: #008bf8;
       margin-left: 5px;
@@ -260,12 +260,8 @@ const SecondStep = ({ setStep, time }) => {
 
   return (
     <Container>
-      <h3>
-        {getFieldTranslationByNames("860")}
-      </h3>
-      <p>
-        {getFieldTranslationByNames("861")}
-      </p>
+      <h3>{getFieldTranslationByNames("860")}</h3>
+      <p>{getFieldTranslationByNames("861")}</p>
       <Codes>
         {[...Array(6)].map((_, index) => (
           <input
@@ -287,9 +283,7 @@ const SecondStep = ({ setStep, time }) => {
             .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])}
         </h4>
         {timer !== 0 ? (
-          <span>
-            {getFieldTranslationByNames("863")}
-          </span>
+          <span>{getFieldTranslationByNames("863")}</span>
         ) : (
           <h2 onClick={resetHandler}>ارسال مجدد کد</h2>
         )}

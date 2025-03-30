@@ -134,7 +134,7 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
             color="#C30000"
             textColor="#FFFFFF"
             label={getFieldTranslationByNames(833)}
-            onclick={() => setMode(1)}
+            onclick={() => setMode({ mode: 1, type: null })} // Modified to pass correct object structure
           />
         </Buttons>
       </Container>
