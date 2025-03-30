@@ -54,9 +54,12 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
       ToastError(
         "شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید"
       );
+      setSelectedCitizen(null);
       return;
     }
-    setSelectedCitizen(citizen);
+    setSelectedCitizen((prevSelected) =>
+      prevSelected?.id === citizen.id ? null : citizen
+    );
   }, []);
 
   const closeModal = useCallback(() => {
@@ -81,9 +84,6 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
       );
     }
 
-    // Handle spouse
-
-    // Handle all other cases (parent, siblings, adult children)
     return (
       <SpouseSubmit
         setOpenDetails={closeModal}
@@ -95,7 +95,6 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
       />
     );
   };
-
   return (
     <>
       <Container>
@@ -124,7 +123,7 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
         </Citizens>
         <Buttons>
           <SelectButton
-            disabled={!selectedCitizen}
+            disabled={!selectedCitizen || !selectedCitizen.verified}
             onClick={() => selectedCitizen && setOpenDetails(true)}
           >
             {getFieldTranslationByNames(132)}
