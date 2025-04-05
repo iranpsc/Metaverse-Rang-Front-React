@@ -3,7 +3,7 @@ import { getFieldTranslationByNames } from "../../../../Services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
+    props.theme.colors.newColors.otherColors.menuBg};
   border-radius: 5px;
   padding: 15px 0;
   margin-top: 20px;

@@ -26,7 +26,8 @@ const Card = styled.div`
   z-index: 1;
 `;
 const Inner = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   z-index: 2;
   border-radius: 5px;
   padding: 20px;
@@ -38,12 +39,12 @@ const Inner = styled.div`
   transition: all 0.2s linear;
   cursor: pointer;
   h2 {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 20px;
     font-weight: 700;
   }
   a {
-    color: #0066ff;
+    color: ${(props) => props.theme.colors.primary};
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
@@ -51,7 +52,6 @@ const Inner = styled.div`
     z-index: 10;
     display: inline-block;
   }
-  background: #222;
   color: #fff;
 `;
 
@@ -108,10 +108,11 @@ const Footer = styled.div`
   width: 90%;
   border-radius: 10px;
   padding: 18px 14px;
-  background-color: #2c2c2c;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.containerPrimary};
   justify-content: space-between;
   span {
-    color: #ffc700;
+    color: ${(props) => props.theme.colors.primary};
     font-size: 16px;
     font-weight: 500;
   }
