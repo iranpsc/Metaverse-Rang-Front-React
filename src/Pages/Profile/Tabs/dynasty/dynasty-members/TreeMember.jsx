@@ -3,7 +3,7 @@ import member from "../../../../../Assets/images/user.png";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${({ theme }) => theme.colors.newColors.otherColors.menuBg};
   border-radius: 5px;
   padding: 15px;
   display: flex;
@@ -21,17 +21,18 @@ const Container = styled.div`
     left: 100%;
     width: 10px;
     height: 2px;
-    background-color: #bababa;
+    background-color: ${({ theme }) =>
+      theme.colors.newColors.otherColors.menuBg};
   }
 
   h3 {
-    color: #dedee9;
+    color: ${({ theme }) => theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 600;
   }
   a {
     text-decoration: none;
-    color: #0066ff;
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 14px;
     font-weight: 500;
   }
@@ -47,8 +48,8 @@ const Image = styled.div`
   }
   &:hover img {
     &:nth-of-type(2) {
-      box-shadow: 0px 10px 25px -5px #0066ff40;
-      border: 2px solid #0066ff;
+      box-shadow: 0px 10px 25px -5px ${({ theme }) => theme.colors.primary};
+      border: 2px solid ${({ theme }) => theme.colors.primary};
     }
   }
 `;

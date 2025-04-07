@@ -91,8 +91,8 @@ const Head = styled.div`
     transition: all 0.2s linear;
   }
   &:hover img {
-    box-shadow: 0px 10px 25px -5px #0066ff40;
-    border: 2px solid #0066ff;
+    box-shadow: 0px 10px 25px -5px ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -112,7 +112,7 @@ const Family = styled.div`
     left: 50%;
     width: 2px;
     height: 40px;
-    background-color: #bababa;
+    background-color: ${({ theme }) => theme.colors.newColors.shades.title};
     transform: translateX(-50%);
   }
 
@@ -123,7 +123,7 @@ const Family = styled.div`
     left: 0;
     right: 0;
     height: 2px;
-    background-color: #bababa;
+    background-color: ${({ theme }) => theme.colors.newColors.shades.title};
   }
 `;
 
@@ -155,7 +155,7 @@ const Children = styled.div`
     width: 2px;
     height: 280px;
     z-index: 0;
-    background-color: #bababa;
+    background-color: ${({ theme }) => theme.colors.newColors.shades.title};
     transform: translateX(-50%);
   }
 
@@ -166,7 +166,7 @@ const Children = styled.div`
     left: 0;
     right: 0;
     height: 2px;
-    background-color: #bababa;
+    background-color: ${({ theme }) => theme.colors.newColors.shades.title};
   }
 `;
 
@@ -189,7 +189,7 @@ const Add = styled.div`
   justify-content: center;
   gap: 10px;
   z-index: 1;
-  background-color: #1a1a18;
+  background-color: ${({ theme }) => theme.colors.newColors.otherColors.menuBg};
   border: 2px dashed #454545;
   border-radius: 10px;
   cursor: pointer;
@@ -197,11 +197,11 @@ const Add = styled.div`
   width: 145px;
   span {
     font-size: 14px;
-    color: #a0a0ab;
+    color: ${({ theme }) => theme.colors.newColors.shades.title};
     font-weight: 400;
   }
   svg {
-    color: #a0a0ab;
+    color: ${({ theme }) => theme.colors.newColors.shades.title};
   }
 `;
 
