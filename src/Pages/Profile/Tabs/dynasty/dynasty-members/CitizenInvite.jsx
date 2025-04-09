@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, useCallback } from "react";
 import CitizenCard from "./CitizenCard";
-import UnderEighteenMember from "./UnderEighteenMember";
-import SpouseSubmit from "./SpouseSubmit";
+
 import Button from "../../../../../Components/Button";
 import Title from "../../../../../Components/Title";
 import SearchInput from "../../../../../Components/SearchInput";
@@ -18,6 +17,7 @@ import {
   Buttons,
   SelectButton,
 } from "./styles/CitizenInvite.styles";
+import SubmitDynastyModal from "./SubmitDynastyModal";
 
 const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
   const [searched, setSearched] = useState("");
@@ -70,22 +70,8 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
   const renderDetailsModal = () => {
     if (!openDetails || !selectedCitizen) return null;
 
-    // Handle children under 18
-    if (memberType === "children" && selectedCitizen.age < 18) {
-      return (
-        <UnderEighteenMember
-          setOpenDetails={closeModal}
-          selectedCitizen={selectedCitizen}
-          members={members}
-          setMembers={setMembers}
-          setMode={setMode}
-          memberType={memberType}
-        />
-      );
-    }
-
     return (
-      <SpouseSubmit
+      <SubmitDynastyModal
         setOpenDetails={closeModal}
         selectedCitizen={selectedCitizen}
         members={members}
