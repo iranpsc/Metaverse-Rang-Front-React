@@ -19,7 +19,7 @@ const API_ENDPOINTS = {
 
 export default function useAuth() {
   const [userState, setUserState] = useContext(UserContext);
-  const [setWallet] = useContext(WalletContext);
+  const [walletState, walletDispatch] = useContext(WalletContext); // Fix: Correctly destructure context
   const { Request, HTTP_METHOD } = useRequest();
 
   const storage = getItem(USER_STORAGE_KEY);
@@ -62,6 +62,7 @@ export default function useAuth() {
   };
 
   const setUser = async (userData) => {
+    console.log(userData);
     try {
       const expire =
         Date.now() + parseInt(userData.automatic_logout) * 60 * 1000;
@@ -72,7 +73,7 @@ export default function useAuth() {
 
       const { wallet, profile } = await fetchUserData(userData.token);
 
-      setWallet({
+      walletDispatch({
         type: WalletContextTypes.ADD_WALLET,
         payload: wallet,
       });
@@ -91,7 +92,8 @@ export default function useAuth() {
       ]);
 
       setUserState(AddUserAction(profileResponse.data.data));
-      setWallet({
+      walletDispatch({
+        // Fix: Use walletDispatch here as well
         type: WalletContextTypes.ADD_WALLET,
         payload: walletResponse.data.data,
       });
