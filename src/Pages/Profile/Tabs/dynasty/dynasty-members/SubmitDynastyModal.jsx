@@ -18,7 +18,7 @@ const settings = [
   { id: 7, label: 138 },
   { id: 8, label: 842 },
   { id: 9, label: 843 },
-  { id: 10, label: 845 },
+  { id: 10, label: 844 },
 ];
 
 const Buttons = styled.div`
@@ -32,13 +32,12 @@ const Texts = styled.div`
   margin-top: 30px;
 
   p {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.newColors.otherColors.title};
     font-size: 16px;
     font-weight: 400;
     &:last-of-type {
       font-weight: 600;
-      color: #c30000;
-      margin-top: 20px;
+      color: ${(props) => props.theme.colors.newColors.otherColors.title};
     }
   }
 `;
@@ -47,22 +46,21 @@ const Settings = styled.div`
   gap: 20px;
   margin-bottom: 30px;
   margin-top: 15px;
-
   @media (min-width: 1366px) {
     grid-template-columns: 1fr 1fr;
   }
 `;
 const Wrapper = styled.div`
   display: flex;
-
   align-items: center;
   justify-content: space-between;
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   border-radius: 5px;
-  padding: 8px;
+  padding: 10px;
   p {
     font-weight: 500;
-    color: white;
+    color: ${(props) => props.theme.colors.newColors.otherColors.title};
     font-size: 14px;
   }
   @media (min-width: 1024px) {

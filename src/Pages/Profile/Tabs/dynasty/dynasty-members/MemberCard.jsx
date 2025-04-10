@@ -7,7 +7,8 @@ import {
 } from "../../../../../Services/Utility";
 
 const Container = styled.div`
-  background-color: #1a1a18;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
   border-radius: 5px;
   padding: 20px;
   display: grid;
@@ -20,15 +21,18 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
+  svg {
+    color: ${(props) => props.theme.colors.primary};
+  }
 `;
 const Center = styled.div`
   h4 {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.otherColors.title};
     font-size: 14px;
     font-weight: 600;
   }
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.otherColors.title};
     margin-top: 4px;
     font-size: 16px;
     font-weight: 400;
@@ -36,12 +40,12 @@ const Center = styled.div`
 `;
 const Left = styled.div`
   h4 {
-    color: #a0a0ab;
+    color: ${(props) => props.theme.colors.newColors.otherColors.title};
     font-size: 14px;
     font-weight: 600;
   }
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.otherColors.title};
     margin-top: 4px;
     font-size: 16px;
     font-weight: 400;
@@ -53,17 +57,19 @@ const Profile = styled.div`
   gap: 20px;
   &:hover img {
     box-shadow: 0px 10px 25px -5px #0066ff40;
-    border: 2px solid #0066ff;
+    border: 2px solid ${(props) => props.theme.colors.primary};
   }
   h3 {
-    color: #dedee9;
+    color: ${(props) => props.theme.colors.newColors.otherColors.title};
+
     font-size: 18px;
     font-weight: 500;
     white-space: nowrap;
   }
   a {
     text-decoration: none;
-    color: #0066ff;
+    ${(props) => props.theme.colors.primary};
+
     font-size: 16px;
     font-weight: 500;
     white-space: nowrap;
@@ -94,7 +100,7 @@ const MemberCard = ({ selectedCitizen, memberType }) => {
   return (
     <Container>
       <Right>
-        <IoRadioButtonOnOutline size={24} style={{ color: "#ffc700" }} />
+        <IoRadioButtonOnOutline size={24} />
         <Profile>
           <img src={avatar} width={80} height={80} />
           <div>
