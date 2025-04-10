@@ -7,6 +7,7 @@ import Button from "../../../../../Components/Button";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 import ModalLg from "../../../../../Components/Modal/ModalLg";
 import OnOff from "../../../../Settings/Tabs/OnOff";
+import { useState } from "react";
 
 const settings = [
   { id: 1, label: 836 },
@@ -77,81 +78,63 @@ const SubmitDynastyModal = ({
   setMode,
   memberType,
 }) => {
+  const [selectedRelation, setSelectedRelation] = useState("");
+
   const handleAccept = () => {
-    if (selectedCitizen) {
-      // Determine the role category
-      let roleCategory;
-      switch (selectedCitizen.role) {
-        case "پدر":
-        case "مادر":
-          roleCategory = "parent";
-          break;
-        case "برادر":
-        case "خواهر":
-          roleCategory = "siblings";
-          break;
-        case "همسر":
-          roleCategory = "spouse";
-          break;
-        case "فرزند":
-          roleCategory = "children";
-          break;
-        default:
-          return;
-      }
+    if (selectedCitizen && selectedRelation) {
+      // Create member object with selected relation
+      const memberWithRelation = {
+        ...selectedCitizen,
+        relation: selectedRelation,
+      };
 
-      // Determine if adding is allowed based on constraints
-      const isAllowed = (() => {
-        switch (roleCategory) {
-          case "children":
-            return members.children.length < 4;
-          case "siblings":
-            return members.siblings.length < 4;
-          case "spouse":
-            return members.spouse.length < 1;
-          case "parent":
-            return members.parent.length < 2;
-          default:
-            return false;
-        }
-      })();
-
-      const category =
-        roleCategory === "children"
-          ? "فرزندان"
-          : roleCategory === "parent"
-          ? "والدین"
-          : roleCategory === "siblings"
-          ? "خواهر و برادر"
-          : roleCategory === "spouse"
-          ? "همسر"
-          : "";
-      if (isAllowed) {
-        setMembers((prevMembers) => ({
-          ...prevMembers,
-          [roleCategory]:
-            roleCategory === "spouse"
-              ? [selectedCitizen] // Replace existing spouse
-              : [...prevMembers[roleCategory], selectedCitizen], // Add new member
+      // Update members based on memberType
+      if (members[memberType].length < getMemberTypeLimit(memberType)) {
+        setMembers((prev) => ({
+          ...prev,
+          [memberType]: [...prev[memberType], memberWithRelation],
         }));
+
         toast.success(
-          `${selectedCitizen.name} با موفقیت به ${category} اضافه شد!`
+          `${selectedCitizen.name} با موفقیت به ${getTranslatedMemberType(
+            memberType
+          )} اضافه شد!`
         );
-        console.log(`${selectedCitizen.name} added to ${roleCategory}`);
         setMode(1);
       } else {
-        toast.error(`بیش از این نمی توانید عضو به ${category} وارد کنید!`);
-        console.log(
-          `Cannot add ${selectedCitizen.name} to ${roleCategory} due to constraints.`
+        toast.error(
+          `تعداد اعضای ${getTranslatedMemberType(
+            memberType
+          )} به حداکثر رسیده است`
         );
-        setOpenDetails(false);
       }
+      setOpenDetails(false);
     }
   };
+
+  const getMemberTypeLimit = (type) => {
+    switch (type) {
+      case "children":
+        return 4;
+      case "siblings":
+        return 4;
+      case "spouse":
+        return 1;
+      case "parent":
+        return 2;
+      default:
+        return 0;
+    }
+  };
+
   console.log(selectedCitizen.age, memberType);
   return (
     <ModalLg titleId={832} setShowModal={setOpenDetails}>
-      <MemberCard selectedCitizen={selectedCitizen} memberType={memberType} />
+      <MemberCard
+        selectedCitizen={selectedCitizen}
+        memberType={memberType}
+        setSelectedRelation={setSelectedRelation}
+      />
       <Texts>
         {memberType == "children" && selectedCitizen.age < 18 ? (
           <Settings>
@@ -177,9 +160,10 @@ const SubmitDynastyModal = ({
         <Button
           label={getFieldTranslationByNames(823)}
           color="#18C08F"
-          onclick={handleAccept} // Fixed typo here
+          onclick={handleAccept}
           fit
           textColor="#D7FBF0"
+          disabled // Button will be disabled when no relation is selected
         />
         <Button
           label={getFieldTranslationByNames(824)}

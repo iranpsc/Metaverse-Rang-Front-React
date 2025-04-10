@@ -1,5 +1,5 @@
 import { IoRadioButtonOnOutline } from "react-icons/io5";
-import avatar from "../../../../../Assets/images/profile.png";
+import avatar from "../../../../../Assets/images/user.png";
 import styled from "styled-components";
 import {
   convertToPersian,
@@ -80,21 +80,45 @@ const Profile = styled.div`
     transition: all 0.2s linear;
   }
 `;
-const MemberCard = ({ selectedCitizen, memberType }) => {
-  // Get translated member type
-  const getTranslatedMemberType = (type) => {
-    switch (type) {
-      case "parent":
-        return getFieldTranslationByNames(1396); // والدین
-      case "spouse":
-        return getFieldTranslationByNames(1397); // همسر
-      case "siblings":
-        return getFieldTranslationByNames(826); // خواهر و برادر
-      case "children":
-        return getFieldTranslationByNames(827); // فرزندان
-      default:
-        return type;
-    }
+
+// Add styled dropdown component
+const StyledSelect = styled.select`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
+  color: ${(props) => props.theme.colors.newColors.otherColors.title};
+  border: 1px solid ${(props) => props.theme.colors.newColors.shades.title};
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 14px;
+  width: 50%;
+  margin-top: 5px;
+
+  &:focus {
+    outline: none;
+    border-color: ${(props) => props.theme.colors.primary};
+  }
+`;
+
+const MemberCard = ({ selectedCitizen, memberType, setSelectedRelation }) => {
+  const relationTypes = {
+    parent: [
+      { value: "father", label: getFieldTranslationByNames(125) }, // پدر
+      { value: "mother", label: getFieldTranslationByNames(126) }, // مادر
+    ],
+    siblings: [
+      { value: "brother", label: getFieldTranslationByNames(127) }, // برادر
+      { value: "sister", label: getFieldTranslationByNames(128) }, // خواهر
+    ],
+    spouse: [
+      { value: "spouse", label: getFieldTranslationByNames(825) }, // همسر
+    ],
+    children: [
+      { value: "son", label: getFieldTranslationByNames(129) }, // پسر
+    ],
+  };
+
+  const handleRelationChange = (e) => {
+    setSelectedRelation(e.target.value);
   };
 
   return (
@@ -102,12 +126,13 @@ const MemberCard = ({ selectedCitizen, memberType }) => {
       <Right>
         <IoRadioButtonOnOutline size={24} />
         <Profile>
-          <img src={avatar} width={80} height={80} />
+          <img src={selectedCitizen?.image || avatar} width={80} height={80} />
           <div>
             <h3>{selectedCitizen?.name}</h3>
             <a
               href={`https://rgb.irpsc.com/fa/citizen/${selectedCitizen?.code}`}
               target="_blank"
+              rel="noopener noreferrer"
             >
               {selectedCitizen?.code}
             </a>
@@ -115,11 +140,18 @@ const MemberCard = ({ selectedCitizen, memberType }) => {
         </Profile>
       </Right>
       <Center>
-        <h4>نسبت</h4>
-        <h3>{getTranslatedMemberType(memberType)}</h3>
+        <h4>{getFieldTranslationByNames(834)}</h4> {/* نسبت */}
+        <StyledSelect onChange={handleRelationChange}>
+          <option value="">انتخاب کنید</option>
+          {relationTypes[memberType]?.map((relation) => (
+            <option key={relation.value} value={relation.value}>
+              {relation.label}
+            </option>
+          ))}
+        </StyledSelect>
       </Center>
       <Left>
-        <h4>سن</h4>
+        <h4>{getFieldTranslationByNames(1400)}</h4> {/* سن */}
         <h3>{convertToPersian(selectedCitizen?.age)} سال</h3>
       </Left>
     </Container>
