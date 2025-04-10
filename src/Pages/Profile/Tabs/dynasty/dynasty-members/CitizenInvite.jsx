@@ -40,7 +40,8 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
         const response = await Request("dynasty/search", HTTP_METHOD.POST, {
           searchTerm,
         });
-        setCitizens(response.data ? response.data : []);
+
+        setCitizens(response.data ? Object.values(response.data) : []);
       } catch (error) {
         ToastError("خطا در جستجوی کاربر");
         setCitizens([]);

@@ -17,7 +17,7 @@ const settings = [
   { id: 7, label: 138 },
   { id: 8, label: 842 },
   { id: 9, label: 843 },
-  { id: 10, label: 845 },
+  { id: 10, label: 844 },
 ];
 
 const Container = styled.div`

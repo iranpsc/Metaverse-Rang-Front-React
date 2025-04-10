@@ -3,7 +3,6 @@ import {
   AddUserAction,
   DeleteUserAction,
 } from "../../Actions/UserContextAction";
-import { FollowContext } from "../../Reducers/FollowContext";
 import { UserContext } from "../../Reducers/UserContext";
 import {
   WalletContext,
@@ -12,77 +11,100 @@ import {
 import { getItem, removeItem, setItem } from "../../Utility/LocalStorage";
 import useRequest from "../useRequest";
 
+const USER_STORAGE_KEY = "user";
+const API_ENDPOINTS = {
+  WALLET: "user/wallet",
+  PROFILE: "auth/me",
+};
+
 export default function useAuth() {
   const [userState, setUserState] = useContext(UserContext);
-  const [, setWallet] = useContext(WalletContext);
-  const [, setFollow] = useContext(FollowContext);
+  const [setWallet] = useContext(WalletContext);
   const { Request, HTTP_METHOD } = useRequest();
 
-  const LocalStorage = getItem("user");
-  const isLoggedIn = () => {
-    if (LocalStorage?.expire > Date.now() && userState?.id) {
-      return true;
-    } else {
-      if (userState.id) {
-        removeItem("user");
-        setUserState(DeleteUserAction());
-      }
-      return false;
+  const storage = getItem(USER_STORAGE_KEY);
+
+  const clearUserSession = () => {
+    if (userState?.id) {
+      removeItem(USER_STORAGE_KEY);
+      setUserState(DeleteUserAction());
     }
   };
 
-  const setUser = async (response) => {
-    const user = response;
-    const expire = Date.now() + parseInt(user.automatic_logout) * 60 * 1000;
-    const LocalStorageData = { token: user.token, expire: expire };
+  const isLoggedIn = () => {
+    const now = Date.now();
 
-    setItem("user", LocalStorageData);
-    const [walletResponse, profileResponse] = await Promise.all([
-      Request(
-        "user/wallet",
-        HTTP_METHOD.GET,
-        {},
-        { Authorization: `Bearer ${user?.token}` },
-        "development"
-      ),
-      Request(
-        "auth/me",
-        HTTP_METHOD.POST,
-        {},
-        { Authorization: `Bearer ${user?.token}` },
-        "development"
-      ),
-    ]);
-    setWallet({
-      type: WalletContextTypes.ADD_WALLET,
-      payload: walletResponse.data.data,
-    });
-    setUserState(AddUserAction(profileResponse.data.data));
+    if (!storage?.expire || storage.expire <= now || !userState?.id) {
+      clearUserSession();
+      return false;
+    }
+
+    return true;
   };
 
-  const getUser = () => {
-    return userState;
+  const fetchUserData = async (token) => {
+    try {
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+      const [walletResponse, profileResponse] = await Promise.all([
+        Request(API_ENDPOINTS.WALLET, HTTP_METHOD.GET, headers),
+        Request(API_ENDPOINTS.PROFILE, HTTP_METHOD.POST, headers),
+      ]);
+
+      return {
+        wallet: walletResponse.data.data,
+        profile: profileResponse.data.data,
+      };
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+      throw error;
+    }
+  };
+
+  const setUser = async (userData) => {
+    try {
+      const expire =
+        Date.now() + parseInt(userData.automatic_logout) * 60 * 1000;
+      setItem(USER_STORAGE_KEY, {
+        token: userData.token,
+        expire,
+      });
+
+      const { wallet, profile } = await fetchUserData(userData.token);
+
+      setWallet({
+        type: WalletContextTypes.ADD_WALLET,
+        payload: wallet,
+      });
+      setUserState(AddUserAction(profile));
+    } catch (error) {
+      clearUserSession();
+      throw error;
+    }
   };
 
   const setUserWithToken = async () => {
-    if (true) {
-      const userProfileResponse = await Request("auth/me", HTTP_METHOD.POST);
-      setUserState(AddUserAction(userProfileResponse.data.data));
-
-      const [walletResponse, followingResponse] = await Promise.all([
-        Request("user/wallet"),
-        Request("following"),
+    try {
+      const [profileResponse, walletResponse] = await Promise.all([
+        Request(API_ENDPOINTS.PROFILE, HTTP_METHOD.POST),
+        Request(API_ENDPOINTS.WALLET),
       ]);
 
+      setUserState(AddUserAction(profileResponse.data.data));
       setWallet({
         type: WalletContextTypes.ADD_WALLET,
         payload: walletResponse.data.data,
       });
-      setFollow(followingResponse.data.data);
-    } else {
-      removeItem("user");
+    } catch (error) {
+      clearUserSession();
+      throw error;
     }
   };
 
-  return { setUser, setUserWithToken, isLoggedIn, getUser };
+  return {
+    setUser,
+    setUserWithToken,
+    isLoggedIn,
+    getUser: () => userState,
+  };
 }
