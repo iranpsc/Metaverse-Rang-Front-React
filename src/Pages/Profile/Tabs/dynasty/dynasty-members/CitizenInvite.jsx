@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, useCallback } from "react";
 import CitizenCard from "./CitizenCard";
+import { RiUserUnfollowLine, RiLoader4Line } from "react-icons/ri";
 
 import Button from "../../../../../Components/Button";
 import Title from "../../../../../Components/Title";
@@ -16,6 +17,7 @@ import {
   Citizens,
   Buttons,
   SelectButton,
+  IconWrapper, // Add this import
 } from "./styles/CitizenInvite.styles";
 import SubmitDynastyModal from "./SubmitDynastyModal";
 
@@ -24,6 +26,7 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
   const [openDetails, setOpenDetails] = useState(false);
   const [selectedCitizen, setSelectedCitizen] = useState(null);
   const [citizens, setCitizens] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
   const { Request, HTTP_METHOD } = useRequest();
 
   const handleSearch = useCallback(
@@ -36,15 +39,17 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
         return;
       }
 
+      setIsSearching(true); // شروع جستجو
       try {
         const response = await Request("dynasty/search", HTTP_METHOD.POST, {
           searchTerm,
         });
-
-        setCitizens(response.data ? Object.values(response.data) : []);
+        setCitizens(response.data ? response.data.date : []);
       } catch (error) {
         ToastError("خطا در جستجوی کاربر");
         setCitizens([]);
+      } finally {
+        setIsSearching(false); // پایان جستجو
       }
     },
     [Request]
@@ -94,20 +99,28 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
           />
         </Header>
         <Citizens>
-          {searched &&
-            citizens.map((citizen) => (
-              <CitizenCard
-                key={citizen.id}
-                mode={mode}
-                members={members}
-                citizens={citizens}
-                setMode={setMode}
-                onClick={() => handleCitizenClick(citizen)}
-                isSelected={selectedCitizen?.id === citizen.id}
-                {...citizen}
-              />
-            ))}
+          {citizens.map((citizen) => (
+            <CitizenCard
+              key={citizen.id}
+              mode={mode}
+              members={members}
+              citizens={citizens}
+              setMode={setMode}
+              onClick={() => handleCitizenClick(citizen)}
+              isSelected={selectedCitizen?.id === citizen.id}
+              {...citizen}
+            />
+          ))}
         </Citizens>
+        {isSearching ? (
+          <IconWrapper>
+            <RiLoader4Line size={40} className="spin" />
+          </IconWrapper>
+        ) : searched && citizens.length === 0 ? (
+          <IconWrapper>
+            <RiUserUnfollowLine size={40} />
+          </IconWrapper>
+        ) : null}
         <Buttons>
           <SelectButton
             disabled={!selectedCitizen || !selectedCitizen.verified}

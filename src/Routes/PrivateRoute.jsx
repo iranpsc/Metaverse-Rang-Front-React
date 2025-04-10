@@ -7,7 +7,7 @@ export default function PrivateRoute({ children }) {
   const { isLoggedIn } = useAuth();
   const navigation = useNavigate();
   const [components, setComponents] = useState();
-  const { Request } = useRequest();
+  const { Request, HTTP_METHOD } = useRequest();
   useEffect(() => {
     if (!isLoggedIn()) {
       // This check isn't preventing unwanted redirects properly

@@ -83,3 +83,22 @@ export const SelectButton = styled.button`
   cursor: pointer;
   font-family: inherit;
 `;
+
+export const IconWrapper = styled.div`
+  text-align: center;
+  color: #808080;
+  margin: 20px 0;
+
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
