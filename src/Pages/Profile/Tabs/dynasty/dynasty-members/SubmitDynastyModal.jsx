@@ -81,6 +81,7 @@ const SubmitDynastyModal = ({
   const [selectedRelation, setSelectedRelation] = useState("");
 
   const handleAccept = () => {
+    console.log(1);
     if (selectedCitizen && selectedRelation) {
       // Create member object with selected relation
       const memberWithRelation = {
@@ -163,7 +164,7 @@ const SubmitDynastyModal = ({
           onclick={handleAccept}
           fit
           textColor="#D7FBF0"
-          disabled // Button will be disabled when no relation is selected
+          disabled={!selectedRelation} // Button will be disabled when no relation is selected
         />
         <Button
           label={getFieldTranslationByNames(824)}
