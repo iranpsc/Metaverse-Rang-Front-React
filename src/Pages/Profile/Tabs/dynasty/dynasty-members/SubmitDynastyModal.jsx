@@ -8,18 +8,20 @@ import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 import ModalLg from "../../../../../Components/Modal/ModalLg";
 import OnOff from "../../../../Settings/Tabs/OnOff";
 import { useState } from "react";
+import useRequest from "../../../../../Services/Hooks/useRequest";
+import { values } from "lodash";
 
 const settings = [
-  { id: 1, label: 836 },
-  { id: 2, label: 837 },
-  { id: 3, label: 838 },
-  { id: 4, label: 839 },
-  { id: 5, label: 840 },
-  { id: 6, label: 841 },
-  { id: 7, label: 138 },
-  { id: 8, label: 842 },
-  { id: 9, label: 843 },
-  { id: 10, label: 844 },
+  { id: 1, label: 836, name: "BFR", value: 0 },
+  { id: 2, label: 837, name: "SF", value: 0 },
+  { id: 3, label: 838, name: "W", value: 0 },
+  { id: 4, label: 839, name: "JU", value: 0 },
+  { id: 5, label: 840, name: "PIUP", value: 0 },
+  { id: 6, label: 841, name: "PITC", value: 0 },
+  { id: 7, label: 138, name: "DM", value: 0 },
+  { id: 8, label: 842, name: "PIC", value: 0 },
+  { id: 9, label: 843, name: "ESOO", value: 0 },
+  { id: 10, label: 844, name: "COTB", value: 0 },
 ];
 
 const Buttons = styled.div`
@@ -79,21 +81,35 @@ const SubmitDynastyModal = ({
   memberType,
 }) => {
   const [selectedRelation, setSelectedRelation] = useState("");
+  const { Request, HTTP_METHOD } = useRequest();
 
-  const handleAccept = () => {
-    console.log(1);
-    if (selectedCitizen && selectedRelation) {
-      // Create member object with selected relation
-      const memberWithRelation = {
-        ...selectedCitizen,
-        relation: selectedRelation,
-      };
+  const handleAccept = async () => {
+    if (!selectedCitizen || !selectedRelation) return;
 
-      // Update members based on memberType
+    const body = {
+      user: selectedCitizen.id,
+      relationship: selectedRelation,
+    };
+
+    // Add permissions if citizen is under 18
+    if (selectedCitizen.age <= 18) {
+      body.permissions = settings.reduce((acc, setting) => {
+        acc[setting.id] = true; // You might want to track these values in state
+        return acc;
+      }, {});
+    }
+
+    try {
+      await Request("dynasty/add/member", HTTP_METHOD.POST, body);
+
+      // Update local state
       if (members[memberType].length < getMemberTypeLimit(memberType)) {
         setMembers((prev) => ({
           ...prev,
-          [memberType]: [...prev[memberType], memberWithRelation],
+          [memberType]: [
+            ...prev[memberType],
+            { ...selectedCitizen, relation: selectedRelation },
+          ],
         }));
 
         toast.success(
@@ -110,6 +126,13 @@ const SubmitDynastyModal = ({
         );
       }
       setOpenDetails(false);
+    } catch (error) {
+      if (error.response?.status === 410) {
+        toast.error("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+        // You might want to add navigation here
+      } else {
+        toast.error(error.response?.data?.message || "خطا در ارسال درخواست");
+      }
     }
   };
 
@@ -128,7 +151,6 @@ const SubmitDynastyModal = ({
     }
   };
 
-  console.log(selectedCitizen.age, memberType);
   return (
     <ModalLg titleId={832} setShowModal={setOpenDetails}>
       <MemberCard
