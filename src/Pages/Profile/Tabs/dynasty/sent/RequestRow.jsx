@@ -91,7 +91,7 @@ const RequestRow = ({ code, date, time, status, member, gif, psc }) => {
       <TableRow className="odd:bg-slate-50 hover:bg-black/10 py-5 duration-200">
         <TableCell>
           <div>
-            <Code>HM-{code}</Code>
+            <Code>{code}</Code>
           </div>
         </TableCell>
         <TableCell>

@@ -9,7 +9,8 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
-import { useState } from "react";
+import useRequest from "../../../../../Services/Hooks/useRequest";
+import { useState, useEffect } from "react";
 import Title from "../../../../../Components/Title";
 
 const Container = styled.div`
@@ -89,370 +90,11 @@ const Date = styled.div`
     font-size: 16px;
   }
 `;
-const rows_items = [
-  {
-    id: 1,
-    code: "827161",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "فرزند",
-    status: "confirmed",
-    member_slug: "child",
-    gif: 0.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 2,
-    code: "789452",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "مادر",
-    status: "failed",
-    member_slug: "mother",
-    gif: 1.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 3,
-    code: "953258",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "پدر",
-    status: "confirmed",
-    member_slug: "father",
-    gif: 1.6,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 4,
-    code: "135647",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "مادر",
-    status: "pending",
-    member_slug: "mother",
-    gif: 1.7,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 5,
-    code: "978512",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "failed",
-    member_slug: "sister",
-    gif: 1.6,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 6,
-    code: "954274",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "مادر",
-    status: "pending",
-    member_slug: "mother",
-    gif: 3.2,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 7,
-    code: "875162",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "pending",
-    member_slug: "sister",
-    gif: 1.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 8,
-    code: "147862",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "برادر",
-    status: "confirmed",
-    member_slug: "brother",
-    gif: 0.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 9,
-    code: "865721",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "پدر",
-    status: "failed",
-    member_slug: "father",
-    gif: 3.2,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 10,
-    code: "827161",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "همسر",
-    status: "confirmed",
-    member_slug: "wife",
-    gif: 0.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 11,
-    code: "789452",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "فرزند",
-    status: "pending",
-    member_slug: "child",
-    gif: 1.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 12,
-    code: "953258",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "confirmed",
-    member_slug: "sister",
-    gif: 1.6,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 13,
-    code: "135647",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "فرزند",
-    status: "failed",
-    member_slug: "child",
-    gif: 1.7,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 14,
-    code: "978512",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "پدر",
-    status: "confirmed",
-    member_slug: "father",
-    gif: 1.6,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 15,
-    code: "954274",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "برادر",
-    status: "pending",
-    member_slug: "brother",
-    gif: 3.2,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 16,
-    code: "875162",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "pending",
-    member_slug: "sister",
-    gif: 1.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 17,
-    code: "147862",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "مادر",
-    status: "confirmed",
-    member_slug: "mother",
-    gif: 0.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 18,
-    code: "865721",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "pending",
-    member_slug: "sister",
-    gif: 3.2,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 19,
-    code: "827161",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "فرزند",
-    status: "failed",
-    member_slug: "child",
-    gif: 0.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 20,
-    code: "789452",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "همسر",
-    status: "pending",
-    member_slug: "wife",
-    gif: 1.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 21,
-    code: "953258",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "پدر",
-    status: "confirmed",
-    member_slug: "father",
-    gif: 1.6,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 22,
-    code: "135647",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "فرزند",
-    status: "pending",
-    member_slug: "child",
-    gif: 1.7,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 23,
-    code: "978512",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "confirmed",
-    member_slug: "sister",
-    gif: 1.6,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 24,
-    code: "954274",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "برادر",
-    status: "pending",
-    member_slug: "brother",
-    gif: 3.2,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 25,
-    code: "875162",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "pending",
-    member_slug: "sister",
-    gif: 1.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 26,
-    code: "147862",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "برادر",
-    status: "confirmed",
-    member_slug: "brother",
-    gif: 0.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 27,
-    code: "865721",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "pending",
-    member_slug: "sister",
-    gif: 3.2,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 28,
-    code: "865721",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "pending",
-    member_slug: "sister",
-    gif: 3.2,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 29,
-    code: "865721",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "pending",
-    member_slug: "sister",
-    gif: 3.2,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 30,
-    code: "865721",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    time: " ۱۶:۲۱:۰۸",
-    member: "خواهر",
-    status: "pending",
-    member_slug: "sister",
-    gif: 3.2,
-    count: 100,
-    psc: 1000,
-  },
-];
+
 const SentList = () => {
+  const { Request } = useRequest();
   const [searched, setSearched] = useState("");
+  const [rows, setRows] = useState([]);
   const [status, setStatus] = useState({
     pending: false,
     confirmed: false,
@@ -468,7 +110,48 @@ const SentList = () => {
     wife: false,
   });
 
-  const [rows, setRows] = useState(rows_items);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Request("dynasty/requests/sent");
+        const formattedData = response.data.data.map((item) => ({
+          id: item.id,
+          code: item.to_user.code,
+          date: item.date,
+          time: item.time,
+          member: item.relationship,
+          status:
+            item.status === 1
+              ? "confirmed"
+              : item.status === 0
+              ? "pending"
+              : "failed",
+          member_slug: getMemberSlug(item.relationship),
+          gif: 1.0, // Default value or calculate as needed
+          count: 100, // Default value or calculate as needed
+          psc: 1000, // Default value or calculate as needed
+        }));
+        setRows(formattedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const getMemberSlug = (relationship) => {
+    const slugMap = {
+      برادر: "brother",
+      خواهر: "sister",
+      پدر: "father",
+      مادر: "mother",
+      فرزند: "child",
+      همسر: "wife",
+    };
+    return slugMap[relationship] || relationship.toLowerCase();
+  };
+
   const filteredItems = rows.filter((row) => {
     const codeMatch = row.code.toString().includes(searched);
     const statusMatch =
