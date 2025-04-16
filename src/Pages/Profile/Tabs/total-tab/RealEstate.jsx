@@ -1,8 +1,8 @@
 import PropertyCard from "./PropertyCard";
-import property1 from "../../../../Assets/gif/satisfaction.gif";
-import property2 from "../../../../Assets/images/building.png";
-import property3 from "../../../../Assets/images/house.png";
-import property4 from "../../../../Assets/images/courthouse.png";
+import property1 from "../../../../assets/gif/satisfaction.gif";
+import property2 from "../../../../assets/images/building.png";
+import property3 from "../../../../assets/images/house.png";
+import property4 from "../../../../assets/images/courthouse.png";
 import styled from "styled-components";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { useContext, useEffect, useState } from "react";
@@ -17,17 +17,16 @@ const Container = styled.div`
   margin-top: 20px;
 `;
 const RealEstate = () => {
-  const [assets, setAssets] = useState({});
+  const [assets, setassets] = useState({});
   const { Request, HTTP_METHOD } = useRequest();
   const [wallet] = useContext(WalletContext);
   const [user] = useContext(UserContext);
   useEffect(() => {
-    Request(
-      `users/${user?.id}/features/count`,
-      HTTP_METHOD.GET,
-    ).then((response) => {
-      setAssets(response.data.data);
-    });
+    Request(`users/${user?.id}/features/count`, HTTP_METHOD.GET).then(
+      (response) => {
+        setassets(response.data.data);
+      }
+    );
   }, []);
   const properties = [
     {

@@ -8,9 +8,9 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
 import Mark from "./3dModelMap/Mark";
 import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
-import { ReactComponent as UnZoomIcon } from "../../Assets/images/UnZoom.svg";
-import { ReactComponent as ZoomIcon } from "../../Assets/images/zoom.svg";
-import { ReactComponent as FullPageIcon } from "../../Assets/images/fullPage.svg";
+import { ReactComponent as UnZoomIcon } from "../../assets/images/UnZoom.svg";
+import { ReactComponent as ZoomIcon } from "../../assets/images/zoom.svg";
+import { ReactComponent as FullPageIcon } from "../../assets/images/fullPage.svg";
 import { useLanguage } from "../../Services/Reducers/LanguageContext";
 
 // Styled components

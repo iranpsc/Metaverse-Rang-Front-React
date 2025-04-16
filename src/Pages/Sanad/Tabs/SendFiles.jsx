@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import nonPhoto from "../../../Assets/images/file.png";
-import remove from "../../../Assets/images/remove.png";
+import nonPhoto from "../../../assets/images/file.png";
+import remove from "../../../assets/images/remove.png";
 import styled from "styled-components";
 import Title from "../../../Components/Title";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
@@ -118,9 +118,7 @@ const SendFiles = ({ files, onFilesChange }) => {
 
   return (
     <Container>
-      <Title
-        title={getFieldTranslationByNames("1328")}
-      />
+      <Title title={getFieldTranslationByNames("1328")} />
       <Files>
         {preview && (
           <FilePreview>

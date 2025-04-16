@@ -1,4 +1,4 @@
-import avatar from "../../../../../Assets/images/slide.png";
+import avatar from "../../../../../assets/images/slide.png";
 import styled from "styled-components";
 
 const Container = styled.div`

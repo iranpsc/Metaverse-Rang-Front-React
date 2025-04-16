@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
-import AnonymousImage from "../../../../../Assets/images/anonymous.png";
+import AnonymousImage from "../../../../../assets/images/anonymous.png";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`

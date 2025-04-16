@@ -6,7 +6,7 @@ import i18n from "../../i18n/i18n";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
-import LangIcon from "../../Assets/svg/lang.svg";
+import LangIcon from "../../assets/svg/lang.svg";
 const Container = styled.div`
   width: 100%;
   display: flex;

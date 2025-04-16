@@ -1,4 +1,4 @@
-import house from "../../../../../Assets/images/house.png";
+import house from "../../../../../assets/images/house.png";
 import styled from "styled-components";
 import Button from "../../../../../Components/Button";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";

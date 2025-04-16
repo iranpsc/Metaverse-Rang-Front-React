@@ -1,16 +1,16 @@
 import Title from "../../../../Components/Title";
-import { ReactComponent as CircleIcon } from "../../../../Assets/images/reports/link-circle.svg";
-import { ReactComponent as InstaIcon } from "../../../../Assets/images/reports/instagram.svg";
-import { ReactComponent as SendIcon } from "../../../../Assets/images/reports/send-2.svg";
-import { ReactComponent as WhatsappIcon } from "../../../../Assets/images/reports/whatsapp.svg";
+import { ReactComponent as CircleIcon } from "../../../../assets/images/reports/link-circle.svg";
+import { ReactComponent as InstaIcon } from "../../../../assets/images/reports/instagram.svg";
+import { ReactComponent as SendIcon } from "../../../../assets/images/reports/send-2.svg";
+import { ReactComponent as WhatsappIcon } from "../../../../assets/images/reports/whatsapp.svg";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
 import { convertToPersian } from "../../../../Services/Utility/index";
 import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
 
-
 const Container = styled.div`
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
@@ -29,8 +29,12 @@ const Content = styled.div`
   margin-top: 20px;
 `;
 const Socials = styled.div`
-  ${({ isPersian }) => isPersian ? "padding-right: 20px;" : "padding-left: 20px;"} 
-  ${({ isPersian }) => isPersian ? "border-right: 1px solid #454545;" : "border-left: 1px solid #454545;"}  
+  ${({ isPersian }) =>
+    isPersian ? "padding-right: 20px;" : "padding-left: 20px;"}
+  ${({ isPersian }) =>
+    isPersian
+      ? "border-right: 1px solid #454545;"
+      : "border-left: 1px solid #454545;"}  
   
 
   h3 {
@@ -45,12 +49,9 @@ const Socials = styled.div`
     gap: 20px;
 
     .stroke-color {
-      stroke: ${(props) => props.theme.colors.newColors.shades.title}; 
-      
-      }
-     
+      stroke: ${(props) => props.theme.colors.newColors.shades.title};
+    }
   }
- 
 `;
 const Texts = styled.div`
   p {
@@ -94,7 +95,7 @@ const Status = styled.div`
         ? "#18C08F"
         : props.status === "pending"
         ? "#FFC700"
-        : "#A0A0AB"}
+        : "#A0A0AB"};
   }
 `;
 const Date = styled.div`
@@ -123,7 +124,9 @@ const ReportCard = ({
 }) => {
   const isPersian = useLanguage();
   const truncateTitle = (titleString) => {
-    return titleString.length > 60 ? titleString.substring(0, 60) + '...' : titleString;
+    return titleString.length > 60
+      ? titleString.substring(0, 60) + "..."
+      : titleString;
   };
   return (
     <Container>
@@ -131,27 +134,28 @@ const ReportCard = ({
         <Texts>
           <Title title={truncateTitle(reportDetails.title)} />
           <p>
-          {getFieldTranslationByNames("1376")}{" "}<span>{domain}</span> {getFieldTranslationByNames("1377")}
-            <span>{" "} {subdomain}</span> </p>
+            {getFieldTranslationByNames("1376")} <span>{domain}</span>{" "}
+            {getFieldTranslationByNames("1377")}
+            <span> {subdomain}</span>{" "}
+          </p>
         </Texts>
         <Socials isPersian={isPersian}>
-  <h3>{getFieldTranslationByNames("244")}</h3>
-  <div>
-    {socials.map((item) => (
-      <div key={item.id} style={{ width: 24, height: 24 }}>
-        {item.icon}
-      </div>
-    ))}
-  </div>
-</Socials>
-
+          <h3>{getFieldTranslationByNames("244")}</h3>
+          <div>
+            {socials.map((item) => (
+              <div key={item.id} style={{ width: 24, height: 24 }}>
+                {item.icon}
+              </div>
+            ))}
+          </div>
+        </Socials>
       </Info>
       <Content>
         <Code>
           <Label>{getFieldTranslationByNames("1383")} </Label>
           <h2>#{convertToPersian(code)}</h2>
         </Code>
-       {/* <Subject>
+        {/* <Subject>
           <Label>{getFieldTranslationByNames("746")}</Label>
           <h2>{member}</h2>
         </Subject>*/}
@@ -162,13 +166,14 @@ const ReportCard = ({
               ? getFieldTranslationByNames("1343")
               : status === "pending"
               ? getFieldTranslationByNames("852")
-              : getFieldTranslationByNames("852")}{/*getFieldTranslationByNames("1345")*/}
+              : getFieldTranslationByNames("852")}
+            {/*getFieldTranslationByNames("1345")*/}
           </h2>
         </Status>
         <Date>
           <Label>{getFieldTranslationByNames("850")}</Label>
           <h2>
-          {date} | {time}
+            {date} | {time}
           </h2>
         </Date>
       </Content>

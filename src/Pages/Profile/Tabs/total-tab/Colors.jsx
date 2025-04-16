@@ -1,10 +1,10 @@
 import ColorCard from "./ColorCard";
-import gif1 from "../../../../Assets/gif/limit-of-influence.gif";
-import gif2 from "../../../../Assets/gif/yellow-color.gif";
-import gif3 from "../../../../Assets/gif/red-color.gif";
-import gif4 from "../../../../Assets/gif/blue-color.gif";
-import gif5 from "../../../../Assets/gif/rial.gif";
-import gif6 from "../../../../Assets/gif/psc.gif";
+import gif1 from "../../../../assets/gif/limit-of-influence.gif";
+import gif2 from "../../../../assets/gif/yellow-color.gif";
+import gif3 from "../../../../assets/gif/red-color.gif";
+import gif4 from "../../../../assets/gif/blue-color.gif";
+import gif5 from "../../../../assets/gif/rial.gif";
+import gif6 from "../../../../assets/gif/psc.gif";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";

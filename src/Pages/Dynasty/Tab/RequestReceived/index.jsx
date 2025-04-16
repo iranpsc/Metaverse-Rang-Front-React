@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Message from "./Components/Message";
 //icons
-import PscCoin from "../../../../Assets/images/psc-2.png";
-import DataBaseIcon from "../../../../Assets/images/database.png";
-import SatisfactionICoin from "../../../../Assets/images/satisfaction.png";
-import IncreaseICoin from "../../../../Assets/images/increase.png";
-import BankICoin from "../../../../Assets/images/bank.png";
-import SeenICoin from "../../../../Assets/images/eye-scanner.png";
+import PscCoin from "../../../../assets/images/psc-2.png";
+import DataBaseIcon from "../../../../assets/images/database.png";
+import SatisfactionICoin from "../../../../assets/images/satisfaction.png";
+import IncreaseICoin from "../../../../assets/images/increase.png";
+import BankICoin from "../../../../assets/images/bank.png";
+import SeenICoin from "../../../../assets/images/eye-scanner.png";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { useEffect, useState } from "react";
 

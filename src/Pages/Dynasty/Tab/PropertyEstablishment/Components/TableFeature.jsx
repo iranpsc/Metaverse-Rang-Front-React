@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import HomeSelect from "../../../../../Assets/images/home-check.png";
-import HomeChange from "../../../../../Assets/images/change-house.png";
+import HomeSelect from "../../../../../assets/images/home-check.png";
+import HomeChange from "../../../../../assets/images/change-house.png";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { ToastError, ToastSuccess } from "../../../../../Services/Utility";
 import { useNavigate } from "react-router-dom";

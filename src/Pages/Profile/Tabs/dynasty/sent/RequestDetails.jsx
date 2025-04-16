@@ -3,8 +3,8 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import MemberCard from "./MemberCard";
 import Title from "../../../../../Components/Title";
 import { convertToPersian } from "../../../../../Services/Utility";
-import gift from "../../../../../Assets/images/satisfy.png";
-import pscGif from "../../../../../Assets/gif/psc.gif";
+import gift from "../../../../../assets/images/satisfy.png";
+import pscGif from "../../../../../assets/gif/psc.gif";
 import styled from "styled-components";
 import ModalLg from "../../../../../Components/Modal/ModalLg";
 

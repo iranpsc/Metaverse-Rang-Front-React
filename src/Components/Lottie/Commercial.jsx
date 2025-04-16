@@ -2,9 +2,8 @@ import Lottie from "lottie-react";
 import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import SvgAni from "../../Assets/Json/AniBackSvg.json";
+import SvgAni from "../../assets/Json/AniBackSvg.json";
 import LottieMessage from "./Components/LottieMessage";
-
 
 const Container = styled.div`
   width: 100%;
@@ -32,16 +31,19 @@ export default function Commercial() {
 
   return (
     <Container>
-      <Lottie animationData={SvgAni} style={{
-        position: 'absolute'
-      }}/>
+      <Lottie
+        animationData={SvgAni}
+        style={{
+          position: "absolute",
+        }}
+      />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         width="804.402"
         height="489.704"
         viewBox="0 0 804.402 489.704"
-        style={{zIndex:1199}}
+        style={{ zIndex: 1199 }}
       >
         <defs>
           <linearGradient
@@ -582,9 +584,7 @@ export default function Commercial() {
           </g>
         </g>
       </svg>
-      <LottieMessage
-        title="خرید VOD تجاری با موفقیت انجام شد"
-      />
+      <LottieMessage title="خرید VOD تجاری با موفقیت انجام شد" />
     </Container>
   );
 }

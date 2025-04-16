@@ -1,5 +1,5 @@
 import { Rnd } from "react-rnd";
-import loader from "../../../../Assets/gif/loader.svg";
+import loader from "../../../../assets/gif/loader.svg";
 import styled from "styled-components";
 import Header from "../../../../Components/Education/Header";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
@@ -47,16 +47,10 @@ const LoadingModal = ({ isMobile, setOpen }) => {
       bounds="window"
       enableResizing={false}
     >
-      <Header
-        loading
-        title={5151}
-        setOpenEducation={setOpen}
-      />
+      <Header loading title={5151} setOpenEducation={setOpen} />
       <Loader>
         <img src={loader} width={130} height={130} alt="loader" />
-        <Text>
-          {getFieldTranslationByNames("552")}
-        </Text>
+        <Text>{getFieldTranslationByNames("552")}</Text>
       </Loader>
     </StyledRnd>
   );

@@ -1,7 +1,7 @@
 import { IoIosClose } from "react-icons/io";
 import { TbMinimize } from "react-icons/tb";
 import styled from "styled-components";
-import { ReactComponent as Exit } from "../../Assets/svg/close.svg";
+import { ReactComponent as Exit } from "../../assets/svg/close.svg";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 const Div = styled.div`
   position: relative;

@@ -4,7 +4,7 @@ import EditConfirmModal from "./EditConfirmModal";
 import { FiTrash2 } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 
-import satisfy from "../../../../Assets/images/satisfy.png";
+import satisfy from "../../../../assets/images/satisfy.png";
 import styled from "styled-components";
 import { useState } from "react";
 import TitleValue from "../../../Store/shop/TitleValue";
@@ -125,9 +125,7 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
             />
             <SatisfyContainer>
               <Title>
-                <h3>
-                  {getFieldTranslationByNames("567")}
-                </h3>
+                <h3>{getFieldTranslationByNames("567")}</h3>
                 <img src={satisfy} alt="pricing" width={18} height={18} />
               </Title>
               <span>{convertToPersian(satisfyCount)}</span>
@@ -163,10 +161,7 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
 
                 <SatisfyContainer>
                   <Title>
-                    <h3>
-                      {" "}
-                      {getFieldTranslationByNames("567")}
-                    </h3>
+                    <h3> {getFieldTranslationByNames("567")}</h3>
                     <img src={satisfy} alt="pricing" width={18} height={18} />
                   </Title>
                   <span>{convertToPersian(satisfyCount)}</span>

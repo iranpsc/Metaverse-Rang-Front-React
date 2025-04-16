@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import PercentageIcon from "./PercentageIcon";
 
-import KycImage from "../../Assets/images/kyc.png";
+import KycImage from "../../assets/images/kyc.png";
 import ToolTip from "../Tooltip";
 
 const RightIconContainer = styled.div`
@@ -36,7 +36,7 @@ export default function LeftIcon() {
         ContentToltip={"احراز هویت شخصی و بانکی"}
         classNamePosstion={"tw-righticon"}
       />
-      <PercentageIcon  onClick={() => navigation(`/metaverse/hour-profit`)} />
+      <PercentageIcon onClick={() => navigation(`/metaverse/hour-profit`)} />
     </RightIconContainer>
   );
 }

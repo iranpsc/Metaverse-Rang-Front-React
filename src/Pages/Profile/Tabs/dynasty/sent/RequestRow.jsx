@@ -1,8 +1,8 @@
 import { LuEye } from "react-icons/lu";
 import RequestDetails from "./RequestDetails";
 import { convertToPersian } from "../../../../../Services/Utility";
-import gift from "../../../../../Assets/images/satisfy.png";
-import pscGif from "../../../../../Assets/gif/psc.gif";
+import gift from "../../../../../assets/images/satisfy.png";
+import pscGif from "../../../../../assets/gif/psc.gif";
 import styled from "styled-components";
 import { useState } from "react";
 import useRequestDetails from "../../../../../hooks/useRequestDetails";

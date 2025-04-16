@@ -1,5 +1,5 @@
-import nonPhoto from "../../../../Assets/images/file.png";
-import remove from "../../../../Assets/images/remove.png";
+import nonPhoto from "../../../../assets/images/file.png";
+import remove from "../../../../assets/images/remove.png";
 import styled from "styled-components";
 import { useGlobalState } from "../GlobalVodStateProvider";
 import { useState } from "react";

@@ -1,5 +1,5 @@
-import chat from "../../../../../Assets/images/chat.png";
-import member from "../../../../../Assets/images/user.png";
+import chat from "../../../../../assets/images/chat.png";
+import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
 
 const Container = styled.div`

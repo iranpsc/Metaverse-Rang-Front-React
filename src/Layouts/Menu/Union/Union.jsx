@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useMenuContext } from "../../../Services/Reducers/MenuContext";
-import Message from "../../../Assets/svg/message.svg";
-import ProfileMember from "../../../Assets/svg/profileMember.svg";
-import Ticket from "../../../Assets/svg/ticket.svg";
-import Setting from "../../../Assets/svg/setting.svg";
-import { ReactComponent as UnionIcon } from "../../../Assets/svg/union.svg";
+import Message from "../../../assets/svg/message.svg";
+import ProfileMember from "../../../assets/svg/profileMember.svg";
+import Ticket from "../../../assets/svg/ticket.svg";
+import Setting from "../../../assets/svg/setting.svg";
+import { ReactComponent as UnionIcon } from "../../../assets/svg/union.svg";
 import { useState } from "react";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
 const Btn = styled.button`
@@ -68,9 +68,7 @@ const Union = () => {
     <>
       <Btn isOpenDrop={isOpenDrop}>
         <IconHeader isOpenDrop={isOpenDrop} />
-        <Text isOpen={isOpen}>
-          {getFieldTranslationByNames("39")}
-        </Text>
+        <Text isOpen={isOpen}>{getFieldTranslationByNames("39")}</Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
         <BtnNavigator>

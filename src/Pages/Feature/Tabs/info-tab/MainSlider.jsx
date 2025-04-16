@@ -1,6 +1,6 @@
 import { HiOutlineTrash } from "react-icons/hi";
 import { IoWarningOutline } from "react-icons/io5";
-import noPic from "../../../../Assets/images/nopic.jpg";
+import noPic from "../../../../assets/images/nopic.jpg";
 import styled from "styled-components";
 
 const Wrapper = styled.div`

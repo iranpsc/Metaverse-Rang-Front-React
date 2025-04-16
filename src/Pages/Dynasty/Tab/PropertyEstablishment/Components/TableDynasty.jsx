@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import Plan from "../../../../../Assets/images/floor-plan.png";
-import Building from "../../../../../Assets/images/building.png";
-import Trasfer from "../../../../../Assets/images/transfer.png";
-import User from "../../../../../Assets/images/user.png";
-import Increase from "../../../../../Assets/images/increase.png";
+import Plan from "../../../../../assets/images/floor-plan.png";
+import Building from "../../../../../assets/images/building.png";
+import Trasfer from "../../../../../assets/images/transfer.png";
+import User from "../../../../../assets/images/user.png";
+import Increase from "../../../../../assets/images/increase.png";
 import moment from "jalali-moment";
 import Countdown from "react-countdown";
 

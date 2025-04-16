@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useMenuContext } from "../../../Services/Reducers/MenuContext";
 
-import { ReactComponent as FollowingIcon } from "../../../Assets/svg/following.svg";
+import { ReactComponent as FollowingIcon } from "../../../assets/svg/following.svg";
 import { useState } from "react";
 import Follower from "./Follower";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
@@ -57,10 +57,7 @@ const Fallowing = () => {
     <>
       <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
         <IconHeader isOpenDrop={isOpenDrop} />
-        <Text isOpen={isOpen}>
-          {" "}
-          {getFieldTranslationByNames("55")}
-        </Text>
+        <Text isOpen={isOpen}> {getFieldTranslationByNames("55")}</Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
         <Follower />

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import loaderGif from "../Assets/gif/ajax-loader.gif";
+import loaderGif from "../assets/gif/ajax-loader.gif";
 
 const ButtonElement = styled.button`
   border-radius: 10px;

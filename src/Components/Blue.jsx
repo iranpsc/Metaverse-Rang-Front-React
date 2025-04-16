@@ -1,4 +1,4 @@
-import blueGif from "../Assets/gif/blue-color.gif";
+import blueGif from "../assets/gif/blue-color.gif";
 import styled from "styled-components";
 
 const Container = styled.div`

@@ -3,7 +3,7 @@ import ModalXs from "../../../Components/Modal/ModalXs";
 import InputNumber from "../../../Components/Inputs/InputNumber";
 import TextValueIcon from "../../../Components/TextValue/TextValueIcon";
 import styled from "styled-components";
-import { ReactComponent as WatchIcon } from "../../../Assets/svg/watch.svg";
+import { ReactComponent as WatchIcon } from "../../../assets/svg/watch.svg";
 import Submit from "../../../Components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../Services/Reducers/SelectedEnvironmentContext";
 import { WalletContext } from "../../../Services/Reducers/WalletContext";

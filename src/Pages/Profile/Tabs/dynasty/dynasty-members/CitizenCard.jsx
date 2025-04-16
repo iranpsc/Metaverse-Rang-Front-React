@@ -1,11 +1,11 @@
 import styled, { css, keyframes } from "styled-components";
 
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import down from "../../../../../Assets/images/downcitizen.png";
-import level1 from "../../../../../Assets/images/level1.png";
-import level2 from "../../../../../Assets/images/level2.png";
-import level3 from "../../../../../Assets/images/level3.png";
-import citizen from "../../../../../Assets/images/profile.png";
+import down from "../../../../../assets/images/downcitizen.png";
+import level1 from "../../../../../assets/images/level1.png";
+import level2 from "../../../../../assets/images/level2.png";
+import level3 from "../../../../../assets/images/level3.png";
+import citizen from "../../../../../assets/images/profile.png";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 const levels = [
   { id: "1", label: "سطح 1", image: level1 },

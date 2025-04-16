@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-import SearchIcon from "../../../Assets/images/searchIcon.png";
-import CrossIcon from "../../../Assets/images/cross.png";
-import AnonymousImg from "../../../Assets/images/anonymous.png";
+import SearchIcon from "../../../assets/images/searchIcon.png";
+import CrossIcon from "../../../assets/images/cross.png";
+import AnonymousImg from "../../../assets/images/anonymous.png";
 import useRequest from "../../../Services/Hooks/useRequest";
 
 const ParentInput = styled.div`

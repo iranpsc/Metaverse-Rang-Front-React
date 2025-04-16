@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import RedHouseIcon from "../../../Assets/images/redHouse.png";
-import YellowHouseIcon from "../../../Assets/images/yellowHouse.png";
-import BlueHouseIcon from "../../../Assets/images/blueHouse.png";
+import RedHouseIcon from "../../../assets/images/redHouse.png";
+import YellowHouseIcon from "../../../assets/images/yellowHouse.png";
+import BlueHouseIcon from "../../../assets/images/blueHouse.png";
 import { useNavigate } from "react-router-dom";
 import useRequest from "../../../Services/Hooks/useRequest";
 
@@ -91,9 +91,9 @@ const FeatureHourProfit = ({ data }) => {
   };
 
   const IconSpan = styled.img`
-  width: 18px;
-  aspect-ratio: 1/1;
-`;
+    width: 18px;
+    aspect-ratio: 1/1;
+  `;
   return (
     <Container>
       {!isSuccessful && (
@@ -109,9 +109,12 @@ const FeatureHourProfit = ({ data }) => {
             <DetaileContainer>
               <FeatureDetaile>
                 <OrangeBoldFont
-                  onClick={() => Navigate(`/metaverse/feature/${data?.feature_db_id}`)}
+                  onClick={() =>
+                    Navigate(`/metaverse/feature/${data?.feature_db_id}`)
+                  }
                 >
-                 <IconSpan src={karbariIcons[data?.karbari]} />  {data?.feature_id}
+                  <IconSpan src={karbariIcons[data?.karbari]} />{" "}
+                  {data?.feature_id}
                 </OrangeBoldFont>
                 <span>:نوع کاربری </span>
               </FeatureDetaile>

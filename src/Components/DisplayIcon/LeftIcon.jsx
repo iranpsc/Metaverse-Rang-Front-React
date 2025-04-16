@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import GiftImage from "../../Assets/images/gift-box.png";
-import SearchImage from "../../Assets/images/search.png";
-import StatisticsImage from "../../Assets/images/statistics.png";
-import DynastyImage from "../../Assets/images/dynsty.png";
+import GiftImage from "../../assets/images/gift-box.png";
+import SearchImage from "../../assets/images/search.png";
+import StatisticsImage from "../../assets/images/statistics.png";
+import DynastyImage from "../../assets/images/dynsty.png";
 import ToolTip from "../Tooltip";
 
 const Container = styled.div`

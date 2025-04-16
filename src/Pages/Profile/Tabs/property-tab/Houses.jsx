@@ -1,9 +1,9 @@
 import CardItem from "./CardItem";
 import { FiSearch } from "react-icons/fi";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import business from "../../../../Assets/images/building.png";
-import education from "../../../../Assets/images/courthouse.png";
-import house from "../../../../Assets/images/house.png";
+import business from "../../../../assets/images/building.png";
+import education from "../../../../assets/images/courthouse.png";
+import house from "../../../../assets/images/house.png";
 import styled from "styled-components";
 import { useEffect, useState, useCallback } from "react";
 import Title from "../../../../Components/Title";

@@ -1,5 +1,5 @@
 import { IoRadioButtonOnOutline } from "react-icons/io5";
-import avatar from "../../../../../Assets/images/user.png";
+import avatar from "../../../../../assets/images/user.png";
 import styled from "styled-components";
 import {
   convertToPersian,

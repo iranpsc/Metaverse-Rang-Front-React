@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import DynastySolidImg from "../../../../Assets/images/Dynasty-solid.png";
+import DynastySolidImg from "../../../../assets/images/Dynasty-solid.png";
 import Member from "./Components/Member";
 import UserSearch from "./Components/SearchBoxMember";
 import useRequest from "../../../../Services/Hooks/useRequest";

@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import PscCoin from "../../../../../Assets/images/psc-2.png";
-import DataBaseIcon from "../../../../../Assets/images/database.png";
-import SatisfactionICoin from "../../../../../Assets/images/satisfaction.png";
-import IncreaseICoin from "../../../../../Assets/images/increase.png";
-import BankICoin from "../../../../../Assets/images/bank.png";
-import DynastyICoin from "../../../../../Assets/images/dynsty.png";
-import Arrow from "../../../../../Assets/images/arrow.png";
+import PscCoin from "../../../../../assets/images/psc-2.png";
+import DataBaseIcon from "../../../../../assets/images/database.png";
+import SatisfactionICoin from "../../../../../assets/images/satisfaction.png";
+import IncreaseICoin from "../../../../../assets/images/increase.png";
+import BankICoin from "../../../../../assets/images/bank.png";
+import DynastyICoin from "../../../../../assets/images/dynsty.png";
+import Arrow from "../../../../../assets/images/arrow.png";
 
 const Container = styled.div`
   width: 100%;

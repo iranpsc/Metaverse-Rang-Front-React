@@ -1,6 +1,6 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import pscpng from "../../../../Assets/gif/psc.gif";
-import rialpng from "../../../../Assets/gif/rial.gif";
+import pscpng from "../../../../assets/gif/psc.gif";
+import rialpng from "../../../../assets/gif/rial.gif";
 import styled from "styled-components";
 import { useState } from "react";
 import {

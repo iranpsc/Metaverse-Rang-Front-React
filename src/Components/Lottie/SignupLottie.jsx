@@ -2,7 +2,7 @@ import Lottie from "lottie-react";
 import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import SvgAni from "../../Assets/Json/AniBackSvg.json";
+import SvgAni from "../../assets/Json/AniBackSvg.json";
 
 const Container = styled.div`
   width: 100%;

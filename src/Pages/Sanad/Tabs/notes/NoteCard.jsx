@@ -2,12 +2,12 @@ import { CiEdit } from "react-icons/ci";
 import { EditContext } from "./NoteDetails";
 import { GoTrash } from "react-icons/go";
 
-import circle from "../../../../Assets/images/link-circle.png";
-import insta from "../../../../Assets/images/instagram.png";
-import send from "../../../../Assets/images/send-2.png";
+import circle from "../../../../assets/images/link-circle.png";
+import insta from "../../../../assets/images/instagram.png";
+import send from "../../../../assets/images/send-2.png";
 import styled from "styled-components";
 import { useContext } from "react";
-import whatsapp from "../../../../Assets/images/whatsapp.png";
+import whatsapp from "../../../../assets/images/whatsapp.png";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
@@ -148,15 +148,11 @@ const NoteCard = ({ data }) => {
           <h2>{data?.name}</h2>
         </Subject>
         <Status status={data?.status}>
-          <Label>
-            {getFieldTranslationByNames("1369")}
-          </Label>
+          <Label>{getFieldTranslationByNames("1369")}</Label>
           <h2>{data?.date}</h2>
         </Status>
         <Date>
-          <Label>
-            {getFieldTranslationByNames("1368")}
-          </Label>
+          <Label>{getFieldTranslationByNames("1368")}</Label>
           <h2>{data?.date}</h2>
         </Date>
         <div

@@ -2,12 +2,12 @@ import React from "react";
 import { useContext } from "react";
 import { WalletContext } from "../../Services/Reducers/WalletContext";
 import styled from "styled-components";
-import BlueSpray from "../../Assets/gif/blue-color.gif";
-import RedSpray from "../../Assets/gif/red-color.gif";
-import YellowSpray from "../../Assets/gif/yellow-color.gif";
-import Satisfaction from "../../Assets/gif/satisfaction.gif";
-import Psc from "../../Assets/gif/psc.gif";
-import Irr from "../../Assets/gif/rial.gif";
+import BlueSpray from "../../assets/gif/blue-color.gif";
+import RedSpray from "../../assets/gif/red-color.gif";
+import YellowSpray from "../../assets/gif/yellow-color.gif";
+import Satisfaction from "../../assets/gif/satisfaction.gif";
+import Psc from "../../assets/gif/psc.gif";
+import Irr from "../../assets/gif/rial.gif";
 import { convertToPersian } from "../../Services/Utility";
 
 const Asset = styled.div`
@@ -45,17 +45,17 @@ const Line = styled.div`
   background-color: #efefef;
 `;
 
-const AssetItem = ({ title, value, img, index, totalAssets }) => (
+const AssetItem = ({ title, value, img, index, totalassets }) => (
   <>
     <Asset>
       <TextAsset>{convertToPersian(value || "0.000")}</TextAsset>
       <ImgAsset src={img} />
     </Asset>
-    {index !== totalAssets - 1 && <Line />}
+    {index !== totalassets - 1 && <Line />}
   </>
 );
 
-const AssetsWallet = () => {
+const assetsWallet = () => {
   const [wallet] = useContext(WalletContext);
 
   const assets = [
@@ -76,11 +76,11 @@ const AssetsWallet = () => {
           value={asset.value}
           img={asset.img}
           index={index}
-          totalAssets={assets.length}
+          totalassets={assets.length}
         />
       ))}
     </>
   );
 };
 
-export default AssetsWallet;
+export default assetsWallet;

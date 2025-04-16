@@ -1,5 +1,5 @@
 import { TiUserAddOutline } from "react-icons/ti";
-import DefaultProfile from "../../../../Assets/images/defulte-profile.png";
+import DefaultProfile from "../../../../assets/images/defulte-profile.png";
 import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
@@ -150,10 +150,7 @@ const Follower = ({
             <span>
               <TiUserAddOutline />
             </span>
-            <h3>
-              {" "}
-              {getFieldTranslationByNames("55")}
-            </h3>
+            <h3> {getFieldTranslationByNames("55")}</h3>
           </Container>
         )}
         <Button onClick={deleteHandler}>

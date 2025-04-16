@@ -1,7 +1,7 @@
 import { FaPlus } from "react-icons/fa";
 
 import TreeMember from "./TreeMember";
-import member from "../../../../../Assets/images/user.png";
+import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
 import Title from "../../../../../Components/Title";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";

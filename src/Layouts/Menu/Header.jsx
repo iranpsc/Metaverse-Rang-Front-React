@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import LogoIcon from "../../Assets/svg/logoMeta.svg";
+import LogoIcon from "../../assets/svg/logoMeta.svg";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
-import { ReactComponent as ArowMenu } from "../../Assets/svg/arowMenu.svg";
+import { ReactComponent as ArowMenu } from "../../assets/svg/arowMenu.svg";
 
 const Logo = styled.img`
   width: 37px;
@@ -78,12 +78,8 @@ const Header = () => {
       <ContainerMain>
         <Logo src={LogoIcon} />
         <ContainerText isOpen={isOpen}>
-          <Title>
-            {getFieldTranslationByNames("148")}
-          </Title>
-          <Details>
-            {getFieldTranslationByNames("256")}
-          </Details>
+          <Title>{getFieldTranslationByNames("148")}</Title>
+          <Details>{getFieldTranslationByNames("256")}</Details>
         </ContainerText>
       </ContainerMain>
 

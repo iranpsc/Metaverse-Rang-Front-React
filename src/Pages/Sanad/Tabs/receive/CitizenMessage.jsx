@@ -1,5 +1,5 @@
-import avatar from "../../../../Assets/images/defulte-profile.png";
-import download from "../../../../Assets/images/download.png";
+import avatar from "../../../../assets/images/defulte-profile.png";
+import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
 import { SanitizeHTML } from "../../../../Services/Utility";
 

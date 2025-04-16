@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UserImg from "../../../../../Assets/images/user.png";
+import UserImg from "../../../../../assets/images/user.png";
 import { useNavigate } from "react-router-dom";
 
 const BorderImg = styled.div`

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import DefaultProfile from "../../../../Assets/images/defulte-profile.png";
+import DefaultProfile from "../../../../assets/images/defulte-profile.png";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 const Button = styled.div`
   font-size: 16px;

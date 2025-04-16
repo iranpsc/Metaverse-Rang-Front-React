@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { ReactComponent as FilterIcon } from "../../Assets/svg/filter.svg";
-import { ReactComponent as LocationIcon } from "../../Assets/svg/location.svg";
+import { ReactComponent as FilterIcon } from "../../assets/svg/filter.svg";
+import { ReactComponent as LocationIcon } from "../../assets/svg/location.svg";
 import useRequest from "../../Services/Hooks/useRequest";
 import { useMapData } from "../../Services/Reducers/mapContext";
 import Tippy from "@tippyjs/react";
