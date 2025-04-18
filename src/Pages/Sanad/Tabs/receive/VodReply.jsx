@@ -18,7 +18,6 @@ const Container = styled.div`
 const VodReply = ({ setData, responseId }) => {
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState([]);
-  console.log(files[0]);
   const containerRef = useRef(null);
   const { Request, HTTP_METHOD } = useRequest();
   const handleSendReply = () => {

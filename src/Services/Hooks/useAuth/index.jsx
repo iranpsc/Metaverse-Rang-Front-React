@@ -62,7 +62,7 @@ export default function useAuth() {
   };
 
   const setUser = async (userData) => {
-    console.log(userData);
+
     try {
       const expire =
         Date.now() + parseInt(userData.automatic_logout) * 60 * 1000;

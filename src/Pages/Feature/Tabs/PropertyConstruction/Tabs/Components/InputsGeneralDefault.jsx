@@ -64,7 +64,7 @@ const InputsGeneralDefault = () => {
       ...(name === "featureId" && { featureId: value }),
     }));
   };
-  console.log(isSelectable);
+
   const handleButtonClick = () => {
     if (!isSelectable) {
       ToastError("محیطی انتخاب نکردید");

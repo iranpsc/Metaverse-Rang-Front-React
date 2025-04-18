@@ -137,7 +137,7 @@ const Album = ({ feature, setFeature }) => {
 
   const deleteHandler = (imageId) => {
     const url = `my-features/${user.id}/remove-image/${feature.id}/image/${imageId}`;
-    console.log(imageId);
+
     Request(url, HTTP_METHOD.POST)
       .then((response) => {
         const filteredImages = feature?.images?.filter(

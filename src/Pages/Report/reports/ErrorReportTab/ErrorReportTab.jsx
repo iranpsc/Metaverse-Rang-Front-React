@@ -81,7 +81,7 @@ const ErrorReportTab = ({ title, subdomain }) => {
       }
   
       try {
-        console.log("send data is", { ...formData, attachments: attachments });
+      
         await Request('reports', HTTP_METHOD.POST, { ...formData, attachments: attachments }, { "Content-Type": "multipart/form-data" });
         setAlert(true);
         setError("");

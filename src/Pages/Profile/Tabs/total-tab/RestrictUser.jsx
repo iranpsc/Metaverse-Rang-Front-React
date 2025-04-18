@@ -190,7 +190,7 @@ const RestrictUser = () => {
       console.error("Error updating restrictions:", error);
     });
   };
-  console.log(options);
+
   return (
     <Container>
       <Title>

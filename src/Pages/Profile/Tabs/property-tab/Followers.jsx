@@ -70,7 +70,7 @@ const Followers = () => {
     const nameMatch = item.name.toLowerCase().includes(query);
     return codeMatch || nameMatch;
   });
-  console.log(followers);
+ 
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>

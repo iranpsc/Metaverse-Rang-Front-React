@@ -7,7 +7,7 @@ const initialState = {
   files: [],
 };
 
-console.log("data is",initialState );
+
 
 
 const reducer = (state, action) => {

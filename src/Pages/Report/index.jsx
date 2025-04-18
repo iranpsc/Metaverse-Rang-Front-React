@@ -82,7 +82,7 @@ export default function Report() {
   ];
 
   const TabPanel = useTabs(tabs);
-console.log(getFieldTranslationByNames("241"))
+
   return (
     <ReportStateProvider>
       <Modal type="modal-section-xl" title={("23")}>

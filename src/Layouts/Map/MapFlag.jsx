@@ -100,7 +100,7 @@ const MapFlag = () => {
             type: "FeatureCollection",
             features: polygons.map(
               (polygon) => (
-                console.log(polygon),
+               
                 {
                   type: "Feature",
                   properties: {

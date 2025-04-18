@@ -79,7 +79,6 @@ const SendFiles = () => {
   const { state, dispatch } = useGlobalState();
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState("");
-  console.log(state.files);
   const MAX_FILE_SIZE_MB = 9;
 
   const fileHandler = (e) => {
