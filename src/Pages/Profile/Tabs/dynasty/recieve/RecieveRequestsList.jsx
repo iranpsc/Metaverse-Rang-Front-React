@@ -7,6 +7,7 @@ const RecieveRequestsList = ({
   setStatus,
   setMember,
   setShowDetails,
+  type,
 }) => {
   return (
     <RequestsList

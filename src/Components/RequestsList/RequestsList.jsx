@@ -2,6 +2,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
 import { useState } from "react";
 import RequestRow from "../../pages/Profile/Tabs/dynasty/sent/RequestRow";
+import { getFieldTranslationByNames } from "../../Services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;
@@ -217,18 +218,18 @@ const RequestsList = ({
   };
 
   const memberTypes = [
-    { key: "child", label: "فرزند", type: "h1" },
-    { key: "wife", label: "همسر", type: "h2" },
-    { key: "sister", label: "خواهر", type: "h3" },
-    { key: "brother", label: "برادر", type: "h3" },
-    { key: "father", label: "پدر", type: "h3" },
-    { key: "mother", label: "مادر", type: "h3" },
+    { key: "child", label: 129, type: "h1" },
+    { key: "wife", label: 825, type: "h2" },
+    { key: "sister", label: 127, type: "h3" },
+    { key: "brother", label: 128, type: "h3" },
+    { key: "father", label: 125 , type: "h3" },
+    { key: "mother", label: 126, type: "h3" },
   ];
 
   const statusTypes = [
-    { key: "confirmed", label: "تایید شده" },
-    { key: "pending", label: "در دست بررسی" },
-    { key: "failed", label: "رد شده" },
+    { key: "confirmed", label: 854  },
+    { key: "pending", label: 852 },
+    { key: "failed", label: 853 },
   ];
 
   return (
@@ -236,11 +237,11 @@ const RequestsList = ({
       <Table>
         <TableHead>
           <TableRow>
-            <TableHeader>ارسال به</TableHeader>
-            <TableHeader date>تاریخ و ساعت ارسال</TableHeader>
+            <TableHeader>{type === "send" ?getFieldTranslationByNames(144) : getFieldTranslationByNames(111)}</TableHeader>
+            <TableHeader date> {getFieldTranslationByNames(850)}</TableHeader>
             <TableHeader>
               <Div>
-                نسبت خانوادگی
+     {getFieldTranslationByNames(145)}
                 <Arrows onClick={() => setFilters({ member: !filters.member })}>
                   <MdKeyboardArrowDown
                     style={{
@@ -266,7 +267,7 @@ const RequestsList = ({
                         {
                           onClick: () => handleMemberFilter(key),
                         },
-                        label
+                        getFieldTranslationByNames(label)
                       )}
                       {member[key] && (
                         <span onClick={() => handleMemberRemove(key)}>X</span>
@@ -278,7 +279,8 @@ const RequestsList = ({
             </TableHeader>
             <TableHeader title>
               <Div>
-                وضعیت درخواست
+            {getFieldTranslationByNames(146)}
+          
                 <Arrows onClick={() => setFilters({ status: !filters.status })}>
                   <MdKeyboardArrowDown
                     style={{
@@ -299,7 +301,7 @@ const RequestsList = ({
                         borderRadius: "10px",
                       }}
                     >
-                      <h1 onClick={() => handleStatusFilter(key)}>{label}</h1>
+                      <h1 onClick={() => handleStatusFilter(key)}>{getFieldTranslationByNames(label)}</h1>
                       {status[key] && (
                         <span onClick={() => handleStatusRemove(key)}>X</span>
                       )}
@@ -309,9 +311,11 @@ const RequestsList = ({
               )}
             </TableHeader>
             <TableHeader subject>
-              <Div>پاداش دریافتی</Div>
+              <Div>
+                {getFieldTranslationByNames(851)}
+              </Div>
             </TableHeader>
-            <TableHeader>مشاهده</TableHeader>
+            <TableHeader>{getFieldTranslationByNames(147)}</TableHeader>
           </TableRow>
         </TableHead>
         <tbody>
@@ -327,7 +331,7 @@ const RequestsList = ({
       </Table>
       {visibleRows < rows.length && (
         <Loader>
-          <button onClick={handleLoadMore}>نمایش موارد بیشتر</button>
+          <button onClick={handleLoadMore}>{getFieldTranslationByNames(1410)}</button>
         </Loader>
       )}
     </Container>

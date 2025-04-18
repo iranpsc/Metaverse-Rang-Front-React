@@ -12,6 +12,7 @@ import styled from "styled-components";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { useState, useEffect } from "react";
 import Title from "../../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -179,17 +180,17 @@ const SentList = () => {
   return (
     <Container>
       <div>
-        <Title title="درخواست ارسالی" />
+        <Title title={getFieldTranslationByNames(113)} />
       </div>
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder="جستجو شناسه ..."
+          placeholder={getFieldTranslationByNames(849)}
         />
         <Date>
           <DatePicker
-            placeholder="تاریخ و ساعت"
+            placeholder={getFieldTranslationByNames(564)}
             className="bg-dark yellow"
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
