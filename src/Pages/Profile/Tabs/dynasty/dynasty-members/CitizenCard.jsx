@@ -1,18 +1,10 @@
-import styled, { css, keyframes } from "styled-components";
-
-import { Tooltip as ReactTooltip } from "react-tooltip";
+import styled, { keyframes } from "styled-components";
+import { Tooltip as ReactTooltip, Tooltip } from "react-tooltip";
 import down from "../../../../../assets/images/downcitizen.png";
-import level1 from "../../../../../assets/images/level1.png";
-import level2 from "../../../../../assets/images/level2.png";
-import level3 from "../../../../../assets/images/level3.png";
 import citizen from "../../../../../assets/images/profile.png";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 import { slugLabels } from "../../../../../Services/Constants/UserType";
-const levels = [
-  { id: "1", label: "سطح 1", image: level1 },
-  { id: "2", label: "سطح 2", image: level2 },
-  { id: "3", label: "سطح 3", image: level3 },
-];
+
 
 const svgAnimation = keyframes`
   from {
@@ -95,6 +87,7 @@ const Level = styled.div`
     font-weight: 500;
     font-size: 16px;
     margin-bottom: 10px;
+    text-align: center;
   }
   div {
     display: flex;
@@ -119,8 +112,9 @@ const Footer = styled.div`
   }
 `;
 
-const CitizenCard = ({ id, name, code, image, age, onClick, isSelected ,slug=0  }) => {
-  
+const CitizenCard = ({ id, name, code, image, age, onClick, isSelected ,levels }) => {
+  // Fix: Safely access levels[0].slug
+  console.log((levels && levels[0] && levels[0].slug) || "0")
   return (
     <Card onClick={onClick}>
       <Example5Svg xmlns="http://www.w3.org/2000/svg">
@@ -148,19 +142,26 @@ const CitizenCard = ({ id, name, code, image, age, onClick, isSelected ,slug=0  
           {code}
         </a>
         <Level>
-          <p> {getFieldTranslationByNames(724)} {getFieldTranslationByNames(slugLabels[slug])}</p>
+          <p> {getFieldTranslationByNames(724)} {getFieldTranslationByNames(slugLabels[(levels && levels[0] && levels[0].slug) || 0])}</p>
           <div>
-            {levels.map((level) => (
+            {levels  && levels.map((level) => (
+         
               <div key={level.id}>
                 <img
-                  data-tooltip-id={level?.id}
-                  src={level.image}
-                  alt={level.label}
+                  data-tooltip-id={level.id}
+                  src={level.gem.image}
+                  alt={getFieldTranslationByNames(slugLabels[(level.slug)])}
                   width={27}
                   height={27}
                   loading="lazy"
+           data-tooltip-content="Hello world!"
                 />
-                <ReactTooltip id={level.id} place="top" content={level.label} />
+                <Tooltip
+                  id={level?.id}
+                  place="top"
+   
+                />
+
               </div>
             ))}
           </div>

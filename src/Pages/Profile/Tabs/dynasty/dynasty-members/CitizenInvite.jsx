@@ -100,7 +100,6 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
         </Header>
         <Citizens>
           {citizens.map((citizen) => (
-            console.log(citizen),
             <CitizenCard
               key={citizen.id}
               onClick={() => handleCitizenClick(citizen)}
