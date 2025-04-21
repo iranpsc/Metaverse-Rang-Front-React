@@ -100,14 +100,12 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
         </Header>
         <Citizens>
           {citizens.map((citizen) => (
+            console.log(citizen),
             <CitizenCard
               key={citizen.id}
-              mode={mode}
-              members={members}
-              citizens={citizens}
-              setMode={setMode}
               onClick={() => handleCitizenClick(citizen)}
               isSelected={selectedCitizen?.id === citizen.id}
+         
               {...citizen}
             />
           ))}

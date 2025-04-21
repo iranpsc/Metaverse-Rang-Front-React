@@ -7,6 +7,7 @@ import level2 from "../../../../../assets/images/level2.png";
 import level3 from "../../../../../assets/images/level3.png";
 import citizen from "../../../../../assets/images/profile.png";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { slugLabels } from "../../../../../Services/Constants/UserType";
 const levels = [
   { id: "1", label: "سطح 1", image: level1 },
   { id: "2", label: "سطح 2", image: level2 },
@@ -118,7 +119,8 @@ const Footer = styled.div`
   }
 `;
 
-const CitizenCard = ({ id, name, code, image, age, onClick, isSelected }) => {
+const CitizenCard = ({ id, name, code, image, age, onClick, isSelected ,slug=0  }) => {
+  
   return (
     <Card onClick={onClick}>
       <Example5Svg xmlns="http://www.w3.org/2000/svg">
@@ -146,7 +148,7 @@ const CitizenCard = ({ id, name, code, image, age, onClick, isSelected }) => {
           {code}
         </a>
         <Level>
-          <p>سطح توسعه دهنده</p>
+          <p> {getFieldTranslationByNames(724)} {getFieldTranslationByNames(slugLabels[slug])}</p>
           <div>
             {levels.map((level) => (
               <div key={level.id}>

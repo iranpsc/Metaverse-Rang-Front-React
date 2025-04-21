@@ -237,7 +237,7 @@ const RequestsList = ({
       <Table>
         <TableHead>
           <TableRow>
-            <TableHeader>{type === "send" ?getFieldTranslationByNames(144) : getFieldTranslationByNames(111)}</TableHeader>
+            <TableHeader>{type === "send" ?getFieldTranslationByNames(1448) : getFieldTranslationByNames(1447)}</TableHeader>
             <TableHeader date> {getFieldTranslationByNames(850)}</TableHeader>
             <TableHeader>
               <Div>
