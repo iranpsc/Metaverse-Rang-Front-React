@@ -128,9 +128,8 @@ const SentList = () => {
               ? "pending"
               : "failed",
           member_slug: getMemberSlug(item.relationship),
-          gif: 1.0, // Default value or calculate as needed
-          count: 100, // Default value or calculate as needed
-          psc: 1000, // Default value or calculate as needed
+          gif:item.prize.satisfaction, // Default value or calculate as neede
+          psc: item.prize.psc, // Default value or calculate as needed
         }));
         setRows(formattedData);
       } catch (error) {
