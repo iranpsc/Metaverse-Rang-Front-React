@@ -106,8 +106,8 @@ const MemberCard = ({ selectedCitizen, memberType, setSelectedRelation }) => {
       { value: "mother", label: getFieldTranslationByNames(126) }, // مادر
     ],
     siblings: [
-      { value: "brother", label: getFieldTranslationByNames(127) }, // برادر
-      { value: "sister", label: getFieldTranslationByNames(128) }, // خواهر
+      { value: "sister", label: getFieldTranslationByNames(127) }, // برادر
+      { value: "brother", label: getFieldTranslationByNames(128) }, // خواهر
     ],
     spouse: [
       { value: "spouse", label: getFieldTranslationByNames(825) }, // همسر

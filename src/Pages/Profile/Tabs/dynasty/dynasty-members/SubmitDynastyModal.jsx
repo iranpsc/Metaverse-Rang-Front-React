@@ -4,12 +4,13 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 
 import Button from "../../../../../Components/Button";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames, ToastError, ToastSuccess } from "../../../../../Services/Utility";
 import ModalLg from "../../../../../Components/Modal/ModalLg";
 import OnOff from "../../../../Settings/Tabs/OnOff";
 import { useState } from "react";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { values } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 const settings = [
   { id: 1, label: 836, name: "BFR", value: 0 },
@@ -82,7 +83,8 @@ const SubmitDynastyModal = ({
 }) => {
   const [selectedRelation, setSelectedRelation] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
-
+const navigate = useNavigate();
+console.log(selectedRelation)
   const handleAccept = async () => {
     if (!selectedCitizen || !selectedRelation) return;
 
@@ -100,56 +102,24 @@ const SubmitDynastyModal = ({
     }
 
     try {
-      await Request("dynasty/add/member", HTTP_METHOD.POST, body);
-
-      // Update local state
-      if (members[memberType].length < getMemberTypeLimit(memberType)) {
-        setMembers((prev) => ({
-          ...prev,
-          [memberType]: [
-            ...prev[memberType],
-            { ...selectedCitizen, relation: selectedRelation },
-          ],
-        }));
-
-        toast.success(
-          `${selectedCitizen.name} با موفقیت به ${getTranslatedMemberType(
-            memberType
-          )} اضافه شد!`
-        );
-        setMode(1);
-      } else {
-        toast.error(
-          `تعداد اعضای ${getTranslatedMemberType(
-            memberType
-          )} به حداکثر رسیده است`
-        );
+      const response = await Request("dynasty/add/member", HTTP_METHOD.POST, body);
+      
+      if (response.status === 201) {
+        ToastSuccess("درخواست شما با موفقیت ارسال شد");
+        setOpenDetails(false);
+        setMode({ mode: 1, type: null })
       }
-      setOpenDetails(false);
+      
     } catch (error) {
       if (error.response?.status === 410) {
-        toast.error("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-        // You might want to add navigation here
+        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+        navigate("/metaverse/confirmation");
       } else {
-        toast.error(error.response?.data?.message || "خطا در ارسال درخواست");
+        ToastError(error.response?.data?.message || "خطا در ارسال درخواست");
       }
     }
   };
 
-  const getMemberTypeLimit = (type) => {
-    switch (type) {
-      case "children":
-        return 4;
-      case "siblings":
-        return 4;
-      case "spouse":
-        return 1;
-      case "parent":
-        return 2;
-      default:
-        return 0;
-    }
-  };
 
   return (
     <ModalLg titleId={832} setShowModal={setOpenDetails}>
