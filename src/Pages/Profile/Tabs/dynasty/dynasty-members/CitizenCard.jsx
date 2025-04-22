@@ -1,10 +1,9 @@
 import styled, { keyframes } from "styled-components";
-import { Tooltip as ReactTooltip, Tooltip } from "react-tooltip";
+import { Tooltip } from "react-tooltip";
 import down from "../../../../../assets/images/downcitizen.png";
 import citizen from "../../../../../assets/images/profile.png";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 import { slugLabels } from "../../../../../Services/Constants/UserType";
-
 
 const svgAnimation = keyframes`
   from {
@@ -112,9 +111,16 @@ const Footer = styled.div`
   }
 `;
 
-const CitizenCard = ({ id, name, code, image, age, onClick, isSelected ,levels }) => {
-  // Fix: Safely access levels[0].slug
-  console.log((levels && levels[0] && levels[0].slug) || "0")
+const CitizenCard = ({
+  id,
+  name,
+  code,
+  image,
+  age,
+  onClick,
+  isSelected,
+  levels,
+}) => {
   return (
     <Card onClick={onClick}>
       <Example5Svg xmlns="http://www.w3.org/2000/svg">
@@ -142,28 +148,34 @@ const CitizenCard = ({ id, name, code, image, age, onClick, isSelected ,levels }
           {code}
         </a>
         <Level>
-          <p> {getFieldTranslationByNames(724)} {getFieldTranslationByNames(slugLabels[(levels && levels[0] && levels[0].slug) || 0])}</p>
+          <p>
+            {" "}
+            {getFieldTranslationByNames(724)}{" "}
+            {getFieldTranslationByNames(
+              slugLabels[(levels && levels[0] && levels[0].slug) || 0]
+            )}
+          </p>
           <div>
-            {levels  && levels.map((level) => (
-         
-              <div key={level.id}>
-                <img
-                  data-tooltip-id={level.id}
-                  src={level.gem.image}
-                  alt={getFieldTranslationByNames(slugLabels[(level.slug)])}
-                  width={27}
-                  height={27}
-                  loading="lazy"
-           data-tooltip-content="Hello world!"
-                />
-                <Tooltip
-                  id={level?.id}
-                  place="top"
-   
-                />
-
-              </div>
-            ))}
+            {levels &&
+              levels.map(
+                (level) =>
+                  level.gem.image && (
+                    <div key={level.id}>
+                      <img
+                        data-tooltip-id="my-tooltip"
+                        data-tooltip-content={getFieldTranslationByNames(
+                          slugLabels[level.slug]
+                        )}
+                        src={level.gem.image}
+                        alt={getFieldTranslationByNames(slugLabels[level.slug])}
+                        width={27}
+                        height={27}
+                        loading="lazy"
+                      />
+                      <Tooltip id="my-tooltip" place="top" />
+                    </div>
+                  )
+              )}
           </div>
         </Level>
         <Footer>
