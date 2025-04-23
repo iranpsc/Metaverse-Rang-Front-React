@@ -118,7 +118,7 @@ const RecievedList = ({ setShowDetails }) => {
         const response = await Request("dynasty/requests/recieved");
         const formattedData = response.data.data.map((item) => ({
           id: item.id,
-          code: item.to_user.code,
+          code: item.from_user.code,
           date: item.date,
           time: item.time,
           member: item.relationship,
@@ -129,8 +129,8 @@ const RecievedList = ({ setShowDetails }) => {
               ? "pending"
               : "failed",
           member_slug: getMemberSlug(item.relationship),
-          gif:item.satisfaction, // Default value or calculate as neede
-          psc: item.psc, // Default value or calculate as needed
+          gif:item?.prize?.satisfaction || 0, // Default value or calculate as neede
+          psc: item?.prize?.psc  || 0, // Default value or calculate as needed
         }));
         setRows(formattedData);
       } catch (error) {
