@@ -1,6 +1,6 @@
 import { LuEye } from "react-icons/lu";
 import RequestDetails from "./RequestDetails";
-import { convertToPersian } from "../../../../../Services/Utility";
+import { convertToPersian, getFieldTranslationByNames } from "../../../../../Services/Utility";
 import gift from "../../../../../assets/images/satisfy.png";
 import pscGif from "../../../../../assets/gif/psc.gif";
 import styled from "styled-components";
@@ -88,6 +88,7 @@ const RequestRow = ({
   code,
   date,
   time,
+  name,
   status,
   member,
   gif,
@@ -138,10 +139,10 @@ const RequestRow = ({
             }}
           >
             {status === "confirmed"
-              ? "تایید شده"
+              ? getFieldTranslationByNames(854)
               : status === "pending"
-              ? "در دست بررسی"
-              : "رد شده"}
+              ? getFieldTranslationByNames(852)
+              : getFieldTranslationByNames(853)}
           </Title>
         </TableCell>
         <TableCell>

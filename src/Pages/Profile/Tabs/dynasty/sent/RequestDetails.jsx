@@ -7,6 +7,8 @@ import gift from "../../../../../assets/images/satisfy.png";
 import pscGif from "../../../../../assets/gif/psc.gif";
 import styled from "styled-components";
 import ModalLg from "../../../../../Components/Modal/ModalLg";
+import { UserContext } from "../../../../../Services/Reducers/UserContext";
+import { useContext } from "react";
 
 const Container = styled.div`
   padding: 20px 0;
@@ -112,20 +114,20 @@ const Buttons = styled.div`
 const RequestDetails = ({
   setShowDetails,
   status,
-  psc,
-  gif,
   code,
   date,
   time,
   data,
   type,
 }) => {
+  const [user] = useContext(UserContext);
+
   return (
     <ModalLg
       setShowModal={setShowDetails}
       titleId={type == "send" ? "113" : "114"}
     >
-      <MemberCard status={status} date={date} time={time} code={code} />
+      <MemberCard status={status} date={date} time={time} code={type =="send" ? user.code:code} name={type== "send" ? user.name :data.from_user.name} image={type == "send" ? user.image :data.user_from?.image} />
     
     </ModalLg>
   );
