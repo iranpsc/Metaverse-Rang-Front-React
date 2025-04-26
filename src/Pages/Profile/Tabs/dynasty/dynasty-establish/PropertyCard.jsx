@@ -71,9 +71,7 @@ const PropertyCard = ({ onClick, label, propertyId, area, stability,id }) => {
         </Image>
         <Info>
           <h3>{getFieldTranslationByNames(810)}</h3>
-          <h4 onClick={() => Navigate(`/metaverse/feature/${id}`, {
-            state: { activePageNumber: 1 }
-          })}>{propertyId}</h4>
+          <h4 onClick={() => Navigate(`/metaverse/feature/${id}`)}>{propertyId}</h4>
         </Info>
       </Right>
       <Center>

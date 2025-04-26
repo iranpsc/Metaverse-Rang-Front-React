@@ -1,6 +1,7 @@
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -22,10 +23,11 @@ const Header = styled.div`
     font-weight: 600;
   }
   span {
-    color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.newColors.otherColors.orange};
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
+    cursor: pointer;
   }
 `;
 
@@ -36,15 +38,18 @@ const KeyValue = styled.div`
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 500;
     font-size: 18px;
+
   }
   span {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 18px;
     font-weight: 500;
+    
   }
 `;
 
 const Details = ({ data }) => {
+  const Navigate = useNavigate();
   if (!data?.["dynasty-feature"]) {
     return null;
   }
@@ -56,6 +61,7 @@ const Details = ({ data }) => {
     "feature-profit-increase": profitIncrease,
     "family-members-count": membersCount,
     "last-updated": lastUpdated,
+    id,
   } = data["dynasty-feature"];
 
   const renderKeyValue = (labelId, value, icon = false) => (
@@ -72,7 +78,9 @@ const Details = ({ data }) => {
     <Container>
       <Header>
         <h3>{getFieldTranslationByNames(813)}</h3>
-        <span>{propertyId}</span>
+        <span onClick={() => Navigate(`/metaverse/feature/${id}`, {
+            state: { activePageNumber: 1 }
+          })}>{propertyId}</span>
       </Header>
       {renderKeyValue(373, area)}
       {renderKeyValue(117, density)}

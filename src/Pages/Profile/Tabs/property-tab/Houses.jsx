@@ -345,7 +345,7 @@ const Houses = () => {
       </Div>
       <List>
         {filteredItems.map((card) => (
-          <CardItem {...card.properties} key={card.id} />
+          <CardItem {...card.properties} key={card.id} navigateId={card.id}/>
         ))}
       </List>
       {loading && <div>Loading...</div>}
