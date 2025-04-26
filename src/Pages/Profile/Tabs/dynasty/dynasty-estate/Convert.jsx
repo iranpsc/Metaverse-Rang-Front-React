@@ -82,6 +82,7 @@ const Convert = ({ data }) => {
         {filteredFeatures.map((feature) => (
           <PropertyCard
             key={feature.id}
+            id={feature.id}
             propertyId={feature.properties_id}
             stability={feature.stability}
             label={getFieldTranslationByNames(818)}

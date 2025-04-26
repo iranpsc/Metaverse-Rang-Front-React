@@ -2,6 +2,7 @@ import house from "../../../../../assets/images/house.png";
 import styled from "styled-components";
 import Button from "../../../../../Components/Button";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { useNavigate } from "react-router-dom";
 
 const Right = styled.div`
   display: flex;
@@ -42,9 +43,11 @@ const Info = styled.div`
     font-weight: 600;
   }
   h4 {
-    color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.newColors.otherColors.orange};
     font-size: 14px;
     font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
   }
 `;
 const Container = styled.div`
@@ -57,7 +60,9 @@ const Container = styled.div`
   border-radius: 5px;
 `;
 
-const PropertyCard = ({ onClick, label, propertyId, area, stability }) => {
+const PropertyCard = ({ onClick, label, propertyId, area, stability,id }) => {
+  console.log(id)
+  const Navigate = useNavigate();
   return (
     <Container>
       <Right>
@@ -66,7 +71,9 @@ const PropertyCard = ({ onClick, label, propertyId, area, stability }) => {
         </Image>
         <Info>
           <h3>{getFieldTranslationByNames(810)}</h3>
-          <h4>{propertyId}</h4>
+          <h4 onClick={() => Navigate(`/metaverse/feature/${id}`, {
+            state: { activePageNumber: 1 }
+          })}>{propertyId}</h4>
         </Info>
       </Right>
       <Center>
