@@ -1,6 +1,7 @@
 import chat from "../../../../../assets/images/chat.png";
 import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.newColors.otherColors.menuBg};
@@ -71,7 +72,21 @@ const Chat = styled.img`
   bottom: 0;
 `;
 
-const TreeMember = ({ item }) => {
+const TreeMember = ({ item }) => {  
+  const relationTypes =[
+      { value: "father", label: 125 }, // پدر
+      { value: "mother", label: 126 }, 
+      { value: "sister", label: 127 }, 
+      { value: "brother", label:128 }, 
+      { value: "spouse", label:825 }, 
+      { value: "offspring ", label: 129}
+  ];
+
+  const getRelationshipLabel = (relationship) => {
+    const found = relationTypes.find(type => type.value === relationship);
+    return found ? getFieldTranslationByNames(found.label) : relationship;
+  };
+
   return (
     <Container>
       <Image>
@@ -84,7 +99,7 @@ const TreeMember = ({ item }) => {
           height={80}
         />
       </Image>
-      <h3>{item.relationship}</h3>
+      <h3>{getRelationshipLabel(item.relationship)}</h3>
       <a href={`https://rgb.irpsc.com/fa/citizen/${item.code}`} target="_blank">
         {item.code}
       </a>
