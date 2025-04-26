@@ -1,108 +1,12 @@
 import Button from "../../../../../Components/Button";
-import { FaArrowLeftLong } from "react-icons/fa6";
 import MemberCard from "./MemberCard";
-import Title from "../../../../../Components/Title";
-import { convertToPersian } from "../../../../../Services/Utility";
-import gift from "../../../../../assets/images/satisfy.png";
-import pscGif from "../../../../../assets/gif/psc.gif";
+import { getFieldTranslationByNames, ToastError, ToastSuccess } from "../../../../../Services/Utility";
 import styled from "styled-components";
 import ModalLg from "../../../../../Components/Modal/ModalLg";
 import { UserContext } from "../../../../../Services/Reducers/UserContext";
 import { useContext } from "react";
-
-const Container = styled.div`
-  padding: 20px 0;
-  width: 80%;
-  height: 80%;
-  position: relative;
-  border-radius: 10px;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
-  overflow-y: auto;
-  padding: 20px;
-  z-index: 999;
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  div {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    gap: 12px;
-    h3 {
-      color: ${(props) => props.theme.colors.newColors.shades.title};
-      font-size: 18px;
-      font-weight: 400;
-    }
-    svg {
-      color: ${(props) => props.theme.colors.newColors.shades.title};
-    }
-  }
-`;
-
-const Info = styled.div`
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  font-size: 16px;
-  font-weight: 400;
-  margin-top: 30px;
-  h2 {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  p {
-    &:nth-of-type(2) {
-      color: #c30000;
-      margin: 10px 0;
-    }
-  }
-`;
-
-const Div = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  h3 {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 20px;
-    font-weight: 500;
-  }
-`;
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-`;
-
-const Image = styled.img`
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-`;
-const Subject = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-`;
-
-const Back = styled.div`
-  z-index: 999;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: rgba(0, 0, 0, 0.713);
-`;
+import { useNavigate } from "react-router-dom";
+import useRequest from "../../../../../Services/Hooks/useRequest";
 
 const Buttons = styled.div`
   display: flex;
@@ -121,14 +25,57 @@ const RequestDetails = ({
   type,
 }) => {
   const [user] = useContext(UserContext);
+  const navigate = useNavigate();
+  const { Request, HTTP_METHOD } = useRequest();
 
+  const handleSubmit = () => {
+    Request(`dynasty/requests/${type === "send" ? "send" : "recieved"}/${data.id}`, HTTP_METHOD.POST)
+      .then(() => {
+        ToastSuccess("سلسله با موفقیت تاسیس شد.");
+      })
+      .catch((error) => {
+        if (error.response.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          return navigate("/metaverse/confirmation");
+        }
+        ToastError(error.response.data.message);
+      });
+  };
+
+  const isSendType = type === "send";
+  
   return (
     <ModalLg
       setShowModal={setShowDetails}
-      titleId={type == "send" ? "113" : "114"}
+      titleId={isSendType ? "113" : "114"}
     >
-      <MemberCard status={status} date={date} time={time} code={type =="send" ? user.code:code} name={type== "send" ? user.name :data.from_user.name} image={type == "send" ? user.image :data.user_from?.image} />
-    
+      <MemberCard 
+        status={status} 
+        date={date} 
+        time={time} 
+        code={isSendType ? user.code : code} 
+        name={isSendType ? user.name : data.from_user.name} 
+        image={isSendType ? user.image : data.user_from?.image} 
+      />
+      <div dangerouslySetInnerHTML={{ __html: data.message }} />
+      {data?.status === 0 && !isSendType && (
+        <Buttons>
+          <Button
+            label={getFieldTranslationByNames(823)}
+            color="#18C08F"
+            onclick={handleSubmit}
+            fit
+            textColor="#D7FBF0"
+          />
+          <Button
+            label={getFieldTranslationByNames(824)}
+            color="#C30000"
+            onclick={() => setShowDetails(false)}
+            fit
+            textColor="#FFFFFF"
+          />
+        </Buttons>
+      )}
     </ModalLg>
   );
 };
