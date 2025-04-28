@@ -142,7 +142,7 @@ const MemberCard = ({ selectedCitizen, memberType, setSelectedRelation }) => {
       <Center>
         <h4>{getFieldTranslationByNames(834)}</h4> {/* نسبت */}
         <StyledSelect onChange={handleRelationChange}>
-          <option value="">{getFieldTranslationByNames(100)}</option>
+          <option value="">{getFieldTranslationByNames(1000)}</option>
           {relationTypes[memberType]?.map((relation) => (
             <option key={relation.value} value={relation.value}>
               {getFieldTranslationByNames(relation.label)}
