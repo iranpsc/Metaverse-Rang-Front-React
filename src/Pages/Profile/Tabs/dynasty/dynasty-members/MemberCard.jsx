@@ -102,18 +102,18 @@ const StyledSelect = styled.select`
 const MemberCard = ({ selectedCitizen, memberType, setSelectedRelation }) => {
   const relationTypes = {
     parent: [
-      { value: "father", label: getFieldTranslationByNames(125) }, // پدر
-      { value: "mother", label: getFieldTranslationByNames(126) }, // مادر
+      { value: "father", label: 125 }, // پدر
+      { value: "mother", label: 126 }, // مادر
     ],
     siblings: [
-      { value: "sister", label: getFieldTranslationByNames(127) }, // برادر
-      { value: "brother", label: getFieldTranslationByNames(128) }, // خواهر
+      { value: "sister", label: 127 }, // برادر
+      { value: "brother", label: 128 }, // خواهر
     ],
     spouse: [
-      { value: "spouse", label: getFieldTranslationByNames(825) }, // همسر
+      { value: "spouse", label: 825 }, // همسر
     ],
     children: [
-      { value: "son", label: getFieldTranslationByNames(129) }, // پسر
+      { value: "son", label: 129 }, // پسر
     ],
   };
 
@@ -142,17 +142,17 @@ const MemberCard = ({ selectedCitizen, memberType, setSelectedRelation }) => {
       <Center>
         <h4>{getFieldTranslationByNames(834)}</h4> {/* نسبت */}
         <StyledSelect onChange={handleRelationChange}>
-          <option value="">انتخاب کنید</option>
+          <option value="">{getFieldTranslationByNames(100)}</option>
           {relationTypes[memberType]?.map((relation) => (
             <option key={relation.value} value={relation.value}>
-              {relation.label}
+              {getFieldTranslationByNames(relation.label)}
             </option>
           ))}
         </StyledSelect>
       </Center>
       <Left>
         <h4>{getFieldTranslationByNames(1400)}</h4> {/* سن */}
-        <h3>{convertToPersian(selectedCitizen?.age)} سال</h3>
+        <h3>{convertToPersian(selectedCitizen?.age)} {getFieldTranslationByNames(803)}</h3>
       </Left>
     </Container>
   );
