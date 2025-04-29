@@ -1,17 +1,13 @@
-import "react-multi-date-picker/styles/backgrounds/bg-dark.css";
-import "react-multi-date-picker/styles/colors/yellow.css";
 
-import DatePicker from "react-multi-date-picker";
-import { FaRegCalendarAlt } from "react-icons/fa";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Title from "../../../../../Components/Title";
 import SearchInput from "../../../../../Components/SearchInput";
 import useRequest from "../../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import {  getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { useLanguage } from "../../../../../Services/Reducers/LanguageContext";
+import CustomDatePicker from "../../../../../Components/CustomDatePicker";
+import useDateFilter from '../../../../../Services/Hooks/useDateFilter';
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;
@@ -40,44 +36,18 @@ const Div = styled.div`
   }
 `;
 
-const Date = styled.div`
-  border-radius: 5px;
-  border: 1px solid #454545;
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
-  height: 48px;
-  padding: 0 10px;
-  svg {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-  }
-  input {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    &:focus {
-      border: none;
-      outline: none;
-    }
-    font-size: 16px;
-  }
-`;
 
 const RequestList = ({ 
   title,
   requestType,
   ListComponent,
-  userField = "to_user" // برای sent list از to_user و برای received list از from_user استفاده می‌شود
+  userField = "to_user"
 }) => {
   const { Request } = useRequest();
   const [searched, setSearched] = useState("");
   const [rows, setRows] = useState([]);
+  const language = useLanguage();
+  const { dateRange, setDateRange, filterByDate } = useDateFilter();
   const [status, setStatus] = useState({
     pending: false,
     confirmed: false,
@@ -104,7 +74,7 @@ const RequestList = ({
           time: item.time,
           member: item.relationship,
           status: item.status === 1 ? "confirmed" : item.status === 0 ? "pending" : "failed",
-          member_slug: getMemberSlug(item.relationship),
+          member_slug: item.relationship,
           gif: item?.prize?.satisfaction || 0,
           psc: item?.prize?.psc || 0,
         }));
@@ -116,18 +86,6 @@ const RequestList = ({
 
     fetchData();
   }, [requestType, userField]);
-
-  const getMemberSlug = (relationship) => {
-    const slugMap = {
-      برادر: "brother",
-      خواهر: "sister",
-      پدر: "father",
-      مادر: "mother",
-      فرزند: "child",
-      همسر: "wife",
-    };
-    return slugMap[relationship] || relationship.toLowerCase();
-  };
 
   const filteredItems = rows.filter((row) => {
     const codeMatch = row.code.toString().includes(searched);
@@ -150,7 +108,9 @@ const RequestList = ({
       (member.father && row.member_slug === "father") ||
       (member.mother && row.member_slug === "mother");
 
-    return codeMatch && statusMatch && memberMatch;
+    const dateMatch = filterByDate(row);
+
+    return codeMatch && statusMatch && memberMatch && dateMatch;
   });
 
   return (
@@ -164,18 +124,11 @@ const RequestList = ({
           value={searched}
           placeholder={getFieldTranslationByNames(849)}
         />
-        <Date>
-          <DatePicker
-            placeholder={getFieldTranslationByNames(564)}
-            className="bg-dark yellow"
-            format="YYYY/DD/MM HH:mm:ss"
-            plugins={[<TimePicker position="bottom" />]}
-            calendar={persian}
-            locale={persian_fa}
-            calendarPosition="bottom-right"
-          />
-          <FaRegCalendarAlt size={20} />
-        </Date>
+        <CustomDatePicker
+          value={dateRange}
+          onChange={setDateRange}
+          range={true}
+        />
       </Div>
       <ListComponent
         setStatus={setStatus}
