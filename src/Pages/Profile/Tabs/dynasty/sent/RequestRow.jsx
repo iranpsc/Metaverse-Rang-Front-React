@@ -23,10 +23,12 @@ const Image = styled.img`
   border-radius: 50%;
 `;
 
-const Code = styled.h2`
+const Code = styled.a`
   font-size: 16px;
   font-weight: 500;
   color: ${(props) => props.theme.colors.primary};
+  text-transform: uppercase;
+  cursor: pointer;
 `;
 
 const Date = styled.h3`
@@ -113,7 +115,7 @@ const RequestRow = ({
       <TableRow>
         <TableCell>
           <div>
-            <Code>{code}</Code>
+            <Code href={`https://rgb.irpsc.com/fa/citizens/${code}`} target="_blank" >{code}</Code>
           </div>
         </TableCell>
         <TableCell>
