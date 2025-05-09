@@ -6,6 +6,7 @@ import Title from "../../../../Components/Title";
 import SearchInput from "../../../Search/Components/SearchInput";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   padding-right: 15px;
@@ -63,13 +64,15 @@ const List = styled.div`
 const Following = () => {
   const [searched, setSearched] = useState("");
   const [followings, setFollowings] = useState([]);
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request } = useRequest();
+  const { id } = useParams();
 
   useEffect(() => {
-    Request("following", HTTP_METHOD.GET).then((response) => {
+    const endpoint = id ? `players/${id}/following` : "following";
+    Request(endpoint).then((response) => {
       setFollowings(response.data.data);
     });
-  }, []);
+  }, [id]);
 
   const filteredItems = followings.filter((item) => {
     const query = searched.toLowerCase().trim();

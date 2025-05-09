@@ -9,6 +9,7 @@ import { useEffect, useState, useCallback } from "react";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { useParams } from "react-router-dom";
 
 const List = styled.div`
   display: flex;
@@ -144,12 +145,13 @@ const Houses = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const { id } = useParams();
 
   const loadMoreFeatures = useCallback(() => {
     if (loading || !hasMore) return;
-
     setLoading(true);
-    Request(`my-features?page=${page}`).then((response) => {
+    const endpoint = id ? `players/hm-2000002/assets` : `my-features?page=${page}`;
+    Request(endpoint).then((response) => {
       if (!response.data.data.length || !response.data.links?.next) {
         setHasMore(false);
         setLoading(false);
@@ -194,7 +196,7 @@ const Houses = () => {
       setPage((prevPage) => prevPage + 1);
       setLoading(false);
     });
-  }, [page, loading, hasMore]);
+  }, [page, loading, hasMore, id]);
 
   useEffect(() => {
     loadMoreFeatures(); // Initial load
