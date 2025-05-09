@@ -7,8 +7,8 @@ import styled from "styled-components";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
-import { WalletContext } from "../../../../Services/Reducers/WalletContext";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   display: grid;
@@ -16,24 +16,26 @@ const Container = styled.div`
   gap: 10px;
   margin-top: 20px;
 `;
+
 const RealEstate = () => {
-  const [assets, setassets] = useState({});
-  const { Request, HTTP_METHOD } = useRequest();
-  const [wallet] = useContext(WalletContext);
+  const [assets, setAssets] = useState({});
+  const { Request } = useRequest();
   const [user] = useContext(UserContext);
+  const { id } = useParams();
+
   useEffect(() => {
-    Request(`users/${user?.id}/features/count`, HTTP_METHOD.GET).then(
-      (response) => {
-        setassets(response.data.data);
-      }
-    );
-  }, []);
+    const requestId = id || user?.id;
+    Request(`users/${requestId}/features/count`).then((response) => {
+      setAssets(response.data.data);
+    });
+  }, [id, user?.id]);
+
   const properties = [
     {
       id: 1,
       image: property1,
       label: getFieldTranslationByNames("52"),
-      value: wallet?.effect,
+      value: assets?.satisfaction,
     },
     {
       id: 2,
@@ -54,6 +56,7 @@ const RealEstate = () => {
       value: assets?.amoozeshi_features_count,
     },
   ];
+
   return (
     <Container>
       {properties.map((property) => (

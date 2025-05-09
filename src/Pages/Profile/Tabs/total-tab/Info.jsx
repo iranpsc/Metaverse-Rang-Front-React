@@ -10,6 +10,7 @@ import useAuth from "../../../../Services/Hooks/useAuth";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   padding: 15px;
@@ -83,9 +84,11 @@ const Info = () => {
   const [openShare, setOpenShare] = useState(false);
   const [userId] = useContext(UserContext);
   const [user, setUser] = useState({});
+  const { id } = useParams();
   const { Request } = useRequest();
   useEffect(() => {
-    Request(`users/${userId.id}/profile`).then((response) => {
+    const requestId = id || userId.id;
+    Request(`users/${requestId}/profile`).then((response) => {
       setUser(response.data.data);
     });
   }, []);
@@ -126,13 +129,15 @@ const Info = () => {
       </Content>
       <Buttons>
         <Upper>
-          {/* <ButtonIcon
-            grow
-            icon={<TiUserAddOutline />}
-            label="دنبال کردن"
-            fill
-            onclick={() => {}}
-          /> */}
+          {id && (
+            <ButtonIcon
+              grow
+              icon={<TiUserAddOutline />}
+              label="دنبال کردن"
+              fill
+              onclick={() => {}}
+            />
+          )}
           <ButtonIcon
             grow
             icon={<LuShare2 />}
@@ -140,12 +145,14 @@ const Info = () => {
             onclick={() => setOpenShare(true)}
           />
         </Upper>
-        {/* <ButtonIcon
-          grow
-          icon={<BiCommentDots />}
-          label="پیام دادن"
-          onclick={() => {}}
-        /> */}
+        {id && (
+          <ButtonIcon
+            grow
+            icon={<BiCommentDots />}
+            label="پیام دادن"
+            onclick={() => {}}
+          />
+        )}
       </Buttons>
       {openShare && <ShareModal setOpenShare={setOpenShare} data={user} />}
     </Container>

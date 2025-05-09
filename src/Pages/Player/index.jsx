@@ -1,19 +1,24 @@
 import Modal from "../../Components/Modal";
 import useTabs from "../../Services/Hooks/useTabs";
-import General from "./Tabs/General";
-import Property from "./Tabs/Property";
+import { getFieldTranslationByNames } from "../../Services/Utility";
+import PropertyTab from "../Profile/Tabs/property-tab/PropertyTab";
+import TotalTab from "../Profile/Tabs/total-tab/TotalTab";
 
-export default function Player() {
+
+
+export default function Profile() {
   const tabs = [
-    { title: 'کلیات', content: <General /> },
-    { title: 'دارایی', content: <Property /> }
+    {
+      title: getFieldTranslationByNames("62"),
+      content: <TotalTab />,
+    },
+    {
+      title: getFieldTranslationByNames("150"),
+      content: <PropertyTab />,
+    },
   ];
 
   const TabPanel = useTabs(tabs);
 
-  return (
-    <Modal type="modal-section-md" title='پروفایل'>
-      {TabPanel}
-    </Modal>
-  );
+  return <Modal title={"56"}>{TabPanel}</Modal>;
 }

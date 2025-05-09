@@ -8,8 +8,9 @@ import gif6 from "../../../../assets/gif/psc.gif";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
-import { WalletContext } from "../../../../Services/Reducers/WalletContext";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../../../../Services/Reducers/UserContext";
 
 const Container = styled.div`
   display: grid;
@@ -20,43 +21,64 @@ const Container = styled.div`
   }
 `;
 const Colors = () => {
-  const [wallet] = useContext(WalletContext);
+  const [walletData, setWalletData] = useState({
+    effect: 0,
+    yellow: 0,
+    red: 0,
+    blue: 0,
+    irr: 0,
+    psc: 0
+  });
+  const { Request } = useRequest();
+  const { id } = useParams();
+  const [userId] = useContext(UserContext);
+  useEffect(() => {
+    if (id) {
+      Request(`users/${id}/wallet`).then((response) => {
+        setWalletData(response.data.data);
+      });
+    }
+    Request(`users/${userId.id}/wallet`).then((response) => {
+      setWalletData(response.data.data);
+    })
+  }, [id]);
+
   const colors = [
     {
       id: 1,
       gif: gif1,
       label: getFieldTranslationByNames("723"),
-      value: wallet?.effect,
+      value: walletData?.effect,
     },
     {
       id: 2,
       gif: gif2,
       label: getFieldTranslationByNames("51"),
-      value: wallet?.yellow,
+      value: walletData?.yellow,
     },
     {
       id: 3,
       gif: gif3,
       label: getFieldTranslationByNames("50"),
-      value: wallet?.red,
+      value: walletData?.red,
     },
     {
       id: 4,
       gif: gif4,
       label: getFieldTranslationByNames("49"),
-      value: wallet?.blue,
+      value: walletData?.blue,
     },
     {
       id: 5,
       gif: gif5,
       label: getFieldTranslationByNames("48"),
-      value: wallet?.irr,
+      value: walletData?.irr,
     },
     {
       id: 6,
       gif: gif6,
       label: getFieldTranslationByNames("47"),
-      value: wallet?.psc,
+      value: walletData?.psc,
     },
   ];
   return (
