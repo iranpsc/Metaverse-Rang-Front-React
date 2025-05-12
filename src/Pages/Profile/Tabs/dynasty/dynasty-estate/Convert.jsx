@@ -13,9 +13,17 @@ const StyledComponents = {
   Container: styled.div``,
   Wrapper: styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-top: 20px;
+    
+    grid-template-columns: 1fr;
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+
+
+    
   `,
   Header: styled.div`
     display: flex;

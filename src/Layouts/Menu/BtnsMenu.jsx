@@ -103,7 +103,6 @@ const menuItems = [
     translationId: "233",
     navigate: "",
   },
-  { icon: FamilyTreeIcon, translationId: "234", navigate: "dynasty" },
   { icon: RobotIcon, translationId: "235", navigate: "" },
   {
     icon: ProfitIcon,

@@ -47,7 +47,7 @@ const Model = ({ link }) => {
       ref={fbxRef}
       object={model}
       scale={0.002}
-      position={[0, -1.4, 0]}
+      position={[0, -3.5, 0]}
     />
   ) : null;
 };

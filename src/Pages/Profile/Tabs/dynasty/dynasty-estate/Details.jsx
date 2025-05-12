@@ -79,7 +79,7 @@ const Details = ({ data }) => {
       <Header>
         <h3>{getFieldTranslationByNames(813)}</h3>
         <span onClick={() => Navigate(`/metaverse/feature/${id}`, {
-            state: { activePageNumber: 1 }
+            state: { activePageNumber: 1 , activeTabNavigate: 3 }
           })}>{propertyId}</span>
       </Header>
       {renderKeyValue(373, area)}

@@ -7,11 +7,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: 73%;
-  @media (max-width: 768px) {
-    height: 80%;
-  }
   overflow-y: auto;
+
+  height: calc(100vh - 60px);
+  @media (max-width: 768px) {
+    height: calc(100vh - 230px);
+  }
+
+  
 `;
 
 const DynastyEstate = ({ data }) => {
