@@ -122,11 +122,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
               ToastSuccess("کد تایید باموفقیت به شماره تلفن شما ارسال شد.");
             })
             .catch((error) => {
-              if (error.response.status === 410) {
-                ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-            
-              }
-
+           
               ToastError(error.response.data.message);
             });
         } catch {

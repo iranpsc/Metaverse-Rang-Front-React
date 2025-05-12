@@ -70,12 +70,9 @@ export default function PriceDetermination() {
           ToastSuccess("پیشنهاد شما با موفقیت ارسال گردید.");
         })
         .catch((error) => {
-          if (error.response.status === 410) {
-            ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-        
-          } else {
+      
             ToastError(error.response.data.message);
-          }
+          
         });
     } else {
       setErrors({

@@ -75,10 +75,7 @@ export default function TableFeature({ dynasty, setDynasty }) {
         ToastSuccess("VOD جدید با موفقیت بروز گردید.");
       })
       .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-      
-        }
+     
         ToastError(error.response.data.message);
       });
   };
@@ -90,10 +87,7 @@ export default function TableFeature({ dynasty, setDynasty }) {
         ToastSuccess("سلسله با موفقیت تاسیس شد.");
       })
       .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-      
-        }
+     
         ToastError(error.response.data.message);
       });
   };

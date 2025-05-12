@@ -35,10 +35,7 @@ export default function BuySystem({ price, image, rgb, id }) {
     Request(`features/buy/${id}`, HTTP_METHOD.POST).then(response => {
       Navigate(FeatureSvg(rgb));
     }).catch(error => {
-      if (error.response.status === 410) {
-        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
     
-      }
       
       ToastError(error.response.data.message)
     });

@@ -121,12 +121,9 @@ const Album = ({ feature, setFeature }) => {
               ToastSuccess("آپلود عکس با موفقیت انجام شد.");
             })
             .catch((error) => {
-              if (error.response.status === 410) {
-                ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-            
-              } else {
+             
                 ToastError(error.response.data.message);
-              }
+              
             });
         },
       });
@@ -148,12 +145,9 @@ const Album = ({ feature, setFeature }) => {
         ToastSuccess("تصویر با موفقیت حذف شد.");
       })
       .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          Navigate("/metaverse/confirmation");
-        } else {
+   
           ToastError(error.response.data.message);
-        }
+        
       });
   };
 
