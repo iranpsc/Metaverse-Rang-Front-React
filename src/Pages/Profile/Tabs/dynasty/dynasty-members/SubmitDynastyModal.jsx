@@ -141,7 +141,7 @@ console.log(selectedRelation)
         ) : (
           <>
             <p>
-              {getFieldTranslationByNames(1401)} {memberType == ""}{" "}
+              {getFieldTranslationByNames(1401)} {memberType}{" "}
               {getFieldTranslationByNames(1402)} {selectedCitizen.name}{" "}
               {getFieldTranslationByNames(1403)}
             </p>

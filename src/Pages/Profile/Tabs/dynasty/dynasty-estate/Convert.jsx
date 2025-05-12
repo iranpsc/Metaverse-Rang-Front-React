@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useState, useCallback, useMemo } from "react";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames, ToastError } from "../../../../../Services/Utility";
 
 // Combine styled components
 const StyledComponents = {
@@ -17,13 +17,9 @@ const StyledComponents = {
     margin-top: 20px;
     
     grid-template-columns: 1fr;
-    @media (max-width: 768px) {
+    @media (min-width: 992px) {
       grid-template-columns: 1fr 1fr;
     }
-
-
-
-    
   `,
   Header: styled.div`
     display: flex;

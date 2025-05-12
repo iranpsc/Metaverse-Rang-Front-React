@@ -10,7 +10,7 @@ const Container = styled.div`
   overflow-y: auto;
 
   height: calc(100vh - 60px);
-  @media (max-width: 768px) {
+  @media (min-width: 992px) {
     height: calc(100vh - 230px);
   }
 

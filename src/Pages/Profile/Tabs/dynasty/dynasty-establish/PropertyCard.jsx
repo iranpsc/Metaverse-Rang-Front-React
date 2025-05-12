@@ -28,7 +28,7 @@ const Image = styled.div`
   border-radius: 5px;
   padding: 10px;
   background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
+    props.theme.colors.newColors.otherColors.orange + '35'};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,7 +38,7 @@ const Info = styled.div`
   flex-direction: column;
   gap: 10px;
   h3 {
-    font-size: 18px;
+    font-size: 16px;
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 600;
   }
@@ -61,7 +61,6 @@ const Container = styled.div`
 `;
 
 const PropertyCard = ({ onClick, label, propertyId, area, stability,id }) => {
-  console.log(id)
   const Navigate = useNavigate();
   return (
     <Container>
@@ -75,14 +74,14 @@ const PropertyCard = ({ onClick, label, propertyId, area, stability,id }) => {
         </Info>
       </Right>
       <Center>
-        <h3>{getFieldTranslationByNames(811)}</h3>
+        <h4>{getFieldTranslationByNames(373)}</h4>
         <h4>{area}</h4>
-        {stability && (
+        {/* {stability && (
           <>
             <h3>{getFieldTranslationByNames(117)}</h3>
             <h4>{stability}</h4>
           </>
-        )}
+        )} */}
       </Center>
       <Button label={label} onclick={() => onClick(propertyId)} />
     </Container>

@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const Owner = ({ data }) => {
   return (
     <Container>
-      <Title title={getFieldTranslationByNames(817)} />
+      <Title title={getFieldTranslationByNames(819)} />
       <Wrapper>
         <Model3D />
         <Details data={data} />

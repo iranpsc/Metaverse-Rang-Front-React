@@ -26,7 +26,7 @@ const ButtonElement = styled.button`
       ? "100%"
       : "fit-content"};
   height: 45px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   color: ${(props) =>
@@ -61,6 +61,7 @@ const ButtonElement = styled.button`
 const Button = ({
   label,
   onclick,
+  onClick,
   row,
   color,
   edit,
@@ -72,6 +73,9 @@ const Button = ({
   grayTheme,
   style,
 }) => {
+  // ترکیب onclick و onClick
+  const handleClick = onClick || onclick;
+
   return (
     <ButtonElement
       full={full}
@@ -79,7 +83,7 @@ const Button = ({
       edit={edit}
       row={row}
       color={color}
-      onClick={disabled ? undefined : onclick}
+      onClick={disabled ? undefined : handleClick}
       disabled={disabled}
       fit={fit}
       textColor={textColor}

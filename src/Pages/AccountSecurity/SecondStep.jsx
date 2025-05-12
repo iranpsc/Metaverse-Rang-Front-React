@@ -9,7 +9,7 @@ const Codes = styled.div`
   display: flex;
   gap: 10px;
   margin: 0 auto;
-
+direction: ltr;
   margin-bottom: 30px !important;
   input {
     width: 30px;
