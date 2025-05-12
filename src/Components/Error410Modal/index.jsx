@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AccountSecurityModal from '../../pages/AccountSecurity';
 import axios from 'axios';
+import { ToastError } from '../../Services/Utility';
 
 
 const Error410Modal = () => {
@@ -11,6 +12,7 @@ const Error410Modal = () => {
       response => response,
       error => {
         if (error.response?.status === 410) {
+          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!")
           setShow410Error(true);
         }
         return Promise.reject(error);
