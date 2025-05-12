@@ -81,7 +81,7 @@ export default function Message({ items, handleBack }) {
       .catch((error) => {
         if (error.response.status === 410) {
           ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          return Navigate("/metaverse/confirmation");
+      
         }
         ToastError(error.response.data.message);
       });

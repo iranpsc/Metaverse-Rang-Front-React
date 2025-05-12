@@ -1,9 +1,9 @@
 import ModalXs from "../../Components/Modal/ModalXs";
 import AccountSecurity from "./AccountSecurity";
 
-const AccountSecurityModal = () => {
+const AccountSecurityModal = ({ onClose }) => {
   return (
-    <ModalXs title={"31"}>
+    <ModalXs title={"31"} handleExitClick={onClose}>
       <AccountSecurity />
     </ModalXs>
   );

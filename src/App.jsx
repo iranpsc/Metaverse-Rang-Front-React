@@ -25,6 +25,7 @@ import { getFieldTranslationByNames } from "./Services/Utility/index.jsx";
 import { LanguageProvider } from "./Services/Reducers/LanguageContext.jsx";
 import { LoaderProvider } from "./Services/Reducers/LoaderProvider.jsx";
 import RotateDevice from "./Components/RotateDevice";
+import Error410Modal from "./Components/Error410Modal";
 const Container = styled.section`
   display: flex;
   width: 100%;
@@ -79,7 +80,7 @@ function App() {
                           <MapTreeD />
                           <StatusBar />
                         </Container>
-
+                        <Error410Modal />
                         <Toaster
                           containerStyle={{ zIndex: 100000, marginBottom: 48 }}
                           position="bottom-right"
@@ -95,7 +96,6 @@ function App() {
       </ThemeProviderContext>
     </MapProvider>
     </LoaderProvider>
-
   );
 }
 
