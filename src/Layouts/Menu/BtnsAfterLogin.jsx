@@ -143,7 +143,7 @@ const menuItems = [
   },
   {
     icon: RobotIcon,
-    translationId: "261",
+    translationId: "574",
     link: "https://rgb.irpsc.com/version",
   },
   {
