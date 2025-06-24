@@ -1,10 +1,10 @@
 import React, { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
-import { ReactComponent as LoginIcon } from "../../../Assets/svg/login.svg";
+import { ReactComponent as LoginIcon } from "../../../assets/svg/login.svg";
 import { useMenuContext } from "../../../Services/Reducers/MenuContext";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../Services/Hooks/useAuth";
-import { ReactComponent as ArowMenu } from "../../../Assets/svg/arowMenu.svg";
+import { ReactComponent as ArowMenu } from "../../../assets/svg/arowMenu.svg";
 import { getFieldTranslationByNames } from "../../../Services/Utility";
 import useRequest from "../../../Services/Hooks/useRequest";
 import { removeItem } from "../../../Services/Utility/LocalStorage";

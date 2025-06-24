@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import psc from "../../../Assets/gif/psc.gif";
+import psc from "../../../assets/gif/psc.gif";
 import useRequest from "../../../Services/Hooks/useRequest";
 import PrintModal from "../../Profile/Tabs/transactions-tab/PrintModal";
 

@@ -1,14 +1,15 @@
 import CardItem from "./CardItem";
 import { FiSearch } from "react-icons/fi";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import business from "../../../../Assets/images/building.png";
-import education from "../../../../Assets/images/courthouse.png";
-import house from "../../../../Assets/images/house.png";
+import business from "../../../../assets/images/building.png";
+import education from "../../../../assets/images/courthouse.png";
+import house from "../../../../assets/images/house.png";
 import styled from "styled-components";
 import { useEffect, useState, useCallback } from "react";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { useParams } from "react-router-dom";
 
 const List = styled.div`
   display: flex;
@@ -144,12 +145,13 @@ const Houses = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const { id } = useParams();
 
   const loadMoreFeatures = useCallback(() => {
     if (loading || !hasMore) return;
-
     setLoading(true);
-    Request(`my-features?page=${page}`).then((response) => {
+    const endpoint = id ? `players/hm-2000002/assets` : `my-features?page=${page}`;
+    Request(endpoint).then((response) => {
       if (!response.data.data.length || !response.data.links?.next) {
         setHasMore(false);
         setLoading(false);
@@ -194,7 +196,7 @@ const Houses = () => {
       setPage((prevPage) => prevPage + 1);
       setLoading(false);
     });
-  }, [page, loading, hasMore]);
+  }, [page, loading, hasMore, id]);
 
   useEffect(() => {
     loadMoreFeatures(); // Initial load
@@ -345,7 +347,7 @@ const Houses = () => {
       </Div>
       <List>
         {filteredItems.map((card) => (
-          <CardItem {...card.properties} key={card.id} />
+          <CardItem {...card.properties} key={card.id} navigateId={card.id}/>
         ))}
       </List>
       {loading && <div>Loading...</div>}

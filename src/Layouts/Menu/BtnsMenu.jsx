@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 import DropDownLang from "../../Components/DropDownLang";
-import SingOutIcon from "../../Assets/svg/signOut.svg";
-import AccountSecurityIcon from "../../Assets/svg/accountSecurity.svg";
-import CentralSearch from "../../Assets/svg/centralSearch.svg";
-import GlobalStatisticsIcon from "../../Assets/svg/globalStatistics.svg";
-import FamilyTreeIcon from "../../Assets/svg/familyTree.svg";
-import RobotIcon from "../../Assets/svg/robot.svg";
-import ProfitIcon from "../../Assets/svg/profit.svg";
-import KycIcon from "../../Assets/svg/kyc.svg";
-import CalendarIcon from "../../Assets/svg/calendar.svg";
-import StoreIcon from "../../Assets/svg/store.svg";
-import NotifIcon from "../../Assets/svg/notif.svg";
-import ReportIcon from "../../Assets/svg/report.svg";
-import GiftIcon from "../../Assets/svg/gifts.svg";
-import LogoutIcon from "../../Assets/svg/logout.svg";
+import SingOutIcon from "../../assets/svg/signOut.svg";
+import AccountSecurityIcon from "../../assets/svg/accountSecurity.svg";
+import CentralSearch from "../../assets/svg/centralSearch.svg";
+import GlobalStatisticsIcon from "../../assets/svg/globalStatistics.svg";
+import FamilyTreeIcon from "../../assets/svg/familyTree.svg";
+import RobotIcon from "../../assets/svg/robot.svg";
+import ProfitIcon from "../../assets/svg/profit.svg";
+import KycIcon from "../../assets/svg/kyc.svg";
+import CalendarIcon from "../../assets/svg/calendar.svg";
+import StoreIcon from "../../assets/svg/store.svg";
+import NotifIcon from "../../assets/svg/notif.svg";
+import ReportIcon from "../../assets/svg/report.svg";
+import GiftIcon from "../../assets/svg/gifts.svg";
+import LogoutIcon from "../../assets/svg/logout.svg";
 import { useMenuContext } from "../../Services/Reducers/MenuContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../Services/Hooks/useAuth";
@@ -103,7 +103,6 @@ const menuItems = [
     translationId: "233",
     navigate: "",
   },
-  { icon: FamilyTreeIcon, translationId: "234", navigate: "dynasty" },
   { icon: RobotIcon, translationId: "235", navigate: "" },
   {
     icon: ProfitIcon,
@@ -144,14 +143,14 @@ const BtnsMenu = () => {
       (item) => `/metaverse/${item.navigate}` === location.pathname
     );
     if (currentItem) {
-      setSelectedItem(currentItem.translationKey);
+      setSelectedItem(currentItem.translationId);
     } else {
       setSelectedItem(null); // No item selected if the route doesn't match
     }
   }, [location.pathname]);
 
   const handleClick = (item) => {
-    setSelectedItem(item.translationKey); // Set selected item on click
+    setSelectedItem(item.translationId); // Set selected item on click
     navigate(`/metaverse/${item.navigate}`);
   };
 
@@ -161,28 +160,28 @@ const BtnsMenu = () => {
         <Btn
           key={index}
           isOpen={isOpen}
-          isSelected={selectedItem === item.translationKey} // Check if the item is selected
+          isSelected={selectedItem === item.translationId} // Check if the item is selected
           onClick={() => handleClick(item)}
-          disabled={item.navigate === "" && item.translationKey !== "sign out"}
+          disabled={item.navigate === "" && item.translationId !== "sign out"}
         >
           <div>
             <Icon
               src={item.icon}
-              isSelected={selectedItem === item.translationKey}
+              isSelected={selectedItem === item.translationId}
             />
             <Text
               isOpen={isOpen}
-              isSelected={selectedItem === item.translationKey}
+              isSelected={selectedItem === item.translationId}
             >
               {getFieldTranslationByNames(item.translationId)}
             </Text>
           </div>
-          {item.translationKey === "accumulated earnings" && user && (
+          {item.translationId === "236" && user && (
             <ValueBtn isOpen={isOpen}>
               %{user.hourly_profit_time_percentage}
             </ValueBtn>
           )}
-          {item.translationKey === "notifications" && user && (
+          {item.translationId === "238" && user && (
             <ValueBtn isOpen={isOpen}>{user.notifications}</ValueBtn>
           )}
         </Btn>

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import FailedTransactionImage from "../../../../Assets/images/transaction-1.png";
-import SuccessTransactionImage from "../../../../Assets/images/transaction-2.png";
-import PrintImage from "../../../../Assets/images/print.png";
-import factorImage from "../../../../Assets/images/factor-2.png";
+import FailedTransactionImage from "../../../../assets/images/transaction-1.png";
+import SuccessTransactionImage from "../../../../assets/images/transaction-2.png";
+import PrintImage from "../../../../assets/images/print.png";
+import factorImage from "../../../../assets/images/factor-2.png";
 // import html2pdf from "html2pdf.js";
 const Container = styled.div`
   width: 100%;

@@ -1,20 +1,20 @@
-import brush from "../../../../Assets/images/settings/brush.png";
-import bubble from "../../../../Assets/images/settings/bubble.png";
-import clock from "../../../../Assets/images/settings/clock.png";
-import coffee from "../../../../Assets/images/settings/coffee.png";
+import brush from "../../../../assets/images/settings/brush.png";
+import bubble from "../../../../assets/images/settings/bubble.png";
+import clock from "../../../../assets/images/settings/clock.png";
+import coffee from "../../../../assets/images/settings/coffee.png";
 import { convertToPersian } from "../../../../Services/Utility/index";
-import cpu from "../../../../Assets/images/settings/cpu.png";
-import dollar from "../../../../Assets/images/settings/dollar-circle.png";
-import ghost from "../../../../Assets/images/settings/ghost.png";
-import lang from "../../../../Assets/images/settings/language-square.png";
-import layer from "../../../../Assets/images/settings/layer.png";
-import music from "../../../../Assets/images/settings/musicnote.png";
-import note from "../../../../Assets/images/settings/note-2.png";
-import pet from "../../../../Assets/images/settings/pet.png";
+import cpu from "../../../../assets/images/settings/cpu.png";
+import dollar from "../../../../assets/images/settings/dollar-circle.png";
+import ghost from "../../../../assets/images/settings/ghost.png";
+import lang from "../../../../assets/images/settings/language-square.png";
+import layer from "../../../../assets/images/settings/layer.png";
+import music from "../../../../assets/images/settings/musicnote.png";
+import note from "../../../../assets/images/settings/note-2.png";
+import pet from "../../../../assets/images/settings/pet.png";
 import styled from "styled-components";
-import tree from "../../../../Assets/images/settings/tree.png";
+import tree from "../../../../assets/images/settings/tree.png";
 import { useGlobalState } from "./aboutGlobalStateProvider";
-import weight from "../../../../Assets/images/settings/weight.png";
+import weight from "../../../../assets/images/settings/weight.png";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 import { useEffect, useState } from "react";
 const Container = styled.div`
@@ -174,10 +174,10 @@ const Hobby = () => {
   return (
     <Container>
       <Div limitReached={limitReached}>
-        <Label>
-          {getFieldTranslationByNames("784")}
-        </Label>
-        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames("790")}`}</h4>
+        <Label>{getFieldTranslationByNames("784")}</Label>
+        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames(
+          "790"
+        )}`}</h4>
       </Div>
       <CheckboxContainer>
         {hobbies.map((hobby) => (
@@ -190,9 +190,7 @@ const Hobby = () => {
             />
             <div>
               <img src={hobby.icon} alt={hobby.name} width={24} height={24} />
-              <span>
-                {getFieldTranslationByNames(hobby.translationId)}
-              </span>
+              <span>{getFieldTranslationByNames(hobby.translationId)}</span>
             </div>
           </CheckboxLabel>
         ))}

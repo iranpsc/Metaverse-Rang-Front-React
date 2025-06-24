@@ -1,4 +1,5 @@
 import Title from "../../../../../Components/Title";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 import Details from "./Details";
 import Model3D from "./Model3D";
 
@@ -16,13 +17,13 @@ const Wrapper = styled.div`
     grid-template-columns: 2fr 1fr;
   }
 `;
-const Owner = () => {
+const Owner = ({ data }) => {
   return (
     <Container>
-      <Title title="ملک سلسله" />
+      <Title title={getFieldTranslationByNames(819)} />
       <Wrapper>
         <Model3D />
-        <Details />
+        <Details data={data} />
       </Wrapper>
     </Container>
   );

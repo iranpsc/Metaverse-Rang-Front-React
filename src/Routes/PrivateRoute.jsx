@@ -7,10 +7,14 @@ export default function PrivateRoute({ children }) {
   const { isLoggedIn } = useAuth();
   const navigation = useNavigate();
   const [components, setComponents] = useState();
-  const { Request } = useRequest();
+  const { Request, HTTP_METHOD } = useRequest();
   useEffect(() => {
     if (!isLoggedIn()) {
-      Request("auth/redirect")
+      // This check isn't preventing unwanted redirects properly
+      Request(
+        `auth/redirect?redirect_to=${window.location.origin}/metaverse`,
+        HTTP_METHOD.GET
+      )
         .then((response) => {
           if (response && response.data.url) {
             window.location.href = response.data.url;

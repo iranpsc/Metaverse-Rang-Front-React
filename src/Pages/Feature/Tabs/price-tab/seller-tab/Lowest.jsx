@@ -121,12 +121,9 @@ const Lowest = () => {
         ToastSuccess("حداقل قیمت پیشنهادی شما با موفقیت ثبت شد.");
       })
       .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          return Navigate("/metaverse/confirmation");
-        } else {
+   
           ToastError(error.response.data.message);
-        }
+        
       });
   };
   return (

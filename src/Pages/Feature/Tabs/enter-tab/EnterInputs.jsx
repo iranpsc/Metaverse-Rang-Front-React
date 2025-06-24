@@ -15,7 +15,7 @@ const EnterInputs = ({ data }) => {
         ?.slice(0, 4)
         .map(
           (input) => (
-            console.log(input),
+
             (
               <Input
                 {...input}

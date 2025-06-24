@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import ExitImage from "../../Assets/images/exit.png";
-import ReportImage from "../../Assets/images/report.png";
-import HelpImage from "../../Assets/images/help.png";
+import ExitImage from "../../assets/images/exit.png";
+import ReportImage from "../../assets/images/report.png";
+import HelpImage from "../../assets/images/help.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useAdviserData from "../../Services/Hooks/useAdviserData";

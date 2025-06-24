@@ -121,12 +121,9 @@ const Album = ({ feature, setFeature }) => {
               ToastSuccess("آپلود عکس با موفقیت انجام شد.");
             })
             .catch((error) => {
-              if (error.response.status === 410) {
-                ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-                return Navigate("/metaverse/confirmation");
-              } else {
+             
                 ToastError(error.response.data.message);
-              }
+              
             });
         },
       });
@@ -137,7 +134,7 @@ const Album = ({ feature, setFeature }) => {
 
   const deleteHandler = (imageId) => {
     const url = `my-features/${user.id}/remove-image/${feature.id}/image/${imageId}`;
-    console.log(imageId);
+
     Request(url, HTTP_METHOD.POST)
       .then((response) => {
         const filteredImages = feature?.images?.filter(
@@ -148,12 +145,9 @@ const Album = ({ feature, setFeature }) => {
         ToastSuccess("تصویر با موفقیت حذف شد.");
       })
       .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          Navigate("/metaverse/confirmation");
-        } else {
+   
           ToastError(error.response.data.message);
-        }
+        
       });
   };
 

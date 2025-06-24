@@ -1,6 +1,6 @@
 import { useEffect, useState, useTransition } from "react";
 import styled from "styled-components";
-import SearchIcon from "../../../Assets/images/searchIcon.png";
+import SearchIcon from "../../../assets/images/searchIcon.png";
 
 const ParentInput = styled.div`
   width: 95%;

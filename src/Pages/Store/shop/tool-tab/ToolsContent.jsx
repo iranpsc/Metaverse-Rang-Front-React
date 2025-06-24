@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 
 const ToolsContent = ({ option }) => {
   const { alert } = useContext(AlertContext);
-  const [assets, setAssets] = useState([]);
+  const [assets, setassets] = useState([]);
   const [loading, setLoading] = useState(true);
   const { Request, HTTP_METHOD } = useRequest();
 
@@ -46,7 +46,7 @@ const ToolsContent = ({ option }) => {
       codes: [`tools-b-${option}`, `tools-r-${option}`, `tools-y-${option}`],
     })
       .then((response) => {
-        setAssets(response.data.data);
+        setassets(response.data.data);
       })
       .finally(() => {
         setLoading(false);

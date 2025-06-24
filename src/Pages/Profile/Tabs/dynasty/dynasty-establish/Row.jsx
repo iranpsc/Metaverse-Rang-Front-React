@@ -39,7 +39,6 @@ const Row = ({
   rial = "",
 }) => {
   const renderContent = (content) => <Code>{convertToPersian(content)}</Code>;
-
   return (
     <TableRow>
       {[name, psc, plus, cage, rial].map((value, index) => (

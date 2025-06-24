@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'; // اضافه کردن useContext به واردات
-import download from "../../../../Assets/images/reports/download.png";
+import React, { useContext } from "react"; // اضافه کردن useContext به واردات
+import download from "../../../../assets/images/reports/download.png";
 import styled from "styled-components";
 import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
 import { convertToPersian } from "../../../../Services/Utility/index";
-import { UserContext } from '../../../../Services/Reducers/UserContext'; // وارد کردن UserContext
+import { UserContext } from "../../../../Services/Reducers/UserContext"; // وارد کردن UserContext
 
 const Content = styled.div``;
 
@@ -25,9 +25,11 @@ const Header = styled.div`
   }
 `;
 const Text = styled.div`
-color: ${(props) => props.theme.colors.newColors.shades.title};
-  border: 1px solid ${(props) => props.theme.colors.newColors.otherColors.confirmed};
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.confirmed};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.confirmed};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.confirmed};
   padding: 12px;
   border-radius: 10px;
   p {
@@ -45,47 +47,47 @@ color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
 const Files = styled.div`
-div{
-display: flex;
-flex-direction: row;
-gap: 10px;
-@media screen and (max-width: 1434px) {
+  div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    @media screen and (max-width: 1434px) {
       flex-wrap: wrap;
     }
-}
-h4 {
+  }
+  h4 {
     color: #a0a0ab;
     font-size: 16px;
     font-weight: 400;
     width: fit-content;
     margin-top: 10px;
   }
-  border: 1px solid ${(props) => props.theme.colors.newColors.otherColors.confirmed};
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.confirmed};
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.confirmed};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.confirmed};
   display: flex;
   flex-direction: column;
   padding: 12px;
   align-items: end;
   border-radius: 10px;
   margin: 10px 0;
-
-
 `;
 
 const Avatar = styled.img`
   border-radius: 100%;
   width: 50px;
-  object-fit: cover ;// برای اطمینان از برش درست تصویر
-    height: 50px;
+  object-fit: cover; // برای اطمینان از برش درست تصویر
+  height: 50px;
 `;
 
 const Container = styled.div`
   display: flex;
   gap: 12px;
   width: 80%;
-  ${({ isPersian }) => isPersian ? "margin-left: auto;" : "margin-right: auto;"}  margin-top: 20px;
+  ${({ isPersian }) =>
+    isPersian ? "margin-left: auto;" : "margin-right: auto;"} margin-top: 20px;
   margin-top: 20px;
-  
 `;
 
 const Download = styled.img`
@@ -116,26 +118,25 @@ const Image = styled.div`
 
 const handleDownload = async (imageSrc, filename) => {
   try {
-    const response = await fetch(imageSrc, { mode: 'cors' }); 
+    const response = await fetch(imageSrc, { mode: "cors" });
     const blob = await response.blob();
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = filename;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(link.href); 
+    URL.revokeObjectURL(link.href);
   } catch (error) {
     console.error("Error downloading the image:", error);
   }
 };
 
-
 const openInNewTab = (imageSrc) => {
-  window.open(imageSrc, '_blank');
+  window.open(imageSrc, "_blank");
 };
 const CitizenMessage = (reportDetails) => {
-  const [userState] = useContext(UserContext); 
+  const [userState] = useContext(UserContext);
   const isPersian = useLanguage();
   const datetime = reportDetails.reportDetails.datetime;
   const Code = userState.code.toUpperCase();
@@ -147,7 +148,7 @@ const CitizenMessage = (reportDetails) => {
 
     // پیدا کردن همه تگ‌های <a> و بازنویسی آن‌ها
     const links = tempDiv.querySelectorAll("a");
-    links.forEach(link => {
+    links.forEach((link) => {
       const textContent = link.textContent; // محتوای داخل تگ <a>
       const newLink = document.createElement("a");
       newLink.href = link.href;
@@ -171,9 +172,9 @@ const CitizenMessage = (reportDetails) => {
         <Header>
           <span>{userState.name}</span>
           {/* افزودن target و rel به لینک Code */}
-          <a 
-            href={`https://rgb.irpsc.com/fa/citizen/${userState.code}`} 
-            target="_blank" 
+          <a
+            href={`https://rgb.irpsc.com/fa/citizen/${userState.code}`}
+            target="_blank"
             rel="noopener noreferrer"
           >
             {Code}
@@ -182,35 +183,44 @@ const CitizenMessage = (reportDetails) => {
         <Text>
           {/* نمایش متن پردازش‌شده */}
           <div dangerouslySetInnerHTML={{ __html: description }} />
-          <h4>{date} | {time}</h4> 
+          <h4>
+            {date} | {time}
+          </h4>
         </Text>
-        {reportDetails.reportDetails.attachments && reportDetails.reportDetails.attachments.length > 0 && (
-          <Files>
-            <div>
-              {reportDetails.reportDetails.attachments.map((imageSrc, index) => (
-                <Image key={index}>
-                  <img
-                    src={imageSrc}
-                    alt={`attachment-${index}`}
-                    width={200}
-                    height={179}
-                    onClick={() => openInNewTab(imageSrc)}
-                    style={{ cursor: 'pointer' }}
-                  />
-                  <Download
-                    src={download}
-                    alt="download"
-                    width={36}
-                    height={36}
-                    onClick={() => handleDownload(imageSrc, `attachment-${index}.jpeg`)}
-                    style={{ cursor: 'pointer' }}
-                  />
-                </Image>
-              ))}
-            </div>
-            <h4>{date} | {time}</h4> 
-          </Files>
-        )}
+        {reportDetails.reportDetails.attachments &&
+          reportDetails.reportDetails.attachments.length > 0 && (
+            <Files>
+              <div>
+                {reportDetails.reportDetails.attachments.map(
+                  (imageSrc, index) => (
+                    <Image key={index}>
+                      <img
+                        src={imageSrc}
+                        alt={`attachment-${index}`}
+                        width={200}
+                        height={179}
+                        onClick={() => openInNewTab(imageSrc)}
+                        style={{ cursor: "pointer" }}
+                      />
+                      <Download
+                        src={download}
+                        alt="download"
+                        width={36}
+                        height={36}
+                        onClick={() =>
+                          handleDownload(imageSrc, `attachment-${index}.jpeg`)
+                        }
+                        style={{ cursor: "pointer" }}
+                      />
+                    </Image>
+                  )
+                )}
+              </div>
+              <h4>
+                {date} | {time}
+              </h4>
+            </Files>
+          )}
       </Content>
     </Container>
   );

@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import loaderGif from "../Assets/gif/ajax-loader.gif";
+import loaderGif from "../assets/gif/ajax-loader.gif";
 
 const ButtonElement = styled.button`
   border-radius: 10px;
   background-color: ${(props) =>
     props.color
-      ? props.color
+      ? props.disabled
+        ? `${props.color}80` // Add 50% transparency when disabled
+        : props.color
       : props.grayTheme
       ? props.theme.colors.newColors.otherColors.garyBtn
       : props.disabled === "pending"
@@ -24,9 +26,9 @@ const ButtonElement = styled.button`
       ? "100%"
       : "fit-content"};
   height: 45px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   color: ${(props) =>
     props.disabled === "pending"
       ? "#949494"
@@ -38,6 +40,8 @@ const ButtonElement = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: ${(props) => (props.disabled ? "0.5" : "1")};
+  pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
   @media (max-width: 840px) {
     width: ${(props) => (props.row ? "55px" : props.full && "100%")};
     height: ${(props) => props.row && "35px"};
@@ -56,7 +60,8 @@ const ButtonElement = styled.button`
 
 const Button = ({
   label,
-  onClick, // keep only onClick, remove onclick
+  onclick,
+  onClick,
   row,
   color,
   edit,
@@ -69,6 +74,9 @@ const Button = ({
   style,
   onclick,
 }) => {
+  // ترکیب onclick و onClick
+  const handleClick = onClick || onclick;
+
   return (
     <ButtonElement
       full={full}
@@ -76,14 +84,14 @@ const Button = ({
       edit={edit}
       row={row}
       color={color}
-      onClick={onClick ? onClick : onclick} // keep only one onClick prop
+      onClick={disabled ? undefined : handleClick}
       disabled={disabled}
       fit={fit}
       textColor={textColor}
       grayTheme={grayTheme}
       style={style}
     >
-      {label}{" "}
+      {label}
       {disabled === "pending" && <img src={loaderGif} alt="Loading..." />}
     </ButtonElement>
   );

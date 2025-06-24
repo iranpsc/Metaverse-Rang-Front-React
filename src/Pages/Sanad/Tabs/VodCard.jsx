@@ -1,8 +1,8 @@
-import circle from "../../../Assets/images/link-circle.png";
-import insta from "../../../Assets/images/instagram.png";
-import send from "../../../Assets/images/send-2.png";
+import circle from "../../../assets/images/link-circle.png";
+import insta from "../../../assets/images/instagram.png";
+import send from "../../../assets/images/send-2.png";
 import styled from "styled-components";
-import whatsapp from "../../../Assets/images/whatsapp.png";
+import whatsapp from "../../../assets/images/whatsapp.png";
 import Title from "../../../Components/Title";
 
 const Container = styled.div`

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import PercentageImage from "../../Assets/images/percentage.png";
+import PercentageImage from "../../assets/images/percentage.png";
 import useAuth from "../../Services/Hooks/useAuth";
 import ToolTip from "../Tooltip";
 

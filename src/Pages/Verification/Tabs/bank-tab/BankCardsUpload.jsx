@@ -1,7 +1,7 @@
 import AddBankCard from "./AddBankCard";
 import ConfirmCardDelete from "./ConfirmCardDelete";
 import { HiOutlineTrash } from "react-icons/hi";
-import bank from "../../../../Assets/images/bank-melat.png";
+import bank from "../../../../assets/images/bank-melat.png";
 import styled from "styled-components";
 import { useState } from "react";
 import { getShebaInfo } from "@persian-tools/persian-tools";
@@ -146,7 +146,7 @@ const BankCardsUpload = ({
   const [deleteIndex, setDeleteIndex] = useState(null);
   const { Request, HTTP_METHOD } = useRequest();
   const handleDeleteCard = ({ index, id }) => {
-    console.log(id);
+
     Request(`bank-accounts/${id}`, HTTP_METHOD.DELETE).then((response) => {
       setDeleteIndex(index);
       setOpenDeleteModal(true);
@@ -175,10 +175,7 @@ const BankCardsUpload = ({
                       <h2>{card.card_num}</h2>
                     </CardNumber>
                     <CardShaba>
-                      <span>
-                        {" "}
-                        {getFieldTranslationByNames("889")}
-                      </span>
+                      <span> {getFieldTranslationByNames("889")}</span>
                       <h3>{card.shaba_num}</h3>
                     </CardShaba>
                   </DisplayCard>
@@ -189,11 +186,7 @@ const BankCardsUpload = ({
 
           <UploadWrapper>
             <Upload onClick={() => setOpenAddModal(true)}>
-              +
-              <span>
-                {" "}
-                {getFieldTranslationByNames("890")}
-              </span>
+              +<span> {getFieldTranslationByNames("890")}</span>
             </Upload>
           </UploadWrapper>
         </BankCard>

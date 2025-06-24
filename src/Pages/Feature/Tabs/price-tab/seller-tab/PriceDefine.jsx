@@ -94,12 +94,9 @@ const PriceDefine = () => {
         setAssign(true);
       })
       .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          return Navigate("/metaverse/confirmation");
-        } else {
+    
           ToastError(error.response.data.message);
-        }
+        
       });
   };
 

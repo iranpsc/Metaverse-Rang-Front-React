@@ -7,11 +7,11 @@ import Dynasty from "./Dynasty/Dynasty";
 import Union from "./Union/Union";
 import BtnsMenu from "./BtnsMenu";
 import { FaChevronDown } from "react-icons/fa";
-import Anonymous from "../../Assets/images/defulte-profile.png";
-import Message from "../../Assets/svg/message.svg";
-import ProfileMember from "../../Assets/svg/profileMember.svg";
-import Ticket from "../../Assets/svg/ticket.svg";
-import Setting from "../../Assets/svg/setting.svg";
+import Anonymous from "../../assets/images/defulte-profile.png";
+import Message from "../../assets/svg/message.svg";
+import ProfileMember from "../../assets/svg/profileMember.svg";
+import Ticket from "../../assets/svg/ticket.svg";
+import Setting from "../../assets/svg/setting.svg";
 import { useNavigate } from "react-router-dom";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 

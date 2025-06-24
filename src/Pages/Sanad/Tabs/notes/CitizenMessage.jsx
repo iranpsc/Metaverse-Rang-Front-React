@@ -1,5 +1,5 @@
 import React from "react";
-import download from "../../../../Assets/images/download.png";
+import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 

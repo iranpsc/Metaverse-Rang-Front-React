@@ -1,5 +1,6 @@
-import avatar from "../../../../../Assets/images/slide.png";
+import avatar from "../../../../../assets/images/user.png";
 import styled from "styled-components";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -66,24 +67,24 @@ const Date = styled.div`
   }
 `;
 
-const MemberCard = ({ status, code, date, time }) => {
+const MemberCard = ({ status, code, date, time ,name ,image }) => {
   return (
     <Container>
       <Profile>
-        <img src={avatar} width={80} height={80} />
+        <img src={image || avatar}  width={80} height={80} />
         <div>
-          <h3>Sorena Qadiri</h3>
+          <h3>{name}</h3>
           <a
             h
             href={`https://rgb.irpsc.com/fa/citizens/${code}`}
             target="_blank"
           >
-            HM-{code}
+           {code}
           </a>
         </div>
       </Profile>
       <Status>
-        <h2>وضعیت درخواست</h2>
+        <h2>{getFieldTranslationByNames(146)}</h2>
         <h3
           style={{
             color: `${
@@ -96,14 +97,14 @@ const MemberCard = ({ status, code, date, time }) => {
           }}
         >
           {status === "confirmed"
-            ? "تایید شده"
+            ? getFieldTranslationByNames(854)
             : status === "pending"
-            ? "در دست بررسی"
-            : "رد شده"}
+            ? getFieldTranslationByNames(852)
+            : getFieldTranslationByNames(853)}
         </h3>
       </Status>
       <Date>
-        <h2>تاریخ و ساعت ارسال </h2>
+        <h2> {getFieldTranslationByNames(850)} </h2>
         <h3>
           {date} | {time}
         </h3>

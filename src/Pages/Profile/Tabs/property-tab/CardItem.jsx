@@ -1,6 +1,6 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import pscpng from "../../../../Assets/gif/psc.gif";
-import rialpng from "../../../../Assets/gif/rial.gif";
+import pscpng from "../../../../assets/gif/psc.gif";
+import rialpng from "../../../../assets/gif/rial.gif";
 import styled from "styled-components";
 import { useState } from "react";
 import {
@@ -9,6 +9,7 @@ import {
 } from "../../../../Services/Utility";
 import Button from "../../../../Components/Button";
 import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
+import { useNavigate } from "react-router-dom";
 
 const PhotoName = styled.div`
   display: flex;
@@ -43,6 +44,7 @@ const Name = styled.div`
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
+    cursor: pointer;
   }
 `;
 
@@ -170,6 +172,7 @@ const CardItem = ({
   price_psc,
   price_irr,
   photo,
+  navigateId
 }) => {
   const [isDeleted, setIsDeleted] = useState(true);
   const formattedRial =
@@ -181,7 +184,7 @@ const CardItem = ({
     price_psc >= 1000000
       ? `${Math.floor(price_psc / 1000000)}M`
       : `${Math.floor(price_psc / 1000)}K`;
-
+const Navigate=useNavigate()
   return (
     <Container>
       <Right>
@@ -191,7 +194,7 @@ const CardItem = ({
           </ImageWrapper>
           <Name>
             <h3>{getFieldTranslationByNames(name)}</h3>
-            <span>{id}</span>
+            <span onClick={() => Navigate(`/metaverse/feature/${navigateId}`)}>{id}</span>
           </Name>
         </PhotoName>
         <Address>

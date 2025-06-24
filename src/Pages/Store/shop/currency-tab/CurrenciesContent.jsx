@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 
 const CurrenciesContent = ({ option, currencies }) => {
   const { alert } = useContext(AlertContext);
-  const [assets, setAssets] = useState([]);
+  const [assets, setassets] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { Request, HTTP_METHOD } = useRequest();
@@ -43,7 +43,7 @@ const CurrenciesContent = ({ option, currencies }) => {
       ],
     })
       .then((response) => {
-        setAssets(response.data.data);
+        setassets(response.data.data);
       })
       .finally(() => {
         setLoading(false);

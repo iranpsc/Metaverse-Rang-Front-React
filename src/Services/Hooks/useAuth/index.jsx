@@ -3,7 +3,6 @@ import {
   AddUserAction,
   DeleteUserAction,
 } from "../../Actions/UserContextAction";
-import { FollowContext } from "../../Reducers/FollowContext";
 import { UserContext } from "../../Reducers/UserContext";
 import {
   WalletContext,
@@ -15,7 +14,6 @@ import useRequest from "../useRequest";
 export default function useAuth() {
   const [userState, setUserState] = useContext(UserContext);
   const [, setWallet] = useContext(WalletContext);
-  const [, setFollow] = useContext(FollowContext);
   const { Request, HTTP_METHOD } = useRequest();
 
   const LocalStorage = getItem("user");
@@ -37,17 +35,10 @@ export default function useAuth() {
     const LocalStorageData = { token: user.token, expire: expire };
 
     setItem("user", LocalStorageData);
-    const [walletResponse, followingResponse, profileResponse] =
+    const [walletResponse, profileResponse] =
       await Promise.all([
         Request(
           "user/wallet",
-          HTTP_METHOD.GET,
-          {},
-          { Authorization: `Bearer ${user?.token}` },
-          "development"
-        ),
-        Request(
-          "following",
           HTTP_METHOD.GET,
           {},
           { Authorization: `Bearer ${user?.token}` },
@@ -65,7 +56,7 @@ export default function useAuth() {
       type: WalletContextTypes.ADD_WALLET,
       payload: walletResponse.data.data,
     });
-    setFollow(followingResponse.data.data);
+
     setUserState(AddUserAction(profileResponse.data.data));
   };
 
@@ -78,16 +69,15 @@ export default function useAuth() {
       const userProfileResponse = await Request("auth/me", HTTP_METHOD.POST);
       setUserState(AddUserAction(userProfileResponse.data.data));
 
-      const [walletResponse, followingResponse] = await Promise.all([
+      const [walletResponse] = await Promise.all([
         Request("user/wallet"),
-        Request("following"),
       ]);
 
       setWallet({
         type: WalletContextTypes.ADD_WALLET,
         payload: walletResponse.data.data,
       });
-      setFollow(followingResponse.data.data);
+
     } else {
       removeItem("user");
     }

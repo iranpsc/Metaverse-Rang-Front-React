@@ -4,9 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAdviserData from "../../../../../../Services/Hooks/useAdviserData";
 import styled, { useTheme } from "styled-components";
 
-import { ReactComponent as Help } from "../../../../../../Assets/svg/exclamation.svg";
-import { ReactComponent as Exit } from "../../../../../../Assets/svg/close.svg";
-import { ReactComponent as Report } from "../../../../../../Assets/svg/question.svg";
+import { ReactComponent as Help } from "../../../../../../assets/svg/exclamation.svg";
+import { ReactComponent as Exit } from "../../../../../../assets/svg/close.svg";
+import { ReactComponent as Report } from "../../../../../../assets/svg/question.svg";
 import CanvasPreview from "./CanvasPreview";
 import { getFieldTranslationByNames } from "../../../../../../Services/Utility";
 
@@ -138,16 +138,12 @@ const PreviewModel = ({ data }) => {
               onClick={() => setHidden(true)}
             />
           </div>
-          <Header>
-            {getFieldTranslationByNames("371")}
-          </Header>
+          <Header>{getFieldTranslationByNames("371")}</Header>
         </div>
         <div className="modal-body ">
           <Container>
             <ContainerDetail>
-              <TextTitle>
-                {getFieldTranslationByNames("372")}
-              </TextTitle>
+              <TextTitle>{getFieldTranslationByNames("372")}</TextTitle>
               {data[0].attributes.map((attribute, index) => (
                 <PHolder key={index}>
                   <TextTitle>{attribute.name}</TextTitle>

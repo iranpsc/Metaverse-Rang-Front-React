@@ -2,11 +2,11 @@ import EnterEdit from "./EnterEdit";
 import EnterInfo from "./EnterInfo";
 import { HiOutlineBuildingOffice } from "react-icons/hi2";
 import { MdOutlineHome } from "react-icons/md";
-import psc from "../../../../Assets/gif/psc.gif";
-import rial from "../../../../Assets/gif/rial.gif";
+import psc from "../../../../assets/gif/psc.gif";
+import rial from "../../../../assets/gif/rial.gif";
 import { useEffect, useState } from "react";
-import video1 from "../../../../Assets/gif/rial.gif";
-import video2 from "../../../../Assets/gif/rial.gif";
+import video1 from "../../../../assets/gif/rial.gif";
+import video2 from "../../../../assets/gif/rial.gif";
 
 const enterData = [
   {

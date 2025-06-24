@@ -7,15 +7,15 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 import TransactionsList from "./TransactionsList";
-import blue from "../../../../Assets/gif/blue-color.gif";
+import blue from "../../../../assets/gif/blue-color.gif";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import psc from "../../../../Assets/gif/psc.gif";
-import red from "../../../../Assets/gif/red-color.gif";
-import rial from "../../../../Assets/gif/rial.gif";
+import psc from "../../../../assets/gif/psc.gif";
+import red from "../../../../assets/gif/red-color.gif";
+import rial from "../../../../assets/gif/rial.gif";
 import styled from "styled-components";
 import { useState, useEffect, useRef, useCallback } from "react";
-import yellow from "../../../../Assets/gif/yellow-color.gif";
+import yellow from "../../../../assets/gif/yellow-color.gif";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
@@ -287,9 +287,7 @@ const TransactionsTab = () => {
   return (
     <Container>
       <div>
-        <Title
-          title={getFieldTranslationByNames("61")}
-        />
+        <Title title={getFieldTranslationByNames("61")} />
       </div>
       <Div>
         <SearchInput

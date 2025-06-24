@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   border-radius: 10px;
@@ -69,11 +70,14 @@ const Level = () => {
   const [user, setUser] = useState({});
   const { Request } = useRequest();
   const IsPersian = useLanguage();
+  const { id } = useParams();
+
   useEffect(() => {
-    Request(`users/${userId.id}/level`).then((response) => {
+    const requestId = id || userId.id;
+    Request(`users/${requestId}/level`).then((response) => {
       setUser(response.data.data);
     });
-  }, []);
+  }, [id, userId.id]);
 
   return (
     <Container>

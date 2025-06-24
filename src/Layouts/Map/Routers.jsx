@@ -1,30 +1,30 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 
-import Search from "../../Pages/Search";
+import Search from "../../pages/Search";
 import PrivateRoute from "../../Routes/PrivateRoute";
-import Report from "../../Pages/Report";
-import Sanad from "../../Pages/Sanad";
-import Settings from "../../Pages/Settings";
-import Notifications from "../../Pages/Notifications";
-import Store from "../../Pages/Store";
+import Report from "../../pages/Report";
+import Sanad from "../../pages/Sanad";
+import Settings from "../../pages/Settings";
+import Notifications from "../../pages/Notifications";
+import Store from "../../pages/Store";
 import PublicRoute from "../../Routes/PublicRoute";
-import PaymentVerification from "../../Pages/Payments/Verification";
-import Profile from "../../Pages/Profile";
-import Verification from "../../Pages/Verification";
-import Feature from "../../Pages/Feature";
+import PaymentVerification from "../../pages/Payments/Verification";
+import Profile from "../../pages/Profile";
+import Verification from "../../pages/Verification";
+import Feature from "../../pages/Feature";
 
 import Commercial from "../../Components/Lottie/Commercial";
 import Residential from "../../Components/Lottie/Residential";
 import Educational from "../../Components/Lottie/Educational";
 import SignupLottie from "../../Components/Lottie/SignupLottie";
-import Player from "../../Pages/Player";
-import Dynasty from "../../Pages/Dynasty";
-import HourMeterProfit from "../../Pages/HourMeterProfit";
-import TransactionPayments from "../../Pages/Payments/Verification/transactionPayments";
+import Player from "../../pages/Player";
+import Dynasty from "../../pages/Dynasty";
+import HourMeterProfit from "../../pages/HourMeterProfit";
+import TransactionPayments from "../../pages/Payments/Verification/transactionPayments";
 
-import Ip from "../../Pages/Ip";
-import EmailVerification from "../../Pages/EmailVerification";
-import AccountSecurityModal from "../../Pages/AccountSecurity";
+import Ip from "../../pages/Ip";
+import EmailVerification from "../../pages/EmailVerification";
+import AccountSecurityModal from "../../pages/AccountSecurity";
 //import { ProfileInfoProvider } from './Services/Reducers/profileInfoContext.jsx';
 
 export default function Routers() {

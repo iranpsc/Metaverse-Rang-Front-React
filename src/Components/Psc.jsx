@@ -1,4 +1,4 @@
-import pscGif from "../Assets/gif/psc.gif";
+import pscGif from "../assets/gif/psc.gif";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../Services/Utility";
 

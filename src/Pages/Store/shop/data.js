@@ -1,8 +1,8 @@
-import blue from "../../../Assets/gif/blue-color.gif";
-import psc from "../../../Assets/gif/psc.gif";
-import red from "../../../Assets/gif/red-color.gif";
-import rial from "../../../Assets/gif/rial.gif";
-import yellow from "../../../Assets/gif/yellow-color.gif";
+import blue from "../../../assets/gif/blue-color.gif";
+import psc from "../../../assets/gif/psc.gif";
+import red from "../../../assets/gif/red-color.gif";
+import rial from "../../../assets/gif/rial.gif";
+import yellow from "../../../assets/gif/yellow-color.gif";
 
 export const tools = [
   {

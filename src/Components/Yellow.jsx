@@ -1,4 +1,4 @@
-import yellowGif from "../Assets/gif/yellow-color.gif";
+import yellowGif from "../assets/gif/yellow-color.gif";
 import styled from "styled-components";
 
 const Container = styled.div`

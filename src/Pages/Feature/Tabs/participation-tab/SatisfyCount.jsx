@@ -1,4 +1,4 @@
-import satisfy from "../../../../Assets/gif/satisfaction.gif";
+import satisfy from "../../../../assets/gif/satisfaction.gif";
 import styled from "styled-components";
 import {
   convertToPersian,
@@ -69,9 +69,7 @@ const SatisfyCount = () => {
       />
       <First>
         <h3>۵.۰۴۸</h3>
-        <span>
-          {getFieldTranslationByNames("52")}
-        </span>
+        <span>{getFieldTranslationByNames("52")}</span>
       </First>
       <Second>
         <span>
@@ -81,12 +79,9 @@ const SatisfyCount = () => {
         <span>|</span>
         <span>
           {" "}
-          {convertToPersian(12)}{" "}
-          {getFieldTranslationByNames("560")}{" "}
-          {convertToPersian(21)}{" "}
-          {getFieldTranslationByNames("33")}{" "}
-          {convertToPersian(34)}{" "}
-          {getFieldTranslationByNames("488")}{" "}
+          {convertToPersian(12)} {getFieldTranslationByNames("560")}{" "}
+          {convertToPersian(21)} {getFieldTranslationByNames("33")}{" "}
+          {convertToPersian(34)} {getFieldTranslationByNames("488")}{" "}
         </span>
       </Second>
     </Container>

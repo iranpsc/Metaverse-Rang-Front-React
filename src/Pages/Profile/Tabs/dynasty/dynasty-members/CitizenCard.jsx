@@ -1,45 +1,74 @@
-import { Tooltip as ReactTooltip } from "react-tooltip";
-import down from "../../../../../Assets/images/downcitizen.png";
-import level1 from "../../../../../Assets/images/level1.png";
-import level2 from "../../../../../Assets/images/level2.png";
-import level3 from "../../../../../Assets/images/level3.png";
-import styled from "styled-components";
-import { ReactComponent as FlagIcon } from "../../../../../Assets/svg/flag.svg";
+import styled, { keyframes } from "styled-components";
+import { Tooltip } from "react-tooltip";
+import down from "../../../../../assets/images/downcitizen.png";
+import citizen from "../../../../../assets/images/profile.png";
+import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { slugLabels } from "../../../../../Services/Constants/UserType";
 
-const levels = [
-  { id: "1", label: "سطح 1", image: level1 },
-  { id: "2", label: "سطح 2", image: level2 },
-  { id: "3", label: "سطح 3", image: level3 },
-];
-
-const Container = styled.div`
+const svgAnimation = keyframes`
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 1000;
+  }
+`;
+const Card = styled.div`
+  position: relative;
+  z-index: 1;
+`;
+const Inner = styled.div`
   background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
-  border: 1px solid transparent;
-  margin-top: 20px;
+    props.theme.colors.newColors.otherColors.menuBg};
+  z-index: 2;
   border-radius: 5px;
   padding: 20px;
-  /* width: 245px; */
   display: flex;
   flex-direction: column;
   gap: 15px;
   align-items: center;
   justify-content: space-between;
   transition: all 0.2s linear;
-  &:hover {
-    border: 1px solid ${(props) => props.theme.colors.primary};
-  }
+  cursor: pointer;
   h2 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 20px;
     font-weight: 700;
   }
-  h5 {
+  a {
     color: ${(props) => props.theme.colors.primary};
+    text-decoration: none;
     font-size: 16px;
     font-weight: 500;
+    position: relative;
+    z-index: 10;
+    display: inline-block;
+  }
+  color: #fff;
+`;
+
+const Example5Svg = styled.svg`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+`;
+
+const Line = styled.rect`
+  stroke-dasharray: 260;
+  stroke-width: 2px;
+  fill: transparent;
+  stroke: ${(props) => (props.isSelected ? `#ffc700` : ``)};
+  transition: stroke 0.2s ease, animation 0.2s ease;
+  animation: ${svgAnimation} 2.5s linear infinite;
+  &:hover {
+    stroke: #ffc700;
+    animation: ${svgAnimation} 2.5s linear infinite;
   }
 `;
+
 const Image = styled.div`
   width: 120px;
   height: 120px;
@@ -49,12 +78,15 @@ const Image = styled.div`
     object-fit: contain;
   }
 `;
+
 const Level = styled.div`
+  z-index: 1;
   p {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
+    color: #969696;
     font-weight: 500;
     font-size: 16px;
     margin-bottom: 10px;
+    text-align: center;
   }
   div {
     display: flex;
@@ -62,6 +94,7 @@ const Level = styled.div`
     justify-content: center;
   }
 `;
+
 const Footer = styled.div`
   display: flex;
   align-items: center;
@@ -77,48 +110,80 @@ const Footer = styled.div`
     font-weight: 500;
   }
 `;
-const Flag = styled(FlagIcon)`
-  width: 20px;
-  height: 20px;
-  stroke: ${(props) => props.theme.colors.primary};
-`;
-const CitizenCard = ({ name, code, image }) => {
+
+const CitizenCard = ({
+  id,
+  name,
+  code,
+  image,
+  age,
+  onClick,
+  isSelected,
+  levels,
+}) => {
   return (
-    <Container>
-      <Image>
-        <img
-          src={image}
-          alt="citizen"
-          loading="lazy"
-          width={120}
-          height={120}
+    <Card onClick={onClick}>
+      <Example5Svg xmlns="http://www.w3.org/2000/svg">
+        <Line
+          isSelected={isSelected}
+          rx="8"
+          ry="8"
+          strokeLinejoin="bevel"
+          height="100%"
+          width="100%"
         />
-      </Image>
-      <h2>{name}</h2>
-      <h5>{code}</h5>
-      <Level>
-        <p>سطح توسعه دهنده</p>
-        <div>
-          {levels.map((level) => (
-            <div key={level.id}>
-              <img
-                data-tooltip-id={level?.id}
-                src={level.image}
-                alt={level.label}
-                width={27}
-                height={27}
-                loading="lazy"
-              />
-              <ReactTooltip id={level.id} place="top" content={level.label} />
-            </div>
-          ))}
-        </div>
-      </Level>
-      <Footer>
-        <span>جزییات شهروند</span>
-        <Flag />
-      </Footer>
-    </Container>
+      </Example5Svg>
+      <Inner>
+        <Image>
+          <img
+            src={image || citizen}
+            alt="citizen"
+            loading="lazy"
+            width={120}
+            height={120}
+          />
+        </Image>
+        <h2>{name}</h2>
+        <a href={`https://rgb.irpsc.com/fa/citizen/${code}`} target="_blank">
+          {code}
+        </a>
+        <Level>
+          <p>
+            {" "}
+            {getFieldTranslationByNames(724)}{" "}
+            {getFieldTranslationByNames(
+              slugLabels[(levels && levels[0] && levels[0].slug) || 0]
+            )}
+          </p>
+          <div>
+            {levels &&
+              levels.map(
+                (level) =>
+                  level.gem.image && (
+                    <div key={level.id}>
+                      <img
+                        data-tooltip-id="my-tooltip"
+                        data-tooltip-content={getFieldTranslationByNames(
+                          slugLabels[level.slug]
+                        )}
+                        src={level.gem.image}
+                        alt={getFieldTranslationByNames(slugLabels[level.slug])}
+                        width={27}
+                        height={27}
+                        loading="lazy"
+                      />
+                      <Tooltip id="my-tooltip" place="top" />
+                    </div>
+                  )
+              )}
+          </div>
+        </Level>
+        <Footer>
+          <span>{getFieldTranslationByNames(1398)}</span>
+          <img alt="down" src={down} width={17} height={19} loading="lazy" />
+        </Footer>
+      </Inner>
+    </Card>
   );
 };
 

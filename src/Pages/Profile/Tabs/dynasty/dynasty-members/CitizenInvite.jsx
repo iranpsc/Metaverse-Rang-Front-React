@@ -1,69 +1,150 @@
+import PropTypes from "prop-types";
+import { useState, useCallback } from "react";
 import CitizenCard from "./CitizenCard";
+import { RiUserUnfollowLine, RiLoader4Line } from "react-icons/ri";
 
-import citizen from "../../../../../Assets/images/profile.png";
-import styled from "styled-components";
 import Button from "../../../../../Components/Button";
 import Title from "../../../../../Components/Title";
 import SearchInput from "../../../../../Components/SearchInput";
+import useRequest from "../../../../../Services/Hooks/useRequest";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../../../Services/Utility";
+import {
+  Container,
+  Header,
+  Citizens,
+  Buttons,
+  SelectButton,
+  IconWrapper, // Add this import
+} from "./styles/CitizenInvite.styles";
+import SubmitDynastyModal from "./SubmitDynastyModal";
 
-const Container = styled.div`
-  padding: 20px 0;
-`;
-const Header = styled.div`
-  display: grid;
-  grid-template-columns: 100px 510px;
-  justify-content: space-between;
-`;
+const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
+  const [searched, setSearched] = useState("");
+  const [openDetails, setOpenDetails] = useState(false);
+  const [selectedCitizen, setSelectedCitizen] = useState(null);
+  const [citizens, setCitizens] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const { Request, HTTP_METHOD } = useRequest();
 
-const Citizens = styled.div`
-  max-height: 450px;
-  overflow-y: auto;
-  display: grid;
-  gap: 20px;
-  margin-bottom: 20px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-`;
-const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-`;
+  const handleSearch = useCallback(
+    async (e) => {
+      const searchTerm = e.target.value;
+      setSearched(searchTerm);
 
-const citizens = [
-  { id: 1, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-  { id: 2, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-  { id: 3, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-  { id: 4, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-  { id: 5, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-  { id: 6, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-  { id: 7, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-  { id: 8, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-  { id: 9, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-  { id: 10, name: "مهدی قربان زاده", code: "HM-2000003", image: citizen },
-];
-const CitizenInvite = () => {
-  return (
-    <Container>
-      <Header>
-        <Title title="دعوت شهروند" />
+      if (!searchTerm) {
+        setCitizens([]);
+        return;
+      }
 
-        <SearchInput
-          value=""
-          placeholder="نام یا شناسه کاربری شهروند مورد نظر خود را جستجو کنید"
-          onchange={() => {}}
-        />
-      </Header>
-      <Citizens>
-        {citizens.map((citizen) => (
-          <CitizenCard key={citizen.id} {...citizen} />
-        ))}
-      </Citizens>
-      <Buttons>
-        <Button fit color="#18C08F" textColor="#FFFFFF" label="ذخیره شود" />
-        <Button fit color="#C30000" textColor="#FFFFFF" label="لغو" />
-      </Buttons>
-    </Container>
+      setIsSearching(true); // شروع جستجو
+      try {
+        const response = await Request("dynasty/search", HTTP_METHOD.POST, {
+          searchTerm,
+        });
+        setCitizens(response.data ? response.data.date : []);
+      } catch (error) {
+        ToastError("خطا در جستجوی کاربر");
+        setCitizens([]);
+      } finally {
+        setIsSearching(false); // پایان جستجو
+      }
+    },
+    [Request]
   );
+
+  const handleCitizenClick = useCallback((citizen) => {
+    if (!citizen.verified) {
+      ToastError(
+        "شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید"
+      );
+      setSelectedCitizen(null);
+      return;
+    }
+    setSelectedCitizen((prevSelected) =>
+      prevSelected?.id === citizen.id ? null : citizen
+    );
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setOpenDetails(false);
+    setSelectedCitizen(null);
+  }, []);
+
+  const renderDetailsModal = () => {
+    if (!openDetails || !selectedCitizen) return null;
+
+    return (
+      <SubmitDynastyModal
+        setOpenDetails={closeModal}
+        selectedCitizen={selectedCitizen}
+        members={members}
+        setMembers={setMembers}
+        setMode={setMode}
+        memberType={memberType}
+      />
+    );
+  };
+  return (
+    <>
+      <Container>
+        <Header>
+          <Title title={getFieldTranslationByNames(832)} />
+          <SearchInput
+            value={searched}
+            placeholder={getFieldTranslationByNames(831)}
+            onchange={handleSearch}
+          />
+        </Header>
+        <Citizens>
+          {citizens.map((citizen) => (
+            <CitizenCard
+              key={citizen.id}
+              onClick={() => handleCitizenClick(citizen)}
+              isSelected={selectedCitizen?.id === citizen.id}
+         
+              {...citizen}
+            />
+          ))}
+        </Citizens>
+        {isSearching ? (
+          <IconWrapper>
+            <RiLoader4Line size={40} className="spin" />
+          </IconWrapper>
+        ) : searched && citizens.length === 0 ? (
+          <IconWrapper>
+            <RiUserUnfollowLine size={40} />
+          </IconWrapper>
+        ) : null}
+        <Buttons>
+          <SelectButton
+            disabled={!selectedCitizen || !selectedCitizen.verified}
+            onClick={() => selectedCitizen && setOpenDetails(true)}
+          >
+            {getFieldTranslationByNames(132)}
+          </SelectButton>
+          <Button
+            fit
+            color="#C30000"
+            textColor="#FFFFFF"
+            label={getFieldTranslationByNames(833)}
+            onclick={() => setMode({ mode: 1, type: null })} // Modified to pass correct object structure
+          />
+        </Buttons>
+      </Container>
+      {renderDetailsModal()}
+    </>
+  );
+};
+
+CitizenInvite.propTypes = {
+  setMode: PropTypes.func.isRequired,
+  mode: PropTypes.object.isRequired, // Changed to object since mode now has type
+  memberType: PropTypes.string.isRequired,
+  members: PropTypes.object.isRequired, // Changed to object to match the actual shape
+  setMembers: PropTypes.func.isRequired,
 };
 
 export default CitizenInvite;

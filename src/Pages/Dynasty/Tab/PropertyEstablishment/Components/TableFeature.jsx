@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import HomeSelect from "../../../../../Assets/images/home-check.png";
-import HomeChange from "../../../../../Assets/images/change-house.png";
+import HomeSelect from "../../../../../assets/images/home-check.png";
+import HomeChange from "../../../../../assets/images/change-house.png";
 import useRequest from "../../../../../Services/Hooks/useRequest";
 import { ToastError, ToastSuccess } from "../../../../../Services/Utility";
 import { useNavigate } from "react-router-dom";
@@ -75,10 +75,7 @@ export default function TableFeature({ dynasty, setDynasty }) {
         ToastSuccess("VOD جدید با موفقیت بروز گردید.");
       })
       .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          return Navigate("/metaverse/confirmation");
-        }
+     
         ToastError(error.response.data.message);
       });
   };
@@ -90,10 +87,7 @@ export default function TableFeature({ dynasty, setDynasty }) {
         ToastSuccess("سلسله با موفقیت تاسیس شد.");
       })
       .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          return Navigate("/metaverse/confirmation");
-        }
+     
         ToastError(error.response.data.message);
       });
   };

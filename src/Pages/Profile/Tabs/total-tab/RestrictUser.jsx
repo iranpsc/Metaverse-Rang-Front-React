@@ -14,37 +14,38 @@ import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { UserContext } from "../../../../Services/Reducers/UserContext";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { useParams } from "react-router-dom";
 
 const icons = [
-  { id: 1, slug: "share", label: "sharing", icon: <FiShare2 /> },
-  { id: 2, slug: "follow", label: "to follow", icon: <RiUserForbidLine /> },
+  { id: 1, slug: "share", label: 734, icon: <FiShare2 /> },
+  { id: 2, slug: "follow", label: 733, icon: <RiUserForbidLine /> },
   {
     id: 3,
     slug: "send_message",
-    label: "send message",
+    label: 469,
     icon: <BiMessageDetail />,
   },
   {
     id: 4,
     slug: "view_profile_images",
-    label: "view images",
+    label: 732,
     icon: <CiImageOn />,
   },
   {
     id: 5,
     slug: "view_features_locations",
-    label: "voice message",
+    label: 731,
     icon: <FaEarDeaf />,
   },
   {
     id: 6,
     slug: "email",
-    label: "send the document",
+    label: 730,
     icon: <MdOutlineMailOutline />,
   },
-  { id: 7, slug: "sound", label: "voice conversation", icon: <BiVolumeMute /> },
-  { id: 8, slug: "send_ticket", label: "", icon: <BiMessageSquareDetail /> },
-  { id: 9, slug: "record", label: "", icon: <FaCircle /> },
+  { id: 7, slug: "sound", label:729, icon: <BiVolumeMute /> },
+  { id: 8, slug: "send_ticket", label: 728, icon: <BiMessageSquareDetail /> },
+  { id: 9, slug: "record", label:727, icon: <FaCircle /> },
 ];
 
 const Container = styled.div`
@@ -123,11 +124,12 @@ const RestrictUser = () => {
 
   const { Request, HTTP_METHOD } = useRequest();
   const [user] = useContext(UserContext);
-
+  const { id } = useParams();
   const [hasExistingLimitation, setHasExistingLimitation] = useState(false);
 
   useEffect(() => {
-    Request(`users/${user?.id}/profile-limitations`, HTTP_METHOD.GET).then(
+    const requestId = id || user?.id;
+    Request(`users/${requestId}/profile-limitations`, HTTP_METHOD.GET).then(
       (response) => {
         if (response.data.data?.options) {
           const convertedOptions = Object.entries(
@@ -149,7 +151,7 @@ const RestrictUser = () => {
         }
       }
     );
-  }, []);
+  }, [id, user?.id]);
 
   const handleIconClick = (slug) => {
     const updatedOptions = {
@@ -190,7 +192,7 @@ const RestrictUser = () => {
       console.error("Error updating restrictions:", error);
     });
   };
-  console.log(options);
+
   return (
     <Container>
       <Title>
@@ -210,7 +212,6 @@ const RestrictUser = () => {
               id={icon.slug}
               place="top"
               content={getFieldTranslationByNames(
-                "citizenship-account",
                 icon.label
               )}
             />

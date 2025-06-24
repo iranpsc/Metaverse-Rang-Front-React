@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import FilterIcon from "../../../Assets/images/filter.png";
-import MapIcon from "../../../Assets/images/maps.png";
+import FilterIcon from "../../../assets/images/filter.png";
+import MapIcon from "../../../assets/images/maps.png";
 
 const ContainerBtn = styled.div`
   width: 15%;

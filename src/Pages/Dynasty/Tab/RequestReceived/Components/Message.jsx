@@ -1,8 +1,8 @@
 import React from "react";
 import useRequest from "../../../../../Services/Hooks/useRequest";
-import BackIcon from "../../../../../Assets/images/back.png";
-import CrossIcon from "../../../../../Assets/images/cross-2.png";
-import CheckIcon from "../../../../../Assets/images/check.png";
+import BackIcon from "../../../../../assets/images/back.png";
+import CrossIcon from "../../../../../assets/images/cross-2.png";
+import CheckIcon from "../../../../../assets/images/check.png";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Submit from "../../../../../Components/Buttons/Submit";
@@ -79,10 +79,7 @@ export default function Message({ items, handleBack }) {
         ToastSuccess("سلسله با موفقیت تاسیس شد.");
       })
       .catch((error) => {
-        if (error.response.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
-          return Navigate("/metaverse/confirmation");
-        }
+    
         ToastError(error.response.data.message);
       });
   };

@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import Title from "../../../../Components/Title";
-import remove from "../../../../Assets/images/reports/remove.png";
+import remove from "../../../../assets/images/reports/remove.png";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
 import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
@@ -95,7 +95,9 @@ const SendFiles = () => {
 
     files.forEach((file) => {
       if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setError(`سایز ${file.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`);
+        setError(
+          `سایز ${file.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`
+        );
         isError = true;
       } else {
         if (file.type.startsWith("image/")) {

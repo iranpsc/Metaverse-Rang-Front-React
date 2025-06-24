@@ -1,4 +1,4 @@
-import remove from "../../../../Assets/images/remove.png";
+import remove from "../../../../assets/images/remove.png";
 import styled from "styled-components";
 
 import { useState } from "react";
@@ -113,9 +113,7 @@ const SendFiles = ({ setFiles }) => {
 
   return (
     <Container>
-      <Title
-        title={getFieldTranslationByNames("1328")}
-      />
+      <Title title={getFieldTranslationByNames("1328")} />
       <Files>
         {previews.map((preview, index) => (
           <FilePreview key={index}>

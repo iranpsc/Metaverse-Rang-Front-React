@@ -1,105 +1,12 @@
 import Button from "../../../../../Components/Button";
-import { FaArrowLeftLong } from "react-icons/fa6";
 import MemberCard from "./MemberCard";
-import Title from "../../../../../Components/Title";
-import { convertToPersian } from "../../../../../Services/Utility";
-import gift from "../../../../../Assets/images/satisfy.png";
-import pscGif from "../../../../../Assets/gif/psc.gif";
+import { getFieldTranslationByNames, ToastError, ToastSuccess } from "../../../../../Services/Utility";
 import styled from "styled-components";
-
-const Container = styled.div`
-  padding: 20px 0;
-  width: 80%;
-  height: 80%;
-  position: relative;
-  border-radius: 10px;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
-  overflow-y: auto;
-  padding: 20px;
-  z-index: 999;
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  div {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    gap: 12px;
-    h3 {
-      color: ${(props) => props.theme.colors.newColors.shades.title};
-      font-size: 18px;
-      font-weight: 400;
-    }
-    svg {
-      color: ${(props) => props.theme.colors.newColors.shades.title};
-    }
-  }
-`;
-
-const Info = styled.div`
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  font-size: 16px;
-  font-weight: 400;
-  margin-top: 30px;
-  h2 {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  p {
-    &:nth-of-type(2) {
-      color: #c30000;
-      margin: 10px 0;
-    }
-  }
-`;
-
-const Div = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  h3 {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 20px;
-    font-weight: 500;
-  }
-`;
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-`;
-
-const Image = styled.img`
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-`;
-const Subject = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-`;
-
-const Back = styled.div`
-  z-index: 999;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: rgba(0, 0, 0, 0.713);
-`;
+import ModalLg from "../../../../../Components/Modal/ModalLg";
+import { UserContext } from "../../../../../Services/Reducers/UserContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import useRequest from "../../../../../Services/Hooks/useRequest";
 
 const Buttons = styled.div`
   display: flex;
@@ -111,155 +18,62 @@ const Buttons = styled.div`
 const RequestDetails = ({
   setShowDetails,
   status,
-  psc,
-  gif,
   code,
   date,
   time,
+  data,
+  type,
 }) => {
+  const [user] = useContext(UserContext);
+  const navigate = useNavigate();
+  const { Request, HTTP_METHOD } = useRequest();
+
+  const handleSubmit = () => {
+    Request(`dynasty/requests/${type === "send" ? "send" : "recieved"}/${data.id}`, HTTP_METHOD.POST)
+      .then(() => {
+        ToastSuccess("سلسله با موفقیت تاسیس شد.");
+      })
+      .catch((error) => {
+   
+        ToastError(error.response.data.message);
+      });
+  };
+
+  const isSendType = type === "send";
+  
   return (
-    <Back>
-      <Container>
-        <Header>
-          <Title title="درخواست ارسال شده از شهروند" />
-          <div onClick={() => setShowDetails(false)}>
-            <h3>بازگشت</h3>
-            <FaArrowLeftLong />
-          </div>
-        </Header>
-        <MemberCard status={status} date={date} time={time} code={code} />
-        {status === "confirmed" && (
-          <>
-            <Info>
-              <h2>سلام [ نام و نام خانوادگی ]</h2>
-              <p>
-                درخواستی جهت ورود به سلسله خانوادگی برای شما از سمت شناسه
-                شهروندی [ نام شهروند دریافت کننده ] ارسال گردیده است. خوشبختانه
-                شما این درخواست را قبول و شهروندی به عنوان [ نسبت خانوادگی ] در
-                سلسله شما اضافه گردیده است.
-              </p>
-              <p>
-                با تشکیل سلسله خانوادگی خود در دنیای موازی متاورس رنگ شما از
-                پاداش‌های خاصی برخوردار خواهید شد.
-              </p>
-              <p>
-                پاداش‌های زیر برای عضویت [ نسبت خانوادگی ] در سلسله میباشد و
-                برای دریافت آن میبایست سلسله داشته باشید.
-              </p>
-            </Info>
-            <Wrapper>
-              <Subject>
-                <Div>
-                  <h3>{convertToPersian(gif)}</h3>
-                  <Image
-                    width={300}
-                    height={300}
-                    alt="doctor"
-                    loading="lazy"
-                    src={gift}
-                  />
-                </Div>
-                <Div>
-                  <h3>{convertToPersian(psc)}</h3>
-                  <Image
-                    width={300}
-                    height={300}
-                    alt="doctor"
-                    loading="lazy"
-                    src={pscGif}
-                  />
-                </Div>
-              </Subject>
-              <Button
-                onclick={() => setShowDetails(false)}
-                label="جذب پاداش"
-                color="#18C08F"
-                fit
-                textColor="#D7FBF0"
-              />
-            </Wrapper>
-          </>
-        )}
-        {status === "failed" && (
-          <>
-            <Info>
-              <h2>سلام [ نام و نام خانوادگی ]</h2>
-              <p>
-                درخواستی جهت ورود به سلسله خانوادگی از طرف شما به شهروند [ نام
-                شهروند دریافت کننده ] ارسال شده است، در صورتی تایید شهروند [ نام
-                شهروند دریافت کننده ] افزایش اعضای سلسله شما با نسبت خانوادگی [
-                نسب خانوادگی ] صورت میپذیرد{" "}
-              </p>
-              <p>
-                در نظر گرفته شود در صورتی که ارسال درخواست به هر عنوانی به صورت
-                اشتباه صورت گیرد تصمیم نهایی از طرف شما بوده و جریمه نقدی و غیر
-                نقدی توسط شما میبایست پرداخت گردد{" "}
-              </p>
-              <p>
-                برای تایید یا رد سلسله بر روی گزینه سبز میپذیرم و برای لغو این
-                پیام گزینه قرمز نمیپذیرم میبایست توسط شهروند دریافت کننده انجام
-                گیرد{" "}
-              </p>
-              <Buttons>
-                <Button
-                  label="بله, قبول میکنم"
-                  color="#18C08F"
-                  onclick={() => setShowDetails(false)}
-                  fit
-                  textColor="#D7FBF0"
-                />
-                <Button
-                  label="خیر, نمی پذیرم"
-                  color="#C30000"
-                  onclick={() => setShowDetails(false)}
-                  fit
-                  textColor="#FFFFFF"
-                />
-              </Buttons>
-            </Info>
-          </>
-        )}
-        {status === "pending" && (
-          <>
-            <Info>
-              <h2>سلام [ نام و نام خانوادگی ]</h2>
-              <p>
-                درخواستی جهت ورود به سلسله خانوادگی از طرف شما به شهروند [ نام
-                شهروند دریافت کننده ] ارسال شده است، در صورتی تایید شهروند [ نام
-                شهروند دریافت کننده ] افزایش اعضای سلسله شما با نسبت خانوادگی [
-                نسب خانوادگی ] صورت میپذیرد{" "}
-              </p>
-              <p>
-                در نظر گرفته شود در صورتی که ارسال درخواست به هر عنوانی به صورت
-                اشتباه صورت گیرد تصمیم نهایی از طرف شما بوده و جریمه نقدی و غیر
-                نقدی توسط شما میبایست پرداخت گردد{" "}
-              </p>
-              <p>
-                برای تایید یا رد سلسله بر روی گزینه سبز میپذیرم و برای لغو این
-                پیام گزینه قرمز نمیپذیرم میبایست توسط شهروند دریافت کننده انجام
-                گیرد{" "}
-              </p>
-              <Buttons>
-                <Button
-                  label="بله, قبول میکنم"
-                  color="#18C08F"
-                  onclick={() => setShowDetails(false)}
-                  fit
-                  textColor="#D7FBF0"
-                />
-                <Button
-                  label="خیر, نمی پذیرم"
-                  color="#C30000"
-                  onclick={() => setShowDetails(false)}
-                  fit
-                  textColor="#FFFFFF"
-                />
-              </Buttons>
-            </Info>
-          </>
-        )}
-      </Container>
-    </Back>
+    <ModalLg
+      setShowModal={setShowDetails}
+      titleId={isSendType ? "113" : "114"}
+    >
+      <MemberCard 
+        status={status} 
+        date={date} 
+        time={time} 
+        code={isSendType ? user.code : code} 
+        name={isSendType ? user.name : data.from_user.name} 
+        image={isSendType ? user.image : data.user_from?.image} 
+      />
+      <div dangerouslySetInnerHTML={{ __html: data.message }} />
+      {data?.status === 0 && !isSendType && (
+        <Buttons>
+          <Button
+            label={getFieldTranslationByNames(823)}
+            color="#18C08F"
+            onclick={handleSubmit}
+            fit
+            textColor="#D7FBF0"
+          />
+          <Button
+            label={getFieldTranslationByNames(824)}
+            color="#C30000"
+            onclick={() => setShowDetails(false)}
+            fit
+            textColor="#FFFFFF"
+          />
+        </Buttons>
+      )}
+    </ModalLg>
   );
 };
 

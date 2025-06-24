@@ -1,4 +1,4 @@
-import rialGif from "../Assets/gif/rial.gif";
+import rialGif from "../assets/gif/rial.gif";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../Services/Utility";
 

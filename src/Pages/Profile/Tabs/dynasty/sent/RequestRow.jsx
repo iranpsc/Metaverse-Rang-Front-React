@@ -1,10 +1,11 @@
 import { LuEye } from "react-icons/lu";
 import RequestDetails from "./RequestDetails";
-import { convertToPersian } from "../../../../../Services/Utility";
-import gift from "../../../../../Assets/images/satisfy.png";
-import pscGif from "../../../../../Assets/gif/psc.gif";
+import { convertToPersian, getFieldTranslationByNames } from "../../../../../Services/Utility";
+import gift from "../../../../../assets/images/satisfy.png";
+import pscGif from "../../../../../assets/gif/psc.gif";
 import styled from "styled-components";
 import { useState } from "react";
+import useRequestDetails from "../../../../../hooks/useRequestDetails";
 
 const TableRow = styled.tr`
   background-color: transparent;
@@ -22,10 +23,12 @@ const Image = styled.img`
   border-radius: 50%;
 `;
 
-const Code = styled.h2`
+const Code = styled.a`
   font-size: 16px;
   font-weight: 500;
   color: ${(props) => props.theme.colors.primary};
+  text-transform: uppercase;
+  cursor: pointer;
 `;
 
 const Date = styled.h3`
@@ -83,15 +86,36 @@ const Div = styled.div`
   }
 `;
 
-const RequestRow = ({ code, date, time, status, member, gif, psc }) => {
+const RequestRow = ({
+  code,
+  date,
+  time,
+  name,
+  status,
+  member,
+  gif,
+  psc,
+  id,
+  type,
+}) => {
   const [showDetails, setShowDetails] = useState(false);
+  const { data, loading, fetchRequestDetails } = useRequestDetails(type);
+
+  const handleClick = async () => {
+    try {
+      await fetchRequestDetails(id);
+      setShowDetails(true);
+    } catch (error) {
+      // Handle error (e.g., show toast notification)
+    }
+  };
 
   return (
     <>
-      <TableRow className="odd:bg-slate-50 hover:bg-black/10 py-5 duration-200">
+      <TableRow>
         <TableCell>
           <div>
-            <Code>HM-{code}</Code>
+            <Code href={`https://rgb.irpsc.com/fa/citizens/${code}`} target="_blank" >{code}</Code>
           </div>
         </TableCell>
         <TableCell>
@@ -117,10 +141,10 @@ const RequestRow = ({ code, date, time, status, member, gif, psc }) => {
             }}
           >
             {status === "confirmed"
-              ? "تایید شده"
+              ? getFieldTranslationByNames(854)
               : status === "pending"
-              ? "در دست بررسی"
-              : "رد شده"}
+              ? getFieldTranslationByNames(852)
+              : getFieldTranslationByNames(853)}
           </Title>
         </TableCell>
         <TableCell>
@@ -148,12 +172,12 @@ const RequestRow = ({ code, date, time, status, member, gif, psc }) => {
           </Subject>
         </TableCell>
         <TableCell>
-          <View onClick={() => setShowDetails(true)}>
+          <View onClick={handleClick}>
             <LuEye size={20} />
           </View>
         </TableCell>
       </TableRow>
-      {showDetails && (
+      {showDetails && !loading && (
         <RequestDetails
           status={status}
           date={date}
@@ -161,7 +185,9 @@ const RequestRow = ({ code, date, time, status, member, gif, psc }) => {
           code={code}
           gif={gif}
           psc={psc}
+          data={data}
           setShowDetails={setShowDetails}
+          type={type}
         />
       )}
     </>

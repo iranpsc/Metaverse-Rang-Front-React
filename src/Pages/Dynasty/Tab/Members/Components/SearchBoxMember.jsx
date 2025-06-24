@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useCallback } from "react";
 import styled from "styled-components";
-import SearchIcon from "../../../../../Assets/images/searchIcon.png";
-import CrossIcon from "../../../../../Assets/images/cross.png";
+import SearchIcon from "../../../../../assets/images/searchIcon.png";
+import CrossIcon from "../../../../../assets/images/cross.png";
 import useRequest from "../../../../../Services/Hooks/useRequest";
-import BackIcon from "../../../../../Assets/images/back.png";
+import BackIcon from "../../../../../assets/images/back.png";
 import Checkbox from "../../../../../Components/Inputs/CheckBoxOrange";
 import PremissionDynasty from "./PremissionDynasty";
 import { ToastError } from "../../../../../Services/Utility";

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import Modal from "../../Components/Modal";
 import styled from "styled-components";
 import Submit from "../../Components/Buttons/Submit";
-import gmailSvg from "../../Assets/svg/gmail.svg";
-import outlookSvg from "../../Assets/svg/outlook.svg";
-import mailSvg from "../../Assets/svg/mail.svg";
-import yahooSvg from "../../Assets/svg/yahoo.svg";
+import gmailSvg from "../../assets/svg/gmail.svg";
+import outlookSvg from "../../assets/svg/outlook.svg";
+import mailSvg from "../../assets/svg/mail.svg";
+import yahooSvg from "../../assets/svg/yahoo.svg";
 import {
   ToastSuccess,
   getFieldTranslationByNames,
@@ -136,21 +136,15 @@ const EmailVerification = () => {
   };
 
   return (
-    <Modal
-      title={getFieldTranslationByNames("214")}
-    >
+    <Modal title={getFieldTranslationByNames("214")}>
       <Container>
         <Header>
           <br /> {getFieldTranslationByNames("215")}
           <br /> {data.email} <br />
           {getFieldTranslationByNames("216")}
         </Header>
-        <Details>
-          {getFieldTranslationByNames("217")}
-        </Details>
-        <Details>
-          {getFieldTranslationByNames("218")}
-        </Details>
+        <Details>{getFieldTranslationByNames("217")}</Details>
+        <Details>{getFieldTranslationByNames("218")}</Details>
         {rerenderButton && (
           <Submit
             type="secondary"

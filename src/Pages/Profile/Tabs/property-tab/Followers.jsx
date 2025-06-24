@@ -1,11 +1,11 @@
 import Follower from "./Follower";
 import SearchInput from "../../../Search/Components/SearchInput";
-
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Title from "../../../../Components/Title";
 import useRequest from "../../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   padding-right: 15px;
@@ -56,13 +56,15 @@ const List = styled.div`
 const Followers = () => {
   const [searched, setSearched] = useState("");
   const [followers, setFollowers] = useState([]);
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request } = useRequest();
+  const { id } = useParams();
 
   useEffect(() => {
-    Request("followers", HTTP_METHOD.GET).then((response) => {
+    const endpoint = id ? `players/${id}/followers` : "followers";
+    Request(endpoint).then((response) => {
       setFollowers(response.data.data);
     });
-  }, []);
+  }, [id]);
 
   const filteredItems = followers.filter((item) => {
     const query = searched.toLowerCase().trim();
@@ -70,7 +72,7 @@ const Followers = () => {
     const nameMatch = item.name.toLowerCase().includes(query);
     return codeMatch || nameMatch;
   });
-  console.log(followers);
+ 
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>

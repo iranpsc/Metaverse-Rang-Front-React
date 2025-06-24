@@ -1,5 +1,5 @@
 import { useState } from "react";
-import IconAdviser from "../../../Assets/images/robot.png";
+import IconAdviser from "../../../assets/images/robot.png";
 import ToolTip from "../../../Components/Tooltip";
 import "./Adviser.css";
 
@@ -76,9 +76,7 @@ export default function AdviserIcon() {
                     </div>
                   </div>
                   <div className="position-text">
-                    <p className="class-text">
-                      VOD آموزشی پیش خرید یا قفل شده
-                    </p>
+                    <p className="class-text">VOD آموزشی پیش خرید یا قفل شده</p>
                   </div>
                 </div>
                 <div className="w-box">
@@ -89,9 +87,7 @@ export default function AdviserIcon() {
                     </div>
                   </div>
                   <div className="position-text">
-                    <p className="class-text">
-                      VOD آموزشی پیش خرید یا قفل شده
-                    </p>
+                    <p className="class-text">VOD آموزشی پیش خرید یا قفل شده</p>
                   </div>
                 </div>
                 <div className="w-box">

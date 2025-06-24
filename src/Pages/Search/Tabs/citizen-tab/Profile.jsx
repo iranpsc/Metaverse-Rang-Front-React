@@ -1,6 +1,6 @@
 import { HiOutlineUser } from "react-icons/hi";
 import styled from "styled-components";
-import DefaultProfile from "../../../../Assets/images/defulte-profile.png";
+import DefaultProfile from "../../../../assets/images/defulte-profile.png";
 const Container = styled.div`
   display: flex;
   align-items: center;

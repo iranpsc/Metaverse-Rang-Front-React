@@ -70,7 +70,7 @@ const Button = styled.button`
 const ConfirmCardDelete = ({ setOpenDeleteModal, setCards, deleteIndex }) => {
   const handleDelete = () => {
     setCards((prevCards) => {
-      console.log(deleteIndex);
+
       const updatedCards = [...prevCards];
       updatedCards.splice(deleteIndex, 1);
       return updatedCards;

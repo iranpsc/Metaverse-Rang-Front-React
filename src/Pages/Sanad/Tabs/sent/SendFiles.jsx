@@ -1,5 +1,5 @@
-import nonPhoto from "../../../../Assets/images/file.png";
-import remove from "../../../../Assets/images/remove.png";
+import nonPhoto from "../../../../assets/images/file.png";
+import remove from "../../../../assets/images/remove.png";
 import styled from "styled-components";
 import { useGlobalState } from "../GlobalVodStateProvider";
 import { useState } from "react";
@@ -79,7 +79,6 @@ const SendFiles = () => {
   const { state, dispatch } = useGlobalState();
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState("");
-  console.log(state.files);
   const MAX_FILE_SIZE_MB = 9;
 
   const fileHandler = (e) => {

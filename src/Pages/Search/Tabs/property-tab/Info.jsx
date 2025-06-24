@@ -1,5 +1,5 @@
-import psc from "../../../../Assets/gif/psc.gif";
-import rial from "../../../../Assets/gif/rial.gif";
+import psc from "../../../../assets/gif/psc.gif";
+import rial from "../../../../assets/gif/rial.gif";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../Services/Utility";
 

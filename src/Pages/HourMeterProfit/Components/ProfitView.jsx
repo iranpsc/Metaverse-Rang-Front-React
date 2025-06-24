@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import Button from "./Button";
 import ProfitList from "./ProfitList";
-import building from "../../../Assets/images/building.png";
-import education from "../../../Assets/images/courthouse.png";
-import house from "../../../Assets/images/house.png";
+import building from "../../../assets/images/building.png";
+import education from "../../../assets/images/courthouse.png";
+import house from "../../../assets/images/house.png";
 import styled from "styled-components";
 import useRequest from "../../../Services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../Services/Utility";

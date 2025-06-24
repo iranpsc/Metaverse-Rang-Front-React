@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
-import { ReactComponent as Show } from "../../Assets/svg/passShowIcon.svg";
-import { ReactComponent as Hidden } from "../../Assets/svg/passIcon.svg";
+import { ReactComponent as Show } from "../../assets/svg/passShowIcon.svg";
+import { ReactComponent as Hidden } from "../../assets/svg/passIcon.svg";
 const Label = styled.label`
   color: ${(props) => props.theme.colors.primary};
   position: absolute;
@@ -47,7 +47,7 @@ const InputField = styled.input`
 const Container = styled.div`
   position: relative;
   width: 100%;
-  
+
   & svg {
     position: absolute;
     ${(props) => (document.body.dir === "ltr" ? "right: 12px;" : "left: 12px;")}
