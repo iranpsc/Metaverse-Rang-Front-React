@@ -63,6 +63,9 @@ export const lightTheme = {
         gray: "#898989",
         confirmed: "#D4E9FA",
         containerPrimary: "#F5F9FF",
+        offerbg:"#D7FBF0",
+        offerbg2:"#FF00001F"
+
       },
     },
   },
@@ -144,6 +147,10 @@ export const darkTheme = {
         gray: "#969696",
         confirmed: "#ffc70021",
         containerPrimary: "#2C2C2C",
+        offerbg:"#1A352B",
+        offerbg2:"#3F1614"
+
+
       },
     },
   },

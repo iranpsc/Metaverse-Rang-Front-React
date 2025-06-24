@@ -68,33 +68,40 @@ const SellerPriceInfo = () => {
           value={rial}
           onchange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("48")})`}
+          placeholder={`${getFieldTranslationByNames(
+            "521"
+          )} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
+          disabled
         />
         <Input
           value={psc}
           onchange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("47")})`}
+          placeholder={`${getFieldTranslationByNames(
+            "521"
+          )} (${getFieldTranslationByNames("47")})`}
           insideText={<Psc />}
+          disabled
         />
       </InputsWrapper>
       <ResultWrapper>
         <TitleValue
           title={getFieldTranslationByNames("522")}
-          value={`${calculateFee(rial, 5)} ${getFieldTranslationByNames("48")} / ${calculateFee(psc, 5)} ${getFieldTranslationByNames("47")}`}
+          value={`${calculateFee(rial, 5)} ${getFieldTranslationByNames(
+            "48"
+          )} / ${calculateFee(psc, 5)} ${getFieldTranslationByNames("47")}`}
         />
-        <TitleValue
-          title={getFieldTranslationByNames("523")}
-          value="5%"
-        />
+        <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
       </ResultWrapper>
-      <div>
-        <Button
-          label={getFieldTranslationByNames("353")}
-          onclick={onSubmit}
-        />
-      </div>
+      {Number(psc) !== 0 && Number(rial) !== 0 && (
+        <div>
+          <Button
+            label={getFieldTranslationByNames("353")}
+            onClick={onSubmit}
+          />
+        </div>
+      )}
     </>
   );
 };

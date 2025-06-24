@@ -1,12 +1,18 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom"; 
 import Modal from "../../Components/Modal";
 import useTabs from "../../Services/Hooks/useTabs";
 import { getFieldTranslationByNames } from "../../Services/Utility";
 import DynastyTab from "./Tabs/dynasty/DynastyTab";
 import PropertyTab from "./Tabs/property-tab/PropertyTab";
 import TotalTab from "./Tabs/total-tab/TotalTab";
+import SuggestionTab from "./Tabs/suggestion-tab/SuggestionTab";
 import TransactionsTab from "./Tabs/transactions-tab/TransactionsTab";
 
 export default function Profile() {
+
+  const [currentTab, setCurrentTab] = useState(0); 
+
   const tabs = [
     {
       title: getFieldTranslationByNames("62"),
@@ -24,9 +30,13 @@ export default function Profile() {
       title: getFieldTranslationByNames("158"),
       content: <DynastyTab />,
     },
+    { title: getFieldTranslationByNames("735"), 
+     content: <SuggestionTab /> }
   ];
 
-  const TabPanel = useTabs(tabs);
+
+
+  const TabPanel = useTabs(tabs, currentTab);
 
   return <Modal title={"56"}>{TabPanel}</Modal>;
 }

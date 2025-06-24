@@ -26,6 +26,7 @@ import { LanguageProvider } from "./Services/Reducers/LanguageContext.jsx";
 import { LoaderProvider } from "./Services/Reducers/LoaderProvider.jsx";
 import RotateDevice from "./Components/RotateDevice";
 import Error410Modal from "./Components/Error410Modal";
+
 const Container = styled.section`
   display: flex;
   width: 100%;
@@ -60,7 +61,7 @@ function App() {
   }, []);
 
   return (
-    <LoaderProvider>
+ <LoaderProvider>
     <MapProvider>
       <ThemeProviderContext>
         <LanguageProvider>
@@ -98,5 +99,6 @@ function App() {
     </LoaderProvider>
   );
 }
+
 
 export default App;

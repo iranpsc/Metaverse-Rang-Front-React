@@ -172,7 +172,7 @@ const Album = ({ feature, setFeature }) => {
             </Actions>
           </ImageWrapper>
         ))}
-        {parseInt(feature.owner_id) === parseInt(user.id) && (
+        {parseInt(feature?.owner_id) === parseInt(user.id) && (
           <UploadMore>
             <span>+</span>
             <input

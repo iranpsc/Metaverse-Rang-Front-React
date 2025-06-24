@@ -56,13 +56,42 @@ const Input = ({
   name,
 }) => {
   const isPersian = useLanguage();
+
+  // Format display value only for number type
+  const displayValue =
+    type === "number" && isPersian && value
+      ? value.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])
+      : value;
+
+  const handleChange = (e) => {
+    if (type === "number") {
+      // Only allow numbers and remove any non-numeric characters
+      const numericValue = e.target.value.replace(/[^۰-۹0-9]/g, "");
+
+      // Convert Persian digits to English before passing to onChange
+      const persianToEnglish = numericValue.replace(
+        /[۰-۹]/g,
+        (d) =>
+          ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"][
+            d.charCodeAt(0) - "۰".charCodeAt(0)
+          ]
+      );
+      onchange({ ...e, target: { ...e.target, value: persianToEnglish } });
+    } else {
+      // For non-number types, pass the value directly
+      onchange(e);
+    }
+  };
+
   return (
     <Wrapper>
       <InputElement
-        type={type}
+        type={type === "number" ? "text" : type}
+        inputMode={type === "number" ? "numeric" : undefined}
+        pattern={type === "number" ? "[0-9]*" : undefined}
         placeholder={placeholder}
-        value={value}
-        onChange={onchange}
+        value={displayValue}
+        onChange={handleChange}
         disabled={disabled}
         name={name}
       />
