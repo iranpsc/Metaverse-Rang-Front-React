@@ -3,7 +3,7 @@ import Owner from "./Owner";
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 20px 0;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 20px;

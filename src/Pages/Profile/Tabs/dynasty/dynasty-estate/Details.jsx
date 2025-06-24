@@ -41,7 +41,7 @@ const KeyValue = styled.div`
 
   }
   span {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
+    color: ${(props) => props.theme.colors.newColors.shades.matn2};
     font-size: 18px;
     font-weight: 500;
     
