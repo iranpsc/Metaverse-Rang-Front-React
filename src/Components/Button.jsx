@@ -72,7 +72,6 @@ const Button = ({
   textColor,
   grayTheme,
   style,
-  onclick,
 }) => {
   // ترکیب onclick و onClick
   const handleClick = onClick || onclick;
