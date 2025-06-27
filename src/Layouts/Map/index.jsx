@@ -8,8 +8,6 @@ import MapFlag from "./MapFlag";
 import Mark from "./3dModelMap/Mark";
 import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
 import { useLanguage } from "../../Services/Reducers/LanguageContext";
-
-import AuthMiddleware from "../../middleware/AuthMiddleware";
 import ZoomControls from "../../Components/ZoomControls";
 import FullscreenControls from "../../Components/FullscreenControls";
 
@@ -70,7 +68,6 @@ const MapTreeD = () => {
   }, [isFullScreen]);
 
   return (
-    <AuthMiddleware>
       <TransactionContext.Provider value={{ selectedTransaction, setSelectedTransaction }}>
         <Container>
           <Map
@@ -108,7 +105,6 @@ const MapTreeD = () => {
           />
         </Container>
       </TransactionContext.Provider>
-    </AuthMiddleware>
   );
 };
 
