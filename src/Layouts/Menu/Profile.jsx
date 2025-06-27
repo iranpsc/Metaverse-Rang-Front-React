@@ -193,7 +193,6 @@ const Profile = () => {
               {getFieldTranslationByNames("642")}
             </BtnNavigator>
             {/* <Fallowing /> */}
-            <Dynasty />
             <Union />
           </SubMenu>
         </Container>
