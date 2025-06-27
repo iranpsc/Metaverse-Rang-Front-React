@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getItem } from "../../Utility/LocalStorage";
+import { ToastError } from "../../Utility";
 
 export default function useRequest() {
   const PROD_BASE_URL = "https://api.rgb.irpsc.com/api/";
@@ -35,6 +36,11 @@ export default function useRequest() {
         ...customHeader,  // اضافه کردن هدرهای سفارشی
       },
       data: method !== HTTP_METHOD.GET ? formData : {},  // درخواستی که GET نباشد نیاز به data دارد
+    }).catch(error => {
+      if (error.response?.status === 410) {
+        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+      }
+      throw error; // خطا را دوباره پرتاب می‌کنیم تا کامپوننت‌های فراخوان‌کننده بتوانند آن را مدیریت کنند
     });
   }
 
