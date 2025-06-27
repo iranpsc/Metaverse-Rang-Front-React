@@ -4,6 +4,7 @@ import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import {
   convertToPersian,
   getFieldTranslationByNames,
+  ToastError,
 } from "../../../../../Services/Utility/index";
 import line from "../../../../../Assets/images/profile/Line.png";
 import person from "../../../../../Assets/images/profile/slide.png";
@@ -22,7 +23,6 @@ import {
 } from "../suggestionStyles";
 import useRequest from "../../../../../Services/Hooks/useRequest/index";
 import { useNavigate } from "react-router-dom";
-import { useAccountSecurity } from "../../../../../Services/Reducers/accountSecurityContext";
 
 const Price = BasePrice;
 const ProposalStatus = styled.div``;
@@ -124,14 +124,6 @@ const Proposer = ({
   property,
   id,
 }) => {
-  const { selectedItemId } = useAccountSecurity();
-  const itemRef = useRef(null);
-
-  useEffect(() => {
-    if (selectedItemId && selectedItemId === id && itemRef.current) {
-      itemRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, [selectedItemId]);
   const [day, setDay] = useState(property.gracePeriod || 0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExploding, setIsExploding] = useState(false);
@@ -157,14 +149,9 @@ const Proposer = ({
       );
       setDay(selectedDay);
     } catch (error) {
-      console.error("Error caught:", error);
-      navigate("/metaverse/confirmation", {
-        state: {
-          locationPage: "profile-4",
-          sectionId: "received-suggestion",
-          itemId: id,
-        },
-      });
+      if (error.response?.status === 410) {
+        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+      }
     }
   };
 

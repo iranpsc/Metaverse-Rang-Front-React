@@ -6,8 +6,7 @@ import { mainContainer, Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../Services/Hooks/useRequest/index";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility/index";
-import { useAccountSecurity } from "../../../../../Services/Reducers/accountSecurityContext";
+import { getFieldTranslationByNames, ToastError } from "../../../../../Services/Utility/index";
 
 const Container = mainContainer;
 const RecievedSuggestion = () => {
@@ -15,7 +14,6 @@ const RecievedSuggestion = () => {
   const { Request } = useRequest();
   const location = useLocation();
   const navigate = useNavigate();
-  const { selectedItemId } = useAccountSecurity();
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -83,24 +81,8 @@ const RecievedSuggestion = () => {
       }
     };
 
-
-
     fetchSuggestions();
   }, [location]);
-
-  useEffect(() => {
-    if (!selectedItemId || suggestions.length === 0 || !containerRef.current) return;
-
-    setTimeout(() => {
-      const element = document.getElementById(`suggestion-${selectedItemId}`);
-      const firstItem = document.getElementById(`suggestion-${suggestions[0]?.id}`);
-
-      if (element && containerRef.current.contains(element) && element !== firstItem) {
-        const scrollPosition = element.offsetTop - containerRef.current.clientHeight / 2 + element.clientHeight / 2;
-        containerRef.current.scrollTo({ top: scrollPosition, behavior: "smooth" });
-      }
-    }, 200);
-  }, [suggestions, selectedItemId]);
 
   const handleRejectProposal = async (suggestionId) => {
     try {
@@ -112,8 +94,9 @@ const RecievedSuggestion = () => {
         console.error("Error deleting suggestion:", response);
       }
     } catch (error) {
-      console.error("Error caught:", error);
-      navigate("/metaverse/confirmation", { state: { locationPage: "profile-4", sectionId: "received-suggestion", itemId: suggestionId } });
+      if (error.response?.status === 410) {
+        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+      }
     }
   };
 
@@ -129,8 +112,9 @@ const RecievedSuggestion = () => {
         console.error("Error accepting suggestion:", response);
       }
     } catch (error) {
-      console.error("Error caught:", error);
-      navigate("/metaverse/confirmation", { state: { locationPage: "profile-4", sectionId: "received-suggestion", itemId: proposerId } });
+      if (error.response?.status === 410) {
+        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+      }
     }
   };
 

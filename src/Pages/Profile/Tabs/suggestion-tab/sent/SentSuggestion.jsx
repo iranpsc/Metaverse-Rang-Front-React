@@ -7,7 +7,6 @@ import useRequest from "../../../../../Services/Hooks/useRequest/index";
 import { mainContainer, Wrapper } from "../suggestionStyles";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
-import { useAccountSecurity } from "../../../../../Services/Reducers/accountSecurityContext";
 
 const Container = mainContainer;
 
@@ -16,7 +15,6 @@ const SentSuggestion = () => {
   const { Request } = useRequest();
   const location = useLocation();
   const navigate = useNavigate();
-  const { selectedItemId } = useAccountSecurity();
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -100,26 +98,6 @@ const SentSuggestion = () => {
       })),
     }));
 
-useEffect(() => {
-  if (!selectedItemId || suggestions.length === 0 || !containerRef.current) return;
-
-  if (selectedItemId === suggestions[0]?.id) return;
-
-  setTimeout(() => {
-    const element = document.getElementById(`suggestion-${selectedItemId}`);
-    if (!element || !containerRef.current.contains(element)) return;
-
-    const { clientHeight: containerHeight } = containerRef.current;
-    const { offsetTop: elementOffset, clientHeight: elementHeight } = element;
-
-    containerRef.current.scrollTo({
-      top: elementOffset - containerHeight / 2 + elementHeight / 2,
-      behavior: "smooth",
-    });
-  }, 200);
-}, [suggestions, selectedItemId]);
-
-
   const handleRejectProposal = async (suggestionId) => {
     try {
       const response = await Request(`buy-requests/delete/${suggestionId}`, "DELETE", {}, {}, "production");
@@ -130,10 +108,9 @@ useEffect(() => {
         console.error("Error deleting suggestion:", response);
       }
     } catch (error) {
-      console.error("Error caught:", error);
-      navigate("/metaverse/confirmation", {
-        state: { locationPage: "profile-4", sectionId: "send-suggestion", itemId: suggestionId },
-      });
+      if (error.response?.status === 410) {
+        ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+      }
     }
   };
 

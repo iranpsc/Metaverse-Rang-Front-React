@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import Header from "../Header/Header";
-import { useTranslation } from "react-i18next";
-import { getFieldTranslationByNames } from "../../Services/Utility";
-import { useAccountSecurity } from "../../Services/Reducers/accountSecurityContext"; 
 
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -46,13 +43,9 @@ const Container = styled.div`
   z-index: 10;
 `;
 const Modal = ({ children, title }) => {
-  const { setSectionId,setSelectedItemId } = useAccountSecurity();
-  const handleClose = () => {
-    setSectionId(null);
-    setSelectedItemId(null);
-  };
+
   return (
-    <Container  onClick={handleClose}>
+    <Container  >
       <ModalContainer>
         <Header title={title} />
         {children}
