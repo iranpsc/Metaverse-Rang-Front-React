@@ -4,7 +4,7 @@ export const POLYGON_COLORS = {
     "c":"white",
     "d":"#ffff00",
     "h":"#33a02c",
-    "i":"#99cccc",
+    "i":"#cecece",
     "j":"white",
     "k":"#ff0000",
     "n":"red",
