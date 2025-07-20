@@ -42,7 +42,7 @@ const Close = styled.h4`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(59, 8, 8);
+  background-color: #FDD2D2;
   color: #c30000;
   font-size: 20px;
 `;

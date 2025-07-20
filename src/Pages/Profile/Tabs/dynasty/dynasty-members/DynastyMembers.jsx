@@ -88,7 +88,7 @@ const DynastyMembers = () => {
   }
 
   return (
-    <div>
+   <>
       {mode.mode === 1 && (
         <FamilyTree
           setMode={setMode}
@@ -106,7 +106,7 @@ const DynastyMembers = () => {
           citizens={citizen}
         />
       )}
-    </div>
+  </>
   );
 };
 

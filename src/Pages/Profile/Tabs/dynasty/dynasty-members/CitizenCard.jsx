@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { Tooltip } from "react-tooltip";
 import down from "../../../../../assets/images/downcitizen.png";
-import citizen from "../../../../../assets/images/profile.png";
+import citizen from "../../../../../assets/images/anonymous.png";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
 import { slugLabels } from "../../../../../Services/Constants/UserType";
 
@@ -32,8 +32,10 @@ const Inner = styled.div`
   cursor: pointer;
   h2 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
+    max-width: 100%;
+    max-width: 250px; /* حداکثر عرض برای نام */
   }
   a {
     color: ${(props) => props.theme.colors.primary};
@@ -45,6 +47,14 @@ const Inner = styled.div`
     display: inline-block;
   }
   color: #fff;
+  
+  @media (max-width: 600px) {
+    padding: 10px;
+    h2 {
+      font-size: 16px;
+      max-width: 150px;
+    }
+  }
 `;
 
 const Example5Svg = styled.svg`
@@ -72,10 +82,21 @@ const Line = styled.rect`
 const Image = styled.div`
   width: 120px;
   height: 120px;
+  max-width: 120px;
+  max-height: 120px;
   border-radius: 100%;
   overflow: hidden;
   img {
     object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 600px) {
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+    max-height: 80px;
   }
 `;
 
@@ -92,6 +113,7 @@ const Level = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+      min-height: 35px;
   }
 `;
 

@@ -1,39 +1,17 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 20px 0;
+
 
   display: grid;
-  height: 232px;
+
   padding-right: 15px;
   overflow-y: auto;
 
-  @media (min-width: 880px) {
-    height: 187px;
-  }
-  @media (min-width: 890px) {
-    height: 257px;
-  }
-  @media (min-width: 930px) {
-    height: 273px;
-  }
-  @media (min-width: 1024px) {
-    height: 375px;
-  }
-  @media (min-width: 1180px) {
-    height: 575px;
-  }
-  @media (min-width: 1280px) {
-    height: 560px;
-  }
-  @media (min-width: 1366px) {
-    height: 620px;
-  }
-  @media (min-width: 1500px) {
-    height: 540px;
-  }
-  @media (min-width: 1900px) {
-    height: 620px;
+  height: calc(100vh - 100px);
+  @media (min-width: 992px) {
+    height: calc(100vh - 230px);
+    padding: 15px;
   }
 `;
 
@@ -55,7 +33,7 @@ export const Citizens = styled.div`
   padding-right: 10px;
   height: calc(100% - 10px);
   overflow: auto;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
 
   @media (min-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);

@@ -1,7 +1,8 @@
-import chat from "../../../../../assets/images/chat.png";
+import chat from "../../../../../assets/svg/before.svg";
 import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.newColors.otherColors.menuBg};
@@ -70,6 +71,8 @@ const Chat = styled.img`
   position: absolute;
   left: 0;
   bottom: 0;
+  z-index: 100;
+  background-color:${({ theme }) => theme.colors.newColors.otherColors.menuBg};
 `;
 
 const TreeMember = ({ item }) => {  
@@ -81,7 +84,7 @@ const TreeMember = ({ item }) => {
       { value: "spouse", label:825 }, 
       { value: "offspring ", label: 129}
   ];
-
+const navigate =useNavigate()
   const getRelationshipLabel = (relationship) => {
     const found = relationTypes.find(type => type.value === relationship);
     return found ? getFieldTranslationByNames(found.label) : relationship;
@@ -91,7 +94,7 @@ const TreeMember = ({ item }) => {
     <Container>
       <Image>
         <Status online={item.online} />
-        <Chat src={chat} width={28} height={28} alt="chat" />
+        <Chat src={chat} width={28} height={28} alt="chat"  onClick={()=>{navigate(`/metaverse/player/${item.id}`)}}/>
         <img
           src={item.profile_photo || member}
           alt="member"

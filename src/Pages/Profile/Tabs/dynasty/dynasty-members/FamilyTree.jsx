@@ -11,63 +11,10 @@ const Container = styled.div`
   padding: 20px 25px;
   overflow-x: auto; /* Enable horizontal scrolling */
   overflow-y: auto; /* Enable vertical scrolling */
-
-  height: 230px;
-  width: 535px;
-  @media (min-width: 720px) {
-    height: 400px;
-    width: 360px;
-  }
-  @media (min-width: 740px) {
-    height: 220px;
-    width: 375px;
-  }
-  @media (min-width: 840px) {
-    height: 235px;
-    width: 460px;
-  }
-  @media (min-width: 880px) {
-    height: 205px;
-    width: 490px;
-  }
-  @media (min-width: 890px) {
-    height: 260px;
-    width: 502px;
-  }
-  @media (min-width: 900px) {
-    height: 275px;
-    width: 516px;
-  }
-  @media (min-width: 910px) {
-    height: 260px;
-    width: 516px;
-  }
-  @media (min-width: 930px) {
-    height: 275px;
-    width: 530px;
-  }
-  @media (min-width: 1024px) {
-    height: 380px;
-    width: 650px;
-  }
-  @media (min-width: 1180px) {
-    height: 575px;
-  }
-  @media (min-width: 1280px) {
-    height: 560px;
-    width: 810px;
-  }
-  @media (min-width: 1366px) {
-    height: 640px;
-    width: 990px;
-  }
-  @media (min-width: 1500px) {
-    height: 540px;
-    width: 990px;
-  }
-  @media (min-width: 1920px) {
-    height: 625px;
-    width: 100%;
+  height: calc(100vh - 100px);
+  @media (min-width: 992px) {
+    height: calc(100vh - 230px);
+    padding: 15px;
   }
 `;
 

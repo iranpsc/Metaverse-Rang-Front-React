@@ -86,6 +86,7 @@ const Convert = ({ data }) => {
             id={feature.id}
             propertyId={feature.properties_id}
             stability={feature.stability}
+            area={feature.area}
             label={getFieldTranslationByNames(818)}
             onClick={updateDynasty}
           />

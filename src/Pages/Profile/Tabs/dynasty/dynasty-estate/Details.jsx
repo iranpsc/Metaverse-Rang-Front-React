@@ -86,7 +86,7 @@ const Details = ({ data }) => {
       {renderKeyValue(117, density)}
       {renderKeyValue(814, `${profitIncrease}٪`, true)}
       {renderKeyValue(815, membersCount)}
-      {renderKeyValue(1368, lastUpdated, true)}
+      {renderKeyValue(816, lastUpdated, true)}
     </Container>
   );
 };
