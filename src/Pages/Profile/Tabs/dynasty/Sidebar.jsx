@@ -10,6 +10,30 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  
+  /* اضافه کردن اسکرول برای حالت landscape */
+  @media (orientation: landscape) {
+    max-height: 100vh;
+    overflow-y: auto;
+    
+    /* بهبود ظاهر اسکرول بار */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: ${(props) => props.theme.colors.newColors.shades[20]};
+      border-radius: 3px;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+      background: ${(props) => props.theme.colors.newColors.shades[30]};
+    }
+  }
 `;
 
 const Label = styled.div`
