@@ -34,6 +34,34 @@ const Container = styled.div`
       background: ${(props) => props.theme.colors.newColors.shades[30]};
     }
   }
+  
+  /* تنظیمات خاص برای گوشی‌های آیفون */
+  @media (max-width: 768px) {
+    max-height: calc(100vh - 120px); /* کسر کردن فضای سرچ بار و هدر */
+    overflow-y: auto;
+    
+    /* تنظیمات اسکرول برای موبایل */
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: ${(props) => props.theme.colors.newColors.shades[20]};
+      border-radius: 2px;
+    }
+  }
+  
+  /* تنظیمات خاص برای آیفون با سرچ بار ثابت */
+  @supports (-webkit-touch-callout: none) {
+    @media (max-width: 768px) {
+      max-height: calc(100vh - 140px); /* فضای بیشتر برای سرچ بار آیفون */
+      padding-bottom: 20px; /* فضای اضافی در پایین */
+    }
+  }
 `;
 
 const Label = styled.div`

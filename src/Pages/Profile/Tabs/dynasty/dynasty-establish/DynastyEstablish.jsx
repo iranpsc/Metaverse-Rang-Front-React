@@ -3,10 +3,18 @@ import PropertySelect from "./PropertySelect";
 import styled from "styled-components";
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-  margin: 20px 0;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 15px 0;
+  max-height: 70vh;
+  overflow-y: auto;
+  
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    max-height: none;
+    overflow-y: visible;
+  }
 `;
 const DynastyEstablish = ({ data, setMode, setData }) => {
   return (
