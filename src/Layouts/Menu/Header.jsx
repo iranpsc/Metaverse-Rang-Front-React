@@ -35,7 +35,7 @@ const Title = styled.p`
 
 const Details = styled.p`
   color: #939393;
-  font-size: 14px;
+  font-size: 11px;
   font-style: normal;
   font-weight: 500;
   line-height: 180%;
@@ -79,7 +79,7 @@ const Header = () => {
         <Logo src={LogoIcon} />
         <ContainerText isOpen={isOpen}>
           <Title>{getFieldTranslationByNames("148")}</Title>
-          <Details>{getFieldTranslationByNames("256")}</Details>
+          <Details>{getFieldTranslationByNames("1457")}</Details>
         </ContainerText>
       </ContainerMain>
 

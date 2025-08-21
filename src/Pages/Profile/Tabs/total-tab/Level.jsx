@@ -74,7 +74,7 @@ const Level = () => {
 
   useEffect(() => {
     const requestId = id || userId.id;
-    Request(`users/${requestId}/level`).then((response) => {
+    Request(`users/${requestId}/levels`).then((response) => {
       setUser(response.data.data);
     });
   }, [id, userId.id]);
@@ -91,8 +91,8 @@ const Level = () => {
         </ProgressContainer>
       </Percent>
       <LevelCount>
-        {user.previous_levels &&
-          user?.previous_levels.map((item, index) => (
+        {user.previous_levels && user.previous_levels.length > 0 ? (
+          user.previous_levels.map((item, index) => (
             <div key={index}>
               <img
                 data-tooltip-id={item.slug}
@@ -103,7 +103,12 @@ const Level = () => {
               />
               <ReactTooltip id={item.slug} place="top" content={item.name} />
             </div>
-          ))}
+          ))
+        ) : (
+          <div style={{ color: '#999', fontSize: '14px', textAlign: 'center', width: '100%' }}>
+            هیچ نگینی دریافت نکردید
+          </div>
+        )}
         {user.latest_level && (
           <div>
             <img
