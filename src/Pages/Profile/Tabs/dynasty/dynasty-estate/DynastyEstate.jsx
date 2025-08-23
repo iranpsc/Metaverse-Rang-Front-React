@@ -9,12 +9,10 @@ const Container = styled.div`
   gap: 20px;
   overflow-y: auto;
 
-  height: calc(100vh - 60px);
+  height: calc(100vh - 110px);
   @media (min-width: 992px) {
     height: calc(100vh - 230px);
   }
-
-  
 `;
 
 const DynastyEstate = ({ data }) => {
