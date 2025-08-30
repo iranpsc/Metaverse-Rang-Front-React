@@ -11,6 +11,7 @@ export default defineConfig({
       "swiper/react": "swiper/react",
       swiper: "swiper",
     },
+    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
   },
   build: {
     sourcemap: true,

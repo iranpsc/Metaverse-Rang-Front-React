@@ -9,7 +9,7 @@ import Mark from "./3dModelMap/Mark";
 import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
 import { useLanguage } from "../../Services/Reducers/LanguageContext";
 
-import AuthMiddleware from "../../middleware/AuthMiddleware.jsx";
+import AuthMiddleware from "../../middleware/AuthMiddleware";
 import ZoomControls from "../../Components/ZoomControls";
 import FullscreenControls from "../../Components/FullscreenControls";
 
