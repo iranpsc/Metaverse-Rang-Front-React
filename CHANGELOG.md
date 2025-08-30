@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.103 (2025-08-30)
+
+
+### Bug Fixes
+
+* correct file extension for AuthMiddleware import ([0d19066](https://github.com/iranpsc/Metaverse-Rang-Front-React/commit/0d190669bc33bdfa0195d708ad173921fed7f254))
+
 ### 1.1.102 (2025-08-30)
 
 ### 1.1.101 (2025-08-30)
