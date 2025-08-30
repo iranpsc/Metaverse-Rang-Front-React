@@ -17,7 +17,7 @@ const Container = styled.div`
   align-items: start;
   justify-content: space-between;
   width: ${(props) => (props.isOpen ? "54%" : "9%")};
-  height: 100%;
+   height:95svh;
   border-radius: 10px;
 
   @media (min-width: 1024px) {

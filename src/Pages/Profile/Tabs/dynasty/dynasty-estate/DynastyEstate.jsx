@@ -8,8 +8,8 @@ const Container = styled.div`
   flex-direction: column;
   gap: 20px;
   overflow-y: auto;
-
-  height: calc(100vh - 110px);
+/* padding-bottom: 30px; */
+  height: calc(100vh - 150px);
   @media (min-width: 992px) {
     height: calc(100vh - 230px);
   }

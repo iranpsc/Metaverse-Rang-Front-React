@@ -86,12 +86,15 @@ const Icon = styled.img`
 
 const Text = styled.p`
   color: #868b90;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 180%;
   text-transform: capitalize;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+    @media (min-width: 992px) {
+  font-size: 16px;
+  }
 `;
 
 const ImgUser = styled.img`
@@ -159,7 +162,7 @@ const Profile = () => {
         }}
       >
         <ImgUser src={user?.image || Anonymous} />
-        <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
+        <Level isOpen={isOpen} >{user?.level?.slug || 0}</Level>
         <Text isOpen={isOpen}>{user?.code}</Text>
         <ChevronIcon isOpenDrop={isOpenMenu} />
       </Btn>

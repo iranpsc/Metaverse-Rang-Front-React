@@ -128,7 +128,7 @@ const menuItems = [
   },
   {
     icon: TrainingIcon,
-    translationId: "87",
+    translationId: "1461",
     link: "https://rgb.irpsc.com/trainings",
   },
   {

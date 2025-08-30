@@ -7,15 +7,16 @@ const Container = styled.div`
   flex-direction: column;
   gap: 15px;
   margin: 15px 0;
-  max-height: 70vh;
   overflow-y: auto;
-  
-  @media (min-width: 1024px) {
-    flex-direction: row;
+    height: calc(100vh - 150px);
+  @media (min-width: 992px) {
+    height: calc(100vh - 230px);
+      flex-direction: row;
     max-height: none;
     overflow-y: visible;
   }
 `;
+
 const DynastyEstablish = ({ data, setMode, setData }) => {
   return (
     <Container>

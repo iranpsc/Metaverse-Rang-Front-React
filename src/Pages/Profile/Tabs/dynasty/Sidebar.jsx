@@ -18,7 +18,7 @@ const SidebarContent = styled.div`
   padding-bottom: 220px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 5px;
 `;
 
 const Label = styled.div`

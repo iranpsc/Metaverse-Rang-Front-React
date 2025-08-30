@@ -12,7 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 5px;
   max-width: 18%;
-  height: 100%;
+ height:95svh;
   @media (min-width: 1024px) {
     max-width: 10%;
     gap: 10px;
