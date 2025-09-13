@@ -116,42 +116,42 @@ const menuItems = [
   {
     icon: NewsIcon,
     translationId: "255",
-    link: "https://rgb.irpsc.com/home-news",
+    link: "https://metatimes.ir/",
   },
   {
     icon: BlogIcon,
     translationId: "258",
-    link: "https://rgb.irpsc.com/home-blogs",
+    link: "https://rgb.irpsc.com/fa/articles",
   },
-  {
-    icon: ChallengeIcon,
-    translationId: "297",
-    link: "https://rgb.irpsc.com/home-competitions",
-  },
+  // {
+  //   icon: ChallengeIcon,
+  //   translationId: "297",
+  //   link: "https://rgb.irpsc.com/home-competitions",
+  // },
   {
     icon: TrainingIcon,
     translationId: "165",
-    link: "https://rgb.irpsc.com/trainings",
+    link: "https://rgb.irpsc.com/fa/education",
   },
   {
     icon: AboutIcon,
     translationId: "259",
-    link: "https://rgb.irpsc.com/about",
+    link: "https://rgb.irpsc.com/fa/about",
   },
   {
     icon: ContactIcon,
     translationId: "260",
-    link: "https://rgb.irpsc.com/contact",
+    link: "https://rgb.irpsc.com/fa/contact",
   },
   {
     icon: RobotIcon,
     translationId: "574",
-    link: "https://rgb.irpsc.com/version",
+    link: "https://rgb.irpsc.com/fa/version",
   },
   {
     icon: CalendarIcon,
     translationId: "262",
-    link: "https://rgb.irpsc.com/Calendar",
+    link: "https://rgb.irpsc.com/fa/calendar",
   },
   {
     icon: CitizenIcon,
