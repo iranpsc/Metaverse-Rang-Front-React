@@ -63,7 +63,7 @@ const Tooltip = styled.div`
     props.theme.colors.newColors.otherColors.iconBg};
 
   border-radius: 10px;
-  color: #868b90;
+  color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

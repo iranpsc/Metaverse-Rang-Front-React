@@ -10,7 +10,7 @@ const initialDetails = [
   {
     id: 4,
     slug: "province",
-    label: 10512,
+    label: 59,
     options: [
       { id: 0, city: "1000" },
       { id: 1, city: "907" },
@@ -103,7 +103,7 @@ const initialDetails = [
   {
     id: 6,
     slug: "gender",
-    label: 10526,
+    label: 872,
     options: [
       { id: 0, gender: "872" },
       { id: 1, gender: "887" },
