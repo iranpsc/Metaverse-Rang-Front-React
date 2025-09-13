@@ -86,12 +86,13 @@ const Icon = styled.img`
 
 const Text = styled.p`
   color: #868b90;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 180%;
   text-transform: capitalize;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  white-space: nowrap;
 `;
 
 const ImgUser = styled.img`

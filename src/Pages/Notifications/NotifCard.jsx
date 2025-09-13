@@ -65,9 +65,8 @@ const TrashWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.iconBg};
-
+  background-color: rgba(255, 0, 0, 0.17);
+  border-radius: 100%;
   cursor: pointer;
   svg {
     color: #ff0000;
