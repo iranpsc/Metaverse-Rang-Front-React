@@ -4,7 +4,7 @@ import SearchIcon from "../../../../../assets/images/searchIcon.png";
 import CrossIcon from "../../../../../assets/images/cross.png";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import BackIcon from "../../../../../assets/images/back.png";
-import Checkbox from "../../../../../Components/Inputs/CheckBoxOrange";
+import Checkbox from "../../../../../components/Inputs/CheckBoxOrange";
 import PremissionDynasty from "./PremissionDynasty";
 import { ToastError } from "../../../../../services/Utility";
 

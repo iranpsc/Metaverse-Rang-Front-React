@@ -8,7 +8,7 @@ import send from "../../../../assets/images/send-2.png";
 import styled from "styled-components";
 import { useContext } from "react";
 import whatsapp from "../../../../assets/images/whatsapp.png";
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility";

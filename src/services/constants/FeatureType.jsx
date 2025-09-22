@@ -1,6 +1,6 @@
-import Red from "../../Components/Red";
-import Yellow from "../../Components/Yellow";
-import Blue from "../../Components/Blue";
+import Red from "../../components/Red";
+import Yellow from "../../components/Yellow";
+import Blue from "../../components/Blue";
 export const TypeRGB = {
   a: "ساختمان مسکونی فروخته شده و قیمت گذاری شده",
   b: "ساختمان مسکونی فروخته شده و قیمت گذاری نشده",

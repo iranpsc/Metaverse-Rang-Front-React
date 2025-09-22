@@ -1,11 +1,11 @@
-import Button from "../../../../Components/Button";
-import Title from "../../../../Components/Title";
+import Button from "../../../../components/Button";
+import Title from "../../../../components/Title";
 import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest/index";
 import {  useState } from "react";
-import Alert from "../../../../Components/Alert/Alert";
+import Alert from "../../../../components/Alert/Alert";
 
 const Header = styled.div`
   display: flex;

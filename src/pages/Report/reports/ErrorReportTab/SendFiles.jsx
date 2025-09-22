@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import remove from "../../../../assets/images/reports/remove.png";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";

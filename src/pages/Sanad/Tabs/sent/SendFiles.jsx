@@ -3,7 +3,7 @@ import remove from "../../../../assets/images/remove.png";
 import styled from "styled-components";
 import { useGlobalState } from "../GlobalVodStateProvider";
 import { useState } from "react";
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 
 const Files = styled.div`
   display: flex;

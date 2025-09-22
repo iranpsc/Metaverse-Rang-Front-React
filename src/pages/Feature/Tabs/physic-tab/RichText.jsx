@@ -1,4 +1,4 @@
-import { Button, Icon, Toolbar } from "../../../../Components/RichTextTools";
+import { Button, Icon, Toolbar } from "../../../../components/RichTextTools";
 import { Editable, Slate, useSlate, withReact } from "slate-react";
 import {
   Editor,

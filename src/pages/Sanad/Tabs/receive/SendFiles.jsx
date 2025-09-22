@@ -2,7 +2,7 @@ import remove from "../../../../assets/images/remove.png";
 import styled from "styled-components";
 
 import { useState } from "react";
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Files = styled.div`

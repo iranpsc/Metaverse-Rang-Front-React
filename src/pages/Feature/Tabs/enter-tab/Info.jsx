@@ -6,7 +6,7 @@ import { LuEye } from "react-icons/lu";
 
 import styled from "styled-components";
 import { useState } from "react";
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import {
   convertToPersian,
   getFieldTranslationByNames,

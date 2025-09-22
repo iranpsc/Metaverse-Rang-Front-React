@@ -2,8 +2,8 @@ import NotesList from "./NotesList";
 
 import styled from "styled-components";
 import { useState } from "react";
-import SearchInput from "../../../../Components/SearchInput";
-import Title from "../../../../Components/Title";
+import SearchInput from "../../../../components/SearchInput";
+import Title from "../../../../components/Title";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`

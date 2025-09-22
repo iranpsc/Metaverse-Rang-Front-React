@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
-import Alert from "../../../../Components/Alert/Alert";
-import Title from "../../../../Components/Title";
+import Alert from "../../../../components/Alert/Alert";
+import Title from "../../../../components/Title";
 import InfoRow from "../InfoRow";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { ScaleLoader } from "react-spinners";

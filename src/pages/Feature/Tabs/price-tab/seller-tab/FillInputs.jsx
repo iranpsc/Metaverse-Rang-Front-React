@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import Rial from "../../../../../Components/Rial";
-import Psc from "../../../../../Components/Psc";
-import Input from "../../../../../Components/Input";
+import Rial from "../../../../../components/Rial";
+import Psc from "../../../../../components/Psc";
+import Input from "../../../../../components/Input";
 import {
   calculateFee,
   getFieldTranslationByNames,
   TimeAgo,
   ToastError,
 } from "../../../../../services/Utility";
-import TitleValue from "../../../../../Components/TitleValue";
-import Button from "../../../../../Components/Button";
+import TitleValue from "../../../../../components/TitleValue";
+import Button from "../../../../../components/Button";
 import { useContext, useState } from "react";
 import { UserContext } from "../../../../../services/reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";

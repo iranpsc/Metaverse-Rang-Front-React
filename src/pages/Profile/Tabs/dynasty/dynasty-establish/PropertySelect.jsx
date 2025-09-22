@@ -1,8 +1,8 @@
 import PropertyCard from "./PropertyCard";
-import Title from "../../../../../Components/Title";
+import Title from "../../../../../components/Title";
 
 import styled from "styled-components";
-import SearchInput from "../../../../../Components/SearchInput";
+import SearchInput from "../../../../../components/SearchInput";
 import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";

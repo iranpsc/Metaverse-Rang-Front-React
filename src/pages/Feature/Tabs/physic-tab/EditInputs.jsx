@@ -3,7 +3,7 @@ import Input from "./Input";
 import RichText from "./RichText";
 import styled from "styled-components";
 import { useState } from "react";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Wrapper = styled.div`

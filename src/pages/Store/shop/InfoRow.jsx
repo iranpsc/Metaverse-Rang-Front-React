@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { BsExclamationCircleFill } from "react-icons/bs";
 import styled from "styled-components";
 import { AlertContext } from "../../../services/reducers/AlertContext";
-import Button from "../../../Components/Button";
+import Button from "../../../components/Button";
 import InfoModal from "./InfoModal";
 import TitleValue from "./TitleValue";
 import { addCommas } from "@persian-tools/persian-tools";

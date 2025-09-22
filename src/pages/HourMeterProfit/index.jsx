@@ -1,7 +1,7 @@
 import React from "react";
-import ModalPosition from "../../Components/ModalPosition";
+import ModalPosition from "../../components/ModalPosition";
 import useTabs from "../../services/Hooks/useTabs";
-import ProfitView from "./Components/ProfitView";
+import ProfitView from "./components/ProfitView";
 import { getFieldTranslationByNames } from "../../services/Utility";
 
 const HourMeterProfit = () => {

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import nonPhoto from "../../../assets/images/file.png";
 import remove from "../../../assets/images/remove.png";
 import styled from "styled-components";
-import Title from "../../../Components/Title";
+import Title from "../../../components/Title";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 
 const Files = styled.div`

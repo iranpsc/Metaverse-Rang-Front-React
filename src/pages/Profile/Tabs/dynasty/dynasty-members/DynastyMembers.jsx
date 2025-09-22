@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import CitizenInvite from "./CitizenInvite";
 import FamilyTree from "./FamilyTree";
-import LoadingSpinner from "../../../../../Components/Common/LoadingSpinner";
+import LoadingSpinner from "../../../../../components/Common/LoadingSpinner";
 import { use } from "react";
 
 const DynastyMembers = () => {

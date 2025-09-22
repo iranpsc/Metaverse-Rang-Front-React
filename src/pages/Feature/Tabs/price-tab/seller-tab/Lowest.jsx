@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../../../../Components/Button";
+import Button from "../../../../../components/Button";
 import { UserContext } from "../../../../../services/reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import useRequest from "../../../../../services/Hooks/useRequest";
@@ -11,7 +11,7 @@ import {
   ToastError,
   ToastSuccess,
 } from "../../../../../services/Utility";
-import ResultInfo from "../../../Components/ResultInfo";
+import ResultInfo from "../../../components/ResultInfo";
 
 const Wrapper = styled.div`
   display: flex;

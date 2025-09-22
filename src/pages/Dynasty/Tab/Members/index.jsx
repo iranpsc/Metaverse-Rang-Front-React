@@ -3,8 +3,8 @@ import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import DynastySolidImg from "../../../../assets/images/Dynasty-solid.png";
-import Member from "./Components/Member";
-import UserSearch from "./Components/SearchBoxMember";
+import Member from "./components/Member";
+import UserSearch from "./components/SearchBoxMember";
 import useRequest from "../../../../services/Hooks/useRequest";
 
 // Styling for background image of component

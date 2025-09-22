@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../Components/Loading";
+import Loading from "../components/Loading";
 
 const PromiseModal = (WrappedComponent, axios) => {
   const PromiseModalComponent = (props) => {

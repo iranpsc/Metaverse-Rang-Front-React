@@ -2,8 +2,8 @@ import BankCardsUpload from "./BankCardsUpload";
 
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import Title from "../../../../Components/Title";
-import Alert from "../../../../Components/Alert/Alert";
+import Title from "../../../../components/Title";
+import Alert from "../../../../components/Alert/Alert";
 import ErrorModal from "../ErrorModal";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";

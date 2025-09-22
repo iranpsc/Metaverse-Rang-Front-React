@@ -1,7 +1,7 @@
 import { Rnd } from "react-rnd";
 import loader from "../../../../assets/gif/loader.svg";
 import styled from "styled-components";
-import Header from "../../../../Components/Education/Header";
+import Header from "../../../../components/Education/Header";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const StyledRnd = styled(Rnd)`

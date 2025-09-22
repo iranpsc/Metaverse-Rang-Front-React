@@ -3,8 +3,8 @@ import { IoCardOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import Title from "../../../../Components/Title";
-import Button from "../../../../Components/Button";
+import Title from "../../../../components/Title";
+import Button from "../../../../components/Button";
 import {
   getFieldTranslationByNames,
   ToastError,

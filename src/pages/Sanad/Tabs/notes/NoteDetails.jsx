@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import NoteCard from "./NoteCard";
 import NoteMessages from "./NoteMessages";
 import styled from "styled-components";
-import ModalLg from "../../../../Components/Modal/ModalLg";
+import ModalLg from "../../../../components/Modal/ModalLg";
 
 const Div = styled.div`
   height: 272px;

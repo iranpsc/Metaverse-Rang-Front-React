@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import styled from "styled-components";
 import { toast } from "react-toastify";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
   getFieldTranslationByNames,

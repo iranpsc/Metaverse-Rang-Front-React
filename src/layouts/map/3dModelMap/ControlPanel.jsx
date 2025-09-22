@@ -1,7 +1,7 @@
 import React from "react";
-import ModalPosition from "../../../Components/ModalPosition";
+import ModalPosition from "../../../components/ModalPosition";
 import styled from "styled-components";
-import Submit from "../../../Components/Buttons/Submit";
+import Submit from "../../../components/Buttons/Submit";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 
 const Container = styled.div`

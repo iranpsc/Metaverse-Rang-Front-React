@@ -4,16 +4,16 @@ import Inputs from "./Inputs";
 import SendFiles from "./SendFiles";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
-import Alert from "../../../Components/Alert/Alert";
-import Button from "../../../Components/Button";
+import Alert from "../../../components/Alert/Alert";
+import Button from "../../../components/Button";
 import { AlertContext } from "../../../services/reducers/AlertContext";
-import Title from "../../../Components/Title";
+import Title from "../../../components/Title";
 import {
   getFieldTranslationByNames,
   ToastError,
 } from "../../../services/Utility";
 
-import ErrorMessage from "../../../Components/ErrorMessage";
+import ErrorMessage from "../../../components/ErrorMessage";
 import useRequest from "../../../services/Hooks/useRequest";
 
 const Container = styled.div`

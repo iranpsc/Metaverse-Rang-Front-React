@@ -3,7 +3,7 @@ import { FaPlus } from "react-icons/fa";
 import TreeMember from "./TreeMember";
 import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
-import Title from "../../../../../Components/Title";
+import Title from "../../../../../components/Title";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
 
 // Container with explicit width and scroll

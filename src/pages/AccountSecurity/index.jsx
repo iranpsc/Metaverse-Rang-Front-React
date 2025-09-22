@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import ModalXs from "../../Components/Modal/ModalXs";
+import ModalXs from "../../components/Modal/ModalXs";
 import AccountSecurity from "./AccountSecurity";
 
 

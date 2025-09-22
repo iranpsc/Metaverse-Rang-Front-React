@@ -3,8 +3,8 @@ import insta from "../../../../assets/images/instagram.png";
 import send from "../../../../assets/images/send-2.png";
 import styled from "styled-components";
 import whatsapp from "../../../../assets/images/whatsapp.png";
-import Title from "../../../../Components/Title";
-import Button from "../../../../Components/Button";
+import Title from "../../../../components/Title";
+import Button from "../../../../components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`

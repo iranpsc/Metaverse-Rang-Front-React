@@ -1,6 +1,6 @@
 import house from "../../../../../assets/images/house.png";
 import styled from "styled-components";
-import Button from "../../../../../Components/Button";
+import Button from "../../../../../components/Button";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 

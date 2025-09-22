@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import TextValueIcon from "../../../../Components/TextValueIcon";
+import TextValueIcon from "../../../../components/TextValueIcon";
 import { FeatureContext } from "../../Context/FeatureProvider";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
   FeatureColor,

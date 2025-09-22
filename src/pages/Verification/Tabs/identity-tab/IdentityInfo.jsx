@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import CardPhotos from "./CardPhotos";
 import InfoInputs from "./InfoInputs";
 import styled from "styled-components";
-import Title from "../../../../Components/Title";
-import Alert from "../../../../Components/Alert/Alert";
+import Title from "../../../../components/Title";
+import Alert from "../../../../components/Alert/Alert";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Wrapper = styled.div``;

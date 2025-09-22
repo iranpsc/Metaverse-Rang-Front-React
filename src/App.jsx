@@ -24,8 +24,8 @@ import Routers from "./layouts/map/Routers.jsx";
 import { getFieldTranslationByNames } from "./services/Utility/index.jsx";
 import { LanguageProvider } from "./services/reducers/LanguageContext.jsx";
 import { LoaderProvider } from "./services/reducers/LoaderProvider.jsx";
-import RotateDevice from "./Components/RotateDevice";
-import Error410Modal from "./Components/Error410Modal";
+import RotateDevice from "./components/RotateDevice";
+import Error410Modal from "./components/Error410Modal";
 
 const Container = styled.section`
   display: flex;

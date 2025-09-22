@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Psc from "../../../../Components/Psc";
-import Rial from "../../../../Components/Rial";
+import Psc from "../../../../components/Psc";
+import Rial from "../../../../components/Rial";
 
 // EditInput Component
 const InputContainer = styled.div`

@@ -1,4 +1,4 @@
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import EditInputs from "./EditInputs";
 

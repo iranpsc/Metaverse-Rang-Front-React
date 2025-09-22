@@ -1,6 +1,6 @@
 import Messages from "./Messages";
 import ReportCard from "./ReportCard";
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 

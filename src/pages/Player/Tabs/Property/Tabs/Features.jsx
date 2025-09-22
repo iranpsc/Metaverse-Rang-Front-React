@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import FeatureCard from "../Component/FeatureCard";
-// import SearchBox from "../../../../../Components/Inputs/SearchBox";
+// import SearchBox from "../../../../../components/Inputs/SearchBox";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import FeatureType from "../../../../../services/constants/FeatureType";
-import FeaturesSearch from "../../../Components/FeaturesSearch";
+import FeaturesSearch from "../../../components/FeaturesSearch";
 import { useParams } from "react-router-dom";
 
 const Container = styled.div`

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Message from "./Components/Message";
+import Message from "./components/Message";
 //icons
 import PscCoin from "../../../../assets/images/psc-2.png";
 import DataBaseIcon from "../../../../assets/images/database.png";

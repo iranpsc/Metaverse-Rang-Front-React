@@ -16,8 +16,8 @@ import rial from "../../../../assets/gif/rial.gif";
 import styled from "styled-components";
 import { useState, useEffect, useRef, useCallback } from "react";
 import yellow from "../../../../assets/gif/yellow-color.gif";
-import SearchInput from "../../../../Components/SearchInput";
-import Title from "../../../../Components/Title";
+import SearchInput from "../../../../components/SearchInput";
+import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
   getFieldTranslationByNames,

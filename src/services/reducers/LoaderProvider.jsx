@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-import Loading from "../../Components/Loading/index";
+import Loading from "../../components/Loading/index";
 
 export const LoaderContext = createContext();
 

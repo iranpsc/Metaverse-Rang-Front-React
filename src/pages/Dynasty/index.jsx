@@ -1,4 +1,4 @@
-import Modal from '../../Components/Modal';
+import Modal from '../../components/Modal';
 import React from "react";
 import useTabs from "../../services/Hooks/useTabs";
 import Members from "./Tab/Members";

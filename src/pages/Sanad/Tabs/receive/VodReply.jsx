@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import ReplyInput from "./ReplyInput";
 import SendFiles from "./SendFiles";
 import styled from "styled-components";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 

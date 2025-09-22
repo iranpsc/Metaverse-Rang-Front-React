@@ -3,9 +3,9 @@ import MemberCard from "./MemberCard";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 
-import Button from "../../../../../Components/Button";
+import Button from "../../../../../components/Button";
 import { getFieldTranslationByNames, ToastError, ToastSuccess } from "../../../../../services/Utility";
-import ModalLg from "../../../../../Components/Modal/ModalLg";
+import ModalLg from "../../../../../components/Modal/ModalLg";
 import OnOff from "../../../../Settings/Tabs/OnOff";
 import { useState } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";

@@ -1,5 +1,5 @@
 import { GrLocation } from "react-icons/gr";
-import TextValueIcon from "../../../../Components/TextValueIcon";
+import TextValueIcon from "../../../../components/TextValueIcon";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const ThirdRow = ({ feature }) => {

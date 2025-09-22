@@ -1,4 +1,4 @@
-import CanvasPreview from "../../../../Feature/Tabs/PropertyConstruction/Tabs/Components/CanvasPreview";
+import CanvasPreview from "../../../../Feature/Tabs/PropertyConstruction/Tabs/components/CanvasPreview";
 
 const Model3D = () => {
   return (

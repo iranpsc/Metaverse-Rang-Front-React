@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import TitleValue from "../../../../Components/TitleValue";
+import TitleValue from "../../../../components/TitleValue";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`

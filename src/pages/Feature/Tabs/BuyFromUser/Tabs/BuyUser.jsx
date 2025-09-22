@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import Submit from "../../../../../Components/Buttons/Submit";
+import Submit from "../../../../../components/Buttons/Submit";
 import { Container, Text } from "../../../Styles";
 import IconIrr from "../../../../../assets/images/coin-irr.png";
 import IconPsc from "../../../../../assets/images/coin-psc.png";
-import Specification from "../../../Components/Specification";
+import Specification from "../../../components/Specification";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { calculateFee, ToastError } from "../../../../../services/Utility";
-import Form from "../../../../../Components/Form";
+import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import { FeatureSvg } from "../../../../../services/constants/FeatureType";

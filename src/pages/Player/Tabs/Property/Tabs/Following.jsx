@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from "react";
 import shortid from "shortid";
 import styled from "styled-components";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import FollowsSearch from "../../../Components/FollowsSearch";
+import FollowsSearch from "../../../components/FollowsSearch";
 import PlayerCard from "../Component/PlayerCard";
 import { useParams } from "react-router-dom";
 

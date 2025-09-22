@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"; 
-import Modal from "../../Components/Modal";
+import Modal from "../../components/Modal";
 import useTabs from "../../services/Hooks/useTabs";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import DynastyTab from "./Tabs/dynasty/DynastyTab";

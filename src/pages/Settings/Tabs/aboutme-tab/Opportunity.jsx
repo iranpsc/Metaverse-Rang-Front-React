@@ -5,7 +5,7 @@ import { convertToPersian } from "../../../../services/Utility/index";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useEffect, useState } from "react";
-import { EditorContainer,Label, Char,formats,modules} from "../../../../Components/editorContainerStyle";
+import { EditorContainer,Label, Char,formats,modules} from "../../../../components/editorContainerStyle";
 
 const Opportunity = () => {
   const { state, dispatch } = useGlobalState();

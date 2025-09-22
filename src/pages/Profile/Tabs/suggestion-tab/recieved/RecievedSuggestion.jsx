@@ -1,5 +1,5 @@
 import Suggestion from "./Suggestion";
-import Title from "../../../../../Components/Title";
+import Title from "../../../../../components/Title";
 import meter from "../../../../../Assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
 import { mainContainer, Wrapper } from "../suggestionStyles";

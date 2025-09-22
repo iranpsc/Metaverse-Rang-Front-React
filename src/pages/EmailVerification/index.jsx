@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../../Components/Modal";
+import Modal from "../../components/Modal";
 import styled from "styled-components";
-import Submit from "../../Components/Buttons/Submit";
+import Submit from "../../components/Buttons/Submit";
 import gmailSvg from "../../assets/svg/gmail.svg";
 import outlookSvg from "../../assets/svg/outlook.svg";
 import mailSvg from "../../assets/svg/mail.svg";

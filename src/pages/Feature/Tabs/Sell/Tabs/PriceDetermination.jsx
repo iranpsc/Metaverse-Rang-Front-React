@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Submit from "../../../../../Components/Buttons/Submit";
-import Form from "../../../../../Components/Form";
+import Submit from "../../../../../components/Buttons/Submit";
+import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { UserContext } from "../../../../../services/reducers/UserContext";
 import { calculateFee, TimeAgo, ToastError, ToastSuccess } from "../../../../../services/Utility";
-import PriceInput from "../../../Components/PriceInput";
-import Specification from "../../../Components/Specification";
+import PriceInput from "../../../components/PriceInput";
+import Specification from "../../../components/Specification";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { Container, Text, Title } from "../../../Styles";
 

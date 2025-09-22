@@ -6,8 +6,8 @@ import {
 import { useContext, useState } from "react";
 import { ParticipantsContext } from "./ParticipationTab";
 import styled from "styled-components";
-import TextValueIcon from "../../../../Components/TextValueIcon";
-import Button from "../../../../Components/Button";
+import TextValueIcon from "../../../../components/TextValueIcon";
+import Button from "../../../../components/Button";
 import { Title } from "../../Styles";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 

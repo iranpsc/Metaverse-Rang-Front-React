@@ -5,7 +5,7 @@ import { useGlobalState } from "./aboutGlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useEffect, useState } from "react";
 import { convertToPersian } from "../../../../services/Utility/index";
-import { EditorContainer,Label, Char,formats,modules} from "../../../../Components/editorContainerStyle";
+import { EditorContainer,Label, Char,formats,modules} from "../../../../components/editorContainerStyle";
 
 
 const About = () => {

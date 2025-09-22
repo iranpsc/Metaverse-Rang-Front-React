@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
-import Submit from "../../../../../../Components/Buttons/Submit";
+import Submit from "../../../../../../components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../../../../services/reducers/SelectedEnvironmentContext";
 import { useNavigate } from "react-router-dom";
 import {
@@ -9,8 +9,8 @@ import {
   ToastError,
 } from "../../../../../../services/Utility";
 import { FeatureContext } from "../../../../Context/FeatureProvider";
-import Input from "../../../../../../Components/Input";
-import Button from "../../../../../../Components/Button";
+import Input from "../../../../../../components/Input";
+import Button from "../../../../../../components/Button";
 
 const Container = styled.div`
   display: flex;

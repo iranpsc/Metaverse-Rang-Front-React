@@ -5,7 +5,7 @@ import { MdAccessTime } from "react-icons/md";
 import { ParticipantsContext } from "./ParticipationTab";
 
 import styled from "styled-components";
-import TextValueIcon from "../../../../Components/TextValueIcon";
+import TextValueIcon from "../../../../components/TextValueIcon";
 
 const BackGround = styled.div`
   z-index: 999;

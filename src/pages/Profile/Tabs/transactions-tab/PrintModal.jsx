@@ -4,7 +4,7 @@ import { BsCheckCircleFill } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const BackGround = styled.div`

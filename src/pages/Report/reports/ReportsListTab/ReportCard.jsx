@@ -1,4 +1,4 @@
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import { ReactComponent as CircleIcon } from "../../../../assets/images/reports/link-circle.svg";
 import { ReactComponent as InstaIcon } from "../../../../assets/images/reports/instagram.svg";
 import { ReactComponent as SendIcon } from "../../../../assets/images/reports/send-2.svg";

@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Submit from "../../../../../Components/Buttons/Submit";
+import Submit from "../../../../../components/Buttons/Submit";
 import { Container, Text } from "../../../Styles";
 import { FeatureSvg } from "../../../../../services/constants/FeatureType";
-import Form from "../../../../../Components/Form";
+import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { ToastError } from "../../../../../services/Utility";
 

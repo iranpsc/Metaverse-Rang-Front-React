@@ -6,7 +6,7 @@ import {
   convertToPersian,
   getFieldTranslationByNames,
 } from "../../../services/Utility";
-import Result from "../../../Components/Result";
+import Result from "../../../components/Result";
 
 const Wrapper = styled.div`
   border-radius: 5px;

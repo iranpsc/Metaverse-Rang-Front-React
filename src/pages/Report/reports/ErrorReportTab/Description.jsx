@@ -5,7 +5,7 @@ import { convertToPersian } from "../../../../services/Utility/index";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import { useEffect, useState } from "react";
-import { EditorContainer,Label, Char,formats,modulesWithoutImage} from "../../../../Components/editorContainerStyle";
+import { EditorContainer,Label, Char,formats,modulesWithoutImage} from "../../../../components/editorContainerStyle";
 
 const Description = () => {
   const { state, dispatch } = useReportsGlobalState();

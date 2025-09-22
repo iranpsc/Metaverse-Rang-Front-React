@@ -3,7 +3,7 @@ import insta from "../../../assets/images/instagram.png";
 import send from "../../../assets/images/send-2.png";
 import styled from "styled-components";
 import whatsapp from "../../../assets/images/whatsapp.png";
-import Title from "../../../Components/Title";
+import Title from "../../../components/Title";
 
 const Container = styled.div`
   background-color: #1a1a18;

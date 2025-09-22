@@ -9,7 +9,7 @@ import BankICoin from "../../../../assets/images/bank.png";
 import SeenICoin from "../../../../assets/images/eye-scanner.png";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
-import Message from "./Components/Message";
+import Message from "./components/Message";
 
 const Table = styled.table`
   width: 100%;

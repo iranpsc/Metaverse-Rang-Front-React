@@ -10,8 +10,8 @@ import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironm
 import { useLanguage } from "../../services/reducers/LanguageContext";
 
 import AuthMiddleware from "../../middleware/AuthMiddleware";
-import ZoomControls from "../../Components/ZoomControls";
-import FullscreenControls from "../../Components/FullscreenControls";
+import ZoomControls from "../../components/ZoomControls";
+import FullscreenControls from "../../components/FullscreenControls";
 
 export const TransactionContext = createContext();
 

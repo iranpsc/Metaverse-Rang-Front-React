@@ -6,7 +6,7 @@ import useRequest from "../services/Hooks/useRequest";
 export default function PrivateRoute({ children }) {
   const { isLoggedIn } = useAuth();
   const navigation = useNavigate();
-  const [components, setComponents] = useState();
+  const [components, setcomponents] = useState();
   const { Request, HTTP_METHOD } = useRequest();
   useEffect(() => {
     if (!isLoggedIn()) {
@@ -27,7 +27,7 @@ export default function PrivateRoute({ children }) {
         });
     }
 
-    setComponents(children);
+    setcomponents(children);
   }, [isLoggedIn]);
 
   return components ? components : <></>;

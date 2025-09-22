@@ -3,7 +3,7 @@ import ResultCard from "./ResultCard";
 import styled from "styled-components";
 import { useState, useCallback } from "react";
 
-import SearchInput from "../../Components/SearchInput";
+import SearchInput from "../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 

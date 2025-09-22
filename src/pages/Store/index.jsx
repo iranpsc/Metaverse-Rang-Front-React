@@ -4,7 +4,7 @@ import useTabs from "../../services/Hooks/useTabs";
 import ToolTab from "./shop/tool-tab/ToolTab";
 import CurrencyTab from "./shop/currency-tab/CurrencyTab";
 import ShopInfo from "./shop/ShopInfo";
-import Modal from "../../Components/Modal/index";
+import Modal from "../../components/Modal/index";
 import { getFieldTranslationByNames } from "../../services/Utility";
 
 export default function Store() {

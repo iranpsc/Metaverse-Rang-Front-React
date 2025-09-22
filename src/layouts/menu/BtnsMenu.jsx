@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../services/Utility";
-import DropDownLang from "../../Components/DropDownLang";
+import DropDownLang from "../../components/DropDownLang";
 import SingOutIcon from "../../assets/svg/signOut.svg";
 import AccountSecurityIcon from "../../assets/svg/accountSecurity.svg";
 import CentralSearch from "../../assets/svg/centralSearch.svg";

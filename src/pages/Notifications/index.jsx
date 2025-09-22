@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useRequest from "../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
-import ModalSm from "../../Components/Modal/ModalSm";
+import ModalSm from "../../components/Modal/ModalSm";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import NoNotification from "./NoNotification";
 

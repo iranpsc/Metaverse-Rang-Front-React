@@ -3,7 +3,7 @@ import { HiOutlineUser } from "react-icons/hi2";
 import { MdOutlineHome } from "react-icons/md";
 
 import styled from "styled-components";
-import TextValueIcon from "../../../../Components/TextValueIcon";
+import TextValueIcon from "../../../../components/TextValueIcon";
 import { COMBINE_FEATURE } from "../../../../services/constants/FeatureType";
 import { useContext } from "react";
 import { FeatureContext } from "../../Context/FeatureProvider";

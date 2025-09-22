@@ -7,7 +7,7 @@ import {
   convertToPersian,
   getFieldTranslationByNames,
 } from "../../../../services/Utility";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { useNavigate } from "react-router-dom";
 

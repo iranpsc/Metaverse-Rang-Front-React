@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../../Components/Modal";
+import Modal from "../../components/Modal";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
 import {
@@ -7,8 +7,8 @@ import {
   ToastSuccess,
   getFieldTranslationByNames,
 } from "../../services/Utility";
-import Submit from "../../Components/Buttons/Submit";
-import Input from "../../Components/Inputs/Input";
+import Submit from "../../components/Buttons/Submit";
+import Input from "../../components/Inputs/Input";
 
 const Container = styled.div`
   display: flex;

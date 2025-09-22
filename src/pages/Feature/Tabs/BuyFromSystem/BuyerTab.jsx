@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-("../../../../../Components/SidebarOptions");
+("../../../../../components/SidebarOptions");
 import BuyerContent from "./BuyerContent";
 import SidebarOptions from "./SidebarOptions";
 

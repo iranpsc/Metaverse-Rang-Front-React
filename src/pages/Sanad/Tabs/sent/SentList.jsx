@@ -10,9 +10,9 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import SearchInput from "../../../../Components/SearchInput";
-import Title from "../../../../Components/Title";
-import VodList from "../../Components/VodList";
+import SearchInput from "../../../../components/SearchInput";
+import Title from "../../../../components/Title";
+import VodList from "../../components/VodList";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 

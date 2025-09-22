@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import InputsGeneralDefault from "./Components/InputsGeneralDefault";
-import ChoosingEnvironment from "./Components/ChoosingEnvironment";
+import InputsGeneralDefault from "./components/InputsGeneralDefault";
+import ChoosingEnvironment from "./components/ChoosingEnvironment";
 
 const Container = styled.div`
   display: flex;

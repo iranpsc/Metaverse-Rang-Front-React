@@ -1,8 +1,8 @@
-import Button from "../../../../../Components/Button";
+import Button from "../../../../../components/Button";
 import MemberCard from "./MemberCard";
 import { getFieldTranslationByNames, ToastError, ToastSuccess } from "../../../../../services/Utility";
 import styled from "styled-components";
-import ModalLg from "../../../../../Components/Modal/ModalLg";
+import ModalLg from "../../../../../components/Modal/ModalLg";
 import { UserContext } from "../../../../../services/reducers/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";

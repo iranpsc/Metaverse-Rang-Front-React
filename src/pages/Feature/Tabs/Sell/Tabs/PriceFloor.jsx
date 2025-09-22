@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Submit from "../../../../../Components/Buttons/Submit";
-import Form from "../../../../../Components/Form";
+import Submit from "../../../../../components/Buttons/Submit";
+import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { UserContext } from "../../../../../services/reducers/UserContext";
 import {

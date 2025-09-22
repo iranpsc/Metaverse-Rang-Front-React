@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import SidebarOptions from "../../../../../Components/SidebarOptions";
+import SidebarOptions from "../../../../../components/SidebarOptions";
 import SellerContent from "./SellerContent";
 
 const Wrapper = styled.div`

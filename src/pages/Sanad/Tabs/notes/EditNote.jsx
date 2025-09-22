@@ -5,7 +5,7 @@ import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import SendFiles from "../SendFiles";
 import styled from "styled-components";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
 
 const Buttons = styled.div`

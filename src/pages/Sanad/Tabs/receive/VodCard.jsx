@@ -3,8 +3,8 @@ import insta from "../../../../assets/images/instagram.png";
 import send from "../../../../assets/images/send-2.png";
 import styled from "styled-components";
 import whatsapp from "../../../../assets/images/whatsapp.png";
-import Button from "../../../../Components/Button";
-import Title from "../../../../Components/Title";
+import Button from "../../../../components/Button";
+import Title from "../../../../components/Title";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
 

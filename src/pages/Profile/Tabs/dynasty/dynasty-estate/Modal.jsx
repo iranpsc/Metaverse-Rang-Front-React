@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../../../../Components/Button";
+import Button from "../../../../../components/Button";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
 

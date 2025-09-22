@@ -3,7 +3,7 @@ import { FiTrash2 } from "react-icons/fi";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import NoteDetails from "./NoteDetails";
 import styled from "styled-components";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 

@@ -1,4 +1,4 @@
-import Button from "../../../../../Components/Button";
+import Button from "../../../../../components/Button";
 import ConfettiExplosion from "react-confetti-explosion";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import {

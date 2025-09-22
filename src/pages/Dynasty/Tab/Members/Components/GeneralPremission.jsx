@@ -1,6 +1,6 @@
-import Toggle from "../../../../../Components/Toggle";
-import Submit from "../../../../../Components/Buttons/Submit";
-import Form from "../../../../../Components/Form";
+import Toggle from "../../../../../components/Toggle";
+import Submit from "../../../../../components/Buttons/Submit";
+import Form from "../../../../../components/Form";
 import styled from "styled-components";
 const Container = styled.section`
   height: 100%;

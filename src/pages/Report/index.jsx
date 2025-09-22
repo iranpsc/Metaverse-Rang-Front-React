@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Modal from "../../Components/Modal";
+import Modal from "../../components/Modal";
 import useTabs from "../../services/Hooks/useTabs";
 import ReportsInfo from "./reports/ReportsInfo";
 import { useLocation } from "react-router-dom";

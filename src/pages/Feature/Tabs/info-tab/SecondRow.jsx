@@ -5,7 +5,7 @@ import { RiCloseCircleLine } from "react-icons/ri";
 import { RxLayout } from "react-icons/rx";
 
 import styled from "styled-components";
-import TextValueIcon from "../../../../Components/TextValueIcon";
+import TextValueIcon from "../../../../components/TextValueIcon";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const RowWrapper = styled.div`

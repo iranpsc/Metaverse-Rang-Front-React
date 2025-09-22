@@ -12,7 +12,7 @@ import {
   convertToPersian,
   getFieldTranslationByNames,
 } from "../../../../services/Utility";
-import UserCode from "../../../../Components/UserCode";
+import UserCode from "../../../../components/UserCode";
 
 const Container = styled.div`
   background-color: ${(props) =>

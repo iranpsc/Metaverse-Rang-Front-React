@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Submit from "../../../../../Components/Buttons/Submit";
+import Submit from "../../../../../components/Buttons/Submit";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import Members from "../index";
 import { ToastError, ToastSuccess } from "../../../../../services/Utility";

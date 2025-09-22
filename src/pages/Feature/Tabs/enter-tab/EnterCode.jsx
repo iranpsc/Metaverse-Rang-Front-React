@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Input from "../physic-tab/Input";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`

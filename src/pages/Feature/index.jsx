@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "../../Components/Modal";
+import Modal from "../../components/Modal";
 import FeatureProvider from "./Context/FeatureProvider";
 import { useParams } from "react-router-dom";
 import ConditionalPage from "./ConditionalPage";

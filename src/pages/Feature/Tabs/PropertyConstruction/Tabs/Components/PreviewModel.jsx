@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../../../../../Components/Modal/Modal.css";
+import "../../../../../../components/Modal/Modal.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAdviserData from "../../../../../../services/Hooks/useAdviserData";
 import styled, { useTheme } from "styled-components";

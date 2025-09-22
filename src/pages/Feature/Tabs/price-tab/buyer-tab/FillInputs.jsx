@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import Rial from "../../../../../Components/Rial";
-import Psc from "../../../../../Components/Psc";
-import Input from "../../../../../Components/Input";
-import Button from "../../../../../Components/Button";
-import TitleValue from "../../../../../Components/TitleValue";
+import Rial from "../../../../../components/Rial";
+import Psc from "../../../../../components/Psc";
+import Input from "../../../../../components/Input";
+import Button from "../../../../../components/Button";
+import TitleValue from "../../../../../components/TitleValue";
 import SuggestText from "./SuggestText";
 import {
   calculateFee,

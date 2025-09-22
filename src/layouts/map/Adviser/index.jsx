@@ -1,6 +1,6 @@
 import { useState } from "react";
 import IconAdviser from "../../../assets/images/robot.png";
-import ToolTip from "../../../Components/Tooltip";
+import ToolTip from "../../../components/Tooltip";
 import "./Adviser.css";
 
 export default function AdviserIcon() {

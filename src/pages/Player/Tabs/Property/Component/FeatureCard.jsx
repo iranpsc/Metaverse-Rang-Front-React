@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Submit from "../../../../../Components/Buttons/Submit";
+import Submit from "../../../../../components/Buttons/Submit";
 import { TextShorter } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 

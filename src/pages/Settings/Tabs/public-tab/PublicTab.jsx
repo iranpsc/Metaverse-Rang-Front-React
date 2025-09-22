@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
-import Alert from "../../../../Components/Alert/Alert";
-import Button from "../../../../Components/Button";
+import Alert from "../../../../components/Alert/Alert";
+import Button from "../../../../components/Button";
 import OnOff from "../OnOff";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
 import useRequest from "../../../../services/Hooks/useRequest";

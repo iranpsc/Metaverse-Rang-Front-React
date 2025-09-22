@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
-import ModalXs from "../../../Components/Modal/ModalXs";
-import InputNumber from "../../../Components/Inputs/InputNumber";
-import TextValueIcon from "../../../Components/TextValue/TextValueIcon";
+import ModalXs from "../../../components/Modal/ModalXs";
+import InputNumber from "../../../components/Inputs/InputNumber";
+import TextValueIcon from "../../../components/TextValue/TextValueIcon";
 import styled from "styled-components";
 import { ReactComponent as WatchIcon } from "../../../assets/svg/watch.svg";
-import Submit from "../../../Components/Buttons/Submit";
+import Submit from "../../../components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../services/reducers/SelectedEnvironmentContext";
 import { WalletContext } from "../../../services/reducers/WalletContext";
 import useRequest from "../../../services/Hooks/useRequest";

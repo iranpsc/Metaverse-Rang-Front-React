@@ -1,8 +1,8 @@
-import Modal from "../../../Components/Modal";
+import Modal from "../../../components/Modal";
 import { TransactionContext } from "../../../layouts/map";
 import { useContext } from "react";
-import SuccessTransaction from "./Components/successTransaction";
-import FailedTransaction from "./Components/failedTransaction";
+import SuccessTransaction from "./components/successTransaction";
+import FailedTransaction from "./components/failedTransaction";
 export default function TransactionPayments() {
   const { selectedTransaction } = useContext(TransactionContext);
   return (

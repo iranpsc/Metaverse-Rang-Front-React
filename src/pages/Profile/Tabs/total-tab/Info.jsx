@@ -5,7 +5,7 @@ import ShareModal from "./ShareModal";
 import { TiUserAddOutline } from "react-icons/ti";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
-import ButtonIcon from "../../../../Components/ButtonIcon";
+import ButtonIcon from "../../../../components/ButtonIcon";
 import useAuth from "../../../../services/Hooks/useAuth";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect, useState, useContext } from "react";
-import Specification from "../../Components/Specification";
+import Specification from "../../components/Specification";
 const Container = styled.div`
   width: 100%;
   height: 100%;

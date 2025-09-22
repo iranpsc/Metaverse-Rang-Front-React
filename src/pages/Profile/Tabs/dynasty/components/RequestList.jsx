@@ -1,12 +1,12 @@
 
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import Title from "../../../../../Components/Title";
-import SearchInput from "../../../../../Components/SearchInput";
+import Title from "../../../../../components/Title";
+import SearchInput from "../../../../../components/SearchInput";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import {  getFieldTranslationByNames } from "../../../../../services/Utility";
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
-import CustomDatePicker from "../../../../../Components/CustomDatePicker";
+import CustomDatePicker from "../../../../../components/CustomDatePicker";
 import useDateFilter from '../../../../../services/Hooks/useDateFilter';
 
 const Container = styled.div`

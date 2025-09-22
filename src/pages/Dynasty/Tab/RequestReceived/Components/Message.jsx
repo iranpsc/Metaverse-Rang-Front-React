@@ -5,7 +5,7 @@ import CrossIcon from "../../../../../assets/images/cross-2.png";
 import CheckIcon from "../../../../../assets/images/check.png";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import Submit from "../../../../../Components/Buttons/Submit";
+import Submit from "../../../../../components/Buttons/Submit";
 import { ToastError, ToastSuccess } from "../../../../../services/Utility";
 
 const Container = styled.div`

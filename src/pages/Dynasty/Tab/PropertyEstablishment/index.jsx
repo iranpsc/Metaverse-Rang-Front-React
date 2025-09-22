@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useRequest from "../../../../services/Hooks/useRequest";
-import TableDynasty from "./Components/TableDynasty";
-import TableFeature from "./Components/TableFeature";
-import TableFeatureDynasty from "./Components/TableFeatureDynasty";
+import TableDynasty from "./components/TableDynasty";
+import TableFeature from "./components/TableFeature";
+import TableFeatureDynasty from "./components/TableFeatureDynasty";
 
 const Container = styled.div`
   width: 100%;

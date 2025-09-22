@@ -13,10 +13,10 @@ import Profile from "../../pages/Profile";
 import Verification from "../../pages/Verification";
 import Feature from "../../pages/Feature";
 
-import Commercial from "../../Components/Lottie/Commercial";
-import Residential from "../../Components/Lottie/Residential";
-import Educational from "../../Components/Lottie/Educational";
-import SignupLottie from "../../Components/Lottie/SignupLottie";
+import Commercial from "../../components/Lottie/Commercial";
+import Residential from "../../components/Lottie/Residential";
+import Educational from "../../components/Lottie/Educational";
+import SignupLottie from "../../components/Lottie/SignupLottie";
 import Player from "../../pages/Player";
 import Dynasty from "../../pages/Dynasty";
 import HourMeterProfit from "../../pages/HourMeterProfit";

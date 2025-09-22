@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Submit from "../../../../../Components/Buttons/Submit";
+import Submit from "../../../../../components/Buttons/Submit";
 import AnonymousImage from "../../../../../assets/images/anonymous.png";
 import { useNavigate } from "react-router-dom";
 

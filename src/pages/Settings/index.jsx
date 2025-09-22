@@ -1,4 +1,4 @@
-import Modal from "../../Components/Modal";
+import Modal from "../../components/Modal";
 import useTabs from "../../services/Hooks/useTabs";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import AccountTab from "./Tabs/account-tab/AccountTab";

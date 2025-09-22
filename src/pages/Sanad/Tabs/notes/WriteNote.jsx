@@ -7,8 +7,8 @@ import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 import SendNote from "./SendNote";
 import WriteNoteInput from "./WriteNoteInput";
-import Title from "../../../../Components/Title";
-import Button from "../../../../Components/Button";
+import Title from "../../../../components/Title";
+import Button from "../../../../components/Button";
 
 const Subject = styled.div`
   input {

@@ -1,12 +1,12 @@
 import React, { useContext, useRef, useState } from "react";
 import useRequest from '../../../../services/Hooks/useRequest';
-import Alert from "../../../../Components/Alert/Alert";
+import Alert from "../../../../components/Alert/Alert";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
-import Button from "../../../../Components/Button";
+import Button from "../../../../components/Button";
 import Description from "./Description";
 import Inputs from "./Inputs";
 import SendFiles from "./SendFiles";
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";

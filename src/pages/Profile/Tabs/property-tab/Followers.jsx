@@ -1,8 +1,8 @@
 import Follower from "./Follower";
-import SearchInput from "../../../Search/Components/SearchInput";
+import SearchInput from "../../../Search/components/SearchInput";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";

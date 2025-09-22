@@ -2,7 +2,7 @@ import ParticipantItem from "./ParticipantItem";
 
 import styled from "styled-components";
 import { useContext } from "react";
-import Title from "../../../../Components/Title";
+import Title from "../../../../components/Title";
 import { ParticipantsContext } from "./ParticipationTab";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 

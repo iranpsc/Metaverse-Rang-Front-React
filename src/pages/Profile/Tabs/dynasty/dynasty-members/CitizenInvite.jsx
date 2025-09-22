@@ -3,9 +3,9 @@ import { useState, useCallback } from "react";
 import CitizenCard from "./CitizenCard";
 import { RiUserUnfollowLine, RiLoader4Line } from "react-icons/ri";
 
-import Button from "../../../../../Components/Button";
-import Title from "../../../../../Components/Title";
-import SearchInput from "../../../../../Components/SearchInput";
+import Button from "../../../../../components/Button";
+import Title from "../../../../../components/Title";
+import SearchInput from "../../../../../components/SearchInput";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import {
   getFieldTranslationByNames,

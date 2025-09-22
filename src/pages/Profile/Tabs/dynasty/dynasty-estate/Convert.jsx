@@ -1,7 +1,7 @@
 import Modal from "./Modal";
 import PropertyCard from "../dynasty-establish/PropertyCard";
-import SearchInput from "../../../../../Components/SearchInput";
-import Title from "../../../../../Components/Title";
+import SearchInput from "../../../../../components/SearchInput";
+import Title from "../../../../../components/Title";
 import styled from "styled-components";
 import { useState, useCallback, useMemo } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { getFieldTranslationByNames, ToastError } from "../../../../../services/Utility";
 
 // Combine styled components
-const StyledComponents = {
+const Styledcomponents = {
   Container: styled.div``,
   Wrapper: styled.div`
     display: grid;
@@ -70,16 +70,16 @@ const Convert = ({ data }) => {
   }, [data.id, selectedPropertyId, navigate]);
 
   return (
-    <StyledComponents.Container>
-      <StyledComponents.Header>
+    <Styledcomponents.Container>
+      <Styledcomponents.Header>
         <Title title={getFieldTranslationByNames(809)} />
         <SearchInput
           placeholder={getFieldTranslationByNames(849)}
           onchange={(e) => handleSearch(e.target.value)}
           value={searchTerm}
         />
-      </StyledComponents.Header>
-      <StyledComponents.Wrapper>
+      </Styledcomponents.Header>
+      <Styledcomponents.Wrapper>
         {filteredFeatures.map((feature) => (
           <PropertyCard
             key={feature.id}
@@ -90,7 +90,7 @@ const Convert = ({ data }) => {
             onClick={updateDynasty}
           />
         ))}
-      </StyledComponents.Wrapper>
+      </Styledcomponents.Wrapper>
       {modal && (
         <Modal
           setModal={setModal}
@@ -98,7 +98,7 @@ const Convert = ({ data }) => {
           date={data["dynasty-feature"]["last-updated"]}
         />
       )}
-    </StyledComponents.Container>
+    </Styledcomponents.Container>
   );
 };
 

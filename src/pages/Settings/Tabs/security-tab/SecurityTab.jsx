@@ -2,7 +2,7 @@ import Item from "./Item";
 
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import SearchInput from "../../../../Components/SearchInput";
+import SearchInput from "../../../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
