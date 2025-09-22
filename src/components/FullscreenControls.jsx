@@ -1,5 +1,5 @@
 import React from 'react';
-import { FullscreenControlContainer, CustomButton } from '../Layouts/Map/styles';
+import { FullscreenControlContainer, CustomButton } from '../layouts/map/styles';
 import { ReactComponent as FullPageIcon } from "../assets/images/fullPage.svg";
 
 const FullscreenControls = ({ isPersian, onToggleFullScreen, onToggleMapFullScreen }) => (

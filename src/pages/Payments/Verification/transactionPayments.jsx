@@ -1,5 +1,5 @@
 import Modal from "../../../Components/Modal";
-import { TransactionContext } from "../../../Layouts/Map";
+import { TransactionContext } from "../../../layouts/map";
 import { useContext } from "react";
 import SuccessTransaction from "./Components/successTransaction";
 import FailedTransaction from "./Components/failedTransaction";

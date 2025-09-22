@@ -1,5 +1,5 @@
 import React from 'react';
-import { ZoomContainer, ControlContainer, CustomButton } from '../Layouts/Map/styles';
+import { ZoomContainer, ControlContainer, CustomButton } from '../layouts/map/styles';
 import { ReactComponent as ZoomIcon } from "../assets/images/zoom.svg";
 import { ReactComponent as UnZoomIcon } from "../assets/images/UnZoom.svg";
 
