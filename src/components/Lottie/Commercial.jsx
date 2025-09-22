@@ -3,7 +3,7 @@ import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SvgAni from "../../assets/Json/AniBackSvg.json";
-import LottieMessage from "./components/LottieMessage";
+import LottieMessage from "./Components/LottieMessage";
 
 const Container = styled.div`
   width: 100%;
