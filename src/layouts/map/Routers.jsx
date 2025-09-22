@@ -1,13 +1,13 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 
 import Search from "../../pages/Search";
-import PrivateRoute from "../../Routes/PrivateRoute";
+import PrivateRoute from "../../routes/PrivateRoute";
 import Report from "../../pages/Report";
 import Sanad from "../../pages/Sanad";
 import Settings from "../../pages/Settings";
 import Notifications from "../../pages/Notifications";
 import Store from "../../pages/Store";
-import PublicRoute from "../../Routes/PublicRoute";
+import PublicRoute from "../../routes/PublicRoute";
 import PaymentVerification from "../../pages/Payments/Verification";
 import Profile from "../../pages/Profile";
 import Verification from "../../pages/Verification";
