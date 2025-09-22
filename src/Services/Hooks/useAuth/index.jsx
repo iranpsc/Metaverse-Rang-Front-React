@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {
   AddUserAction,
   DeleteUserAction,
-} from "../../Actions/UserContextAction";
+} from "../../actions/UserContextAction";
 import { UserContext } from "../../reducers/UserContext";
 import {
   WalletContext,

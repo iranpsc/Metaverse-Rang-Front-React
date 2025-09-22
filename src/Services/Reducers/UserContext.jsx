@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from 'react';
-import { UserContextTypes } from '../Actions/UserContextAction';
+import { UserContextTypes } from '../actions/UserContextAction';
 
 
 export const UserContext = createContext({});
