@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import vector from "../../../../Assets/images/profile/Vector.png";
+import vector from "../../../../assets/images/profile/Vector.png";
 
 export const Info = styled.div`
   @media (min-width: 1366px) {

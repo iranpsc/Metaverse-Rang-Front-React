@@ -1,8 +1,8 @@
 import { animated, useTransition } from "react-spring";
 import Proposer from "./Proposer";
-import red from "../../../../../Assets/images/profile/red-color.gif";
-import yellow from "../../../../../Assets/images/profile/yellow-color.gif";
-import blue from "../../../../../Assets/images/profile/blue-color.gif";
+import red from "../../../../../assets/images/profile/red-color.gif";
+import yellow from "../../../../../assets/images/profile/yellow-color.gif";
+import blue from "../../../../../assets/images/profile/blue-color.gif";
 import styled from "styled-components";
 import { SuggestionsContainer, Location, Property, Value, Suggestions, AreaContainer, StyledSVG, Polygon } from "../suggestionStyles";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";

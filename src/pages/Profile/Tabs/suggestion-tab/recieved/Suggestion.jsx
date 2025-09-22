@@ -1,14 +1,14 @@
 import { animated, useTransition } from "react-spring";
 
 import Proposer from "./Proposer";
-import line from "../../../../../Assets/images/profile/Line.png";
-import psc from "../../../../../Assets/images/profile/psc.gif";
-import red from "../../../../../Assets/images/profile/red-color.gif";
-import yellow from "../../../../../Assets/images/profile/yellow-color.gif";
-import blue from "../../../../../Assets/images/profile/blue-color.gif";
+import line from "../../../../../assets/images/profile/Line.png";
+import psc from "../../../../../assets/images/profile/psc.gif";
+import red from "../../../../../assets/images/profile/red-color.gif";
+import yellow from "../../../../../assets/images/profile/yellow-color.gif";
+import blue from "../../../../../assets/images/profile/blue-color.gif";
 import { useMap } from "react-map-gl";
 import { useNavigate } from "react-router-dom";
-import rial from "../../../../../Assets/images/profile/rial.gif";
+import rial from "../../../../../assets/images/profile/rial.gif";
 import styled from "styled-components";
 import { SuggestionsContainer, Location, Property, Value, Suggestions, AreaContainer, StyledSVG, Polygon } from "../suggestionStyles";
 import { getFieldTranslationByNames, convertToPersian } from "../../../../../services/Utility/index";

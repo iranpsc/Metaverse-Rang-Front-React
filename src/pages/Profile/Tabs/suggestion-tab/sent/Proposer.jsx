@@ -6,10 +6,10 @@ import {
   getFieldTranslationByNames,
   ToastError,
 } from "../../../../../services/Utility/index";
-import line from "../../../../../Assets/images/profile/Line.png";
-import person from "../../../../../Assets/images/profile/slide.png";
-import pscpng from "../../../../../Assets/images/profile/psc.gif";
-import rialpng from "../../../../../Assets/images/profile/rial.gif";
+import line from "../../../../../assets/images/profile/Line.png";
+import person from "../../../../../assets/images/profile/slide.png";
+import pscpng from "../../../../../assets/images/profile/psc.gif";
+import rialpng from "../../../../../assets/images/profile/rial.gif";
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
