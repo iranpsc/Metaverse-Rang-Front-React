@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useRequest from "../Services/Hooks/useRequest";
+import useRequest from "../services/Hooks/useRequest";
 
 const useRequestDetails = (type) => {
   const { Request } = useRequest();
