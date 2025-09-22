@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaGlobe, FaChevronDown } from "react-icons/fa";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import i18n from "../../i18n/i18n";
-import { useMenuContext } from "../../services/Reducers/MenuContext";
+import { useMenuContext } from "../../services/reducers/MenuContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import LangIcon from "../../assets/svg/lang.svg";

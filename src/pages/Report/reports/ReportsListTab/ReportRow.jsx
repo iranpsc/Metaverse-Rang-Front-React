@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { LoaderContext } from "../../../../services/Reducers/LoaderProvider.jsx";
+import { LoaderContext } from "../../../../services/reducers/LoaderProvider.jsx";
 import { LuEye } from "react-icons/lu";
 import ReportDetails from "./ReportDetails.jsx";
 import styled from "styled-components";

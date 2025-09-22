@@ -12,7 +12,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
-import { useTheme } from "../../../../services/Reducers/ThemeContext"; // مسیر صحیح را وارد کنید
+import { useTheme } from "../../../../services/reducers/ThemeContext"; // مسیر صحیح را وارد کنید
 import useRequest from '../../../../services/Hooks/useRequest';
 
 const Container = styled.div`

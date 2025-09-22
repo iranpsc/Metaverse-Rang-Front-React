@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
-import { AlertContext } from "../../../../services/Reducers/AlertContext";
+import { AlertContext } from "../../../../services/reducers/AlertContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 

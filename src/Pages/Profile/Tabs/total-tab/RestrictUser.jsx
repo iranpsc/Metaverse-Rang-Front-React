@@ -12,7 +12,7 @@ import { RiUserForbidLine } from "react-icons/ri";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { UserContext } from "../../../../services/Reducers/UserContext";
+import { UserContext } from "../../../../services/reducers/UserContext";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 

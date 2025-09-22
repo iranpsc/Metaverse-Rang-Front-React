@@ -12,7 +12,7 @@ import pscpng from "../../../../../Assets/images/profile/psc.gif";
 import rialpng from "../../../../../Assets/images/profile/rial.gif";
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
-import { useLanguage } from "../../../../../services/Reducers/LanguageContext";
+import { useLanguage } from "../../../../../services/reducers/LanguageContext";
 import {
   Info,
   proposerContainer,

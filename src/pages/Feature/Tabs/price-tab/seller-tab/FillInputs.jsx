@@ -11,7 +11,7 @@ import {
 import TitleValue from "../../../../../Components/TitleValue";
 import Button from "../../../../../Components/Button";
 import { useContext, useState } from "react";
-import { UserContext } from "../../../../../services/Reducers/UserContext";
+import { UserContext } from "../../../../../services/reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 
 const Div = styled.div`

@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import Alert from "../../../../Components/Alert/Alert";
 import Button from "../../../../Components/Button";
 import OnOff from "../OnOff";
-import { AlertContext } from "../../../../services/Reducers/AlertContext";
+import { AlertContext } from "../../../../services/reducers/AlertContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 

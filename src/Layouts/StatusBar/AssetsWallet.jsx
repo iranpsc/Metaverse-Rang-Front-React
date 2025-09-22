@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { WalletContext } from "../../services/Reducers/WalletContext";
+import { WalletContext } from "../../services/reducers/WalletContext";
 import styled from "styled-components";
 import BlueSpray from "../../assets/gif/blue-color.gif";
 import RedSpray from "../../assets/gif/red-color.gif";

@@ -1,9 +1,9 @@
 import React, { useContext } from "react"; // اضافه کردن useContext به واردات
 import download from "../../../../assets/images/reports/download.png";
 import styled from "styled-components";
-import { useLanguage } from "../../../../services/Reducers/LanguageContext";
+import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { convertToPersian } from "../../../../services/Utility/index";
-import { UserContext } from "../../../../services/Reducers/UserContext"; // وارد کردن UserContext
+import { UserContext } from "../../../../services/reducers/UserContext"; // وارد کردن UserContext
 
 const Content = styled.div``;
 

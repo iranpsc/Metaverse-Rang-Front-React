@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import useAuth from "../../services/Hooks/useAuth";
-import { useMenuContext } from "../../services/Reducers/MenuContext";
+import { useMenuContext } from "../../services/reducers/MenuContext";
 import Fallowing from "./Following/Fallowing";
 import Dynasty from "./Dynasty/Dynasty";
 import Union from "./Union/Union";

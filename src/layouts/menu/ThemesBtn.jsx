@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useTheme } from "../../services/Reducers/ThemeContext";
+import { useTheme } from "../../services/reducers/ThemeContext";
 import { ReactComponent as LightSvg } from "../../assets/svg/light.svg";
 import { ReactComponent as DarkSvg } from "../../assets/svg/dark.svg";
-import { useMenuContext } from "../../services/Reducers/MenuContext";
+import { useMenuContext } from "../../services/reducers/MenuContext";
 import { getFieldTranslationByNames } from "../../services/Utility";
 
 const Container = styled.div`

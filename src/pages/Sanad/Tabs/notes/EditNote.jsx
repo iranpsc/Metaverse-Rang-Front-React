@@ -4,7 +4,7 @@ import EditInput from "../EditInput";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import SendFiles from "../SendFiles";
 import styled from "styled-components";
-import { AlertContext } from "../../../../services/Reducers/AlertContext";
+import { AlertContext } from "../../../../services/reducers/AlertContext";
 import Button from "../../../../Components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
 

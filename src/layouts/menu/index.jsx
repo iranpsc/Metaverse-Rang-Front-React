@@ -4,7 +4,7 @@ import Header from "./Header";
 import Profile from "./Profile";
 import BtnsMenu from "./BtnsMenu";
 import ThemesBtn from "./ThemesBtn";
-import { useMenuContext } from "../../services/Reducers/MenuContext";
+import { useMenuContext } from "../../services/reducers/MenuContext";
 import PrivateComponent from "../../middleware/PrivateComponent";
 import PublicComponent from "../../middleware/PublicComponent";
 import BtnsAfterLogin from "./BtnsAfterLogin";

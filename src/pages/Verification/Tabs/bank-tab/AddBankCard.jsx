@@ -13,7 +13,7 @@ import {
   ToastSuccess,
 } from "../../../../services/Utility";
 import { IoCloseCircleSharp, IoCloseSharp } from "react-icons/io5";
-import { useLanguage } from "../../../../services/Reducers/LanguageContext";
+import { useLanguage } from "../../../../services/reducers/LanguageContext";
 
 const BackGround = styled.div`
   z-index: 999;

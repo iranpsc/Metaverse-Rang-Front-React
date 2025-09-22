@@ -3,11 +3,11 @@ import {
   AddUserAction,
   DeleteUserAction,
 } from "../../Actions/UserContextAction";
-import { UserContext } from "../../Reducers/UserContext";
+import { UserContext } from "../../reducers/UserContext";
 import {
   WalletContext,
   WalletContextTypes,
-} from "../../Reducers/WalletContext";
+} from "../../reducers/WalletContext";
 import { getItem, removeItem, setItem } from "../../Utility/LocalStorage";
 import useRequest from "../useRequest";
 

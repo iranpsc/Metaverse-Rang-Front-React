@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
 import Alert from "../../../Components/Alert/Alert";
 import Button from "../../../Components/Button";
-import { AlertContext } from "../../../services/Reducers/AlertContext";
+import { AlertContext } from "../../../services/reducers/AlertContext";
 import Title from "../../../Components/Title";
 import {
   getFieldTranslationByNames,

@@ -10,7 +10,7 @@ import { getFieldTranslationByNames } from "../../../services/Utility";
 import {
   WalletContext,
   WalletContextTypes,
-} from "../../../services/Reducers/WalletContext";
+} from "../../../services/reducers/WalletContext";
 
 const Scroll = styled.div`
   padding: 30px 15px 20px;

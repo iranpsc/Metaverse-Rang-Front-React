@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useLanguage } from "../services/Reducers/LanguageContext";
+import { useLanguage } from "../services/reducers/LanguageContext";
 
 const Wrapper = styled.div`
   position: relative;

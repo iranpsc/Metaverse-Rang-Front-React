@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
-import { useLanguage } from "../../../../services/Reducers/LanguageContext";
+import { useLanguage } from "../../../../services/reducers/LanguageContext";
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg1};

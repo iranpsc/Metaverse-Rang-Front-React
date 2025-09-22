@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as FilterIcon } from "../../assets/svg/filter.svg";
 import { ReactComponent as LocationIcon } from "../../assets/svg/location.svg";
 import useRequest from "../../services/Hooks/useRequest";
-import { useMapData } from "../../services/Reducers/mapContext";
+import { useMapData } from "../../services/reducers/mapContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";

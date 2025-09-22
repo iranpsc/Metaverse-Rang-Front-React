@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
 import Submit from "../../../../../../Components/Buttons/Submit";
-import { useSelectedEnvironment } from "../../../../../../services/Reducers/SelectedEnvironmentContext";
+import { useSelectedEnvironment } from "../../../../../../services/reducers/SelectedEnvironmentContext";
 import { useNavigate } from "react-router-dom";
 import {
   getFieldTranslationByNames,

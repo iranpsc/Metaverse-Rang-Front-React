@@ -3,7 +3,7 @@ import styled, { keyframes, css } from "styled-components";
 import { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import Resumable from "resumablejs";
-import { UserContext } from "../../../../services/Reducers/UserContext";
+import { UserContext } from "../../../../services/reducers/UserContext";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
 

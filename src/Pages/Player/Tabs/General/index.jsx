@@ -26,7 +26,7 @@ import CrossImage from "../../../../assets/images/cross.png";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import { useNavigate, useParams } from "react-router-dom";
-import { FollowContext } from "../../../../services/Reducers/FollowContext";
+import { FollowContext } from "../../../../services/reducers/FollowContext";
 
 const Container = styled.div`
   width: 100%;

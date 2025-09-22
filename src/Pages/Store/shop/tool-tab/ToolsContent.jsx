@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
-import { AlertContext } from "../../../../services/Reducers/AlertContext";
+import { AlertContext } from "../../../../services/reducers/AlertContext";
 import Alert from "../../../../Components/Alert/Alert";
 import Title from "../../../../Components/Title";
 import InfoRow from "../InfoRow";

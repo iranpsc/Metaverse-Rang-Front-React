@@ -3,7 +3,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../services/Utility";
-import { useLanguage } from "../../services/Reducers/LanguageContext";
+import { useLanguage } from "../../services/reducers/LanguageContext";
 
 const Container = styled.div`
   margin-top: 20px;

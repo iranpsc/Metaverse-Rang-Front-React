@@ -1,7 +1,7 @@
 import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
 import i18n from "../../i18n/i18n";
-import { useLanguage } from "../Reducers/LanguageContext";
+import { useLanguage } from "../reducers/LanguageContext";
 
 export function SanitizeHTML(content) {
   return content?.replace(/<[^>]*>?/gm, "");

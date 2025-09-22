@@ -16,7 +16,7 @@ import NotifIcon from "../../assets/svg/notif.svg";
 import ReportIcon from "../../assets/svg/report.svg";
 import GiftIcon from "../../assets/svg/gifts.svg";
 import LogoutIcon from "../../assets/svg/logout.svg";
-import { useMenuContext } from "../../services/Reducers/MenuContext";
+import { useMenuContext } from "../../services/reducers/MenuContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../services/Hooks/useAuth";
 import { useLayoutEffect } from "react";

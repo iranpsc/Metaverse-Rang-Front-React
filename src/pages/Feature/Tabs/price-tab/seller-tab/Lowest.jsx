@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../../Components/Button";
-import { UserContext } from "../../../../../services/Reducers/UserContext";
+import { UserContext } from "../../../../../services/reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import {

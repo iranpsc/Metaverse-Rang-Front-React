@@ -4,7 +4,7 @@ import { useTheme } from "styled-components";
 import { useSpring } from "@react-spring/web";
 import { Container } from "./Styles";
 import useAdviserData from "../../services/Hooks/useAdviserData";
-import { useSelectedEnvironment } from "../../services/Reducers/SelectedEnvironmentContext";
+import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import Header from "../Header/Header";
 
 const ModalPosition = ({ children, title, position, action }) => {

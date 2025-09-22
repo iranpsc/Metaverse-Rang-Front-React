@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import useRequest from '../../../../services/Hooks/useRequest';
 import Alert from "../../../../Components/Alert/Alert";
-import { AlertContext } from "../../../../services/Reducers/AlertContext";
+import { AlertContext } from "../../../../services/reducers/AlertContext";
 import Button from "../../../../Components/Button";
 import Description from "./Description";
 import Inputs from "./Inputs";

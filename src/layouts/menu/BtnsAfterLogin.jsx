@@ -13,7 +13,7 @@ import ContactIcon from "../../assets/svg/contact.svg";
 import CitizenIcon from "../../assets/svg/profileMember.svg";
 import ViewIcon from "../../assets/svg/view.svg";
 import CalendarIcon from "../../assets/svg/calendar.svg";
-import { useMenuContext } from "../../services/Reducers/MenuContext";
+import { useMenuContext } from "../../services/reducers/MenuContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";

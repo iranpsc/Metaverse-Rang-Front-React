@@ -8,7 +8,7 @@ import {
   getFieldTranslationByNames,
 } from "../../../../services/Utility";
 import Button from "../../../../Components/Button";
-import { useLanguage } from "../../../../services/Reducers/LanguageContext";
+import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { useNavigate } from "react-router-dom";
 
 const PhotoName = styled.div`

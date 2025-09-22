@@ -6,8 +6,8 @@ import { Container } from "./styles";
 import MapPolygons from "./MapPolygons";
 import MapFlag from "./MapFlag";
 import Mark from "./3dModelMap/Mark";
-import { useSelectedEnvironment } from "../../services/Reducers/SelectedEnvironmentContext";
-import { useLanguage } from "../../services/Reducers/LanguageContext";
+import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
+import { useLanguage } from "../../services/reducers/LanguageContext";
 
 import AuthMiddleware from "../../middleware/AuthMiddleware";
 import ZoomControls from "../../Components/ZoomControls";
