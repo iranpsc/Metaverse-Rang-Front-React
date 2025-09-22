@@ -3,8 +3,8 @@ import styled from "styled-components";
 import AssetsWallet from "./AssetsWallet";
 import BtnFlagMap from "./BtnFlagMap";
 import Status from "./Status";
-import PrivateComponent from "../../Middleware/PrivateComponent";
-import PublicComponent from "../../Middleware/PublicComponent";
+import PrivateComponent from "../../middleware/PrivateComponent";
+import PublicComponent from "../../middleware/PublicComponent";
 import ListPositions from "./ListPositions";
 
 const Container = styled.div`
