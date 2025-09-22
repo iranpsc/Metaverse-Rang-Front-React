@@ -10,7 +10,7 @@ import { calculateFee, ToastError } from "../../../../../services/Utility";
 import Form from "../../../../../Components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
-import { FeatureSvg } from "../../../../../services/Constants/FeatureType";
+import { FeatureSvg } from "../../../../../services/constants/FeatureType";
 
 const ContainerPrice = styled.div`
   width: 65%;

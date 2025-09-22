@@ -4,7 +4,7 @@ import { MdOutlineHome } from "react-icons/md";
 
 import styled from "styled-components";
 import TextValueIcon from "../../../../Components/TextValueIcon";
-import { COMBINE_FEATURE } from "../../../../services/Constants/FeatureType";
+import { COMBINE_FEATURE } from "../../../../services/constants/FeatureType";
 import { useContext } from "react";
 import { FeatureContext } from "../../Context/FeatureProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility";

@@ -3,7 +3,7 @@ import FeatureCard from "../Component/FeatureCard";
 // import SearchBox from "../../../../../Components/Inputs/SearchBox";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import FeatureType from "../../../../../services/Constants/FeatureType";
+import FeatureType from "../../../../../services/constants/FeatureType";
 import FeaturesSearch from "../../../Components/FeaturesSearch";
 import { useParams } from "react-router-dom";
 

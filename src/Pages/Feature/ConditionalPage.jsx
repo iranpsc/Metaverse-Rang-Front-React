@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FeatureColor } from "../../services/Constants/FeatureType";
+import { FeatureColor } from "../../services/constants/FeatureType";
 import useAuth from "../../services/Hooks/useAuth";
 import useTabs from "../../services/Hooks/useTabs";
 import { FeatureContext } from "./Context/FeatureProvider";

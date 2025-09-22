@@ -12,7 +12,7 @@ import {
   getFieldTranslationByNames,
 } from "../../../../../services/Utility";
 
-// Constants
+// constants
 const PSC_TO_RIAL_RATE = 900;
 const SUGGEST_TEXT_MAX_LENGTH = 1000;
 

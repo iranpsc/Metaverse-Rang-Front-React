@@ -9,7 +9,7 @@ import TitleValue from "../../../../../Components/TitleValue";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import { FeatureSvg } from "../../../../../services/Constants/FeatureType";
+import { FeatureSvg } from "../../../../../services/constants/FeatureType";
 import {
   calculateFee,
   getFieldTranslationByNames,

@@ -9,7 +9,7 @@ import useRequest from "../../../../services/Hooks/useRequest";
 import {
   FeatureColor,
   FeatureSvg,
-} from "../../../../services/Constants/FeatureType";
+} from "../../../../services/constants/FeatureType";
 import {
   getFieldTranslationByNames,
   ToastError,

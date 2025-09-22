@@ -3,7 +3,7 @@ import { Tooltip } from "react-tooltip";
 import down from "../../../../../assets/images/downcitizen.png";
 import citizen from "../../../../../assets/images/profile.png";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
-import { slugLabels } from "../../../../../services/Constants/UserType";
+import { slugLabels } from "../../../../../services/constants/UserType";
 
 const svgAnimation = keyframes`
   from {

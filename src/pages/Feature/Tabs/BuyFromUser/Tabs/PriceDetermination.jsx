@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
 import Form from "../../../../../Components/Form";
-import { FeaturePrice } from "../../../../../services/Constants/FeatureType";
+import { FeaturePrice } from "../../../../../services/constants/FeatureType";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import {
   calculateFee,

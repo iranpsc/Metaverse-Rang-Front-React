@@ -4,8 +4,8 @@ import { useLoader } from "@react-three/fiber";
 import { Canvas, Coordinates } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { HemisphereLight } from "three";
-import { BORDER_COLORS } from "../../services/Constants/BorderColors";
-import { POLYGON_COLORS } from "../../services/Constants/PolygonColors";
+import { BORDER_COLORS } from "../../services/constants/BorderColors";
+import { POLYGON_COLORS } from "../../services/constants/PolygonColors";
 import useRequest from "../../services/Hooks/useRequest";
 import { ClipLoader } from "react-spinners";
 

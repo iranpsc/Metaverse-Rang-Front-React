@@ -3,7 +3,7 @@ import styled from "styled-components";
 import FillInputs from "./FillInputs";
 import ResultInfo from "../../../Components/ResultInfo";
 import { FeatureContext } from "../../../Context/FeatureProvider";
-import { FeaturePrice } from "../../../../../services/Constants/FeatureType";
+import { FeaturePrice } from "../../../../../services/constants/FeatureType";
 import {
   calculateFee,
   ToastSuccess,
