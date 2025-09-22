@@ -9,9 +9,9 @@ import styled from "styled-components";
 import { useContext } from "react";
 import whatsapp from "../../../../assets/images/whatsapp.png";
 import Title from "../../../../Components/Title";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Button = styled.div`
   background-color: ${(props) =>

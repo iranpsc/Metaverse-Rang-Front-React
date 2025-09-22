@@ -6,7 +6,7 @@ import ReportImage from "../../assets/images/report.png";
 import HelpImage from "../../assets/images/help.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import useAdviserData from "../../Services/Hooks/useAdviserData";
+import useAdviserData from "../../services/Hooks/useAdviserData";
 
 const Container = styled.section`
   z-index: 501;

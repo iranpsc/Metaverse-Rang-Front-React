@@ -3,10 +3,10 @@ import Title from "../../../../../Components/Title";
 import meter from "../../../../../Assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
 import { mainContainer, Wrapper } from "../suggestionStyles";
-import useRequest from "../../../../../Services/Hooks/useRequest/index";
+import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
-import { getFieldTranslationByNames, ToastError } from "../../../../../Services/Utility/index";
+import { getFieldTranslationByNames, ToastError } from "../../../../../services/Utility/index";
 
 const Container = mainContainer;
 const RecievedSuggestion = () => {

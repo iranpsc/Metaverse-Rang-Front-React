@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
-import { AlertContext } from "../../../../Services/Reducers/AlertContext";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { AlertContext } from "../../../../services/Reducers/AlertContext";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 import SendNote from "./SendNote";
 import WriteNoteInput from "./WriteNoteInput";

@@ -1,7 +1,7 @@
 import React from "react";
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Content = styled.div`
   width: 100%;

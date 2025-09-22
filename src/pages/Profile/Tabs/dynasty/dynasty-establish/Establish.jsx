@@ -1,5 +1,5 @@
 import Title from "../../../../../Components/Title";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import List from "./List";
 
 import styled from "styled-components";

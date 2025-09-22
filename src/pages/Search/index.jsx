@@ -1,6 +1,6 @@
 import ModalPosition from "../../Components/ModalPosition";
-import useTabs from "../../Services/Hooks/useTabs";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import useTabs from "../../services/Hooks/useTabs";
+import { getFieldTranslationByNames } from "../../services/Utility";
 import CitizenTab from "./Tabs/citizen-tab/CitizenTab";
 import PropertyTab from "./Tabs/property-tab/PropertyTab";
 

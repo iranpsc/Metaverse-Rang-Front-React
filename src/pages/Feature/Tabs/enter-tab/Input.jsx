@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 
 const Item = styled.div`
   border-radius: 5px;

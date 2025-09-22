@@ -1,4 +1,4 @@
-import useActivity from "../../../../Services/Hooks/useActivity";
+import useActivity from "../../../../services/Hooks/useActivity";
 import Features from "./Tabs/Features";
 import Followers from "./Tabs/Followers";
 import Following from "./Tabs/Following";

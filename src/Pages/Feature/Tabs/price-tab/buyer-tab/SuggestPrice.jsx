@@ -3,14 +3,14 @@ import styled from "styled-components";
 import FillInputs from "./FillInputs";
 import ResultInfo from "../../../Components/ResultInfo";
 import { FeatureContext } from "../../../Context/FeatureProvider";
-import { FeaturePrice } from "../../../../../Services/Constants/FeatureType";
+import { FeaturePrice } from "../../../../../services/Constants/FeatureType";
 import {
   calculateFee,
   ToastSuccess,
   ToastError,
   getFieldTranslationByNames,
-} from "../../../../../Services/Utility";
-import useRequest from "../../../../../Services/Hooks/useRequest";
+} from "../../../../../services/Utility";
+import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import { to } from "react-spring";
 

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
-import useRequest from "../../Services/Hooks/useRequest";
-import { setItem } from "../../Services/Utility/LocalStorage";
-import { getFieldTranslationByNames, ToastError } from "../../Services/Utility";
+import useRequest from "../../services/Hooks/useRequest";
+import { setItem } from "../../services/Utility/LocalStorage";
+import { getFieldTranslationByNames, ToastError } from "../../services/Utility";
 
 const Codes = styled.div`
   display: flex;

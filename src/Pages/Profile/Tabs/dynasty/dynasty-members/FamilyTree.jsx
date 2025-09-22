@@ -4,7 +4,7 @@ import TreeMember from "./TreeMember";
 import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
 import Title from "../../../../../Components/Title";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
 
 // Container with explicit width and scroll
 const Container = styled.div`

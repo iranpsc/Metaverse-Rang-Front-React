@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Title from "../../../../Components/Title";
 import SearchInput from "../../../Search/Components/SearchInput";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 
 const Container = styled.div`

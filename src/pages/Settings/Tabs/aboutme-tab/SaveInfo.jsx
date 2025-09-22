@@ -2,8 +2,8 @@ import Button from "../../../../Components/Button";
 import Title from "../../../../Components/Title";
 import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import useRequest from "../../../../Services/Hooks/useRequest/index";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest/index";
 import {  useState } from "react";
 import Alert from "../../../../Components/Alert/Alert";
 

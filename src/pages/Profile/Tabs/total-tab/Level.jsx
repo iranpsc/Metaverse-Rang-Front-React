@@ -1,9 +1,9 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../../Services/Reducers/UserContext";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
+import { UserContext } from "../../../../services/Reducers/UserContext";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { useLanguage } from "../../../../services/Reducers/LanguageContext";
 import { useParams } from "react-router-dom";
 
 const Container = styled.div`

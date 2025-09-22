@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useTheme } from "../../Services/Reducers/ThemeContext";
+import { useTheme } from "../../services/Reducers/ThemeContext";
 import { ReactComponent as LightSvg } from "../../assets/svg/light.svg";
 import { ReactComponent as DarkSvg } from "../../assets/svg/dark.svg";
-import { useMenuContext } from "../../Services/Reducers/MenuContext";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { useMenuContext } from "../../services/Reducers/MenuContext";
+import { getFieldTranslationByNames } from "../../services/Utility";
 
 const Container = styled.div`
   display: flex;

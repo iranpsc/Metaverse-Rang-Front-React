@@ -21,7 +21,7 @@ import WatchTutorial from "./WatchTutorial";
 import YellowTutorial from "./YellowTutorail";
 
 import "./index.css";
-import useAuth from "../../Services/Hooks/useAuth";
+import useAuth from "../../services/Hooks/useAuth";
 
 export default function Tutorial() {
   const { getUser } = useAuth();

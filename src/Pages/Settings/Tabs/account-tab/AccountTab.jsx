@@ -2,8 +2,8 @@ import Bank from "./Bank";
 import ChangeCard from "./ChangeCard";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
   padding-top: 20px;

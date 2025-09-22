@@ -1,4 +1,4 @@
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import Codes from "./Codes";
 import EditInput from "./EditInput";
 import EditLevelInput from "./EditLevelInput";

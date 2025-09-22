@@ -5,7 +5,7 @@ import { useState } from "react";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../Services/Utility";
+} from "../../../services/Utility";
 
 const Card = styled.div`
   border-radius: 5px;

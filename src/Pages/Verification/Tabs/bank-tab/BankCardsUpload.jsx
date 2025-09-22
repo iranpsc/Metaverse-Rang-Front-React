@@ -5,8 +5,8 @@ import bank from "../../../../assets/images/bank-melat.png";
 import styled from "styled-components";
 import { useState } from "react";
 import { getShebaInfo } from "@persian-tools/persian-tools";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
   display: flex;

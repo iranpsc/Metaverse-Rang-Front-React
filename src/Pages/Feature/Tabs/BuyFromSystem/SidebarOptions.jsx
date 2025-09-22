@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Wrapper = styled.div`
   max-width: 171px !important;

@@ -1,6 +1,6 @@
 import avatar from "../../../../../assets/images/user.png";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>

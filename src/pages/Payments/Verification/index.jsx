@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import psc from "../../../assets/gif/psc.gif";
-import useRequest from "../../../Services/Hooks/useRequest";
+import useRequest from "../../../services/Hooks/useRequest";
 import PrintModal from "../../Profile/Tabs/transactions-tab/PrintModal";
 
 export default function Verification() {

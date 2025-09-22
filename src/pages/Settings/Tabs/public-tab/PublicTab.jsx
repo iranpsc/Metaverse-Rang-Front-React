@@ -3,9 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import Alert from "../../../../Components/Alert/Alert";
 import Button from "../../../../Components/Button";
 import OnOff from "../OnOff";
-import { AlertContext } from "../../../../Services/Reducers/AlertContext";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { AlertContext } from "../../../../services/Reducers/AlertContext";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
   padding-top: 20px;

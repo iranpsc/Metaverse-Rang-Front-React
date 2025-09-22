@@ -1,6 +1,6 @@
 import { IoIosClose } from "react-icons/io";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../services/Utility";
 
 const BackGround = styled.div`
   z-index: 999;

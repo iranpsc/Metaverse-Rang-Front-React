@@ -1,4 +1,4 @@
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import SellerPriceInfo from "./SellerPriceInfo";
 import styled from "styled-components";
 

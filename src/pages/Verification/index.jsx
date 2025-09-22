@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import useTabs from "../../Services/Hooks/useTabs";
+import useTabs from "../../services/Hooks/useTabs";
 import Modal from "../../Components/Modal";
 import BankTab from "./Tabs/bank-tab/BankTab";
 import IdentityTab from "./Tabs/identity-tab/IdentityTab";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 
 export default function Verification() {
   const [openErrorModal, setOpenErrorModal] = useState(false);

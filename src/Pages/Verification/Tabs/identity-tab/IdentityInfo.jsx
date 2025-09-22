@@ -4,7 +4,7 @@ import InfoInputs from "./InfoInputs";
 import styled from "styled-components";
 import Title from "../../../../Components/Title";
 import Alert from "../../../../Components/Alert/Alert";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Wrapper = styled.div``;
 const Container = styled.div`

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import _ from "lodash";
 
 import PSCImage from "../../../../assets/images/coin-psc.png";
@@ -26,7 +26,7 @@ import CrossImage from "../../../../assets/images/cross.png";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import { useNavigate, useParams } from "react-router-dom";
-import { FollowContext } from "../../../../Services/Reducers/FollowContext";
+import { FollowContext } from "../../../../services/Reducers/FollowContext";
 
 const Container = styled.div`
   width: 100%;

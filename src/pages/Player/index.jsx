@@ -1,6 +1,6 @@
 import Modal from "../../Components/Modal";
-import useTabs from "../../Services/Hooks/useTabs";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import useTabs from "../../services/Hooks/useTabs";
+import { getFieldTranslationByNames } from "../../services/Utility";
 import PropertyTab from "../Profile/Tabs/property-tab/PropertyTab";
 import TotalTab from "../Profile/Tabs/total-tab/TotalTab";
 

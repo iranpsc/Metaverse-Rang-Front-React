@@ -13,8 +13,8 @@ import { useEffect, useState } from "react";
 import Title from "../../../../Components/Title";
 import SearchInput from "../../../../Components/SearchInput";
 import VodList from "../../Components/VodList";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;

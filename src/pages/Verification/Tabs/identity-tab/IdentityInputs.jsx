@@ -8,12 +8,12 @@ import Button from "../../../../Components/Button";
 import ErrorModal from "../ErrorModal";
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
 import ReactQuill from "react-quill";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import {
   convertPersianNumbersToEnglish,
   getFieldTranslationByNames,
   ToastError,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
 
 const Wrapper = styled.div`

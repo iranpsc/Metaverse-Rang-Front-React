@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { ReactComponent as LoginIcon } from "../../../assets/svg/login.svg";
-import { useMenuContext } from "../../../Services/Reducers/MenuContext";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
-import useRequest from "../../../Services/Hooks/useRequest";
+import { useMenuContext } from "../../../services/Reducers/MenuContext";
+import { getFieldTranslationByNames } from "../../../services/Utility";
+import useRequest from "../../../services/Hooks/useRequest";
 
 const Btn = styled.div`
   width: 100%;

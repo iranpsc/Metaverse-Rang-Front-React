@@ -8,10 +8,10 @@ import { BiExitFullscreen } from "react-icons/bi";
 import { PiGearSixFill } from "react-icons/pi";
 import { TiWarning } from "react-icons/ti";
 import Education from "../Education/Education";
-import useAdviserData from "../../Services/Hooks/useAdviserData";
+import useAdviserData from "../../services/Hooks/useAdviserData";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelectedEnvironment } from "../../Services/Reducers/SelectedEnvironmentContext";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { useSelectedEnvironment } from "../../services/Reducers/SelectedEnvironmentContext";
+import { getFieldTranslationByNames } from "../../services/Utility";
 
 const HelpIcon = styled(Help)`
   width: 40px;

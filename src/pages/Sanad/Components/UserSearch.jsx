@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SearchIcon from "../../../assets/images/searchIcon.png";
 import CrossIcon from "../../../assets/images/cross.png";
 import AnonymousImg from "../../../assets/images/anonymous.png";
-import useRequest from "../../../Services/Hooks/useRequest";
+import useRequest from "../../../services/Hooks/useRequest";
 
 const ParentInput = styled.div`
   width: 100%;

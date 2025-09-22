@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../../Components/Modal";
 import styled from "styled-components";
-import useRequest from "../../Services/Hooks/useRequest";
+import useRequest from "../../services/Hooks/useRequest";
 import {
   ToastError,
   ToastSuccess,
   getFieldTranslationByNames,
-} from "../../Services/Utility";
+} from "../../services/Utility";
 import Submit from "../../Components/Buttons/Submit";
 import Input from "../../Components/Inputs/Input";
 

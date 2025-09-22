@@ -1,7 +1,7 @@
-import useAuth from "../Services/Hooks/useAuth";
+import useAuth from "../services/Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useRequest from "../Services/Hooks/useRequest";
+import useRequest from "../services/Hooks/useRequest";
 
 export default function PrivateRoute({ children }) {
   const { isLoggedIn } = useAuth();

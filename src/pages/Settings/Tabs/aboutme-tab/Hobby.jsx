@@ -2,7 +2,7 @@ import brush from "../../../../assets/images/settings/brush.png";
 import bubble from "../../../../assets/images/settings/bubble.png";
 import clock from "../../../../assets/images/settings/clock.png";
 import coffee from "../../../../assets/images/settings/coffee.png";
-import { convertToPersian } from "../../../../Services/Utility/index";
+import { convertToPersian } from "../../../../services/Utility/index";
 import cpu from "../../../../assets/images/settings/cpu.png";
 import dollar from "../../../../assets/images/settings/dollar-circle.png";
 import ghost from "../../../../assets/images/settings/ghost.png";
@@ -15,7 +15,7 @@ import styled from "styled-components";
 import tree from "../../../../assets/images/settings/tree.png";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import weight from "../../../../assets/images/settings/weight.png";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useEffect, useState } from "react";
 const Container = styled.div`
   margin-top: 20px;

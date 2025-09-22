@@ -2,7 +2,7 @@ import ConfettiExplosion from "react-confetti-explosion";
 
 import styled from "styled-components";
 import { useState } from "react";
-import { convertToPersian } from "../../../Services/Utility";
+import { convertToPersian } from "../../../services/Utility";
 
 const Container = styled.div`
   padding: 10px;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Title from "../Title";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 
 const ModalBackdrop = styled.div`
   position: fixed;

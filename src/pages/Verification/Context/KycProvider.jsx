@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import useRequest from "../../../Services/Hooks/useRequest";
+import useRequest from "../../../services/Hooks/useRequest";
 
 export const KycContext = createContext({});
 

@@ -9,7 +9,7 @@ import { useState } from "react";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 
 const EditorContainer = styled.div`
   background-color: ${(props) =>

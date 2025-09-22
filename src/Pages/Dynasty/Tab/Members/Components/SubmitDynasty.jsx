@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
-import useRequest from "../../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../../services/Hooks/useRequest";
 import Members from "../index";
-import { ToastError, ToastSuccess } from "../../../../../Services/Utility";
+import { ToastError, ToastSuccess } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 

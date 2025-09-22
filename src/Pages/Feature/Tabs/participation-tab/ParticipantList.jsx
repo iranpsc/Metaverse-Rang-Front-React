@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import Title from "../../../../Components/Title";
 import { ParticipantsContext } from "./ParticipationTab";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
   padding-top: 20px;

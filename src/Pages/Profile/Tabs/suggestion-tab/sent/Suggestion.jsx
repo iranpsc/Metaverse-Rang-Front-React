@@ -5,7 +5,7 @@ import yellow from "../../../../../Assets/images/profile/yellow-color.gif";
 import blue from "../../../../../Assets/images/profile/blue-color.gif";
 import styled from "styled-components";
 import { SuggestionsContainer, Location, Property, Value, Suggestions, AreaContainer, StyledSVG, Polygon } from "../suggestionStyles";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 import { useMap } from "react-map-gl";
 

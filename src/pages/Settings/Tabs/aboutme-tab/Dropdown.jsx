@@ -1,7 +1,7 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
 import { useState, useEffect } from "react"; 
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const DropdownContainer = styled.div`
   position: relative;

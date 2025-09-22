@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 import DropDownLang from "../../Components/DropDownLang";
 import HomeIcon from "../../assets/svg/home.svg";
 import NewsIcon from "../../assets/svg/news.svg";
@@ -13,7 +13,7 @@ import ContactIcon from "../../assets/svg/contact.svg";
 import CitizenIcon from "../../assets/svg/profileMember.svg";
 import ViewIcon from "../../assets/svg/view.svg";
 import CalendarIcon from "../../assets/svg/calendar.svg";
-import { useMenuContext } from "../../Services/Reducers/MenuContext";
+import { useMenuContext } from "../../services/Reducers/MenuContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";

@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { FeatureContext } from "../../../../Context/FeatureProvider";
 
-import useRequest from "../../../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../../../services/Hooks/useRequest";
 import { ReactComponent as Eye } from "../../../../../../assets/svg/eye.svg";
 
 import PreviewModel from "./PreviewModel";
-import { useSelectedEnvironment } from "../../../../../../Services/Reducers/SelectedEnvironmentContext";
+import { useSelectedEnvironment } from "../../../../../../services/Reducers/SelectedEnvironmentContext";
 
 const Container = styled.div`
   gap: 10px;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import styled from "styled-components";
-import useRequest from "../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../Services/Utility";
-import { useLanguage } from "../../Services/Reducers/LanguageContext";
+import useRequest from "../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../services/Utility";
+import { useLanguage } from "../../services/Reducers/LanguageContext";
 
 const Container = styled.div`
   margin-top: 20px;

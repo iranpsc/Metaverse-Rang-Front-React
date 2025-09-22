@@ -4,8 +4,8 @@ import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import NoteDetails from "./NoteDetails";
 import styled from "styled-components";
 import Button from "../../../../Components/Button";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const TableRow = styled.tr`
   background-color: transparent;

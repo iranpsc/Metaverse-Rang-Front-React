@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import DynastyEstablish from "./dynasty-establish/DynastyEstablish";
 import DynastyEstate from "./dynasty-estate/DynastyEstate";
 

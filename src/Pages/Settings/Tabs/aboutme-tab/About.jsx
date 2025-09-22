@@ -2,9 +2,9 @@ import "react-quill/dist/quill.snow.css";
 import { CiEdit } from "react-icons/ci";
 import ReactQuill from "react-quill";
 import { useGlobalState } from "./aboutGlobalStateProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useEffect, useState } from "react";
-import { convertToPersian } from "../../../../Services/Utility/index";
+import { convertToPersian } from "../../../../services/Utility/index";
 import { EditorContainer,Label, Char,formats,modules} from "../../../../Components/editorContainerStyle";
 
 

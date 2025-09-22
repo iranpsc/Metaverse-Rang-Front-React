@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 import { useTranslation } from "react-i18next";
 
 const Container = styled.div`

@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { useMenuContext } from "../../../Services/Reducers/MenuContext";
+import { useMenuContext } from "../../../services/Reducers/MenuContext";
 
 import { ReactComponent as FollowingIcon } from "../../../assets/svg/following.svg";
 import { useState } from "react";
 import Follower from "./Follower";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;

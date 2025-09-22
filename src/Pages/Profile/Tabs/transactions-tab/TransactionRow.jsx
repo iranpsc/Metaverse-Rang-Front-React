@@ -7,7 +7,7 @@ import {
   convertToPersian,
   getFieldTranslationByNames,
   persianNumbers,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 
 const TableRow = styled.tr`
   background-color: transparent;

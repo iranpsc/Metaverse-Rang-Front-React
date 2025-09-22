@@ -5,12 +5,12 @@ import building from "../../../assets/images/building.png";
 import education from "../../../assets/images/courthouse.png";
 import house from "../../../assets/images/house.png";
 import styled from "styled-components";
-import useRequest from "../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
+import useRequest from "../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../services/Utility";
 import {
   WalletContext,
   WalletContextTypes,
-} from "../../../Services/Reducers/WalletContext";
+} from "../../../services/Reducers/WalletContext";
 
 const Scroll = styled.div`
   padding: 30px 15px 20px;

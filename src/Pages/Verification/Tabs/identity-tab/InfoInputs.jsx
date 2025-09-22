@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TitleValue from "../../../../Components/TitleValue";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: grid;

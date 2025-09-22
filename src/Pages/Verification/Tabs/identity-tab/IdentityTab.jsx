@@ -1,4 +1,4 @@
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import IdentityInfo from "./IdentityInfo";
 import IdentityInputs from "./IdentityInputs";
 import { useState, useEffect } from "react";

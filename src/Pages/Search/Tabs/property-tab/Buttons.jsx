@@ -7,7 +7,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { useMap } from "react-map-gl";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const IconWrapper = styled.div`
   border-radius: 60px;

@@ -7,8 +7,8 @@ import house from "../../../../assets/images/house.png";
 import styled from "styled-components";
 import { useEffect, useState, useCallback } from "react";
 import Title from "../../../../Components/Title";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 
 const List = styled.div`

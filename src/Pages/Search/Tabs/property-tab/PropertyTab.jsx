@@ -3,8 +3,8 @@ import ResultCard from "./ResultCard";
 import styled from "styled-components";
 import { useCallback, useState } from "react";
 import SearchInput from "../../Components/SearchInput";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Wrapper = styled.div`
   display: flex;

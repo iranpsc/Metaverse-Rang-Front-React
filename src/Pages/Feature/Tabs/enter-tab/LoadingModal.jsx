@@ -2,7 +2,7 @@ import { Rnd } from "react-rnd";
 import loader from "../../../../assets/gif/loader.svg";
 import styled from "styled-components";
 import Header from "../../../../Components/Education/Header";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const StyledRnd = styled(Rnd)`
   display: flex;

@@ -6,10 +6,10 @@ import { TiUserAddOutline } from "react-icons/ti";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import ButtonIcon from "../../../../Components/ButtonIcon";
-import useAuth from "../../../../Services/Hooks/useAuth";
-import { UserContext } from "../../../../Services/Reducers/UserContext";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import useAuth from "../../../../services/Hooks/useAuth";
+import { UserContext } from "../../../../services/Reducers/UserContext";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 
 const Container = styled.div`

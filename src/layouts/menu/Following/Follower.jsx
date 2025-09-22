@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useMenuContext } from "../../../Services/Reducers/MenuContext";
+import { useMenuContext } from "../../../services/Reducers/MenuContext";
 import Message from "../../../assets/svg/message.svg";
 import ProfileMember from "../../../assets/svg/profileMember.svg";
 import Ticket from "../../../assets/svg/ticket.svg";
@@ -9,9 +9,9 @@ import CitizenProfile from "../../../assets/svg/citizenProfile.svg";
 import Share from "../../../assets/svg/share.svg";
 import { ReactComponent as FollowingIcon } from "../../../assets/svg/following.svg";
 import { useState } from "react";
-import useRequest from "../../../Services/Hooks/useRequest";
+import useRequest from "../../../services/Hooks/useRequest";
 import { useLayoutEffect } from "react";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;

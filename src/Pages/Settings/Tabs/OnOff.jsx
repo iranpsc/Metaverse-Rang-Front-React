@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../services/Utility";
 
 const On = styled.div`
   width: 45px;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { useState } from "react";
 import Title from "../../../../Components/Title";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Files = styled.div`
   display: flex;

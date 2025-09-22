@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import useAuth from '../Services/Hooks/useAuth'
+import useAuth from '../services/Hooks/useAuth'
 
 export default function PrivateComponent({ children }) {
   const { getUser } = useAuth();

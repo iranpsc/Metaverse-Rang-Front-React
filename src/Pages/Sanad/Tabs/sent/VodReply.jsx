@@ -5,7 +5,7 @@ import SendFiles from "./SendFiles";
 import styled from "styled-components";
 import { useGlobalState } from "../GlobalVodStateProvider";
 import Button from "../../../../Components/Button";
-import { AlertContext } from "../../../../Services/Reducers/AlertContext";
+import { AlertContext } from "../../../../services/Reducers/AlertContext";
 
 const Container = styled.div`
   background-color: #1a1a18;

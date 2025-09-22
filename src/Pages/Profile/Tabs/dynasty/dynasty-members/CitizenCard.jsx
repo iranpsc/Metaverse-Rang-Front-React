@@ -2,8 +2,8 @@ import styled, { keyframes } from "styled-components";
 import { Tooltip } from "react-tooltip";
 import down from "../../../../../assets/images/downcitizen.png";
 import citizen from "../../../../../assets/images/profile.png";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
-import { slugLabels } from "../../../../../Services/Constants/UserType";
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { slugLabels } from "../../../../../services/Constants/UserType";
 
 const svgAnimation = keyframes`
   from {

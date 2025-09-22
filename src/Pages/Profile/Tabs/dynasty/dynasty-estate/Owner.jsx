@@ -1,5 +1,5 @@
 import Title from "../../../../../Components/Title";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import Details from "./Details";
 import Model3D from "./Model3D";
 

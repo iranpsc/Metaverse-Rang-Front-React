@@ -6,11 +6,11 @@ import { RiUserUnfollowLine, RiLoader4Line } from "react-icons/ri";
 import Button from "../../../../../Components/Button";
 import Title from "../../../../../Components/Title";
 import SearchInput from "../../../../../Components/SearchInput";
-import useRequest from "../../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../../services/Hooks/useRequest";
 import {
   getFieldTranslationByNames,
   ToastError,
-} from "../../../../../Services/Utility";
+} from "../../../../../services/Utility";
 import {
   Container,
   Header,

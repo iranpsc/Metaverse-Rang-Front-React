@@ -4,7 +4,7 @@ import RedHouseIcon from "../../../assets/images/redHouse.png";
 import YellowHouseIcon from "../../../assets/images/yellowHouse.png";
 import BlueHouseIcon from "../../../assets/images/blueHouse.png";
 import { useNavigate } from "react-router-dom";
-import useRequest from "../../../Services/Hooks/useRequest";
+import useRequest from "../../../services/Hooks/useRequest";
 
 const FeatureContainer = styled.div`
   width: 100%;

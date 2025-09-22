@@ -1,7 +1,7 @@
 import { LuBuilding2 } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;

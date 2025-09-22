@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
-import useRequest from '../../../../Services/Hooks/useRequest';
+import useRequest from '../../../../services/Hooks/useRequest';
 import Alert from "../../../../Components/Alert/Alert";
-import { AlertContext } from "../../../../Services/Reducers/AlertContext";
+import { AlertContext } from "../../../../services/Reducers/AlertContext";
 import Button from "../../../../Components/Button";
 import Description from "./Description";
 import Inputs from "./Inputs";
@@ -9,7 +9,7 @@ import SendFiles from "./SendFiles";
 import Title from "../../../../Components/Title";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
+import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import { useLocation } from "react-router-dom";
 
 const Container = styled.div`

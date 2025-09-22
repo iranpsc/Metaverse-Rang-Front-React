@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../Services/Hooks/useAuth';
+import useAuth from '../services/Hooks/useAuth';
 
 export default function PublicRoute({ children }) {
     const { isLoggedIn } = useAuth();

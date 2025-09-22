@@ -4,10 +4,10 @@ import property2 from "../../../../assets/images/building.png";
 import property3 from "../../../../assets/images/house.png";
 import property4 from "../../../../assets/images/courthouse.png";
 import styled from "styled-components";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../../Services/Reducers/UserContext";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { UserContext } from "../../../../services/Reducers/UserContext";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 
 const Container = styled.div`

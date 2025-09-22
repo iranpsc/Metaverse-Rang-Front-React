@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { getFieldTranslationByNames,convertToPersian} from "../../../../Services/Utility";
+import { getFieldTranslationByNames,convertToPersian} from "../../../../services/Utility";
 const Container = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};

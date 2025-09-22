@@ -6,9 +6,9 @@ import { useState } from "react";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 import Button from "../../../../Components/Button";
-import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
+import { useLanguage } from "../../../../services/Reducers/LanguageContext";
 import { useNavigate } from "react-router-dom";
 
 const PhotoName = styled.div`

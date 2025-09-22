@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 import rial from "../../../../../Assets/images/profile/rial.gif";
 import styled from "styled-components";
 import { SuggestionsContainer, Location, Property, Value, Suggestions, AreaContainer, StyledSVG, Polygon } from "../suggestionStyles";
-import { getFieldTranslationByNames, convertToPersian } from "../../../../../Services/Utility/index";
-import { useLanguage } from "../../../../../Services/Reducers/LanguageContext";
+import { getFieldTranslationByNames, convertToPersian } from "../../../../../services/Utility/index";
+import { useLanguage } from "../../../../../services/Reducers/LanguageContext";
 
 const Container = SuggestionsContainer;
 

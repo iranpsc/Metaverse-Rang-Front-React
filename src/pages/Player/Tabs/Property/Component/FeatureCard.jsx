@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
-import { TextShorter } from "../../../../../Services/Utility";
+import { TextShorter } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`

@@ -3,11 +3,11 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 import styled from "styled-components";
 import { useState } from "react";
 import OnOff from "../OnOff";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import {
   getFieldTranslationByNames,
   ToastError,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 
 const Container = styled.div`
   border: 1px solid #454545;

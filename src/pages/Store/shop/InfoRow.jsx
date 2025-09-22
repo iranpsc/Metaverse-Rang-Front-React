@@ -2,13 +2,13 @@ import { useContext, useState } from "react";
 
 import { BsExclamationCircleFill } from "react-icons/bs";
 import styled from "styled-components";
-import { AlertContext } from "../../../Services/Reducers/AlertContext";
+import { AlertContext } from "../../../services/Reducers/AlertContext";
 import Button from "../../../Components/Button";
 import InfoModal from "./InfoModal";
 import TitleValue from "./TitleValue";
 import { addCommas } from "@persian-tools/persian-tools";
-import useRequest from "../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
+import useRequest from "../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../services/Utility";
 
 const Wrapper = styled.div`
   border-radius: 5px;

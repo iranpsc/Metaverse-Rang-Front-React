@@ -11,9 +11,9 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
-import { useTheme } from "../../../../Services/Reducers/ThemeContext"; // مسیر صحیح را وارد کنید
-import useRequest from '../../../../Services/Hooks/useRequest';
+import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { useTheme } from "../../../../services/Reducers/ThemeContext"; // مسیر صحیح را وارد کنید
+import useRequest from '../../../../services/Hooks/useRequest';
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;

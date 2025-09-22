@@ -2,15 +2,15 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../../Components/Button";
-import { UserContext } from "../../../../../Services/Reducers/UserContext";
+import { UserContext } from "../../../../../services/Reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";
-import useRequest from "../../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../../services/Hooks/useRequest";
 import {
   getFieldTranslationByNames,
   TimeAgo,
   ToastError,
   ToastSuccess,
-} from "../../../../../Services/Utility";
+} from "../../../../../services/Utility";
 import ResultInfo from "../../../Components/ResultInfo";
 
 const Wrapper = styled.div`

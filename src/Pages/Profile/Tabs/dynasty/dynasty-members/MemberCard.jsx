@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../../../Services/Utility";
+} from "../../../../../services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import useActivity from "../../../../Services/Hooks/useActivity";
+import useActivity from "../../../../services/Hooks/useActivity";
 import PriceDetermination from "./Tabs/PriceDetermination";
 import BuyUser from "./Tabs/BuyUser";
 import { FeatureContext } from "../../Context/FeatureProvider";

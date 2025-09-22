@@ -4,7 +4,7 @@ import Bio from "./Bio";
 import Details from "./Details";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
   padding-top: 20px;

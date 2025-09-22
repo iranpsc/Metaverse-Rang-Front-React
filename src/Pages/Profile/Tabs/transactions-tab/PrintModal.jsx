@@ -5,7 +5,7 @@ import { IoIosClose } from "react-icons/io";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
 import Button from "../../../../Components/Button";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const BackGround = styled.div`
   z-index: 999;

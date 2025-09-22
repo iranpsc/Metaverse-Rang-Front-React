@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { TiWarningOutline } from "react-icons/ti";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import DefaultProfile from "../../../../assets/images/defulte-profile.png";
 import shortid from "shortid";
 

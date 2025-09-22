@@ -18,11 +18,11 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import yellow from "../../../../assets/gif/yellow-color.gif";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import {
   getFieldTranslationByNames,
   ToastError,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;

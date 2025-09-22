@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import SearchInput from "../../../../Components/SearchInput";
 import Title from "../../../../Components/Title";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
   padding-right: 15px;

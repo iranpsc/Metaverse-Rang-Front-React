@@ -1,11 +1,11 @@
 import React from "react";
 
-import useTabs from "../../Services/Hooks/useTabs";
+import useTabs from "../../services/Hooks/useTabs";
 import ToolTab from "./shop/tool-tab/ToolTab";
 import CurrencyTab from "./shop/currency-tab/CurrencyTab";
 import ShopInfo from "./shop/ShopInfo";
 import Modal from "../../Components/Modal/index";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 
 export default function Store() {
   const tabs = [

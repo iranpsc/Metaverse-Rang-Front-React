@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import LogoIcon from "../../assets/svg/logoMeta.svg";
-import { getFieldTranslationByNames } from "../../Services/Utility";
-import { useMenuContext } from "../../Services/Reducers/MenuContext";
+import { getFieldTranslationByNames } from "../../services/Utility";
+import { useMenuContext } from "../../services/Reducers/MenuContext";
 import { ReactComponent as ArowMenu } from "../../assets/svg/arowMenu.svg";
 
 const Logo = styled.img`

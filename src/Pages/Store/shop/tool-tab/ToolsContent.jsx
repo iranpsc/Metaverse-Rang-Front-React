@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
-import { AlertContext } from "../../../../Services/Reducers/AlertContext";
+import { AlertContext } from "../../../../services/Reducers/AlertContext";
 import Alert from "../../../../Components/Alert/Alert";
 import Title from "../../../../Components/Title";
 import InfoRow from "../InfoRow";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import { ScaleLoader } from "react-spinners";
 
 const Container = styled.div`

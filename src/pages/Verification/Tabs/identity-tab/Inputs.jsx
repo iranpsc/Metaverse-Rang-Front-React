@@ -8,7 +8,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useState } from "react";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Birthday = styled.div`
   border-radius: 5px;

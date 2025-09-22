@@ -1,8 +1,8 @@
 import ErrorItem from "./identity-tab/ErrorItem";
 import { IoCloseSharp } from "react-icons/io5";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
-import { useLanguage } from "../../../Services/Reducers/LanguageContext";
+import { getFieldTranslationByNames } from "../../../services/Utility";
+import { useLanguage } from "../../../services/Reducers/LanguageContext";
 import { isPersian } from "@persian-tools/persian-tools";
 
 const Div = styled.div`

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PercentageImage from "../../assets/images/percentage.png";
-import useAuth from "../../Services/Hooks/useAuth";
+import useAuth from "../../services/Hooks/useAuth";
 import ToolTip from "../Tooltip";
 
 const ProfitIcon = styled.img`

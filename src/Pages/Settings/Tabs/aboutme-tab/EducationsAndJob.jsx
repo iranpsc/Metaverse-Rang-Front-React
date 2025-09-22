@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
-import { getFieldTranslationByNames, getFieldsByTabName} from "../../../../Services/Utility"; 
+import { getFieldTranslationByNames, getFieldsByTabName} from "../../../../services/Utility"; 
 
 const Container = styled.div`
   margin-top: 20px;

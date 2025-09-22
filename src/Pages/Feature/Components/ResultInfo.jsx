@@ -5,7 +5,7 @@ import styled from "styled-components";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../Services/Utility";
+} from "../../../services/Utility";
 import Result from "../../../Components/Result";
 
 const Wrapper = styled.div`

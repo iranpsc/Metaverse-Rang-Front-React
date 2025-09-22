@@ -2,8 +2,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { CgDanger } from "react-icons/cg";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
-import useRequest from "../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../services/Utility";
+import useRequest from "../../../services/Hooks/useRequest";
 
 const Wrapper = styled.div``;
 

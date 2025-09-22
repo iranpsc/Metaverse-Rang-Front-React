@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Submit from "../../../../../Components/Buttons/Submit";
 import { Container, Text } from "../../../Styles";
-import { FeatureSvg } from "../../../../../Services/Constants/FeatureType";
+import { FeatureSvg } from "../../../../../services/Constants/FeatureType";
 import Form from "../../../../../Components/Form";
-import useRequest from "../../../../../Services/Hooks/useRequest";
-import { ToastError } from "../../../../../Services/Utility";
+import useRequest from "../../../../../services/Hooks/useRequest";
+import { ToastError } from "../../../../../services/Utility";
 
 
 const ContainerPrice = styled.div`

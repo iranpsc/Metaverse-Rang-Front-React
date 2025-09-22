@@ -3,7 +3,7 @@ import Pricing from "./Pricing";
 
 import styled from "styled-components";
 import TitleValue from "../../../Store/shop/TitleValue";
-import { convertToPersian } from "../../../../Services/Utility";
+import { convertToPersian } from "../../../../services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>

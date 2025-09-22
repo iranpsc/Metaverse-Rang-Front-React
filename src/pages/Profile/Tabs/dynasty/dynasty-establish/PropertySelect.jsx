@@ -4,8 +4,8 @@ import Title from "../../../../../Components/Title";
 import styled from "styled-components";
 import SearchInput from "../../../../../Components/SearchInput";
 import { useNavigate } from "react-router-dom";
-import useRequest from "../../../../../Services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import useRequest from "../../../../../services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
 
 const Container = styled.div``;
 const Div = styled.div`

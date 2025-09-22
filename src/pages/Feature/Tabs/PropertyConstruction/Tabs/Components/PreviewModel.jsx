@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../../../../../../Components/Modal/Modal.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import useAdviserData from "../../../../../../Services/Hooks/useAdviserData";
+import useAdviserData from "../../../../../../services/Hooks/useAdviserData";
 import styled, { useTheme } from "styled-components";
 
 import { ReactComponent as Help } from "../../../../../../assets/svg/exclamation.svg";
 import { ReactComponent as Exit } from "../../../../../../assets/svg/close.svg";
 import { ReactComponent as Report } from "../../../../../../assets/svg/question.svg";
 import CanvasPreview from "./CanvasPreview";
-import { getFieldTranslationByNames } from "../../../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../../../services/Utility";
 
 const ContainerDetail = styled.div`
   width: 40%;

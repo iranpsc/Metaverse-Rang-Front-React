@@ -6,11 +6,11 @@ import IconIrr from "../../../../../assets/images/coin-irr.png";
 import IconPsc from "../../../../../assets/images/coin-psc.png";
 import Specification from "../../../Components/Specification";
 import { FeatureContext } from "../../../Context/FeatureProvider";
-import { calculateFee, ToastError } from "../../../../../Services/Utility";
+import { calculateFee, ToastError } from "../../../../../services/Utility";
 import Form from "../../../../../Components/Form";
-import useRequest from "../../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
-import { FeatureSvg } from "../../../../../Services/Constants/FeatureType";
+import { FeatureSvg } from "../../../../../services/Constants/FeatureType";
 
 const ContainerPrice = styled.div`
   width: 65%;

@@ -1,14 +1,14 @@
 import React, { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
 import { ReactComponent as LoginIcon } from "../../../assets/svg/login.svg";
-import { useMenuContext } from "../../../Services/Reducers/MenuContext";
+import { useMenuContext } from "../../../services/Reducers/MenuContext";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../../Services/Hooks/useAuth";
+import useAuth from "../../../services/Hooks/useAuth";
 import { ReactComponent as ArowMenu } from "../../../assets/svg/arowMenu.svg";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
-import useRequest from "../../../Services/Hooks/useRequest";
-import { removeItem } from "../../../Services/Utility/LocalStorage";
-import { useLanguage } from "../../../Services/Reducers/LanguageContext";
+import { getFieldTranslationByNames } from "../../../services/Utility";
+import useRequest from "../../../services/Hooks/useRequest";
+import { removeItem } from "../../../services/Utility/LocalStorage";
+import { useLanguage } from "../../../services/Reducers/LanguageContext";
 
 const Btn = styled.div`
   min-height: ${(props) =>

@@ -4,9 +4,9 @@ import { ReactComponent as InstaIcon } from "../../../../assets/images/reports/i
 import { ReactComponent as SendIcon } from "../../../../assets/images/reports/send-2.svg";
 import { ReactComponent as WhatsappIcon } from "../../../../assets/images/reports/whatsapp.svg";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
-import { convertToPersian } from "../../../../Services/Utility/index";
-import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
+import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { convertToPersian } from "../../../../services/Utility/index";
+import { useLanguage } from "../../../../services/Reducers/LanguageContext";
 
 const Container = styled.div`
   background-color: ${(props) =>

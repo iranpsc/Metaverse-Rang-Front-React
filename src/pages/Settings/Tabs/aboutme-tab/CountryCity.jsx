@@ -2,7 +2,7 @@ import Dropdown from "./Dropdown";
 import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { useEffect, useState } from "react";
-import { getFieldTranslationByNames, getFieldsByTabName } from "../../../../Services/Utility";
+import { getFieldTranslationByNames, getFieldsByTabName } from "../../../../services/Utility";
 const Container = styled.div`
   margin-top: 20px;
   display: flex;

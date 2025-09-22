@@ -6,15 +6,15 @@ import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
 import Alert from "../../../Components/Alert/Alert";
 import Button from "../../../Components/Button";
-import { AlertContext } from "../../../Services/Reducers/AlertContext";
+import { AlertContext } from "../../../services/Reducers/AlertContext";
 import Title from "../../../Components/Title";
 import {
   getFieldTranslationByNames,
   ToastError,
-} from "../../../Services/Utility";
+} from "../../../services/Utility";
 
 import ErrorMessage from "../../../Components/ErrorMessage";
-import useRequest from "../../../Services/Hooks/useRequest";
+import useRequest from "../../../services/Hooks/useRequest";
 
 const Container = styled.div`
   padding: 20px 0;

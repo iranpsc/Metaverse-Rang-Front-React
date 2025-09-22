@@ -8,7 +8,7 @@ import IncreaseICoin from "../../../../assets/images/increase.png";
 import BankICoin from "../../../../assets/images/bank.png";
 import SeenICoin from "../../../../assets/images/eye-scanner.png";
 import { useEffect, useState } from "react";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import Message from "./Components/Message";
 
 const Table = styled.table`

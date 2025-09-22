@@ -4,9 +4,9 @@ import EditInput from "../EditInput";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import SendFiles from "../SendFiles";
 import styled from "styled-components";
-import { AlertContext } from "../../../../Services/Reducers/AlertContext";
+import { AlertContext } from "../../../../services/Reducers/AlertContext";
 import Button from "../../../../Components/Button";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 
 const Buttons = styled.div`
   display: flex;

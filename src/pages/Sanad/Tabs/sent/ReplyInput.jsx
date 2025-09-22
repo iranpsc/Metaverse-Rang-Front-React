@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import styled from "styled-components";
 import { useGlobalState } from "../GlobalVodStateProvider";
 import { useState } from "react";
-import { convertToPersian } from "../../../../Services/Utility";
+import { convertToPersian } from "../../../../services/Utility";
 
 const EditorContainer = styled.div`
   background-color: #2c2c2c;

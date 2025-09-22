@@ -2,12 +2,12 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
 import Submit from "../../../../../../Components/Buttons/Submit";
-import { useSelectedEnvironment } from "../../../../../../Services/Reducers/SelectedEnvironmentContext";
+import { useSelectedEnvironment } from "../../../../../../services/Reducers/SelectedEnvironmentContext";
 import { useNavigate } from "react-router-dom";
 import {
   getFieldTranslationByNames,
   ToastError,
-} from "../../../../../../Services/Utility";
+} from "../../../../../../services/Utility";
 import { FeatureContext } from "../../../../Context/FeatureProvider";
 import Input from "../../../../../../Components/Input";
 import Button from "../../../../../../Components/Button";

@@ -8,7 +8,7 @@ import { useGlobalState } from "../GlobalVodStateProvider";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 
 const EditorContainer = styled.div`
   background-color: ${(props) =>

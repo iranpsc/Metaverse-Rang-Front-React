@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
+import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 
 const Container = styled.div`
   display: grid;

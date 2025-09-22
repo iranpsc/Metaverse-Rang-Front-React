@@ -1,7 +1,7 @@
 import psc from "../../../../assets/gif/psc.gif";
 import rial from "../../../../assets/gif/rial.gif";
 import styled from "styled-components";
-import { convertToPersian } from "../../../../Services/Utility";
+import { convertToPersian } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;

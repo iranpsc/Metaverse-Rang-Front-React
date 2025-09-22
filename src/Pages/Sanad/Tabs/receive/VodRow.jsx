@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { LuEye } from "react-icons/lu";
 import VodDetails from "./VodDetails.jsx";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility/index.jsx";
-import useRequest from "../../../../Services/Hooks/useRequest/index.jsx";
+import { getFieldTranslationByNames } from "../../../../services/Utility/index.jsx";
+import useRequest from "../../../../services/Hooks/useRequest/index.jsx";
 
 const TableRow = styled.tr`
   background-color: ${(props) =>

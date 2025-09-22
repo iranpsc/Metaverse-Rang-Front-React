@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { LoaderContext } from "../../../../Services/Reducers/LoaderProvider.jsx";
+import { LoaderContext } from "../../../../services/Reducers/LoaderProvider.jsx";
 import { LuEye } from "react-icons/lu";
 import ReportDetails from "./ReportDetails.jsx";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
-import useRequest from '../../../../Services/Hooks/useRequest';
-import { convertToPersian } from "../../../../Services/Utility/index";
+import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import useRequest from '../../../../services/Hooks/useRequest';
+import { convertToPersian } from "../../../../services/Utility/index";
 
 const TableRow = styled.tr`
  /* background-color: ${(props) =>

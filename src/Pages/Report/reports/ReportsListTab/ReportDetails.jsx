@@ -2,7 +2,7 @@ import Messages from "./Messages";
 import ReportCard from "./ReportCard";
 import Title from "../../../../Components/Title";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
+import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 
 const Container = styled.div`
   padding: 20px 0;

@@ -3,8 +3,8 @@ import styled, { keyframes, css } from "styled-components";
 import { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import Resumable from "resumablejs";
-import { UserContext } from "../../../../Services/Reducers/UserContext";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { UserContext } from "../../../../services/Reducers/UserContext";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
 
 const Container = styled.div`

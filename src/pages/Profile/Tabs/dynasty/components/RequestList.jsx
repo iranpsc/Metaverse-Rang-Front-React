@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Title from "../../../../../Components/Title";
 import SearchInput from "../../../../../Components/SearchInput";
-import useRequest from "../../../../../Services/Hooks/useRequest";
-import {  getFieldTranslationByNames } from "../../../../../Services/Utility";
-import { useLanguage } from "../../../../../Services/Reducers/LanguageContext";
+import useRequest from "../../../../../services/Hooks/useRequest";
+import {  getFieldTranslationByNames } from "../../../../../services/Utility";
+import { useLanguage } from "../../../../../services/Reducers/LanguageContext";
 import CustomDatePicker from "../../../../../Components/CustomDatePicker";
-import useDateFilter from '../../../../../Services/Hooks/useDateFilter';
+import useDateFilter from '../../../../../services/Hooks/useDateFilter';
 
 const Container = styled.div`
   padding: 20px 15px 0px 0;

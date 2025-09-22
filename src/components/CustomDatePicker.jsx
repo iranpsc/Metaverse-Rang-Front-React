@@ -5,9 +5,9 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
-import { useLanguage } from "../Services/Reducers/LanguageContext";
-import { getFieldTranslationByNames } from "../Services/Utility";
-import { useTheme } from "../Services/Reducers/ThemeContext";
+import { useLanguage } from "../services/Reducers/LanguageContext";
+import { getFieldTranslationByNames } from "../services/Utility";
+import { useTheme } from "../services/Reducers/ThemeContext";
 
 const DateContainer = styled.div`
   border-radius: 5px;

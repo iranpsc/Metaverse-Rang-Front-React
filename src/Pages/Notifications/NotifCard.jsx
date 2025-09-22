@@ -1,7 +1,7 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import { TbTrash } from "react-icons/tb";
 import styled from "styled-components";
-import useRequest from "../../Services/Hooks/useRequest";
+import useRequest from "../../services/Hooks/useRequest";
 
 const Container = styled.div`
   padding: 20px;

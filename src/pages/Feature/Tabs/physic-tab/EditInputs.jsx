@@ -4,7 +4,7 @@ import RichText from "./RichText";
 import styled from "styled-components";
 import { useState } from "react";
 import Button from "../../../../Components/Button";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Wrapper = styled.div`
   border-radius: 5px;

@@ -1,12 +1,12 @@
 import React from "react";
-import useRequest from "../../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../../services/Hooks/useRequest";
 import BackIcon from "../../../../../assets/images/back.png";
 import CrossIcon from "../../../../../assets/images/cross-2.png";
 import CheckIcon from "../../../../../assets/images/check.png";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Submit from "../../../../../Components/Buttons/Submit";
-import { ToastError, ToastSuccess } from "../../../../../Services/Utility";
+import { ToastError, ToastSuccess } from "../../../../../services/Utility";
 
 const Container = styled.div`
   width: 100%;

@@ -10,7 +10,7 @@ import {
   calculateFee,
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../../../Services/Utility";
+} from "../../../../../services/Utility";
 
 // Constants
 const PSC_TO_RIAL_RATE = 900;

@@ -6,10 +6,10 @@ import { useState, useRef, useContext } from "react";
 import Compressor from "compressorjs";
 
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../../../Services/Reducers/UserContext";
+import { UserContext } from "../../../../services/Reducers/UserContext";
 import { FeatureContext } from "../../Context/FeatureProvider";
-import useRequest from "../../../../Services/Hooks/useRequest";
-import { ToastError, ToastSuccess } from "../../../../Services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { ToastError, ToastSuccess } from "../../../../services/Utility";
 
 const AlbumWrapper = styled.div`
   display: grid;

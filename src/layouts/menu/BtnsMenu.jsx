@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 import DropDownLang from "../../Components/DropDownLang";
 import SingOutIcon from "../../assets/svg/signOut.svg";
 import AccountSecurityIcon from "../../assets/svg/accountSecurity.svg";
@@ -16,12 +16,12 @@ import NotifIcon from "../../assets/svg/notif.svg";
 import ReportIcon from "../../assets/svg/report.svg";
 import GiftIcon from "../../assets/svg/gifts.svg";
 import LogoutIcon from "../../assets/svg/logout.svg";
-import { useMenuContext } from "../../Services/Reducers/MenuContext";
+import { useMenuContext } from "../../services/Reducers/MenuContext";
 import { useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../../Services/Hooks/useAuth";
+import useAuth from "../../services/Hooks/useAuth";
 import { useLayoutEffect } from "react";
-import { removeItem } from "../../Services/Utility/LocalStorage";
-import useRequest from "../../Services/Hooks/useRequest";
+import { removeItem } from "../../services/Utility/LocalStorage";
+import useRequest from "../../services/Hooks/useRequest";
 
 const Btn = styled.button`
   display: flex;

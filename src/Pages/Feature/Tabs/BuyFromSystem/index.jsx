@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { FeatureColor } from "../../../../Services/Constants/FeatureType";
-import useActivity from "../../../../Services/Hooks/useActivity";
+import { FeatureColor } from "../../../../services/Constants/FeatureType";
+import useActivity from "../../../../services/Hooks/useActivity";
 import { FeatureContext } from "../../Context/FeatureProvider";
 import BuySystem from "./Tabs/BuySystem";
 

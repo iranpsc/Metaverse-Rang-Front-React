@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AccountSecurityModal from '../../pages/AccountSecurity';
 import axios from 'axios';
-import { ToastError } from '../../Services/Utility';
+import { ToastError } from '../../services/Utility';
 
 
 const Error410Modal = () => {

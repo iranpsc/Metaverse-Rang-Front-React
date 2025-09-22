@@ -3,7 +3,7 @@ import Notes from "./Notes";
 import WriteNote from "./WriteNote";
 import styled from "styled-components";
 import { useContext, useEffect } from "react";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
   padding: 20px 0;

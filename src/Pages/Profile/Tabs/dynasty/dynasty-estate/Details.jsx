@@ -1,6 +1,6 @@
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`

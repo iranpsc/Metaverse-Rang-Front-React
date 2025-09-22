@@ -7,7 +7,7 @@ import red from "../../../../assets/gif/red-color.gif";
 import rial from "../../../../assets/gif/rial.gif";
 import yellow from "../../../../assets/gif/yellow-color.gif";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;

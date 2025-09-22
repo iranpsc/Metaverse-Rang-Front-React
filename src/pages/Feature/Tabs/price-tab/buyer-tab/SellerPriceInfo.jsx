@@ -8,14 +8,14 @@ import Button from "../../../../../Components/Button";
 import TitleValue from "../../../../../Components/TitleValue";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { useNavigate } from "react-router-dom";
-import useRequest from "../../../../../Services/Hooks/useRequest";
-import { FeatureSvg } from "../../../../../Services/Constants/FeatureType";
+import useRequest from "../../../../../services/Hooks/useRequest";
+import { FeatureSvg } from "../../../../../services/Constants/FeatureType";
 import {
   calculateFee,
   getFieldTranslationByNames,
   persianNumbers,
   ToastError,
-} from "../../../../../Services/Utility";
+} from "../../../../../services/Utility";
 
 const InputsWrapper = styled.div`
   display: flex;

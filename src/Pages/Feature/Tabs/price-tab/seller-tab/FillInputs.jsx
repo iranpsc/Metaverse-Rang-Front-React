@@ -7,11 +7,11 @@ import {
   getFieldTranslationByNames,
   TimeAgo,
   ToastError,
-} from "../../../../../Services/Utility";
+} from "../../../../../services/Utility";
 import TitleValue from "../../../../../Components/TitleValue";
 import Button from "../../../../../Components/Button";
 import { useContext, useState } from "react";
-import { UserContext } from "../../../../../Services/Reducers/UserContext";
+import { UserContext } from "../../../../../services/Reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 
 const Div = styled.div`

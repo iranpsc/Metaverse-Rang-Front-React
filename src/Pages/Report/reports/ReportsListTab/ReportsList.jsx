@@ -2,7 +2,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import ReportRow from "./ReportRow";
 import styled from "styled-components";
 import { useState,useEffect, useRef  } from "react";
-import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
+import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 
 const Container = styled.div`
   border-radius: 0.25rem;

@@ -5,12 +5,12 @@ import { toast } from "react-toastify";
 import Button from "../../../../Components/Button";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
 import Title from "../../../../Components/Title";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import {
   getFieldTranslationByNames,
   ToastError,
   ToastSuccess,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 import {
   phoneNumberNormalizer,
   phoneNumberValidator,

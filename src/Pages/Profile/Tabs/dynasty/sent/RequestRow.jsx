@@ -1,6 +1,6 @@
 import { LuEye } from "react-icons/lu";
 import RequestDetails from "./RequestDetails";
-import { convertToPersian, getFieldTranslationByNames } from "../../../../../Services/Utility";
+import { convertToPersian, getFieldTranslationByNames } from "../../../../../services/Utility";
 import gift from "../../../../../assets/images/satisfy.png";
 import pscGif from "../../../../../assets/gif/psc.gif";
 import styled from "styled-components";

@@ -4,10 +4,10 @@ import { MdOutlineHome } from "react-icons/md";
 
 import styled from "styled-components";
 import TextValueIcon from "../../../../Components/TextValueIcon";
-import { COMBINE_FEATURE } from "../../../../Services/Constants/FeatureType";
+import { COMBINE_FEATURE } from "../../../../services/Constants/FeatureType";
 import { useContext } from "react";
 import { FeatureContext } from "../../Context/FeatureProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const RowWrapper = styled.div`
   display: flex;

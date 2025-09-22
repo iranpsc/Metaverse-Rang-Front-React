@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../Components/Modal";
-import useTabs from "../../Services/Hooks/useTabs";
+import useTabs from "../../services/Hooks/useTabs";
 import ReportsInfo from "./reports/ReportsInfo";
 import { useLocation } from "react-router-dom";
 import { ReportStateProvider } from "./reports/GlobalReportStateProvider";
-import { getFieldTranslationByNames } from "../../Services/Utility/index";
+import { getFieldTranslationByNames } from "../../services/Utility/index";
 
 
 const getTranslation = (index) => getFieldTranslationByNames(index);

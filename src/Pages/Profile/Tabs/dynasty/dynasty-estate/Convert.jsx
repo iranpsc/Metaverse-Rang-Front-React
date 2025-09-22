@@ -4,9 +4,9 @@ import SearchInput from "../../../../../Components/SearchInput";
 import Title from "../../../../../Components/Title";
 import styled from "styled-components";
 import { useState, useCallback, useMemo } from "react";
-import useRequest from "../../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
-import { getFieldTranslationByNames, ToastError } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames, ToastError } from "../../../../../services/Utility";
 
 // Combine styled components
 const StyledComponents = {

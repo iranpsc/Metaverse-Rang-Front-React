@@ -9,8 +9,8 @@ import yahooSvg from "../../assets/svg/yahoo.svg";
 import {
   ToastSuccess,
   getFieldTranslationByNames,
-} from "../../Services/Utility";
-import useRequest from "../../Services/Hooks/useRequest";
+} from "../../services/Utility";
+import useRequest from "../../services/Hooks/useRequest";
 
 const EMAIL_DOMAINS = {
   yahoo: "https://mail.yahoo.com",

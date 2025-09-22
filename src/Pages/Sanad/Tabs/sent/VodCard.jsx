@@ -5,7 +5,7 @@ import styled from "styled-components";
 import whatsapp from "../../../../assets/images/whatsapp.png";
 import Title from "../../../../Components/Title";
 import Button from "../../../../Components/Button";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
   background-color: #1a1a18;

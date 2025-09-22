@@ -1,5 +1,5 @@
 import React from "react";
-import useActivity from "../../../../Services/Hooks/useActivity";
+import useActivity from "../../../../services/Hooks/useActivity";
 import PriceDetermination from "./Tabs/PriceDetermination";
 import PriceFloor from "./Tabs/PriceFloor";
 

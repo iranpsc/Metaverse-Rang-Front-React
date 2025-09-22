@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import {
   getBankNameFromCardNumber,
   getShebaInfo,
@@ -11,9 +11,9 @@ import {
   getFieldTranslationByNames,
   ToastError,
   ToastSuccess,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 import { IoCloseCircleSharp, IoCloseSharp } from "react-icons/io5";
-import { useLanguage } from "../../../../Services/Reducers/LanguageContext";
+import { useLanguage } from "../../../../services/Reducers/LanguageContext";
 
 const BackGround = styled.div`
   z-index: 999;

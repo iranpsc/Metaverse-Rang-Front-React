@@ -10,7 +10,7 @@ import Title from "../../../../Components/Title";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 
 const Container = styled.div`
   color: aliceblue;

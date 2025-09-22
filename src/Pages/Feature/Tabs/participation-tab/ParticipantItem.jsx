@@ -11,7 +11,7 @@ import TitleValue from "../../../Store/shop/TitleValue";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 import UserCode from "../../../../Components/UserCode";
 
 const Container = styled.div`

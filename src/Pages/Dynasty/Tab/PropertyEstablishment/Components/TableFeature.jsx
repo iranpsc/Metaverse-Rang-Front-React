@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import HomeSelect from "../../../../../assets/images/home-check.png";
 import HomeChange from "../../../../../assets/images/change-house.png";
-import useRequest from "../../../../../Services/Hooks/useRequest";
-import { ToastError, ToastSuccess } from "../../../../../Services/Utility";
+import useRequest from "../../../../../services/Hooks/useRequest";
+import { ToastError, ToastSuccess } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`

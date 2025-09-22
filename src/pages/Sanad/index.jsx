@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../../Components/Modal";
-import useTabs from "../../Services/Hooks/useTabs";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import useTabs from "../../services/Hooks/useTabs";
+import { getFieldTranslationByNames } from "../../services/Utility";
 import WriteVodTab from "./Tabs/WriteVodTab";
 import VodListTab from "./Tabs/VodListTab";
 import NotesListTab from "./Tabs/notes/NotesListTab";

@@ -5,14 +5,14 @@ import {
   convertToPersian,
   getFieldTranslationByNames,
   ToastError,
-} from "../../../../../Services/Utility/index";
+} from "../../../../../services/Utility/index";
 import line from "../../../../../Assets/images/profile/Line.png";
 import person from "../../../../../Assets/images/profile/slide.png";
 import pscpng from "../../../../../Assets/images/profile/psc.gif";
 import rialpng from "../../../../../Assets/images/profile/rial.gif";
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
-import { useLanguage } from "../../../../../Services/Reducers/LanguageContext";
+import { useLanguage } from "../../../../../services/Reducers/LanguageContext";
 import {
   Info,
   proposerContainer,
@@ -21,7 +21,7 @@ import {
   RejectButton,
   Text,
 } from "../suggestionStyles";
-import useRequest from "../../../../../Services/Hooks/useRequest/index";
+import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { useNavigate } from "react-router-dom";
 
 const Price = BasePrice;

@@ -5,8 +5,8 @@ import styled from "styled-components";
 import whatsapp from "../../../../assets/images/whatsapp.png";
 import Button from "../../../../Components/Button";
 import Title from "../../../../Components/Title";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
+import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import DefaultProfile from "../../../../assets/images/defulte-profile.png";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 const Button = styled.div`
   font-size: 16px;
   white-space: nowrap;

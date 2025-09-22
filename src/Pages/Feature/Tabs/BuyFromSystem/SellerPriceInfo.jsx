@@ -5,15 +5,15 @@ import { useNavigate } from "react-router-dom";
 import TextValueIcon from "../../../../Components/TextValueIcon";
 import { FeatureContext } from "../../Context/FeatureProvider";
 import Button from "../../../../Components/Button";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import {
   FeatureColor,
   FeatureSvg,
-} from "../../../../Services/Constants/FeatureType";
+} from "../../../../services/Constants/FeatureType";
 import {
   getFieldTranslationByNames,
   ToastError,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 
 const InputsWrapper = styled.div`
   display: flex;

@@ -9,7 +9,7 @@ import styled from "styled-components";
 import TextValueIcon from "../../../../Components/TextValueIcon";
 import Button from "../../../../Components/Button";
 import { Title } from "../../Styles";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div``;
 const Inputs = styled.div`

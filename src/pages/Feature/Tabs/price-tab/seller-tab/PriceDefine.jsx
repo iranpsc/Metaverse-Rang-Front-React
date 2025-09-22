@@ -8,9 +8,9 @@ import {
   TimeAgo,
   ToastError,
   ToastSuccess,
-} from "../../../../../Services/Utility";
-import { UserContext } from "../../../../../Services/Reducers/UserContext";
-import useRequest from "../../../../../Services/Hooks/useRequest";
+} from "../../../../../services/Utility";
+import { UserContext } from "../../../../../services/Reducers/UserContext";
+import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 

@@ -1,7 +1,7 @@
 import avatar from "../../../../assets/images/defulte-profile.png";
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
-import { SanitizeHTML } from "../../../../Services/Utility";
+import { SanitizeHTML } from "../../../../services/Utility";
 
 const Content = styled.div``;
 const Header = styled.div`

@@ -25,7 +25,7 @@ import TransactionPayments from "../../pages/Payments/Verification/transactionPa
 import Ip from "../../pages/Ip";
 import EmailVerification from "../../pages/EmailVerification";
 import AccountSecurityModal from "../../pages/AccountSecurity";
-//import { ProfileInfoProvider } from './Services/Reducers/profileInfoContext.jsx';
+//import { ProfileInfoProvider } from './services/Reducers/profileInfoContext.jsx';
 
 export default function Routers() {
   return (

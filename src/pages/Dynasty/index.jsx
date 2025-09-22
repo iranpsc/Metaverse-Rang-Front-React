@@ -1,6 +1,6 @@
 import Modal from '../../Components/Modal';
 import React from "react";
-import useTabs from "../../Services/Hooks/useTabs";
+import useTabs from "../../services/Hooks/useTabs";
 import Members from "./Tab/Members";
 import PropertyEstablishment from "./Tab/PropertyEstablishment";
 import RequestReceived from "./Tab/RequestReceived";

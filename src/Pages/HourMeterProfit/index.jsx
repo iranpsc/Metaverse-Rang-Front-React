@@ -1,8 +1,8 @@
 import React from "react";
 import ModalPosition from "../../Components/ModalPosition";
-import useTabs from "../../Services/Hooks/useTabs";
+import useTabs from "../../services/Hooks/useTabs";
 import ProfitView from "./Components/ProfitView";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 
 const HourMeterProfit = () => {
   const tabs = [

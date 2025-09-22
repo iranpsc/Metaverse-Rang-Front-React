@@ -5,7 +5,7 @@ import styled from "styled-components";
 import DynastySolidImg from "../../../../assets/images/Dynasty-solid.png";
 import Member from "./Components/Member";
 import UserSearch from "./Components/SearchBoxMember";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 
 // Styling for background image of component
 const DynastySolid = styled.div`

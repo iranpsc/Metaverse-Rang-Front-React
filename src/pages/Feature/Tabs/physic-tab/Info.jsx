@@ -2,7 +2,7 @@ import { BiEditAlt } from "react-icons/bi";
 
 import styled from "styled-components";
 import Title from "../../../../Components/Title";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
   margin-top: 25px;

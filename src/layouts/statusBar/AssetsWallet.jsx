@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { WalletContext } from "../../Services/Reducers/WalletContext";
+import { WalletContext } from "../../services/Reducers/WalletContext";
 import styled from "styled-components";
 import BlueSpray from "../../assets/gif/blue-color.gif";
 import RedSpray from "../../assets/gif/red-color.gif";
@@ -8,7 +8,7 @@ import YellowSpray from "../../assets/gif/yellow-color.gif";
 import Satisfaction from "../../assets/gif/satisfaction.gif";
 import Psc from "../../assets/gif/psc.gif";
 import Irr from "../../assets/gif/rial.gif";
-import { convertToPersian } from "../../Services/Utility";
+import { convertToPersian } from "../../services/Utility";
 
 const Asset = styled.div`
   display: flex;

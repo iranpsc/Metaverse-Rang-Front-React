@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { useMenuContext } from "../../../Services/Reducers/MenuContext";
+import { useMenuContext } from "../../../services/Reducers/MenuContext";
 import Message from "../../../assets/svg/message.svg";
 import ProfileMember from "../../../assets/svg/profileMember.svg";
 import Ticket from "../../../assets/svg/ticket.svg";
 import Setting from "../../../assets/svg/setting.svg";
 import { ReactComponent as DynastyIcon } from "../../../assets/svg/dynasty.svg";
 import { useState } from "react";
-import { getFieldTranslationByNames } from "../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;

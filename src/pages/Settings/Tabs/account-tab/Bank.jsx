@@ -9,9 +9,9 @@ import {
   getFieldTranslationByNames,
   ToastError,
   ToastSuccess,
-} from "../../../../Services/Utility";
+} from "../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
-import useRequest from "../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 
 const Select = styled.select`
   border-radius: 5px;

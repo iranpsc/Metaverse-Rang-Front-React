@@ -6,7 +6,7 @@ import { RxLayout } from "react-icons/rx";
 
 import styled from "styled-components";
 import TextValueIcon from "../../../../Components/TextValueIcon";
-import { getFieldTranslationByNames } from "../../../../Services/Utility";
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const RowWrapper = styled.div`
   display: flex;

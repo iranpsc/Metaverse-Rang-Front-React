@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FeatureColor } from "../../Services/Constants/FeatureType";
-import useAuth from "../../Services/Hooks/useAuth";
-import useTabs from "../../Services/Hooks/useTabs";
+import { FeatureColor } from "../../services/Constants/FeatureType";
+import useAuth from "../../services/Hooks/useAuth";
+import useTabs from "../../services/Hooks/useTabs";
 import { FeatureContext } from "./Context/FeatureProvider";
 import UnityTab from "./Tabs/3d";
 import BuyFromSystem from "./Tabs/BuyFromSystem";
@@ -12,7 +12,7 @@ import PhysicTab from "./Tabs/physic-tab/PhysicTab";
 import HistoryTab from "./Tabs/history-tab/HistoryTab";
 import ParticipationTab from "./Tabs/participation-tab/ParticipationTab";
 import BuyerTabSystem from "./Tabs/BuyFromSystem/BuyerTab";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 
 export default function ConditionalPage() {
   const { getUser } = useAuth();

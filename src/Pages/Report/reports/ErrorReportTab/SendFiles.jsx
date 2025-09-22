@@ -4,7 +4,7 @@ import Title from "../../../../Components/Title";
 import remove from "../../../../assets/images/reports/remove.png";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
-import { getFieldTranslationByNames } from "../../../../Services/Utility/index";
+import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 
 const Files = styled.div`
   display: flex;

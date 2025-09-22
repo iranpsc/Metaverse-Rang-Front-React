@@ -1,10 +1,10 @@
 import NotifCard from "./NotifCard";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import useRequest from "../../Services/Hooks/useRequest";
+import useRequest from "../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import ModalSm from "../../Components/Modal/ModalSm";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 import NoNotification from "./NoNotification";
 
 const Div = styled.div`

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import useAuth from "../../Services/Hooks/useAuth";
-import { useMenuContext } from "../../Services/Reducers/MenuContext";
+import useAuth from "../../services/Hooks/useAuth";
+import { useMenuContext } from "../../services/Reducers/MenuContext";
 import Fallowing from "./Following/Fallowing";
 import Dynasty from "./Dynasty/Dynasty";
 import Union from "./Union/Union";
@@ -13,7 +13,7 @@ import ProfileMember from "../../assets/svg/profileMember.svg";
 import Ticket from "../../assets/svg/ticket.svg";
 import Setting from "../../assets/svg/setting.svg";
 import { useNavigate } from "react-router-dom";
-import { getFieldTranslationByNames } from "../../Services/Utility";
+import { getFieldTranslationByNames } from "../../services/Utility";
 
 const Container = styled.div`
   display: flex;

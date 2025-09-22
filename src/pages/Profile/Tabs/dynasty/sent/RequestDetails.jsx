@@ -1,12 +1,12 @@
 import Button from "../../../../../Components/Button";
 import MemberCard from "./MemberCard";
-import { getFieldTranslationByNames, ToastError, ToastSuccess } from "../../../../../Services/Utility";
+import { getFieldTranslationByNames, ToastError, ToastSuccess } from "../../../../../services/Utility";
 import styled from "styled-components";
 import ModalLg from "../../../../../Components/Modal/ModalLg";
-import { UserContext } from "../../../../../Services/Reducers/UserContext";
+import { UserContext } from "../../../../../services/Reducers/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import useRequest from "../../../../../Services/Hooks/useRequest";
+import useRequest from "../../../../../services/Hooks/useRequest";
 
 const Buttons = styled.div`
   display: flex;

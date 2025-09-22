@@ -5,7 +5,7 @@ import React from "react";
 import ReactQuill from "react-quill";
 
 import styled from "styled-components";
-import { convertToPersian } from "../../../Services/Utility";
+import { convertToPersian } from "../../../services/Utility";
 
 const EditorContainer = styled.div`
   background-color: ${(props) =>
