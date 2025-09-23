@@ -15,7 +15,7 @@ import { MapContextProvider } from "./services/reducers/mapContext";
 import { ThemeProviderContext } from "./services/reducers/ThemeContext";
 import MapTreeD from "./layouts/map";
 import Menu from "./layouts/menu";
-import statusBar from "./layouts/statusBar";
+import StatusBar from "./layouts/statusBar";
 import { MenuContextProvider } from "./services/reducers/MenuContext";
 import { MapProvider } from "react-map-gl";
 import { SelectedEnvironmentProvider } from "./services/reducers/SelectedEnvironmentContext.jsx";

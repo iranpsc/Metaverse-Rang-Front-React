@@ -13,7 +13,7 @@
     "preview": "vite preview",
     "release": "standard-version",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject ./dist && sentry-cli sourcemaps upload ./dist",
-    "deploy": "git pull origin main && npm i --force && npm run build && mkdir -p public_html/metaverse && cp -rf dist/* public_html/metaverse/"
+    "deploy": "git pull origin main && npm i --force && npm run build && mkdir -p ../metaverse && cp -rf dist/* ../metaverse/"
   },
   "dependencies": {
     "@deck.gl/core": "^8.8.26",

@@ -5,7 +5,7 @@ import Status from "./Status";
 import PrivateComponent from "../../middleware/PrivateComponent";
 import PublicComponent from "../../middleware/PublicComponent";
 import ListPositions from "./ListPositions";
-
+import assetWallet from "./AssetsWallet";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -78,7 +78,7 @@ const StatusBar = () => {
     <Container>
       <WalletContainer>
         <PrivateComponent>
-          <AssetsWallet />
+     <assetWallet   />
         </PrivateComponent>
         <PublicComponent>
           <ListPositions />
