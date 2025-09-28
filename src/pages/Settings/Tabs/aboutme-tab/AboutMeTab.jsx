@@ -14,6 +14,7 @@ const Container = styled.div`
   height: 100%;
   overflow-y: auto;
   padding-right: 15px;
+  padding-left: 1%;
  
 `;
 
