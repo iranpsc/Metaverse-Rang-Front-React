@@ -73,14 +73,14 @@ const EducationsAndJob = () => {
     <Container>
       <div>
         <Label htmlFor="education">
-          {getFieldTranslationByNames("479")}
+          {getFieldTranslationByNames("1440")}
         </Label>
         <Select
           id="education"
           value={state.education || ""} 
           onChange={handleEducationChange}
         >
-          <option value="">{getFieldTranslationByNames("479")}</option>
+          <option value="">{getFieldTranslationByNames("1440")}</option>
           {educationFields.map((field) => (
             <option key={field.name} value={field.name}>
               {field.translation}

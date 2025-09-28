@@ -3,6 +3,7 @@ import loaderGif from "../assets/gif/ajax-loader.gif";
 
 const ButtonElement = styled.button`
   border-radius: 10px;
+  white-space: nowrap;
   background-color: ${(props) =>
     props.color
       ? props.disabled

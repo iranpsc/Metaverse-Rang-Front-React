@@ -65,7 +65,7 @@ const SaveInfo = () => {
             {getFieldTranslationByNames("780")}
           </p>
         </Text>
-        <Button label={getFieldTranslationByNames("782")} fit onclick={saveData} />
+        <Button  label={getFieldTranslationByNames("782")} fit onclick={saveData} />
       </Header>
     </>
   );

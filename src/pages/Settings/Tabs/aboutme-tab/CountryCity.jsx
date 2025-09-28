@@ -32,6 +32,7 @@ const Label = styled.label`
 
 const CountryCity = () => {
   const { state, dispatch } = useGlobalState();
+  
   const [fields, setFields] = useState({
     cities: [],
     countries: [],
@@ -42,6 +43,7 @@ const CountryCity = () => {
   useEffect(() => {
     if (!isFieldsLoaded) {
       const loadFields = () => {
+
         setFields({
           cities: getFieldsByTabName("misc", "iranian-cities"),
           countries: getFieldsByTabName("misc", "countries"),
@@ -53,20 +55,25 @@ const CountryCity = () => {
     }
   }, [isFieldsLoaded]);
 
-  const getTranslation = (fieldsType, stateValue) => {
-    if (!isFieldsLoaded) return "";
-    const selectedField = fields[fieldsType].find(
-      (field) => field.name.trim().toLowerCase() === stateValue?.trim().toLowerCase()
-    );
-    return selectedField ? selectedField.translation : "";
-  };
+ const getTranslation = (fieldsType, stateValue) => {
+  if (!isFieldsLoaded) return "";
+  const selectedField = fields[fieldsType].find(
+    (field) =>
+      field?.name &&
+      field.name.trim().toLowerCase() === stateValue?.trim().toLowerCase()
+  );
+  return selectedField ? selectedField.translation : "";
+};
 
-  const handleFieldChange = (fieldsType, translation, actionType) => {
-    const selectedField = fields[fieldsType].find((field) => field.translation === translation);
-    if (selectedField) {
-      dispatch({ type: actionType, payload: selectedField.name });
-    }
-  };
+
+ const handleFieldChange = (fieldsType, translation, actionType) => {
+  const selectedField = fields[fieldsType].find(
+    (field) => field?.translation === translation
+  );
+  if (selectedField) {
+    dispatch({ type: actionType, payload: selectedField.name });
+  }
+};
 
   const options = [
     {
