@@ -4,7 +4,7 @@ import {
  getFieldTranslationByNames,
  getFieldsByTabName,
 } from "../../../../services/Utility";
-import { useState } from "react";
+import { useState,useMemo} from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const Container = styled.div`
@@ -110,10 +110,12 @@ const OptionItem = styled.li`
 const EducationsAndJob = () => {
  const { state, dispatch } = useGlobalState();
  const educationFields = getFieldsByTabName("misc", "education");
-
+ console.log("education",educationFields)
+console.log("edu is" ,state.education)
  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
  const handleEducationChange = (fieldName) => {
+  console.log("fieldName",fieldName)
   dispatch({ type: "SET_EDUCATION", payload: fieldName });
   setIsDropdownOpen(false);
  };
@@ -122,10 +124,16 @@ const EducationsAndJob = () => {
   const newOccupation = e.target.value;
   dispatch({ type: "SET_OCCUPATION", payload: newOccupation });
  };
+const selectedEducation = useMemo(() => {
+  if (!state.education) return getFieldTranslationByNames("1465");
 
- const selectedEducation =
-  educationFields.find((f) => f.name === state.education)?.translation ||
-  getFieldTranslationByNames("1465");
+  const match = educationFields.find(
+    (f) => f.name === state.education
+  );
+
+  return match ? match.translation : state.education;
+}, [state.education, educationFields]);
+
 
  return (
   <Container>
@@ -151,9 +159,10 @@ const EducationsAndJob = () => {
        </OptionItem>
 
        {educationFields.map((field) => (
+        
         <OptionItem
-         key={field.name}
-         onClick={() => handleEducationChange(field.name)}
+         key={field.translation}
+         onClick={() => handleEducationChange(field.translation)}
         >
          {field.translation}
         </OptionItem>
