@@ -79,15 +79,14 @@ export const persianNumbers = [
     }
     return str;
   };
-
-export const convertToPersian = (number) => {
-  const isPersian = useLanguage();
+export const convertToPersian = (number, isPersian = true) => {
+  if (number == null) return ""; 
   if (isPersian) {
-    return number.toLocaleString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-  } else {
-    return number;
+    return number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   }
+  return number.toString();
 };
+
 
 export const convertToPersianNum = (number) => {
   const isPersian = useLanguage();

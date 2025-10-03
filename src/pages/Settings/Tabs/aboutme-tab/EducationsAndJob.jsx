@@ -172,7 +172,7 @@ const selectedEducation = useMemo(() => {
     </CustomSelectWrapper>
    </div>
    <div>
-    <Label htmlFor="job">{getFieldTranslationByNames("783")}</Label>
+    <Label htmlFor="job">{getFieldTranslationByNames("86")}</Label>
     <Input
      id="job"
      value={state.occupation || ""}

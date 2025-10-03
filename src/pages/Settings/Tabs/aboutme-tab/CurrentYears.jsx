@@ -50,7 +50,7 @@ const DropdownItem = styled.div`
 
   &:hover {
     color: white;
-    background-color: ${(props) => props.theme.colors.newColors.shades[50]};
+    background-color: ${(props) => props.theme.colors.shades[80]};
   }
 `;
 
