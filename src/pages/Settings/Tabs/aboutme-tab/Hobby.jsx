@@ -18,7 +18,7 @@ import weight from "../../../../assets/images/settings/weight.png";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useEffect, useState } from "react";
 const Container = styled.div`
-  margin-top: 20px;
+  margin-top: 40px;
 `;
 
 const Label = styled.label`
