@@ -125,13 +125,13 @@ const EducationsAndJob = () => {
 
  const selectedEducation =
   educationFields.find((f) => f.name === state.education)?.translation ||
-  getFieldTranslationByNames("1440");
+  getFieldTranslationByNames("1465");
 
  return (
   <Container>
    <div>
     <Label htmlFor="education">
-     {getFieldTranslationByNames("1440")}
+     {getFieldTranslationByNames("1465")}
     </Label>
 
     <CustomSelectWrapper>
@@ -147,7 +147,7 @@ const EducationsAndJob = () => {
      {isDropdownOpen && (
       <OptionsList>
        <OptionItem onClick={() => handleEducationChange("")}>
-        {getFieldTranslationByNames("1440")}
+        {getFieldTranslationByNames("1465")}
        </OptionItem>
 
        {educationFields.map((field) => (
