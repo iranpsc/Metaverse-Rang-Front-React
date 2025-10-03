@@ -36,7 +36,7 @@ useEffect(() => {
 
   return (
     <>
-      <Label >{getFieldTranslationByNames("801")}</Label>
+      <Label style={{paddingTop:10}}>{getFieldTranslationByNames("801")}</Label>
 
       <EditorContainer >
         <ReactQuill

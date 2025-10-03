@@ -10,8 +10,8 @@ import Alert from "../../../../components/Alert/Alert";
 const Header = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
   justify-content: space-between;
+  padding-bottom: 20px;
 `;
 const Text = styled.div`
   p {
