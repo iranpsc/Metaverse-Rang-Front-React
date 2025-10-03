@@ -89,6 +89,14 @@ export const convertToPersian = (number) => {
   }
 };
 
+export const convertToPersianNum = (number) => {
+  const isPersian = useLanguage();
+  if (isPersian) {
+    return number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  } else {
+    return number;
+  }
+};
 export const ToastError = (message) => {
   return toast.error(message, {
     style: {

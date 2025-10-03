@@ -1,6 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { getFieldTranslationByNames,convertToPersian} from "../../../../services/Utility";
+import { useState, useEffect, useMemo } from "react";
+import moment from "moment-jalaali";
+import { useLanguage } from "../../../../services/reducers/LanguageContext";
+import { convertToPersianNum, getFieldTranslationByNames } from "../../../../services/Utility";
+
 const Container = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -24,33 +27,30 @@ const DropdownButton = styled.div`
 const Arrow = styled.span`
   border: solid ${(props) => props.theme.colors.newColors.shades.title};
   border-width: 0 2px 2px 0;
-  display: inline-block;
   padding: 3px;
   transform: rotate(45deg);
   margin-left: 10px;
+  transition: transform 0.2s ease;
 `;
 
 const DropdownMenu = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
   position: absolute;
   top: 85px;
-  width: 170px;
-  margin-bottom: 20px;
+  width: 150px;
   border-radius: 4px;
   overflow: hidden;
-  z-index: 1;
-
+  z-index: 10;
 `;
 
 const DropdownItem = styled.div`
   padding: 10px;
   color: ${(props) => props.theme.colors.newColors.shades.title};
-  
   cursor: pointer;
+
   &:hover {
     color: white;
     background-color: ${(props) => props.theme.colors.newColors.shades[50]};
-
   }
 `;
 
@@ -58,12 +58,10 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
 `;
 
 const Label = styled.h2`
   color: ${(props) => props.theme.colors.newColors.shades.title};
-  display: block;
   margin-bottom: 10px;
   font-weight: 500;
   font-size: 16px;
@@ -78,35 +76,33 @@ const Content = styled.p`
   line-height: 1.6;
 `;
 
-const yearContent = {
-  "۱۴۰۳":
-    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1403",
-
-    "1403":
-    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1403",
-
-  "۱۴۰۲":
-    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1402",
-
-    "1402":
-    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1402",
-    
-  "۱۴۰۱":
-    "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1401",
-    
-  "1401":
-  "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1401",
-};
-
 const CurrentYears = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedYear, setSelectedYear] = useState(convertToPersian("1403"));
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const isPersian = useLanguage();
 
 
+  // سال جاری
+  const currentYear = useMemo(() => {
+    const now = moment();
+    return isPersian ? parseInt(moment(now).format("jYYYY")) : now.year();
+  }, [isPersian]);
+
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+
+  useEffect(() => {
+    setSelectedYear(currentYear);
+  }, [currentYear]);
+
+const years = useMemo(() => {
+  const startYear = isPersian ? 1401 : 2022;
+  return Array.from(
+    { length: currentYear - startYear + 1 },
+    (_, i) => startYear + i
+  ).reverse(); 
+}, [currentYear, isPersian]);
 
 
-  const selectYear = (year) => {
+  const handleSelectYear = (year) => {
     setSelectedYear(year);
     setIsOpen(false);
   };
@@ -116,34 +112,26 @@ const CurrentYears = () => {
       <Div>
         <Label>{getFieldTranslationByNames("802")}</Label>
         <div>
-          <DropdownButton onClick={toggleDropdown}>
-            <span>{selectedYear}</span>
-            <Arrow
-              style={{
-                transform: isOpen ? "rotate(-135deg)" : "rotate(45deg)",
-              }}
-            />
+          <DropdownButton onClick={() => setIsOpen(!isOpen)}>
+            <span>{convertToPersianNum(selectedYear)}</span>
+            <Arrow style={{ transform: isOpen ? "rotate(-135deg)" : "rotate(45deg)" }} />
           </DropdownButton>
+
           {isOpen && (
-            <DropdownMenu>  <DropdownItem  onClick={() => selectYear(convertToPersian("1404"))}>
-                {getFieldTranslationByNames("803")} {convertToPersian("1404")}
-              </DropdownItem>
-              <DropdownItem  onClick={() => selectYear(convertToPersian("1403"))}>
-                {getFieldTranslationByNames("803")} {convertToPersian("1403")}
-              </DropdownItem>
-              <DropdownItem onClick={() => selectYear(convertToPersian("1402"))}>
-                {getFieldTranslationByNames("803")} {convertToPersian("1402")}
-              </DropdownItem>
-              <DropdownItem onClick={() => selectYear(convertToPersian("1401"))}>
-                {getFieldTranslationByNames("803")} {convertToPersian("1401")}
-              </DropdownItem>
+            <DropdownMenu>
+              {years.map((y) => (
+                <DropdownItem key={y} onClick={() => handleSelectYear(y)}>
+                  {getFieldTranslationByNames("803")} {convertToPersianNum(y)}
+                </DropdownItem>
+              ))}
             </DropdownMenu>
           )}
         </div>
       </Div>
+
       <Content>
         <Label>{getFieldTranslationByNames("804")}</Label>
-        {yearContent[selectedYear]}
+        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1403
       </Content>
     </Container>
   );
