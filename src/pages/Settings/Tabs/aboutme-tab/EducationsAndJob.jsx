@@ -101,7 +101,7 @@ const OptionItem = styled.li`
   color: #84858f;
 
  &:hover {
-     background-color: ${(props) => props.theme.colors.newColors.shades[50]};
+    background-color: ${(props) => props.theme.colors.shades[80]};
     color: white;
 
  }
