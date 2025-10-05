@@ -33,7 +33,6 @@ const Label = styled.label`
  display: block;
  margin-bottom: 10px;
  font-weight: 500;
- font-size: 16px;
 `;
 
 const Input = styled.input`

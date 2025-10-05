@@ -65,6 +65,10 @@ const Label = styled.h2`
   margin-bottom: 10px;
   font-weight: 500;
   font-size: 16px;
+  @media screen and (max-width: 1050px) {
+font-size: 12px;
+
+}
 `;
 
 const Content = styled.p`

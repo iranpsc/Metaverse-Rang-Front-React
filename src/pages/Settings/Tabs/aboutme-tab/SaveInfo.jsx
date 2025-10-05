@@ -16,7 +16,6 @@ const Header = styled.div`
 const Text = styled.div`
   p {
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 16px;
     font-weight: 400;
     margin-top: 10px;
   }

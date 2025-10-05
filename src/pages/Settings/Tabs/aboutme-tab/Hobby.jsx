@@ -60,7 +60,6 @@ const Div = styled.div`
 
   h4 {
     color: ${(props) => (props.limitReached ? "red" : "#a0a0ab")};
-    font-size: 14px;
     font-weight: 400;
   }
 `;
@@ -74,7 +73,6 @@ const CheckboxLabel = styled.label`
 
   span {
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 16px;
     font-weight: 400;
     white-space: nowrap;
   }
@@ -96,7 +94,6 @@ const CheckboxLabel = styled.label`
 
       &::after {
         content: "✓";
-        font-size: 16px;
         font-weight: 600;
         color: white;
         position: absolute;

@@ -14,7 +14,12 @@ const Container = styled.div`
   overflow-y: auto;
   padding-right: 15px;
   padding-left: 1%;
+  font-size: 16px;
 
+@media screen and (max-width: 1050px) {
+font-size: 12px;
+
+}
 `;
 
 const AboutMeTab = () => {
