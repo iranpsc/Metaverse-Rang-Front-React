@@ -22,6 +22,9 @@ import useAuth from "../../services/Hooks/useAuth";
 import { useLayoutEffect } from "react";
 import { removeItem } from "../../services/Utility/LocalStorage";
 import useRequest from "../../services/Hooks/useRequest";
+import Tippy from "@tippyjs/react";
+import "tippy.js/animations/scale.css";
+import { useTranslation } from "react-i18next";
 
 const Btn = styled.button`
   display: flex;
@@ -86,6 +89,41 @@ const ValueBtn = styled.span`
   top: -3px;
 `;
 
+const createSVG = (color) => ``;
+const Tooltip = styled.div`
+  width: 146px;
+  height: 40px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconBg};
+
+  border-radius: 10px;
+  color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
+
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%; /* 36px */
+  text-transform: capitalize;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+  ::after {
+    content: "";
+    position: absolute;
+    background: ${(props) => `url('${createSVG(props.theme.tooltipBg)}')`};
+    width: 9px;
+    height: 40px;
+    right: -8px;
+    left: -8px;
+    rotate: ${(props) => (props.lang == "en" ? "0" : "180deg")};
+  }
+`;
+
 const menuItems = [
   { icon: GiftIcon, translationId: "231", navigate: "" },
   {
@@ -132,6 +170,7 @@ const BtnsMenu = () => {
   const [user, setUser] = useState();
   const [selectedItem, setSelectedItem] = useState(null); // State for selected item
   const { Request, HTTP_METHOD } = useRequest();
+  const lang = useTranslation();
 
   useLayoutEffect(() => {
     setUser(getUser());
@@ -157,34 +196,48 @@ const BtnsMenu = () => {
   return (
     <>
       {menuItems.map((item, index) => (
-        <Btn
+        <Tippy
           key={index}
-          isOpen={isOpen}
-          isSelected={selectedItem === item.translationId} // Check if the item is selected
-          onClick={() => handleClick(item)}
-          disabled={item.navigate === "" && item.translationId !== "sign out"}
-        >
-          <div>
-            <Icon
-              src={item.icon}
-              isSelected={selectedItem === item.translationId}
-            />
-            <Text
-              isOpen={isOpen}
-              isSelected={selectedItem === item.translationId}
-            >
+          content={
+            <Tooltip lang={lang.i18n.language}>
               {getFieldTranslationByNames(item.translationId)}
-            </Text>
-          </div>
-          {item.translationId === "236" && user && (
-            <ValueBtn isOpen={isOpen}>
-              %{user.hourly_profit_time_percentage}
-            </ValueBtn>
-          )}
-          {item.translationId === "238" && user && (
-            <ValueBtn isOpen={isOpen}>{user.notifications}</ValueBtn>
-          )}
-        </Btn>
+            </Tooltip>
+          }
+          zIndex={10000}
+          placement="left"
+          interactive={true}
+          delay={50}
+          animation="scale"
+          disabled={isOpen} // Only show tooltip when menu is closed
+        >
+          <Btn
+            isOpen={isOpen}
+            isSelected={selectedItem === item.translationId} // Check if the item is selected
+            onClick={() => handleClick(item)}
+            disabled={item.navigate === "" && item.translationId !== "sign out"}
+          >
+            <div>
+              <Icon
+                src={item.icon}
+                isSelected={selectedItem === item.translationId}
+              />
+              <Text
+                isOpen={isOpen}
+                isSelected={selectedItem === item.translationId}
+              >
+                {getFieldTranslationByNames(item.translationId)}
+              </Text>
+            </div>
+            {item.translationId === "236" && user && (
+              <ValueBtn isOpen={isOpen}>
+                %{user.hourly_profit_time_percentage}
+              </ValueBtn>
+            )}
+            {item.translationId === "238" && user && (
+              <ValueBtn isOpen={isOpen}>{user.notifications}</ValueBtn>
+            )}
+          </Btn>
+        </Tippy>
       ))}
       <DropDownLang />
     </>

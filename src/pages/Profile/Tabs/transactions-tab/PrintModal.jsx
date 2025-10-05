@@ -127,7 +127,7 @@ const CloseWrapper = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 100%;
-  background-color: rgb(59, 8, 8);
+  background-color: rgba(255, 0, 0, 0.17);
   cursor: pointer;
   @media (min-width: 998px) {
     width: 40px;

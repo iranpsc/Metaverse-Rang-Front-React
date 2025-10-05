@@ -8,6 +8,7 @@ import {
   getFieldTranslationByNames,
   persianNumbers,
 } from "../../../../services/Utility";
+import { ceil } from "lodash";
 
 const TableRow = styled.tr`
   background-color: transparent;
@@ -38,6 +39,7 @@ const Date = styled.h3`
 const Title = styled.h3`
   font-size: 16px;
   font-weight: 400;
+  text-align: center;
 `;
 
 const Subject = styled.div`
@@ -159,10 +161,10 @@ const TransactionRow = ({
       </TableCell>
       <TableCell>
         <div>
-          <Title>{convertToPersian(amount)}</Title>
+          <Title >{convertToPersian(amount)}</Title>
         </div>
       </TableCell>
-      <TableCell>
+      <TableCell style={{justifyContent:"center",display:"flex"}}>
         <Print onClick={() => setOpenPrint(true)}>
           <LuEye size={20} />
         </Print>

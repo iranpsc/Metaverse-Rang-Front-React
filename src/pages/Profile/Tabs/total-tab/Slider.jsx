@@ -3,7 +3,8 @@ import "swiper/css/pagination";
 import "../../../../styles/styles.css";
 
 import { Autoplay, Pagination } from "swiper/modules";
-import { LuImageMinus, LuImagePlus } from "react-icons/lu";
+import { LuImagePlus } from "react-icons/lu";
+import { HiOutlineTrash } from "react-icons/hi";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { TiWarningOutline } from "react-icons/ti";
@@ -130,7 +131,7 @@ export default function Slider() {
             <img src={image.url} alt="image" />
             <Icons>
               <IconWrapper onClick={() => deleteProfileImage(image.id)}>
-                <LuImageMinus />
+                <HiOutlineTrash />
               </IconWrapper>
               <IconWrapper>
                 <label htmlFor="add">
@@ -143,9 +144,9 @@ export default function Slider() {
                   accept="image/*"
                 />
               </IconWrapper>
-              <IconWrapper>
+              {/* <IconWrapper>
                 <TiWarningOutline />
-              </IconWrapper>
+              </IconWrapper> */}
             </Icons>
           </SwiperSlide>
         ))}

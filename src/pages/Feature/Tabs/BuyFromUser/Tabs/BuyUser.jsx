@@ -6,7 +6,7 @@ import IconIrr from "../../../../../assets/images/coin-irr.png";
 import IconPsc from "../../../../../assets/images/coin-psc.png";
 import Specification from "../../../components/Specification";
 import { FeatureContext } from "../../../Context/FeatureProvider";
-import { calculateFee, ToastError } from "../../../../../services/Utility";
+import { calculateFee, ToastError, ToastSuccess } from "../../../../../services/Utility";
 import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
@@ -53,6 +53,7 @@ export default function BuyUser() {
     Request(`features/buy/${feature?.id}`, HTTP_METHOD.POST)
       .then((response) => {
         Navigate(FeatureSvg(feature?.properties?.rgb));
+        ToastSuccess ("خرید انجام شد ")
       })
       .catch((error) => {
     
