@@ -7,6 +7,9 @@ export const EditorContainer = styled.div`
   color: white;
   margin: 10px auto;
   height: 212px;
+  @media (max-width: 1024px) {
+      font-size: 14px;
+  }
 
   .ql-toolbar {
     background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
@@ -55,6 +58,9 @@ export const Label = styled.h2`
   font-weight: 500;
  font-size: 16px;
   margin-top: 20px;
+  @media (max-width: 1024px) {
+      font-size: 14px;
+  }
 
 `;
 

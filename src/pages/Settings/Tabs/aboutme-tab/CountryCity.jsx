@@ -30,6 +30,9 @@ const Label = styled.label`
   font-weight: 600;
   font-size: 16px;
   margin-top: 20px;
+ @media (max-width: 1024px) {
+      font-size: 14px;
+  }
 `;
 
 

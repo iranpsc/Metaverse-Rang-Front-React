@@ -19,6 +19,7 @@ const Text = styled.div`
     font-weight: 400;
     margin-top: 10px;
   }
+  
 `;
 
 const SaveInfo = () => {

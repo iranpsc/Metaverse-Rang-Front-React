@@ -36,6 +36,9 @@ const Label = styled.label`
  
  font-size: 16px;
   margin-top: 20px;
+  @media (max-width: 1024px) {
+      font-size: 14px;
+  }
 `;
 
 const Input = styled.input`
@@ -48,8 +51,11 @@ const Input = styled.input`
  color: ${(props) => props.theme.colors.newColors.shades.title};
  padding: 10px 12px;
  outline: none;
-   font-size: 16px;
-
+input {
+  font-size: 16px;
+  transform: scale(0.875); /* مثلاً ظاهراً بشه حدود 14px */
+  transform-origin: left center; /* تا جای خودش تکون نخوره */
+}
 `;
 
 const CustomSelectWrapper = styled.div`
