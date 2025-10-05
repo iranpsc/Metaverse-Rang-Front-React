@@ -34,21 +34,20 @@ const Label = styled.label`
  margin-bottom: 10px;
  font-weight: 500;
 `;
-const Input = styled.input`
-  width: 100%;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  border: 1px solid #454545;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  padding: 10px 12px;
-  outline: none;
-  font-size: 16px; 
-  -webkit-text-size-adjust: 100%;
-  touch-action: manipulation;
-`;
 
+const Input = styled.input`
+ width: 100%;
+ margin-bottom: 20px;
+ border-radius: 5px;
+ border: 1px solid #454545;
+ background-color: ${(props) =>
+  props.theme.colors.newColors.otherColors.inputBg};
+ color: ${(props) => props.theme.colors.newColors.shades.title};
+ padding: 10px 12px;
+ outline: none;
+   font-size: 16px;
+
+`;
 
 const CustomSelectWrapper = styled.div`
  position: relative;

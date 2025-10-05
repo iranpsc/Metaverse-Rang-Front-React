@@ -15,9 +15,7 @@ const Container = styled.div`
   padding-right: 15px;
   padding-left: 1%;
     font-size: 16px;
-@media (max-width: 1024px) {
-      font-size: 14px;
-  }
+
 `;
 
 const AboutMeTab = () => {
