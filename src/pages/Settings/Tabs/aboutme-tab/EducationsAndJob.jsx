@@ -45,6 +45,8 @@ const Input = styled.input`
  color: ${(props) => props.theme.colors.newColors.shades.title};
  padding: 10px 12px;
  outline: none;
+   font-size: 16px;
+
 `;
 
 const CustomSelectWrapper = styled.div`

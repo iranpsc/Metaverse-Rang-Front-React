@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import moment from "moment-jalaali";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { convertToPersianNum, getFieldTranslationByNames } from "../../../../services/Utility";
+import {Label} from "../../../../components/editorContainerStyle";
 
 const Container = styled.div`
   position: relative;
@@ -58,17 +59,6 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const Label = styled.h2`
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  margin-bottom: 10px;
-  font-weight: 500;
-  font-size: 16px;
-  @media screen and (max-width: 1050px) {
-font-size: 12px;
-
-}
 `;
 
 const Content = styled.p`
