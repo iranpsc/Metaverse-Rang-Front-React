@@ -55,7 +55,7 @@ const AssetItem = ({ title, value, img, index, totalassets }) => (
   </>
 );
 
-const assetsWallet = () => {
+const AssetsWallet = () => {
   const [wallet] = useContext(WalletContext);
 
   const assets = [
@@ -83,4 +83,4 @@ const assetsWallet = () => {
   );
 };
 
-export default assetsWallet;
+export default AssetsWallet;
