@@ -20,22 +20,12 @@ import { useEffect, useState } from "react";
 import { useTheme } from "../../../../services/reducers/ThemeContext";
 const Container = styled.div`
   margin-top: 40px;
-    @media (max-width: 1024px) {
-      font-size: 14px;
-  }
 `;
 
 const Label = styled.label`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   display: block;
   font-weight: 600;
-  
-  
-  font-size: 16px;
-  margin-top: 20px;
-  @media (max-width: 1024px) {
-      font-size: 14px;
-  }
 `;
 const HobbyIcon = styled.img`
   width: 24px;

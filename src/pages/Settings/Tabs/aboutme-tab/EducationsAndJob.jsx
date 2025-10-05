@@ -15,9 +15,7 @@ const Container = styled.div`
  align-items: center;
  gap: 20px;
  padding-top: 20px;
-@media (max-width: 1024px) {
-      font-size: 14px;
-  }
+
  div {
   width: 100%;
  }
@@ -35,12 +33,6 @@ const Label = styled.label`
  display: block;
  margin-bottom: 10px;
  font-weight: 500;
- 
- font-size: 16px;
-  margin-top: 20px;
-  @media (max-width: 1024px) {
-      font-size: 14px;
-  }
 `;
 
 const Input = styled.input`
@@ -53,18 +45,17 @@ const Input = styled.input`
  color: ${(props) => props.theme.colors.newColors.shades.title};
  padding: 10px 12px;
  outline: none;
-input {
-  font-size: 16px;
-  transform: scale(0.875); /* مثلاً ظاهراً بشه حدود 14px */
-  transform-origin: left center; /* تا جای خودش تکون نخوره */
-}
+   font-size: 16px;
+   @media (max-width: 1024px) {
+  zoom: 0.875;
+  }
+
 `;
 
 const CustomSelectWrapper = styled.div`
  position: relative;
  width: 100%;
  margin-bottom: 20px;
- 
 `;
 
 const SelectHeader = styled.div`

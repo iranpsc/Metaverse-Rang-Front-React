@@ -10,9 +10,6 @@ const Container = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 8px;
   padding-top: 30px;
-  @media (max-width: 1024px) {
-      font-size: 14px;
-  }
 `;
 
 const DropdownButton = styled.div`
@@ -71,9 +68,6 @@ const Content = styled.p`
   border-radius: 5px;
   margin-top: 20px;
   line-height: 1.6;
-  @media (max-width: 1024px) {
-      font-size: 14px;
-  }
 `;
 
 const CurrentYears = () => {
