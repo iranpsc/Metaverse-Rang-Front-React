@@ -32,7 +32,11 @@ const Label = styled.label`
  color: ${(props) => props.theme.colors.newColors.shades.title};
  display: block;
  margin-bottom: 10px;
- font-weight: 500;
+ font-weight: 500;font-size: 16px;
+  @media screen and (max-width: 1050px) {
+font-size: 14px;
+
+}  margin-top: 20px;
 `;
 
 const Input = styled.input`
@@ -45,7 +49,7 @@ const Input = styled.input`
  color: ${(props) => props.theme.colors.newColors.shades.title};
  padding: 10px 12px;
  outline: none;
-   font-size: 16px;
+   font-size: 14px;
 
 `;
 

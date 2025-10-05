@@ -25,7 +25,11 @@ const Container = styled.div`
 const Label = styled.label`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   display: block;
-  font-weight: 600;
+  font-weight: 600;font-size: 16px;
+  @media screen and (max-width: 1050px) {
+font-size: 14px;
+
+}  margin-top: 20px;
 `;
 const HobbyIcon = styled.img`
   width: 24px;

@@ -28,6 +28,11 @@ const Label = styled.label`
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
+  font-size: 16px;
+  @media screen and (max-width: 1050px) {
+font-size: 14px;
+
+}  margin-top: 20px;
 `;
 
 
