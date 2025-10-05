@@ -12,6 +12,9 @@ const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-bottom: 20px;
+  @media (max-width: 1024px) {
+      font-size: 14px;
+  }
 `;
 const Text = styled.div`
   p {

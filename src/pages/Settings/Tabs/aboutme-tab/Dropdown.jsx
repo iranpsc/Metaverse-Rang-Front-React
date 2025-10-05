@@ -5,6 +5,9 @@ import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const DropdownContainer = styled.div`
   position: relative;
+  @media (max-width: 1024px) {
+      font-size: 14px;
+  }
 `;
 
 const DropdownButton = styled.div`

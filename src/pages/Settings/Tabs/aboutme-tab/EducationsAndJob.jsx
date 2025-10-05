@@ -15,7 +15,9 @@ const Container = styled.div`
  align-items: center;
  gap: 20px;
  padding-top: 20px;
-
+@media (max-width: 1024px) {
+      font-size: 14px;
+  }
  div {
   width: 100%;
  }
@@ -62,6 +64,7 @@ const CustomSelectWrapper = styled.div`
  position: relative;
  width: 100%;
  margin-bottom: 20px;
+ 
 `;
 
 const SelectHeader = styled.div`
