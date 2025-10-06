@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 export const EditorContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
@@ -7,7 +6,6 @@ export const EditorContainer = styled.div`
   color: white;
   margin: 10px auto;
   height: 212px;
-  font-size: 16px;
 
   .ql-toolbar {
     background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
@@ -16,16 +14,29 @@ export const EditorContainer = styled.div`
   }
 
   .ql-container {
-    background-color:${(props) => props.theme.colors.newColors.otherColors.inputBg};
+    background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
     color: ${(props) => props.theme.colors.newColors.shades.title};
     border: none;
     overflow: auto;
     max-height: 150px;
   }
 
-  .ql-editor {
+  /* اینجا با && اولویت دادیم */
+  && .ql-editor {
     min-height: 150px;
     text-align: unset;
+    font-size: 18px !important; /* حالا واقعاً اعمال میشه */
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    font-family: "AzarMehr" !important;
+  }
+
+  /* placeholder */
+  && .ql-editor::before {
+    font-size: inherit !important;
+    color: #888;
+    opacity: 0.7;
+    font-family: "AzarMehr" !important;
   }
 
   .ql-toolbar .ql-picker {
@@ -34,21 +45,24 @@ export const EditorContainer = styled.div`
 
   .ql-toolbar .ql-stroke {
     stroke: ${(props) => props.theme.colors.newColors.shades.title};
-  
   }
 
   .ql-toolbar .ql-fill {
     fill: ${(props) => props.theme.colors.newColors.shades.title};
-   
-   
   }
 
   .ql-toolbar .ql-picker-options {
     border: 1px solid #555;
-    
   }
-  
+
+  @media (max-width: 700px) {
+    && .ql-editor {
+      font-size: 15px !important; /* تو موبایل کوچیک‌تر */
+      -webkit-text-size-adjust: 100%;
+    }
+  }
 `;
+
 export const Label = styled.h2`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   display: block;
