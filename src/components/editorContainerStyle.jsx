@@ -7,6 +7,7 @@ export const EditorContainer = styled.div`
   color: white;
   margin: 10px auto;
   height: 212px;
+  font-size: 16px;
 
   .ql-toolbar {
     background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
