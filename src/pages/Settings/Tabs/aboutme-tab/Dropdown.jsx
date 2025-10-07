@@ -45,6 +45,7 @@ const DropdownItem = styled.div`
 
 const SearchInput = styled.input`
   width: 92%;
+  font-size: 16px;
   padding: 10px 12px;
   border: none;
   border-bottom: 1px solid #454545;
