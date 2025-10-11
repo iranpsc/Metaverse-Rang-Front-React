@@ -37,8 +37,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
-  position: absolute;
+  height: 100vh;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.713);
   z-index: 10;
 `;

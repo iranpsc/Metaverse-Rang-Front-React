@@ -109,78 +109,96 @@ const OptionItem = styled.li`
 `;
 
 const EducationsAndJob = () => {
-  const { state, dispatch } = useGlobalState();
-  const educationFields = getFieldsByTabName("misc", "education");
+ const { state, dispatch } = useGlobalState();
+ const educationFields = getFieldsByTabName("misc", "education");
   const educationFieldsReverse = getFieldsByTabNameReverse("misc", "education");
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+ const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const handleEducationChange = (fieldName) => {
-    dispatch({ type: "SET_EDUCATION", payload: fieldName });
-    setIsDropdownOpen(false);
-  };
+ const handleEducationChange = (fieldName) => {
+  dispatch({ type: "SET_EDUCATION", payload: fieldName });
+  setIsDropdownOpen(false);
+ };
 
-  const handleJobChange = (e) => {
-    dispatch({ type: "SET_OCCUPATION", payload: e.target.value });
-  };
+ const handleJobChange = (e) => {
+  const newOccupation = e.target.value;
+  dispatch({ type: "SET_OCCUPATION", payload: newOccupation });
+ };
 
-  const selectedEducation = useMemo(() => {
-    if (!state.education) return getFieldTranslationByNames("1465");
+console.log("educationFields", educationFieldsReverse);
+const selectedEducation = useMemo(() => {
+  if (!state.education) return getFieldTranslationByNames("1465"); // "تحصیلات"
 
-    const match = educationFields.find(f => f.translation === state.education);
-    if (match) return match.translation;
-
-    const reverseMatch = educationFieldsReverse.find(f => f.translation === state.education);
-    if (reverseMatch) return getFieldTranslationByNames(String(reverseMatch.unique_id || reverseMatch.id));
-
-    return state.education;
-  }, [state.education, educationFields, educationFieldsReverse]);
-
-  return (
-    <Container>
-      <div>
-        <Label htmlFor="education">{getFieldTranslationByNames("1465")}</Label>
-        <CustomSelectWrapper>
-          <SelectHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-            <span>{selectedEducation}</span>
-            {isDropdownOpen ? (
-              <IoIosArrowUp size={18} color="#84858f" />
-            ) : (
-              <IoIosArrowDown size={18} color="#84858f" />
-            )}
-          </SelectHeader>
-
-          {isDropdownOpen && (
-            <OptionsList>
-              <OptionItem onClick={() => handleEducationChange("")}>
-                {getFieldTranslationByNames("1465")}
-              </OptionItem>
-
-              {educationFields.map(field => (
-                <OptionItem
-                  key={field.translation}
-                  onClick={() => handleEducationChange(field.translation)}
-                >
-                  {field.translation}
-                </OptionItem>
-              ))}
-            </OptionsList>
-          )}
-        </CustomSelectWrapper>
-      </div>
-
-      <div>
-        <Label htmlFor="job">{getFieldTranslationByNames("86")}</Label>
-        <Input
-          id="job"
-          value={state.occupation || ""}
-          onChange={handleJobChange}
-          placeholder={getFieldTranslationByNames("783")}
-          maxLength={25}
-        />
-      </div>
-    </Container>
+  // اول توی educationFields اصلی بگرد (زبان فعلی)
+  const match = educationFields.find(
+    (f) => f.translation === state.education
   );
+
+  if (match) return match.translation;
+
+  // اگر پیدا نشد، توی educationFieldsReverse بگرد (زبان برعکس)
+  const reverseMatch = educationFieldsReverse.find(
+    (f) => f.translation === state.education
+  );
+
+  if (reverseMatch) {
+    // بجای نمایش آی‌دی، ترجمه اون آی‌دی رو برگردون
+    return getFieldTranslationByNames(String(reverseMatch.unique_id || reverseMatch.id));
+  }
+
+  // اگر هیچ‌کدوم نبود، همون مقدار خام رو نشون بده
+  return state.education;
+}, [state.education, educationFields, educationFieldsReverse]);
+
+
+ return (
+  <Container>
+   <div>
+    <Label htmlFor="education">
+     {getFieldTranslationByNames("1465")}
+    </Label>
+
+    <CustomSelectWrapper>
+     <SelectHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+      <span>{selectedEducation}</span>
+      {isDropdownOpen ? (
+       <IoIosArrowUp size={18} color="#84858f" />
+      ) : (
+       <IoIosArrowDown size={18} color="#84858f" />
+      )}
+     </SelectHeader>
+
+     {isDropdownOpen && (
+      <OptionsList>
+       <OptionItem onClick={() => handleEducationChange("")}>
+        {getFieldTranslationByNames("1465")}
+       </OptionItem>
+
+       {educationFields.map((field) => (
+        
+        <OptionItem
+         key={field.translation}
+         onClick={() => handleEducationChange(field.translation)}
+        >
+         {field.translation}
+        </OptionItem>
+       ))}
+      </OptionsList>
+     )}
+    </CustomSelectWrapper>
+   </div>
+   <div>
+    <Label htmlFor="job">{getFieldTranslationByNames("86")}</Label>
+    <Input
+     id="job"
+     value={state.occupation || ""}
+     onChange={handleJobChange}
+     placeholder={getFieldTranslationByNames("783")}
+     maxLength={25}
+    />
+   </div>
+  </Container>
+ );
 };
 
 export default EducationsAndJob;

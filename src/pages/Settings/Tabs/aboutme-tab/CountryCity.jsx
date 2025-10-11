@@ -138,7 +138,20 @@ const getTranslation = (fieldsType, stateValue) => {
       actionType: "SET_LANGUAGE"
     }
   ];
- 
+  useEffect(() => {
+  console.log("=== STATE UPDATED ===");
+
+  options.forEach((option) => {
+    const translation = getTranslation(option.type, option.stateValue);
+
+    console.log(`🔹 Option type: ${option.type}`);
+    console.log(`   └─ stateValue: "${option.stateValue}"`);
+    console.log(`   └─ translation result: "${translation}"`);
+  });
+}, [state]);
+// فرض: fields ساختاری شبیه این داره
+// fields = { cities: [...], countries: [...], languages: [...] }
+
 
 
   return (
