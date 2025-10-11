@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import {
  getFieldTranslationByNames,
- getFieldsByTabName,
+ getFieldsByTabName,getFieldsByTabNameReverse
 } from "../../../../services/Utility";
 import { useState,useMemo} from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -111,6 +111,8 @@ const OptionItem = styled.li`
 const EducationsAndJob = () => {
  const { state, dispatch } = useGlobalState();
  const educationFields = getFieldsByTabName("misc", "education");
+  const educationFieldsReverse = getFieldsByTabNameReverse("misc", "education");
+
  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
  const handleEducationChange = (fieldName) => {
@@ -122,15 +124,27 @@ const EducationsAndJob = () => {
   const newOccupation = e.target.value;
   dispatch({ type: "SET_OCCUPATION", payload: newOccupation });
  };
+
+
+
+const isPersianText = (text) => /[\u0600-\u06FF]/.test(text);
+
 const selectedEducation = useMemo(() => {
   if (!state.education) return getFieldTranslationByNames("1465");
 
-  const match = educationFields.find(
-    (f) => f.name === state.education
-  );
+  const isPersian = isPersianText(state.education);
 
-  return match ? match.translation : state.education;
-}, [state.education, educationFields]);
+  const primaryFields = isPersian ? educationFields : educationFieldsReverse;
+  const secondaryFields = isPersian ? educationFieldsReverse : educationFields;
+
+  const match = primaryFields.find(f => f.translation === state.education);
+  if (match) return getFieldTranslationByNames(String(match.unique_id || match.id));
+
+  const reverseMatch = secondaryFields.find(f => f.translation === state.education);
+  if (reverseMatch) return getFieldTranslationByNames(String(reverseMatch.unique_id || reverseMatch.id));
+
+  return state.education;
+}, [state.education, educationFields, educationFieldsReverse]);
 
 
  return (

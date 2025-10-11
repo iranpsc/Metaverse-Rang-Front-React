@@ -2,7 +2,7 @@ import Dropdown from "./Dropdown";
 import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { useEffect, useState } from "react";
-import { getFieldTranslationByNames, getFieldsByTabName } from "../../../../services/Utility";
+import { getFieldTranslationByNames, getFieldsByTabName,getFieldsByTabNameReverse } from "../../../../services/Utility";
 const Container = styled.div`
   margin-top: 20px;
   display: flex;
@@ -39,32 +39,64 @@ const CountryCity = () => {
     countries: [],
     languages: []
   });
+   const [fieldsReverse, setFieldsReverse] = useState({
+    cities: [],
+    countries: [],
+    languages: []
+  });
+
   const [isFieldsLoaded, setIsFieldsLoaded] = useState(false);
 
   useEffect(() => {
     if (!isFieldsLoaded) {
       const loadFields = () => {
-
-        setFields({
+        const normalFields = {
           cities: getFieldsByTabName("misc", "iranian-cities"),
           countries: getFieldsByTabName("misc", "countries"),
           languages: getFieldsByTabName("misc", "languages")
-        });
+        };
+
+        const reversedFields = {
+          cities: getFieldsByTabNameReverse("misc", "iranian-cities"),
+          countries: getFieldsByTabNameReverse("misc", "countries"),
+          languages: getFieldsByTabNameReverse("misc", "languages")
+        };
+
+        setFields(normalFields);
+        setFieldsReverse(reversedFields);
         setIsFieldsLoaded(true);
+
       };
+
       loadFields();
     }
   }, [isFieldsLoaded]);
-console.log("fields",fields)
- const getTranslation = (fieldsType, stateValue) => {
-  if (!isFieldsLoaded) return "";
-  const selectedField = fields[fieldsType].find(
-    (field) =>
-      field?.translation &&
-      field.translation.trim().toLowerCase() === stateValue?.trim().toLowerCase()
+const isPersianText = (text) => /[\u0600-\u06FF]/.test(text);
+
+const getTranslation = (fieldsType, stateValue) => {
+  if (!isFieldsLoaded || !stateValue) return "";
+
+  const normalizedValue = stateValue.trim().toLowerCase();
+  const isPersian = isPersianText(stateValue);
+
+  const primaryFields = isPersian ? fields[fieldsType] : fieldsReverse[fieldsType];
+  const secondaryFields = isPersian ? fieldsReverse[fieldsType] : fields[fieldsType];
+
+  const selectedField = primaryFields.find(
+    (field) => field?.translation?.trim().toLowerCase() === normalizedValue
   );
-  return selectedField ? selectedField.translation : stateValue;
+
+  if (selectedField) return getFieldTranslationByNames(selectedField.unique_id);
+
+  const reversedField = secondaryFields.find(
+    (field) => field?.translation?.trim().toLowerCase() === normalizedValue
+  );
+
+  if (reversedField) return getFieldTranslationByNames(reversedField.unique_id);
+
+  return "";
 };
+
 
 
  const handleFieldChange = (fieldsType, translation, actionType) => {
@@ -72,7 +104,7 @@ console.log("fields",fields)
     (field) => field?.translation === translation
   );
   if (selectedField) {
-    dispatch({ type: actionType, payload: selectedField.name });
+    dispatch({ type: actionType, payload: selectedField.translation });
   }
 };
 
@@ -96,21 +128,6 @@ console.log("fields",fields)
       actionType: "SET_LANGUAGE"
     }
   ];
-  useEffect(() => {
-  console.log("=== STATE UPDATED ===");
-
-  options.forEach((option) => {
-    const translation = getTranslation(option.type, option.stateValue);
-
-    console.log(`🔹 Option type: ${option.type}`);
-    console.log(`   └─ stateValue: "${option.stateValue}"`);
-    console.log(`   └─ translation result: "${translation}"`);
-  });
-}, [state]);
-// فرض: fields ساختاری شبیه این داره
-// fields = { cities: [...], countries: [...], languages: [...] }
-
-
 
   return (
     <Container>
