@@ -30,67 +30,116 @@ const Label = styled.label`
   font-weight: 600;
 `;
 
+
 const CountryCity = () => {
   const { state, dispatch } = useGlobalState();
   
-  const [fields, setFields] = useState({ cities: [], countries: [], languages: [] });
-  const [fieldsReverse, setFieldsReverse] = useState({ cities: [], countries: [], languages: [] });
+  const [fields, setFields] = useState({
+    cities: [],
+    countries: [],
+    languages: []
+  });
+   const [fieldsReverse, setFieldsReverse] = useState({
+    cities: [],
+    countries: [],
+    languages: []
+  });
+
   const [isFieldsLoaded, setIsFieldsLoaded] = useState(false);
 
   useEffect(() => {
     if (!isFieldsLoaded) {
-      const normalFields = {
-        cities: getFieldsByTabName("misc", "iranian-cities"),
-        countries: getFieldsByTabName("misc", "countries"),
-        languages: getFieldsByTabName("misc", "languages")
+      const loadFields = () => {
+        // زبان نرمال
+        const normalFields = {
+          cities: getFieldsByTabName("misc", "iranian-cities"),
+          countries: getFieldsByTabName("misc", "countries"),
+          languages: getFieldsByTabName("misc", "languages")
+        };
+
+        // زبان برعکس
+        const reversedFields = {
+          cities: getFieldsByTabNameReverse("misc", "iranian-cities"),
+          countries: getFieldsByTabNameReverse("misc", "countries"),
+          languages: getFieldsByTabNameReverse("misc", "languages")
+        };
+
+        setFields(normalFields);
+        setFieldsReverse(reversedFields);
+        setIsFieldsLoaded(true);
+
       };
 
-      const reversedFields = {
-        cities: getFieldsByTabNameReverse("misc", "iranian-cities"),
-        countries: getFieldsByTabNameReverse("misc", "countries"),
-        languages: getFieldsByTabNameReverse("misc", "languages")
-      };
-
-      setFields(normalFields);
-      setFieldsReverse(reversedFields);
-      setIsFieldsLoaded(true);
+      loadFields();
     }
   }, [isFieldsLoaded]);
 
-  const getTranslation = (fieldsType, stateValue) => {
-    if (!isFieldsLoaded || !stateValue) return "";
+const getTranslation = (fieldsType, stateValue) => {
+  if (!isFieldsLoaded || !stateValue) return "";
 
-    const normalizedValue = stateValue.trim().toLowerCase();
+  const normalizedValue = stateValue.trim().toLowerCase();
 
-    const selectedField =
-      fields[fieldsType]?.find(
-        (field) => field?.translation?.trim().toLowerCase() === normalizedValue
-      );
+  // جست‌وجو در فیلدهای زبان فعلی
+  const selectedField =
+    fields[fieldsType]?.find(
+      (field) =>
+        field?.translation &&
+        field.translation.trim().toLowerCase() === normalizedValue
+    ) || null;
 
-    if (selectedField) return getFieldTranslationByNames(selectedField.unique_id);
+  if (selectedField) {
+    return getFieldTranslationByNames(selectedField.unique_id);
+  }
 
-    const reversedField =
-      fieldsReverse[fieldsType]?.find(
-        (field) => field?.translation?.trim().toLowerCase() === normalizedValue
-      );
+  // اگر در زبان فعلی پیدا نشد، در نسخه برعکس بگرد
+  const reversedField =
+    fieldsReverse[fieldsType]?.find(
+      (field) =>
+        field?.translation &&
+        field.translation.trim().toLowerCase() === normalizedValue
+    ) || null;
 
-    if (reversedField) return getFieldTranslationByNames(reversedField.unique_id);
+  if (reversedField) {
+    return getFieldTranslationByNames(reversedField.unique_id);
+  }
 
-    return "";
-  };
+  // اگر هیچ‌کدام پیدا نشد
+  return "";
+};
 
-  const handleFieldChange = (fieldsType, translation, actionType) => {
-    const selectedField = fields[fieldsType].find((field) => field?.translation === translation);
-    if (selectedField) {
-      dispatch({ type: actionType, payload: selectedField.translation });
-    }
-  };
+
+
+ const handleFieldChange = (fieldsType, translation, actionType) => {
+  const selectedField = fields[fieldsType].find(
+    (field) => field?.translation === translation
+  );
+  if (selectedField) {
+    dispatch({ type: actionType, payload: selectedField.translation });
+  }
+};
 
   const options = [
-    { type: "cities", translationId: "797", stateValue: state.city, actionType: "SET_CITY" },
-    { type: "countries", translationId: "798", stateValue: state.country, actionType: "SET_COUNTRY" },
-    { type: "languages", translationId: "799", stateValue: state.language, actionType: "SET_LANGUAGE" }
+    {
+      type: "cities",
+      translationId: "797",
+      stateValue: state.city,
+      actionType: "SET_CITY"
+    },
+    {
+      type: "countries",
+      translationId: "798",
+      stateValue: state.country,
+      actionType: "SET_COUNTRY"
+    },
+    {
+      type: "languages",
+      translationId: "799",
+      stateValue: state.language,
+      actionType: "SET_LANGUAGE"
+    }
   ];
+ 
+
 
   return (
     <Container>
