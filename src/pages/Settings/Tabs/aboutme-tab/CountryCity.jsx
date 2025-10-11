@@ -2,7 +2,7 @@ import Dropdown from "./Dropdown";
 import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { useEffect, useState } from "react";
-import { getFieldTranslationByNames, getFieldsByTabName } from "../../../../services/Utility";
+import { getFieldTranslationByNames, getFieldsByTabName,getFieldsByTabNameReverse } from "../../../../services/Utility";
 const Container = styled.div`
   margin-top: 20px;
   display: flex;
@@ -30,71 +30,66 @@ const Label = styled.label`
   font-weight: 600;
 `;
 
-
 const CountryCity = () => {
   const { state, dispatch } = useGlobalState();
   
-  const [fields, setFields] = useState({
-    cities: [],
-    countries: [],
-    languages: []
-  });
+  const [fields, setFields] = useState({ cities: [], countries: [], languages: [] });
+  const [fieldsReverse, setFieldsReverse] = useState({ cities: [], countries: [], languages: [] });
   const [isFieldsLoaded, setIsFieldsLoaded] = useState(false);
 
   useEffect(() => {
     if (!isFieldsLoaded) {
-      const loadFields = () => {
-
-        setFields({
-          cities: getFieldsByTabName("misc", "iranian-cities"),
-          countries: getFieldsByTabName("misc", "countries"),
-          languages: getFieldsByTabName("misc", "languages")
-        });
-        setIsFieldsLoaded(true);
+      const normalFields = {
+        cities: getFieldsByTabName("misc", "iranian-cities"),
+        countries: getFieldsByTabName("misc", "countries"),
+        languages: getFieldsByTabName("misc", "languages")
       };
-      loadFields();
+
+      const reversedFields = {
+        cities: getFieldsByTabNameReverse("misc", "iranian-cities"),
+        countries: getFieldsByTabNameReverse("misc", "countries"),
+        languages: getFieldsByTabNameReverse("misc", "languages")
+      };
+
+      setFields(normalFields);
+      setFieldsReverse(reversedFields);
+      setIsFieldsLoaded(true);
     }
   }, [isFieldsLoaded]);
 
- const getTranslation = (fieldsType, stateValue) => {
-  if (!isFieldsLoaded) return "";
-  const selectedField = fields[fieldsType].find(
-    (field) =>
-      field?.name &&
-      field.name.trim().toLowerCase() === stateValue?.trim().toLowerCase()
-  );
-  return selectedField ? selectedField.translation : "";
-};
+  const getTranslation = (fieldsType, stateValue) => {
+    if (!isFieldsLoaded || !stateValue) return "";
 
+    const normalizedValue = stateValue.trim().toLowerCase();
 
- const handleFieldChange = (fieldsType, translation, actionType) => {
-  const selectedField = fields[fieldsType].find(
-    (field) => field?.translation === translation
-  );
-  if (selectedField) {
-    dispatch({ type: actionType, payload: selectedField.name });
-  }
-};
+    const selectedField =
+      fields[fieldsType]?.find(
+        (field) => field?.translation?.trim().toLowerCase() === normalizedValue
+      );
+
+    if (selectedField) return getFieldTranslationByNames(selectedField.unique_id);
+
+    const reversedField =
+      fieldsReverse[fieldsType]?.find(
+        (field) => field?.translation?.trim().toLowerCase() === normalizedValue
+      );
+
+    if (reversedField) return getFieldTranslationByNames(reversedField.unique_id);
+
+    return "";
+  };
+
+  const handleFieldChange = (fieldsType, translation, actionType) => {
+    const selectedField = fields[fieldsType].find((field) => field?.translation === translation);
+    if (selectedField) {
+      dispatch({ type: actionType, payload: selectedField.translation });
+    }
+  };
 
   const options = [
-    {
-      type: "cities",
-      translationId: "797",
-      stateValue: state.loved_city,
-      actionType: "SET_CITY"
-    },
-    {
-      type: "countries",
-      translationId: "798",
-      stateValue: state.loved_country,
-      actionType: "SET_COUNTRY"
-    },
-    {
-      type: "languages",
-      translationId: "799",
-      stateValue: state.loved_language,
-      actionType: "SET_LANGUAGE"
-    }
+    { type: "cities", translationId: "797", stateValue: state.city, actionType: "SET_CITY" },
+    { type: "countries", translationId: "798", stateValue: state.country, actionType: "SET_COUNTRY" },
+    { type: "languages", translationId: "799", stateValue: state.language, actionType: "SET_LANGUAGE" }
   ];
 
   return (

@@ -168,6 +168,52 @@ export const getFieldsByTabName = (modalName, tabName) => {
   return tab.fields;
 };
 
+
+export const getFieldsByTabNameReverse = (modalName, tabName) => {
+  const resources = i18n.store.data;
+  const currentLang = i18n.language;
+  const oppositeLang = currentLang === "fa" ? "en" : "fa";
+
+  // تب در زبان فعلی
+  const modalCurrent = resources[currentLang]?.translation?.modals?.find(
+    (modal) => modal.name === modalName
+  );
+  const tabCurrent = modalCurrent?.tabs?.find((tab) => tab.name === tabName);
+
+  // تب در زبان مخالف (برای ترجمه برعکس)
+  const modalOpposite = resources[oppositeLang]?.translation?.modals?.find(
+    (modal) => modal.name === modalName
+  );
+  const tabOpposite = modalOpposite?.tabs?.find((tab) => tab.name === tabName);
+
+  if (!tabCurrent || !tabOpposite) return [];
+
+  return tabCurrent.fields.map((field) => {
+    const oppositeField = tabOpposite.fields.find(
+      (f) => f.unique_id === field.unique_id
+    );
+
+    return {
+      ...field,
+      translation: oppositeField?.translation || field.translation,
+    };
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export function convertEnglishToPersianNumbers(inputText) {
   const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
