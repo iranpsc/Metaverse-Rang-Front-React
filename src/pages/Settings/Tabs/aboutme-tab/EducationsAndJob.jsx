@@ -125,28 +125,25 @@ const EducationsAndJob = () => {
   dispatch({ type: "SET_OCCUPATION", payload: newOccupation });
  };
 
-console.log("educationFields", educationFieldsReverse);
+
+
+const isPersianText = (text) => /[\u0600-\u06FF]/.test(text);
+console.log("isPersianText", isPersianText(state.education));
+
 const selectedEducation = useMemo(() => {
-  if (!state.education) return getFieldTranslationByNames("1465"); // "تحصیلات"
+  if (!state.education) return getFieldTranslationByNames("1465");
 
-  // اول توی educationFields اصلی بگرد (زبان فعلی)
-  const match = educationFields.find(
-    (f) => f.translation === state.education
-  );
+  const isPersian = isPersianText(state.education);
 
-  if (match) return match.translation;
+  const primaryFields = isPersian ? educationFields : educationFieldsReverse;
+  const secondaryFields = isPersian ? educationFieldsReverse : educationFields;
 
-  // اگر پیدا نشد، توی educationFieldsReverse بگرد (زبان برعکس)
-  const reverseMatch = educationFieldsReverse.find(
-    (f) => f.translation === state.education
-  );
+  const match = primaryFields.find(f => f.translation === state.education);
+  if (match) return getFieldTranslationByNames(String(match.unique_id || match.id));
 
-  if (reverseMatch) {
-    // بجای نمایش آی‌دی، ترجمه اون آی‌دی رو برگردون
-    return getFieldTranslationByNames(String(reverseMatch.unique_id || reverseMatch.id));
-  }
+  const reverseMatch = secondaryFields.find(f => f.translation === state.education);
+  if (reverseMatch) return getFieldTranslationByNames(String(reverseMatch.unique_id || reverseMatch.id));
 
-  // اگر هیچ‌کدوم نبود، همون مقدار خام رو نشون بده
   return state.education;
 }, [state.education, educationFields, educationFieldsReverse]);
 

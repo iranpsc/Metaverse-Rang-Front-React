@@ -73,37 +73,29 @@ const CountryCity = () => {
       loadFields();
     }
   }, [isFieldsLoaded]);
+const isPersianText = (text) => /[\u0600-\u06FF]/.test(text);
 
 const getTranslation = (fieldsType, stateValue) => {
   if (!isFieldsLoaded || !stateValue) return "";
 
   const normalizedValue = stateValue.trim().toLowerCase();
+  const isPersian = isPersianText(stateValue);
 
-  // جست‌وجو در فیلدهای زبان فعلی
-  const selectedField =
-    fields[fieldsType]?.find(
-      (field) =>
-        field?.translation &&
-        field.translation.trim().toLowerCase() === normalizedValue
-    ) || null;
+  const primaryFields = isPersian ? fields[fieldsType] : fieldsReverse[fieldsType];
+  const secondaryFields = isPersian ? fieldsReverse[fieldsType] : fields[fieldsType];
 
-  if (selectedField) {
-    return getFieldTranslationByNames(selectedField.unique_id);
-  }
+  const selectedField = primaryFields.find(
+    (field) => field?.translation?.trim().toLowerCase() === normalizedValue
+  );
 
-  // اگر در زبان فعلی پیدا نشد، در نسخه برعکس بگرد
-  const reversedField =
-    fieldsReverse[fieldsType]?.find(
-      (field) =>
-        field?.translation &&
-        field.translation.trim().toLowerCase() === normalizedValue
-    ) || null;
+  if (selectedField) return getFieldTranslationByNames(selectedField.unique_id);
 
-  if (reversedField) {
-    return getFieldTranslationByNames(reversedField.unique_id);
-  }
+  const reversedField = secondaryFields.find(
+    (field) => field?.translation?.trim().toLowerCase() === normalizedValue
+  );
 
-  // اگر هیچ‌کدام پیدا نشد
+  if (reversedField) return getFieldTranslationByNames(reversedField.unique_id);
+
   return "";
 };
 
