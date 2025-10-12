@@ -57,7 +57,7 @@ export const EditorContainer = styled.div`
 
   @media (max-width: 700px) {
     && .ql-editor {
-      font-size: 15px !important; /* تو موبایل کوچیک‌تر */
+      font-size: 15px !important; 
       -webkit-text-size-adjust: 100%;
     }
   }
@@ -104,7 +104,6 @@ export const formats = [
   "code-block",
   "align",
 ];
-//برای استفاده در کامپوننت های درباره من 
 export const modules = {
   toolbar: [
     ["bold", "italic", "underline", "strike", "blockquote"],

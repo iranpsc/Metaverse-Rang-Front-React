@@ -19,6 +19,7 @@ const Container = styled.div`
   }
 
   input {
+    font-size: 16px;
     border-radius: 5px;
     background-color: ${(props) =>
       props.theme.colors.newColors.otherColors.inputBg};

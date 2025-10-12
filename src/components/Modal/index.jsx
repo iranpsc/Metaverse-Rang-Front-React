@@ -3,12 +3,12 @@ import Header from "../Header/Header";
 
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-  height: 100%;
+  height: 100vh;
   padding: 15px 14px;
   max-width: 800px;
   width: 81%;
   z-index: 12;
-  position: absolute;
+  position: fixed;
   right: 0;
   @media (min-width: 1023px) {
     height: 94%;
@@ -37,8 +37,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
-  position: absolute;
+  height: 100vh;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.713);
   z-index: 10;
 `;
