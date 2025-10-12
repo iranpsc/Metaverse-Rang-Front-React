@@ -7,6 +7,16 @@ import useAdviserData from "../../services/Hooks/useAdviserData";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import Header from "../Header/Header";
 
+const isSafari = () => {
+  const ua = navigator.userAgent;
+  return (
+    ua.includes("Safari") &&
+    !ua.includes("Chrome") &&
+    !ua.includes("CriOS") &&
+    !ua.includes("FxiOS")
+  );
+};
+
 const ModalPosition = ({ children, title, position, action }) => {
   const [showContainer, setShowContainer] = useState(true);
   const springs = useSpring({
@@ -14,10 +24,11 @@ const ModalPosition = ({ children, title, position, action }) => {
     to: { opacity: 1, transform: "scale(1)" },
     config: { duration: 200 },
   });
+  const safari = isSafari();
 
   return (
     showContainer && (
-      <Container position={position} style={springs}>
+      <Container position={position} style={springs} isSafari={safari}>
         <Header
           title={title}
           action={action}

@@ -17,18 +17,31 @@ export const Header = styled.div`
   align-items: center;
   width: 100%;
 `;
-
 export const Container = styled(animated.div)`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   width: 490px;
-  position: fixed;
   top: 0;
-  left: ${(props) => props.position === "left" && "0"};
-  right: ${(props) => props.position === "right" && "0"};
   bottom: 0;
   padding: 15px 20px;
   z-index: 10;
+
+  /* موقعیت سمت چپ یا راست */
+  left: ${(props) => (props.position === "left" ? "0" : "auto")};
+  right: ${(props) => (props.position === "right" ? "0" : "auto")};
+
+  /* تفکیک مرورگر Safari و Chrome */
+  ${(props) =>
+    props.isSafari
+      ? `
+    position: absolute;
+    height: 100vh;
+  `
+      : `
+    position: fixed;
+    height: 100%;
+  `}
 `;
+
 export const ContainerIcon = styled.div`
   display: flex;
   align-items: center;
