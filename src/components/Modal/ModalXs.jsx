@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Header from "../Header/Header";
 import { useEffect } from "react";
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
