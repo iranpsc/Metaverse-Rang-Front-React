@@ -6,7 +6,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   z-index: 1000000;
   background-color: rgba(0, 0, 0, 0.713);
