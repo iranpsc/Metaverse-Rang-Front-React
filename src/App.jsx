@@ -26,11 +26,12 @@ import { LanguageProvider } from "./services/reducers/LanguageContext.jsx";
 import { LoaderProvider } from "./services/reducers/LoaderProvider.jsx";
 import RotateDevice from "./components/RotateDevice";
 import Error410Modal from "./components/Error410Modal";
+import { useAppHeight } from "./hooks/useAppHeight.js";
 
 const Container = styled.section`
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: var(--app-height);
   flex-direction: row;
   gap: 5px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -44,6 +45,8 @@ const Container = styled.section`
 `;
 
 function App() {
+    useAppHeight();
+
   console.log(useTranslation());
   useLayoutEffect(() => {
     window.Echo = new Echo({

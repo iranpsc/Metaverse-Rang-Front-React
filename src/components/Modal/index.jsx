@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Header from "../Header/Header";
+import { useIsSafari } from "../../hooks/useIsSafari";
+import { useAppHeight } from "../../hooks/useAppHeight.js";
 
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -43,12 +45,12 @@ const ModalContainer = styled.div`
   ${(props) =>
     props.isSafari
       ? `
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-  height: 100vh;
+  height: 100%;
   `
       : `
     position: fixed;
@@ -56,18 +58,9 @@ const ModalContainer = styled.div`
   `}
 `;
 
-const isSafari = () => {
-  const ua = navigator.userAgent;
-  return (
-    ua.includes("Safari") &&
-    !ua.includes("Chrome") &&
-    !ua.includes("CriOS") &&
-    !ua.includes("FxiOS")
-  );
-};
-
 const Modal = ({ children, title }) => {
-  const safari = isSafari();
+  const safari = useIsSafari();
+  useAppHeight();
 
   return (
     <Container isSafari={safari} >

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Header from "../Header/Header";
+import { useIsSafari } from "../../hooks/useIsSafari";
+
 const Container = styled.div`
  
   width: 100%;
@@ -33,22 +35,12 @@ const Modal = styled.div`
 `;
 
 
-const isSafari = () => {
-  const ua = navigator.userAgent;
-  return (
-    ua.includes("Safari") &&
-    !ua.includes("Chrome") &&
-    !ua.includes("CriOS") &&
-    !ua.includes("FxiOS")
-  );
-};
-
 const ModalXs = ({ children, title, handleExitClick,onClose  }) => {
 
-    const safari = isSafari();
+  const isSafari = useIsSafari();
 
   return (
-    <Container onClick={onClose} isSafari={safari}> {/* اجرای onClose هنگام کلیک روی پس‌زمینه */}
+    <Container onClick={onClose} isSafari={isSafari}> {/* اجرای onClose هنگام کلیک روی پس‌زمینه */}
       <Modal>
         <Header title={title} handleExit={handleExitClick} />
         {children}
