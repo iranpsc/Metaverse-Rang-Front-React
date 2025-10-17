@@ -26,7 +26,7 @@ const ModalXs = ({ children, title, handleExitClick,onClose  }) => {
 
 
   return (
-    <Container onClick={onClose} > {/* اجرای onClose هنگام کلیک روی پس‌زمینه */}
+    <Container onClick={onClose} > 
       <Modal>
         <Header title={title} handleExit={handleExitClick} />
         {children}
