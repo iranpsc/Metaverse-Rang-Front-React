@@ -6,7 +6,6 @@ import { Container } from "./Styles";
 import useAdviserData from "../../services/Hooks/useAdviserData";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import Header from "../Header/Header";
-import { useIsSafari } from "../../hooks/useIsSafari";
 
 
 const ModalPosition = ({ children, title, position, action }) => {
@@ -16,11 +15,10 @@ const ModalPosition = ({ children, title, position, action }) => {
     to: { opacity: 1, transform: "scale(1)" },
     config: { duration: 200 },
   });
-  const safari = useIsSafari();
 
   return (
     showContainer && (
-      <Container position={position} style={springs} isSafari={safari}>
+      <Container position={position} style={springs}>
         <Header
           title={title}
           action={action}

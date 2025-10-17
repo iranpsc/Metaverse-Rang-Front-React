@@ -30,16 +30,8 @@ export const Container = styled(animated.div)`
   right: ${(props) => (props.position === "right" ? "0" : "auto")};
 
   /* تفکیک مرورگر Safari و Chrome */
-  ${(props) =>
-    props.isSafari
-      ? `
-    position: absolute;
-    height: 100vh;
-  `
-      : `
-    position: fixed;
+  position: fixed;
     height: 100%;
-  `}
 `;
 
 export const ContainerIcon = styled.div`

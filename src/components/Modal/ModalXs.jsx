@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Header from "../Header/Header";
-import { useIsSafari } from "../../hooks/useIsSafari";
 
 const Container = styled.div`
  
@@ -10,20 +9,8 @@ const Container = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.713);
   z-index: 1000000;
-   ${(props) =>
-    props.isSafari
-      ? `
-    position: absolute;
-    height: 100vh;
-     top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  `
-      : `
-    position: fixed;
+   position: fixed;
     height: 100%;
-  `}
 `;
 const Modal = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -37,10 +24,9 @@ const Modal = styled.div`
 
 const ModalXs = ({ children, title, handleExitClick,onClose  }) => {
 
-  const isSafari = useIsSafari();
 
   return (
-    <Container onClick={onClose} isSafari={isSafari}> {/* اجرای onClose هنگام کلیک روی پس‌زمینه */}
+    <Container onClick={onClose} > {/* اجرای onClose هنگام کلیک روی پس‌زمینه */}
       <Modal>
         <Header title={title} handleExit={handleExitClick} />
         {children}
