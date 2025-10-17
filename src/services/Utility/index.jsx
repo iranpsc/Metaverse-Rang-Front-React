@@ -174,13 +174,11 @@ export const getFieldsByTabNameReverse = (modalName, tabName) => {
   const currentLang = i18n.language;
   const oppositeLang = currentLang === "fa" ? "en" : "fa";
 
-  // تب در زبان فعلی
   const modalCurrent = resources[currentLang]?.translation?.modals?.find(
     (modal) => modal.name === modalName
   );
   const tabCurrent = modalCurrent?.tabs?.find((tab) => tab.name === tabName);
 
-  // تب در زبان مخالف (برای ترجمه برعکس)
   const modalOpposite = resources[oppositeLang]?.translation?.modals?.find(
     (modal) => modal.name === modalName
   );
@@ -199,17 +197,6 @@ export const getFieldsByTabNameReverse = (modalName, tabName) => {
     };
   });
 };
-
-
-
-
-
-
-
-
-
-
-
 
 
 
