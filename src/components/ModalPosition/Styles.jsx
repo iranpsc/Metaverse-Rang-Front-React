@@ -25,11 +25,9 @@ export const Container = styled(animated.div)`
   padding: 15px 20px;
   z-index: 10;
 
-  /* موقعیت سمت چپ یا راست */
   left: ${(props) => (props.position === "left" ? "0" : "auto")};
   right: ${(props) => (props.position === "right" ? "0" : "auto")};
 
-  /* تفکیک مرورگر Safari و Chrome */
   position: fixed;
     height: 100%;
 `;
