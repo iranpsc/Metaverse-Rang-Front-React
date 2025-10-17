@@ -51,7 +51,7 @@ const NextYear = () => {
   return (
     <>
       <Label style={{ paddingTop: 20 }}>
-        {getFieldTranslationByNames("656")} {yearToDisplay}
+        {getFieldTranslationByNames("656")} {convertToPersian(yearToDisplay)}
       </Label>
 
       <EditorContainer>

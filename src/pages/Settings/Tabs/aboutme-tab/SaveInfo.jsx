@@ -16,7 +16,6 @@ const Header = styled.div`
 const Text = styled.div`
   p {
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 16px;
     font-weight: 400;
     margin-top: 10px;
   }
@@ -34,9 +33,9 @@ const SaveInfo = () => {
       education: state.education,
       occupation: state.occupation,
       passions: state.hobbies,
-      loved_country: state.loved_country,
-      loved_city: state.loved_city,
-      loved_language: state.loved_language,
+      loved_country: state.country,
+      loved_city: state.city,
+      loved_language: state.language,
       memory: state.memory,
       problem_solving: state.opportunity,
       prediction: state.prediction,

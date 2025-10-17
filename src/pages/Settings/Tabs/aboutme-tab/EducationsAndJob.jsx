@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import {
  getFieldTranslationByNames,
- getFieldsByTabName,
+ getFieldsByTabName,getFieldsByTabNameReverse
 } from "../../../../services/Utility";
-import { useState } from "react";
+import { useState,useMemo} from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const Container = styled.div`
@@ -33,7 +33,6 @@ const Label = styled.label`
  display: block;
  margin-bottom: 10px;
  font-weight: 500;
- font-size: 16px;
 `;
 
 const Input = styled.input`
@@ -46,6 +45,8 @@ const Input = styled.input`
  color: ${(props) => props.theme.colors.newColors.shades.title};
  padding: 10px 12px;
  outline: none;
+   font-size: 16px;
+
 `;
 
 const CustomSelectWrapper = styled.div`
@@ -101,7 +102,7 @@ const OptionItem = styled.li`
   color: #84858f;
 
  &:hover {
-     background-color: ${(props) => props.theme.colors.newColors.shades[50]};
+    background-color: ${(props) => props.theme.colors.shades[80]};
     color: white;
 
  }
@@ -110,6 +111,7 @@ const OptionItem = styled.li`
 const EducationsAndJob = () => {
  const { state, dispatch } = useGlobalState();
  const educationFields = getFieldsByTabName("misc", "education");
+  const educationFieldsReverse = getFieldsByTabNameReverse("misc", "education");
 
  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -123,9 +125,27 @@ const EducationsAndJob = () => {
   dispatch({ type: "SET_OCCUPATION", payload: newOccupation });
  };
 
- const selectedEducation =
-  educationFields.find((f) => f.name === state.education)?.translation ||
-  getFieldTranslationByNames("1465");
+
+
+const isPersianText = (text) => /[\u0600-\u06FF]/.test(text);
+
+const selectedEducation = useMemo(() => {
+  if (!state.education) return getFieldTranslationByNames("1465");
+
+  const isPersian = isPersianText(state.education);
+
+  const primaryFields = isPersian ? educationFields : educationFieldsReverse;
+  const secondaryFields = isPersian ? educationFieldsReverse : educationFields;
+
+  const match = primaryFields.find(f => f.translation === state.education);
+  if (match) return getFieldTranslationByNames(String(match.unique_id || match.id));
+
+  const reverseMatch = secondaryFields.find(f => f.translation === state.education);
+  if (reverseMatch) return getFieldTranslationByNames(String(reverseMatch.unique_id || reverseMatch.id));
+
+  return state.education;
+}, [state.education, educationFields, educationFieldsReverse]);
+
 
  return (
   <Container>
@@ -151,9 +171,10 @@ const EducationsAndJob = () => {
        </OptionItem>
 
        {educationFields.map((field) => (
+        
         <OptionItem
-         key={field.name}
-         onClick={() => handleEducationChange(field.name)}
+         key={field.translation}
+         onClick={() => handleEducationChange(field.translation)}
         >
          {field.translation}
         </OptionItem>
@@ -163,7 +184,7 @@ const EducationsAndJob = () => {
     </CustomSelectWrapper>
    </div>
    <div>
-    <Label htmlFor="job">{getFieldTranslationByNames("783")}</Label>
+    <Label htmlFor="job">{getFieldTranslationByNames("86")}</Label>
     <Input
      id="job"
      value={state.occupation || ""}

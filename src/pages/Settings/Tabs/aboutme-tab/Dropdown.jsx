@@ -39,12 +39,13 @@ const DropdownItem = styled.div`
 
   &:hover {
     color: white;
-    background-color: ${(props) => props.theme.colors.newColors.shades[50]};
+    background-color: ${(props) => props.theme.colors.shades[80]};
   }
 `;
 
 const SearchInput = styled.input`
   width: 92%;
+  font-size: 16px;
   padding: 10px 12px;
   border: none;
   border-bottom: 1px solid #454545;

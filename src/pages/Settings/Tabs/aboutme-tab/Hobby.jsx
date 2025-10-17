@@ -17,6 +17,7 @@ import { useGlobalState } from "./aboutGlobalStateProvider";
 import weight from "../../../../assets/images/settings/weight.png";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useEffect, useState } from "react";
+import { useTheme } from "../../../../services/reducers/ThemeContext";
 const Container = styled.div`
   margin-top: 40px;
 `;
@@ -25,6 +26,14 @@ const Label = styled.label`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   display: block;
   font-weight: 600;
+`;
+const HobbyIcon = styled.img`
+  width: 24px;
+  height: 24px;
+   filter: ${(props) =>
+    props.themeMode === "light"
+      ? "grayscale(100%) brightness(0.3)"
+      : "grayscale(0%) brightness(1.2)"}; 
 `;
 
 const CheckboxContainer = styled.div`
@@ -51,7 +60,6 @@ const Div = styled.div`
 
   h4 {
     color: ${(props) => (props.limitReached ? "red" : "#a0a0ab")};
-    font-size: 14px;
     font-weight: 400;
   }
 `;
@@ -65,7 +73,6 @@ const CheckboxLabel = styled.label`
 
   span {
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-size: 16px;
     font-weight: 400;
     white-space: nowrap;
   }
@@ -87,7 +94,6 @@ const CheckboxLabel = styled.label`
 
       &::after {
         content: "✓";
-        font-size: 16px;
         font-weight: 600;
         color: white;
         position: absolute;
@@ -106,6 +112,8 @@ const CheckboxLabel = styled.label`
 `;
 
 const Hobby = () => {
+    const { theme } = useTheme(); 
+
   const { state, dispatch } = useGlobalState();
   const maxHobbies = 5;
   const selectedHobbiesCount = Object.keys(state.hobbies || {}).filter(
@@ -115,7 +123,6 @@ const Hobby = () => {
   const limitReached = selectedHobbiesCount >= maxHobbies;
   const localizedRemainingHobbies = convertToPersian(remainingHobbies);
   const [hobbyValue, setHobbyValue] = useState(state.hobbies || {});
-
   useEffect(() => {
     if (state.hobbies) {
       setHobbyValue(state.hobbies);
@@ -189,7 +196,8 @@ const Hobby = () => {
               disabled={hobbyValue[hobby.key] === 0 && limitReached}
             />
             <div>
-              <img src={hobby.icon} alt={hobby.name} width={24} height={24} />
+              <HobbyIcon src={hobby.icon} alt={hobby.name}   themeMode={theme}
+/>
               <span>{getFieldTranslationByNames(hobby.translationId)}</span>
             </div>
           </CheckboxLabel>

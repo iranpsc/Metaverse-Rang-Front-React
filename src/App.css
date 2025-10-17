@@ -153,7 +153,7 @@ a {
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #d7d7d74d;
+    background: #555555;
     cursor: pointer;
   }
 
@@ -165,4 +165,11 @@ a {
 
 button {
   cursor: pointer;
+}
+html, body {
+  -webkit-text-size-adjust: 100%;
+}
+input, textarea, button, select, label, p, span {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }

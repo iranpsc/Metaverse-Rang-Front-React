@@ -79,16 +79,23 @@ export const persianNumbers = [
     }
     return str;
   };
+export const convertToPersian = (number, isPersian = true) => {
+  if (number == null) return ""; 
+  if (isPersian) {
+    return number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  }
+  return number.toString();
+};
 
-export const convertToPersian = (number) => {
+
+export const convertToPersianNum = (number) => {
   const isPersian = useLanguage();
   if (isPersian) {
-    return number.toLocaleString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+    return number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   } else {
     return number;
   }
 };
-
 export const ToastError = (message) => {
   return toast.error(message, {
     style: {
@@ -160,6 +167,39 @@ export const getFieldsByTabName = (modalName, tabName) => {
 
   return tab.fields;
 };
+
+
+export const getFieldsByTabNameReverse = (modalName, tabName) => {
+  const resources = i18n.store.data;
+  const currentLang = i18n.language;
+  const oppositeLang = currentLang === "fa" ? "en" : "fa";
+
+  const modalCurrent = resources[currentLang]?.translation?.modals?.find(
+    (modal) => modal.name === modalName
+  );
+  const tabCurrent = modalCurrent?.tabs?.find((tab) => tab.name === tabName);
+
+  const modalOpposite = resources[oppositeLang]?.translation?.modals?.find(
+    (modal) => modal.name === modalName
+  );
+  const tabOpposite = modalOpposite?.tabs?.find((tab) => tab.name === tabName);
+
+  if (!tabCurrent || !tabOpposite) return [];
+
+  return tabCurrent.fields.map((field) => {
+    const oppositeField = tabOpposite.fields.find(
+      (f) => f.unique_id === field.unique_id
+    );
+
+    return {
+      ...field,
+      translation: oppositeField?.translation || field.translation,
+    };
+  });
+};
+
+
+
 
 export function convertEnglishToPersianNumbers(inputText) {
   const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];

@@ -31,17 +31,19 @@ const ModalContainer = styled.div`
     max-width: 70%;
     max-height: 820px;
   }
-`;
-const Container = styled.div`
+`;const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.713);
   z-index: 10;
+  background-color: rgba(0, 0, 0, 0.713);
+
+ position: fixed;
+    height: 100%;
+ 
 `;
+
 const Modal = ({ children, title }) => {
 
   return (
