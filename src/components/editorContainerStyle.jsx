@@ -21,11 +21,10 @@ export const EditorContainer = styled.div`
     max-height: 150px;
   }
 
-  /* اینجا با && اولویت دادیم */
   && .ql-editor {
     min-height: 150px;
     text-align: unset;
-    font-size: 18px !important; /* حالا واقعاً اعمال میشه */
+    font-size: 18px !important; 
     line-height: 1.6;
     -webkit-text-size-adjust: 100%;
     font-family: "AzarMehr" !important;
