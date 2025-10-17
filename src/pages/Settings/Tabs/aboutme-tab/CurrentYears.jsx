@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect, useMemo } from "react";
 import moment from "moment-jalaali";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
-import { convertToPersianNum, getFieldTranslationByNames } from "../../../../services/Utility";
+import { convertToPersian, getFieldTranslationByNames } from "../../../../services/Utility";
 import {Label} from "../../../../components/editorContainerStyle";
 
 const Container = styled.div`
@@ -107,7 +107,7 @@ const years = useMemo(() => {
         <Label>{getFieldTranslationByNames("802")}</Label>
         <div>
           <DropdownButton onClick={() => setIsOpen(!isOpen)}>
-            <span>{convertToPersianNum(selectedYear)}</span>
+            <span>{convertToPersian(selectedYear)}</span>
             <Arrow style={{ transform: isOpen ? "rotate(-135deg)" : "rotate(45deg)" }} />
           </DropdownButton>
 
@@ -115,7 +115,7 @@ const years = useMemo(() => {
             <DropdownMenu>
               {years.map((y) => (
                 <DropdownItem key={y} onClick={() => handleSelectYear(y)}>
-                  {getFieldTranslationByNames("803")} {convertToPersianNum(y)}
+                  {getFieldTranslationByNames("803")} {convertToPersian(y)}
                 </DropdownItem>
               ))}
             </DropdownMenu>
