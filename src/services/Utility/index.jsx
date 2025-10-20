@@ -79,22 +79,16 @@ export const persianNumbers = [
     }
     return str;
   };
-export const convertToPersian = (number, isPersian = true) => {
-  if (number == null) return ""; 
-  if (isPersian) {
-    return number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-  }
-  return number.toString();
-};
+  
+export const convertToPersian = (number, isPersian) => {
+  if (number == null) return "";
 
+  // اگر isPersian مشخص نشده، از hook استفاده کن
+  const usePersian = typeof isPersian === "boolean" ? isPersian : useLanguage();
 
-export const convertToPersianNum = (number) => {
-  const isPersian = useLanguage();
-  if (isPersian) {
-    return number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-  } else {
-    return number;
-  }
+  return usePersian
+    ? number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])
+    : number.toString();
 };
 export const ToastError = (message) => {
   return toast.error(message, {
