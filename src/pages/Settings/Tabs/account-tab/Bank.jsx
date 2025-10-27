@@ -1,5 +1,5 @@
 import { IoCardOutline } from "react-icons/io5";
-
+import Dropdown from "../../../../components/Common/Dropdown";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -13,40 +13,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../services/Hooks/useRequest";
 
-const Select = styled.select`
-  border-radius: 5px;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
-  height: 48px;
-  width: 100%;
-  border: none;
-  outline: none;
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  padding: 0 10px;
-  border: 1px solid #454545;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  option {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-`;
-// const Title = styled.div`
-//   color: #353535;
-//   font-size: 16px;
-//   font-weight: 600;
-// `;
 const Container = styled.div`
   padding: 20px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
 `;
@@ -114,15 +86,14 @@ const options = [
   { id: 1, label: "IR-125478963258745896324587" },
   { id: 2, label: "IR-125478963258745896324587" },
 ];
-
 const Bank = () => {
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(""); // فقط value
   const [items, setItems] = useState(items_info);
   const { Request, HTTP_METHOD } = useRequest();
   const Navigate = useNavigate();
 
-  const handleSelectChange = (e) => {
-    setSelectedValue(e.target.value);
+  const handleSelectChange = (value) => {
+    setSelectedValue(value); // مقدار انتخاب شده رو ذخیره می‌کنیم
   };
 
   const handleInputChange = (e, itemId) => {
@@ -177,9 +148,7 @@ const Bank = () => {
           setItems(resetItems);
         })
         .catch((error) => {
-        
-            ToastError(error.response.data.message);
-          
+          ToastError(error.response.data.message);
         });
     }
   };
@@ -187,15 +156,17 @@ const Bank = () => {
   return (
     <Container>
       <Title title={getFieldTranslationByNames("635")} />
-      <Select onChange={handleSelectChange} value={selectedValue}>
-        <option value="">{getFieldTranslationByNames("636")}</option>
-        {options.map((item) => (
-          <option value={item.label} key={item.id}>
-            <IoCardOutline />
-            <span>{item.label}</span>
-          </option>
-        ))}
-      </Select>
+
+      <Dropdown
+        options={options.map((item) => ({
+          value: item.label,
+          label: item.label,
+        }))}
+        selected={selectedValue}
+        onSelect={handleSelectChange}
+        placeholder={getFieldTranslationByNames("636")}
+      />
+
       <Wrapper>
         {items.map((item) => (
           <Div error={item.error} id={item.id} key={item.id}>
@@ -209,6 +180,7 @@ const Bank = () => {
           </Div>
         ))}
       </Wrapper>
+
       <Button
         full
         label={getFieldTranslationByNames("629")}

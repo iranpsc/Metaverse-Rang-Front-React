@@ -6,8 +6,11 @@ import Title from "../../../../components/Title";
 import InfoRow from "../InfoRow";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { ScaleLoader } from "react-spinners";
-import Container from "../../../../components/Common/Container";
 
+const Container = styled.div`
+  padding: 15px;
+  overflow-y: auto;
+`;
 
 const Wrapper = styled.div`
   display: flex;

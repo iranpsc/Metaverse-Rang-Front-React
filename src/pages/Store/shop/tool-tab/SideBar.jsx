@@ -7,20 +7,7 @@ import {
 const Container = styled.div`
   overflow-y: auto;
   padding-right: 10px;
-  height: 18rem;
-  @media (min-width: 850px) {
-    height: 19rem;
-  }
-  @media (min-width: 930px) {
-    height: 20rem;
-    overflow-y: auto;
-  }
-  @media (min-width: 1024px) {
-    height: 20rem;
-  }
-  @media (min-width: 1920px) {
-    height: auto;
-  }
+  height: 100%;
 `;
 
 const Wrapper = styled.div`
@@ -29,6 +16,7 @@ const Wrapper = styled.div`
   border-radius: 5px;
   color: ${(props) => props.theme.colors.newColors.otherColors.title};
   width: 100%;
+
   margin-top: 20px;
 `;
 

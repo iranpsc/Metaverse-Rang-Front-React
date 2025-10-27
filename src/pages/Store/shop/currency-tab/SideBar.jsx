@@ -7,19 +7,7 @@ import {
 const Container = styled.div`
   overflow-y: auto;
   padding-right: 10px;
-  height: 20rem;
-  @media (min-width: 850px) {
-    height: 18.6rem;
-  }
-  @media (min-width: 930px) {
-    height: 19.5rem;
-  }
-  @media (min-width: 1023px) {
-    max-height: 17.5rem;
-  }
-  @media (min-width: 1920px) {
-    overflow-y: hidden;
-  }
+  height: 100%;
 `;
 
 const Wrapper = styled.div`
@@ -29,6 +17,7 @@ const Wrapper = styled.div`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   margin-top: 20px;
   width: 100%;
+  overflow-y: auto;
 `;
 
 const Option = styled.h2`
