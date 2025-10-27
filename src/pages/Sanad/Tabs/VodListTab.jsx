@@ -8,6 +8,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 4px;
+  overflow-y: hidden;
   @media (min-width: 1366px) {
     gap: 20px;
   }

@@ -135,10 +135,10 @@ const getTranslation = (fieldsType, stateValue) => {
         <SelectContainer key={option.type}>
           <Label>{getFieldTranslationByNames(option.translationId)}</Label>
           <Dropdown
+          searchable={true}
             options={fields[option.type].map((field) => field.translation)}
-            value={getTranslation(option.type, option.stateValue)}
-            label={getFieldTranslationByNames(option.translationId)}
-            onChange={(translation) => handleFieldChange(option.type, translation, option.actionType)}
+            placeholder={getTranslation(option.type, option.stateValue)}
+            onSelect={(translation) => handleFieldChange(option.type, translation, option.actionType)}
           />
         </SelectContainer>
       ))}

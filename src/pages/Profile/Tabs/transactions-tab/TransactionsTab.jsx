@@ -23,14 +23,8 @@ import {
   getFieldTranslationByNames,
   ToastError,
 } from "../../../../services/Utility";
+import Container from "../../../../components/Common/Container";
 
-const Container = styled.div`
-  padding: 15px ;
-
-  overflow-y: auto;
-  z-index: 10;
- 
-`;
 
 const Div = styled.div`
   display: grid;

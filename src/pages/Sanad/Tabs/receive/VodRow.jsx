@@ -11,6 +11,7 @@ const TableRow = styled.tr`
 `;
 
 const TableCell = styled.td`
+  text-align: center;
   padding: 15px 20px;
   border-bottom: 1px solid #454545;
   color: ${(props) => props.theme.colors.newColors.shades[90]};
@@ -102,6 +103,7 @@ const VodRow = ({
         <TableCell>
           <Title
             style={{
+              textAlign: "start",
               color: `${
                 status === 1
                   ? "#18C08F"
@@ -140,8 +142,23 @@ const VodRow = ({
             {date} | {time}
           </Date>
         </TableCell>
-        <TableCell>
-          <View onClick={() => onClickHandler(id)}>
+        <TableCell
+          style={{
+            position: "relative",
+            textAlign: "center",
+            verticalAlign: "middle",
+          }}
+        >
+          <View
+            onClick={() => onClickHandler(id)}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              cursor: "pointer",
+            }}
+          >
             <LuEye size={20} />
           </View>
         </TableCell>

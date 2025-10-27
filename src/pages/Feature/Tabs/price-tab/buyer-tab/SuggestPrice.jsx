@@ -5,31 +5,21 @@ import ResultInfo from "../../../components/ResultInfo";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { FeaturePrice } from "../../../../../services/constants/FeatureType";
 import {
-  calculateFee,
   ToastSuccess,
   ToastError,
   getFieldTranslationByNames,
 } from "../../../../../services/Utility";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
-import { to } from "react-spring";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-
-  padding-right: 15px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 15px;
   gap: 30px;
   width: 100%;
-  @media (max-width: 1024px) {
-    height: 62vh !important;
-    overflow: auto;
-  }
-  @media (min-width: 1025px) {
-    height: auto !important;
-  }
+  height: 100%;
+  overflow-y: auto;
 `;
 
 const Text = styled.p`
@@ -67,9 +57,7 @@ const SuggestPrice = () => {
           setAssign(true);
         })
         .catch((error) => {
-     
-            ToastError(error.response.data.message);
-        
+          ToastError(error.response.data.message);
         });
     } else {
       setErrors({

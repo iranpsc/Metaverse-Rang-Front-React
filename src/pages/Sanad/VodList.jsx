@@ -1,8 +1,8 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
 import { useState } from "react";
-import VodRow from "../Tabs/receive/VodRow";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import VodRow from "./Tabs/receive/VodRow";
+import { getFieldTranslationByNames } from "../../services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;
@@ -22,7 +22,7 @@ const Container = styled.div`
 `;
 
 const Table = styled.table`
-  width: 1250px;
+  width: 100%;
 
   margin-top: 5px;
   border-collapse: collapse;
@@ -111,7 +111,7 @@ const Arrows = styled.div`
   cursor: pointer;
 `;
 
-const VodListVodList = ({ rows, status, setStatus, domain, subdomain }) => {
+const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({ status: false });
 

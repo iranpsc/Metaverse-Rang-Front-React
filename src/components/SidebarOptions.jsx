@@ -7,6 +7,7 @@ const Wrapper = styled.div`
     props.theme.colors.newColors.otherColors.bgContainer};
   border-radius: 5px;
   color: #dedee9;
+  height: 500px;
   margin-top: 20px;
 `;
 

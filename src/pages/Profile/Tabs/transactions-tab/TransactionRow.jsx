@@ -6,7 +6,6 @@ import { useState } from "react";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-  
 } from "../../../../services/Utility";
 
 const TableRow = styled.tr`
@@ -28,8 +27,7 @@ const Image = styled.img`
 const Code = styled.h2`
   font-size: 16px;
   font-weight: 500;
-    text-align: center;
-
+  text-align: center;
 `;
 
 const Date = styled.h3`
@@ -163,14 +161,29 @@ const TransactionRow = ({
       </TableCell>
       <TableCell>
         <div>
-          <Title style={{textAlign:"center"}} >{convertToPersian(amount)}</Title>
+          <Title style={{ textAlign: "center" }}>
+            {convertToPersian(amount)}
+          </Title>
         </div>
       </TableCell>
-      <TableCell style={{justifyContent:"center",display:"flex"}}>
-        <Print onClick={() => setOpenPrint(true)}>
+      <TableCell
+        style={{
+          position: "relative",
+        }}
+      >
+        <Print
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          onClick={() => setOpenPrint(true)}
+        >
           <LuEye size={20} />
         </Print>
       </TableCell>
+
       {openPrint && (
         <PrintModal
           code={id}

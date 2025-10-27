@@ -12,42 +12,16 @@ import { getFieldTranslationByNames } from "../../../../services/Utility";
 const Container = styled.div`
   border-radius: 0.25rem;
   overflow-x: auto;
-  min-height: 93vh;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  @media (min-width: 640px) {
-    width: 75vw !important;
-  }
-  @media (min-width: 840px) {
-    min-height: 80vh !important;
-  }
-  @media (min-width: 1024px) {
-    width: 83vw !important;
-  }
-  @media (min-width: 1280px) {
-    width: 78.5vw !important;
-  }
-  @media (min-width: 1360px) {
-    width: 78.5vw !important;
-  }
-  @media (min-width: 1920px) {
-    width: auto !important;
-    min-height: 55vh;
-  }
-  margin-top: 20px;
+   margin-top: 20px;
 `;
 
 const Table = styled.table`
-  width: 1215px;
-
+width: 100%;
   margin-top: 5px;
   border-collapse: collapse;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  @media (min-width: 1920px) {
-    width: 100% !important;
-  }
+ 
 `;
 
 const TableHead = styled.thead`

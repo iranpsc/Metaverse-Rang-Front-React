@@ -7,6 +7,7 @@ const DropdownContainer = styled.div`
   position: relative;
   width: 100%;
   font-size: 16px;
+white-space: nowrap;
 `;
 
 const DropdownButton = styled.div`

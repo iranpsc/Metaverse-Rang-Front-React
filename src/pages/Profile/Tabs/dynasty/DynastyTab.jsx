@@ -10,6 +10,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 20px;
+  height: 100%;
   overflow-y: hidden;
   /* margin: 20px 0; */
 `;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";
-
+import Dropdown from "../../../components/Common/Dropdown";
 const Wrapper = styled.div``;
 
 const Container = styled.div`
@@ -87,19 +87,6 @@ const RemoveButton = styled.button`
   border: none;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   cursor: pointer;
-`;
-
-const Dropdown = styled.div`
-  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-  border: 1px solid #454545;
-  border-radius: 5px;
-  margin-top: 4px;
-  max-height: 150px;
-  overflow-y: auto;
-  position: absolute;
-  top: 100px;
-  z-index: 50;
-  width: 100%;
 `;
 
 const DropdownItem = styled.div`
@@ -215,20 +202,28 @@ const Inputs = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  const dropdownOptions = options.map(
+    (opt) => getFieldTranslationByNames(opt.label) // این متن ترجمه شده را می‌دهد
+  );
   return (
     <Wrapper>
       <Container>
         <InputWrapper>
           <Label>{getFieldTranslationByNames("1318")}</Label>
-          <Select value={state.subject} onChange={subjectHandler}>
-            <option value="">{getFieldTranslationByNames("1320")}</option>
-            {options.map((option) => (
-              <option value={option.value} key={option.id}>
-                {getFieldTranslationByNames(option.label)}
-              </option>
-            ))}
-          </Select>
+
+          <Dropdown
+            options={dropdownOptions}
+            placeholder={getFieldTranslationByNames("1320")}
+            selected={dropdownOptions.find(
+              (_, i) => options[i].value === state.subject
+            )}
+            onSelect={(selectedText) => {
+              const selectedOption = options.find(
+                (opt) => getFieldTranslationByNames(opt.label) === selectedText
+              );
+              subjectHandler({ target: { value: selectedOption.value } });
+            }}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>{getFieldTranslationByNames("1319")}</Label>

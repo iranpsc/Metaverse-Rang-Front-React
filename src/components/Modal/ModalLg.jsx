@@ -20,6 +20,8 @@ const ModalContainer = styled.div`
   width: 90%;
   height: 80%;
   position: relative;
+  overflow-y: hidden;
+
   border-radius: 10px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   z-index: 9999;

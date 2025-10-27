@@ -6,6 +6,7 @@ import BuyerContent from "./BuyerContent";
 const Wrapper = styled.div`
   display: flex;
   gap: 10px;
+  overflow: hidden;
 `;
 
 const BuyerTab = () => {

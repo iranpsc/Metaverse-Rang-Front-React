@@ -11,6 +11,7 @@ import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 import Container from "../../../../components/Common/Container";
+import SearchInput from "../../../../components/SearchInput";
 
 const List = styled.div`
   display: flex;
@@ -238,15 +239,11 @@ const Houses = () => {
         <Title title={getFieldTranslationByNames("58")} />
       </div>
       <Div>
-        <Search>
-          <FiSearch size={34} />
-          <input
-            type="text"
-            placeholder={getFieldTranslationByNames("57")}
-            value={searched}
-            onChange={(e) => setSearched(e.target.value)}
-          />
-        </Search>
+        <SearchInput
+          placeholder={getFieldTranslationByNames("57")}
+          value={searched}
+          onChange={(e) => setSearched(e.target.value)}
+        />
         <Wrapper>
           <Select onClick={() => setOpen(!open)}>
             <span>

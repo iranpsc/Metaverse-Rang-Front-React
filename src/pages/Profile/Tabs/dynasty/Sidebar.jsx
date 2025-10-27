@@ -8,6 +8,7 @@ const Container = styled.div`
   padding: 15px 0;
   margin-top: 20px;
   display: flex;
+  overflow-y: auto;
   flex-direction: column;
   gap: 15px;
 `;

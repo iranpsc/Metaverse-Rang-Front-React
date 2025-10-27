@@ -12,7 +12,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Title from "../../../../components/Title";
 import SearchInput from "../../../../components/SearchInput";
-import VodList from "../../Components/VodList";
+import VodList from "../../VodList";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
 import Container from "../../../../components/Common/Container";

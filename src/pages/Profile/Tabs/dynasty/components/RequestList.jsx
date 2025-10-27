@@ -13,6 +13,7 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   align-items: center;
+  
   gap: 20px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -103,9 +104,9 @@ const RequestList = ({
 
   return (
     <Container>
-      <div>
+      <Div>
         <Title title={getFieldTranslationByNames(title)} />
-      </div>
+      </Div>
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
