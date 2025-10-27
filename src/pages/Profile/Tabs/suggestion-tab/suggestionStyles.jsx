@@ -26,13 +26,6 @@ export const Wrapper = styled.div`
   margin-top: 20px;
 `;
 
-export const mainContainer = styled.div`
-  margin: 20px 0;
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
-  padding-right: 15px;
-`;
 export const Location = styled.div`
   display: flex;
   white-space: wrap;

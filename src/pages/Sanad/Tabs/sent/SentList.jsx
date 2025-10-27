@@ -12,52 +12,11 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import SearchInput from "../../../../components/SearchInput";
 import Title from "../../../../components/Title";
-import VodList from "../../components/VodList";
+import VodList from "../../Components/VodList";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
+import Container from "../../../../components/Common/Container";
 
-const Container = styled.div`
-  padding: 20px 15px 0px 0;
-
-  overflow-y: auto;
-  height: 550px;
-  @media (min-width: 640px) {
-    height: 240px;
-  }
-  @media (min-width: 740px) {
-    height: 225px;
-  }
-  @media (min-width: 840px) {
-    height: 253px;
-  }
-  @media (min-width: 890px) {
-    height: 290px;
-  }
-  @media (min-width: 910px) {
-    height: 275px;
-  }
-  @media (min-width: 915px) {
-    height: 275px;
-  }
-  @media (min-width: 930px) {
-    height: 300px;
-  }
-  @media (min-width: 1024px) {
-    height: 400px;
-  }
-  @media (min-width: 1180px) {
-    height: 600px;
-  }
-  @media (min-width: 1280px) {
-    max-height: 945px;
-  }
-  @media (min-width: 1366px) {
-    height: 650px;
-  }
-  @media (min-width: 1920px) {
-    height: 640px;
-  }
-`;
 const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;

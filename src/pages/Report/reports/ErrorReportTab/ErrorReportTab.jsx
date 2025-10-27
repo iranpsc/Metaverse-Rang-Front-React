@@ -13,7 +13,7 @@ import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
-  padding: 20px 0;
+  padding: 15px;
   height: 100%;
   overflow-y: auto;
   padding-right: 15px;

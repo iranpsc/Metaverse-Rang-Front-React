@@ -7,9 +7,11 @@ import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 const Container = styled.div`
   padding: 20px 0;
   width: 81%;
+  overflow: hidden;
+
   height: 100%;
   position: absolute;
-  background-color:${(props) => props.theme.colors.newColors.shades.bg2} ;
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   padding: 20px;
   z-index: 9999;
   right: 0;
@@ -21,7 +23,7 @@ const Container = styled.div`
     height: 95%;
     max-width: 1335px;
     max-height: 790px;
-    position: static; /* برای غیر فعال کردن position */
+    position: static; 
     right: auto;
     border-radius: 10px;
   }
@@ -32,14 +34,12 @@ const Container = styled.div`
 
   @media (min-width: 1400px) {
     overflow: hidden;
-    
   }
 
   @media (min-width: 1920px) {
     max-width: 71%;
     max-height: 821px;
   }
-  
 `;
 
 const Header = styled.div`
@@ -75,29 +75,8 @@ const Back = styled.div`
 const Div = styled.div`
   height: 100%;
   overflow-y: auto;
-  padding-right: 15px;
-
-  @media (max-height: 800px) {
-    height: 96.8%;
-  }
-  @media (max-height: 697px) {
-    height: 96.5%;
-  }
-  @media (max-height: 632px) {
-    height: 96%;
-  }
-  @media (max-height: 572px) {
-    height: 95.5%;
-  }
-  @media (max-height: 497px) {
-    height: 95%;
-  }
-  @media (max-height: 373px) {
-    height: 93%;
-  }
-
+  padding: 15px;
 `;
-
 
 const ReportDetails = ({
   reportDetails,
@@ -113,21 +92,21 @@ const ReportDetails = ({
     <Back>
       <Container>
         <Header>
-          <Title title={getFieldTranslationByNames("1314")}/>
+          <Title title={getFieldTranslationByNames("1314")} />
           <div onClick={() => setShowDetails(false)}>X</div>
         </Header>
         <Div>
           <ReportCard
-          reportDetails={reportDetails}
-           // status={status}
-           date={date}
-           time={time}
+            reportDetails={reportDetails}
+            // status={status}
+            date={date}
+            time={time}
             code={code}
-           // member={member}
+            // member={member}
             domain={domain}
             subdomain={subdomain}
           />
-          <Messages  reportDetails={reportDetails}/>
+          <Messages reportDetails={reportDetails} />
         </Div>
       </Container>
     </Back>

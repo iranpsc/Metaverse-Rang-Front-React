@@ -16,8 +16,9 @@ import { useTheme } from "../../../../services/reducers/ThemeContext"; // مسی
 import useRequest from '../../../../services/Hooks/useRequest';
 
 const Container = styled.div`
-  padding: 20px 15px 0px 0;
+  padding: 15px;
   overflow-y: auto;
+  
   height: 100%;
 `;
 const Div = styled.div`

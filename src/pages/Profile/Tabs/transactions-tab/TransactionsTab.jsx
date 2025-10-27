@@ -25,41 +25,11 @@ import {
 } from "../../../../services/Utility";
 
 const Container = styled.div`
-  padding: 20px 15px 0px 0;
+  padding: 15px ;
 
   overflow-y: auto;
-  height: 550px;
   z-index: 10;
-  @media (min-width: 640px) {
-    height: 290px;
-  }
-  @media (min-width: 740px) {
-    height: 270px;
-  }
-  @media (min-width: 840px) {
-    height: 290px;
-  }
-  @media (min-width: 890px) {
-    height: 315px;
-  }
-  @media (min-width: 930px) {
-    height: 330px;
-  }
-  @media (min-width: 1024px) {
-    height: 400px;
-  }
-  @media (min-width: 1180px) {
-    height: 600px;
-  }
-  @media (min-width: 1280px) {
-    max-height: 945px;
-  }
-  @media (min-width: 1366px) {
-    height: 650px;
-  }
-  @media (min-width: 1920px) {
-    height: 640px;
-  }
+ 
 `;
 
 const Div = styled.div`

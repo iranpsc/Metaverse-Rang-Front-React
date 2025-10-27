@@ -79,22 +79,14 @@ export const persianNumbers = [
     }
     return str;
   };
-export const convertToPersian = (number, isPersian = true) => {
-  if (number == null) return ""; 
-  if (isPersian) {
-    return number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-  }
-  return number.toString();
-};
+export const convertToPersian = (number, isPersian) => {
+  if (number == null) return "";
 
+  const usePersian = typeof isPersian === "boolean" ? isPersian : useLanguage();
 
-export const convertToPersianNum = (number) => {
-  const isPersian = useLanguage();
-  if (isPersian) {
-    return number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-  } else {
-    return number;
-  }
+  return usePersian
+    ? number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])
+    : number.toString();
 };
 export const ToastError = (message) => {
   return toast.error(message, {
@@ -168,7 +160,6 @@ export const getFieldsByTabName = (modalName, tabName) => {
   return tab.fields;
 };
 
-
 export const getFieldsByTabNameReverse = (modalName, tabName) => {
   const resources = i18n.store.data;
   const currentLang = i18n.language;
@@ -197,9 +188,6 @@ export const getFieldsByTabNameReverse = (modalName, tabName) => {
     };
   });
 };
-
-
-
 
 export function convertEnglishToPersianNumbers(inputText) {
   const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];

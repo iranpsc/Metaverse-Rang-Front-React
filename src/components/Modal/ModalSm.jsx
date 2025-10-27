@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Header from "../Header/Header";
+import { useLanguage } from "../../services/reducers/LanguageContext";
 
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
@@ -21,7 +22,8 @@ const ModalContainer = styled.div`
   }
   @media (min-width: 1000px) {
     height: 550px;
-    margin-right: 100px;
+    ${(props) =>
+      props.isPersian ? "margin-right: 100px;" : "margin-left: 100px;"}
   }
 `;
 
@@ -36,9 +38,10 @@ const Container = styled.div`
   z-index: 100;
 `;
 const ModalSm = ({ children, title }) => {
+  const isPersian = useLanguage();
   return (
     <Container>
-      <ModalContainer>
+      <ModalContainer isPersian={isPersian}>
         <Header title={title} />
         {children}
       </ModalContainer>

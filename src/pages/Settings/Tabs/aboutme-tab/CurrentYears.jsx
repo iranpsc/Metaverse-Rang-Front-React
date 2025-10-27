@@ -2,8 +2,10 @@ import styled from "styled-components";
 import { useState, useEffect, useMemo } from "react";
 import moment from "moment-jalaali";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
-import { convertToPersianNum, getFieldTranslationByNames } from "../../../../services/Utility";
-import {Label} from "../../../../components/editorContainerStyle";
+import {convertToPersian ,
+  getFieldTranslationByNames,
+} from "../../../../services/Utility";
+import { Label } from "../../../../components/editorContainerStyle";
 
 const Container = styled.div`
   position: relative;
@@ -13,7 +15,8 @@ const Container = styled.div`
 `;
 
 const DropdownButton = styled.div`
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   color: ${(props) => props.theme.colors.newColors.shades.title};
   border: 1px solid ${(props) => props.theme.colors.newColors.shades[80]};
   padding: 10px;
@@ -35,9 +38,10 @@ const Arrow = styled.span`
 `;
 
 const DropdownMenu = styled.div`
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   position: absolute;
-  top: 85px;
+  top: 90px;
   width: 150px;
   border-radius: 4px;
   overflow: hidden;
@@ -63,7 +67,8 @@ const Div = styled.div`
 
 const Content = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   padding: 15px;
   border-radius: 5px;
   margin-top: 20px;
@@ -73,7 +78,6 @@ const Content = styled.p`
 const CurrentYears = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isPersian = useLanguage();
-
 
   // سال جاری
   const currentYear = useMemo(() => {
@@ -87,14 +91,13 @@ const CurrentYears = () => {
     setSelectedYear(currentYear);
   }, [currentYear]);
 
-const years = useMemo(() => {
-  const startYear = isPersian ? 1401 : 2022;
-  return Array.from(
-    { length: currentYear - startYear + 1 },
-    (_, i) => startYear + i
-  ).reverse(); 
-}, [currentYear, isPersian]);
-
+  const years = useMemo(() => {
+    const startYear = isPersian ? 1401 : 2022;
+    return Array.from(
+      { length: currentYear - startYear + 1 },
+      (_, i) => startYear + i
+    ).reverse();
+  }, [currentYear, isPersian]);
 
   const handleSelectYear = (year) => {
     setSelectedYear(year);
@@ -107,15 +110,19 @@ const years = useMemo(() => {
         <Label>{getFieldTranslationByNames("802")}</Label>
         <div>
           <DropdownButton onClick={() => setIsOpen(!isOpen)}>
-            <span>{convertToPersianNum(selectedYear)}</span>
-            <Arrow style={{ transform: isOpen ? "rotate(-135deg)" : "rotate(45deg)" }} />
+            <span>{convertToPersian(selectedYear)}</span>
+            <Arrow
+              style={{
+                transform: isOpen ? "rotate(-135deg)" : "rotate(45deg)",
+              }}
+            />
           </DropdownButton>
 
           {isOpen && (
             <DropdownMenu>
               {years.map((y) => (
                 <DropdownItem key={y} onClick={() => handleSelectYear(y)}>
-                  {getFieldTranslationByNames("803")} {convertToPersianNum(y)}
+                  {getFieldTranslationByNames("803")} {convertToPersian(y)}
                 </DropdownItem>
               ))}
             </DropdownMenu>

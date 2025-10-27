@@ -8,18 +8,9 @@ import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
-  padding-top: 20px;
-  padding-bottom: 15px;
-  padding-right: 15px;
-  height: 74%;
+   padding: 20px 10px;
   overflow-y: auto;
-
-  @media (min-width: 930px) {
-    height: 75%;
-  }
-  @media (min-width: 1300px) {
-    height: auto;
-  }
+  height: 100%;
 `;
 
 const Wrapper = styled.div`

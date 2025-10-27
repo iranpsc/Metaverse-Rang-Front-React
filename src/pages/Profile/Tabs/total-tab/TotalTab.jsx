@@ -3,13 +3,9 @@ import { useEffect, useState } from "react";
 import Bio from "./Bio";
 import Details from "./Details";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
-  padding-top: 20px;
-  padding-right: 10px;
-  padding-bottom: 19px;
+  padding: 15px ;
 
   overflow-y: auto;
   display: grid;
@@ -17,11 +13,7 @@ const Container = styled.div`
   gap: 30px;
 
   @media (min-width: 1400px) {
-    height: 80%;
     grid-template-columns: 1fr 2fr;
-  }
-  @media (min-width: 1800px) {
-    height: auto;
   }
 `;
 const TotalTab = () => {

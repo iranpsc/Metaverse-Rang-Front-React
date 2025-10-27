@@ -1,18 +1,19 @@
+import styled from "styled-components";
 import Title from "../../../../../components/Title";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import List from "./List";
 
-import styled from "styled-components";
+const Container = styled.div`
+  width: 100%;
+`;
 
-const Container = styled.div``;
 const Top = styled.div`
-  div {
-    margin-top: 10px;
-    p {
-      color: ${(props) => props.theme.colors.newColors.shades.title};
-      font-weight: 400;
-      font-size: 16px;
-    }
+
+  p {
+    color: ${({ theme }) => theme.colors.newColors.shades.title};
+    font-weight: 400;
+    font-size: 16px;
+    margin: 0;
   }
 `;
 
@@ -21,11 +22,10 @@ const Establish = ({ members }) => {
     <Container>
       <Top>
         <Title title={getFieldTranslationByNames(807)} />
-        <div>
-          <p>{getFieldTranslationByNames(806)}</p>
-          <p>{getFieldTranslationByNames(808)}</p>
-        </div>
+        <p>{getFieldTranslationByNames(806)}</p>
+        <p>{getFieldTranslationByNames(808)}</p>
       </Top>
+
       <List members={members} />
     </Container>
   );

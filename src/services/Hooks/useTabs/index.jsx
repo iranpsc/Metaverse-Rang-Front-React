@@ -47,6 +47,11 @@ const Tab = styled.h3`
 `;
 const TabContainer = styled.div`
   display: flex;
+  overflow-x: auto;
+  &::-webkit-scrollbar{
+  height: 0px; 
+  }
+min-height: 50px;
   border-bottom: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
 `;

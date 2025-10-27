@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const Container = styled.div`
-  padding: 20px 0;
   height: 100%;
   display: flex;
   gap: 20px;

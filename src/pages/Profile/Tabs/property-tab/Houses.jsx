@@ -10,6 +10,7 @@ import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
+import Container from "../../../../components/Common/Container";
 
 const List = styled.div`
   display: flex;
@@ -17,14 +18,6 @@ const List = styled.div`
   gap: 20px;
   padding-top: 20px;
 `;
-const Container = styled.div`
-  padding-bottom: 20px;
-  padding-right: 15px;
-  padding-top: 20px;
-  overflow-y: auto;
-  height: 70vh;
-`;
-
 const Provider = styled.div`
   position: relative;
   color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -150,7 +143,9 @@ const Houses = () => {
   const loadMoreFeatures = useCallback(() => {
     if (loading || !hasMore) return;
     setLoading(true);
-    const endpoint = id ? `players/hm-2000002/assets` : `my-features?page=${page}`;
+    const endpoint = id
+      ? `players/hm-2000002/assets`
+      : `my-features?page=${page}`;
     Request(endpoint).then((response) => {
       if (!response.data.data.length || !response.data.links?.next) {
         setHasMore(false);
@@ -347,7 +342,7 @@ const Houses = () => {
       </Div>
       <List>
         {filteredItems.map((card) => (
-          <CardItem {...card.properties} key={card.id} navigateId={card.id}/>
+          <CardItem {...card.properties} key={card.id} navigateId={card.id} />
         ))}
       </List>
       {loading && <div>Loading...</div>}

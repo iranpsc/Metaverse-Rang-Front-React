@@ -7,7 +7,6 @@ import Title from "../../../../components/Title";
 import Button from "../../../../components/Button";
 import ErrorModal from "../ErrorModal";
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
-import ReactQuill from "react-quill";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
   convertPersianNumbersToEnglish,
@@ -18,20 +17,12 @@ import * as Sentry from "@sentry/react";
 
 const Wrapper = styled.div`
   overflow-y: auto;
-  height: 84%;
-  padding-right: 15px;
-  @media (min-width: 1180px) {
-    height: 80%;
-  }
-  @media (min-width: 1500px) {
-    height: ${(props) => (props.identityError ? "85%" : "auto")};
-  }
+  padding: 15px;
 `;
 const Container = styled.div`
   margin: 20px 0;
   display: flex;
   flex-direction: column;
-
   gap: 10px;
   @media (min-width: 1500px) {
     grid-template-columns: 2fr 3fr;

@@ -6,9 +6,8 @@ import { useState } from "react";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-  persianNumbers,
+  
 } from "../../../../services/Utility";
-import { ceil } from "lodash";
 
 const TableRow = styled.tr`
   background-color: transparent;
@@ -29,17 +28,20 @@ const Image = styled.img`
 const Code = styled.h2`
   font-size: 16px;
   font-weight: 500;
+    text-align: center;
+
 `;
 
 const Date = styled.h3`
   font-size: 16px;
   font-weight: 400;
+  text-align: center;
 `;
 
 const Title = styled.h3`
   font-size: 16px;
   font-weight: 400;
-  text-align: center;
+  text-align: start;
 `;
 
 const Subject = styled.div`
@@ -161,7 +163,7 @@ const TransactionRow = ({
       </TableCell>
       <TableCell>
         <div>
-          <Title >{convertToPersian(amount)}</Title>
+          <Title style={{textAlign:"center"}} >{convertToPersian(amount)}</Title>
         </div>
       </TableCell>
       <TableCell style={{justifyContent:"center",display:"flex"}}>

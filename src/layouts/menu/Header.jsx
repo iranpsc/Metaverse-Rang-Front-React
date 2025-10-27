@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import LogoIcon from "../../assets/svg/logoMeta.svg";
 import { getFieldTranslationByNames } from "../../services/Utility";
@@ -79,7 +78,7 @@ const Header = () => {
         <Logo src={LogoIcon} />
         <ContainerText isOpen={isOpen}>
           <Title>{getFieldTranslationByNames("148")}</Title>
-          <Details>{getFieldTranslationByNames("1457")}</Details>
+          <Details>{getFieldTranslationByNames("188")}</Details>
         </ContainerText>
       </ContainerMain>
 

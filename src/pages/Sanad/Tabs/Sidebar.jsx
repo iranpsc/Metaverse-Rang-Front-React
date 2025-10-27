@@ -10,6 +10,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  overflow-y: auto;
 `;
 
 const Label = styled.div`

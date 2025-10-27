@@ -4,11 +4,10 @@ import meter from "../../../../../assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
 import { convertToPersian, getFieldTranslationByNames } from "../../../../../services/Utility/index";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { mainContainer, Wrapper } from "../suggestionStyles";
+import {  Wrapper } from "../suggestionStyles";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
-
-const Container = mainContainer;
+import Container from '../../../../../components/Common/Container';
 
 const SentSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);

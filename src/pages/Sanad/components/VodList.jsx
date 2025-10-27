@@ -111,7 +111,7 @@ const Arrows = styled.div`
   cursor: pointer;
 `;
 
-const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
+const VodListVodList = ({ rows, status, setStatus, domain, subdomain }) => {
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({ status: false });
 

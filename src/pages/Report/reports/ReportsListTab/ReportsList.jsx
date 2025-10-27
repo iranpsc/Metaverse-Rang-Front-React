@@ -1,25 +1,20 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import ReportRow from "./ReportRow";
 import styled from "styled-components";
-import { useState,useEffect, useRef  } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 
 const Container = styled.div`
   border-radius: 0.25rem;
   overflow-x: auto;
-  min-height: 93vh;
   margin-top: 20px;
   &::-webkit-scrollbar {
     display: none;
   }
-  @media (min-width: 1920px) {
-    width: auto !important;
-    min-height: 55vh;
-  }
 `;
 
 const Table = styled.table`
-  width: 1250px;
+  width: 100%;
   margin-top: 5px;
   border-collapse: collapse;
   border-top-right-radius: 10px;
@@ -30,7 +25,8 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px !important;
   overflow: hidden !important;
 `;
@@ -42,7 +38,8 @@ const StatusFilter = styled.div`
   width: 200px;
   padding: 20px;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border: 1px solid #9c9c9c53;
   font-size: 16px;
   z-index: 1;
@@ -51,7 +48,7 @@ const StatusFilter = styled.div`
     &:hover {
       background-color: #8f8e8e;
       transition: all 0.2s linear;
-     /* h1,h2,h3{
+      /* h1,h2,h3{
         color:white;
       }*/
     }
@@ -65,7 +62,9 @@ const StatusFilter = styled.div`
     }
   }
 
-  h1,h2,h3 {
+  h1,
+  h2,
+  h3 {
     font-weight: 400;
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
@@ -135,7 +134,6 @@ const TableHeader = styled.th`
   text-align: start;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
-
 `;
 
 const Loader = styled.div`
@@ -154,7 +152,7 @@ const Loader = styled.div`
 const ReportsList = ({
   rows,
   member,
- // status,
+  // status,
   //setStatus,
   setMember,
   domain,
@@ -164,15 +162,18 @@ const ReportsList = ({
 }) => {
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({
-   // status: false,
+    // status: false,
     member: false,
   });
 
   const filterRef = useRef(null);
 
   const handleClickOutside = (event) => {
-    if (filterRef.current && !filterRef.current.contains(event.target)&&
-    !event.target.closest(".arrow-container")) {
+    if (
+      filterRef.current &&
+      !filterRef.current.contains(event.target) &&
+      !event.target.closest(".arrow-container")
+    ) {
       setFilters({ /*status: false,*/ member: false });
     }
   };
@@ -189,19 +190,24 @@ const ReportsList = ({
       <Table>
         <TableHead>
           <TableRow>
-            
-            <TableHeader style={{ width: "0%",whiteSpace:"nowrap" }}><Div>{getFieldTranslationByNames("1383")}</Div></TableHeader>
-            <TableHeader style={{ width: "40%" }} ><Div>{getFieldTranslationByNames("19")}</Div></TableHeader>
-            <TableHeader style={{ width: "12%",whiteSpace:"nowrap" }}>
+            <TableHeader style={{ width: "0%", whiteSpace: "nowrap" }}>
+              <Div>{getFieldTranslationByNames("1383")}</Div>
+            </TableHeader>
+            <TableHeader style={{ width: "40%" }}>
+              <Div>{getFieldTranslationByNames("19")}</Div>
+            </TableHeader>
+            <TableHeader style={{ width: "12%", whiteSpace: "nowrap" }}>
               <Div>
                 {getFieldTranslationByNames("746")}
                 <Arrows
                   className="arrow-container"
-
-                onClick={() => setFilters({ member: !filters.member })}>
+                  onClick={() => setFilters({ member: !filters.member })}
+                >
                   <MdKeyboardArrowDown
                     style={{
-                      transform: `${filters.member ? "rotate(180deg)" : "rotate(360deg)"}`,
+                      transform: `${
+                        filters.member ? "rotate(180deg)" : "rotate(360deg)"
+                      }`,
                     }}
                   />
                 </Arrows>
@@ -336,7 +342,7 @@ const ReportsList = ({
                 </StatusFilter>
               )}
             </TableHeader>
-           {/* <TableHeader style={{ width: "120px" }}>
+            {/* <TableHeader style={{ width: "120px" }}>
               <Div>
                 {getFieldTranslationByNames("65")}
                 <Arrows
@@ -431,13 +437,12 @@ const ReportsList = ({
               )}
             </TableHeader>*/}
 
-
-
-            <TableHeader style={{ width: "16%",whiteSpace:"nowrap" }}>
-            <Div>{getFieldTranslationByNames("64")}</Div>
-
+            <TableHeader style={{ width: "16%", whiteSpace: "nowrap" }}>
+              <Div>{getFieldTranslationByNames("64")}</Div>
             </TableHeader>
-            <TableHeader style={{ width: "10%",whiteSpace:"nowrap" }}>{getFieldTranslationByNames("1380")}</TableHeader>
+            <TableHeader style={{ width: "10%", whiteSpace: "nowrap" }}>
+              {getFieldTranslationByNames("1380")}
+            </TableHeader>
           </TableRow>
         </TableHead>
         <tbody>
@@ -453,10 +458,12 @@ const ReportsList = ({
       </Table>
       {hasMore && (
         <Loader>
-          <button onClick={() => {
-            handleLoadMore();
-            setVisibleRows((prev) => prev + 10); 
-          }}>
+          <button
+            onClick={() => {
+              handleLoadMore();
+              setVisibleRows((prev) => prev + 10);
+            }}
+          >
             {getFieldTranslationByNames("368")}
           </button>
         </Loader>

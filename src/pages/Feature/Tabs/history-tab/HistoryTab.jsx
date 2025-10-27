@@ -39,20 +39,6 @@ const Container = styled.div`
   gap: 10px;
   padding-right: 15px;
   overflow-y: auto;
-
-  height: 68%;
-  @media (min-width: 930px) {
-    height: 71%;
-  }
-  @media (min-width: 1024px) {
-    height: 70%;
-  }
-  @media (min-width: 1180px) {
-    height: 80%;
-  }
-  @media (min-width: 1500px) {
-    grid-template-columns: 2fr 3fr;
-  }
 `;
 
 const HistoryTab = () => {

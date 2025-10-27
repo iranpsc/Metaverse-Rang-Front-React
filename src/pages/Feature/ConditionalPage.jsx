@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FeatureColor } from "../../services/constants/FeatureType";
 import useAuth from "../../services/Hooks/useAuth";
 import useTabs from "../../services/Hooks/useTabs";
 import { FeatureContext } from "./Context/FeatureProvider";
-import UnityTab from "./Tabs/3d";
-import BuyFromSystem from "./Tabs/BuyFromSystem";
 import PropertyConstruction from "./Tabs/PropertyConstruction";
 import { BuyerTab, InfoTab, SellerTab } from "./Tabs";
 import EnterTab from "./Tabs/enter-tab/EnterTab";
@@ -43,7 +41,7 @@ export default function ConditionalPage() {
       content: <PhysicTab owner />,
     },
     {
-      title: getFieldTranslationByNames("325"),
+      title: getFieldTranslationByNames("3215"),
       content: <HistoryTab />,
     },
   ];
