@@ -78,6 +78,10 @@ const HeaderWrapper = styled.div`
     margin-bottom: 30px;
     margin-top: 10px;
   }
+  
+  @media (max-height: 500px) and (max-width: 1000px) {
+  padding-bottom: 5px;
+  }
 `;
 
 const Text = styled.h2`

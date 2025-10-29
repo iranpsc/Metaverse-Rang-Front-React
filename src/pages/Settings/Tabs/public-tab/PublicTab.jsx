@@ -6,12 +6,8 @@ import OnOff from "../OnOff";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
+import Container from "../../../../components/Common/Container";
 
-const Container = styled.div`
-   padding: 20px 10px;
-  overflow-y: auto;
-  height: 100%;
-`;
 
 const Wrapper = styled.div`
   display: flex;

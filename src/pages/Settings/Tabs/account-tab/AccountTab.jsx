@@ -4,18 +4,14 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
+import Container from "../../../../components/Common/Container"; // همون کانتینر اصلی
 
-const Container = styled.div`
-  padding-top: 20px;
-  padding: 20px;
-  padding-right: 15px;
+const GridContainer = styled(Container)`
   display: grid;
-
   grid-template-columns: 1fr 1fr;
   align-items: flex-start;
   gap: 20px;
-  padding-right: 15px;
-  overflow-y: auto;
+ 
 `;
 
 const LoadingContainer = styled.div`
@@ -86,7 +82,7 @@ const AccountTab = () => {
   }
 
   return (
-    <Container>
+    <GridContainer>
       <ChangeCard
         title={mobileChange.title}
         warn={mobileChange.warn}
@@ -98,7 +94,7 @@ const AccountTab = () => {
         inputs={emailChange.inputs}
       />
       <Bank />
-    </Container>
+    </GridContainer>
   );
 };
 

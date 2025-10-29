@@ -11,20 +11,18 @@ import {
 } from "../../../../../services/Utility";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
+import BaseContainer from "../../../../../components/Common/Container"; // کانتینر بیس
 
-const Wrapper = styled.div`
+const Wrapper = styled(BaseContainer)`
   display: flex;
+  width:100% ;
   flex-direction: column;
-  padding: 15px;
   gap: 30px;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-`;
 
-const Text = styled.p`
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  line-height: 1.5rem;
+  p {
+    color: ${(props) => props.theme.colors.newColors.shades.title};
+    line-height: 1.5rem;
+  }
 `;
 
 const SuggestPrice = () => {
@@ -37,6 +35,7 @@ const SuggestPrice = () => {
     totalArea *
     FeaturePrice(feature?.properties?.rgb) *
     (feature?.properties?.minimum_price_percentage / 100);
+
   const [assign, setAssign] = useState(false);
   const [rial, setRial] = useState(totalIrr / 2);
   const [psc, setPsc] = useState(totalIrr / 2 / 900);
@@ -68,7 +67,7 @@ const SuggestPrice = () => {
 
   return (
     <Wrapper>
-      <Text>{getFieldTranslationByNames("527")}</Text>
+      <p>{getFieldTranslationByNames("527")}</p>
       {!assign && (
         <FillInputs
           rial={rial}

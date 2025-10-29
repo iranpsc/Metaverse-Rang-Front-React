@@ -7,6 +7,7 @@ import {
 const Container = styled.div`
   overflow-y: auto;
   padding-right: 10px;
+  padding-bottom: 20px;
   height: 100%;
 `;
 

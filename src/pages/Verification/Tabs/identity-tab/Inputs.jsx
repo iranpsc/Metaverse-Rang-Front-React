@@ -42,28 +42,10 @@ const Birthday = styled.div`
 `;
 const Container = styled.div`
   display: grid;
+
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
   margin-top: 10px;
-`;
-const Select = styled.select`
-  border-radius: 5px;
-  border: 1px solid ${(props) => (props.identityError ? "red" : "#454545")};
-
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
-  height: 48px;
-  padding: 0 10px;
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  width: 100%;
-  height: 100%;
-  outline: none;
-  font-size: 16px;
 `;
 
 const Inputs = ({ data, inputValues, handleInputChange }) => {

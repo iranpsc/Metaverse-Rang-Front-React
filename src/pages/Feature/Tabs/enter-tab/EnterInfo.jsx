@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import Info from "./Info";
 import Slider from "./Slider";
 import styled from "styled-components";
-
-const Container = styled.div`
+import Container from "../../../../components/Common/Container";
+const EnterContainer = styled.div`
   padding: 15px 10px;
   overflow-y: auto;
 
@@ -34,32 +34,34 @@ const EnterInfo = ({ setEdit, data, edit, payed, setPayed, isOwner }) => {
 
   return (
     <Container>
-      {isMobile ? (
-        <>
-          <Info
-            isOwner={isOwner}
-            data={data}
-            edit={edit}
-            setEdit={setEdit}
-            payed={payed}
-            setPayed={setPayed}
-            isMobile={isMobile}
-          />
-          <Slider data={data} />
-        </>
-      ) : (
-        <>
-          <Slider data={data} />
-          <Info
-            isOwner={isOwner}
-            data={data}
-            edit={edit}
-            setEdit={setEdit}
-            payed={payed}
-            setPayed={setPayed}
-          />
-        </>
-      )}
+      <EnterContainer>
+        {isMobile ? (
+          <>
+            <Info
+              isOwner={isOwner}
+              data={data}
+              edit={edit}
+              setEdit={setEdit}
+              payed={payed}
+              setPayed={setPayed}
+              isMobile={isMobile}
+            />
+            <Slider data={data} />
+          </>
+        ) : (
+          <>
+            <Slider data={data} />
+            <Info
+              isOwner={isOwner}
+              data={data}
+              edit={edit}
+              setEdit={setEdit}
+              payed={payed}
+              setPayed={setPayed}
+            />
+          </>
+        )}
+      </EnterContainer>
     </Container>
   );
 };

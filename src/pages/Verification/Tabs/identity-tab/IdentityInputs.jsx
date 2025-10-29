@@ -14,12 +14,9 @@ import {
   ToastError,
 } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
+import Container from "../../../../components/Common/Container";
 
-const Wrapper = styled.div`
-  overflow-y: auto;
-  padding: 15px;
-`;
-const Container = styled.div`
+const BankContainer = styled.div`
   margin: 20px 0;
   display: flex;
   flex-direction: column;
@@ -173,8 +170,8 @@ const IdentityInputs = ({
     }
   };
   return (
-    <Wrapper identityError={identityError}>
-      <Container>
+    <Container identityError={identityError}>
+      <BankContainer>
         {errors.length > 0 && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
@@ -208,11 +205,11 @@ const IdentityInputs = ({
           onclick={sendHandler}
           disabled={isVideoUploaded ? false : "pending"}
         />
-      </Container>
+      </BankContainer>
       {openErrorModal && (
         <ErrorModal setOpenErrorModal={setOpenErrorModal} errors={errors} />
       )}
-    </Wrapper>
+    </Container>
   );
 };
 

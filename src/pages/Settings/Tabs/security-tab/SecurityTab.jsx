@@ -499,7 +499,7 @@ const SecurityTab = () => {
   return (
     <Container>
       <SearchInput
-        placeholder="نام تنظیمات خود را بنویسید"
+        placeholder={getFieldTranslationByNames("1475")}
         value={searched}
         onchange={(e) => setSearched(e.target.value)}
       />

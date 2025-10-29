@@ -1,49 +1,23 @@
 import HistoryItem from "./HistoryItem";
 import styled from "styled-components";
+import BaseContainer from "../../../../components/Common/Container";
 
-const history = [
-  {
-    id: 1,
-    date: { day: 1, month: "خرداد" },
-    user: "HM-2000081",
-    link: "https://rgb.irpsc.com/fa/citizens/hm-2000001",
-    time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰",
-  },
-  {
-    id: 2,
-    date: { day: 30, month: "اردیبهشت" },
-    user: "HM-2000081",
-    link: "https://rgb.irpsc.com/fa/citizens/hm-2000001",
-    time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰",
-  },
-  {
-    id: 3,
-    date: { day: 25, month: "اردیبهشت" },
-    user: "HM-2000081",
-    link: "https://rgb.irpsc.com/fa/citizens/hm-2000001",
-    time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰",
-  },
-  {
-    id: 4,
-    date: { day: 24, month: "اردیبهشت" },
-    user: "HM-2000081",
-    link: "https://rgb.irpsc.com/fa/citizens/hm-2000001",
-    time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰",
-  },
-];
-const Container = styled.div`
-  padding-top: 20px;
-  padding-bottom: 20px;
+const StyledContainer = styled(BaseContainer)`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding-right: 15px;
-  overflow-y: auto;
+  gap: 10px; // اینجا فاصله بین آیتم‌ها
 `;
+
+const history = [
+  { id: 1, date: { day: 1, month: "خرداد" }, user: "HM-2000081", link: "https://rgb.irpsc.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
+  { id: 2, date: { day: 30, month: "اردیبهشت" }, user: "HM-2000081", link: "https://rgb.irpsc.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
+  { id: 3, date: { day: 25, month: "اردیبهشت" }, user: "HM-2000081", link: "https://rgb.irpsc.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
+  { id: 4, date: { day: 24, month: "اردیبهشت" }, user: "HM-2000081", link: "https://rgb.irpsc.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
+];
 
 const HistoryTab = () => {
   return (
-    <Container>
+    <StyledContainer>
       {history.map((item) => (
         <HistoryItem key={item.id} {...item} />
       ))}
@@ -53,7 +27,7 @@ const HistoryTab = () => {
         time="۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰"
         owner
       />
-    </Container>
+    </StyledContainer>
   );
 };
 

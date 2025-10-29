@@ -4,15 +4,14 @@ import CitizenInvite from "./CitizenInvite";
 import FamilyTree from "./FamilyTree";
 import LoadingSpinner from "../../../../../components/Common/LoadingSpinner";
 import styled from "styled-components";
-
-const Container = styled.div`
+import Container from "../../../../../components/Common/Container";
+const DynastyContainer = styled.div`
   overflow: hidden; 
   display: flex;
   flex-direction: column;
 `;
 
 const ScrollArea = styled.div`
-  flex: 1;
   overflow-y: auto;
   padding: 20px 25px;
 `;
@@ -90,8 +89,8 @@ const DynastyMembers = () => {
   }
 
   return (
-    <Container>
-      <ScrollArea>
+    <DynastyContainer>
+      <Container>
         {mode.mode === 1 && (
           <FamilyTree
             setMode={setMode}
@@ -109,8 +108,8 @@ const DynastyMembers = () => {
             citizens={citizen}
           />
         )}
-      </ScrollArea>
-    </Container>
+      </Container>
+    </DynastyContainer>
   );
 };
 

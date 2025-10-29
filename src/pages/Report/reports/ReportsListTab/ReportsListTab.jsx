@@ -14,13 +14,8 @@ import { useState, useEffect } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import { useTheme } from "../../../../services/reducers/ThemeContext"; // مسیر صحیح را وارد کنید
 import useRequest from '../../../../services/Hooks/useRequest';
+import Container from "../../../../components/Common/Container";
 
-const Container = styled.div`
-  padding: 15px;
-  overflow-y: auto;
-  
-  height: 100%;
-`;
 const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
