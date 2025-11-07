@@ -6,15 +6,12 @@ import LoadingSpinner from "../../../../../components/Common/LoadingSpinner";
 import styled from "styled-components";
 import Container from "../../../../../components/Common/Container";
 const DynastyContainer = styled.div`
-  overflow: hidden; 
+  overflow-x: auto; 
   display: flex;
+  width: 100%;
   flex-direction: column;
 `;
 
-const ScrollArea = styled.div`
-  overflow-y: auto;
-  padding: 20px 25px;
-`;
 
 const DynastyMembers = () => {
   const [isLoading, setIsLoading] = useState(true);

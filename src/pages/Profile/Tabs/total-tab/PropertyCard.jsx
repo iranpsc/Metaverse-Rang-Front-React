@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-
+import { convertToPersian } from "../../../../services/Utility";
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -45,7 +45,7 @@ const PropertyCard = ({ image, label, value }) => {
       <div>
         <span>{label}</span>
         <h3>
-          {value || 0}{" "}
+          {convertToPersian(value) ||convertToPersian(0)}{" "}
           {getFieldTranslationByNames("150")}
         </h3>
       </div>

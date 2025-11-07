@@ -13,8 +13,8 @@ const TableRow = styled.tr`
 `;
 
 const TableCell = styled.td`
-  padding: 15px 20px;
-  border-bottom: 1px solid #454545;
+  padding: 18px;
+  border-bottom: 1px solid #BABABA;
   color: ${(props) => props.theme.colors.newColors.shades.title};
 `;
 

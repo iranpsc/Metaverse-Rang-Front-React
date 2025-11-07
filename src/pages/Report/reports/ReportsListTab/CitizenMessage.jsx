@@ -1,15 +1,15 @@
-import React, { useContext } from "react"; // اضافه کردن useContext به واردات
+import  { useContext } from "react"; 
 import download from "../../../../assets/images/reports/download.png";
 import styled from "styled-components";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
-import { convertToPersian } from "../../../../services/Utility/index";
-import { UserContext } from "../../../../services/reducers/UserContext"; // وارد کردن UserContext
+import { UserContext } from "../../../../services/reducers/UserContext";
 
 const Content = styled.div``;
 
 const Header = styled.div`
+  flex-direction: column;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   margin-bottom: 10px;
   span {

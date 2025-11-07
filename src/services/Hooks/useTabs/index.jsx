@@ -95,9 +95,6 @@ function useTabs(tabs, current, fullHeight) {
   const { isScrollingDown } = useScrollDirectionContext();
 
   useEffect(() => {
-    console.log("Scrolling down?", isScrollingDown);
-  }, [isScrollingDown]);
-  useEffect(() => {
     tabRefs.current[activeTab]?.scrollIntoView({
       behavior: "smooth",
       block: "nearest",

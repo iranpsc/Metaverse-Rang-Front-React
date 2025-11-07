@@ -5,7 +5,7 @@ import {
   getFieldsByTabName,
   getFieldsByTabNameReverse,
 } from "../../../../services/Utility";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Dropdown from "../../../../components/Common/Dropdown";
 const Container = styled.div`
   margin-top: 20px;
@@ -51,12 +51,10 @@ const EducationsAndJob = () => {
   const { state, dispatch } = useGlobalState();
   const educationFields = getFieldsByTabName("misc", "education");
   const educationFieldsReverse = getFieldsByTabNameReverse("misc", "education");
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedEducationFinal, setSelectedEducationFinal] = useState("");
 
   const handleEducationChange = (fieldName) => {
     dispatch({ type: "SET_EDUCATION", payload: fieldName });
-    setIsDropdownOpen(false);
   };
 
   const handleJobChange = (e) => {
@@ -90,7 +88,17 @@ const EducationsAndJob = () => {
 
     return state.education;
   }, [state.education, educationFields, educationFieldsReverse]);
-  console.log("tarjome", getFieldTranslationByNames("1465"));
+  useEffect(() => {
+    if (!state.education) {
+      setSelectedEducationFinal(getFieldTranslationByNames("1465"));
+      return;
+    }
+
+    if (selectedEducation) {
+      setSelectedEducationFinal(selectedEducation);
+    }
+  }, [state.education, selectedEducation]);
+
   return (
     <Container>
       <div>
@@ -100,7 +108,7 @@ const EducationsAndJob = () => {
           options={educationFields.map((field) =>
             getFieldTranslationByNames(String(field.unique_id || field.id))
           )}
-          selected={selectedEducation}
+          selected={selectedEducationFinal}
           onSelect={(val) => {
             const selectedField = educationFields.find(
               (f) =>

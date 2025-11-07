@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { ExitIcon } from "../../../../components/Icons/IconsHeader";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
@@ -12,8 +13,6 @@ import {
   ToastError,
   ToastSuccess,
 } from "../../../../services/Utility";
-import { IoCloseCircleSharp, IoCloseSharp } from "react-icons/io5";
-import { useLanguage } from "../../../../services/reducers/LanguageContext";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -40,8 +39,13 @@ const Modal = styled.div`
   gap: 30px;
   flex-direction: column;
   position: relative;
+  
 `;
+const Header=styled.div`
+display: flex;
+gap: 10px;
 
+`;
 const Title = styled.h3`
   font-size: 24px;
   font-weight: 600;
@@ -77,18 +81,7 @@ const ErrorMessage = styled.div`
   margin-top: 10px;
 `;
 
-const Close = styled.div`
-  position: absolute;
-  top: 10px;
-  ${(props) => (props.isPersian ? "left" : "right")}: 10px;
-  cursor: pointer;
-  svg {
-    color: red;
-    font-size: 24px;
-  }
-`;
 const AddBankCard = ({ setOpenAddModal, setCards }) => {
-  const isPersian = useLanguage();
   const [cardInfo, setCardInfo] = useState({
     card_num: "",
     shaba_num: "",
@@ -137,12 +130,14 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
   return (
     <BackGround>
       <Modal>
-        <Title>
-          {getFieldTranslationByNames("890")}
-        </Title>
-        <Close>
-          <IoCloseCircleSharp onClick={() => setOpenAddModal(false)} />
-        </Close>
+        {" "}
+        <Header>
+        <ExitIcon onClick={() => setOpenAddModal(false)}>
+        </ExitIcon>
+        <Title>{getFieldTranslationByNames("890")}</Title>
+        </Header>
+
+
         <Inputs>
           <EditInput
             title={getFieldTranslationByNames("636")}
@@ -174,10 +169,7 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
           />
         </Inputs>
         {errors.length > 0 && <ErrorMessage>{errors[0]}</ErrorMessage>}
-        <Button onClick={addCard}>
-          {" "}
-          {getFieldTranslationByNames("890")}
-        </Button>
+        <Button onClick={addCard}> {getFieldTranslationByNames("890")}</Button>
       </Modal>
     </BackGround>
   );

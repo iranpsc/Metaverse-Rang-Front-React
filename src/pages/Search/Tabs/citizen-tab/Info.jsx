@@ -11,13 +11,13 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     h3 {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 500;
       color: ${(props) => props.theme.colors.newColors.shades.title};
     }
     p {
       color: ${(props) => props.theme.colors.newColors.shades.title};
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 `;

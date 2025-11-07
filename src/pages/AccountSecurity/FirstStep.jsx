@@ -7,6 +7,7 @@ import { useLanguage } from "../../services/reducers/LanguageContext";
 
 const Container = styled.div`
   margin-top: 20px;
+
   h3 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
@@ -33,13 +34,13 @@ const Container = styled.div`
   }
 
   button {
+    font-size: 16px;
     border-radius: 5px;
     height: 50px;
     width: 100%;
     background-color: ${(props) =>
       props.theme.colors.newColors.otherColors.secondaryBtn};
-    border: 1px solid
-      ${(props) => props.theme.colors.newColors.otherColors.secondaryBtnBorder};
+    border-color: transparent;
     margin-top: 30px;
     margin-bottom: 15px;
     color: ${(props) =>
@@ -47,7 +48,10 @@ const Container = styled.div`
     cursor: pointer;
   }
 `;
-
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 3px;
+`;
 const Div = styled.div`
   height: fit-content;
   position: relative;
@@ -62,13 +66,17 @@ const Div = styled.div`
   }
 `;
 const Up = styled.span`
-  margin-bottom: -15px;
+  user-select: none;
+  display: inline-flex;
   svg {
     width: 20px;
     height: 20px;
   }
 `;
 const Down = styled.span`
+  user-select: none;
+  display: inline-flex;
+
   svg {
     width: 20px;
     height: 20px;
@@ -78,7 +86,7 @@ const Min = styled.span`
   position: absolute;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   ${(props) => (props.isPersian ? "right" : "left")}: 40px;
-  top: 32px;
+  top: 37px;
   font-size: 14px;
 `;
 
@@ -112,34 +120,51 @@ const FirstStep = ({ setStep, time, setTime }) => {
   return (
     <Container>
       <h3>{getFieldTranslationByNames("858")}</h3>
-      <p>
-        {getFieldTranslationByNames("32")}
-      </p>
+      <p>{getFieldTranslationByNames("32")}</p>
       <Div isPersian={isPersian}>
-        <div>
-          <Up onClick={() => setTime((prev) => +prev + 1)}>
+        <ButtonContainer>
+          <Up
+            onClick={() =>
+              setTime((prev) =>
+                prev === "" || prev == null ? 5 : Math.max(5, +prev + 1)
+              )
+            }
+          >
             <MdKeyboardArrowUp />
           </Up>
           <Down
             onClick={() => {
-              if (time > 0) {
+              if (time > 5) {
                 setTime((prev) => +prev - 1);
               }
             }}
           >
             <MdKeyboardArrowDown />
-          </Down>
-        </div>
+          </Down>{" "}
+        </ButtonContainer>
 
         <input
           value={time}
-          onChange={(e) => setTime(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+
+            const numericValue = Number(value);
+
+            if (numericValue < 5) {
+              setTime(5);
+            }
+            if (numericValue > 99) {
+              setTime(99);
+            } else {
+              setTime(numericValue);
+            }
+          }}
           type="number"
           name="time"
           placeholder={getFieldTranslationByNames("858")}
           maxLength={3}
-          min={0}
-          max={200}
+          min={5}
+          max={99}
           step={1}
         />
         {!phone && (
@@ -153,9 +178,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
           />
         )}
         {time !== "" && (
-          <Min isPersian={isPersian}>
-            {getFieldTranslationByNames("33")}
-          </Min>
+          <Min isPersian={isPersian}>{getFieldTranslationByNames("33")}</Min>
         )}
       </Div>
       <button onClick={onSendHandler}>

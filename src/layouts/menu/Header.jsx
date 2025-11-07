@@ -20,6 +20,7 @@ const Container = styled.div`
 const ContainerText = styled.div`
   display: ${(props) => (props.isOpen ? "flex" : "none")};
   align-items: start;
+
   justify-content: center;
   flex-direction: column;
 `;
@@ -27,6 +28,7 @@ const ContainerText = styled.div`
 const Title = styled.p`
   color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
   font-size: 18px;
+  height: 28px;
   font-style: normal;
   font-weight: 700;
   line-height: 180%;

@@ -3,59 +3,22 @@ import {
   convertToPersian,
   getFieldTranslationByNames,
 } from "../../../../services/Utility";
+import { Container,Label } from "../../../../components/sidbar";
 
-const Container = styled.div`
-  overflow-y: auto;
-  padding-right: 10px;
-  padding-bottom: 20px;
-  height: 100%;
-`;
-
-const Wrapper = styled.div`
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.menuBg};
-  border-radius: 5px;
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  margin-top: 20px;
-  width: 100%;
-  overflow-y: auto;
-`;
-
-const Option = styled.h2`
-  font-weight: 500;
-  font-size: 18px;
-  padding: 15px 20px;
-  white-space: nowrap;
-  cursor: pointer;
-
-  color: ${(props) =>
-    props.option
-      ? props.theme.colors.primary
-      : props.theme.colors.newColors.otherColors.title};
-  border-right: ${(props) =>
-    props.option
-      ? `2px solid ${props.theme.colors.primary}`
-      : "2px solid transparent"};
-  @media (max-width: 850px) {
-    font-size: 16px;
-  }
-`;
 const SideBar = ({ currencies, option, setOption }) => {
   return (
     <Container>
-      <Wrapper>
         {currencies.map((item) => (
-          <Option
-            option={option === item.id}
+          <Label
+            menu={option === item.id}
             onClick={() => setOption(item.id)}
             key={item.id}
           >
             {getFieldTranslationByNames("504")}
             {"  "}
             {convertToPersian(item.id)}
-          </Option>
+          </Label>
         ))}
-      </Wrapper>
     </Container>
   );
 };

@@ -18,7 +18,7 @@ const Container = styled.div`
   border-radius: 10px;
   @media (min-width: 1366px) {
     overflow-y: auto;
-    width: 35%;
+    width: 50%;
 
   }
 `;

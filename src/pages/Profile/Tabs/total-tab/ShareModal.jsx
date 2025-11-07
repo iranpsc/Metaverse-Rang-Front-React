@@ -5,10 +5,10 @@ import {
   TwitterShare,
   WhatsappShare,
 } from "react-share-kit";
-
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import styled from "styled-components";
 import { useState } from "react";
-
+import { ExitIcon } from "../../../../components/Icons/IconsHeader";
 const BackGround = styled.div`
   z-index: 999;
   position: fixed;
@@ -29,18 +29,9 @@ const Modal = styled.div`
 
   overflow-y: auto;
   padding: 20px;
-  width: 440px;
+  width: 500px;
   max-height: 577px;
-  @media (min-width: 1023px) {
-    width: 480px;
-    overflow-y: auto;
-  }
-`;
-const Close = styled.h4`
-  cursor: pointer;
-  &:hover {
-    color: red;
-  }
+  
 `;
 const Header = styled.div`
   display: flex;
@@ -70,6 +61,8 @@ const Copy = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 10px;
   margin-top: 40px;
+  gap: 5px;
+  white-space: nowrap;
   padding: 5px 5px 5px 20px;
   display: flex;
   align-items: center;
@@ -115,8 +108,8 @@ const ShareModal = ({ setOpenShare, data }) => {
     <BackGround>
       <Modal>
         <Header>
-          <Close onClick={() => setOpenShare(false)}>X</Close>
-          <span>اشتراک گذاری شهروند</span>
+          <ExitIcon onClick={() => setOpenShare(false)}>X</ExitIcon>
+          <span> {getFieldTranslationByNames("324")} </span>
           <div />
         </Header>
         <Socials>
@@ -162,7 +155,11 @@ const ShareModal = ({ setOpenShare, data }) => {
           </Social>
         </Socials>
         <Copy>
-          <span onClick={handleCopy}>{copied ? "کپی شد" : "کپی"}</span>
+          <span onClick={handleCopy}>
+            {copied
+              ? getFieldTranslationByNames("1476")
+              : getFieldTranslationByNames("323")}
+          </span>
           <p> {`https://rgb.irpsc.com/fa/citizens/${data?.code}`}</p>
         </Copy>
       </Modal>

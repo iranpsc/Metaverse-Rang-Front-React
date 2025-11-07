@@ -1,7 +1,7 @@
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import SellerPriceInfo from "./SellerPriceInfo";
 import styled from "styled-components";
-
+import Button from "../../../../../components/Button";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,6 +23,7 @@ const SellerPrice = () => {
         {getFieldTranslationByNames("526")}
       </Text>
       <SellerPriceInfo />
+      <Button label={getFieldTranslationByNames("353")} />
     </Wrapper>
   );
 };

@@ -8,7 +8,7 @@ const Container = styled.div`
   border-radius: 0.25rem;
   width: 100%;
   overflow-x: auto;
-  min-height: 100%;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -30,13 +30,14 @@ const Table = styled.table`
 const TableHead = styled.thead`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  border-radius: 10px !important;
-  overflow: hidden !important;
 `;
 
 const TableRow = styled.tr``;
 const StatusFilter = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   top: 65px;
   width: 169px;
   padding: 20px;
@@ -44,86 +45,82 @@ const StatusFilter = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   font-size: 16px;
-  div {
-    position: relative;
-    &:hover {
-      background-color: ${(props) =>
-        props.theme.colors.newColors.otherColors.inputBg};
-      transition: all 0.2s linear;
-    }
-    span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
-  }
+`;
 
+const StatusFilterItems = styled.div`
+  position: relative;
+  border-radius: 5px;
+  background-color: ${(props) =>
+    props.active ? props.theme.colors.shades[80] : "transparent"};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.shades[80]};
+    transition: all 0.2s linear;
+  }
+  span {
+    position: absolute;
+    left: 10px;
+    top: 3px;
+    color: red;
+    cursor: pointer;
+    font-size: 14px;
+  }
   h1 {
     font-weight: 400;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
+    color: ${(props) =>
+      props.active
+        ? props.theme.colors.newColors.primaryText
+        : props.theme.colors.newColors.shades.title};
     font-size: 16px;
     border-radius: 5px;
     padding: 2px 18px;
     cursor: pointer;
-  }
-  h2 {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-weight: 400;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
-    margin: 10px 0;
-  }
-  h3 {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-weight: 400;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
-    margin: 10px 0;
+    &:hover {
+      color: ${({ theme }) => theme.colors.newColors.primaryText};
+    }
   }
 `;
 const TitleFilter = styled.div`
   position: absolute;
   top: 65px;
-  width: 130px;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 140px;
   padding: 15px;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  div {
-    position: relative;
-    padding-right: 5px;
-    &:hover {
-      background-color: ${(props) =>
-        props.theme.colors.newColors.otherColors.inputBg};
-      transition: all 0.2s linear;
-    }
-    span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
-  }
-  h1 {
-    font-size: 16px;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-weight: 400;
-    cursor: pointer;
-    &:first-of-type {
-      margin-bottom: 10px;
-    }
-  }
 `;
 
+const FilterItem = styled.div`
+  border-radius: 10px;
+  display: flex;
+  padding: 0 5px;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: ${(props) =>
+    props.active ? props.theme.colors.shades[80] : "transparent"};
+  color: ${(props) =>
+    props.active
+      ? props.theme.colors.newColors.primaryText
+      : props.theme.colors.newColors.shades.title};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.shades[80]};
+    color: ${({ theme }) => theme.colors.newColors.primaryText};
+
+    transition: all 0.2s linear;
+  }
+  span {
+    color: red;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 16px;
+    font-weight: 400;
+  }
+`;
 const Div = styled.div`
   display: flex;
   align-items: center;
@@ -199,11 +196,11 @@ const RequestsList = ({
 
   const memberTypes = [
     { key: "child", label: 129, type: "h1" },
-    { key: "wife", label: 825, type: "h2" },
-    { key: "sister", label: 127, type: "h3" },
-    { key: "brother", label: 128, type: "h3" },
-    { key: "father", label: 125, type: "h3" },
-    { key: "mother", label: 126, type: "h3" },
+    { key: "wife", label: 825, type: "h1" },
+    { key: "sister", label: 127, type: "h1" },
+    { key: "brother", label: 128, type: "h1" },
+    { key: "father", label: 125, type: "h1" },
+    { key: "mother", label: 126, type: "h1" },
   ];
 
   const statusTypes = [
@@ -211,7 +208,6 @@ const RequestsList = ({
     { key: "pending", label: 852 },
     { key: "failed", label: 853 },
   ];
-
   return (
     <Container>
       <Table>
@@ -239,13 +235,7 @@ const RequestsList = ({
               {filters.member && (
                 <StatusFilter>
                   {memberTypes.map(({ key, label, type }) => (
-                    <div
-                      key={key}
-                      style={{
-                        borderRadius: "5px",
-                        backgroundColor: `${member[key] && "#3B3B3B"}`,
-                      }}
-                    >
+                    <StatusFilterItems active={member[key]} key={key}>
                       {React.createElement(
                         type,
                         {
@@ -256,7 +246,7 @@ const RequestsList = ({
                       {member[key] && (
                         <span onClick={() => handleMemberRemove(key)}>X</span>
                       )}
-                    </div>
+                    </StatusFilterItems>
                   ))}
                 </StatusFilter>
               )}
@@ -278,20 +268,14 @@ const RequestsList = ({
               {filters.status && (
                 <TitleFilter>
                   {statusTypes.map(({ key, label }) => (
-                    <div
-                      key={key}
-                      style={{
-                        backgroundColor: `${status[key] && "#3B3B3B"}`,
-                        borderRadius: "10px",
-                      }}
-                    >
+                    <FilterItem active={status[key]} key={key}>
                       <h1 onClick={() => handleStatusFilter(key)}>
                         {getFieldTranslationByNames(label)}
                       </h1>
                       {status[key] && (
                         <span onClick={() => handleStatusRemove(key)}>X</span>
                       )}
-                    </div>
+                    </FilterItem>
                   ))}
                 </TitleFilter>
               )}

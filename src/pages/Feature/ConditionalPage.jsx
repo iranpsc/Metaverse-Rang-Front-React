@@ -41,7 +41,7 @@ export default function ConditionalPage() {
       content: <PhysicTab owner />,
     },
     {
-      title: getFieldTranslationByNames("3215"),
+      title: getFieldTranslationByNames("325"),
       content: <HistoryTab />,
     },
   ];

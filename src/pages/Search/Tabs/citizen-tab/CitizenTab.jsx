@@ -18,8 +18,8 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  padding: 20px 15px 20px 0;
   height: 90%;
+  padding: 15px;
   overflow-y: auto;
 `;
 const P = styled.p`

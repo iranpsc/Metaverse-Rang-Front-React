@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import TransactionRow from "./TransactionRow";
 import blue from "../../../../assets/gif/blue-color.gif";
@@ -11,17 +11,17 @@ import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;
+  min-height: 300px;
   overflow-x: auto;
-   margin-top: 20px;
+  margin-top: 20px;
 `;
 
 const Table = styled.table`
-width: 100%;
+  width: 100%;
   margin-top: 5px;
   border-collapse: collapse;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
- 
 `;
 
 const TableHead = styled.thead`
@@ -31,7 +31,8 @@ const TableHead = styled.thead`
   overflow: hidden !important;
 `;
 
-const TableRow = styled.tr``;
+const TableRow = styled.tr`
+`;
 const StatusFilter = styled.div`
   position: absolute;
   top: 65px;
@@ -55,6 +56,7 @@ const TitleFilter = styled.div`
 `;
 const SubjectFilter = styled.div`
   position: absolute;
+
   top: 65px;
   width: max-content;
   padding: 20px;
@@ -67,9 +69,9 @@ const SubjectFilter = styled.div`
     padding: 4px;
 
     &:hover {
-      background-color: #3b3b3b;
-      color: #dedee9;
-      transition: all 0.2s linear;
+      background-color: ${({ theme }) => theme.colors.shades[80]};
+      color: ${({ theme }) => theme.colors.newColors.primaryText};
+      transition: all 0.1s linear;
     }
   }
 `;
@@ -118,30 +120,53 @@ const RotatingArrow = styled(MdKeyboardArrowDown)`
 const FilterItem = styled.div`
   position: relative;
   padding: ${(props) => props.padding || "0"};
-  color: ${(props) => (props.active ? "white" : "black")} !important;
-  background-color: ${(props) => (props.active ? "#3B3B3B" : "transparent")};
+  background-color: ${(props) => {
+    if (props.active) {
+      if (props.variant === "success") return "#18c09017";
+      if (props.variant === "pending") return "#ffc80017";
+      if (props.variant === "failed") return "#ff000017";
+      return props.theme.colors.shades[80];
+    }
+    return "transparent";
+  }};
+
+  color: ${(props) => {
+    if (props.active) {
+      if (props.variant === "success") return "#18c08f";
+      if (props.variant === "pending") return "#ffc800";
+      if (props.variant === "failed") return "#ff0000";
+      return props.theme.colors.newColors.primaryText;
+    }
+    return (props) => props.theme.colors.newColors.title;
+  }};
   border-radius: ${(props) => props.borderRadius || "0"};
   &:hover {
-    background-color: #3b3b3b;
     color: #dedee9 !important;
     transition: all 0.2s linear;
+
+    background-color: ${(props) =>
+      props.noHoverBg
+        ? "transparent !important"
+        : props.theme.colors.shades[80]};
   }
 `;
 
 const FilterItemText = styled.h1`
   font-size: 16px;
-  color: ${(props) => {
-    if (props.variant === "success") return "#18c08f";
-    if (props.variant === "pending") return "#ffc800";
-    if (props.variant === "failed") return "#ff0000";
-    return props.theme.colors.newColors.shades.title;
-  }};
-  background-color: ${(props) => {
-    if (props.variant === "success") return "#18c09017";
-    if (props.variant === "pending") return "#ffc80017";
-    if (props.variant === "failed") return "#ff000017";
-    return "transparent";
-  }};
+  &:hover {
+    color: ${(props) => {
+      if (props.variant === "success") return "#18c08f";
+      if (props.variant === "pending") return "#ffc800";
+      if (props.variant === "failed") return "#ff0000";
+      return props.theme.colors.newColors.primaryText;
+    }};
+    background-color: ${(props) => {
+      if (props.variant === "success") return "#18c09017";
+      if (props.variant === "pending") return "#ffc80017";
+      if (props.variant === "failed") return "#ff000017";
+      return "transparent";
+    }};
+  }
   font-weight: 400;
   cursor: pointer;
   margin: ${(props) => props.margin || "0"};
@@ -150,9 +175,6 @@ const FilterItemText = styled.h1`
   display: flex;
   flex-direction: column;
   gap: 3px;
-  &:hover {
-    color: #dedee9 !important;
-  }
 `;
 
 const FilterCloseButton = styled.span`
@@ -169,8 +191,12 @@ const SubjectFilterItem = styled.div`
   gap: 5px;
   cursor: pointer;
   align-items: center;
-  color: ${(props) => (props.active ? "white" : "black")};
-  background-color: ${(props) => (props.active ? "#3B3B3B" : "transparent")};
+  color: ${(props) =>
+    props.active
+      ? props.theme.colors.newColors.primaryText
+      : props.theme.colors.newColors.shades.title};
+  background-color: ${(props) =>
+    props.active ? props.theme.colors.shades[80] : "transparent"};
   margin-bottom: ${(props) => (props.isLast ? "0" : "10px")};
   border-radius: 10px;
   padding: 3px;
@@ -226,7 +252,12 @@ const TransactionsList = ({
               </FilterContainer>
               {filters.status && (
                 <StatusFilter>
-                  <FilterItem active={status.success} borderRadius="5px">
+                  <FilterItem
+                    active={status.success}
+                    variant="success"
+                    borderRadius="5px"
+                    noHoverBg
+                  >
                     <FilterItemText
                       variant="success"
                       padding="2px 18px"
@@ -249,7 +280,12 @@ const TransactionsList = ({
                     )}
                   </FilterItem>
 
-                  <FilterItem active={status.pending} borderRadius="5px">
+                  <FilterItem
+                    active={status.pending}
+                    variant="pending"
+                    borderRadius="5px"
+                    noHoverBg
+                  >
                     <FilterItemText
                       variant="pending"
                       padding="2px 18px"
@@ -272,7 +308,12 @@ const TransactionsList = ({
                     )}
                   </FilterItem>
 
-                  <FilterItem active={status.failed} borderRadius="5px">
+                  <FilterItem
+                    active={status.failed}
+                    variant="failed"
+                    borderRadius="5px"
+                    noHoverBg
+                  >
                     <FilterItemText
                       variant="failed"
                       padding="2px 18px"

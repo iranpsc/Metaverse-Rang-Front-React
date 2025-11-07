@@ -70,7 +70,7 @@ export const Value = styled.div`
   }
   span {
     color: ${(props) => props.theme.colors.newColors.shades[30]};
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
   }
 `;
@@ -141,7 +141,7 @@ export const Prices = styled.div`
   gap: 12px;
   span {
     color: ${(props) => props.theme.colors.newColors.shades[30]};
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
   }
   h3 {

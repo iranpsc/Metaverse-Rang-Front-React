@@ -6,8 +6,7 @@ import ModalLg from "../../../../components/Modal/ModalLg";
 const Div = styled.div`
   height: 272px;
   overflow-y: auto;
-
-  padding-right: 15px;
+  padding-bottom: 15px;
   height: 100%;
 `;
 

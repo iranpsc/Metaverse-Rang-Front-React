@@ -1,7 +1,7 @@
-import chat from "../../../../../assets/images/chat.png";
 import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { ReactComponent as Message } from "../../../../../assets/svg/message.svg";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.newColors.otherColors.menuBg};
@@ -12,7 +12,7 @@ const Container = styled.div`
   align-items: center;
   gap: 15px;
   z-index: 10;
-  width: 120px;
+  width: 140px;
   position: relative;
 
   &:not(:first-child)::after {
@@ -66,24 +66,26 @@ const Status = styled.div`
   border: 2px solid #1a1a18;
 `;
 
-const Chat = styled.img`
+const Chat = styled(Message)`
   position: absolute;
   left: 0;
   bottom: 0;
+  width: 25px;
+  height: 25px;
+  fill: #635d5dff;
 `;
-
-const TreeMember = ({ item }) => {  
-  const relationTypes =[
-      { value: "father", label: 125 }, // پدر
-      { value: "mother", label: 126 }, 
-      { value: "sister", label: 127 }, 
-      { value: "brother", label:128 }, 
-      { value: "spouse", label:825 }, 
-      { value: "offspring ", label: 129}
+const TreeMember = ({ item }) => {
+  const relationTypes = [
+    { value: "father", label: 125 }, // پدر
+    { value: "mother", label: 126 },
+    { value: "sister", label: 127 },
+    { value: "brother", label: 128 },
+    { value: "spouse", label: 825 },
+    { value: "offspring ", label: 129 },
   ];
 
   const getRelationshipLabel = (relationship) => {
-    const found = relationTypes.find(type => type.value === relationship);
+    const found = relationTypes.find((type) => type.value === relationship);
     return found ? getFieldTranslationByNames(found.label) : relationship;
   };
 
@@ -91,7 +93,7 @@ const TreeMember = ({ item }) => {
     <Container>
       <Image>
         <Status online={item.online} />
-        <Chat src={chat} width={28} height={28} alt="chat" />
+        <Chat width={28} height={28} alt="chat" />
         <img
           src={item.profile_photo || member}
           alt="member"

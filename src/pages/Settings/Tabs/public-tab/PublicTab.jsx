@@ -120,7 +120,7 @@ const PublicTab = () => {
 
   return (
     <Container>
-      {alert && <Alert type="success" text="به روزرسانی با موفقیت انجام شد" />}
+      {alert && <Alert type="success" text={getFieldTranslationByNames("1480")} />}
       <Settings>
         {settings.map((setting) => (
           <Wrapper key={setting.id}>
@@ -134,7 +134,7 @@ const PublicTab = () => {
         ))}
       </Settings>
 
-      <Button label={getFieldTranslationByNames("411")} onclick={handleSubmit} />
+      <Button label={getFieldTranslationByNames("1481")} onclick={handleSubmit} />
     </Container>
   );
 };

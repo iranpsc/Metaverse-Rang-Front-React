@@ -9,6 +9,7 @@ const Container = styled.div`
   padding: 15px;
   overflow-y: auto;
   display: grid;
+  
   grid-template-columns: 1fr;
   gap: 30px;
 padding-bottom:30px;

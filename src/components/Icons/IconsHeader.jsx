@@ -30,4 +30,6 @@ export const ReportIcon = styled(Report)`
 export const ExitIcon = styled(Exit)`
   width: 40px;
   height: 40px;
+    cursor: pointer;
+
 `;

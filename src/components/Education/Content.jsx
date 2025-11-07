@@ -2,8 +2,8 @@ import { FaChevronCircleLeft } from "react-icons/fa";
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding-bottom: 5px;
-  padding-right: 10px;
+  padding: 0 20px; 
+  margin: 0 5px;
   height: ${(props) => (props.show ? "160px" : "")};
   overflow-y: auto;
 
@@ -32,7 +32,7 @@ const Container = styled.div`
   h2 {
     font-size: 18px;
     font-weight: 500;
-    color: #ffffff;
+    color: ${(props)=>{props.theme.colors.newColors.shades.title}};
     margin-top: 7px;
     margin-bottom: 10px;
   }
@@ -83,7 +83,9 @@ const Content = ({ show, setShow, data }) => {
   return (
     <Container show={show}>
       <div>
-        <h2>{data?.title}</h2>
+        
+        {data?.title && <h2>{data.title}</h2>}
+
         {show ? (
           <Icon>
             <div />

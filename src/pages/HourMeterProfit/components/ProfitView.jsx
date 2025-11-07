@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import Button from "./Button";
 import ProfitList from "./ProfitList";
 import building from "../../../assets/images/building.png";
@@ -25,27 +25,6 @@ const Buttons = styled.div`
   margin-bottom: 20px;
 `;
 
-const karbariMapping = {
-  m: {
-    title: getFieldTranslationByNames("477"),
-    logo: house,
-    color: "#FFC700",
-    background: "#ffc80021",
-  },
-  t: {
-    title: getFieldTranslationByNames("475"),
-    logo: building,
-    color: "#FF0000",
-    background: "#ff000021",
-  },
-  a: {
-    title: getFieldTranslationByNames("476"),
-    logo: education,
-    color: "#0066FF",
-    background: "#0066ff21",
-  },
-};
-
 const ProfitView = () => {
   const [buttons, setButtons] = useState([]);
   const [cards, setCards] = useState([]);
@@ -54,6 +33,26 @@ const ProfitView = () => {
   const [hasMore, setHasMore] = useState(true);
   const [wallet, dispatch] = useContext(WalletContext); // WalletContext access
 
+  const karbariMapping = {
+    m: {
+      title: getFieldTranslationByNames("477"),
+      logo: house,
+      color: "#FFC700",
+      background: "#ffc80021",
+    },
+    t: {
+      title: getFieldTranslationByNames("475"),
+      logo: building,
+      color: "#FF0000",
+      background: "#ff000021",
+    },
+    a: {
+      title: getFieldTranslationByNames("476"),
+      logo: education,
+      color: "#0066FF",
+      background: "#0066ff21",
+    },
+  };
   const fetchData = useCallback(() => {
     if (!hasMore) return;
 

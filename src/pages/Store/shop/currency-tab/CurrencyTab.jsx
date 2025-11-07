@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const Wrapper = styled.div`
-  display: grid;
+  display: flex;
   gap: 20px;
   grid-template-columns: 200px 1fr;
   height: 100vh;

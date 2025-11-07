@@ -6,11 +6,15 @@ import SentList from "./sent/SentList";
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 4px;
+  grid-template-columns: 140px 1fr;
+  gap: 10px;
   overflow-y: hidden;
   @media (min-width: 1366px) {
     gap: 20px;
+  }
+
+  @media (min-width: 998px) {
+    grid-template-columns: 160px 1fr;
   }
 `;
 

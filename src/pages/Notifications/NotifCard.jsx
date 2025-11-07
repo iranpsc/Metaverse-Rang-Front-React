@@ -2,6 +2,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { TbTrash } from "react-icons/tb";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
+import DOMPurify from "dompurify";
 
 const Container = styled.div`
   padding: 20px;
@@ -101,7 +102,11 @@ const NotifCard = ({ id, setNotifications, notifications, data }) => {
           <TbTrash size={20} />
         </TrashWrapper>
       </Profile>
-      <p>{data.data.message}</p>
+      <p
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(data.data.message),
+        }}
+      ></p>{" "}
     </Container>
   );
 };

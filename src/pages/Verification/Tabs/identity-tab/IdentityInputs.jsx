@@ -203,7 +203,7 @@ const IdentityInputs = ({
           large
           label={getFieldTranslationByNames("877")}
           onclick={sendHandler}
-          disabled={isVideoUploaded ? false : "pending"}
+          disabled={isVideoUploaded ? false : true/*"pending" for loading ui*/ }
         />
       </BankContainer>
       {openErrorModal && (

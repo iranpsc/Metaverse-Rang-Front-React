@@ -5,7 +5,7 @@ import { tools } from "../data";
 import { useState } from "react";
 
 const Wrapper = styled.div`
-  display: grid;
+  display: flex;
   grid-template-columns: 200px 1fr;
   gap: 20px;
   height: 100vh;

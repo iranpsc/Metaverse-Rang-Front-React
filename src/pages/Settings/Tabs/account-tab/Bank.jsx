@@ -37,7 +37,8 @@ const Div = styled.div`
   align-items: center;
   justify-content: space-between;
   span {
-    font-size: 12px;
+    
+    font-size: 16px;
     font-weight: 500;
     color: ${(props) => props.theme.colors.newColors.shades.title};
   }
@@ -48,6 +49,8 @@ const Div = styled.div`
     text-align: center;
     outline: none;
     width: 70px;
+        font-size: 16px;
+
     height: 50px;
     border: 1px solid ${(props) => (props.error ? "red" : "#454545")};
     border-radius: 5px;

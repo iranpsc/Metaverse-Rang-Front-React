@@ -21,30 +21,48 @@ const List = styled.div`
 `;
 const Provider = styled.div`
   position: relative;
-  color: ${(props) => props.theme.colors.newColors.shades.title};
   padding: 4px 10px;
   cursor: pointer;
   border-radius: 10px;
   transition: all 0.2s linear;
+
+  color: ${(props) =>
+    props.industry
+      ? "#FF0000"
+      : props.education
+      ? "#0066FF"
+      : props.house
+      ? "#FFC700"
+      : props.theme.colors.newColors.shades.title};
+
+  background-color: ${(props) =>
+    props.industry
+      ? "#ff000021"
+      : props.education
+      ? "#0066ff21"
+      : props.house
+      ? "#ffc70021"
+      : "transparent"};
+
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colors.newColors.otherColors.inputBg};
+    background-color: ${(p) => p.hover || p.theme.colors.shades[80]};
   }
+
   h1 {
     font-size: 16px;
     font-weight: 400;
   }
+
   span {
     position: absolute;
     left: 10px;
     top: 5px;
-    &:hover {
-      color: red;
-      cursor: pointer;
-      transition: all 0.2s linear;
-    }
+    color: red;
+    cursor: pointer;
+    transition: all 0.2s linear;
   }
 `;
+
 const Filter = styled.div`
   position: absolute;
   top: 55px;
@@ -96,36 +114,6 @@ const Div = styled.div`
     grid-template-columns: 1fr 200px;
   }
 `;
-const Search = styled.div`
-  position: relative;
-  height: 50px;
-  border-radius: 5px;
-  border: 1px solid
-    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
-  padding: 10px 12px;
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
-  display: grid;
-  align-items: center;
-  gap: 50px;
-  svg {
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-  }
-  input {
-    position: absolute;
-    width: 100% !important;
-    top: 0;
-    padding-right: 55px;
-    height: 100%;
-    background-color: transparent;
-    font-size: 18px;
-    outline: none;
-    border: none;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-  }
-`;
-
 const Houses = () => {
   const [searched, setSearched] = useState("");
   const [open, setOpen] = useState(false);
@@ -262,10 +250,8 @@ const Houses = () => {
           {open && (
             <Filter>
               <Provider
-                style={{
-                  color: `${property.industry && "#FF0000"}`,
-                  backgroundColor: `${property.industry && "#ff000021"}`,
-                }}
+                industry={property.industry}
+                hover="#ff000021"
                 onClick={() => {
                   setProperty({ ...property, industry: true });
                   setOpen(false);
@@ -285,10 +271,8 @@ const Houses = () => {
                 )}
               </Provider>
               <Provider
-                style={{
-                  color: `${property.education && "#0066FF"}`,
-                  backgroundColor: `${property.education && "#0066ff21"}`,
-                }}
+                education={property.education}
+                hover="#0066ff21"
                 onClick={() => {
                   setProperty({ ...property, education: true });
                   setOpen(false);
@@ -308,13 +292,8 @@ const Houses = () => {
                 )}
               </Provider>
               <Provider
-                style={{
-                  color: `${property.house && "#FFC700"}`,
-                  backgroundColor: `${
-                    property.house &&
-                    "var(--Button-Primary---bg---off, #332800)"
-                  }`,
-                }}
+                house={property.house}
+                hover="#ffc70021"
                 onClick={() => {
                   setProperty({ ...property, house: true });
                   setOpen(false);

@@ -164,8 +164,17 @@ const ReportRow = ({
             </Date>
           </div>
         </TableCell>
-        <TableCell>
-          <View id={id} onClick={fetchReportDetails}>
+        <TableCell style={{ position: "relative" }}>
+          <View
+            id={id}
+            onClick={fetchReportDetails}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
             <LuEye size={20} />
           </View>
         </TableCell>

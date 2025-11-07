@@ -7,12 +7,15 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 20px;
+  display: flex;
+  gap: 15px;
+  width: 100%;
   height: 100%;
   overflow-y: hidden;
-  /* margin: 20px 0; */
+  @media (min-width: 1366px) {
+    gap: 20px;
+  }
+
 `;
 
 const DynastyTab = () => {
@@ -21,15 +24,15 @@ const DynastyTab = () => {
   return (
     <Container>
       <Sidebar setMenu={setMenu} menu={menu} mode={dynastyEstablishEstate} />
-      {menu === 1 && (
-        <DynastyEstablishEstate
-          mode={dynastyEstablishEstate}
-          setMode={setDynastyEstablishEstate}
-        />
-      )}
-      {menu === 2 && <DynastyMembers />}
-      {menu === 3 && <SendRequest />}
-      {menu === 4 && <RecieveRequest />}
+        {menu === 1 && (
+          <DynastyEstablishEstate
+            mode={dynastyEstablishEstate}
+            setMode={setDynastyEstablishEstate}
+          />
+        )}
+        {menu === 2 && <DynastyMembers />}
+        {menu === 3 && <SendRequest />}
+        {menu === 4 && <RecieveRequest />}
     </Container>
   );
 };

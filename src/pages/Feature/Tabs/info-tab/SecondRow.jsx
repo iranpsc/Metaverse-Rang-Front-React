@@ -29,10 +29,22 @@ const RowWrapper = styled.div`
 const SecondRow = ({ feature }) => {
   const second_row_info = [
     {
+      id: 4,
+      title: getFieldTranslationByNames("347"),
+      value: feature?.properties?.area,
+      icon: <RxLayout />,
+    },
+    {
       id: 1,
       title: getFieldTranslationByNames("348"),
       value: feature?.properties?.density,
       icon: <HiOutlineBuildingOffice />,
+    },
+    {
+      id: 5,
+      title: getFieldTranslationByNames("349"),
+      value: (feature?.properties?.area * feature?.properties?.density) / 100,
+      icon: <RiCloseCircleLine />,
     },
     {
       id: 2,
@@ -46,18 +58,7 @@ const SecondRow = ({ feature }) => {
       value: "آزاد",
       icon: <MdOutlinePlaylistAddCheckCircle />,
     },
-    {
-      id: 4,
-      title: getFieldTranslationByNames("347"),
-      value: feature?.properties?.area,
-      icon: <RxLayout />,
-    },
-    {
-      id: 5,
-      title: getFieldTranslationByNames("349"),
-      value: (feature?.properties?.area * feature?.properties?.density) / 100,
-      icon: <RiCloseCircleLine />,
-    },
+    
   ];
 
   return (

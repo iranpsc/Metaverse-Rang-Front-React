@@ -52,10 +52,8 @@ const Label = styled.div`
     font-size: 36px;
     cursor: pointer;
     transform: ${(props) => props.show && "rotate(180deg)"};
-    color: ${(props) =>
-      props.show
-        ? props.theme.colors.primary
-        : props.theme.colors.newColors.shades.title};
+    color: ${(props) => props.theme.colors.primary};
+        
     transition: all 0.2s linear;
   }
 `;

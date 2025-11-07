@@ -64,42 +64,52 @@ const Loader = styled.div`
     border: none;
   }
 `;
-
 const TitleFilter = styled.div`
   position: absolute;
   top: 65px;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
   width: max-content;
   padding: 15px;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.bgContainer};
-  div {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding-right: 5px;
-    border-radius: 10px;
-    &:hover {
-      background-color: ${(props) =>
-        props.theme.colors.newColors.otherColors.inputBg};
-      transition: all 0.2s linear;
-    }
-    span {
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
-  }
+
   h1 {
     font-size: 16px;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 400;
-    cursor: pointer;
+
     &:first-of-type {
-      margin-bottom: 10px;
+      margin: 3px 0;
     }
+  }
+`;
+const FilterOption = styled.div`
+  padding: 0 7px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+
+  background-color: ${(props) =>
+    props.active ? props.theme.colors.shades[80] : "transparent"};
+  color: ${(props) =>
+    props.active ? props.theme.colors.newColors.primaryText : "inherit"};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.shades[80]};
+    color: ${({ theme }) => theme.colors.newColors.primaryText};
+  }
+
+  span {
+    color: red;
+    cursor: pointer;
+    font-size: 14px;
   }
 `;
 
@@ -128,10 +138,14 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
   };
 
   const renderStatusFilters = () => (
-    <TitleFilter status={status}>
+    <TitleFilter>
       {["confirmed", "pending", "failed", "read"].map((filterKey) => (
-        <div key={filterKey}>
-          <h1 onClick={() => handleFilterClick(filterKey)}>
+        <FilterOption
+          key={filterKey}
+          active={status[filterKey]}
+          onClick={() => handleFilterClick(filterKey)}
+        >
+          <h1>
             {filterKey === "confirmed"
               ? getFieldTranslationByNames("1343")
               : filterKey === "pending"
@@ -140,10 +154,18 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
               ? getFieldTranslationByNames("1345")
               : getFieldTranslationByNames("1346")}
           </h1>
+
           {status[filterKey] && (
-            <span onClick={() => handleFilterClick(filterKey)}>X</span>
+<span
+  onClick={(e) => {
+    e.stopPropagation();
+    handleFilterClick(filterKey);
+  }}
+>
+  X
+</span>
           )}
-        </div>
+        </FilterOption>
       ))}
     </TitleFilter>
   );
@@ -153,12 +175,8 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
       <Table>
         <TableHead>
           <tr>
-            <TableHeader>
-              {getFieldTranslationByNames("1339")}
-            </TableHeader>
-            <TableHeader>
-              {getFieldTranslationByNames("1319")}
-            </TableHeader>
+            <TableHeader>{getFieldTranslationByNames("1339")}</TableHeader>
+            <TableHeader>{getFieldTranslationByNames("1319")}</TableHeader>
             <TableHeader>
               <Div>{getFieldTranslationByNames("1340")}</Div>
             </TableHeader>
@@ -177,12 +195,8 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
               </Div>
               {filters.status && renderStatusFilters()}
             </TableHeader>
-            <TableHeader>
-              {getFieldTranslationByNames("64")}
-            </TableHeader>
-            <TableHeader>
-              {getFieldTranslationByNames("1342")}
-            </TableHeader>
+            <TableHeader>{getFieldTranslationByNames("64")}</TableHeader>
+            <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
           </tr>
         </TableHead>
         <tbody>

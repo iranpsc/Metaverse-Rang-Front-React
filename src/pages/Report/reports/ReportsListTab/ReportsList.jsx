@@ -7,6 +7,8 @@ import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 const Container = styled.div`
   border-radius: 0.25rem;
   overflow-x: auto;
+  min-height: 300px;
+
   margin-top: 20px;
   &::-webkit-scrollbar {
     display: none;
@@ -34,43 +36,55 @@ const TableHead = styled.thead`
 const TableRow = styled.tr``;
 const StatusFilter = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   top: 65px;
-  width: 200px;
-  padding: 20px;
+  width: 170px;
+  padding: 10px;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   border: 1px solid #9c9c9c53;
   font-size: 16px;
   z-index: 1;
-  div {
-    position: relative;
-    &:hover {
-      background-color: #8f8e8e;
-      transition: all 0.2s linear;
-      /* h1,h2,h3{
+`;
+
+const StatusFilterTitle = styled.div`
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: ${(p) =>
+    p.active
+      ? p.theme.colors.newColors.primaryText
+      : p.theme.colors.newColors.shades.title};
+  &:hover {
+    color: ${(props) => props.theme.colors.newColors.primaryText};
+  }
+  padding: 3px 10px;
+  background-color: ${(p) =>
+    p.active ? p.theme.colors.shades[80] : "transparent"};
+  position: relative;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.shades[80]};
+    transition: all 0.2s linear;
+    /* h1,h2,h3{
         color:white;
       }*/
-    }
-    span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
+  }
+  span {
+    color: red;
+    cursor: pointer;
+    font-size: 14px;
   }
 
   h1,
   h2,
   h3 {
     font-weight: 400;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
   }
 `;
 /*const TitleFilter = styled.div`
@@ -214,12 +228,7 @@ const ReportsList = ({
               </Div>
               {filters.member && (
                 <StatusFilter ref={filterRef}>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.displayError && "#9c9c9c"}`,
-                    }}
-                  >
+                  <StatusFilterTitle active={member.displayError}>
                     <h1
                       onClick={() => {
                         setMember({ ...member, displayError: true });
@@ -238,13 +247,8 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.spellingError && "#9c9c9c"}`,
-                    }}
-                  >
+                  </StatusFilterTitle>
+                  <StatusFilterTitle active={member.spellingError}>
                     <h2
                       onClick={() => {
                         setMember({ ...member, spellingError: true });
@@ -263,13 +267,8 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.codingError && "#9c9c9c"}`,
-                    }}
-                  >
+                  </StatusFilterTitle>
+                  <StatusFilterTitle active={member.codingError}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, codingError: true });
@@ -288,13 +287,8 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.FPSError && "#9c9c9c"}`,
-                    }}
-                  >
+                  </StatusFilterTitle>
+                  <StatusFilterTitle active={member.FPSError}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, FPSError: true });
@@ -313,13 +307,8 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.disrespect && "#9c9c9c"}`,
-                    }}
-                  >
+                  </StatusFilterTitle>
+                  <StatusFilterTitle active={member.disrespect}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, disrespect: true });
@@ -338,7 +327,7 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
+                  </StatusFilterTitle>
                 </StatusFilter>
               )}
             </TableHeader>

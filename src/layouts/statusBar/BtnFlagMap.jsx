@@ -29,7 +29,9 @@ const IconFilter = styled(FilterIcon)`
 const IconLocation = styled(LocationIcon)`
   width: 14px;
   height: 16px;
-  fill: ${(props) => (props.active ? "#FFC700" : "#868B90")};
+  fill: ${(props) =>
+    props.active ? props.theme.colors.primary: "#868B90"};
+
   fill-opacity: ${(props) => (props.active ? "1" : "0.5")};
   cursor: pointer;
 `;

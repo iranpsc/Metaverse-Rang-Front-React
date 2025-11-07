@@ -1,8 +1,7 @@
-import React from "react";
 import Button from "../../../../../components/Button";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
-
+import { ExitIcon } from "../../../../../components/Icons/IconsHeader";
 const BackGround = styled.div`
   z-index: 999;
   position: fixed;
@@ -32,19 +31,6 @@ const ModalBody = styled.div`
     font-size: 14px;
     line-height: 28px;
   }
-`;
-
-const Close = styled.h4`
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(59, 8, 8);
-  color: #c30000;
-  font-size: 20px;
 `;
 
 const Header = styled.div`
@@ -96,7 +82,7 @@ const Modal = ({ setModal, onConfirm, date }) => {
       <ModalBody>
         <Header>
           <span>{getFieldTranslationByNames("122")}</span>
-          <Close onClick={() => setModal(false)}>X</Close>
+          <ExitIcon onClick={() => setModal(false)}>X</ExitIcon>
         </Header>
         {isNaN(timeRemaining?.days) ? (
           <p>{getFieldTranslationByNames(1439)}</p>

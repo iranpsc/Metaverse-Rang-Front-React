@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   display: flex;
   gap: 10px;
   width: 100%;
+  background-color: red;
   height: calc(100vh - 150px);
   overflow: hidden;
 
