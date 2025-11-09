@@ -2,10 +2,8 @@ import styled from "styled-components";
 import { useState, useEffect, useMemo } from "react";
 import moment from "moment-jalaali";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
-import {convertToPersian ,
-  getFieldTranslationByNames,
-} from "../../../../services/Utility";
-import { Label } from "../../../../components/editorContainerStyle";
+import { convertToPersian, getFieldTranslationByNames } from "../../../../services/Utility";
+import {Label} from "../../../../components/editorContainerStyle";
 
 const Container = styled.div`
   position: relative;
@@ -111,11 +109,7 @@ const CurrentYears = () => {
         <div>
           <DropdownButton onClick={() => setIsOpen(!isOpen)}>
             <span>{convertToPersian(selectedYear)}</span>
-            <Arrow
-              style={{
-                transform: isOpen ? "rotate(-135deg)" : "rotate(45deg)",
-              }}
-            />
+            <Arrow style={{ transform: isOpen ? "rotate(-135deg)" : "rotate(45deg)" }} />
           </DropdownButton>
 
           {isOpen && (
