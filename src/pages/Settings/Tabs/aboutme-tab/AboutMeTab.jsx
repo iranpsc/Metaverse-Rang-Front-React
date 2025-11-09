@@ -7,19 +7,9 @@ import Memory from "./Memory";
 import Opportunity from "./Opportunity";
 import Prediction from "./Prediction";
 import SaveInfo from "./SaveInfo";
-import styled from "styled-components";
-const Container = styled.div`
-  padding: 20px 0;
-  height: 100%;
-  overflow-y: auto;
-  padding-right: 15px;
-  padding-left: 1%;
-    font-size: 16px;
-
-`;
+import Container from "../../../../components/Common/Container";
 
 const AboutMeTab = () => {
-  
   return (
     <GlobalStateProvider>
       <Container>

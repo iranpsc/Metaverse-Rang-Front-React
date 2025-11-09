@@ -74,6 +74,7 @@ const Label = styled.h3`
 `;
 
 const Subject = styled.div`
+
   h2 {
     font-size: 16px;
     font-weight: 500;

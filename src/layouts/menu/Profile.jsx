@@ -8,12 +8,15 @@ import Union from "./Union/Union";
 import BtnsMenu from "./BtnsMenu";
 import { FaChevronDown } from "react-icons/fa";
 import Anonymous from "../../assets/images/defulte-profile.png";
-import Message from "../../assets/svg/message.svg";
+import { ReactComponent as Message } from "../../assets/svg/message.svg";
 import ProfileMember from "../../assets/svg/profileMember.svg";
 import Ticket from "../../assets/svg/ticket.svg";
 import Setting from "../../assets/svg/setting.svg";
 import { useNavigate } from "react-router-dom";
 import { getFieldTranslationByNames } from "../../services/Utility";
+const MessageIcon = styled(Message)`
+  fill: #c9c9c9ff;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -57,6 +60,10 @@ const BtnNavigator = styled.button`
   font-weight: 500;
   line-height: 180%;
   text-transform: capitalize;
+
+  @media (max-height: 500px) and (max-width: 1000px) {
+    font-size: 14px;
+  }
 `;
 
 const SubMenu = styled.div`
@@ -117,11 +124,11 @@ const ContainerMain = styled.div`
 `;
 
 const Level = styled.div`
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
   border-radius: 5px;
-  background: #2a85ff;
-  color: #fcfcfc;
+  background: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.newColors.primaryText};
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -134,6 +141,7 @@ const Level = styled.div`
 const ChevronIcon = styled(FaChevronDown)`
   width: 12px;
   height: 12px;
+  color: ${({ theme }) => theme.colors.primary};
   transition: transform 0.3s ease;
   transform: ${({ isOpenDrop }) =>
     isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
@@ -181,10 +189,11 @@ const Profile = () => {
               <Icon src={Ticket} />
               {getFieldTranslationByNames("241")}
             </BtnNavigator>
-            <BtnNavigator>
-              <Icon src={Message} />
+            <BtnNavigator style={{ color: "#c9c9c9ff", cursor: "default" }}>
+              <MessageIcon />
               {getFieldTranslationByNames("242")}
             </BtnNavigator>
+
             <BtnNavigator onClick={() => navigate("/metaverse/profile")}>
               <Icon src={ProfileMember} />
               {getFieldTranslationByNames("243")}

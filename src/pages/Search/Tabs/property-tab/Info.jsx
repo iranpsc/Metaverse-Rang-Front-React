@@ -92,15 +92,15 @@ const Info = ({ item }) => {
           {item.id === 3 && (
             <h2>
               {item.value >= 1000000
-                ? `${Math.floor(item.value / 1000000)}M`
-                : `${Math.floor(item.value / 1000)}K`}
+                ? `\u2066${Math.floor(item.value / 1000000)}\u00A0M`
+                : `\u2066${Math.floor(item.value / 1_000)}\u00A0K`}
             </h2>
           )}
           {item.id === 4 && (
             <h2>
               {item.value >= 1000000
-                ? `${Math.floor(item.value / 1000000)}M`
-                : `${Math.floor(item.value / 1000)}K`}
+                ? `\u2066${Math.floor(item.value / 1000000)}\u00A0M`
+                : `\u2066${Math.floor(item.value / 1_000)}\u00A0K`}
             </h2>
           )}
           {item.id == 2 && (

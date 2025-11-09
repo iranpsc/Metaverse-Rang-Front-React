@@ -87,7 +87,6 @@ const ProfitCard = ({
   onclick,
 }) => {
   const [isExploding, setIsExploding] = useState(false);
-
   return (
     <Card>
       <Content>
@@ -97,7 +96,7 @@ const ProfitCard = ({
           </Image>
           <div>
             <h3>{title}</h3>
-            <h2>{feature_id}</h2>
+            <h2>{feature_id.toUpperCase()}</h2>
           </div>
         </Info>
         <Value

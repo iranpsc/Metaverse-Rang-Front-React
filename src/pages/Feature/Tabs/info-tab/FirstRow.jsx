@@ -5,8 +5,6 @@ import { MdOutlineHome } from "react-icons/md";
 import styled from "styled-components";
 import TextValueIcon from "../../../../components/TextValueIcon";
 import { COMBINE_FEATURE } from "../../../../services/constants/FeatureType";
-import { useContext } from "react";
-import { FeatureContext } from "../../Context/FeatureProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
 const RowWrapper = styled.div`
@@ -31,7 +29,7 @@ const FirstRow = ({ feature }) => {
   const first_row_info = [
     {
       id: 1,
-      title: getFieldTranslationByNames("41"),
+      title: getFieldTranslationByNames("1478"),
       value: feature?.properties?.id,
       icon: <MdOutlineHome />,
     },

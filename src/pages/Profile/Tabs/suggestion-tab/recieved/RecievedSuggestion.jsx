@@ -2,18 +2,17 @@ import Suggestion from "./Suggestion";
 import Title from "../../../../../components/Title";
 import meter from "../../../../../assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
-import { mainContainer, Wrapper } from "../suggestionStyles";
+import {  Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import moment from "moment-jalaali";
-import { getFieldTranslationByNames, ToastError } from "../../../../../services/Utility/index";
+import { getFieldTranslationByNames } from "../../../../../services/Utility/index";
+import Container from '../../../../../components/Common/Container';
 
-const Container = mainContainer;
 const RecievedSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
   const { Request } = useRequest();
   const location = useLocation();
-  const navigate = useNavigate();
   const containerRef = useRef(null);
 
   useEffect(() => {

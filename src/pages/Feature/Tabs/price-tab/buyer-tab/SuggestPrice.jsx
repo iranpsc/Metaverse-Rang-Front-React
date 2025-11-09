@@ -5,36 +5,24 @@ import ResultInfo from "../../../components/ResultInfo";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { FeaturePrice } from "../../../../../services/constants/FeatureType";
 import {
-  calculateFee,
   ToastSuccess,
   ToastError,
   getFieldTranslationByNames,
 } from "../../../../../services/Utility";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
-import { to } from "react-spring";
+import BaseContainer from "../../../../../components/Common/Container"; // کانتینر بیس
 
-const Wrapper = styled.div`
+const Wrapper = styled(BaseContainer)`
   display: flex;
+  width:100% ;
   flex-direction: column;
-
-  padding-right: 15px;
-  padding-top: 20px;
-  padding-bottom: 20px;
   gap: 30px;
-  width: 100%;
-  @media (max-width: 1024px) {
-    height: 62vh !important;
-    overflow: auto;
-  }
-  @media (min-width: 1025px) {
-    height: auto !important;
-  }
-`;
 
-const Text = styled.p`
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  line-height: 1.5rem;
+  p {
+    color: ${(props) => props.theme.colors.newColors.shades.title};
+    line-height: 1.5rem;
+  }
 `;
 
 const SuggestPrice = () => {
@@ -47,6 +35,7 @@ const SuggestPrice = () => {
     totalArea *
     FeaturePrice(feature?.properties?.rgb) *
     (feature?.properties?.minimum_price_percentage / 100);
+
   const [assign, setAssign] = useState(false);
   const [rial, setRial] = useState(totalIrr / 2);
   const [psc, setPsc] = useState(totalIrr / 2 / 900);
@@ -67,9 +56,7 @@ const SuggestPrice = () => {
           setAssign(true);
         })
         .catch((error) => {
-     
-            ToastError(error.response.data.message);
-        
+          ToastError(error.response.data.message);
         });
     } else {
       setErrors({
@@ -80,7 +67,7 @@ const SuggestPrice = () => {
 
   return (
     <Wrapper>
-      <Text>{getFieldTranslationByNames("527")}</Text>
+      <p>{getFieldTranslationByNames("527")}</p>
       {!assign && (
         <FillInputs
           rial={rial}

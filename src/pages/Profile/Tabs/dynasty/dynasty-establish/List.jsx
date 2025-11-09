@@ -9,9 +9,6 @@ import styled from "styled-components";
 
 const Container = styled.div`
   border-radius: 0.25rem;
-
-  overflow-x: auto;
-  min-height: 93vh;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -23,7 +20,8 @@ const Table = styled.table`
   border-collapse: collapse;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  width: 579px;
+  width: 100%;
+  
   height: 430px;
 `;
 

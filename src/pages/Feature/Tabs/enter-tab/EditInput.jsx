@@ -2,14 +2,9 @@ import styled from "styled-components";
 import Psc from "../../../../components/Psc";
 import Rial from "../../../../components/Rial";
 
-// EditInput Component
 const InputContainer = styled.div`
   border-radius: 5px;
-  border: 1px solid
-    ${(props) =>
-      props.hasError
-        ? "red"
-        : props.theme.colors.newColors.otherColors.inputBorder};
+  border: 1px solid ${({ hasError }) => (hasError ? "red" : "#454545")};
   display: flex;
   flex-grow: 1;
   align-items: center;

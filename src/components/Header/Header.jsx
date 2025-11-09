@@ -1,9 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as Help } from "../../assets/svg/exclamation.svg";
-import { ReactComponent as Exit } from "../../assets/svg/close.svg";
 import { ReactComponent as Report } from "../../assets/svg/question.svg";
-
+import { ExitIcon } from "../Icons/IconsHeader";
 import { BiExitFullscreen } from "react-icons/bi";
 import { PiGearSixFill } from "react-icons/pi";
 import { TiWarning } from "react-icons/ti";
@@ -39,11 +38,6 @@ const ReportIcon = styled(Report)`
   cursor: pointer;
 `;
 
-const ExitIcon = styled(Exit)`
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-`;
 
 const IconWrapper = styled.div`
   width: 11px;
@@ -77,6 +71,10 @@ const HeaderWrapper = styled.div`
   @media (min-width: 998px) {
     margin-bottom: 30px;
     margin-top: 10px;
+  }
+  
+  @media (max-height: 500px) and (max-width: 1000px) {
+  padding-bottom: 5px;
   }
 `;
 

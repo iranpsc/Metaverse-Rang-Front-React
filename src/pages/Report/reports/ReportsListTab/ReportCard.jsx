@@ -13,7 +13,7 @@ const Container = styled.div`
     props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px;
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 const Info = styled.div`

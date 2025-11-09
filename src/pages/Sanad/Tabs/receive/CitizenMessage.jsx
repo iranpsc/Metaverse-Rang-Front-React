@@ -3,11 +3,13 @@ import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
 import { SanitizeHTML } from "../../../../services/Utility";
 
-const Content = styled.div``;
+const Content = styled.div`
+`;
 
 const Header = styled.div`
   display: flex;
-  align-items: center;
+   flex-direction: column;
+  align-items: start;
   justify-content: space-between;
   margin-bottom: 10px;
   span {
@@ -147,7 +149,14 @@ const CitizenMessage = ({ data }) => {
   return (
     <>
       <Container>
+          <Avatar
+          src={data?.sender["profile-photo"] || avatar}
+          alt="avatar"
+          width={50}
+          height={50}
+        />
         <Content>
+         
           <Header>
             <span>{data?.sender?.name}</span>
             <a
@@ -164,12 +173,7 @@ const CitizenMessage = ({ data }) => {
             data?.attachment
           )}
         </Content>
-        <Avatar
-          src={data?.sender["profile-photo"] || avatar}
-          alt="avatar"
-          width={50}
-          height={50}
-        />
+       
       </Container>
       {citizenResponses?.map((response) => (
         <Container key={response.id}>

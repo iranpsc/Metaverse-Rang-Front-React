@@ -38,9 +38,11 @@ const KeyValue = styled.div`
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 500;
     font-size: 18px;
+  white-space: nowrap;
 
   }
   span {
+    text-align: end;
     color: ${(props) => props.theme.colors.newColors.shades.matn2};
     font-size: 18px;
     font-weight: 500;

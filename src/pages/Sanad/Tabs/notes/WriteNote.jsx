@@ -10,6 +10,18 @@ import WriteNoteInput from "./WriteNoteInput";
 import Title from "../../../../components/Title";
 import Button from "../../../../components/Button";
 
+const Container = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+  padding: 20px;
+  padding-right: 15px;
+  border-radius: 10px;
+  @media (min-width: 1366px) {
+    overflow-y: auto;
+    width: 50%;
+
+  }
+`;
 const Subject = styled.div`
   input {
     background-color: ${(props) =>
@@ -22,9 +34,8 @@ const Subject = styled.div`
     width: 95.5%;
     font-size: 16px;
     font-weight: 400;
-  }
-  @media (min-width: 1366px) {
-    width: 100%;
+        width: 100%;
+
   }
 `;
 
@@ -36,18 +47,6 @@ const Label = styled.h3`
   white-space: nowrap;
 `;
 
-const Container = styled.div`
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.bgContainer};
-  padding: 20px;
-  padding-right: 15px;
-  border-radius: 10px;
-
-  @media (min-width: 1366px) {
-    height: 600px;
-    overflow-y: auto;
-  }
-`;
 
 const ErrorMessage = styled.div`
   color: red;

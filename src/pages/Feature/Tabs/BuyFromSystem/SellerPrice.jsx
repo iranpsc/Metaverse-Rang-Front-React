@@ -4,7 +4,6 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-
   padding-right: 15px;
   padding-top: 20px;
   gap: 30px;

@@ -11,13 +11,9 @@ import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import { useLocation } from "react-router-dom";
+import Container from "../../../../components/Common/Container";
 
-const Container = styled.div`
-  padding: 20px 0;
-  height: 100%;
-  overflow-y: auto;
-  padding-right: 15px;
- 
+const StyledContent = styled.div`
   p {
     margin: 10px 0;
     color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -35,6 +31,7 @@ const ErrorMessage = styled.div`
   font-size: 14px;
   margin-top: 10px;
 `;
+
 
 const ErrorReportTab = ({ title, subdomain }) => {
   const location = useLocation();
@@ -101,6 +98,7 @@ const ErrorReportTab = ({ title, subdomain }) => {
   
   return (
     <Container ref={containerRef}>
+      <StyledContent>
       <Title title={getFieldTranslationByNames("1386")} right />
       <p>
       {getFieldTranslationByNames("1376")}{" "}<span>{title}</span>{" "}{getFieldTranslationByNames("1377")} <span>{subdomain}</span>{" "}
@@ -118,6 +116,7 @@ const ErrorReportTab = ({ title, subdomain }) => {
         <Button fit label={getFieldTranslationByNames("193")} onclick={sendReport} />
       </div>
       {error && <ErrorMessage>{error}</ErrorMessage>}
+      </StyledContent>
     </Container>
   );
 };

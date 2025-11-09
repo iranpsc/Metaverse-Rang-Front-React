@@ -6,10 +6,8 @@ import InfoRow from "../InfoRow";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { ScaleLoader } from "react-spinners";
+import Container from "../../../../components/Common/Container";
 
-const Container = styled.div`
-  padding-top: 20px;
-`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,13 +15,7 @@ const Wrapper = styled.div`
   align-items: ${({ loading }) => (loading ? "center" : "stretch")};
   gap: 20px;
   margin-top: 20px;
-  @media (max-width: 850px) {
-    height: 75% !important;
-  }
-  @media (max-width: 1023px) {
-    max-height: 14.5rem;
-    overflow-y: auto;
-  }
+  overflow-y: auto;
 `;
 
 const CurrenciesContent = ({ option, currencies }) => {

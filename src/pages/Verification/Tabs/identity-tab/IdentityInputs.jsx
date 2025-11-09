@@ -7,7 +7,6 @@ import Title from "../../../../components/Title";
 import Button from "../../../../components/Button";
 import ErrorModal from "../ErrorModal";
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
-import ReactQuill from "react-quill";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
   convertPersianNumbersToEnglish,
@@ -15,23 +14,12 @@ import {
   ToastError,
 } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
+import Container from "../../../../components/Common/Container";
 
-const Wrapper = styled.div`
-  overflow-y: auto;
-  height: 84%;
-  padding-right: 15px;
-  @media (min-width: 1180px) {
-    height: 80%;
-  }
-  @media (min-width: 1500px) {
-    height: ${(props) => (props.identityError ? "85%" : "auto")};
-  }
-`;
-const Container = styled.div`
+const BankContainer = styled.div`
   margin: 20px 0;
   display: flex;
   flex-direction: column;
-
   gap: 10px;
   @media (min-width: 1500px) {
     grid-template-columns: 2fr 3fr;
@@ -182,8 +170,8 @@ const IdentityInputs = ({
     }
   };
   return (
-    <Wrapper identityError={identityError}>
-      <Container>
+    <Container identityError={identityError}>
+      <BankContainer>
         {errors.length > 0 && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
@@ -215,13 +203,13 @@ const IdentityInputs = ({
           large
           label={getFieldTranslationByNames("877")}
           onclick={sendHandler}
-          disabled={isVideoUploaded ? false : "pending"}
+          disabled={isVideoUploaded ? false : true/*"pending" for loading ui*/ }
         />
-      </Container>
+      </BankContainer>
       {openErrorModal && (
         <ErrorModal setOpenErrorModal={setOpenErrorModal} errors={errors} />
       )}
-    </Wrapper>
+    </Container>
   );
 };
 

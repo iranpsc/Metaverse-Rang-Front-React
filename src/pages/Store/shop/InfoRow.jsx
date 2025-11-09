@@ -34,10 +34,14 @@ const IconWrapper = styled.div`
   top: 4px;
   left: 4px;
   svg {
+    transition: all 0.2s;
     font-size: 16px;
-    color: #3b3b3b;
+    color: ${({ theme }) => theme.colors.newColors.otherColors.btnIconBg};
     cursor: pointer;
     z-index: 99;
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+    }
   }
   div {
     position: absolute;
@@ -121,7 +125,9 @@ const InfoRow = ({ data, type, shop, title }) => {
         <TitleValue
           shop={shop}
           title={` ${getFieldTranslationByNames("510")}`}
-          value={`${data.amount.toLocaleString()} ${getFieldTranslationByNames("14")}`}
+          value={`${data.amount.toLocaleString()} ${getFieldTranslationByNames(
+            "14"
+          )}`}
         />
         <TitleValue
           shop={shop}

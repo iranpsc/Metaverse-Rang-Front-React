@@ -11,7 +11,7 @@ import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
-
+import { convertToPersian } from "../../../../services/Utility";
 const Container = styled.div`
   padding: 15px;
   background-color: ${(props) =>
@@ -30,11 +30,13 @@ const Container = styled.div`
 `;
 const Header = styled.div`
   display: flex;
+  white-space: nowrap;
   align-items: end;
   justify-content: space-between;
   padding-bottom: 10px;
   border-bottom: 1px solid #454545;
   span {
+    
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 13px;
     font-weight: 500;
@@ -43,7 +45,7 @@ const Header = styled.div`
 const Title = styled.h2`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 20px;
-  font-weight: 600;
+    font-weight: 600;
 `;
 const Code = styled.a`
   color: #0066ff;
@@ -107,12 +109,12 @@ const Info = () => {
         </div>
         <span>
           {getFieldTranslationByNames("53")}{" "}
-          {user?.registered_at}
+          {convertToPersian(user?.registered_at)}
         </span>
       </Header>
       <Content>
         <Follow>
-          <Count>{user?.followers_count}</Count>
+          <Count>{convertToPersian(user?.followers_count)}</Count>
           <span>
             {getFieldTranslationByNames("38")}
           </span>
@@ -121,7 +123,7 @@ const Info = () => {
           style={{ height: "55px", width: "1px", backgroundColor: "#454545" }}
         />
         <Follow>
-          <Count>{user?.following_count}</Count>
+          <Count>{convertToPersian(user?.following_count)}</Count>
           <span>
             {getFieldTranslationByNames("55")}
           </span>

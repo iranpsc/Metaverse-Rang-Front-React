@@ -69,7 +69,8 @@ const Address = styled.div`
 `;
 
 const Meter = styled.div`
-  display: flex;
+  display: flex; 
+text-align: center;
   flex-direction: column;
   gap: 4px;
   span {

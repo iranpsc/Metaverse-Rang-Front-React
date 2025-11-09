@@ -1,25 +1,22 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import ReportRow from "./ReportRow";
 import styled from "styled-components";
-import { useState,useEffect, useRef  } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 
 const Container = styled.div`
   border-radius: 0.25rem;
   overflow-x: auto;
-  min-height: 93vh;
+  min-height: 300px;
+
   margin-top: 20px;
   &::-webkit-scrollbar {
     display: none;
   }
-  @media (min-width: 1920px) {
-    width: auto !important;
-    min-height: 55vh;
-  }
 `;
 
 const Table = styled.table`
-  width: 1250px;
+  width: 100%;
   margin-top: 5px;
   border-collapse: collapse;
   border-top-right-radius: 10px;
@@ -30,7 +27,8 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px !important;
   overflow: hidden !important;
 `;
@@ -38,40 +36,55 @@ const TableHead = styled.thead`
 const TableRow = styled.tr``;
 const StatusFilter = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   top: 65px;
-  width: 200px;
-  padding: 20px;
+  width: 170px;
+  padding: 10px;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   border: 1px solid #9c9c9c53;
   font-size: 16px;
   z-index: 1;
-  div {
-    position: relative;
-    &:hover {
-      background-color: #8f8e8e;
-      transition: all 0.2s linear;
-     /* h1,h2,h3{
+`;
+
+const StatusFilterTitle = styled.div`
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: ${(p) =>
+    p.active
+      ? p.theme.colors.newColors.primaryText
+      : p.theme.colors.newColors.shades.title};
+  &:hover {
+    color: ${(props) => props.theme.colors.newColors.primaryText};
+  }
+  padding: 3px 10px;
+  background-color: ${(p) =>
+    p.active ? p.theme.colors.shades[80] : "transparent"};
+  position: relative;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.shades[80]};
+    transition: all 0.2s linear;
+    /* h1,h2,h3{
         color:white;
       }*/
-    }
-    span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
+  }
+  span {
+    color: red;
+    cursor: pointer;
+    font-size: 14px;
   }
 
-  h1,h2,h3 {
+  h1,
+  h2,
+  h3 {
     font-weight: 400;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
-    border-radius: 5px;
-    padding: 2px 18px;
-    cursor: pointer;
   }
 `;
 /*const TitleFilter = styled.div`
@@ -135,7 +148,6 @@ const TableHeader = styled.th`
   text-align: start;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
-
 `;
 
 const Loader = styled.div`
@@ -154,7 +166,7 @@ const Loader = styled.div`
 const ReportsList = ({
   rows,
   member,
- // status,
+  // status,
   //setStatus,
   setMember,
   domain,
@@ -164,15 +176,18 @@ const ReportsList = ({
 }) => {
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({
-   // status: false,
+    // status: false,
     member: false,
   });
 
   const filterRef = useRef(null);
 
   const handleClickOutside = (event) => {
-    if (filterRef.current && !filterRef.current.contains(event.target)&&
-    !event.target.closest(".arrow-container")) {
+    if (
+      filterRef.current &&
+      !filterRef.current.contains(event.target) &&
+      !event.target.closest(".arrow-container")
+    ) {
       setFilters({ /*status: false,*/ member: false });
     }
   };
@@ -189,31 +204,31 @@ const ReportsList = ({
       <Table>
         <TableHead>
           <TableRow>
-            
-            <TableHeader style={{ width: "0%",whiteSpace:"nowrap" }}><Div>{getFieldTranslationByNames("1383")}</Div></TableHeader>
-            <TableHeader style={{ width: "40%" }} ><Div>{getFieldTranslationByNames("19")}</Div></TableHeader>
-            <TableHeader style={{ width: "12%",whiteSpace:"nowrap" }}>
+            <TableHeader style={{ width: "0%", whiteSpace: "nowrap" }}>
+              <Div>{getFieldTranslationByNames("1383")}</Div>
+            </TableHeader>
+            <TableHeader style={{ width: "40%" }}>
+              <Div>{getFieldTranslationByNames("19")}</Div>
+            </TableHeader>
+            <TableHeader style={{ width: "12%", whiteSpace: "nowrap" }}>
               <Div>
                 {getFieldTranslationByNames("746")}
                 <Arrows
                   className="arrow-container"
-
-                onClick={() => setFilters({ member: !filters.member })}>
+                  onClick={() => setFilters({ member: !filters.member })}
+                >
                   <MdKeyboardArrowDown
                     style={{
-                      transform: `${filters.member ? "rotate(180deg)" : "rotate(360deg)"}`,
+                      transform: `${
+                        filters.member ? "rotate(180deg)" : "rotate(360deg)"
+                      }`,
                     }}
                   />
                 </Arrows>
               </Div>
               {filters.member && (
                 <StatusFilter ref={filterRef}>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.displayError && "#9c9c9c"}`,
-                    }}
-                  >
+                  <StatusFilterTitle active={member.displayError}>
                     <h1
                       onClick={() => {
                         setMember({ ...member, displayError: true });
@@ -232,13 +247,8 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.spellingError && "#9c9c9c"}`,
-                    }}
-                  >
+                  </StatusFilterTitle>
+                  <StatusFilterTitle active={member.spellingError}>
                     <h2
                       onClick={() => {
                         setMember({ ...member, spellingError: true });
@@ -257,13 +267,8 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.codingError && "#9c9c9c"}`,
-                    }}
-                  >
+                  </StatusFilterTitle>
+                  <StatusFilterTitle active={member.codingError}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, codingError: true });
@@ -282,13 +287,8 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.FPSError && "#9c9c9c"}`,
-                    }}
-                  >
+                  </StatusFilterTitle>
+                  <StatusFilterTitle active={member.FPSError}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, FPSError: true });
@@ -307,13 +307,8 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: `${member.disrespect && "#9c9c9c"}`,
-                    }}
-                  >
+                  </StatusFilterTitle>
+                  <StatusFilterTitle active={member.disrespect}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, disrespect: true });
@@ -332,11 +327,11 @@ const ReportsList = ({
                         X
                       </span>
                     )}
-                  </div>
+                  </StatusFilterTitle>
                 </StatusFilter>
               )}
             </TableHeader>
-           {/* <TableHeader style={{ width: "120px" }}>
+            {/* <TableHeader style={{ width: "120px" }}>
               <Div>
                 {getFieldTranslationByNames("65")}
                 <Arrows
@@ -431,13 +426,12 @@ const ReportsList = ({
               )}
             </TableHeader>*/}
 
-
-
-            <TableHeader style={{ width: "16%",whiteSpace:"nowrap" }}>
-            <Div>{getFieldTranslationByNames("64")}</Div>
-
+            <TableHeader style={{ width: "16%", whiteSpace: "nowrap" }}>
+              <Div>{getFieldTranslationByNames("64")}</Div>
             </TableHeader>
-            <TableHeader style={{ width: "10%",whiteSpace:"nowrap" }}>{getFieldTranslationByNames("1380")}</TableHeader>
+            <TableHeader style={{ width: "10%", whiteSpace: "nowrap" }}>
+              {getFieldTranslationByNames("1380")}
+            </TableHeader>
           </TableRow>
         </TableHead>
         <tbody>
@@ -453,10 +447,12 @@ const ReportsList = ({
       </Table>
       {hasMore && (
         <Loader>
-          <button onClick={() => {
-            handleLoadMore();
-            setVisibleRows((prev) => prev + 10); 
-          }}>
+          <button
+            onClick={() => {
+              handleLoadMore();
+              setVisibleRows((prev) => prev + 10);
+            }}
+          >
             {getFieldTranslationByNames("368")}
           </button>
         </Loader>

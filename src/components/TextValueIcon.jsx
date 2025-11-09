@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useLanguage } from "../services/reducers/LanguageContext";
+import { useRef, useEffect, useState } from "react";
 
 const Item = styled.div`
   border-radius: 5px;
@@ -7,6 +8,7 @@ const Item = styled.div`
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   display: flex;
   flex-direction: row;
+  white-space: nowrap;
   flex-grow: 1;
   align-items: center;
   overflow: hidden;
@@ -16,7 +18,6 @@ const Item = styled.div`
 const InfoIcon = styled.div`
   display: flex;
   align-items: center;
-
   gap: 10px;
   border-left: ${(props) => (props.isPersian ? "1px solid #454545" : "none")};
   border-right: ${(props) => (!props.isPersian ? "1px solid #454545" : "none")};
@@ -46,8 +47,8 @@ const Title = styled.p`
   }
 `;
 
-const Value = styled.span`
-  display: flex;
+const Value = styled.div`
+  display: inline-flex;
   align-items: center;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 12px;
@@ -55,6 +56,12 @@ const Value = styled.span`
   padding: 10px 15px;
   line-height: ${(props) => props.smallValue && "20px"};
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow-x: auto; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar { display: none; }
+
   @media (min-width: 460px) {
     font-size: 18px;
   }
@@ -72,6 +79,22 @@ const Value = styled.span`
   }
 `;
 
+const ValueScroll = styled.span`
+  display: inline-block;
+  padding-left: 10px;
+
+  ${(props) =>
+    props.animate &&
+    `
+    animation: scrollText 12s linear infinite;
+  `}
+
+  @keyframes scrollText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(+50%); }
+  }
+`;
+
 const TextValueIcon = ({
   icon,
   title,
@@ -82,14 +105,42 @@ const TextValueIcon = ({
   very_long,
 }) => {
   const isPersian = useLanguage();
+
+  const valueRef = useRef(null);
+  const textRef = useRef(null);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    const box = valueRef.current;
+    const text = textRef.current;
+
+    if (!box || !text) return;
+
+    if (text.scrollWidth > box.clientWidth) {
+      setAnimate(true);
+    } else {
+      setAnimate(false);
+    }
+  }, [value]);
+
+  const stopAnimation = () => setAnimate(false);
+
   return (
     <Item>
       <InfoIcon isPersian={isPersian}>
         {icon}
         <Title long={long}>{title}</Title>
       </InfoIcon>
-      <Value very_long={very_long} smallValue={smallValue}>
-        {value}
+
+      <Value
+        ref={valueRef}
+        very_long={very_long}
+        smallValue={smallValue}
+        onScroll={stopAnimation}
+      >
+        <ValueScroll ref={textRef} animate={animate}>
+          {value}
+        </ValueScroll>
         {valueIcon && valueIcon}
       </Value>
     </Item>

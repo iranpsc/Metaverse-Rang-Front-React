@@ -7,53 +7,8 @@ import SearchInput from "../../../Search/components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
+import Container from "../../../../components/Common/Container";
 
-const Container = styled.div`
-  padding-right: 15px;
-  padding-top: 20px;
-  gap: 20px;
-  overflow-y: auto;
-  height: 255px;
-  @media (min-width: 720px) {
-    height: 280px;
-  }
-  @media (min-width: 740px) {
-    height: 242px;
-  }
-  @media (min-width: 840px) {
-    height: 272px;
-  }
-  @media (min-width: 880px) {
-    height: 225px;
-  }
-  @media (min-width: 890px) {
-    height: 295px;
-  }
-  @media (min-width: 915px) {
-    height: 295px;
-  }
-  @media (min-width: 930px) {
-    height: 312px;
-  }
-  @media (min-width: 1024px) {
-    height: 397px;
-  }
-  @media (min-width: 1180px) {
-    height: 454px;
-  }
-  @media (min-width: 1280px) {
-    height: 577px;
-  }
-  @media (min-width: 1366px) {
-    height: 640px;
-  }
-  @media (min-width: 1400px) {
-    height: 560px;
-  }
-  @media (min-width: 1920px) {
-    height: 640px;
-  }
-`;
 const List = styled.div`
   padding: 20px 0;
   display: flex;
@@ -85,9 +40,7 @@ const Following = () => {
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>
-        <Title
-          title={getFieldTranslationByNames("55")}
-        />
+        <Title title={getFieldTranslationByNames("55")} />
       </div>
       <SearchInput
         placeholder={getFieldTranslationByNames("57")}

@@ -24,12 +24,9 @@ export const Container = styled(animated.div)`
   bottom: 0;
   padding: 15px 20px;
   z-index: 10;
-
-  left: ${(props) => (props.position === "left" ? "0" : "auto")};
-  right: ${(props) => (props.position === "right" ? "0" : "auto")};
-
+  ${(props) => (props.isPersian ? "left: 0;" : "right: 0;")}
   position: fixed;
-    height: 100%;
+  height: 100%;
 `;
 
 export const ContainerIcon = styled.div`

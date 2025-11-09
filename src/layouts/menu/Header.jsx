@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import LogoIcon from "../../assets/svg/logoMeta.svg";
 import { getFieldTranslationByNames } from "../../services/Utility";
@@ -21,6 +20,7 @@ const Container = styled.div`
 const ContainerText = styled.div`
   display: ${(props) => (props.isOpen ? "flex" : "none")};
   align-items: start;
+
   justify-content: center;
   flex-direction: column;
 `;
@@ -28,6 +28,7 @@ const ContainerText = styled.div`
 const Title = styled.p`
   color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
   font-size: 18px;
+  height: 28px;
   font-style: normal;
   font-weight: 700;
   line-height: 180%;
@@ -79,7 +80,7 @@ const Header = () => {
         <Logo src={LogoIcon} />
         <ContainerText isOpen={isOpen}>
           <Title>{getFieldTranslationByNames("148")}</Title>
-          <Details>{getFieldTranslationByNames("1457")}</Details>
+          <Details>{getFieldTranslationByNames("188")}</Details>
         </ContainerText>
       </ContainerMain>
 

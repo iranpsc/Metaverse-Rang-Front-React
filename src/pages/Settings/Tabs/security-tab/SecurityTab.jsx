@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import SearchInput from "../../../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-
+import Container from "../../../../components/Common/Container";
 const Wrapper = styled.div`
   display: grid;
   margin-top: 20px;
@@ -18,34 +18,6 @@ const Wrapper = styled.div`
   }
   @media (min-width: 1900px) {
     grid-template-columns: 1fr 1fr;
-  }
-`;
-
-const Container = styled.div`
-  padding-top: 20px;
-  padding-right: 15px;
-  overflow-y: auto;
-  padding-right: 15px;
-  height: 265px;
-
-  @media (min-width: 840px) {
-    height: 280px;
-  }
-  @media (min-width: 890px) {
-    height: 300px;
-  }
-  @media (min-width: 930px) {
-    height: 320px;
-  }
-  @media (min-width: 1400px) {
-    height: 610px;
-  }
-  @media (min-width: 1500px) {
-    padding-right: 15px;
-  }
-  @media (min-width: 1900px) {
-    height: 685px;
-    padding-right: 0;
   }
 `;
 
@@ -509,7 +481,7 @@ const SecurityTab = () => {
         const updatedOptions = item.options.map((option) => {
           return {
             ...option,
-            value: privacyData[option.key] || false, // اگر موجود نبود false تنظیم می‌شود
+            value: privacyData[option.key] || false, 
           };
         });
 
@@ -520,14 +492,14 @@ const SecurityTab = () => {
       });
 
       setPrivacy(privacyData);
-      setItemsWithValues(updatedItems); // آیتم‌ها با مقدار value تنظیم می‌شوند
+      setItemsWithValues(updatedItems); 
     });
   }, []);
 
   return (
     <Container>
       <SearchInput
-        placeholder="نام تنظیمات خود را بنویسید"
+        placeholder={getFieldTranslationByNames("1475")}
         value={searched}
         onchange={(e) => setSearched(e.target.value)}
       />

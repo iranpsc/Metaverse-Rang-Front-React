@@ -1,12 +1,8 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useTheme } from "styled-components";
 import { useSpring } from "@react-spring/web";
 import { Container } from "./Styles";
-import useAdviserData from "../../services/Hooks/useAdviserData";
-import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import Header from "../Header/Header";
-
+import { useLanguage } from "../../services/reducers/LanguageContext";
 
 const ModalPosition = ({ children, title, position, action }) => {
   const [showContainer, setShowContainer] = useState(true);
@@ -15,10 +11,11 @@ const ModalPosition = ({ children, title, position, action }) => {
     to: { opacity: 1, transform: "scale(1)" },
     config: { duration: 200 },
   });
+  const isPersian = useLanguage();
 
   return (
     showContainer && (
-      <Container position={position} style={springs}>
+      <Container position={position} style={springs} isPersian={isPersian}>
         <Header
           title={title}
           action={action}

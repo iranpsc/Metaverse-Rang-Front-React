@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
-
+import Dropdown from "../../../../components/Common/Dropdown";
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -11,7 +11,8 @@ const Container = styled.div`
 
 const Subject = styled.div`
   select {
-    background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
     border: 1px solid #454545;
     border-radius: 5px;
     padding: 10px 12px;
@@ -33,18 +34,17 @@ const Label = styled.h3`
 
 const Title = styled.div`
   input {
-    background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+    background-color: ${(props) =>
+      props.theme.colors.newColors.otherColors.inputBg};
     border: 1px solid #454545;
     border-radius: 5px;
     padding: 10px 12px;
     outline: none;
     color: #84858f;
-    width: 94%;
+    width: 100%;
     font-size: 16px;
     font-weight: 400;
-    @media (min-width: 1366px) {
-      width: 96.5%;
-    }
+    
   }
 `;
 
@@ -73,14 +73,16 @@ const Inputs = () => {
     <Container>
       <Subject>
         <Label>{getFieldTranslationByNames("24")}</Label>
-        <select value={state.subject} onChange={(e) => subjectHandler(e)}>
-          <option value="">{getFieldTranslationByNames("24")}</option>
-          {options.map((option) => (
-            <option value={option.value} key={option.id}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+        <Dropdown
+          options={options}
+          selected={
+            options.find((opt) => opt.value === state.subject)?.label || ""
+          } 
+          onSelect={(val) => subjectHandler({ target: { value: val } })}
+          placeholder={getFieldTranslationByNames("24")}
+          searchable={false}
+          disSelectOption={false}
+        />
       </Subject>
       <Title>
         <Label>{getFieldTranslationByNames("19")}</Label>

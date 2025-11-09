@@ -4,13 +4,16 @@ import { LuEye } from "react-icons/lu";
 import ReportDetails from "./ReportDetails.jsx";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
-import useRequest from '../../../../services/Hooks/useRequest';
+import useRequest from "../../../../services/Hooks/useRequest";
 import { convertToPersian } from "../../../../services/Utility/index";
 
 const TableRow = styled.tr`
- /* background-color: ${(props) =>
-    props.status === "confirmed" ? (props) => props.theme.colors.newColors.otherColors.confirmed : "transparent"};
-*/`;
+  /* background-color: ${(props) =>
+    props.status === "confirmed"
+      ? (props) => props.theme.colors.newColors.otherColors.confirmed
+      : "transparent"};
+*/
+`;
 
 const TableCell = styled.td`
   padding: 15px 20px;
@@ -34,12 +37,13 @@ const Date = styled.h3`
   color: ${(props) => props.theme.colors.newColors.shades.title};
 `;
 
-
-
 const View = styled.div`
   width: 40px;
   height: 40px;
-  background-color: ${(props) => (props.id === 0 ? props.theme.colors.primary : props.theme.colors.newColors.otherColors.inputBg)};
+  background-color: ${(props) =>
+    props.id === 0
+      ? props.theme.colors.primary
+      : props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -82,7 +86,9 @@ const ReportRow = ({
   const [date, time] = datetime.split(" ");
 
   const truncateTitle = (titleString) => {
-    return titleString.length > 60 ? titleString.substring(0, 60) + '...' : titleString;
+    return titleString.length > 60
+      ? titleString.substring(0, 60) + "..."
+      : titleString;
   };
   const fetchReportDetails = async () => {
     try {
@@ -98,7 +104,6 @@ const ReportRow = ({
     }
   };
 
-  // تابع برای ترجمه member
   const translateMember = (member) => {
     switch (member) {
       case "spellingError":
@@ -112,11 +117,11 @@ const ReportRow = ({
       case "disrespect":
         return getFieldTranslationByNames("18");
       default:
-        return member; // اگر مقدار دیگری بود، همان مقدار را برمی‌گرداند
+        return member;
     }
   };
 
-  const translatedMember = translateMember(member); // ترجمه member
+  const translatedMember = translateMember(member);
 
   return (
     <>
@@ -128,11 +133,11 @@ const ReportRow = ({
         </TableCell>
         <TableCell>
           <div>
-          <Date>{truncateTitle(title)}</Date>
+            <Date>{truncateTitle(title)}</Date>
           </div>
         </TableCell>
         <TableCell>
-          <Status>{translatedMember}</Status> 
+          <Status>{translatedMember}</Status>
         </TableCell>
         {/*<TableCell>
           <Title
@@ -151,16 +156,25 @@ const ReportRow = ({
                 ? getFieldTranslationByNames("852")
                 : getFieldTranslationByNames("1345")}
           </Title>
-        </TableCell>*/} 
+        </TableCell>*/}
         <TableCell>
           <div>
             <Date>
-            {date} | {time}
+              {date} | {time}
             </Date>
           </div>
         </TableCell>
-        <TableCell>
-          <View id={id} onClick={fetchReportDetails}>
+        <TableCell style={{ position: "relative" }}>
+          <View
+            id={id}
+            onClick={fetchReportDetails}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
             <LuEye size={20} />
           </View>
         </TableCell>
@@ -171,7 +185,7 @@ const ReportRow = ({
           //status={status}
           date={date}
           time={time}
-          member={translatedMember} 
+          member={translatedMember}
           code={code}
           setShowDetails={setShowDetails}
           domain={domain}

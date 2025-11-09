@@ -1,7 +1,6 @@
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BsCheckCircleFill } from "react-icons/bs";
-
-import { IoIosClose } from "react-icons/io";
+import { ReactComponent as Exit } from "../../../../assets/svg/close.svg";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
@@ -25,11 +24,15 @@ const Modal = styled.div`
   border-radius: 10px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   overflow-y: auto;
-
-  padding: 20px;
+  padding: 10px;
   z-index: 999;
   width: 415px;
   height: 600px;
+
+  &::-webkit-scrollbar-track {
+    margin: 5px 0;
+  }
+
   @media (min-width: 660px) {
     height: 300px;
   }
@@ -43,7 +46,9 @@ const Modal = styled.div`
     height: 600px;
   }
 `;
+
 const Header = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,7 +79,7 @@ const Div = styled.div`
       : props.status == "-138"
       ? "#C30000"
       : "#FFC700"};
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   div {
     z-index: 0;
     position: absolute;
@@ -90,14 +95,15 @@ const Div = styled.div`
 
 const Info = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-  padding: 20px;
+  padding: 0 20px;
+  width: 100%;
   border-radius: 10px;
   margin-top: 20px;
 `;
 const Row = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px 0;
+  padding: 8px 0;
   border-bottom: ${(props) => props.not !== false && "1px solid #454545"};
   justify-content: space-between;
 `;
@@ -117,25 +123,11 @@ const Gif = styled.div`
   gap: 4px;
 `;
 
-const CloseWrapper = styled.div`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100%;
-  background-color: rgba(255, 0, 0, 0.17);
+const ExitIcon = styled(Exit)`
+  width: 40px;
+  float: left;
+  height: 40px;
   cursor: pointer;
-  @media (min-width: 998px) {
-    width: 40px;
-    height: 40px;
-  }
-  svg {
-    color: red;
-  }
 `;
 
 const PrintModal = ({
@@ -154,6 +146,7 @@ const PrintModal = ({
   return (
     <BackGround>
       <Modal>
+        <ExitIcon onClick={() => setOpenPrint(false)}></ExitIcon>
         <Header status={status}>
           <Div status={status}>
             <div />
@@ -167,84 +160,63 @@ const PrintModal = ({
           </Div>
           {status == "0" ? (
             <>
-              <p>
-                {getFieldTranslationByNames("744")}
-              </p>
-              <span>
-                {getFieldTranslationByNames("745")}
-              </span>
+              <p>{getFieldTranslationByNames("744")}</p>
+              <span>{getFieldTranslationByNames("745")}</span>
             </>
           ) : status == "-138" ? (
             <>
-              <p>
-                {getFieldTranslationByNames("761")}
-              </p>
-              <span>
-                {getFieldTranslationByNames("762")}
-              </span>
+              <p>{getFieldTranslationByNames("761")}</p>
+              <span>{getFieldTranslationByNames("762")}</span>
             </>
           ) : (
             <>
-              <p>
-                {getFieldTranslationByNames("759")}
-              </p>
-              <span>
-                {getFieldTranslationByNames("760")}
-              </span>
+              <p>{getFieldTranslationByNames("759")}</p>
+              <span>{getFieldTranslationByNames("760")}</span>
             </>
           )}
+          <Info>
+            <Row>
+              <Title>{getFieldTranslationByNames("750")}</Title>
+              <Gif>
+                <img
+                  loading="lazy"
+                  width={26}
+                  height={26}
+                  src={gif}
+                  alt={code}
+                />
+                <Value>خرید {count}</Value>
+              </Gif>
+            </Row>
+            <Row>
+              <Title>{getFieldTranslationByNames("747")}</Title>
+              <Value>{code}</Value>
+            </Row>
+            <Row>
+              <Title>{getFieldTranslationByNames("748")}</Title>
+              <Value>{date}</Value>
+            </Row>
+            <Row>
+              <Title>{getFieldTranslationByNames("749")}</Title>
+              <Value>{time}</Value>
+            </Row>
+            <Row>
+              <Title>{getFieldTranslationByNames("750")}</Title>
+              <Value>{title}</Value>
+            </Row>
+            <Row not={false}>
+              <Title>{getFieldTranslationByNames("751")}</Title>
+              <Value>{count}</Value>
+            </Row>
+            <div style={{ marginTop: "10px" }}>
+              <Button
+                full
+                label={getFieldTranslationByNames("67")}
+                onclick={handlePrint}
+              />
+            </div>
+          </Info>
         </Header>
-        <Info>
-          <Row>
-            <Title>
-              {getFieldTranslationByNames("750")}
-            </Title>
-            <Gif>
-              <img loading="lazy" width={26} height={26} src={gif} alt={code} />
-              <Value>خرید {count}</Value>
-            </Gif>
-          </Row>
-          <Row>
-            <Title>
-              {getFieldTranslationByNames("747")}
-            </Title>
-            <Value>{code}</Value>
-          </Row>
-          <Row>
-            <Title>
-              {getFieldTranslationByNames("748")}
-            </Title>
-            <Value>{date}</Value>
-          </Row>
-          <Row>
-            <Title>
-              {getFieldTranslationByNames("749")}
-            </Title>
-            <Value>{time}</Value>
-          </Row>
-          <Row>
-            <Title>
-              {getFieldTranslationByNames("750")}
-            </Title>
-            <Value>{title}</Value>
-          </Row>
-          <Row not={false}>
-            <Title>
-              {getFieldTranslationByNames("751")}
-            </Title>
-            <Value>{count}</Value>
-          </Row>
-          <div style={{ marginTop: "10px" }}>
-            <Button
-              full
-              label={getFieldTranslationByNames("67")}
-              onclick={handlePrint}
-            />
-          </div>
-        </Info>
-        <CloseWrapper onClick={() => setOpenPrint(false)}>
-          <IoIosClose size={40} />
-        </CloseWrapper>
       </Modal>
     </BackGround>
   );

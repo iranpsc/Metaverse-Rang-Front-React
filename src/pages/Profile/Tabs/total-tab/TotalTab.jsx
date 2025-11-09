@@ -1,31 +1,34 @@
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useRef } from "react";
 import Bio from "./Bio";
 import Details from "./Details";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import useRequest from "../../../../services/Hooks/useRequest";
+import { useScrollDirection } from "../../../../hooks/useScrollDirection";
+import { useScrollDirectionContext } from "../../../../services/reducers/ScrollDirectionContext";
 
 const Container = styled.div`
-  padding-top: 20px;
-  padding-right: 10px;
-  padding-bottom: 19px;
-
+  padding: 15px;
   overflow-y: auto;
   display: grid;
+  
   grid-template-columns: 1fr;
   gap: 30px;
-
+padding-bottom:30px;
   @media (min-width: 1400px) {
-    height: 80%;
     grid-template-columns: 1fr 2fr;
   }
-  @media (min-width: 1800px) {
-    height: auto;
-  }
 `;
+
 const TotalTab = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1400);
+
+  const ref = useRef(null);
+  const isScrollingDown = useScrollDirection(ref);
+  const { updateScrollDirection } = useScrollDirectionContext();
+
+  useEffect(() => {
+    updateScrollDirection(isScrollingDown);
+  }, [isScrollingDown, updateScrollDirection]);
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1400);
@@ -37,8 +40,9 @@ const TotalTab = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
-    <Container>
+    <Container ref={ref}>
       {isMobile ? (
         <>
           <Bio />

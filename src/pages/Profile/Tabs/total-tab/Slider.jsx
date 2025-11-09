@@ -39,6 +39,7 @@ const IconWrapper = styled.div`
 `;
 const Icons = styled.div`
   display: flex;
+  z-index: 1;
   flex-direction: column;
   justify-content: end;
   gap: 10px;
@@ -120,36 +121,32 @@ export default function Slider() {
           delay: 6000,
           disableOnInteraction: false,
         }}
-        pagination={{
-          clickable: true,
-        }}
+        pagination={{ clickable: true }}
         modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
         {profileImage.map((image) => (
           <SwiperSlide key={image.id}>
             <img src={image.url} alt="image" />
-            <Icons>
-              <IconWrapper onClick={() => deleteProfileImage(image.id)}>
-                <HiOutlineTrash />
-              </IconWrapper>
-              <IconWrapper>
-                <label htmlFor="add">
-                  <LuImagePlus />
-                </label>
-                <input
-                  onChange={handleImageChange}
-                  id="add"
-                  type="file"
-                  accept="image/*"
-                />
-              </IconWrapper>
-              {/* <IconWrapper>
-                <TiWarningOutline />
-              </IconWrapper> */}
-            </Icons>
           </SwiperSlide>
         ))}
+
+        <Icons>
+          <IconWrapper onClick={() => deleteProfileImage(profileImage[0]?.id)}>
+            <HiOutlineTrash />
+          </IconWrapper>
+          <IconWrapper>
+            <label htmlFor="add">
+              <LuImagePlus />
+            </label>
+            <input
+              onChange={handleImageChange}
+              id="add"
+              type="file"
+              accept="image/*"
+            />
+          </IconWrapper>
+        </Icons>
       </Swiper>
     </>
   );

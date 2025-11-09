@@ -6,46 +6,8 @@ import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
+import Container from "../../../../components/Common/Container";
 
-const Container = styled.div`
-  padding-right: 15px;
-  padding-top: 20px;
-  overflow-y: auto;
-  height: 242px;
-  @media (min-width: 840px) {
-    height: 274px;
-  }
-  @media (min-width: 880px) {
-    height: 230px;
-  }
-  @media (min-width: 890px) {
-    height: 297px;
-  }
-  @media (min-width: 900px) {
-    height: 296px;
-  }
-  @media (min-width: 930px) {
-    height: 314px;
-  }
-  @media (min-width: 1024px) {
-    height: 398px;
-  }
-  @media (min-width: 1180px) {
-    height: 595px;
-  }
-  @media (min-width: 1280px) {
-    height: 580px;
-  }
-  @media (min-width: 1366px) {
-    height: 639px;
-  }
-  @media (min-width: 1400px) {
-    height: 560px;
-  }
-  @media (min-width: 1920px) {
-    height: 642px;
-  }
-`;
 const List = styled.div`
   padding: 20px 0;
   display: flex;
@@ -72,13 +34,11 @@ const Followers = () => {
     const nameMatch = item.name.toLowerCase().includes(query);
     return codeMatch || nameMatch;
   });
- 
+
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>
-        <Title
-          title={getFieldTranslationByNames("38")}
-        />
+        <Title title={getFieldTranslationByNames("38")} />
       </div>
       <SearchInput
         placeholder={getFieldTranslationByNames("57")}

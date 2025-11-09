@@ -27,9 +27,11 @@ import { LoaderProvider } from "./services/reducers/LoaderProvider.jsx";
 import RotateDevice from "./components/RotateDevice";
 import Error410Modal from "./components/Error410Modal";
 import { useAppHeight } from "./hooks/useAppHeight.js";
+import { ScrollDirectionProvider } from "./services/reducers/ScrollDirectionContext.jsx";
 
 const Container = styled.section`
   display: flex;
+  overflow-y: hidden;
   width: 100%;
   height: var(--app-height);
   flex-direction: row;
@@ -45,7 +47,7 @@ const Container = styled.section`
 `;
 
 function App() {
-    useAppHeight();
+  useAppHeight();
 
   console.log(useTranslation());
   useLayoutEffect(() => {
@@ -64,44 +66,48 @@ function App() {
   }, []);
 
   return (
- <LoaderProvider>
-    <MapProvider>
-      <ThemeProviderContext>
-        <LanguageProvider>
-          <UserProvider>
-            <WalletProvider>
-              <FollowProvider>
-                <SelectedEnvironmentProvider>
-                  <MapContextProvider>
-                    <AlertProvider>
-                      <BrowserRouter>
-                        <RotateDevice />
-                        <Routers />
-                        <Container>
-                          <MenuContextProvider>
-                            <Menu />
-                          </MenuContextProvider>
-                          <MapTreeD />
-                          <StatusBar />
-                        </Container>
-                        <Error410Modal />
-                        <Toaster
-                          containerStyle={{ zIndex: 100000, marginBottom: 48 }}
-                          position="bottom-right"
-                        />
-                      </BrowserRouter>
-                    </AlertProvider>
-                  </MapContextProvider>
-                </SelectedEnvironmentProvider>
-              </FollowProvider>
-            </WalletProvider>
-          </UserProvider>
-        </LanguageProvider>
-      </ThemeProviderContext>
-    </MapProvider>
-    </LoaderProvider>
+    <ScrollDirectionProvider>
+      <LoaderProvider>
+        <MapProvider>
+          <ThemeProviderContext>
+            <LanguageProvider>
+              <UserProvider>
+                <WalletProvider>
+                  <FollowProvider>
+                    <SelectedEnvironmentProvider>
+                      <MapContextProvider>
+                        <AlertProvider>
+                          <BrowserRouter>
+                            <RotateDevice />
+                            <Routers />
+                            <Container>
+                              <MenuContextProvider>
+                                <Menu />
+                              </MenuContextProvider>
+                              <MapTreeD />
+                              <StatusBar />
+                            </Container>
+                            <Error410Modal />
+                            <Toaster
+                              containerStyle={{
+                                zIndex: 100000,
+                                marginBottom: 48,
+                              }}
+                              position="bottom-right"
+                            />
+                          </BrowserRouter>
+                        </AlertProvider>
+                      </MapContextProvider>
+                    </SelectedEnvironmentProvider>
+                  </FollowProvider>
+                </WalletProvider>
+              </UserProvider>
+            </LanguageProvider>
+          </ThemeProviderContext>
+        </MapProvider>
+      </LoaderProvider>
+    </ScrollDirectionProvider>
   );
 }
-
 
 export default App;

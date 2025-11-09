@@ -58,9 +58,12 @@ const DropdownMenu = styled.div`
 `;
 
 const DropdownItem = styled.div`
+cursor: pointer;
   padding: 0 50px;
   color: ${({ isSelected }) => (isSelected ? "#000" : "#858585")};
-  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
+
+font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
+
 `;
 
 const Tooltip = styled.div`

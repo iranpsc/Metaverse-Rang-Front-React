@@ -1,22 +1,14 @@
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import SellerPriceInfo from "./SellerPriceInfo";
 import styled from "styled-components";
-
+import Button from "../../../../../components/Button";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-
-  padding-right: 15px;
-  padding-top: 20px;
+padding: 15px;
   gap: 30px;
   width: 100%;
-  @media (max-width: 1024px) {
-    height: 66vh !important;
-    overflow: auto;
-  }
-  @media (min-width: 1025px) {
-    height: auto !important;
-  }
+ overflow-y: auto;
 `;
 
 const Text = styled.p`
@@ -31,6 +23,7 @@ const SellerPrice = () => {
         {getFieldTranslationByNames("526")}
       </Text>
       <SellerPriceInfo />
+      <Button label={getFieldTranslationByNames("353")} />
     </Wrapper>
   );
 };

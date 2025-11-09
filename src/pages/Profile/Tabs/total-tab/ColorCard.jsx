@@ -1,7 +1,8 @@
 import styled from "styled-components";
-
+import { convertToPersian } from "../../../../services/Utility";
 const Container = styled.div`
   display: flex;
+
   flex-direction: column;
   align-items: center;
   background-color: ${(props) =>
@@ -46,7 +47,7 @@ const ColorCard = ({ gif, label, value }) => {
       <img width={48} height={48} loading="lazy" alt={label} src={gif} />
       <div>
         <span>{label}</span>
-        <h3>{value}</h3>
+        <h3>{convertToPersian(value)}</h3>
       </div>
     </Container>
   );

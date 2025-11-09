@@ -43,9 +43,9 @@ const icons = [
     label: 730,
     icon: <MdOutlineMailOutline />,
   },
-  { id: 7, slug: "sound", label:729, icon: <BiVolumeMute /> },
+  { id: 7, slug: "sound", label: 729, icon: <BiVolumeMute /> },
   { id: 8, slug: "send_ticket", label: 728, icon: <BiMessageSquareDetail /> },
-  { id: 9, slug: "record", label:727, icon: <FaCircle /> },
+  { id: 9, slug: "record", label: 727, icon: <FaCircle /> },
 ];
 
 const Container = styled.div`
@@ -87,12 +87,14 @@ const IconWrapper = styled.div`
   height: 42px;
   border-radius: 100%;
   display: flex;
+
+
   align-items: center;
   justify-content: center;
   background-color: ${(props) =>
     props.isActive
       ? "#ff000029"
-      : props.theme.colors.newColors.otherColors.iconBg};
+      : props.theme.colors.newColors.otherColors.menuBg};
   &:hover {
     background-color: #ff000029;
     svg {
@@ -101,6 +103,7 @@ const IconWrapper = styled.div`
   }
   svg {
     font-size: 20px;
+
     color: ${(props) =>
       props.isActive
         ? "#f44545ab"
@@ -195,9 +198,7 @@ const RestrictUser = () => {
 
   return (
     <Container>
-      <Title>
-        {getFieldTranslationByNames("726")}
-      </Title>
+      <Title>{getFieldTranslationByNames("726")}</Title>
       <Icons>
         {icons.map((icon) => (
           <div key={icon.id}>
@@ -211,9 +212,7 @@ const RestrictUser = () => {
             <ReactTooltip
               id={icon.slug}
               place="top"
-              content={getFieldTranslationByNames(
-                icon.label
-              )}
+              content={getFieldTranslationByNames(icon.label)}
             />
           </div>
         ))}

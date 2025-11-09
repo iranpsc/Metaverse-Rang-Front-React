@@ -1,8 +1,8 @@
 import { IoIosClose } from "react-icons/io";
 import { TbMinimize } from "react-icons/tb";
 import styled from "styled-components";
-import { ReactComponent as Exit } from "../../assets/svg/close.svg";
 import { getFieldTranslationByNames } from "../../services/Utility";
+import { ExitIcon } from "../Icons/IconsHeader";
 const Div = styled.div`
   position: relative;
   display: flex;
@@ -19,6 +19,7 @@ const Div = styled.div`
 const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
+  
   width: 100%;
   justify-content: space-between;
 
@@ -53,11 +54,6 @@ const Icons = styled.div`
   }
 `;
 
-const ExitIcon = styled(Exit)`
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-`;
 
 const Header = ({ show, setOpenEducation, setSize, title }) => {
   const handleMinimizeClick = (event) => {
@@ -73,7 +69,7 @@ const Header = ({ show, setOpenEducation, setSize, title }) => {
       <Text>
         {title
           ? getFieldTranslationByNames(title[0], title[1])
-          : getFieldTranslationByNames("479")}
+          : getFieldTranslationByNames("1455")}
       </Text>
       <Icons>
         <Div onClick={handleMinimizeClick}>

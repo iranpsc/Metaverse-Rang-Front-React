@@ -6,21 +6,8 @@ import OnOff from "../OnOff";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
+import Container from "../../../../components/Common/Container";
 
-const Container = styled.div`
-  padding-top: 20px;
-  padding-bottom: 15px;
-  padding-right: 15px;
-  height: 74%;
-  overflow-y: auto;
-
-  @media (min-width: 930px) {
-    height: 75%;
-  }
-  @media (min-width: 1300px) {
-    height: auto;
-  }
-`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -133,7 +120,7 @@ const PublicTab = () => {
 
   return (
     <Container>
-      {alert && <Alert type="success" text="به روزرسانی با موفقیت انجام شد" />}
+      {alert && <Alert type="success" text={getFieldTranslationByNames("1480")} />}
       <Settings>
         {settings.map((setting) => (
           <Wrapper key={setting.id}>
@@ -147,7 +134,7 @@ const PublicTab = () => {
         ))}
       </Settings>
 
-      <Button label={getFieldTranslationByNames("411")} onclick={handleSubmit} />
+      <Button label={getFieldTranslationByNames("1481")} onclick={handleSubmit} />
     </Container>
   );
 };

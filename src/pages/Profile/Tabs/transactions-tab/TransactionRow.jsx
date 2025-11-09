@@ -6,17 +6,15 @@ import { useState } from "react";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-  persianNumbers,
 } from "../../../../services/Utility";
-import { ceil } from "lodash";
 
 const TableRow = styled.tr`
   background-color: transparent;
 `;
 
 const TableCell = styled.td`
-  padding: 15px 20px;
-  border-bottom: 1px solid #454545;
+  padding: 18px;
+  border-bottom: 1px solid #BABABA;
   color: ${(props) => props.theme.colors.newColors.shades.title};
 `;
 
@@ -29,17 +27,19 @@ const Image = styled.img`
 const Code = styled.h2`
   font-size: 16px;
   font-weight: 500;
+  text-align: center;
 `;
 
 const Date = styled.h3`
   font-size: 16px;
   font-weight: 400;
+  text-align: center;
 `;
 
 const Title = styled.h3`
   font-size: 16px;
   font-weight: 400;
-  text-align: center;
+  text-align: start;
 `;
 
 const Subject = styled.div`
@@ -161,14 +161,29 @@ const TransactionRow = ({
       </TableCell>
       <TableCell>
         <div>
-          <Title >{convertToPersian(amount)}</Title>
+          <Title style={{ textAlign: "center" }}>
+            {convertToPersian(amount)}
+          </Title>
         </div>
       </TableCell>
-      <TableCell style={{justifyContent:"center",display:"flex"}}>
-        <Print onClick={() => setOpenPrint(true)}>
+      <TableCell
+        style={{
+          position: "relative",
+        }}
+      >
+        <Print
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          onClick={() => setOpenPrint(true)}
+        >
           <LuEye size={20} />
         </Print>
       </TableCell>
+
       {openPrint && (
         <PrintModal
           code={id}

@@ -15,34 +15,7 @@ import {
 
 import ErrorMessage from "../../../components/ErrorMessage";
 import useRequest from "../../../services/Hooks/useRequest";
-
-const Container = styled.div`
-  padding: 20px 0;
-  height: 220px;
-  overflow-y: auto;
-  padding-right: 15px;
-  @media (min-width: 844px) {
-    height: 240px;
-  }
-  @media (min-width: 880px) {
-    height: 190px;
-  }
-  @media (min-width: 890px) {
-    height: 260px;
-  }
-  @media (min-width: 930px) {
-    height: 280px;
-  }
-  @media (min-width: 1024px) {
-    height: 380px;
-  }
-  @media (min-width: 1280px) {
-    height: 560px;
-  }
-  @media (min-width: 1366px) {
-    height: 620px;
-  }
-`;
+import Container from "../../../components/Common/Container";
 
 const WriteVodTab = () => {
   const { state, dispatch } = useGlobalState();
