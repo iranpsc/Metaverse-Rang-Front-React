@@ -36,6 +36,7 @@
     "axios": "^1.2.1",
     "compressorjs": "^1.2.1",
     "deck.gl-leaflet": "^1.2.1",
+    "dompurify": "^3.3.0",
     "drei": "^2.2.21",
     "esbuild": "^0.19.2",
     "i18next": "^23.15.1",
