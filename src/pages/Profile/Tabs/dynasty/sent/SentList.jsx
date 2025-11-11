@@ -1,4 +1,4 @@
-import RequestList from '../Components/RequestList';
+import RequestList from '../components/RequestList';
 import SendRequestsList from './SendRequestsList';
 
 const SentList = () => {
