@@ -6,7 +6,7 @@ import { ExitIcon } from "../Icons/IconsHeader";
 import { BiExitFullscreen } from "react-icons/bi";
 import { PiGearSixFill } from "react-icons/pi";
 import { TiWarning } from "react-icons/ti";
-import Education from "../Education/Education";
+import Education from "../../components/Education/Education" ;
 import useAdviserData from "../../services/Hooks/useAdviserData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
@@ -144,6 +144,7 @@ const Header = ({
   };
   const handleExitClick = () => {
     if (handleExit) {
+      navigation("/metaverse/")
       handleExit();
       return;
     }

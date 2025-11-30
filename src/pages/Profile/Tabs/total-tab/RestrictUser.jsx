@@ -88,7 +88,6 @@ const IconWrapper = styled.div`
   border-radius: 100%;
   display: flex;
 
-
   align-items: center;
   justify-content: center;
   background-color: ${(props) =>
@@ -104,10 +103,7 @@ const IconWrapper = styled.div`
   svg {
     font-size: 20px;
 
-    color: ${(props) =>
-      props.isActive
-        ? "#f44545ab"
-        : props.theme.colors.newColors.otherColors.iconText};
+    color: ${(props) => (props.isActive ? "#f44545ab" : "#868B90")};
   }
   cursor: pointer;
 `;

@@ -29,19 +29,6 @@ const Label = styled.h3`
   margin-bottom: 4px;
 `;
 
-const Select = styled.select`
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
-  border: 1px solid #454545;
-  border-radius: 5px;
-  padding: 10px 12px;
-  outline: none;
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  width: 100%;
-  font-size: 16px;
-  font-weight: 400;
-`;
-
 const Input = styled.input`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
@@ -89,6 +76,19 @@ const RemoveButton = styled.button`
   cursor: pointer;
 `;
 
+const Dropdowninternal = styled.div`
+  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
+  border: 1px solid #454545;
+  border-radius: 5px;
+  margin-top: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100px;
+  z-index: 50;
+  width: 100%;
+`;
+
 const DropdownItem = styled.div`
   padding: 8px 12px;
   cursor: pointer;
@@ -111,7 +111,6 @@ const CitizenWarning = styled.div`
 
 const Inputs = () => {
   const options = [
-    { id: 1, label: "1", value: "382" },
     { id: 2, label: "1321", value: "citizens_safety" },
     { id: 3, label: "1322", value: "technical_support" },
     { id: 4, label: "1323", value: "investment" },
@@ -202,9 +201,6 @@ const Inputs = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const dropdownOptions = options.map(
-    (opt) => getFieldTranslationByNames(opt.label) // این متن ترجمه شده را می‌دهد
-  );
   return (
     <Wrapper>
       <Container>
@@ -212,18 +208,18 @@ const Inputs = () => {
           <Label>{getFieldTranslationByNames("1318")}</Label>
 
           <Dropdown
-            options={dropdownOptions}
+            selected={state.subject}
+            onSelect={(value) => subjectHandler({ target: { value } })}
             placeholder={getFieldTranslationByNames("1320")}
-            selected={dropdownOptions.find(
-              (_, i) => options[i].value === state.subject
-            )}
-            onSelect={(selectedText) => {
-              const selectedOption = options.find(
-                (opt) => getFieldTranslationByNames(opt.label) === selectedText
-              );
-              subjectHandler({ target: { value: selectedOption.value } });
-            }}
+            selectPlaceHolder={false}
+            options={options.map((opt) => ({
+              id: opt.id,
+              value: opt.value,
+              label: getFieldTranslationByNames(opt.label),
+            }))}
           />
+
+         
         </InputWrapper>
         <InputWrapper>
           <Label>{getFieldTranslationByNames("1319")}</Label>
@@ -262,7 +258,7 @@ const Inputs = () => {
             onFocus={() => setDropdownOpen(true)}
           />
           {isDropdownOpen && (
-            <Dropdown>
+            <Dropdowninternal>
               {filteredCitizens.length > 0 ? (
                 filteredCitizens.map((citizen) => (
                   <DropdownItem
@@ -277,7 +273,7 @@ const Inputs = () => {
                   {getFieldTranslationByNames("1331")}
                 </DropdownItem>
               )}
-            </Dropdown>
+            </Dropdowninternal>
           )}
           <CitizenWarning>
             <CgDanger size={20} />

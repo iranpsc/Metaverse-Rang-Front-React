@@ -99,9 +99,7 @@ const SendFiles = ({ files, onFilesChange }) => {
     const newFile = e.target.files[0];
     if (newFile) {
       if (newFile.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setError(
-          `سایز ${newFile.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`
-        );
+        setError(getFieldTranslationByNames("1482"));
       } else {
         onFilesChange([newFile]);
       }
@@ -138,12 +136,13 @@ const SendFiles = ({ files, onFilesChange }) => {
             <HiddenInput
               ref={fileInputRef}
               type="file"
+              accept="image/*"
               onChange={fileHandler}
             />
           </Div>
         )}
       </Files>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {error && <ErrorMessage>{[error]}</ErrorMessage>}
     </Container>
   );
 };

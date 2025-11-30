@@ -1,6 +1,6 @@
 import SellerPriceInfo from "./SellerPriceInfo";
 import styled from "styled-components";
-
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,19 +18,15 @@ const Wrapper = styled.div`
 `;
 
 const Text = styled.p`
-  color: #ffffff;
+  color: ${(props) => (props.theme.colors.newColors.shades.title)};
   line-height: 1.7rem;
 
-  font-weight: 100;
 `;
 
 const SellerPrice = () => {
   return (
     <Wrapper>
-      <Text>
-        این VOD توسط متارنگ قیمت گذاری شده است شما می توایند این ملک را خریداری
-        کنید
-      </Text>
+      <Text>{getFieldTranslationByNames(1528)} </Text>
       <SellerPriceInfo />
     </Wrapper>
   );

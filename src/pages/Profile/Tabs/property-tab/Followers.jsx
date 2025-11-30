@@ -25,6 +25,7 @@ const Followers = () => {
     const endpoint = id ? `players/${id}/followers` : "followers";
     Request(endpoint).then((response) => {
       setFollowers(response.data.data);
+      
     });
   }, [id]);
 

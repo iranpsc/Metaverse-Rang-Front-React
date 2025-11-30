@@ -15,7 +15,7 @@ import Setting from "../../assets/svg/setting.svg";
 import { useNavigate } from "react-router-dom";
 import { getFieldTranslationByNames } from "../../services/Utility";
 const MessageIcon = styled(Message)`
-  fill: #c9c9c9ff;
+  fill: #868b907c;
 `;
 
 const Container = styled.div`
@@ -189,7 +189,7 @@ const Profile = () => {
               <Icon src={Ticket} />
               {getFieldTranslationByNames("241")}
             </BtnNavigator>
-            <BtnNavigator style={{ color: "#c9c9c9ff", cursor: "default" }}>
+            <BtnNavigator style={{ color: "#868b907c", cursor: "default" }}>
               <MessageIcon />
               {getFieldTranslationByNames("242")}
             </BtnNavigator>

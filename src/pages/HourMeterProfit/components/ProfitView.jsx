@@ -7,6 +7,11 @@ import house from "../../../assets/images/house.png";
 import styled from "styled-components";
 import useRequest from "../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../services/Utility";
+import { UserContextTypes } from "../../../services/actions/UserContextAction";
+
+import UserProvider, {
+  UserContext,
+} from "../../../services/reducers/UserContext";
 import {
   WalletContext,
   WalletContextTypes,
@@ -26,6 +31,7 @@ const Buttons = styled.div`
 `;
 
 const ProfitView = () => {
+  const [user, userDispatch] = useContext(UserContext);
   const [buttons, setButtons] = useState([]);
   const [cards, setCards] = useState([]);
   const { Request, HTTP_METHOD } = useRequest();
@@ -123,12 +129,16 @@ const ProfitView = () => {
       payload: updatedWallet,
     });
   };
-
-  const sumHandler = ({ color, value }) => {
+  const sumHandler = ({ color }) => {
     const sameColorCards = cards.filter((card) => card.color === color);
     const allValuesAreZero = sameColorCards.every((item) => item.value === 0);
 
     if (!allValuesAreZero) {
+      const totalValue = sameColorCards.reduce(
+        (sum, card) => sum + (parseFloat(card.value) || 0),
+        0
+      );
+
       setButtons((prevButtons) =>
         prevButtons.map((button) =>
           button.color === color ? { ...button, value: 0 } : button
@@ -144,7 +154,22 @@ const ProfitView = () => {
           setCards((prevCards) =>
             prevCards.filter((card) => card.color !== color)
           );
-          updateWallet(color, value); // به‌روزرسانی دارایی‌ها در کانتکست ولت
+          updateWallet(color, totalValue); // به‌روزرسانی دارایی‌ها در کانتکست ولت
+
+          userDispatch({
+            type: UserContextTypes.UPDATE_FIELD,
+            payload: {
+              key: "hourly_profit_time_percentage",
+              value:
+                totalValue === 0
+                  ? 0
+                  : Math.max(
+                      0,
+                      (user?.hourly_profit_time_percentage ?? 0) -
+                        totalValue * 100
+                    ),
+            },
+          });
         })
         .catch(console.error);
     }
@@ -163,6 +188,16 @@ const ProfitView = () => {
         setCards((prevCards) => prevCards.filter((card) => card.id !== id));
 
         updateWallet(color, amount); // به‌روزرسانی دارایی‌ها در کانتکست ولت
+        userDispatch({
+          type: UserContextTypes.UPDATE_FIELD,
+          payload: {
+            key: "hourly_profit_time_percentage",
+            value: Math.max(
+              0,
+              (user.hourly_profit_time_percentage || 0) - parseFloat(amount)
+            ),
+          },
+        });
       })
       .catch(console.error);
   };

@@ -94,7 +94,6 @@ const ReportRow = ({
     try {
       setIsLoading(true);
       const response = await Request(`reports/${id}`, "GET");
-      console.log("Received report details:", response.data.data);
       setReportDetails(response.data.data);
       setShowDetails(true);
     } catch (error) {

@@ -18,12 +18,12 @@ const ContainerList = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
+  justify-content: start;
   flex-direction: column;
   max-height: 90%;
-  gap: 5px;
+  padding: 0 10px;
   overflow-y: auto;
 
-  padding-left: 12px;
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -45,8 +45,9 @@ const ContainerList = styled.div`
 `;
 const Line = styled.div`
   width: 100%;
+  margin-bottom: 10px;
   height: 2px;
-  background-color: #000;
+  background-color: #aca8a888;
 `;
 const createSVG = (color) =>
   `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill="/></svg>`;
@@ -86,7 +87,7 @@ const Tooltip = styled.div`
 
 const Text = styled.p`
   background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.iconText};
+    props.theme.colors.newColors.otherColors.themeBtn};
   font-size: 12px;
   width: 20px;
   height: 20px;
@@ -101,7 +102,7 @@ const ContainerTextTooltip = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-const BtnAllList = styled.div`
+/*const BtnAllList = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,10 +111,11 @@ const BtnAllList = styled.div`
   background-color: ${(props) => props.theme.colors.primary};
   min-height: 36px;
   color: ${(props) => props.theme.colors.newColors.primaryText};
-`;
+`;*/
 const ImgPosition = styled.img`
   width: 100%;
   height: 114px;
+  
   border-radius: 12px;
   @media (min-width: 1024px) {
     width: 100%;
@@ -142,12 +144,12 @@ const positionsData = [
     navigation: " https://3drgb.irpsc.com/metaverse/gym/GE-901",
     onlineUser: "14",
   },
-  {
+  /* {
     src: "https://3drgb.irpsc.com/metaverse/exhibition/EX-301/images/1.png",
     name: "نمایشگاه بین المللی قزوین",
     navigation: "https://3drgb.irpsc.com/metaverse/exhibition/EX-301",
     onlineUser: "4",
-  },
+  },*/
 ];
 
 const TooltipContent = ({ imgSrc, name, lang, href, onlineUser }) => {
@@ -200,9 +202,9 @@ const ListPositions = () => {
           </React.Fragment>
         ))}
       </ContainerList>
-      <BtnAllList>
+      {/*<BtnAllList>
         {getFieldTranslationByNames("251")}
-      </BtnAllList>
+      </BtnAllList>*/}
     </Container>
   );
 };

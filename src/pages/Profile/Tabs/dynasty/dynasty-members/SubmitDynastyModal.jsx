@@ -4,7 +4,11 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 
 import Button from "../../../../../components/Button";
-import { getFieldTranslationByNames, ToastError, ToastSuccess } from "../../../../../services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+  ToastSuccess,
+} from "../../../../../services/Utility";
 import ModalLg from "../../../../../components/Modal/ModalLg";
 import OnOff from "../../../../Settings/Tabs/OnOff";
 import { useState } from "react";
@@ -83,8 +87,7 @@ const SubmitDynastyModal = ({
 }) => {
   const [selectedRelation, setSelectedRelation] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
-const navigate = useNavigate();
-console.log(selectedRelation)
+  const navigate = useNavigate();
   const handleAccept = async () => {
     if (!selectedCitizen || !selectedRelation) return;
 
@@ -102,19 +105,19 @@ console.log(selectedRelation)
     }
 
     try {
-      const response = await Request("dynasty/add/member", HTTP_METHOD.POST, body);
-      
+      const response = await Request(
+        "dynasty/add/member",
+        HTTP_METHOD.POST,
+        body
+      );
+
       if (response.status === 201) {
         ToastSuccess("درخواست شما با موفقیت ارسال شد");
         setOpenDetails(false);
-        setMode({ mode: 1, type: null })
+        setMode({ mode: 1, type: null });
       }
-      
-    } catch (error) {
-    
-    }
+    } catch (error) {}
   };
-
 
   return (
     <ModalLg titleId={832} setShowModal={setOpenDetails}>

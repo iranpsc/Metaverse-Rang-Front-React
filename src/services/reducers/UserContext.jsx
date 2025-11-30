@@ -5,15 +5,21 @@ import { UserContextTypes } from '../actions/UserContextAction';
 export const UserContext = createContext({});
 
 const reducer = (state, action) => {
-    switch (action.type) {
-        case UserContextTypes.ADD_USER:
-            const user = action?.payload?.user;
-            return user
+  switch (action.type) {
+    case UserContextTypes.ADD_USER:
+      return action.payload.user;
 
-        default:
-            return state
-    }
-}
+    case UserContextTypes.UPDATE_FIELD:
+      return {
+        ...state,
+        [action.payload.key]: action.payload.value,
+      };
+
+    default:
+      return state;
+  }
+};
+
 
 export default function UserProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, {});

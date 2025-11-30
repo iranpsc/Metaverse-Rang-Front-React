@@ -5,7 +5,7 @@ import business from "../../../../assets/images/building.png";
 import education from "../../../../assets/images/courthouse.png";
 import house from "../../../../assets/images/house.png";
 import styled from "styled-components";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
@@ -116,7 +116,9 @@ const Div = styled.div`
 `;
 const Houses = () => {
   const [searched, setSearched] = useState("");
+  const containerRef = useRef(null);
   const [open, setOpen] = useState(false);
+
   const [property, setProperty] = useState({
     industry: false,
     house: false,
@@ -128,82 +130,83 @@ const Houses = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const { id } = useParams();
+ const loadMoreFeatures = useCallback(async () => {
+  if (loading || !hasMore) return;
 
-  const loadMoreFeatures = useCallback(() => {
-    if (loading || !hasMore) return;
-    setLoading(true);
+  setLoading(true);
+
+  try {
     const endpoint = id
       ? `players/hm-2000002/assets`
       : `my-features?page=${page}`;
-    Request(endpoint).then((response) => {
-      if (!response.data.data.length || !response.data.links?.next) {
-        setHasMore(false);
-        setLoading(false);
-        return;
-      }
 
-      const enhancedFeatures = response.data.data.map((feature) => {
-        let newProperties = { ...feature.properties };
+    const response = await Request(endpoint);
 
-        if (feature.properties.karbari === "m") {
-          newProperties = {
-            ...newProperties,
-            name: "477",
-            photo: house,
-            color: "#ffc80021",
-            slug: "house",
-          };
-        } else if (feature.properties.karbari === "t") {
-          newProperties = {
-            ...newProperties,
-            name: "475",
-            photo: business,
-            color: "#ff000021",
-            slug: "industry",
-          };
-        } else if (feature.properties.karbari === "a") {
-          newProperties = {
-            ...newProperties,
-            name: "476",
-            photo: education,
-            color: "#0066ff21",
-            slug: "education",
-          };
-        }
+    const newData = response.data.data || [];
 
-        return {
-          ...feature,
-          properties: newProperties,
-        };
-      });
-      setFeatures((prevFeatures) => [...prevFeatures, ...enhancedFeatures]);
-      setPage((prevPage) => prevPage + 1);
+    // اگر هیچ داده‌ای نیومده → تموم شده
+    if (newData.length === 0) {
+      setHasMore(false);
       setLoading(false);
+      return;
+    }
+
+    // enhanced features
+    const enhancedFeatures = newData.map((feature) => {
+      let newProperties = { ...feature.properties };
+      if (feature.properties.karbari === "m") {
+        newProperties = { ...newProperties, name: "477", photo: house, color: "#ffc80021", slug: "house" };
+      } else if (feature.properties.karbari === "t") {
+        newProperties = { ...newProperties, name: "475", photo: business, color: "#ff000021", slug: "industry" };
+      } else if (feature.properties.karbari === "a") {
+        newProperties = { ...newProperties, name: "476", photo: education, color: "#0066ff21", slug: "education" };
+      }
+      return { ...feature, properties: newProperties };
     });
-  }, [page, loading, hasMore, id]);
+
+    setFeatures((prevFeatures) => {
+      const uniqueFeatures = enhancedFeatures.filter(
+        (f) => !prevFeatures.some((prev) => prev.id === f.id)
+      );
+      return [...prevFeatures, ...uniqueFeatures];
+    });
+
+    // اگر API links.next نداره ولی داده هنوز اومده → page افزایش
+    setPage((prev) => prev + 1);
+
+    // اگر links.next موجود نباشه → hasMore false
+    setHasMore(!!response.data.links?.next);
+
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+}, [page, loading, hasMore, id]);
+
 
   useEffect(() => {
-    loadMoreFeatures(); // Initial load
+    loadMoreFeatures(); 
   }, []);
-
   useEffect(() => {
-    const handleScroll = (e) => {
-      const bottom =
-        e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-      if (bottom && !loading && hasMore) {
-        loadMoreFeatures();
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      if (
+        container.scrollTop + container.clientHeight >=
+        container.scrollHeight - 200
+      ) {
+        if (!loading && hasMore) {
+          loadMoreFeatures();
+        }
       }
     };
 
-    const container = document.querySelector("#scrollable-container");
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-    }
+    container.addEventListener("scroll", handleScroll);
 
     return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
+      container.removeEventListener("scroll", handleScroll);
     };
   }, [loadMoreFeatures, loading, hasMore]);
 
@@ -220,9 +223,9 @@ const Houses = () => {
 
     return (codeMatch || addressMatch || meterMatch) && propertyMatch;
   });
-
+  
   return (
-    <Container id="scrollable-container">
+    <Container id="scrollable-container" ref={containerRef}>
       <div>
         <Title title={getFieldTranslationByNames("58")} />
       </div>

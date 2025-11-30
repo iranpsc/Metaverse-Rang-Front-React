@@ -12,7 +12,7 @@ export const Text = styled.p`
   text-align: center;
   width: 80%;
   margin: auto;
-
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   margin-top: 16px;
   font-weight: 700;
 `;

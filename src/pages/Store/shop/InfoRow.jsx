@@ -97,7 +97,7 @@ const InfoRow = ({ data, type, shop, title }) => {
     } else if (data.asset === "red") {
       return getFieldTranslationByNames("12");
     } else if (data.asset === "blue") {
-      return getFieldTranslationByNames("13");
+      return getFieldTranslationByNames("49");
     } else if (data.asset === "irr") {
       return getFieldTranslationByNames("906");
     } else if (data.asset === "psc") {

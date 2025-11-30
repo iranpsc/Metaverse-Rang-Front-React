@@ -1,11 +1,9 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../../../services/reducers/UserContext";
-import useRequest from "../../../../services/Hooks/useRequest";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
-import { useParams } from "react-router-dom";
-
+import { convertToPersian } from "../../../../services/Utility";
 const Container = styled.div`
   border-radius: 10px;
   background-color: ${(props) =>
@@ -66,28 +64,17 @@ const LevelCount = styled.div`
 `;
 
 const Level = () => {
-  const [userId] = useContext(UserContext);
-  const [user, setUser] = useState({});
-  const { Request } = useRequest();
+  const [user] = useContext(UserContext);
   const IsPersian = useLanguage();
-  const { id } = useParams();
-
-  useEffect(() => {
-    const requestId = id || userId.id;
-    Request(`users/${requestId}/level`).then((response) => {
-      setUser(response.data.data);
-    });
-  }, [id, userId.id]);
-
   return (
     <Container>
       <Percent IsPersian={IsPersian}>
         <Title>
-          <h2>{user?.latest_level?.name}</h2>
-          <h3>{user?.score_percentage_to_next_level}%</h3>
+          <h2>{user?.level?.name}</h2>
+          <h3>{convertToPersian(user?.socre_percentage_to_next_level)}%</h3>
         </Title>
         <ProgressContainer>
-          <ProgressBar percentage={user?.score_percentage_to_next_level} />
+          <ProgressBar percentage={user?.socre_percentage_to_next_level} />
         </ProgressContainer>
       </Percent>
       <LevelCount>
@@ -104,19 +91,19 @@ const Level = () => {
               <ReactTooltip id={item.slug} place="top" content={item.name} />
             </div>
           ))}
-        {user.latest_level && (
+        {user.level && (
           <div>
             <img
-              data-tooltip-id={user.latest_level.slug}
+              data-tooltip-id={user.level.id}
               width={65}
               height={65}
-              src={user.latest_level.image}
-              alt={user.latest_level.name}
+              src={user.level.background_image}
+              alt={user.level.name}
             />
             <ReactTooltip
-              id={user.latest_level.slug}
+              id={user.level.background_image}
               place="top"
-              content={user.latest_level.name}
+              content={user.level.name}
             />
           </div>
         )}

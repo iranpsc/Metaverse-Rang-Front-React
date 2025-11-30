@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-
+import { getFieldTranslationByNames } from "../../../../services/Utility";
 import EditInput from "../EditInput";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import SendFiles from "../SendFiles";

@@ -23,7 +23,6 @@ const SellerPrice = () => {
         {getFieldTranslationByNames("526")}
       </Text>
       <SellerPriceInfo />
-      <Button label={getFieldTranslationByNames("353")} />
     </Wrapper>
   );
 };

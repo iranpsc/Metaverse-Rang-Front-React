@@ -4,8 +4,11 @@ import Title from "../../../../components/Title";
 import remove from "../../../../assets/images/reports/remove.png";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
-
+import {
+  getFieldTranslationByNames,
+  convertToPersian,
+} from "../../../../services/Utility/index";
+import ErrorMessage from "../../../../components/ErrorMessage";
 const Files = styled.div`
   display: flex;
   align-items: center;
@@ -68,17 +71,11 @@ const RemoveButton = styled.img`
   left: 5px;
   bottom: 10px;
 `;
-
-const ErrorMessage = styled.div`
-  color: red;
-  font-size: 14px;
-  margin: 10px 0;
-`;
 const SendFiles = () => {
   const { state, dispatch } = useReportsGlobalState();
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState("");
-  const MAX_FILE_SIZE_MB = 9;
+  const MAX_FILE_SIZE_MB = 1;
 
   useEffect(() => {
     if (state.files.length === 0) {
@@ -95,9 +92,7 @@ const SendFiles = () => {
 
     files.forEach((file) => {
       if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setError(
-          `سایز ${file.name} نباید بیشتر از ${MAX_FILE_SIZE_MB} MB باشد.`
-        );
+        setError(getFieldTranslationByNames("1482"));
         isError = true;
       } else {
         if (file.type.startsWith("image/")) {
@@ -147,13 +142,14 @@ const SendFiles = () => {
             <HiddenInput
               id="file-input"
               type="file"
+              accept="image/*"
               onChange={fileHandler}
               multiple
             />
           </Div>
         )}
       </Files>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+      <ErrorMessage errors={[error]}/>{" "}
     </Container>
   );
 };

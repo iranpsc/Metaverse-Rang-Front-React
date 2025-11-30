@@ -1,6 +1,5 @@
-// src/components/common/Container.jsx
 import styled from "styled-components";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, forwardRef } from "react";
 import { useScrollDirection } from "../../hooks/useScrollDirection";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 
@@ -16,8 +15,10 @@ const StyledContainer = styled.div`
   }
 `;
 
-export default function BaseContainer({ children, className }) {
-  const ref = useRef(null);
+function BaseContainer({ children, className }, forwardedRef) {
+  const internalRef = useRef(null);
+  const ref = forwardedRef || internalRef;
+
   const isScrollingDown = useScrollDirection(ref);
   const { updateScrollDirection } = useScrollDirectionContext();
 
@@ -31,3 +32,5 @@ export default function BaseContainer({ children, className }) {
     </StyledContainer>
   );
 }
+
+export default forwardRef(BaseContainer);

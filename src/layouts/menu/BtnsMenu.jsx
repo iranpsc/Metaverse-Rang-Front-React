@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import DropDownLang from "../../components/DropDownLang";
-import SingOutIcon from "../../assets/svg/signOut.svg";
 import AccountSecurityIcon from "../../assets/svg/accountSecurity.svg";
 import CentralSearch from "../../assets/svg/centralSearch.svg";
 import GlobalStatisticsIcon from "../../assets/svg/globalStatistics.svg";
-import FamilyTreeIcon from "../../assets/svg/familyTree.svg";
 import RobotIcon from "../../assets/svg/robot.svg";
 import ProfitIcon from "../../assets/svg/profit.svg";
 import KycIcon from "../../assets/svg/kyc.svg";
@@ -15,16 +13,12 @@ import StoreIcon from "../../assets/svg/store.svg";
 import NotifIcon from "../../assets/svg/notif.svg";
 import ReportIcon from "../../assets/svg/report.svg";
 import GiftIcon from "../../assets/svg/gifts.svg";
-import LogoutIcon from "../../assets/svg/logout.svg";
 import { useMenuContext } from "../../services/reducers/MenuContext";
 import { useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../../services/Hooks/useAuth";
-import { useLayoutEffect } from "react";
-import { removeItem } from "../../services/Utility/LocalStorage";
-import useRequest from "../../services/Hooks/useRequest";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";
+import { UserContext } from "../../services/reducers/UserContext";
 
 const Btn = styled.button`
   display: flex;
@@ -77,8 +71,8 @@ const Text = styled.p`
 const ValueBtn = styled.span`
   width: 25px;
   height: 25px;
-  border-radius: 78px;
-  background: #c30000;
+  border-radius: 50%;
+  background: #c90f0fff;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -165,16 +159,10 @@ const menuItems = [
 const BtnsMenu = () => {
   const { isOpen } = useMenuContext();
   const navigate = useNavigate();
-  const { getUser } = useAuth();
   const location = useLocation(); // Get the current route
-  const [user, setUser] = useState();
   const [selectedItem, setSelectedItem] = useState(null); // State for selected item
-  const { Request, HTTP_METHOD } = useRequest();
   const lang = useTranslation();
-
-  useLayoutEffect(() => {
-    setUser(getUser());
-  }, []);
+  const [user] = useContext(UserContext); // ← از کانتکست بخون، نه state داخلی
 
   useEffect(() => {
     // Check the current route and set the corresponding menu item as selected
@@ -230,7 +218,7 @@ const BtnsMenu = () => {
             </div>
             {item.translationId === "236" && user && (
               <ValueBtn isOpen={isOpen}>
-                %{user.hourly_profit_time_percentage}
+                %{Number(user.hourly_profit_time_percentage).toFixed(1)}
               </ValueBtn>
             )}
             {item.translationId === "238" && user && (

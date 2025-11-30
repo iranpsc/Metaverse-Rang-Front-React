@@ -27,8 +27,8 @@ jobs:
       # Set Git user for commits
       - name: Configure Git user
         run: |
-          git config --global user.name "m6hdix"
-          git config --global user.email "m6hdixx@gmail.com"
+          git config --global user.name "parsa"
+          git config --global user.email "parsabr80@gmail.com"
 
       # Run standard-version to bump version, generate changelog, and tag the release
       - name: Bump version using standard-version

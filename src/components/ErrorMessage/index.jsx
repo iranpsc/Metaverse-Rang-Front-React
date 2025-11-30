@@ -1,25 +1,60 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import shortid from "shortid";
 import styled from "styled-components";
 
 const ErrorList = styled.ul`
   width: 90%;
   color: red;
-  & > li {
-    margin-top: 16px;
-  }
+  padding: 5px 0;
 `;
 
-export default function ErrorMessage({ errors, maxList, style = {} }) {
+export default function ErrorMessage({
+  errors = [],
+  maxList,
+  style = {},
+  onClear,
+  containerRef,
+}) {
+  const errorRef = useRef(null);
+
+  // بررسی دقیق
+  const hasRealError =
+    Array.isArray(errors) &&
+    errors.length > 0 &&
+    errors.some((e) => e && e.trim() !== "");
+
+  useEffect(() => {
+    if (hasRealError && errorRef.current && containerRef?.current) {
+      const container = containerRef.current;
+      const errorElement = errorRef.current;
+
+      const offset = errorElement.offsetTop - container.offsetTop;
+
+      container.scrollTo({
+        top: offset,
+        behavior: "smooth",
+      });
+
+      if (onClear) {
+        const timer = setTimeout(() => {
+          onClear();
+        }, 5000);
+
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [hasRealError]);
+
+  // اگر ارور واقعی نبود، هیچ‌چی رندر نکن
+  if (!hasRealError) return null;
+
   return (
-    errors[0] && (
-      <ErrorList>
-        {errors.slice(0, maxList).map((error) => (
-          <li style={{ ...style }} key={shortid.generate()}>
-            {error}
-          </li>
-        ))}
-      </ErrorList>
-    )
+    <ErrorList ref={errorRef}>
+      {errors.slice(0, maxList).map((error) => (
+        <span style={{ ...style }} key={shortid.generate()}>
+          {error}
+        </span>
+      ))}
+    </ErrorList>
   );
 }

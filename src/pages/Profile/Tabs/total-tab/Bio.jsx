@@ -6,7 +6,6 @@ const Container = styled.div`
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 280px;

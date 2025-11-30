@@ -146,18 +146,20 @@ const FirstStep = ({ setStep, time, setTime }) => {
         <input
           value={time}
           onChange={(e) => {
-            const value = e.target.value;
+            let value = e.target.value;
+            value = value.replace(/^0+/, "");
 
-            const numericValue = Number(value);
+            if (value === "") {
+              setTime("");
+              return;
+            }
 
-            if (numericValue < 5) {
-              setTime(5);
-            }
-            if (numericValue > 99) {
-              setTime(99);
-            } else {
-              setTime(numericValue);
-            }
+            let numericValue = Number(value);
+
+            if (numericValue < 5) numericValue = 5;
+            if (numericValue > 99) numericValue = 99;
+
+            setTime(numericValue);
           }}
           type="number"
           name="time"

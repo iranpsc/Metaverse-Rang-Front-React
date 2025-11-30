@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import Description from "./Description";
 import Inputs from "./Inputs";
 import SendFiles from "./SendFiles";
-import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
 import Alert from "../../../components/Alert/Alert";
 import Button from "../../../components/Button";
@@ -13,7 +12,6 @@ import {
   ToastError,
 } from "../../../services/Utility";
 
-import ErrorMessage from "../../../components/ErrorMessage";
 import useRequest from "../../../services/Hooks/useRequest";
 import Container from "../../../components/Common/Container";
 
@@ -21,8 +19,6 @@ const WriteVodTab = () => {
   const { state, dispatch } = useGlobalState();
   const { alert, setAlert } = useContext(AlertContext);
   const { Request, HTTP_METHOD } = useRequest();
-  const [error, setError] = useState("");
-  const [errors, setErrors] = useState([]);
   const containerRef = useRef(null);
 
   const resetForm = () => {
@@ -40,10 +36,6 @@ const WriteVodTab = () => {
       state.description &&
       state.files.length > 0
     ) {
-      if (containerRef.current) {
-        containerRef.current.scrollTo(0, 0);
-      }
-
       const filesData = new FormData();
 
       filesData.append("title", state.title);
@@ -67,15 +59,20 @@ const WriteVodTab = () => {
         "Content-Type": "multipart/form-data",
       })
         .then(() => {
+          if (containerRef.current) {
+            containerRef.current.scrollTo(0, 0);
+          }
           resetForm();
           setAlert(true);
           setTimeout(() => {
             setAlert(false);
           }, 2000);
         })
+
         .catch((error) => {
-          setError(getFieldTranslationByNames("send-vod", error.message));
+
           ToastError(error.response.data.message);
+          
         });
     }
   };
@@ -95,28 +92,20 @@ const WriteVodTab = () => {
 
   return (
     <Container ref={containerRef}>
-      <Title
-        title={getFieldTranslationByNames("1314")}
-        right
-      />
+      <Title title={getFieldTranslationByNames("1314")} right />
       {alert && (
         <Alert
           type="success"
-          text={`${getFieldTranslationByNames("1333")} ${state.title} ${getFieldTranslationByNames("1334")}`}
+          text={`${getFieldTranslationByNames("1333")} ${
+            state.title
+          } ${getFieldTranslationByNames("1334")}`}
         />
       )}
       <Inputs />
       <Description />
       <SendFiles files={state.files} onFilesChange={handleFilesChange} />
 
-      <Button
-        fit
-        label={getFieldTranslationByNames("730")}
-        onclick={sendVod}
-      />
-
-      {error && <ErrorMessage>{error}</ErrorMessage>}
-      <ErrorMessage errors={errors} maxList={5} />
+      <Button fit label={getFieldTranslationByNames("730")} onclick={sendVod} />
     </Container>
   );
 };

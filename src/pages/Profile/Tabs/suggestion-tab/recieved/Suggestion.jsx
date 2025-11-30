@@ -114,7 +114,7 @@ const flyToPosition = ({ latitude, longitude, mapRef, zoom = 17 }) => {
   }, 3000);
 };
 
-const Suggestion = ({ id, property, suggestions_list, onRejectProposal, onAcceptProposal }) => {
+const Suggestion = ({ id, property, suggestions_list, onRejectProposal, onAcceptProposal,isExploding,isExplodingAccept }) => {
   const xCoords = property.coordinates.map((coord) => coord.x);
   const yCoords = property.coordinates.map((coord) => coord.y);
   const isPersian = useLanguage();
@@ -199,6 +199,8 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, onAccept
         {transitions((style, item) => (
           <animated.div key={item.id} style={style}>
             <Proposer
+            isExplodingAccept={isExplodingAccept}
+            isExploding={isExploding}
               {...item}
               property={property}
               onReject={() => onRejectProposal(id, item.id)}

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getItem } from "../../../../services/Utility/LocalStorage/index";
 
 import TextValueIcon from "../../../../components/TextValueIcon";
 import { FeatureContext } from "../../Context/FeatureProvider";
@@ -14,7 +15,6 @@ import {
   getFieldTranslationByNames,
   ToastError,
 } from "../../../../services/Utility";
-
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -27,6 +27,8 @@ const InputsWrapper = styled.div`
 `;
 
 const SellerPriceInfo = () => {
+  const accountSecurity = getItem("account_security")?.account_security;
+
   const [feature] = useContext(FeatureContext);
   const Navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
@@ -37,8 +39,11 @@ const SellerPriceInfo = () => {
         Navigate(FeatureSvg(rgb));
       })
       .catch((error) => {
-       
-        ToastError(error.response.data.message);
+        if (accountSecurity) {
+          ToastError(getFieldTranslationByNames("1501"));
+        } else {
+          ToastError(error.response.data.message);
+        }
       });
   };
   return (
@@ -52,10 +57,7 @@ const SellerPriceInfo = () => {
         />
       </InputsWrapper>
 
-      <Button
-        label={getFieldTranslationByNames("353")}
-        onclick={onSubmit}
-      />
+      <Button label={getFieldTranslationByNames("353")} onclick={onSubmit} />
     </>
   );
 };
