@@ -2,11 +2,10 @@ import { FaChevronCircleLeft } from "react-icons/fa";
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 0 20px; 
+  padding: 0 20px;
   margin: 0 5px;
   height: ${(props) => (props.show ? "160px" : "")};
   overflow-y: auto;
-
   @media (max-width: 1400px) {
     height: ${(props) => (props.show ? "244px" : "")};
   }
@@ -20,7 +19,7 @@ const Container = styled.div`
     justify-content: space-between;
 
     h3 {
-      color: #008bf8;
+      color: ${(props) => props.theme.colors.primary};
       font-weight: 500;
       font-size: 16px;
       cursor: pointer;
@@ -30,9 +29,9 @@ const Container = styled.div`
     }
   }
   h2 {
+    color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 18px;
     font-weight: 500;
-    color: ${(props)=>{props.theme.colors.newColors.shades.title}};
     margin-top: 7px;
     margin-bottom: 10px;
   }
@@ -83,7 +82,6 @@ const Content = ({ show, setShow, data }) => {
   return (
     <Container show={show}>
       <div>
-        
         {data?.title && <h2>{data.title}</h2>}
 
         {show ? (

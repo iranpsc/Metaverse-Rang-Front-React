@@ -81,7 +81,7 @@ const Inputs = () => {
           onSelect={(val) => subjectHandler({ target: { value: val } })}
           placeholder={getFieldTranslationByNames("24")}
           searchable={false}
-          disSelectOption={false}
+          selectPlaceHolder={false}
         />
       </Subject>
       <Title>

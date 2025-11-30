@@ -16,6 +16,7 @@ const Asset = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 13%;
+  min-height: 35px;
 `;
 
 const ImgAsset = styled.img`

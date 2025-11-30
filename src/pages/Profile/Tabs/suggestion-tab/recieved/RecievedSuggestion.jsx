@@ -2,19 +2,22 @@ import Suggestion from "./Suggestion";
 import Title from "../../../../../components/Title";
 import meter from "../../../../../assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
-import {  Wrapper } from "../suggestionStyles";
+import { Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
 import { getFieldTranslationByNames } from "../../../../../services/Utility/index";
-import Container from '../../../../../components/Common/Container';
+import Container from "../../../../../components/Common/Container";
 
 const RecievedSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
   const { Request } = useRequest();
   const location = useLocation();
-  const containerRef = useRef(null);
+    const [isExploding, setIsExploding] = useState(false);
+  const [isExplodingAccept, setIsExplodingAccept] = useState(false);
 
+  const containerRef = useRef(null);
+const navigate=useNavigate()
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
@@ -23,14 +26,27 @@ const RecievedSuggestion = () => {
 
         if (Array.isArray(data)) {
           const formattedSuggestions = data.map((item) => {
-            const { area = 0, density = 0, karbari = "", address, id, stability, price_psc } = item.feature_properties || {};
+            const {
+              area = 0,
+              density = 0,
+              karbari = "",
+              address,
+              id,
+              stability,
+              price_psc,
+            } = item.feature_properties || {};
             const gracePeriod = item.requested_grace_period || null;
 
             const remainingDays = gracePeriod
-              ? Math.ceil((moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate() - new Date()) / (1000 * 60 * 60 * 24))
+              ? Math.ceil(
+                  (moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate() -
+                    new Date()) /
+                    (1000 * 60 * 60 * 24)
+                )
               : null;
 
-            const gracePeriodRemainingDays = remainingDays <= 0 ? 0 : remainingDays;
+            const gracePeriodRemainingDays =
+              remainingDays <= 0 ? 0 : remainingDays;
 
             const karbariValues = { t: 30000, m: 10000, a: 60000 };
             const karbariValue = karbariValues[karbari] || 0;
@@ -40,7 +56,9 @@ const RecievedSuggestion = () => {
             const baseIrrPrice = area * density * karbariValue;
             const totalBaseIrr = baseIrrPrice;
             const totalSuggestedIrr = adjustedPscPrice * 900 + adjustedIrrPrice;
-            const totalPriceDiffPercent = totalBaseIrr ? ((totalSuggestedIrr - totalBaseIrr) / totalBaseIrr) * 100 : 0;
+            const totalPriceDiffPercent = totalBaseIrr
+              ? ((totalSuggestedIrr - totalBaseIrr) / totalBaseIrr) * 100
+              : 0;
 
             return {
               id: item.id,
@@ -85,7 +103,10 @@ const RecievedSuggestion = () => {
 
   const handleRejectProposal = async (suggestionId) => {
     try {
-      const response = await Request(`buy-requests/reject/${suggestionId}`, "POST");
+      const response = await Request(
+        `buy-requests/reject/${suggestionId}`,
+        "POST"
+      );
 
       if ([200, 204].includes(response.status)) {
         setSuggestions((prev) => prev.filter((s) => s.id !== suggestionId));
@@ -93,35 +114,62 @@ const RecievedSuggestion = () => {
         console.error("Error deleting suggestion:", response);
       }
     } catch (error) {
-   
+      if ((error = 410)) {
+        navigate("/metaverse/confirmation");
+      }
     }
+    setIsExploding(!isExploding)
   };
 
   const handleAcceptProposal = async (suggestionId, proposerId) => {
     try {
-      const response = await Request(`buy-requests/accept/${proposerId}`, "POST");
+      const response = await Request(
+        `buy-requests/accept/${proposerId}`,
+        "POST"
+      );
 
       if ([200, 204].includes(response.status)) {
-        setSuggestions((prev) => prev.map((s) =>
-          s.id === suggestionId ? { ...s, suggestions_list: s.suggestions_list.filter((item) => item.id !== proposerId) } : s
-        ).filter((s) => s.suggestions_list.length > 0));
+        setSuggestions((prev) =>
+          prev
+            .map((s) =>
+              s.id === suggestionId
+                ? {
+                    ...s,
+                    suggestions_list: s.suggestions_list.filter(
+                      (item) => item.id !== proposerId
+                    ),
+                  }
+                : s
+            )
+            .filter((s) => s.suggestions_list.length > 0)
+        );
       } else {
         console.error("Error accepting suggestion:", response);
       }
     } catch (error) {
-     
+      if ((error = 410)) {
+        navigate("/metaverse/confirmation");
+      }
     }
+    setIsExplodingAccept(!isExplodingAccept)
   };
 
-  const validSuggestions = suggestions.filter((s) => s.suggestions_list.length > 0);
-
+  const validSuggestions = suggestions.filter(
+    (s) => s.suggestions_list.length > 0
+  );
   return (
     <Container ref={containerRef}>
       <Title right title={getFieldTranslationByNames("764")} />
       <Wrapper>
         {validSuggestions.map((s) => (
           <div key={s.id} id={`suggestion-${s.id}`}>
-            <Suggestion {...s} onRejectProposal={handleRejectProposal} onAcceptProposal={(pId) => handleAcceptProposal(s.id, pId)} />
+            <Suggestion
+            isExplodingAccept={isExplodingAccept}
+            isExploding={isExploding}
+              {...s}
+              onRejectProposal={handleRejectProposal}
+              onAcceptProposal={(pId) => handleAcceptProposal(s.id, pId)}
+            />
           </div>
         ))}
       </Wrapper>

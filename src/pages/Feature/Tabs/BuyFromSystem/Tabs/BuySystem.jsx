@@ -7,7 +7,7 @@ import { FeatureSvg } from "../../../../../services/constants/FeatureType";
 import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { ToastError } from "../../../../../services/Utility";
-
+import { getFieldTranslationByNames } from "../../../../../services/Utility";
 
 const ContainerPrice = styled.div`
   width: 65%;
@@ -32,27 +32,30 @@ export default function BuySystem({ price, image, rgb, id }) {
   const { Request, HTTP_METHOD } = useRequest();
 
   const onSubmit = () => {
-    Request(`features/buy/${id}`, HTTP_METHOD.POST).then(response => {
-      Navigate(FeatureSvg(rgb));
-    }).catch(error => {
-    
-      
-      ToastError(error.response.data.message)
-    });
-  }
+    Request(`features/buy/${id}`, HTTP_METHOD.POST)
+      .then((response) => {
+        Navigate(FeatureSvg(rgb));
+      })
+      .catch((error) => {
+        ToastError(error.response.data.message);
+      });
+  };
 
   return (
     <Container style={{ gap: "50px" }}>
       <Text style={{ fontWeight: "700" }}>
-        این VOD توسط متارنگ قیمت گذاری شده است شما میتوانید این ملک را خریداری
-        نمایید
+        {getFieldTranslationByNames(1528)}{" "}
       </Text>
 
       <ContainerPrice>
         <IconPrice src={image} /> &nbsp; {price}
       </ContainerPrice>
       <Form onSubmit={onSubmit}>
-        <Submit type="primary" text="خرید" options={{ style: { width: 150 }}} />
+        <Submit
+          type="primary"
+          text="خرید"
+          options={{ style: { width: 150 } }}
+        />
       </Form>
     </Container>
   );

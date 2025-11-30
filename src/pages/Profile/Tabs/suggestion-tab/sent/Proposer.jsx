@@ -11,7 +11,8 @@ import person from "../../../../../assets/images/profile/slide.png";
 import pscpng from "../../../../../assets/images/profile/psc.gif";
 import rialpng from "../../../../../assets/images/profile/rial.gif";
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
 import {
   Info,
@@ -22,7 +23,7 @@ import {
   Text,
 } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Price = BasePrice;
 const ProposalStatus = styled.div``;
@@ -124,7 +125,8 @@ const Proposer = ({
   property,
   id,
 }) => {
-  const [day, setDay] = useState(property.gracePeriod || 0);
+
+  const [day, setDay] = useState(property?.gracePeriod || 0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExploding, setIsExploding] = useState(false);
   const [isExplodingAccept, setIsExplodingAccept] = useState(false);
@@ -148,9 +150,7 @@ const Proposer = ({
         "production"
       );
       setDay(selectedDay);
-    } catch (error) {
-     
-    }
+    } catch (error) {}
   };
 
   return (
@@ -159,7 +159,7 @@ const Proposer = ({
         <Header>
           <Person>
             <img
-              src={property.profile_photo}
+              src={property?.profile_photo}
               alt={code}
               width={60}
               height={60}

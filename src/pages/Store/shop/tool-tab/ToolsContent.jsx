@@ -11,6 +11,7 @@ import Container from "../../../../components/Common/Container";
 
 const Wrapper = styled.div`
   display: flex;
+  
   flex-direction: column;
   gap: 20px;
   margin-top: 20px;

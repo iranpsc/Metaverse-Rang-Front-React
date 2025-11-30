@@ -21,7 +21,6 @@ const Following = () => {
   const [followings, setFollowings] = useState([]);
   const { Request } = useRequest();
   const { id } = useParams();
-
   useEffect(() => {
     const endpoint = id ? `players/${id}/following` : "following";
     Request(endpoint).then((response) => {

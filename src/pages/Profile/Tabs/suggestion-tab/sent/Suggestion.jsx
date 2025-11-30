@@ -148,6 +148,7 @@ function flyToPosition({ latitude, longitude, mapRef, zoom = 17 }) {
 }
 
 const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
+
   const navigate = useNavigate();
   const xCoords = property.coordinates.map((coord) => coord.x);
   const yCoords = property.coordinates.map((coord) => coord.y);
@@ -225,7 +226,7 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
       <Suggestions>
         {transitions((style, item) => (
           <animated.div key={item.id} style={style}>
-            <Proposer {...item} onReject={() => onRejectProposal(id, item.id)} />
+            <Proposer {...item} onReject={() => onRejectProposal(id, item.id)} property={property} />
           </animated.div>
         ))}
       </Suggestions>

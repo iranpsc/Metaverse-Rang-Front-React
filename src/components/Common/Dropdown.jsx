@@ -7,7 +7,7 @@ const DropdownContainer = styled.div`
   position: relative;
   width: 100%;
   font-size: 16px;
-white-space: nowrap;
+  white-space: nowrap;
 `;
 
 const DropdownButton = styled.div`
@@ -76,12 +76,12 @@ const Dropdown = ({
   onSelect,
   placeholder = "please select",
   searchable = false,
-  disSelectOption = true, 
+  selectPlaceHolder = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
-  const optionsWithPlaceholder = disSelectOption
+  const optionsWithPlaceholder = selectPlaceHolder
     ? [placeholder, ...options]
     : options;
 
@@ -95,7 +95,7 @@ const Dropdown = ({
 
   const handleOptionClick = (option) => {
     const value = typeof option === "string" ? option : option.value;
-    if (disSelectOption && option === placeholder) {
+    if (selectPlaceHolder && option === placeholder) {
       onSelect(null);
     } else {
       onSelect(value);
@@ -117,7 +117,14 @@ const Dropdown = ({
   return (
     <DropdownContainer ref={dropdownRef}>
       <DropdownButton onClick={() => setIsOpen(!isOpen)}>
-        {selected || placeholder}
+        {(() => {
+          if (!selected) return placeholder;
+
+          const obj = options.find(
+            (o) => typeof o === "object" && o.value === selected
+          );
+          return obj ? obj.label : selected;
+        })()}
         <ArrowIcon isOpen={isOpen} />
       </DropdownButton>
 

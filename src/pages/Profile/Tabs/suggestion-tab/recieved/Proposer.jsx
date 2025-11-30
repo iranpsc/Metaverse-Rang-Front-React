@@ -4,14 +4,12 @@ import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-  ToastError,
 } from "../../../../../services/Utility/index";
 import line from "../../../../../assets/images/profile/Line.png";
-import person from "../../../../../assets/images/profile/slide.png";
 import pscpng from "../../../../../assets/images/profile/psc.gif";
 import rialpng from "../../../../../assets/images/profile/rial.gif";
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
 import {
   Info,
@@ -23,6 +21,7 @@ import {
 } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { useNavigate } from "react-router-dom";
+import { getItem } from "../../../../../services/Utility/LocalStorage";
 
 const Price = BasePrice;
 const ProposalStatus = styled.div``;
@@ -123,20 +122,21 @@ const Proposer = ({
   onAccept,
   property,
   id,
-}) => {
+  isExploding,
+  isExplodingAccept,
+}) => {   
+
   const [day, setDay] = useState(property.gracePeriod || 0);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isExploding, setIsExploding] = useState(false);
-  const [isExplodingAccept, setIsExplodingAccept] = useState(false);
   const isPersian = useLanguage();
   const { Request } = useRequest();
   const navigate = useNavigate();
+  const accountSecurity = getItem("account_security")?.account_security;
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
   };
   const handleGracePeriod = async (selectedDay) => {
     if (!id) return console.error("Error: id is undefined!");
-
     try {
       await Request(
         `buy-requests/add-grace-period/${id}`,
@@ -149,7 +149,11 @@ const Proposer = ({
       );
       setDay(selectedDay);
     } catch (error) {
-     
+      if (!accountSecurity) {
+        navigate("/metaverse/confirmation");
+      }else{
+
+      }
     }
   };
 
@@ -255,7 +259,6 @@ const Proposer = ({
           <RejectButton
             onClick={() => {
               onReject();
-              setIsExploding(!isExploding);
             }}
           >
             {getFieldTranslationByNames("775")}
@@ -283,8 +286,6 @@ const Proposer = ({
               color="#18C08F"
               textColor="#FFFFFF"
               onClick={() => {
-                setIsExplodingAccept(true);
-
                 onAccept();
               }}
               full

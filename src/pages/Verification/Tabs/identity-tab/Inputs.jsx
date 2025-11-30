@@ -74,7 +74,7 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
         }
         placeholder={getFieldTranslationByNames("871")}
         searchable={true}
-        disSelectOption={false}
+        selectPlaceHolder={false}
       />
 
       <Birthday error={data[4]?.error}>
@@ -94,7 +94,7 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
         <FaRegCalendarAlt size={20} />
       </Birthday>
       <Dropdown
-        disSelectOption={false}
+        selectPlaceHolder={false}
         options={data[5].options.map((option) =>
           getFieldTranslationByNames(option.gender)
         )}

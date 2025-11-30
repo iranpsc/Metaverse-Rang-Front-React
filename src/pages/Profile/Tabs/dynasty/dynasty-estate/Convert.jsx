@@ -6,7 +6,10 @@ import styled from "styled-components";
 import { useState, useCallback, useMemo } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
-import { getFieldTranslationByNames, ToastError } from "../../../../../services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,ToastSuccess
+} from "../../../../../services/Utility";
 
 // Combine styled components
 const Styledcomponents = {
@@ -15,7 +18,7 @@ const Styledcomponents = {
     display: grid;
     gap: 20px;
     margin-top: 20px;
-    
+
     grid-template-columns: 1fr;
     @media (min-width: 992px) {
       grid-template-columns: 1fr 1fr;
@@ -28,7 +31,7 @@ const Styledcomponents = {
   `,
 };
 
-const Convert = ({ data }) => {
+const Convert = ({ data, setData }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [modal, setModal] = useState(false);
   const [selectedPropertyId, setSelectedPropertyId] = useState(null);
@@ -42,7 +45,6 @@ const Convert = ({ data }) => {
       feature.properties_id?.toString().includes(searchTerm)
     );
   }, [data?.features, searchTerm]);
-
   // Use useCallback for event handlers
   const updateDynasty = useCallback((id) => {
     setSelectedPropertyId(id);
@@ -59,12 +61,11 @@ const Convert = ({ data }) => {
         `dynasty/${data.id}/update/${selectedPropertyId}`,
         HTTP_METHOD.POST
       );
-      setDynasty({ ...response.data.data });
-      ToastSuccess("VOD جدید با موفقیت بروز گردید.");
+      setData(response.data.data);
+      ToastSuccess(getFieldTranslationByNames(1502));
+
       setModal(false);
     } catch (error) {
-    
-      ToastError(error.response?.data?.message);
       setModal(false);
     }
   }, [data.id, selectedPropertyId, navigate]);
@@ -84,6 +85,7 @@ const Convert = ({ data }) => {
           <PropertyCard
             key={feature.id}
             id={feature.id}
+            area={feature.area}
             propertyId={feature.properties_id}
             stability={feature.stability}
             label={getFieldTranslationByNames(818)}

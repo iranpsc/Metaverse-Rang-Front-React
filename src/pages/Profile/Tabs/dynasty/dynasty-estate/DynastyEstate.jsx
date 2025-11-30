@@ -13,11 +13,11 @@ width: 100%;
   
 `;
 
-const DynastyEstate = ({ data }) => {
+const DynastyEstate = ({ data,setData }) => {
   return (
     <Container>
       <Owner data={data} />
-      <Convert data={data} />
+      <Convert data={data} setData={setData} />
     </Container>
   );
 };

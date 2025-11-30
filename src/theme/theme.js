@@ -41,7 +41,7 @@ export const lightTheme = {
         green: "#18C08F",
         red: "#F03A47",
         yellow: "#FFC107",
-        orange:"#FFC700",
+        orange: "#FFC700",
         menuBg: "#FFFFFF",
         themeBtn: "#cbced0",
         headerMenu: "#000000",
@@ -63,9 +63,8 @@ export const lightTheme = {
         gray: "#898989",
         confirmed: "#D4E9FA",
         containerPrimary: "#F5F9FF",
-        offerbg:"#D7FBF0",
-        offerbg2:"#FF00001F"
-
+        offerbg: "#D7FBF0",
+        offerbg2: "#FF00001F",
       },
     },
   },
@@ -125,7 +124,7 @@ export const darkTheme = {
         green: "#18C08F",
         red: "#F03A47",
         yellow: "#FFC107",
-               orange:"#FFC700",
+        orange: "#FFC700",
         menuBg: "#1A1A18",
         themeBtn: "#000000",
         headerMenu: "#FFFFFF",
@@ -147,10 +146,8 @@ export const darkTheme = {
         gray: "#969696",
         confirmed: "#ffc70021",
         containerPrimary: "#2C2C2C",
-        offerbg:"#1A352B",
-        offerbg2:"#3F1614"
-
-
+        offerbg: "#1A352B",
+        offerbg2: "#3F1614",
       },
     },
   },

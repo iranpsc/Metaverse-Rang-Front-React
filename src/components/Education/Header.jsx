@@ -3,6 +3,12 @@ import { TbMinimize } from "react-icons/tb";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import { ExitIcon } from "../Icons/IconsHeader";
+import {
+  getTitleTranslation,
+  getTitleFromHref,
+} from "../../services/TitleManager";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 const Div = styled.div`
   position: relative;
   display: flex;
@@ -19,7 +25,7 @@ const Div = styled.div`
 const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
-  
+
   width: 100%;
   justify-content: space-between;
 
@@ -54,8 +60,14 @@ const Icons = styled.div`
   }
 `;
 
+const Header = ({ show, setOpenEducation, setSize }) => {
+  const location = useLocation();
+  const lastPart = getTitleFromHref(location.pathname);
+  const [title, setTitle] = useState(getFieldTranslationByNames("1455"));
+  useEffect(() => {
+    setTitle(getTitleTranslation(lastPart));
+  }, [lastPart]);
 
-const Header = ({ show, setOpenEducation, setSize, title }) => {
   const handleMinimizeClick = (event) => {
     event.stopPropagation();
     setSize(true);
@@ -66,11 +78,7 @@ const Header = ({ show, setOpenEducation, setSize, title }) => {
   };
   return (
     <HeaderWrapper show={show}>
-      <Text>
-        {title
-          ? getFieldTranslationByNames(title[0], title[1])
-          : getFieldTranslationByNames("1455")}
-      </Text>
+      <Text>{title}</Text>
       <Icons>
         <Div onClick={handleMinimizeClick}>
           <TbMinimize style={{ color: "#949494" }} />

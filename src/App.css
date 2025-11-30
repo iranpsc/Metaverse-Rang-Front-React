@@ -143,33 +143,48 @@ a {
   }
 }
 
-* {
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
 
-  ::-webkit-scrollbar-track {
-    background: #85858590;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #555555;
-    cursor: pointer;
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+/* light mode */
+::-webkit-scrollbar {
+  width: 5px;
 }
+/*
+::-webkit-scrollbar-track {
+  background: #85858590;
+}*/
+
+::-webkit-scrollbar-thumb {
+  background: #0066FF;
+}
+
+
+/* dark mode */
+/*
+html.dark ::-webkit-scrollbar-track {
+  background: #44444490;
+}*/
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #FFC700;
+}
+
 
 button {
   cursor: pointer;
 }
-html, body {
+
+html,
+body {
   -webkit-text-size-adjust: 100%;
 }
-input, textarea, button, select, label, p, span {
+
+input,
+textarea,
+button,
+select,
+label,
+p,
+span {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }

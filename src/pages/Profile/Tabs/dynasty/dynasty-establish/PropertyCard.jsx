@@ -61,6 +61,7 @@ const Container = styled.div`
 `;
 
 const PropertyCard = ({ onClick, label, propertyId, area, stability,id }) => {
+  
   const Navigate = useNavigate();
   return (
     <Container>
@@ -83,7 +84,7 @@ const PropertyCard = ({ onClick, label, propertyId, area, stability,id }) => {
           </>
         )} */}
       </Center>
-      <Button label={label} onclick={() => onClick(propertyId)} />
+      <Button label={label} onclick={() => onClick(id)} />
     </Container>
   );
 };

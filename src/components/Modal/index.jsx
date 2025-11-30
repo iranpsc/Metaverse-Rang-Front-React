@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Header from "../Header/Header";
 import { useLanguage } from "../../services/reducers/LanguageContext";
+
 const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   height: 100%;
@@ -46,6 +47,7 @@ const ModalContainer = styled.div`
 
 const Modal = ({ children, title }) => {
 const isPersian=useLanguage();
+ 
   return (
     <Container  >
       <ModalContainer isPersian={isPersian}>

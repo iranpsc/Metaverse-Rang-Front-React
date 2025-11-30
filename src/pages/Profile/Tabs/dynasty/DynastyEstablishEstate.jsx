@@ -34,16 +34,16 @@ const DynastyEstablishEstate = ({ mode, setMode }) => {
         console.error("Failed to fetch members:", error);
       }
     };
-
     fetchMembers();
   }, [setMode]);
+  
   switch (mode) {
     case 1:
       return (
         <DynastyEstablish data={data} setMode={setMode} setData={setData} />
       );
     case 2:
-      return <DynastyEstate data={data} />;
+      return <DynastyEstate data={data} setData={setData} />;
     default:
       return null;
   }

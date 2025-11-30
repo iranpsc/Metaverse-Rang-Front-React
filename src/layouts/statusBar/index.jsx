@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 import BtnFlagMap from "./BtnFlagMap";
 import Status from "./Status";
@@ -11,6 +10,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  justify-content: space-between;
   max-width: 18%;
   height: 100%;
   @media (min-width: 1024px) {
@@ -20,34 +21,33 @@ const Container = styled.div`
 `;
 const WalletContainer = styled.div`
   width: 100%;
-  height: 61.5%;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  min-height: 38%;
   @media (min-width: 1024px) {
-    height: 41%;
     border-radius: 20px;
   }
-  padding: 20px 10px 15px 10px;
+  padding: 10px;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: start;
+  align-items: center;
   gap: 6px;
   transition: all 0.3s ease 0s;
 `;
 const FlagMapContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 29%;
+  height: 100%;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};
   display: flex;
   flex-direction: column;
   @media (min-width: 1024px) {
-    height: 51%;
     border-radius: 20px;
   }
   padding: 4px 7px;
@@ -79,7 +79,7 @@ const StatusBar = () => {
     <Container>
       <WalletContainer>
         <PrivateComponent>
-          <AssetsWallet/>
+          <AssetsWallet />
         </PrivateComponent>
         <PublicComponent>
           <ListPositions />
