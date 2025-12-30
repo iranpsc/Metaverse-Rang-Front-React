@@ -50,7 +50,8 @@ export default function useAuth() {
         { Authorization: `Bearer ${user?.token}` },
         "development"
       ),
-    ]);
+    ]
+ ); 
     setWallet({
       type: WalletContextTypes.ADD_WALLET,
       payload: walletResponse.data.data,

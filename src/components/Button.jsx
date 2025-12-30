@@ -50,7 +50,7 @@ const ButtonElement = styled.button`
   }
 
   @media (min-width: 998px) {
-    height: 50px;
+    height: ${(props) => (props.large ? "40px" : "50px")};
   }
   img {
     width: 25px;

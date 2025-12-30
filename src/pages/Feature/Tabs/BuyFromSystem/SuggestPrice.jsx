@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-
   padding-right: 15px;
   padding-top: 20px;
   padding-bottom: 20px;

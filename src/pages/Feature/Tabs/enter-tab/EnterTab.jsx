@@ -83,7 +83,6 @@ const EnterTab = ({ owner }) => {
   const [data, setData] = useState(enterData);
   const [edit, setEdit] = useState(false);
   const [payed, setPayed] = useState(false);
-  const [isOwner, setIsOwner] = useState(true);
   useEffect(() => {
     if (owner) {
       setPayed(true);
@@ -97,12 +96,13 @@ const EnterTab = ({ owner }) => {
         data={data}
         payed={payed}
         setPayed={setPayed}
-        isOwner={isOwner}
+        isOwner={owner}
       />
     );
   if (edit)
     return (
       <EnterEdit
+      
         setEdit={setEdit}
         data={data}
         setData={setData}

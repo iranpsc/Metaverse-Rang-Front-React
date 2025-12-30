@@ -108,7 +108,7 @@ const VideoSlider = ({ data }) => {
               src={video.video}
               key={video.id}
               className="keen-slider__slide"
-              style={{ borderRadius: "10px", cursor: "pointer" }}
+              style={{ borderRadius: "10px", cursor: "pointer",paddingBottom:"20px", }}
             />
           ) : (
             <video

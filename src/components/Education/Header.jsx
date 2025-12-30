@@ -6,6 +6,7 @@ import { ExitIcon } from "../Icons/IconsHeader";
 import {
   getTitleTranslation,
   getTitleFromHref,
+  translateLocationPage,
 } from "../../services/TitleManager";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -63,10 +64,17 @@ const Icons = styled.div`
 const Header = ({ show, setOpenEducation, setSize }) => {
   const location = useLocation();
   const lastPart = getTitleFromHref(location.pathname);
+
   const [title, setTitle] = useState(getFieldTranslationByNames("1455"));
   useEffect(() => {
-    setTitle(getTitleTranslation(lastPart));
-  }, [lastPart]);
+    const translated = translateLocationPage(location.state?.locationPage);
+
+    if (translated) {
+      setTitle(translated);
+    } else {
+      setTitle(getTitleTranslation(lastPart));
+    }
+  }, [location.state?.locationPage, lastPart]);
 
   const handleMinimizeClick = (event) => {
     event.stopPropagation();

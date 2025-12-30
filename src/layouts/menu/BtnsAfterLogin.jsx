@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../services/Utility";
-import DropDownLang from "../../components/DropDownLang";
 import HomeIcon from "../../assets/svg/home.svg";
 import NewsIcon from "../../assets/svg/news.svg";
 import BlogIcon from "../../assets/svg/blogs.svg";
@@ -198,7 +197,6 @@ const BtnsAfterLogin = () => {
           </Btn>
         </Tippy>
       ))}
-      <DropDownLang />
     </Container>
   );
 };

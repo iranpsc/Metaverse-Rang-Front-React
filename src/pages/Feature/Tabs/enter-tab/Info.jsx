@@ -3,13 +3,23 @@ import EnterConfirmModal from "./EnterConfirmModal";
 import EnterInputs from "./EnterInputs";
 import LoadingModal from "./LoadingModal";
 import { LuEye } from "react-icons/lu";
-
+import Button from "../../../../components/Button";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import Title from "../../../../components/Title";
+import { getItem } from "../../../../services/Utility/LocalStorage";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useMapData } from "../../../../services/reducers/mapContext";
+import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../../services/reducers/WalletContext";
 import {
   convertToPersian,
   getFieldTranslationByNames,
+  ToastError,
+  ToastSuccess,
 } from "../../../../services/Utility";
 
 const Container = styled.div`
@@ -48,11 +58,19 @@ const Text = styled.p`
 const Buttons = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  @media screen and (max-width: 702px) {
+    justify-content: center;
+  }
   gap: 20px;
   margin-top: 20px;
 `;
 
-const Button = styled.button`
+const EditButtons = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+const ButtonSecondary = styled.button`
   border-radius: 10px;
   background-color: ${(props) => (props.blue ? "#18C08F" : "#E9E9E9")};
   color: ${(props) => (props.blue ? "#FFFFFF" : "#949494")} !important;
@@ -68,19 +86,67 @@ const Button = styled.button`
 `;
 
 const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
+  const { buildings, removeBuilding } = useMapData();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [Wallet, dispatch] = useContext(WalletContext);
+
+  const activeBuilding =
+    buildings.find((b) => b?.building?.feature_id === parseInt(id)) || null;
+
+  const accountSecurity = getItem("account_security")?.account_security;
+  const launchedSatisfaction = activeBuilding?.building?.launched_satisfaction;
+ const base = Number(Wallet.satisfaction) || 0;
+  const extra = Number(launchedSatisfaction) || 0;
+  const total = base + extra;
   const [payStatus, setPayStatus] = useState(false);
   const [loading, setLoading] = useState(false);
+  const featureId = activeBuilding?.building?.feature_id;
+  const buildingId = activeBuilding?.model_id;
+
+  
+  const handleDeleteBuilding = async () => {
+    if (!accountSecurity) {
+      ToastError(getFieldTranslationByNames("1603"));
+      return;
+    }
+
+    try {
+      await Request(
+        `features/${featureId}/build/buildings/${buildingId}`,
+        HTTP_METHOD.DELETE
+      );
+
+      ToastSuccess(getFieldTranslationByNames("1609"));
+      navigate("/metaverse");
+      dispatch({
+        type: WalletContextTypes.ADD_WALLET,
+        payload: {
+          ...Wallet,
+          satisfaction: total,
+        },
+      });
+      removeBuilding(activeBuilding.model_id)
+    } catch (error) {
+      console.error("❌ Delete building error:", error);
+
+      if (error.response?.status === 403) {
+        ToastError("اجازه حذف این سازه را ندارید");
+      } else if (error.response?.status === 404) {
+        ToastError("سازه پیدا نشد");
+      } else {
+        ToastError("خطا در حذف سازه");
+      }
+    }
+  };
   return (
     <Container>
       <HeaderContainer>
-        <Title
-          title={getFieldTranslationByNames("533")}
-        />
+        <Title title={getFieldTranslationByNames("533")} />
         <Onlines>
           <LuEye />
           <p>
-            {getFieldTranslationByNames("553")}{" "}
-            {convertToPersian(20)}{" "}
+            {getFieldTranslationByNames("553")} {convertToPersian(20)}{" "}
             {getFieldTranslationByNames("1313")}
           </p>
         </Onlines>
@@ -93,19 +159,27 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
           setPayStatus={setPayStatus}
         />
       )}
-      <Title
-        payed={payed}
-        title={getFieldTranslationByNames("538")}
-      />
+      <Title payed={payed} title={getFieldTranslationByNames("538")} />
       <Text>{data[0].inputs[4].about}</Text>
       {payed && !edit && (
         <Buttons>
-          <Button blue onClick={() => setEdit(true)}>
-            {getFieldTranslationByNames("537")}
-          </Button>
-          <Button onClick={() => {}}>
-            {getFieldTranslationByNames("548")}
-          </Button>
+          <EditButtons>
+            {" "}
+            <ButtonSecondary blue onClick={() => setEdit(true)}>
+              {getFieldTranslationByNames("537")}
+            </ButtonSecondary>
+            <ButtonSecondary onClick={() => {}}>
+              {getFieldTranslationByNames("548")}
+            </ButtonSecondary>
+          </EditButtons>
+          {isOwner && (
+            <Button
+              fit
+              color="#ff0000"
+              label={getFieldTranslationByNames("1595")}
+              onclick={handleDeleteBuilding}
+            />
+          )}
         </Buttons>
       )}
       {payStatus && (

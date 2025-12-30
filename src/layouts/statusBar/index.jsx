@@ -10,14 +10,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-
-  justify-content: space-between;
+  justify-content: start;
   max-width: 18%;
   height: 100%;
-  @media (min-width: 1024px) {
-    max-width: 10%;
-    gap: 10px;
-  }
 `;
 const WalletContainer = styled.div`
   width: 100%;
@@ -25,11 +20,14 @@ const WalletContainer = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};
   display: flex;
+
   flex-direction: column;
-  overflow-y: auto;
-  min-height: 38%;
   @media (min-width: 1024px) {
     border-radius: 20px;
+  }
+  @media (max-height: 541px) {
+    overflow-y: auto;
+    min-height: 140px;
   }
   padding: 10px;
   flex-direction: column;
@@ -40,8 +38,8 @@ const WalletContainer = styled.div`
 `;
 const FlagMapContainer = styled.div`
   display: flex;
+  height: 100vh;
   width: 100%;
-  height: 100%;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};

@@ -1,6 +1,7 @@
 import Rial from "../../../../../components/Rial";
 import Psc from "../../../../../components/Psc";
 import Input from "../../../../../components/Input";
+import { getItem } from "../../../../../services/Utility/LocalStorage";
 
 import styled from "styled-components";
 import { useContext, useState } from "react";
@@ -11,17 +12,21 @@ import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { FeatureSvg } from "../../../../../services/constants/FeatureType";
 import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../../../services/reducers/WalletContext";
+import {
   calculateFee,
   getFieldTranslationByNames,
   persianNumbers,
   ToastError,
+  formatNumber,
 } from "../../../../../services/Utility";
 
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 20px;
-
   gap: 20px;
   @media (min-width: 600px) {
     padding-left: 0;
@@ -43,24 +48,57 @@ const ResultWrapper = styled.div`
 `;
 
 const SellerPriceInfo = () => {
+  const accountSecurity = getItem("account_security")?.account_security;
+
   const [feature] = useContext(FeatureContext);
-  const [rial, setRial] = useState(feature?.properties?.price_irr);
-  const [psc, setPsc] = useState(feature?.properties?.price_psc);
+  const [wallet, dispatch] = useContext(WalletContext);
+  const [rial, setRial] = useState(feature.properties.price_irr);
+  const [psc, setPsc] = useState(feature.properties.price_psc);
   const Navigate = useNavigate();
-
   const { Request, HTTP_METHOD } = useRequest();
-
+ 
   const onSubmit = () => {
-    Request(`features/buy/${feature?.id}`, HTTP_METHOD.POST)
-      .then((response) => {
-        Navigate(FeatureSvg(feature?.properties?.rgb));
-      })
-      .catch((error) => {
-       
-          ToastError(error.response.data.message);
-        
-      });
+    try {
+      const walletPscRaw = wallet?.psc || 0;
+      const walletIrrRaw = wallet?.irr || 0;
+
+      const psclastRaw = walletPscRaw - calculateFee(psc, 5);
+      const irrlastRaw = walletIrrRaw - calculateFee(rial, 5);
+
+      if (psclastRaw < 0) {
+        ToastError(getFieldTranslationByNames("1605"));
+        return;
+      }
+      if (irrlastRaw < 0) {
+        ToastError(getFieldTranslationByNames("1604"));
+        return;
+      }
+      if (!accountSecurity) {
+        ToastError(getFieldTranslationByNames("1603"));
+        return;
+      }
+      Request(`features/buy/${feature?.id}`, HTTP_METHOD.POST)
+        .then((response) => {
+          dispatch({
+            type: WalletContextTypes.ADD_WALLET,
+            payload: {
+              ...wallet,
+
+              psc: psclastRaw,
+              irr: irrlastRaw,
+            },
+          });
+
+          Navigate(FeatureSvg(feature?.properties?.rgb));
+        })
+        .catch((error) => {
+          ToastError(error?.response?.data?.message || "خطای سرور");
+        });
+    } catch (error) {
+      ToastError(error?.response?.data?.message || "خطای محاسباتی");
+    }
   };
+
   return (
     <>
       <InputsWrapper>
@@ -75,7 +113,7 @@ const SellerPriceInfo = () => {
           disabled
         />
         <Input
-          value={psc}
+          value={formatNumber(psc)}
           onchange={(e) => setPsc(e.target.value)}
           type="number"
           placeholder={`${getFieldTranslationByNames(
@@ -94,7 +132,7 @@ const SellerPriceInfo = () => {
         />
         <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
       </ResultWrapper>
-      {Number(psc) !== 0 && Number(rial) !== 0 && (
+      {(Number(psc) !== 0 || Number(rial) !== 0) && (
         <div>
           <Button
             label={getFieldTranslationByNames("353")}

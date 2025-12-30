@@ -1,20 +1,18 @@
-import React from "react";
-import styled from "styled-components";
 import Rial from "../../../../../components/Rial";
 import Psc from "../../../../../components/Psc";
 import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button";
 import TitleValue from "../../../../../components/TitleValue";
-import SuggestText from "./SuggestText";
+
 import {
   calculateFee,
   convertToPersian,
   getFieldTranslationByNames,
+  formatNumber,
 } from "../../../../../services/Utility";
-
+import CustomEditor from "../../../../../components/Common/CustomEditor";
 // constants
 const PSC_TO_RIAL_RATE = 900;
-const SUGGEST_TEXT_MAX_LENGTH = 1000;
 
 // Styled components moved to separate file for better organization
 import {
@@ -40,19 +38,11 @@ const FillInputs = ({
   totalIrr,
 }) => {
   const handleValueChange = (value, isRial) => {
-    if (value === "") {
-      setRial("");
-      setPsc("");
-      return;
-    }
-
-    const numValue = parseFloat(value);
+    // فقط مقدار همون فیلد ذخیره میشه
     if (isRial) {
       setRial(value);
-      setPsc((numValue / PSC_TO_RIAL_RATE).toFixed(2));
     } else {
-      setPsc(value);
-      setRial((numValue * PSC_TO_RIAL_RATE).toFixed(0));
+      setPsc(convertToPersian(value, false));
     }
   };
 
@@ -60,14 +50,12 @@ const FillInputs = ({
   const handlePscChange = (e) => handleValueChange(e.target.value, false);
 
   const remainingAmount = totalIrr - rial - psc * PSC_TO_RIAL_RATE;
-  const remainingChars = SUGGEST_TEXT_MAX_LENGTH - suggestText.length;
-
   return (
     <>
       <InputsWrapper>
         <Input
-          value={rial}
-          onchange={handleRialChange}
+          value={formatNumber(rial)}
+          onChange={handleRialChange}
           type="number"
           placeholder={`${getFieldTranslationByNames(
             "521"
@@ -75,9 +63,9 @@ const FillInputs = ({
           insideText={<Rial />}
         />
         <Input
-          value={psc}
-          onchange={handlePscChange}
-          type="number"
+          value={convertToPersian(psc)}
+          onChange={handlePscChange}
+          type="text"
           placeholder={`${getFieldTranslationByNames(
             "521"
           )} (${getFieldTranslationByNames("47")})`}
@@ -88,26 +76,30 @@ const FillInputs = ({
       {errors.price && <ErrorText>{errors.price}</ErrorText>}
 
       <SuggestWrapper>
-        <SuggestText setValue={setSuggestText} value={suggestText} />
-        <span style={{ color: "gray", fontSize: "14px" }}>
-          {remainingChars} {getFieldTranslationByNames("530")}
-        </span>
+        <CustomEditor
+          value={suggestText}
+          onChange={setSuggestText}
+          charLimit={1000}
+          placeholder={getFieldTranslationByNames("529")}
+        />
       </SuggestWrapper>
 
       <ResultWrapper>
         <Wrapper>
           <Title>{getFieldTranslationByNames("522")}</Title>
           <Value>
-            {convertToPersian(calculateFee(rial))}{" "}
+            {convertToPersian(calculateFee(rial) || 0)}{" "}
             {getFieldTranslationByNames("48")} /{" "}
-            {convertToPersian(calculateFee(psc))}{" "}
+            {convertToPersian(calculateFee(psc) || 0)}{" "}
             {getFieldTranslationByNames("47")}
           </Value>
         </Wrapper>
         <Sec>
           <TitleValue
             title={getFieldTranslationByNames("531")}
-            value={convertToPersian(remainingAmount)}
+            value={convertToPersian(
+              formatNumber(remainingAmount / PSC_TO_RIAL_RATE)
+            )}
           />
           <TitleValue
             title={getFieldTranslationByNames("523")}

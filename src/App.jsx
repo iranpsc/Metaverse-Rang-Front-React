@@ -1,7 +1,6 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { BrowserRouter, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useLayoutEffect } from "react";
+import { BrowserRouter } from "react-router-dom"; // Import useNavigate
 import { Toaster } from "react-hot-toast";
-import { useTranslation } from "react-i18next";
 import "./App.css";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
@@ -21,7 +20,6 @@ import { MapProvider } from "react-map-gl";
 import { SelectedEnvironmentProvider } from "./services/reducers/SelectedEnvironmentContext.jsx";
 import { AlertProvider } from "./services/reducers/AlertContext.jsx";
 import Routers from "./layouts/map/Routers.jsx";
-import { getFieldTranslationByNames } from "./services/Utility/index.jsx";
 import { LanguageProvider } from "./services/reducers/LanguageContext.jsx";
 import { LoaderProvider } from "./services/reducers/LoaderProvider.jsx";
 import RotateDevice from "./components/RotateDevice";
@@ -49,7 +47,6 @@ const Container = styled.section`
 function App() {
   useAppHeight();
 
-  console.log(useTranslation());
   useLayoutEffect(() => {
     window.Echo = new Echo({
       broadcaster: "pusher",

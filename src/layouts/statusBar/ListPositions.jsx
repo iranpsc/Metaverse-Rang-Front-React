@@ -4,7 +4,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import { useTranslation } from "react-i18next";
-
+import mataphoto from "../../assets/images/3ddevelop.jpg";
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -22,7 +22,6 @@ const ContainerList = styled.div`
   flex-direction: column;
   max-height: 90%;
   padding: 0 10px;
-  overflow-y: auto;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -43,12 +42,12 @@ const ContainerList = styled.div`
     background-color: #999;
   }
 `;
-const Line = styled.div`
+/*const Line = styled.div`
   width: 100%;
   margin-bottom: 10px;
   height: 2px;
   background-color: #aca8a888;
-`;
+`;*/
 const createSVG = (color) =>
   `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill="/></svg>`;
 
@@ -113,14 +112,11 @@ const ContainerTextTooltip = styled.div`
   color: ${(props) => props.theme.colors.newColors.primaryText};
 `;*/
 const ImgPosition = styled.img`
-  width: 100%;
+  width: 114px;
   height: 114px;
-  
+
   border-radius: 12px;
-  @media (min-width: 1024px) {
-    width: 100%;
-    height: 126px;
-  }
+ 
 `;
 const Hr = styled.div`
   background-color: ${(props) =>
@@ -131,9 +127,11 @@ const Hr = styled.div`
   margin-bottom: 10px;
   opacity: 0.4;
 `;
+
+/*
 const positionsData = [
   {
-    src: "https://3drgb.irpsc.com/metaverse/office/OF-602/images/1.png",
+    src: mataphoto,
     name: "دفتر فروش متاورس رنگ ",
     navigation: "https://3drgb.irpsc.com/metaverse/office/OF-602",
     onlineUser: "20",
@@ -149,8 +147,8 @@ const positionsData = [
     name: "نمایشگاه بین المللی قزوین",
     navigation: "https://3drgb.irpsc.com/metaverse/exhibition/EX-301",
     onlineUser: "4",
-  },*/
-];
+  },
+];*/
 
 const TooltipContent = ({ imgSrc, name, lang, href, onlineUser }) => {
   return (
@@ -189,18 +187,15 @@ const ListPositions = () => {
   return (
     <Container>
       <ContainerList>
-        {positionsData.map((position, index) => (
-          <React.Fragment key={index}>
-            <TooltipContent
-              imgSrc={position.src}
-              name={position.name}
-              lang={i18n.language}
-              href={position.navigation}
-              onlineUser={position.onlineUser}
-            />
-            {index !== positionsData.length - 1 && <Line />}
-          </React.Fragment>
-        ))}
+        <React.Fragment >
+          <TooltipContent
+            imgSrc={mataphoto}
+            name={getFieldTranslationByNames("1591")}
+            lang={i18n.language}
+            href="https://3ddevelop.irpsc.com/linked-world"
+            onlineUser={"20"}
+          />
+        </React.Fragment>
       </ContainerList>
       {/*<BtnAllList>
         {getFieldTranslationByNames("251")}

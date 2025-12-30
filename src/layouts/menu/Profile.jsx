@@ -34,7 +34,6 @@ const Btn = styled.button`
   align-items: center;
   justify-content: start;
   gap: 8px;
-  padding: 0 10px;
   border: none;
   background: transparent;
   height: 49px;
@@ -103,8 +102,9 @@ const Text = styled.p`
 `;
 
 const ImgUser = styled.img`
-  width: 30px;
+  min-width: 30px;
   height: 30px;
+  margin: 5px 0;
   border-radius: 100%;
   border: 1px solid white;
 `;

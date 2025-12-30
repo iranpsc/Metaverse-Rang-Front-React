@@ -2,14 +2,16 @@ import { getFieldTranslationByNames } from "./Utility";
 
 const getTranslation = (index) => getFieldTranslationByNames(index);
 
-// Map صفحات به translation ID
 const pageTranslations = {
   "sanad-1": "1314",
   "sanad-2": "1316",
   "sanad-3": "1317",
   "profile-1": "62",
   "profile-2": "150",
-  "profile-3": "61",
+  "profile-3": "61", 
+   "profile-4": "158",
+   "profile-5": "735",
+
   "settings-1": "639",
   "settings-2": "640",
   "settings-3": "641",
@@ -29,36 +31,33 @@ const pageTranslations = {
   "report-2": "1386",
 };
 
-// Map title های کلیدی بدون شماره
 const titleTranslations = {
-  "store": "30",
-  "settings": "642",
-  "profile": "243",
-  "sanad": "241",
-  "confirmation": "31",
-  "search": "232",
-  "dynasty": "234",
+  store: "30",
+  settings: "642",
+  profile: "243",
+  sanad: "241",
+  confirmation: "31",
+  search: "232",
+  dynasty: "234",
   "hour-profit": "236",
-  "verification": "237",
-  "notifications": "238",
-  "report":"23"
+  verification: "237",
+  notifications: "238",
+  report: "23",
 };
 
-// تبدیل locationPage به متن قابل نمایش
 export const translateLocationPage = (page) => {
   const translationId = pageTranslations[page];
   return translationId ? getTranslation(translationId) : page;
 };
 
-// استخراج title از href
 export const getTitleFromHref = (href) => {
   return href ? href.split("/").pop() : "";
 };
 
-// گرفتن translation نهایی برای title
 export const getTitleTranslation = (hrefOrKey) => {
   const extractedTitle = getTitleFromHref(hrefOrKey);
-  // اگر suffix شماره دارد حذف کن
   const cleanTitle = extractedTitle.replace(/-\d+$/, "");
-  return titleTranslations[cleanTitle] ? getTranslation(titleTranslations[cleanTitle]) : getTranslation("188");
+  return titleTranslations[cleanTitle]
+    ? getTranslation(titleTranslations[cleanTitle])
+    : getTranslation("905");
 };

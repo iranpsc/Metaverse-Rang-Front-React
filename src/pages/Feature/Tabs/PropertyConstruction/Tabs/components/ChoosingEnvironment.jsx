@@ -94,7 +94,6 @@ const ChoosingEnvironment = () => {
     useSelectedEnvironment() || {};
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -107,7 +106,6 @@ const ChoosingEnvironment = () => {
         setCoordinates([res.data.feature.coordinates]);
         setLoading(false);
       } catch (err) {
-        console.log(err);
         setLoading(false);
       }
     };
@@ -145,9 +143,11 @@ const ChoosingEnvironment = () => {
     <>
       <Container id="scrollable-container">
         {data &&
-          data.map((data, index) => (
-            <ImgHolder key={index}>
-              <Img src={data.images[0].url} alt="" />
+          data.map((data, index) =>{
+          return (
+            <ImgHolder key={data.id}>
+              <Img src={data.images[0 ].url} alt="" />
+
               <ViewHolder
                 onClick={() => {
                   setPreview([data]);
@@ -160,7 +160,7 @@ const ChoosingEnvironment = () => {
                 className={activeIndex === index ? "active" : ""}
               />
             </ImgHolder>
-          ))}
+          )})}
       </Container>
       {preview.length === 1 && <PreviewModel data={preview} />}
     </>

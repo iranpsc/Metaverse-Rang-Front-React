@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useLanguage } from "../services/reducers/LanguageContext";
-
+import { convertToPersian } from "../services/Utility";
 const Wrapper = styled.div`
   position: relative;
   color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -11,9 +11,11 @@ const Wrapper = styled.div`
   height: 40px;
   padding: 0 10px;
   display: flex;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
   width: 100%;
   @media (min-width: 998px) {
-    height: 50px;
+  min-height: 50px;
   }
 `;
 
@@ -46,41 +48,46 @@ const Span = styled.span`
   }
 `;
 const Input = ({
-  type,
+  type = "text",
   placeholder,
   insideText,
-  value,
+  value = "",
   gif,
-  onchange,
+  onChange,
   disabled,
   name,
+  maxLength,
 }) => {
   const isPersian = useLanguage();
 
-  // Format display value only for number type
-  const displayValue =
-    type === "number" && isPersian && value
-      ? value.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])
-      : value;
+  const displayValue = type === "number" ? convertToPersian(value) : value;
+
+  const effectiveMaxLength =
+    typeof maxLength === "number"
+      ? maxLength
+      : type === "number"
+      ? undefined
+      : 70;
 
   const handleChange = (e) => {
-    if (type === "number") {
-      // Only allow numbers and remove any non-numeric characters
-      const numericValue = e.target.value.replace(/[^۰-۹0-9]/g, "");
+    let val = e.target.value;
 
-      // Convert Persian digits to English before passing to onChange
-      const persianToEnglish = numericValue.replace(
-        /[۰-۹]/g,
-        (d) =>
-          ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"][
-            d.charCodeAt(0) - "۰".charCodeAt(0)
-          ]
+    if (type === "number") {
+      val = val.replace(/[^۰-۹0-9]/g, "");
+
+      val = val.replace(/[۰-۹]/g, (d) =>
+        String(d.charCodeAt(0) - "۰".charCodeAt(0))
       );
-      onchange({ ...e, target: { ...e.target, value: persianToEnglish } });
-    } else {
-      // For non-number types, pass the value directly
-      onchange(e);
     }
+
+    if (effectiveMaxLength) {
+      val = val.slice(0, effectiveMaxLength);
+    }
+
+    onChange({
+      ...e,
+      target: { ...e.target, name, value: val },
+    });
   };
 
   return (
@@ -88,7 +95,6 @@ const Input = ({
       <InputElement
         type={type === "number" ? "text" : type}
         inputMode={type === "number" ? "numeric" : undefined}
-        pattern={type === "number" ? "[0-9]*" : undefined}
         placeholder={placeholder}
         value={displayValue}
         onChange={handleChange}
@@ -98,7 +104,7 @@ const Input = ({
       <Span isPersian={isPersian}>
         {insideText}
         {gif && (
-          <img width={30} height={30} loading="lazy" src={gif} alt="git" />
+          <img width={30} height={30} loading="lazy" src={gif} alt="gif" />
         )}
       </Span>
     </Wrapper>

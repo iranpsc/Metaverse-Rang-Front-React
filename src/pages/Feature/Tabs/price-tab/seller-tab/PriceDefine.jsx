@@ -8,27 +8,21 @@ import {
   TimeAgo,
   ToastError,
   ToastSuccess,
+  formatNumber,
 } from "../../../../../services/Utility";
 import { UserContext } from "../../../../../services/reducers/UserContext";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import { FeatureContext } from "../../../Context/FeatureProvider";
+import Container from "../../../../../components/Common/Container";
+import { getItem } from "../../../../../services/Utility/LocalStorage";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding-right: 15px;
-  padding-top: 20px;
   gap: 30px;
   width: 100%;
-  @media (max-width: 1024px) {
-    height: 60vh !important;
-    overflow: auto;
-  }
-  @media (min-width: 1023px) {
-    height: auto !important;
-  }
 `;
 
 const Text = styled.p`
@@ -39,6 +33,8 @@ const Text = styled.p`
 `;
 
 const PriceDefine = () => {
+  const accountSecurity = getItem("account_security")?.account_security;
+
   const [feature] = useContext(FeatureContext);
   const [user] = useContext(UserContext);
   const { Request, HTTP_METHOD } = useRequest();
@@ -87,44 +83,45 @@ const PriceDefine = () => {
       price_irr: rial,
       price_psc: psc,
     };
-
+    if (!accountSecurity) {
+      ToastError(getFieldTranslationByNames("1603"));
+      return;
+    }
     Request(`sell-requests/store/${feature?.id}`, HTTP_METHOD.POST, formData)
       .then(() => {
         ToastSuccess("VOD با موفقیت قیمت گذاری شد.");
         setAssign(true);
       })
       .catch((error) => {
-    
-          ToastError(error.response.data.message);
-        
+        ToastError(error.response.data.message);
       });
   };
 
   return (
-    <Wrapper>
-      <Text>
-        {getFieldTranslationByNames("520")}
-      </Text>
-      {!assign && (
-        <FillInputs
-          rial={rial}
-          setRial={setRial}
-          psc={psc}
-          setPsc={setPsc}
-          setAssign={validateAndSubmit}
-          errors={errors}
-        />
-      )}
-      {assign && (
-        <ResultInfo
-          rial={rial}
-          setRial={setRial}
-          psc={psc}
-          setPsc={setPsc}
-          setAssign={setAssign}
-        />
-      )}
-    </Wrapper>
+    <Container>
+      <Wrapper>
+        <Text>{getFieldTranslationByNames("520")}</Text>
+        {!assign && (
+          <FillInputs
+            rial={rial}
+            setRial={setRial}
+            psc={psc}
+            setPsc={setPsc}
+            setAssign={validateAndSubmit}
+            errors={errors}
+          />
+        )}
+        {assign && (
+          <ResultInfo
+            rial={formatNumber(rial)}
+            setRial={formatNumber(setRial)}
+            psc={psc}
+            setPsc={setPsc}
+            setAssign={setAssign}
+          />
+        )}
+      </Wrapper>
+    </Container>
   );
 };
 

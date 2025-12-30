@@ -8,16 +8,39 @@ import { BORDER_COLORS } from "../../services/constants/BorderColors";
 import { POLYGON_COLORS } from "../../services/constants/PolygonColors";
 import useRequest from "../../services/Hooks/useRequest";
 import { ClipLoader } from "react-spinners";
+import { useMapData } from "../../services/reducers/mapContext";
+import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 
 // Add the proxy URL to bypass CORS
-const FBXModel = memo(({ url, rotation, setLoading, uniqueKey }) => {
+const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
   // Prepend proxy URL to avoid CORS issues
   const fbx = useLoader(FBXLoader, url, (loader) => {
     loader.manager.onStart = () => setLoading(true);
     loader.manager.onLoad = () => setLoading(false);
     loader.manager.onError = () => setLoading(false);
   });
+  useEffect(() => {
+    if (!fbx) return;
 
+    fbx.traverse((child) => {
+      if (!child.isMesh) return;
+
+      const applyOpacity = (material) => {
+        material.transparent = true;
+        material.opacity = opacity;
+        material.depthWrite = opacity === 1;
+        material.needsUpdate = true;
+      };
+
+      if (Array.isArray(child.material)) {
+        child.material.forEach((mat) => {
+          if (mat) applyOpacity(mat);
+        });
+      } else if (child.material) {
+        applyOpacity(child.material);
+      }
+    });
+  }, [fbx, opacity]);
   const fbxRef = useRef();
   return (
     <group ref={fbxRef} rotation={rotation} scale={0.0097} key={uniqueKey}>
@@ -32,13 +55,14 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey }) => {
 });
 
 const MapPolygons = () => {
+  const { buildings, setBuildings } = useMapData();
+  const { selectedEnvironment } = useSelectedEnvironment();
+
   const map = useMap();
   const bounds = map.current.getBounds();
   const [features, setFeatures] = useState([]);
-  const [buildingModels, setBuildingModels] = useState([]);
   const [zoom, setZoom] = useState(map.current.getZoom());
   const [isLoading, setIsLoading] = useState(false);
-
   const { Request } = useRequest();
 
   useEffect(() => {
@@ -98,10 +122,8 @@ const MapPolygons = () => {
         );
 
         setFeatures((prevFeatures) => [...prevFeatures, ...newFeatures]);
-        setBuildingModels((prevModels) => [
-          ...prevModels,
-          ...newBuildingModels,
-        ]);
+
+        setBuildings((prevModels) => [...prevModels, ...newBuildingModels]);
       });
     }
   }, [bounds.getSouthWest().lng, zoom]);
@@ -150,24 +172,31 @@ const MapPolygons = () => {
             }
             paint={{
               "line-color": ["get", "border"],
-              "line-width": 3,
+              "line-width": 2,
             }}
           />
         </Source>
       )}
-      {zoom >= 14 && buildingModels.length > 0 && (
-        <Canvas latitude={36} longitude={50}>
-          {buildingModels.map((model, index) => {
+      {zoom >= 14 && buildings.length > 0 && (
+        <Canvas latitude={36} longitude={50}
+          key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
+>
+          {buildings.map((model, index) => {
+            const endDate = new Date(model.building.construction_end_date);
+            const now = new Date();
+            const opacity = now < endDate ? 0.3 : 1;
             const proxyFbxUrl = `https://middle.irpsc.com/app/?url=${model.file.url}`;
             return (
               <Coordinates
-                key={`${model.id}-${model.building.position}-${index}`}
+                key={model.feature_id}
                 latitude={parseFloat(model.building.position.split(",")[0])}
                 longitude={parseFloat(model.building.position.split(",")[1])}
+              
               >
                 <FBXModel
+                  opacity={opacity}
                   url={proxyFbxUrl}
-                  rotation={[0, 0, 0]}
+                  rotation={[0, model.building.rotation ?? 0, 0]}
                   setLoading={setIsLoading}
                   uniqueKey={`${model.id}-${index}-model`}
                 />

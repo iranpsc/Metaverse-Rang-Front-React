@@ -16,35 +16,79 @@ export default function ConditionalPage() {
   const { getUser } = useAuth();
   const [userId, setUserId] = useState(null);
   const [feature] = useContext(FeatureContext);
-
+  const status = feature?.construction_status?.[0]?.status;
   const commonSpecificationTab = {
     title: getFieldTranslationByNames("516"),
     content: <InfoTab />,
   };
-
   const SellTabs = [
     commonSpecificationTab,
-    {
-      title: getFieldTranslationByNames("352"),
-      content: <SellerTab seller />,
-    },
-    {
-      title: getFieldTranslationByNames("355"),
-      content: <PropertyConstruction />,
-    },
-    {
-      title: getFieldTranslationByNames("354"),
-      content: <EnterTab owner />,
-    },
-    {
-      title: getFieldTranslationByNames("356"),
-      content: <PhysicTab owner />,
-    },
-    {
+    ...(status === undefined
+      ? [
+          {
+            title: getFieldTranslationByNames("352"),
+            content: <SellerTab seller />,
+          },
+        ]
+      : []),
+    ...(status === "completed"
+      ? [
+          {
+            title: getFieldTranslationByNames("352"),
+            content: <SellerTab seller />,
+          },
+        ]
+      : []),
+
+    ...(status === undefined
+      ? [
+          {
+            title: getFieldTranslationByNames("355"),
+            content: <PropertyConstruction />,
+          },
+        ]
+      : []),
+
+    ...(status === "completed"
+      ? [
+          {
+            title: getFieldTranslationByNames("354"),
+            content: <EnterTab owner />,
+          },
+        ]
+      : []),
+
+    ...(status === "in_progress"
+      ? [
+          {
+            title: getFieldTranslationByNames("357"),
+            content: <ParticipationTab owner />,
+          },
+        ]
+      : []),
+    ...(status === "completed"
+      ? [
+          {
+            title: getFieldTranslationByNames("357"),
+            content: <ParticipationTab owner />,
+          },
+        ]
+      : []),
+    ...(status === "completed"
+      ? [
+          {
+            title: getFieldTranslationByNames("356"),
+            content: <PhysicTab owner />,
+          },
+        ]
+      : []),
+    // تب HistoryTab
+    /*{
       title: getFieldTranslationByNames("325"),
       content: <HistoryTab />,
-    },
+    },*/
   ];
+
   const SellTabPanel = useTabs(SellTabs);
 
   const BuySystemTabs = [
@@ -58,26 +102,44 @@ export default function ConditionalPage() {
 
   const BuyUserTabs = [
     commonSpecificationTab,
-    {
-      title: getFieldTranslationByNames("353"),
-      content: <BuyerTab />,
-    },
-    {
-      title: getFieldTranslationByNames("354"),
-      content: <EnterTab />,
-    },
-    {
-      title: getFieldTranslationByNames("356"),
-      content: <PhysicTab />,
-    },
-    {
-      title: getFieldTranslationByNames("357"),
-      content: <ParticipationTab />,
-    },
-    {
+    ...(status === "in_progress"
+      ? []
+      : [
+          {
+            title: getFieldTranslationByNames("353"),
+            content: <BuyerTab />,
+          },
+        ]),
+
+    ...(status === "completed"
+      ? [
+          {
+            title: getFieldTranslationByNames("354"),
+            content: <EnterTab />,
+          },
+          {
+            title: getFieldTranslationByNames("356"),
+            content: <PhysicTab />,
+          },
+          {
+            title: getFieldTranslationByNames("357"),
+            content: <ParticipationTab />,
+          },
+        ]
+      : []),
+    ,
+    ...(status === "in_progress"
+      ? [
+          {
+            title: getFieldTranslationByNames("357"),
+            content: <ParticipationTab />,
+          },
+        ]
+      : []),
+    /*  {
       title: getFieldTranslationByNames("325"),
       content: <HistoryTab />,
-    },
+    },*/
   ];
   const BuyUserTabPanel = useTabs(BuyUserTabs);
 

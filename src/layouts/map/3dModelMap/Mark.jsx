@@ -1,4 +1,4 @@
-import React, {
+import  {
   useCallback,
   useMemo,
   memo,
@@ -14,6 +14,7 @@ import { HemisphereLight } from "three";
 import { useSelectedEnvironment } from "../../../services/reducers/SelectedEnvironmentContext";
 import { ToastError, ToastSuccess } from "../../../services/Utility";
 import ControlPanel from "./ControlPanel";
+
 import { ClipLoader } from "react-spinners";
 import SatisfactionLunch from "./SatisfactionLunch";
 import * as turf from "@turf/turf";
@@ -105,6 +106,17 @@ const Mark = memo(() => {
   }, [environmentCoordinates, rotatedPolygonCoordinates]);
 
   useEffect(() => {
+    if (!environmentCoordinates.length) return;
+
+    const environmentPolygon = turf.polygon([environmentCoordinates]);
+    const centerOfEnvironment = turf.center(environmentPolygon);
+    const [centerLng, centerLat] = centerOfEnvironment.geometry.coordinates;
+
+    setMarkerPosition({
+      latitude: centerLat,
+      longitude: centerLng,
+    });
+
     const handleMove = () => {
       if (!isConfirmed && !environmentFixed) {
         const center = map.current.getCenter();
@@ -121,7 +133,6 @@ const Mark = memo(() => {
       map.current.off("move", handleMove);
     };
   }, [map, isConfirmed, environmentFixed]);
-
   const handleConfirmation = useCallback(() => {
     if (!isRotatedPolygonInside) {
       ToastError("محیط شما در محدوده زمین شما نیست");
