@@ -10,7 +10,8 @@ const Container = styled.div`
   justify-content: space-between;
   flex-direction: column;
   width: 100%;
-  height: 93%;
+  height: 91%;
+  color:${(props) => props.theme.colors.primary};
 `;
 const Title = styled.p`
   font-size: 18px;
@@ -87,9 +88,7 @@ const ControlPanel = ({
       <Container>
         <ContainerHeader>
           <Diver />
-          <Title>
-            {getFieldTranslationByNames("463")}
-          </Title>
+          <Title>{getFieldTranslationByNames("463")}</Title>
           <Label>
             <RotationCounter>{rotationX}°</RotationCounter>
             <RangeInput

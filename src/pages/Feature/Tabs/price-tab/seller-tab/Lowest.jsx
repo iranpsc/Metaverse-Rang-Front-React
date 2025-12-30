@@ -11,20 +11,13 @@ import {
   ToastError,
   ToastSuccess,
 } from "../../../../../services/Utility";
+import Container from "../../../../../components/Common/Container";
 import ResultInfo from "../../../components/ResultInfo";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
-  padding-right: 15px;
-  padding-top: 20px;
-  @media (min-width: 600px) {
-    overflow-y: auto;
-  }
-  @media (max-width: 1024px) {
-    height: 100%;
-  }
 `;
 
 const Text = styled.p`
@@ -121,12 +114,11 @@ const Lowest = () => {
         ToastSuccess("حداقل قیمت پیشنهادی شما با موفقیت ثبت شد.");
       })
       .catch((error) => {
-   
-          ToastError(error.response.data.message);
-        
+        ToastError(error.response.data.message);
       });
   };
   return (
+    <Container>
     <Wrapper>
       <Text>{getFieldTranslationByNames("518")}</Text>
       <Div>
@@ -152,7 +144,7 @@ const Lowest = () => {
           setAssign={setAssign}
         />
       )}
-    </Wrapper>
+    </Wrapper></Container>
   );
 };
 

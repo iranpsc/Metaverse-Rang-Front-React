@@ -6,8 +6,13 @@ import styled from "styled-components";
 import { ReactComponent as WatchIcon } from "../../../assets/svg/watch.svg";
 import Submit from "../../../components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../services/reducers/SelectedEnvironmentContext";
-import { WalletContext } from "../../../services/reducers/WalletContext";
+import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../services/reducers/WalletContext";
 import useRequest from "../../../services/Hooks/useRequest";
+import { getItem } from "../../../services/Utility/LocalStorage";
+
 import {
   getFieldTranslationByNames,
   ToastError,
@@ -28,11 +33,13 @@ const SatisfactionLunch = ({
   handleExitClick,
   handelSubmitEnvironment,
 }) => {
+  const accountSecurity = getItem("account_security")?.account_security;
+
   const { selectedEnvironment, formState } = useSelectedEnvironment();
   const { Request, HTTP_METHOD } = useRequest();
-  const [wallet] = useContext(WalletContext);
+  const [Wallet, dispatch] = useContext(WalletContext);
   const initialSatisfaction =
-    wallet && wallet.satisfaction ? parseFloat(wallet.satisfaction) : 0;
+    Wallet && Wallet.satisfaction ? parseFloat(Wallet.satisfaction) : 0;
   const [inputValue, setInputValue] = useState(initialSatisfaction.toString());
   const [error, setError] = useState(false);
   const [formData, setFormData] = useState({
@@ -61,67 +68,26 @@ const SatisfactionLunch = ({
     });
   }, [formState, inputValue, position, rotation]);
 
-  const changedAttributes = useMemo(() => {
-    return selectedEnvironment.attributes
-      .map((attr) => {
-        let newValue;
-        if (attr.slug === "density") {
-          newValue = (parseFloat(attr.value) / 10).toString();
-        } else if (attr.slug === "karbari") {
-          switch (attr.value) {
-            case "m":
-              newValue = "0.1";
-              break;
-            case "t":
-              newValue = "0.2";
-              break;
-            case "s":
-              newValue = "0.3";
-              break;
-            default:
-              newValue = null;
-          }
-        }
+  const SatisfactionRequired = selectedEnvironment?.required_satisfaction;
+  const satisfaction = Number(SatisfactionRequired);
+  const input = Number(inputValue);
 
-        if (newValue && newValue !== attr.value) {
-          return {
-            slug: attr.slug,
-            originalValue: attr.value,
-            transformedValue: newValue,
-          };
-        }
+  const hourOfComplete =
+    satisfaction > 0 && input > 0 ? (satisfaction * 288000) / input : 0;
+ 
 
-        return null;
-      })
-      .filter((attr) => attr !== null);
-  }, [selectedEnvironment]);
+  const dayOfComplete = hourOfComplete / 24;
 
-  const intSatisfaction = useMemo(() => {
-    const densityAttr = changedAttributes.find(
-      (attr) => attr.slug === "density"
-    );
-    const karbariAttr = changedAttributes.find(
-      (attr) => attr.slug === "karbari"
-    );
-
-    if (densityAttr && karbariAttr) {
-      return (
-        (parseFloat(selectedEnvironment.attributes[14].value) *
-          parseFloat(karbariAttr.transformedValue) *
-          parseFloat(densityAttr.transformedValue)) /
-        100
-      );
-    }
-    return 0;
-  }, [changedAttributes, selectedEnvironment]);
+  const base = Number(Wallet.satisfaction) || 0;
+  const extra = Number(input) || 0;
+  const total = base - extra;
 
   const handleInputChange = (event) => {
     const value = event.target.value;
     const inputNumberValue = parseFloat(value);
-
     if (
       inputNumberValue > initialSatisfaction ||
-      inputNumberValue < intSatisfaction
+      inputNumberValue < SatisfactionRequired
     ) {
       setError(true);
     } else {
@@ -131,22 +97,27 @@ const SatisfactionLunch = ({
     setInputValue(value);
   };
 
-  const calculatedValue = useMemo(() => {
-    const inputNumberValue = parseFloat(inputValue);
-    return intSatisfaction && inputNumberValue
-      ? (intSatisfaction * 288000) / inputNumberValue
-      : 0;
-  }, [intSatisfaction, inputValue]);
-
   const handleSubmit = () => {
+    if (!accountSecurity) {
+      ToastError(getFieldTranslationByNames("1603"));
+      return;
+    }
+
     Request(
       `features/${formState.featureId}/build/${selectedEnvironment.id}`,
       HTTP_METHOD.POST,
       formData
     )
       .then(() => {
-        handelSubmitEnvironment(); // Hide polygon when form is submitted
-        ToastSuccess("موفقیت ثبت شد");
+        handelSubmitEnvironment();
+        ToastSuccess(getFieldTranslationByNames("1606"));
+        dispatch({
+          type: WalletContextTypes.ADD_WALLET,
+          payload: {
+            ...Wallet,
+            satisfaction: total,
+          },
+        });
       })
       .catch((err) => {
         ToastError(err.response.data.message);
@@ -169,7 +140,7 @@ const SatisfactionLunch = ({
         <TextValueIcon
           title={getFieldTranslationByNames("379")}
           icon={<Icon />}
-          value={calculatedValue.toFixed(2)}
+          value={dayOfComplete.toFixed(2)}
         />
         <Submit
           text={getFieldTranslationByNames("561")}

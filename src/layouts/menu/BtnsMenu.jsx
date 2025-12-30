@@ -1,7 +1,6 @@
 import React, { useState, useEffect,useContext } from "react";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../services/Utility";
-import DropDownLang from "../../components/DropDownLang";
 import AccountSecurityIcon from "../../assets/svg/accountSecurity.svg";
 import CentralSearch from "../../assets/svg/centralSearch.svg";
 import GlobalStatisticsIcon from "../../assets/svg/globalStatistics.svg";
@@ -19,7 +18,10 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "../../services/reducers/UserContext";
-
+const Container=styled.div`
+height: 100vh;
+`
+;
 const Btn = styled.button`
   display: flex;
   width: 100%;
@@ -162,8 +164,7 @@ const BtnsMenu = () => {
   const location = useLocation(); // Get the current route
   const [selectedItem, setSelectedItem] = useState(null); // State for selected item
   const lang = useTranslation();
-  const [user] = useContext(UserContext); // ← از کانتکست بخون، نه state داخلی
-
+  const [user] = useContext(UserContext); 
   useEffect(() => {
     // Check the current route and set the corresponding menu item as selected
     const currentItem = menuItems.find(
@@ -182,7 +183,7 @@ const BtnsMenu = () => {
   };
 
   return (
-    <>
+    <Container>
       {menuItems.map((item, index) => (
         <Tippy
           key={index}
@@ -227,8 +228,7 @@ const BtnsMenu = () => {
           </Btn>
         </Tippy>
       ))}
-      <DropDownLang />
-    </>
+      </Container>
   );
 };
 

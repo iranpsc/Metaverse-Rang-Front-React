@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 const Div = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   gap: 20px;
 `;
 const ButtonEdit = styled.button`
@@ -46,6 +46,7 @@ const EnterCode = ({ setPayStatus }) => {
           label={getFieldTranslationByNames("536")}
           onclick={() => setPayStatus(true)}
         />
+       
       </Div>
     </Container>
   );

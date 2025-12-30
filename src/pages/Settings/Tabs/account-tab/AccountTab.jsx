@@ -11,7 +11,6 @@ const GridContainer = styled(Container)`
   grid-template-columns: 1fr 1fr;
   align-items: flex-start;
   gap: 20px;
- 
 `;
 
 const LoadingContainer = styled.div`
@@ -26,15 +25,6 @@ const AccountTab = () => {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const { Request } = useRequest();
-
-  const [emailChange, setEmailChange] = useState({
-    title: "624",
-    warn: "",
-    inputs: [
-      { id: 1, type: "text", label: "627", value: "" },
-      { id: 2, type: "number", label: "628", value: "" },
-    ],
-  });
 
   const [mobileChange, setMobileChange] = useState({
     title: "625",
@@ -57,13 +47,6 @@ const AccountTab = () => {
 
   useEffect(() => {
     if (Object.keys(settings).length > 0) {
-      setEmailChange((prevState) => ({
-        ...prevState,
-        warn: `${settings.email_reset_count}  ${getFieldTranslationByNames(
-          "1364"
-        )}`,
-      }));
-
       setMobileChange((prevState) => ({
         ...prevState,
         warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(
@@ -87,11 +70,6 @@ const AccountTab = () => {
         title={mobileChange.title}
         warn={mobileChange.warn}
         inputs={mobileChange.inputs}
-      />
-      <ChangeCard
-        title={emailChange.title}
-        warn={emailChange.warn}
-        inputs={emailChange.inputs}
       />
       <Bank />
     </GridContainer>

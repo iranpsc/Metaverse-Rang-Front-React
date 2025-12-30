@@ -2,7 +2,10 @@ import styled from "styled-components";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getItem } from "../../../../services/Utility/LocalStorage/index";
-
+import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../../services/reducers/WalletContext";
 import TextValueIcon from "../../../../components/TextValueIcon";
 import { FeatureContext } from "../../Context/FeatureProvider";
 import Button from "../../../../components/Button";
@@ -28,22 +31,55 @@ const InputsWrapper = styled.div`
 
 const SellerPriceInfo = () => {
   const accountSecurity = getItem("account_security")?.account_security;
-
+  const [wallet, dispatch] = useContext(WalletContext);
   const [feature] = useContext(FeatureContext);
   const Navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
 
   const onSubmit = () => {
+    const colorKey =
+      feature.properties.karbari === "m"
+        ? "yellow"
+        : feature.properties.karbari === "t"
+        ? "red"
+        : feature.properties.karbari === "a"
+        ? "blue"
+        : null;
+
+    const walletRaw = wallet[colorKey] || "0";
+    const featurePrice = feature.properties.stability || "0";
+    if (walletRaw < featurePrice) {
+      const colorName =
+        colorKey === "yellow"
+          ? getFieldTranslationByNames("1599")
+          : colorKey === "red"
+          ? getFieldTranslationByNames("1600")
+          : colorKey === "blue"
+          ? getFieldTranslationByNames("1601")
+          : "نامشخص";
+
+      ToastError(colorName);
+      return;
+    }
+    if (!accountSecurity) {
+      ToastError(getFieldTranslationByNames("1603"));
+      return;
+    }
     Request(`features/buy/${feature.id}`, HTTP_METHOD.POST)
       .then((response) => {
-        Navigate(FeatureSvg(rgb));
+        const newAmount = walletRaw - featurePrice;
+
+        dispatch({
+          type: WalletContextTypes.ADD_WALLET,
+          payload: {
+            ...wallet,
+            [colorKey]: newAmount,
+          },
+        });
+        Navigate(FeatureSvg(feature.properties.rgb));
       })
       .catch((error) => {
-        if (accountSecurity) {
-          ToastError(getFieldTranslationByNames("1501"));
-        } else {
-          ToastError(error.response.data.message);
-        }
+        ToastError(error?.response?.data?.message || "خطای غیرمنتظره");
       });
   };
   return (

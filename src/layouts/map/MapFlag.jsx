@@ -53,8 +53,8 @@ const Div4 = styled.div`
 const MapFlag = () => {
   const map = useMap();
   const [zoomLevel, setZoomLevel] = useState(map.current.getZoom());
-  const { flags, polygons } = useMapData();
 
+  const { flags, polygons } = useMapData();
   useEffect(() => {
     const handleViewportChange = () => {
       setZoomLevel(map.current.getZoom());
@@ -73,18 +73,18 @@ const MapFlag = () => {
             const coordinates = JSON.parse(flag.central_point_coordinates);
             const [latitude, longitude] = coordinates;
             return (
-              <Marker
-                key={index}
-                longitude={longitude}
-                latitude={latitude}
-                style={{ top: "-50px" }}
-              >
-                <FlagIcon>
-                  <Div2 color={flag.color} />
-                  <Div3 color={flag.color}> {flag.name}</Div3>
-                  <Div4 color={flag.color} />
-                </FlagIcon>
-              </Marker>
+                <Marker
+                  key={index}
+                  longitude={longitude}
+                  latitude={latitude}
+                  style={{ top: "-50px" }}
+                >
+                  <FlagIcon>
+                    <Div2 color={flag.color} />
+                    <Div3 color={flag.color}> {flag.name}</Div3>
+                    <Div4 color={flag.color} />
+                  </FlagIcon>
+                </Marker>
             );
           })
         : [],

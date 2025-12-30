@@ -68,14 +68,15 @@ const participants = [
 ];
 
 export const ParticipantsContext = createContext();
-const ParticipationTab = () => {
+const ParticipationTab = ({owner}) => {
+
   const [participantsList, setParticipantsList] = useState(participants);
   return (
     <ParticipantsContext.Provider
       value={{ participantsList, setParticipantsList }}
     >
       <Container>
-        <Satisfy />
+        <Satisfy isOwner={owner}/>
         <ParticipantList />
       </Container>
     </ParticipantsContext.Provider>

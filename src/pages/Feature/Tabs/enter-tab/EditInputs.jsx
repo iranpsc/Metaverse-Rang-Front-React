@@ -10,6 +10,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  
 `;
 const First = styled.div`
   display: flex;

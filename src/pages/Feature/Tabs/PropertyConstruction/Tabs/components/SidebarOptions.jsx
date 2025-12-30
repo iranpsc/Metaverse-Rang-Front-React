@@ -12,7 +12,10 @@ const Wrapper = styled.div`
 
 const Option = styled.h2`
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
+  @media (min-width: 998px) {
+    font-size: 18px;
+  }
   padding: 10px 20px;
   white-space: nowrap;
   cursor: pointer;
@@ -33,7 +36,10 @@ const SidebarOptions = ({ option, setOption, seller }) => {
       <Option option={option === true} onClick={() => setOption(true)}>
         {getFieldTranslationByNames("358")}
       </Option>
-      <Option option={option === false} onClick={() => setOption(false)}>
+      <Option
+        style={{ color: "gray", cursor: "default" }}
+        option={option === false} /*onClick={() => setOption(false)}*/
+      >
         {getFieldTranslationByNames("359")}
       </Option>
     </Wrapper>

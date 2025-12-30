@@ -58,6 +58,7 @@ const InputsGeneralDefault = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setInputs((prev) => ({
       ...prev,
       [name]: value,
@@ -66,8 +67,12 @@ const InputsGeneralDefault = () => {
   };
 
   const handleButtonClick = () => {
+    if (inputs.postal_code.length < 10) {
+      ToastError(getFieldTranslationByNames("1602"));
+      return;
+    }
     if (!isSelectable) {
-      ToastError("محیطی انتخاب نکردید");
+      ToastError(getFieldTranslationByNames("1611"));
     } else {
       updateFormState(inputs); // Ensure inputs are passed correctly
       toggleConfirmation && toggleConfirmation();
@@ -82,41 +87,54 @@ const InputsGeneralDefault = () => {
           <Input
             name="activity_line"
             placeholder={getFieldTranslationByNames("360")}
-            onchange={handleChange}
+            value={inputs.activity_line}
+            onChange={handleChange}
           />
         </InputSize>
+
         <Input
           name="name"
           placeholder={getFieldTranslationByNames("361")}
-          onchange={handleChange}
+          value={inputs.name}
+          onChange={handleChange}
         />
       </DivHeader>
+
       <Input
         name="address"
         placeholder={getFieldTranslationByNames("362")}
-        onchange={handleChange}
+        value={inputs.address}
+        onChange={handleChange}
       />
+
       <DivHeader>
         <Input
           name="postal_code"
           placeholder={getFieldTranslationByNames("363")}
-          onchange={handleChange}
+          type="number"
+          maxLength={10}
+          value={inputs.postal_code}
+          onChange={handleChange}
         />
+
         <Input
           name="website"
           placeholder={getFieldTranslationByNames("364")}
-          onchange={handleChange}
+          value={inputs.website}
+          onChange={handleChange}
         />
       </DivHeader>
+
       <Input
         name="description"
         placeholder={getFieldTranslationByNames("365")}
+        value={inputs.description}
+        onChange={handleChange}
         style={{ height: "220px" }}
-        onchange={handleChange}
       />
-      <P>
-        {getFieldTranslationByNames("366")}
-      </P>
+
+      <P>{getFieldTranslationByNames("366")}</P>
+
       <Button
         label={getFieldTranslationByNames("367")}
         onclick={handleButtonClick}

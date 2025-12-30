@@ -1,4 +1,10 @@
-import React, { useState, useRef, createContext, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  createContext,
+  useCallback,
+  useEffect,
+} from "react";
 import Map from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
@@ -8,100 +14,130 @@ import MapFlag from "./MapFlag";
 import Mark from "./3dModelMap/Mark";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import { useLanguage } from "../../services/reducers/LanguageContext";
+import * as turf from "@turf/turf";
 
 import AuthMiddleware from "../../middleware/AuthMiddleware";
 import ZoomControls from "../../components/ZoomControls";
 import FullscreenControls from "../../components/FullscreenControls";
 
-export const TransactionContext = createContext();
+export const TransactionContext = createContext(null);
+
+const MemoMapPolygons = React.memo(MapPolygons);
+const MemoMapFlag = React.memo(MapFlag);
+const MemoMark = React.memo(Mark);
 
 const MapTreeD = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   const mapRef = useRef(null);
+
   const [isFullScreen, setFullScreen] = useState(false);
   const [isFullScreenMap, setFullScreenMap] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(12);
-  const { confirmation, selectedEnvironment, hiddenModel } = useSelectedEnvironment();
+
+  const { confirmation, selectedEnvironment, hiddenModel } =
+    useSelectedEnvironment();
   const isPersian = useLanguage();
   const navigate = useNavigate();
 
   const handleZoomChange = useCallback((delta) => {
-    if (mapRef.current) {
-      const newZoomLevel = zoomLevel + delta;
-      mapRef.current.zoomTo(newZoomLevel);
-      setZoomLevel(newZoomLevel);
-    }
-  }, [zoomLevel]);
+    if (!mapRef.current) return;
+
+    const map = mapRef.current.getMap();
+    map.zoomTo(map.getZoom() + delta, { duration: 200 });
+  }, []);
+
+  const handleZoomEnd = useCallback(() => {}, []);
 
   const handleFullscreenToggle = useCallback(() => {
+    if (!mapRef.current) return;
+
+    const container = mapRef.current.getMap().getContainer();
+
     if (!isFullScreenMap) {
-      mapRef.current.getMap().getContainer().requestFullscreen();
+      container.requestFullscreen?.();
     } else {
-      document.exitFullscreen();
+      document.exitFullscreen?.();
     }
-    setFullScreenMap(!isFullScreenMap);
+
+    setFullScreenMap((prev) => !prev);
   }, [isFullScreenMap]);
 
   const toggleFullScreen = useCallback(() => {
     const docElement = document.documentElement;
+
     if (!isFullScreen) {
       docElement.requestFullscreen?.();
     } else {
       document.exitFullscreen?.();
     }
-    setFullScreen(!isFullScreen);
+
+    setFullScreen((prev) => !prev);
   }, [isFullScreen]);
 
-  const handleMapClick = useCallback((event) => {
-    const feature = event.features[0];
-    if (feature?.properties?.id) {
-      navigate(`/metaverse/feature/${feature.properties.id}`);
-    }
-  }, [navigate]);
+  const handleMapClick = useCallback(
+    (event) => {
+      const feature = event.features?.[0];
+      if (feature?.properties?.id) {
+        navigate(`/metaverse/feature/${feature.properties.id}`);
+      }
 
-  const handleZoomEnd = useCallback((e) => {
-    setZoomLevel(e.viewState.zoom);
-  }, []);
+      if (!mapRef.current) return;
+      const map = mapRef.current.getMap();
 
-  React.useEffect(() => {
+      const center = turf.center(feature.geometry);
+      const currentZoom = map.getZoom();
+
+      const MIN_ZOOM = 18; 
+
+      map.easeTo({
+        center: center.geometry.coordinates,
+        zoom: currentZoom < MIN_ZOOM ? MIN_ZOOM : currentZoom,
+        duration: 800,
+        easing: (t) => t,
+      });
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
     if (isFullScreen && screen.orientation) {
-      screen.orientation.lock("landscape-primary").catch(console.error);
+      screen.orientation.lock("landscape-primary").catch(() => {});
     }
   }, [isFullScreen]);
 
   return (
     <AuthMiddleware>
-      <TransactionContext.Provider value={{ selectedTransaction, setSelectedTransaction }}>
+      <TransactionContext.Provider
+        value={{ selectedTransaction, setSelectedTransaction }}
+      >
         <Container>
           <Map
+            ref={mapRef}
             className="map"
             antialias
+            mapStyle="./styleMap.json"
+            RTLTextPlugin="https://map.irpsc.com/rtl.js"
+            interactiveLayerIds={["polygon-fill-layer"]}
+            maxPitch={78}
+            style={{ borderRadius: "15px" }}
             initialViewState={{
               latitude: 36.32,
               longitude: 50.02,
               zoom: 12,
               pitch: 40,
             }}
-            mapStyle="./styleMap.json"
-            style={{ borderRadius: "15px" }}
-            interactiveLayerIds={["polygon-fill-layer"]}
             onClick={handleMapClick}
             onZoomEnd={handleZoomEnd}
-            RTLTextPlugin="https://map.irpsc.com/rtl.js"
-            maxPitch={78}
-            ref={mapRef}
           >
-            {confirmation && selectedEnvironment && !hiddenModel && <Mark />}
-            <MapPolygons />
-            <MapFlag />
+            {confirmation && selectedEnvironment && !hiddenModel && (
+              <MemoMark />
+            )}
+            <MemoMapPolygons />
+            <MemoMapFlag />
           </Map>
-          
-          <ZoomControls 
-            isPersian={isPersian} 
-            onZoomChange={handleZoomChange}
-          />
-          
-          <FullscreenControls 
+
+          <ZoomControls isPersian={isPersian} onZoomChange={handleZoomChange} />
+
+          <FullscreenControls
             isPersian={isPersian}
             onToggleFullScreen={toggleFullScreen}
             onToggleMapFullScreen={handleFullscreenToggle}

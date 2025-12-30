@@ -32,7 +32,8 @@ export const Wrapper = styled.div`
   display: flex;
   border-radius: 5px;
   height: 40px !important;
-  border: 1px solid #454545;
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   font-weight: 400;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   overflow: hidden;

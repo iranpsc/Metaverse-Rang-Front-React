@@ -88,7 +88,6 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
   const priceHandler = () => {
     let isValid = true;
     const userAge = TimeAgo(user?.birthdate);
-
     const minPriceIRR =
       userAge >= 18
         ? calculateFee(feature.properties.price_irr, 80)
@@ -127,34 +126,35 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
       <InputsWrapper>
         <Input
           value={rial}
-          onchange={(e) => setRial(e.target.value)}
+          maxLength={14}
+          onChange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("47")})`}
+          placeholder={`${getFieldTranslationByNames(
+            "521"
+          )} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
           errorMessage={errors.rial}
         />
         <Input
+          maxLength={14}
           value={psc}
-          onchange={(e) => setPsc(e.target.value)}
+          onChange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames("521")} (${getFieldTranslationByNames("47")})`}
+          placeholder={`${getFieldTranslationByNames(
+            "521"
+          )} (${getFieldTranslationByNames("47")})`}
           insideText={<Psc />}
           errorMessage={errors.psc}
         />
       </InputsWrapper>
       <ResultWrapper>
         <Wrapper>
-          <Title>
-            {getFieldTranslationByNames("522")}
-          </Title>
+          <Title>{getFieldTranslationByNames("522")}</Title>
           <Value>
-            {calculateFee(rial)} IRR / {calculateFee(psc)} PSC
+            {calculateFee(rial) || 0} IRR / {calculateFee(psc) || 0} PSC
           </Value>
         </Wrapper>
-        <TitleValue
-          title={getFieldTranslationByNames("523")}
-          value="5%"
-        />
+        <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
       </ResultWrapper>
       <Button
         label={getFieldTranslationByNames("519")}

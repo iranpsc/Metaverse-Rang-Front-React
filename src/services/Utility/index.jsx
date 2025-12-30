@@ -36,6 +36,18 @@ export function EmailValidator(email) {
     email
   );
 }
+// این تابع برای فرمت اعداد اعشاری هست و فقط در صورتی که اعداد اعشار داشته باشد باشند 
+// اعشار ان نمایش داده میشود در غیر این صورت اعداد بدون اعشار نمایش داده میشوند 
+
+export const formatNumber = (value, decimals = 2) => {
+  const num = Number(value);
+
+  if (Number.isNaN(num)) return "";
+
+  return Number.isInteger(num)
+    ? num
+    : Number(num.toFixed(decimals));
+};
 
 export const calculateFee = (number = 100, percent = 5) => {
   const parseNumber = parseInt(number);
@@ -79,15 +91,25 @@ export const persianNumbers = [
     }
     return str;
   };
-export const convertToPersian = (number, isPersian) => {
-  if (number == null) return "";
+  export const convertToPersian = (value, isPersian = true) => {
+  if (value === null || value === undefined) return "";
 
-  const usePersian = typeof isPersian === "boolean" ? isPersian : useLanguage();
+  // اگر مقدار number باشه، تبدیل به string
+  let str = typeof value === "number" ? String(value) : String(value);
 
-  return usePersian
-    ? number.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])
-    : number.toString();
+  const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+  const englishDigits = "0123456789";
+
+  if (isPersian) {
+    // تبدیل انگلیسی → فارسی
+    return str.replace(/\d/g, (d) => persianDigits[d]);
+  } else {
+    // تبدیل فارسی → انگلیسی
+    return str.replace(/[۰-۹]/g, (d) => englishDigits[persianDigits.indexOf(d)]);
+  }
 };
+
+
 export const ToastError = (message) => {
   return toast.error(message, {
     style: {
@@ -114,7 +136,30 @@ export const ToastSuccess = (message) => {
     },
     duration: 5000,
   });
+}; 
+
+
+// تبدیل عدد واقعی به فرمت K/M و 3 رقم اعشار (formatAmount)
+export const formatAmount = (value) => {
+  const num = typeof value === "number" ? value : parseFloat(value);
+  if (isNaN(num)) return "0";
+
+  const format = (n) => {
+    // حداکثر 3 رقم اعشار، حذف صفر اضافی
+    return n.toFixed(3).replace(/\.?0+$/, "");
+  };
+
+  if (num >= 1_000_000) {
+    return `${format(num / 1_000_000)}M`;
+  }
+
+  if (num >= 1_000) {
+    return `${format(num / 1_000)}K`;
+  }
+
+  return format(num);
 };
+
 
 export const getFieldTranslationByNames = (fieldId) => {
   const resources = i18n.store.data;

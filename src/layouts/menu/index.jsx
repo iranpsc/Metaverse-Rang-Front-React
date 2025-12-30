@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Header from "./Header";
 import Profile from "./Profile";
 import BtnsMenu from "./BtnsMenu";
-import ThemesBtn from "./ThemesBtn";
 import { useMenuContext } from "../../services/reducers/MenuContext";
 import PrivateComponent from "../../middleware/PrivateComponent";
 import PublicComponent from "../../middleware/PublicComponent";
@@ -15,7 +14,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  justify-content: space-between;
+  flex: 1;
+  justify-content: start;
   width: ${(props) => (props.isOpen ? "54%" : "9%")};
   height: 100%;
   border-radius: 10px;
@@ -29,6 +29,7 @@ const Container = styled.div`
     width: ${(props) => (props.isOpen ? "21.5%" : "4.1%")};
     border-radius: 10px;
     padding: 20px;
+    padding-bottom: 0;
   }
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};
@@ -41,7 +42,6 @@ const Hr = styled.div`
   width: 100%;
   padding: 0 15px;
   height: 2px;
-  margin-bottom: 10px;
 `;
 const Menu = () => {
   const { isOpen } = useMenuContext();
@@ -62,7 +62,6 @@ const Menu = () => {
         <BtnAction />
       </PrivateComponent>
       <Hr />
-      <ThemesBtn />
     </Container>
   );
 };

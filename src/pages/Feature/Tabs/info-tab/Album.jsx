@@ -13,6 +13,7 @@ import { ToastError, ToastSuccess } from "../../../../services/Utility";
 
 const AlbumWrapper = styled.div`
   display: grid;
+
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   gap: 20px;
@@ -58,12 +59,13 @@ const ImageWrapper = styled.div`
   position: relative;
   overflow: hidden;
   border-radius: 10px;
+  background-color: ${(props) => props.theme.colors.newColors.otherColors.gray};
   width: 100%;
-  height: 100%;
+  height: 150px;
   img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important;
+    object-fit: contain !important;
     transition: transform 0.3s ease-in-out;
   }
 `;
@@ -98,6 +100,7 @@ const Album = ({ feature, setFeature }) => {
   const { Request, HTTP_METHOD } = useRequest();
   const inputRef = useRef();
   const Navigate = useNavigate();
+  // if (feature?.owner_id === userId) return SellTabPanel;
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -121,9 +124,7 @@ const Album = ({ feature, setFeature }) => {
               ToastSuccess("آپلود عکس با موفقیت انجام شد.");
             })
             .catch((error) => {
-             
-                ToastError(error.response.data.message);
-              
+              ToastError(error.response.data.message);
             });
         },
       });
@@ -145,9 +146,7 @@ const Album = ({ feature, setFeature }) => {
         ToastSuccess("تصویر با موفقیت حذف شد.");
       })
       .catch((error) => {
-   
-          ToastError(error.response.data.message);
-        
+        ToastError(error.response.data.message);
       });
   };
 
@@ -163,9 +162,12 @@ const Album = ({ feature, setFeature }) => {
               loading="lazy"
             />
             <Actions>
-              <IconWrapper onClick={() => deleteHandler(item.id)}>
-                <HiOutlineTrash />
-              </IconWrapper>
+              {user.id == feature?.owner_id && (
+                <IconWrapper onClick={() => deleteHandler(item.id)}>
+                  <HiOutlineTrash />
+                </IconWrapper>
+              )}
+
               <IconWrapper>
                 <IoWarningOutline />
               </IconWrapper>

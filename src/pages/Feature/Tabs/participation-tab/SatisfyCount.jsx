@@ -3,88 +3,262 @@ import styled from "styled-components";
 import {
   convertToPersian,
   getFieldTranslationByNames,
+  ToastError,
+  ToastSuccess,
 } from "../../../../services/Utility";
-
-const Container = styled.div`
-  padding: 70px 30px;
-  border-radius: 10px;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
+import Button from "../../../../components/Button";
+import clocklight from "../../../../assets/gif/clocklight.gif";
+import clockdark from "../../../../assets/gif/clockdark.gif";
+import { useTheme } from "../../../../services/reducers/ThemeContext";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { getItem } from "../../../../services/Utility/LocalStorage";
+import { useMapData } from "../../../../services/reducers/mapContext";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../../services/reducers/WalletContext";
+const Card = styled.div`
+  direction: rtl;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+`;
+
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  justify-content: center;
+  gap: 20px;
+  @media screen and (max-width: 1500px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+`;
+
+const Title = styled.div`
+  font-weight: 500;
+  display: flex;
+  padding: 0 15px;
+  align-items: center;
+  white-space: nowrap;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+`;
+
+const Main = styled.div`
+  display: flex;
+  width: 100%;
+
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  div {
+  }
+`;
+const Svg = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 70px; /* حداکثر عرضی که میخوای */
+  max-height: 80px; /* حداکثر ارتفاعی که میخوای */
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: auto; /* اجازه بده عرض خودش محاسبه بشه */
+    height: 100%; /* ارتفاع کانتینر رو پر کنه */
+  }
+`;
+
+const Timer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TimeBox = styled.div`
+  display: flex;
+  width: 100%;
+
   flex-direction: column;
   align-items: center;
-  @media (min-width: 1000px) {
-    padding: 30px;
-  }
+  min-width: 38px;
 `;
-const First = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 20px;
-  h3 {
-    font-size: 24px;
-    font-weight: 700;
-    color: ${(props) => props.theme.colors.primary};
-  }
-  span {
-    font-size: 20px;
-    font-weight: 500;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-  }
-  @media (min-width: 860px) {
-    h3 {
-      font-size: 24px;
-    }
-    span {
-      font-size: 20px;
-    }
-  }
+
+const Value = styled.span`
+  font-size: 18px;
+  font-weight: 600;
+  color: ${(props) => props.theme.colors.primary};
 `;
-const Second = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  font-weight: 500;
-  font-size: 12px;
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  span {
-    &:nth-of-type(2) {
-      margin: 0 10px;
-      color: #454545;
-    }
-  }
-  @media (min-width: 940px) {
-    font-size: 15px;
-  }
+
+const Unit = styled.span`
+  font-size: 10px;
+  color: #777;
+  margin-top: 2px;
 `;
-const SatisfyCount = () => {
+
+const Colon = styled.span`
+  margin: 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+  color: ${(props) => props.theme.colors.primary};
+`;
+
+const SatisfyCount = ({ isOwner }) => {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+  const [Wallet, dispatch] = useContext(WalletContext);
+  const { Request, HTTP_METHOD } = useRequest();
+  const { buildings, removeBuilding } = useMapData();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { theme } = useTheme();
+  const accountSecurity = getItem("account_security")?.account_security;
+  const activeBuilding =
+    buildings.find((b) => b?.building?.feature_id === parseInt(id)) || null;
+  const launchedSatisfaction = activeBuilding?.building?.launched_satisfaction;
+
+  const featureId = activeBuilding?.building?.feature_id;
+  const buildingId = activeBuilding?.model_id;
+  const base = Number(Wallet.satisfaction) || 0;
+  const extra = Number(launchedSatisfaction) || 0;
+  const total = base + extra;
+  const calculateTimeLeft = (endDate) => {
+    const endTime = new Date(endDate).getTime();
+    const now = Date.now();
+    let diff = Math.floor((endTime - now) / 1000);
+
+    if (diff <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
+
+    const days = Math.floor(diff / 86400);
+    diff %= 86400;
+
+    const hours = Math.floor(diff / 3600);
+    diff %= 3600;
+
+    const minutes = Math.floor(diff / 60);
+    const seconds = diff % 60;
+
+    return { days, hours, minutes, seconds };
+  };
+
+  useEffect(() => {
+    if (!activeBuilding?.building.construction_end_date) return;
+
+    setTimeLeft(
+      calculateTimeLeft(activeBuilding.building.construction_end_date)
+    );
+
+    const interval = setInterval(() => {
+      setTimeLeft(    calculateTimeLeft(activeBuilding.building.construction_end_date)
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [activeBuilding?.building.construction_end_date]);
+
+  const handleDeleteBuilding = async () => {
+    if (!accountSecurity) {
+      ToastError(getFieldTranslationByNames("1603"));
+      return;
+    }
+
+    try {
+      await Request(
+        `features/${featureId}/build/buildings/${buildingId}`,
+        HTTP_METHOD.DELETE
+      );
+
+      ToastSuccess(getFieldTranslationByNames("1609"));
+      navigate("/metaverse");
+      dispatch({
+        type: WalletContextTypes.ADD_WALLET,
+        payload: {
+          ...Wallet,
+          satisfaction: total,
+        },
+      });
+      removeBuilding(activeBuilding.model_id);
+    } catch (error) {
+      console.error("❌ Delete building error:", error);
+
+      if (error.response?.status === 403) {
+        ToastError("اجازه حذف این سازه را ندارید");
+      } else if (error.response?.status === 404) {
+        ToastError("سازه پیدا نشد");
+      } else {
+        ToastError("خطا در حذف سازه");
+      }
+    }
+  };
+  const clockIcon = theme == "light" ? clocklight : clockdark;
   return (
-    <Container>
-      <img
-        width={100}
-        height={100}
-        src={satisfy}
-        alt={getFieldTranslationByNames("52")}
-      />
-      <First>
-        <h3>۵.۰۴۸</h3>
-        <span>{getFieldTranslationByNames("52")}</span>
-      </First>
-      <Second>
-        <span>
-          {convertToPersian(27)}
-          {getFieldTranslationByNames("380")}
-        </span>
-        <span>|</span>
-        <span>
-          {" "}
-          {convertToPersian(12)} {getFieldTranslationByNames("560")}{" "}
-          {convertToPersian(21)} {getFieldTranslationByNames("33")}{" "}
-          {convertToPersian(34)} {getFieldTranslationByNames("488")}{" "}
-        </span>
-      </Second>
-    </Container>
+    <Card>
+      {" "}
+      <Svg>
+        <img src={clockIcon} alt="clock" />
+      </Svg>
+      <Main>
+        <Header>
+          <Title>{getFieldTranslationByNames("1610")}</Title>
+          {isOwner && timeLeft.days > 0 && (
+            <Button
+              large
+              color={"#ff0000"}
+              label={getFieldTranslationByNames("1594")}
+              onClick={handleDeleteBuilding}
+            />
+          )}
+        </Header>
+
+        <Timer>
+          <TimeBox>
+            <Value>{convertToPersian(timeLeft.seconds)}</Value>
+            <Unit>{getFieldTranslationByNames("778")}</Unit>
+          </TimeBox>
+
+          <Colon>:</Colon>
+
+          <TimeBox>
+            <Value>{convertToPersian(timeLeft.minutes)}</Value>
+            <Unit>{getFieldTranslationByNames("33")}</Unit>
+          </TimeBox>
+
+          <Colon>:</Colon>
+
+          <TimeBox>
+            <Value>{convertToPersian(timeLeft.hours)}</Value>
+            <Unit>{getFieldTranslationByNames("560")}</Unit>
+          </TimeBox>
+
+          <Colon>:</Colon>
+
+          <TimeBox>
+            <Value>{convertToPersian(timeLeft.days)}</Value>
+            <Unit>{getFieldTranslationByNames("380")}</Unit>
+          </TimeBox>
+        </Timer>
+      </Main>
+    </Card>
   );
 };
 

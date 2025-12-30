@@ -6,6 +6,7 @@ const Item = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
+  background-color: white;
   overflow: hidden;
   height: 48px;
 `;

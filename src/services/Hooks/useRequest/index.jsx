@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getItem } from "../../Utility/LocalStorage";
 import { ToastError } from "../../Utility";
-
+import { getFieldTranslationByNames } from "../../Utility";
 export default function useRequest() {
   const PROD_BASE_URL = "https://api.rgb.irpsc.com/api/";
   const DEV_BASE_URL = "https://api.rgb.irpsc.com/api/";
@@ -32,9 +32,8 @@ export default function useRequest() {
       ...customHeader,
     };
 
-    
-
     return axios
+  
       .request({
         url: finalURL,
         method,
@@ -51,7 +50,7 @@ export default function useRequest() {
 
       
         if (error.response?.status === 410) {
-          ToastError("جهت ادامه امنیت حساب کاربری خود را غیر فعال کنید!");
+          ToastError(getFieldTranslationByNames("1603"));
         }
 
         throw error;
