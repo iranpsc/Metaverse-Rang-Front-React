@@ -7,11 +7,13 @@ import InfoRow from "../InfoRow";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { ScaleLoader } from "react-spinners";
 import Container from "../../../../components/Common/Container";
-
+import { useParams } from "react-router-dom"; 
+import { useLocation } from "react-router-dom";
+import { tools } from "../data";
 
 const Wrapper = styled.div`
   display: flex;
-  
+
   flex-direction: column;
   gap: 20px;
   margin-top: 20px;
@@ -19,16 +21,27 @@ const Wrapper = styled.div`
   align-items: ${({ loading }) => (loading ? "center" : "stretch")};
 `;
 
-const ToolsContent = ({ option }) => {
+const ToolsContent = () => {
+  const location = useLocation();
+  const parts = location.pathname.split("/");
+  const pathFromUrl = parts[parts.length - 1];
+
   const { alert } = useContext(AlertContext);
   const [assets, setassets] = useState([]);
   const [loading, setLoading] = useState(true);
   const { Request, HTTP_METHOD } = useRequest();
 
   useEffect(() => {
+    const selectedTool = tools.find((tool) => tool.path === pathFromUrl);
+    const selectedToolId = selectedTool ? selectedTool.id : tools[0]?.id;
+
     setLoading(true);
     Request("store", HTTP_METHOD.POST, {
-      codes: [`tools-b-${option}`, `tools-r-${option}`, `tools-y-${option}`],
+      codes: [
+        `tools-b-${selectedToolId}`,
+        `tools-r-${selectedToolId}`,
+        `tools-y-${selectedToolId}`,
+      ],
     })
       .then((response) => {
         setassets(response.data.data);
@@ -36,7 +49,7 @@ const ToolsContent = ({ option }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [option]);
+  }, [tools, pathFromUrl]);
 
   return (
     <Container>

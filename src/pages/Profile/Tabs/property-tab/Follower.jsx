@@ -128,7 +128,7 @@ const Follower = ({
     });
   };
   const profileImage =
-    profile_photos.length === 0 ? DefaultProfile : profile_photos;
+    profile_photos?.length === 0 ? DefaultProfile : profile_photos;
   return (
     <Card>
       <Profile>

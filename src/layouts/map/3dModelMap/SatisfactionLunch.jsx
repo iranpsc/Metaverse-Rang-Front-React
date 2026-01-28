@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ModalXs from "../../../components/Modal/ModalXs";
 import InputNumber from "../../../components/Inputs/InputNumber";
 import TextValueIcon from "../../../components/TextValue/TextValueIcon";
@@ -18,6 +18,7 @@ import {
   ToastError,
   ToastSuccess,
 } from "../../../services/Utility";
+import { useMapData } from "../../../services/reducers/mapContext";
 
 const Icon = styled(WatchIcon)`
   stroke: ${(props) => props.theme.colors.primary};
@@ -41,6 +42,8 @@ const SatisfactionLunch = ({
   const initialSatisfaction =
     Wallet && Wallet.satisfaction ? parseFloat(Wallet.satisfaction) : 0;
   const [inputValue, setInputValue] = useState(initialSatisfaction.toString());
+  const { buildings, addBuilding } = useMapData();
+
   const [error, setError] = useState(false);
   const [formData, setFormData] = useState({
     activity_line: "",
@@ -74,7 +77,6 @@ const SatisfactionLunch = ({
 
   const hourOfComplete =
     satisfaction > 0 && input > 0 ? (satisfaction * 288000) / input : 0;
- 
 
   const dayOfComplete = hourOfComplete / 24;
 
@@ -108,7 +110,8 @@ const SatisfactionLunch = ({
       HTTP_METHOD.POST,
       formData
     )
-      .then(() => {
+      .then((res) => {
+        addBuilding(res.data.data.building_models[0])
         handelSubmitEnvironment();
         ToastSuccess(getFieldTranslationByNames("1606"));
         dispatch({

@@ -1,15 +1,21 @@
+import { NavLink } from "react-router-dom";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 import { Container, Label } from "../../../components/sidbar";
 
-const Sidebar = ({ setMenu, menu }) => {
+const Sidebar = () => {
   return (
     <Container>
-      <Label menu={menu === 1} onClick={() => setMenu(1)}>
-        {getFieldTranslationByNames("1335")}
-      </Label>
-      <Label menu={menu === 2} onClick={() => setMenu(2)}>
-        {getFieldTranslationByNames("1336")}
-      </Label>
+      <NavLink to="received" replace end>
+        {({ isActive }) => (
+          <Label menu={isActive}>{getFieldTranslationByNames("1335")}</Label>
+        )}
+      </NavLink>
+
+      <NavLink to="sent" replace end>
+        {({ isActive }) => (
+          <Label menu={isActive}>{getFieldTranslationByNames("1336")}</Label>
+        )}
+      </NavLink>
     </Container>
   );
 };

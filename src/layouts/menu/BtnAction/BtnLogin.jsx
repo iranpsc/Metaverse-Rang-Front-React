@@ -4,7 +4,7 @@ import { ReactComponent as LoginIcon } from "../../../assets/svg/login.svg";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";
-
+import { useLanguage } from "../../../services/reducers/LanguageContext";
 const Btn = styled.div`
   width: 100%;
   min-height: 39px;
@@ -19,7 +19,6 @@ const Btn = styled.div`
   border-radius: 10px;
   padding: 0 10px;
   cursor: pointer;
-  margin-bottom: 16px;
 `;
 const Text = styled.p`
   display: ${(props) => (props.isOpen ? "block" : "none")};
@@ -33,7 +32,7 @@ const Icon = styled(LoginIcon)`
 const BtnLogin = () => {
   const { isOpen } = useMenuContext();
   const { Request, HTTP_METHOD } = useRequest();
-
+  const language = useLanguage();
   const handleClick = () => {
     Request(
       `auth/redirect?redirect_to=${window.location.origin}/metaverse`,

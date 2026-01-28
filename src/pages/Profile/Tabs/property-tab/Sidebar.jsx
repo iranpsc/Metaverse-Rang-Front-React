@@ -1,21 +1,27 @@
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-import { Container,Label } from "../../../../components/sidbar";
+import { Container, Label } from "../../../../components/sidbar";
+import { NavLink } from "react-router-dom";
 
-
-const Sidebar = ({ setMenu, menu }) => {
+const Sidebar = () => {
   return (
     <Container>
-      <Label menu={menu === 1} onClick={() => setMenu(1)}>
-        {getFieldTranslationByNames("58")}
-      </Label>
-      <Label menu={menu === 2} onClick={() => setMenu(2)}>
-        {getFieldTranslationByNames("55")}
-      </Label>
-      <Label menu={menu === 3} onClick={() => setMenu(3)}>
-        {getFieldTranslationByNames("38")}
-      </Label>
+      <NavLink to="houses" replace end>
+        {({ isActive }) => (
+          <Label menu={isActive}>{getFieldTranslationByNames("58")}</Label>
+        )}
+      </NavLink>
+      <NavLink to="following" replace end>
+        {({ isActive }) => (
+          <Label menu={isActive}>{getFieldTranslationByNames("55")}</Label>
+        )}
+      </NavLink>
+      <NavLink to="followers" replace end>
+        {({ isActive }) => (
+          <Label menu={isActive}>{getFieldTranslationByNames("38")}</Label>
+        )}
+      </NavLink>{" "}
     </Container>
   );
 };
-
+  
 export default Sidebar;

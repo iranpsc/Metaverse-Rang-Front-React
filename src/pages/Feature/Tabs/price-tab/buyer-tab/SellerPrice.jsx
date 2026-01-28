@@ -7,6 +7,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+    padding-top: 20px;
+
   width: 100%;
   overflow-y: auto;
 `;

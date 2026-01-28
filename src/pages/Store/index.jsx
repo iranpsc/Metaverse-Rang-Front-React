@@ -1,6 +1,7 @@
 import React from "react";
+import { Outlet, useParams } from "react-router-dom";
 
-import useTabs from "../../services/Hooks/useTabs";
+import Tabs from "../../services/Hooks/useTabs";
 import ToolTab from "./shop/tool-tab/ToolTab";
 import CurrencyTab from "./shop/currency-tab/CurrencyTab";
 import ShopInfo from "./shop/ShopInfo";
@@ -10,20 +11,18 @@ import { getFieldTranslationByNames } from "../../services/Utility";
 export default function Store() {
   const tabs = [
     {
+      path: "tools",
       title: getFieldTranslationByNames("109"),
-      content: <ToolTab />,
     },
     {
+      path: "currency",
       title: getFieldTranslationByNames("110"),
-      content: <CurrencyTab />,
     },
   ];
 
-  const TabPanel = useTabs(tabs);
-
   return (
     <Modal title={"30"}>
-      {TabPanel}
+      <Tabs items={tabs} />
       <ShopInfo />
     </Modal>
   );

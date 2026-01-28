@@ -1,14 +1,12 @@
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
-import { useState } from "react";
-import ReceivedList from "./receive/ReceivedList";
-import SentList from "./sent/SentList";
-
+import { Outlet } from "react-router-dom";
 const Container = styled.div`
   display: grid;
   grid-template-columns: 140px 1fr;
   gap: 10px;
   overflow-y: hidden;
+
   @media (min-width: 1366px) {
     gap: 20px;
   }
@@ -19,12 +17,10 @@ const Container = styled.div`
 `;
 
 const VodListTab = () => {
-  const [menu, setMenu] = useState(1);
   return (
     <Container>
-      <Sidebar setMenu={setMenu} menu={menu} />
-      {menu === 1 && <ReceivedList />}
-      {menu === 2 && <SentList />}
+      <Sidebar />
+      <Outlet />
     </Container>
   );
 };

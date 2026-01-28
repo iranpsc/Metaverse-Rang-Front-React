@@ -1,22 +1,31 @@
 import { useEffect, useState } from "react";
+import { useParams, Navigate } from "react-router-dom";
 import useRequest from "../../../../services/Hooks/useRequest";
 import DynastyEstablish from "./dynasty-establish/DynastyEstablish";
 import DynastyEstate from "./dynasty-estate/DynastyEstate";
 
-const DynastyEstablishEstate = ({ mode, setMode }) => {
+const DynastyEstablishEstate = () => {
+  const { tab } = useParams();
   const { Request } = useRequest();
-  const [data, setData] = useState([]);
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMembers = async () => {
       try {
         const response = await Request("dynasty");
-
         const prizes = response.data.data.prizes;
         const hasDynasty = response.data.data["user-has-dynasty"];
+        localStorage.setItem("dynastyStatus", hasDynasty ? "has" : "no");
+        window.dispatchEvent(
+          new CustomEvent("dynastyStatusUpdated", {
+            detail: hasDynasty ? "has" : "no",
+          }),
+        );
+
         if (hasDynasty) {
           setData(response.data.data);
-          setMode(2);
         } else {
           const updatedMembers = prizes.map((prize, index) => ({
             id: index + 1,
@@ -28,25 +37,36 @@ const DynastyEstablishEstate = ({ mode, setMode }) => {
             gif: prize.satisfaction,
           }));
           setData(updatedMembers);
-          setMode(1);
         }
       } catch (error) {
         console.error("Failed to fetch members:", error);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchMembers();
-  }, [setMode]);
-  
-  switch (mode) {
-    case 1:
-      return (
-        <DynastyEstablish data={data} setMode={setMode} setData={setData} />
-      );
-    case 2:
-      return <DynastyEstate data={data} setData={setData} />;
-    default:
-      return null;
+  }, []);
+
+  if (loading) return null;
+
+  if (tab !== "establish" && tab !== "estate") {
+    return <Navigate to="/dynasty/establish" replace />;
   }
+
+  if (data && data["user-has-dynasty"] && tab !== "estate") {
+    return <Navigate to="/metaverse/profile/dynasty/estate" replace />;
+  }
+
+  if (data && !data["user-has-dynasty"] && tab !== "establish") {
+    return <Navigate to="/dynasty/establish" replace />;
+  }
+
+  return tab === "establish" ? (
+    <DynastyEstablish data={data} setData={setData} />
+  ) : (
+    <DynastyEstate data={data} setData={setData} />
+  );
 };
 
 export default DynastyEstablishEstate;

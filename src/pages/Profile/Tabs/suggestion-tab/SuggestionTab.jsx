@@ -3,6 +3,7 @@ import SentSuggestion from "./sent/SentSuggestion";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 const Container = styled.div`
   height: 100%;
   display: flex;
@@ -11,12 +12,11 @@ const Container = styled.div`
 `;
 
 const SuggestionTab = () => {
-  const [menu, setMenu] = useState(1); 
 
   return (
     <Container>
-      <Sidebar setMenu={setMenu} menu={menu} />
-      {menu === 1 ? <RecievedSuggestion /> : <SentSuggestion />}
+      <Sidebar/>
+      <Outlet/>
     </Container>
   );
 };

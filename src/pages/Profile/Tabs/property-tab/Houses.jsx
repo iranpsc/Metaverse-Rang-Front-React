@@ -144,7 +144,6 @@ const Houses = () => {
 
     const newData = response.data.data || [];
 
-    // اگر هیچ داده‌ای نیومده → تموم شده
     if (newData.length === 0) {
       setHasMore(false);
       setLoading(false);
@@ -171,10 +170,8 @@ const Houses = () => {
       return [...prevFeatures, ...uniqueFeatures];
     });
 
-    // اگر API links.next نداره ولی داده هنوز اومده → page افزایش
     setPage((prev) => prev + 1);
 
-    // اگر links.next موجود نباشه → hasMore false
     setHasMore(!!response.data.links?.next);
 
   } catch (err) {

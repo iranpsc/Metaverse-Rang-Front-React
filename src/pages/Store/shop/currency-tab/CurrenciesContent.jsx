@@ -7,6 +7,8 @@ import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { ScaleLoader } from "react-spinners";
 import Container from "../../../../components/Common/Container";
+import { useLocation } from "react-router-dom";
+import { currencies } from "../data";
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,20 +20,29 @@ const Wrapper = styled.div`
   overflow-y: auto;
 `;
 
-const CurrenciesContent = ({ option, currencies }) => {
+const CurrenciesContent = () => {
   const { alert } = useContext(AlertContext);
   const [assets, setassets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
+  const parts = location.pathname.split("/");
+  const pathFromUrl = parts[parts.length - 1];
+  const selectedCurrency =
+    currencies.find((c) => c.path === pathFromUrl) || currencies[0];
+
+  const selectedCurrencyId = selectedCurrency?.id;
   const { Request, HTTP_METHOD } = useRequest();
 
   useEffect(() => {
+    if (!selectedCurrencyId) return;
+
     setLoading(true);
     Request("store", HTTP_METHOD.POST, {
       codes: [
-        `currency-psc-${option}`,
-        `currency-irr-${option}`,
-        `currency-irr-${option}`,
+        `currency-psc-${selectedCurrencyId}`,
+        `currency-irr-${selectedCurrencyId}`,
+        `currency-irr-${selectedCurrencyId}`,
       ],
     })
       .then((response) => {
@@ -40,7 +51,7 @@ const CurrenciesContent = ({ option, currencies }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [option]);
+  }, [pathFromUrl]);
 
   return (
     <Container>

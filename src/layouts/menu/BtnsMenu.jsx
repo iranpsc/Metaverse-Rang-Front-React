@@ -141,7 +141,7 @@ const menuItems = [
   {
     icon: ProfitIcon,
     translationId: "236",
-    navigate: "hour-profit",
+    navigate: "profit",
   },
   {
     icon: KycIcon,

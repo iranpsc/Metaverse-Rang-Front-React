@@ -8,17 +8,19 @@ import ErrorModal from "../ErrorModal";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
 `;
-const BankTab = ({ setOpenErrorModal, openErrorModal }) => {
+const BankTab = () => {
   const [isError, setIsError] = useState(false);
   const [errors, setErrors] = useState([]);
   const [cards, setCards] = useState([]);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const { openErrorModal, setOpenErrorModal } = useState();
 
   const { Request } = useRequest();
   useEffect(() => {
@@ -29,9 +31,7 @@ const BankTab = ({ setOpenErrorModal, openErrorModal }) => {
   return (
     <Container>
       <Wrapper>
-        <Title
-          title={getFieldTranslationByNames("888")}
-        />
+        <Title title={getFieldTranslationByNames("888")} />
         {isError && (
           <Alert
             onclick={() => setOpenErrorModal(true)}

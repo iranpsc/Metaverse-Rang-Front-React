@@ -115,11 +115,9 @@ const ContainerMain = styled.div`
   gap: 4px;
   width: 100%;
   overflow-y: auto;
-  max-height: 78%;
   border-top: 2px solid
     ${({ theme }) => theme.colors.newColors.otherColors.iconBg};
-  border-bottom: 2px solid
-    ${({ theme }) => theme.colors.newColors.otherColors.iconBg};
+  
   background-color: ${(props) => props.theme.colors.newColors.shades.bgOne};
 `;
 

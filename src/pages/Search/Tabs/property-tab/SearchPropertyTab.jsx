@@ -25,7 +25,7 @@ const P = styled.p`
   margin-top: 20px;
   font-size: 18px;
 `;
-const PropertyTab = () => {
+const SearchPropertyTab = () => {
   const [searched, setSearched] = useState("");
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,4 +76,4 @@ function searchAPI(request, method, query) {
   return request(url, method.POST, body);
 }
 
-export default PropertyTab;
+export default SearchPropertyTab;

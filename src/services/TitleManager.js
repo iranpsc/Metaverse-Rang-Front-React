@@ -1,63 +1,119 @@
 import { getFieldTranslationByNames } from "./Utility";
 
-const getTranslation = (index) => getFieldTranslationByNames(index);
+const t = (id) => getFieldTranslationByNames(id);
+const DEFAULT_TITLE = "905";
+const DEFAULT_PAGE = "148";
+
+const getSegments = (href = "") => href.split("/").filter(Boolean);
+const isId = (seg) => /^\d+$/.test(seg);
+const isDynamicSegment = (seg) => /^packet-/.test(seg);
 
 const pageTranslations = {
-  "sanad-1": "1314",
-  "sanad-2": "1316",
-  "sanad-3": "1317",
-  "profile-1": "62",
-  "profile-2": "150",
-  "profile-3": "61", 
-   "profile-4": "158",
-   "profile-5": "735",
-
-  "settings-1": "639",
-  "settings-2": "640",
-  "settings-3": "641",
-  "settings-4": "95",
-  "search-1": "470",
-  "search-2": "471",
-  "dynasty-1": "111",
-  "dynasty-2": "112",
-  "dynasty-3": "113",
-  "dynasty-4": "114",
-  "hour-profit-1": "27",
-  "verification-1": "867",
-  "verification-2": "868",
-  "store-1": "109",
-  "store-2": "110",
-  "report-1": "1386",
-  "report-2": "1386",
+  sanad: "1315",
+  profile: "243",
+  settings: "642",
+  store: "30",
+  dynasty: "234",
+  search: "232",
+  verification: "867",
+  feature: "345",
 };
 
 const titleTranslations = {
-  store: "30",
-  settings: "642",
-  profile: "243",
-  sanad: "241",
+  "list-sent": "1336",
+  "list-received": "1335",
+  "property-houses": "58",
+
+  "dynasty-establish": "807",
+  "dynasty-estate": "819",
+  "dynasty-send": "113",
+  "dynasty-recieved": "114",
+
+  "suggestion-sent": "765",
+  "suggestion-recieved": "764",
+
+  "feature-buy": "353",
+  "buy-price": "524",
+  "buy-suggest": "527",
+  "sell-PriceDefine": "519",
+  "sell-lowest": "517",
+
+  // fallback (no subTab)
+  write: "241",
+  total: "62",
+  notes: "1317",
+  transactions: "61",
+  public: "639",
+  account: "640",
+  security: "641",
+  about: "95",
   confirmation: "31",
-  search: "232",
-  dynasty: "234",
-  "hour-profit": "236",
-  verification: "237",
+  citizen: "470",
+  property: "471",
+  profit: "27",
+  identity: "867",
+  bank: "868",
+  tools: "109",
+  currency: "110",
   notifications: "238",
-  report: "23",
+
+  send: "1386",
+  list: "22",
+  info: "516",
+  enter: "354",
+  physic: "356",
+  participation: "357",
+  building: "355",
 };
 
-export const translateLocationPage = (page) => {
-  const translationId = pageTranslations[page];
-  return translationId ? getTranslation(translationId) : page;
+const getLastTextSegment = (segments) => {
+  for (let i = segments.length - 1; i >= 0; i--) {
+    const seg = segments[i];
+    if (isId(seg)) continue;
+    if (isDynamicSegment(seg)) continue;
+
+    return { value: seg, index: i };
+  }
+  return null;
 };
 
-export const getTitleFromHref = (href) => {
-  return href ? href.split("/").pop() : "";
+const getPrevTextSegment = (segments, index) => {
+  for (let i = index - 1; i >= 0; i--) {
+    if (!isId(segments[i])) {
+      return segments[i];
+    }
+  }
+  return null;
 };
 
-export const getTitleTranslation = (hrefOrKey) => {
-  const extractedTitle = getTitleFromHref(hrefOrKey);
-  const cleanTitle = extractedTitle.replace(/-\d+$/, "");
-  return titleTranslations[cleanTitle]
-    ? getTranslation(titleTranslations[cleanTitle])
-    : getTranslation("905");
+const getPageKey = (segments) =>
+  segments.find((seg) => seg !== "metaverse" && !isId(seg));
+
+const getModalHeaderFromPrevious = (href = "") => {
+  const segments = getSegments(href);
+  if (!segments.length) {
+    return { title: t(DEFAULT_TITLE), page: null };
+  }
+
+  const lastObj = getLastTextSegment(segments);
+  if (!lastObj) {
+    return { title: t(DEFAULT_TITLE), page: null };
+  }
+
+  const { value: last, index } = lastObj;
+  const prev = getPrevTextSegment(segments, index);
+
+  const titleKey = prev ? `${prev}-${last}` : last;
+  const titleId =
+    titleTranslations[titleKey] ?? titleTranslations[last] ?? DEFAULT_TITLE;
+
+  const pageKey = getPageKey(segments);
+  const pageId = pageKey ? pageTranslations[pageKey] : null;
+
+  return {
+    title: t(titleId),
+    page: pageId ? t(pageId) : t(DEFAULT_PAGE),
+  };
 };
+
+export default getModalHeaderFromPrevious;

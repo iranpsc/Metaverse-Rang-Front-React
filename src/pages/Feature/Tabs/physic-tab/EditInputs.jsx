@@ -151,7 +151,7 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
         placeholder="هدف تاسیس"
       /> */}
       <Wrapper>
-        <RichText />
+      {/** <RichText />*/}  
       </Wrapper>
       <Text>{getFieldTranslationByNames("556")}</Text>
       <Button

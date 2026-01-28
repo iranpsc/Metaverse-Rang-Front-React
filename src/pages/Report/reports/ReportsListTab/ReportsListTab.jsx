@@ -56,7 +56,7 @@ const Date = styled.div`
   }
 `;
 
-const ReportsListTab = ({ title, subdomain }) => {
+const ReportsListTab = ({ title="متاورس", subdomain="متاورس رنگ" }) => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark"; 
 
@@ -83,6 +83,7 @@ const ReportsListTab = ({ title, subdomain }) => {
   const fetchData = async (page = 1) => {
     try {
       const response = await Request(`reports?page=${page}`, "GET");
+
       const formattedRows = response.data.data.map((item) => ({
         id: item.id,
         code: item.id || "کد ناموجود",

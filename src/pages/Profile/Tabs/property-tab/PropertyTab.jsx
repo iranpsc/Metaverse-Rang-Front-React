@@ -1,10 +1,7 @@
-import Followers from "./Followers";
-import Following from "./Following";
-import Houses from "./Houses";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
 import { useState } from "react";
-
+import { Outlet } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   height: 100%;
@@ -15,9 +12,7 @@ const PropertyTab = () => {
   return (
     <Container>
       <Sidebar setMenu={setMenu} menu={menu} />
-      {menu === 1 && <Houses />}
-      {menu === 2 && <Following />}
-      {menu === 3 && <Followers />}
+      <Outlet />
     </Container>
   );
 };

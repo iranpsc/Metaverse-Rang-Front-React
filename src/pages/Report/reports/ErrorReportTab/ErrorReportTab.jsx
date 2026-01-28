@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import Alert from "../../../../components/Alert/Alert";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
@@ -13,7 +13,7 @@ import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import { useLocation } from "react-router-dom";
 import Container from "../../../../components/Common/Container";
 import ErrorMessage from "../../../../components/ErrorMessage";
-
+import getModalHeaderFromPrevious from "../../../../services/TitleManager";
 const StyledContent = styled.div`
   p {
     margin: 10px 0;
@@ -27,17 +27,25 @@ const StyledContent = styled.div`
   }
 `;
 
-const ErrorReportTab = ({ title, subdomain }) => {
+const ErrorReportTab = () => {
   const location = useLocation();
+  const [title, setTitle] = useState("");
+  const [subdomain, SetSubdomain] = useState("");
+  useEffect(() => {
+    const basePath = location.state?.from ?? location.pathname;
+
+    const { title, page } = getModalHeaderFromPrevious(basePath);
+
+    setTitle(title);
+    SetSubdomain(page);
+  }, [location]);
 
   const { Request, HTTP_METHOD } = useRequest();
   const { state, dispatch } = useReportsGlobalState();
   const { alert, setAlert } = useContext(AlertContext);
   const [error, setError] = useState("");
   const containerRef = useRef(null);
-  const baseURL = location.state?.href
-    ? `https://rgb.irpsc.com/${location.state.href}`
-    : "https://rgb.irpsc.com/metaverse/report";
+  const baseURL = `https://rgb.irpsc.com${location.state?.from ?? location.pathname}`;
 
   const resetForm = () => {
     dispatch({ type: "SET_SUBJECT", payload: "" });
@@ -73,7 +81,7 @@ const ErrorReportTab = ({ title, subdomain }) => {
           "reports",
           HTTP_METHOD.POST,
           { ...formData, attachments: attachments },
-          { "Content-Type": "multipart/form-data" }
+          { "Content-Type": "multipart/form-data" },
         );
 
         setAlert(true);
@@ -100,8 +108,8 @@ const ErrorReportTab = ({ title, subdomain }) => {
       <StyledContent>
         <Title title={getFieldTranslationByNames("1386")} right />
         <p>
-          {getFieldTranslationByNames("1376")} <span>{title}</span>{" "}
-          {getFieldTranslationByNames("1377")} <span>{subdomain}</span>{" "}
+          {getFieldTranslationByNames("1376")} <span>{subdomain}</span>{" "}
+          {getFieldTranslationByNames("1377")} <span>{title}</span>{" "}
         </p>
         <Inputs />
         <Description />

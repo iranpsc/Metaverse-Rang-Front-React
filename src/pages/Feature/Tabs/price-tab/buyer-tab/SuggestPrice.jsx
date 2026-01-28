@@ -23,6 +23,7 @@ const Wrapper = styled(BaseContainer)`
   width: 100%;
   flex-direction: column;
   gap: 30px;
+  padding-top: 20px;
 
   p {
     color: ${(props) => props.theme.colors.newColors.shades.title};

@@ -112,12 +112,13 @@ const initialDetails = [
   },
 ];
 
-const IdentityTab = ({ setOpenErrorModal, openErrorModal }) => {
+const IdentityTab = () => {
   const [kyc, setKyc] = useState({});
   const [nationalCardImg, SetNationalCardImg] = useState("");
   const { Request } = useRequest();
   const [errors, setErrors] = useState([]);
   const [details, setDetails] = useState(initialDetails);
+  const { openErrorModal, setOpenErrorModal } = useState();
 
   useEffect(() => {
     Request(`kyc`).then((response) => {

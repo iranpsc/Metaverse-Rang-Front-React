@@ -1,23 +1,70 @@
+import { useEffect, useMemo, useState } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-import { Container,Label } from "../../../../components/sidbar";
+import { Container, Label } from "../../../../components/sidbar";
+import { NavLink, useLocation } from "react-router-dom";
 
-const Sidebar = ({ setMenu, menu, mode }) => {
+const Sidebar = () => {
+  const { pathname } = useLocation();
+
+  const lastSegment = useMemo(() => {
+    const segments = pathname.split("/");
+    return segments[segments.length - 1];
+  }, [pathname]);
+
+  const [dynastyStatus, setDynastyStatus] = useState(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("dynastyStatus");
+    if (stored) {
+      setDynastyStatus(stored);
+    }
+
+    const handler = (event) => {
+      setDynastyStatus(event.detail);
+    };
+
+    window.addEventListener("dynastyStatusUpdated", handler);
+
+    return () => {
+      window.removeEventListener("dynastyStatusUpdated", handler);
+    };
+  }, []);
+
+  if (!dynastyStatus) return null;
+
+  const labelText =
+    dynastyStatus === "has"
+      ? getFieldTranslationByNames(819)
+      : getFieldTranslationByNames(807);
+
   return (
     <Container>
-      <Label menu={menu === 1} onClick={() => setMenu(1)}>
-        {mode === 1
-          ? getFieldTranslationByNames(807)
-          : mode === 2 && getFieldTranslationByNames(819)}
-      </Label>
-      <Label menu={menu === 2} onClick={() => setMenu(2)}>
-        {getFieldTranslationByNames(112)}
-      </Label>
-      <Label menu={menu === 3} onClick={() => setMenu(3)}>
-        {getFieldTranslationByNames(113)}
-      </Label>
-      <Label menu={menu === 4} onClick={() => setMenu(4)}>
-        {getFieldTranslationByNames(114)}
-      </Label>
+      <NavLink to="establish" replace end>
+        {({ isActive }) => (
+          <Label menu={isActive || lastSegment === "estate"}>
+            {labelText}
+            {""}
+          </Label>
+        )}
+      </NavLink>
+
+      <NavLink to="members" replace end>
+        {({ isActive }) => (
+          <Label menu={isActive}>{getFieldTranslationByNames(112)}</Label>
+        )}
+      </NavLink>
+
+      <NavLink to="send" replace end>
+        {({ isActive }) => (
+          <Label menu={isActive}>{getFieldTranslationByNames(113)}</Label>
+        )}
+      </NavLink>
+
+      <NavLink to="recieved" replace end>
+        {({ isActive }) => (
+          <Label menu={isActive}>{getFieldTranslationByNames(114)}</Label>
+        )}
+      </NavLink>
     </Container>
   );
 };
