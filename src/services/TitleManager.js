@@ -9,7 +9,7 @@ const isId = (seg) => /^\d+$/.test(seg);
 const isDynamicSegment = (seg) => /^packet-/.test(seg);
 
 const pageTranslations = {
-  sanad: "1315",
+  Documents: "1315",
   profile: "243",
   settings: "642",
   store: "30",

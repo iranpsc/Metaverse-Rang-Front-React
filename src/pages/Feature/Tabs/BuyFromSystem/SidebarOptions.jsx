@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-
+import { Label } from "../../../../components/sidbar";
+import { NavLink } from "react-router-dom";
 const Wrapper = styled.div`
   max-width: 171px !important;
   background-color: ${(props) =>
@@ -10,29 +11,15 @@ const Wrapper = styled.div`
   margin-top: 20px;
 `;
 
-const Option = styled.h2`
-  font-weight: 500;
-  font-size: 18px;
-  padding: 10px 20px;
-  white-space: nowrap;
-  cursor: pointer;
-  color: ${(props) =>
-    props.option
-      ? props.theme.colors.primary
-      : props.theme.colors.newColors.shades.title};
-  border-right: ${(props) =>
-    props.option
-      ? `2px solid ${(props) =>
-          props.theme.colors.newColors.otherColors.inputBorder}`
-      : "2px solid transparent"};
-`;
-
-const SidebarOptions = ({ option, setOption }) => {
+const SidebarOptions = () => {
   return (
     <Wrapper>
-      <Option option={option === true} onClick={() => setOption(true)}>
+      <NavLink to="price" replace end> 
+        {({isActive})=>(  <Label menu={isActive}>
         {getFieldTranslationByNames("524")}
-      </Option>
+      </Label>)}
+       </NavLink>
+   
     </Wrapper>
   );
 };

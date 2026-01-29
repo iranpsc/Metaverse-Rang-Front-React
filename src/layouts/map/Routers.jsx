@@ -71,7 +71,7 @@ export default function Routers() {
     <Routes>
       <Route path="/metaverse" element={<Outlet />}>
         <Route
-          path="sanad"
+          path="Documents"
           element={
             <PrivateRoute>
               <Sanad />
