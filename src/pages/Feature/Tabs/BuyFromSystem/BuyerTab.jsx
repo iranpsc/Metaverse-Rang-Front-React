@@ -1,20 +1,20 @@
 import styled from "styled-components";
-import { useState } from "react";
-("../../../../../components/SidebarOptions");
-import BuyerContent from "./BuyerContent";
 import SidebarOptions from "./SidebarOptions";
-
+import  SellerPrice from "./SellerPrice";
+import { Navigate,Route,Routes } from "react-router-dom";
 const Wrapper = styled.div`
   display: flex;
   gap: 10px;
 `;
 
 const BuyerTabSystem = () => {
-  const [option, setOption] = useState(true);
   return (
     <Wrapper>
-      <SidebarOptions option={option} setOption={setOption} />
-      <BuyerContent option={option} />
+      <SidebarOptions  />
+         <Routes>
+                <Route index element={<Navigate to="price" replace />} />
+                <Route path="price" element={<SellerPrice />} />
+              </Routes>
     </Wrapper>
   );
 };

@@ -8,6 +8,8 @@ import { SuggestionsContainer, Location, Property, Value, Suggestions, AreaConta
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 import { useMap } from "react-map-gl";
+import { calculatePolygonCentroid } from "../../../../../services/Utility/calculatePolygonCentroid";
+import { flyToMapPosition } from "../../../../../services/Utility/flyToMapPosition";
 
 const Container = SuggestionsContainer;
 const Pricing = styled.div`
@@ -58,94 +60,7 @@ const Time = styled.div`
 `;
 
 
-function calculatePolygonCentroid(vertices) {
-  const numVertices = vertices.length;
-  let sumX = 0;
-  let sumY = 0;
-  for (let i = 0; i < numVertices; i++) {
-    sumX += parseFloat(vertices[i].x);
-    sumY += parseFloat(vertices[i].y);
-  }
-  const centroidX = sumX / numVertices;
-  const centroidY = sumY / numVertices;
-  return { x: centroidX, y: centroidY };
-}
 
-function flyToPosition({ latitude, longitude, mapRef, zoom = 17 }) {
-  const map = mapRef.default.getMap();
-
-  if (map.getSource("location-icon")) {
-    map.removeLayer("location-icon-layer");
-    map.removeSource("location-icon");
-  }
-
-  map.loadImage(
-    "https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png",
-    (error, image) => {
-      if (error) throw error;
-      if (!map.hasImage("custom-marker")) map.addImage("custom-marker", image);
-
-      map.addSource("location-icon", {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [longitude, latitude],
-          },
-        },
-      });
-
-      map.addLayer({
-        id: "location-icon-layer",
-        type: "symbol",
-        source: "location-icon",
-        layout: {
-          "icon-image": "custom-marker",
-          "icon-size": 0.65,
-          "icon-offset": [0, -15],
-        },
-      });
-    }
-  );
-
-  map.flyTo({
-    center: [longitude, latitude],
-    zoom: zoom,
-    bearing: 0,
-    essential: true,
-    speed: 1.2,
-    curve: 1.42,
-  });
-
-  const checkPosition = () => {
-    const currentZoom = map.getZoom();
-    const currentCenter = map.getCenter();
-
-    if (
-      Math.abs(currentZoom - zoom) < 0.1 &&
-      Math.abs(currentCenter.lng - longitude) < 0.0001 &&
-      Math.abs(currentCenter.lat - latitude) < 0.0001
-    ) {
-      rotateCamera();
-    } else {
-      requestAnimationFrame(checkPosition);
-    }
-  };
-
-  let rotation = 0;
-  const rotateCamera = () => {
-    rotation += 3; 
-    if (rotation <= 360) {
-      map.rotateTo(rotation, { duration: 100 }); 
-      requestAnimationFrame(rotateCamera);
-    }
-  };
-
-  setTimeout(() => {
-    checkPosition();
-  }, 3000);
-}
 
 const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
 
@@ -155,7 +70,7 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
   const center = calculatePolygonCentroid(property.coordinates);
   const mapRef = useMap();
   const handleLocation = () => {
-    flyToPosition({
+    flyToMapPosition({
       latitude: center.y,
       longitude: center.x,
       mapRef: mapRef,

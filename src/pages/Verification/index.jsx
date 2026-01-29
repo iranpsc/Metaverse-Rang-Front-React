@@ -1,38 +1,25 @@
 import React, { useState } from "react";
-import useTabs from "../../services/Hooks/useTabs";
+import Tabs from "../../services/Hooks/useTabs";
 import Modal from "../../components/Modal";
 import BankTab from "./Tabs/bank-tab/BankTab";
 import IdentityTab from "./Tabs/identity-tab/IdentityTab";
 import { getFieldTranslationByNames } from "../../services/Utility";
 
 export default function Verification() {
-  const [openErrorModal, setOpenErrorModal] = useState(false);
   const tabs = [
     {
+      path: "identity",
       title: getFieldTranslationByNames("867"),
-      content: (
-        <IdentityTab
-          openErrorModal={openErrorModal}
-          setOpenErrorModal={setOpenErrorModal}
-        />
-      ),
     },
     {
+      path: "bank",
       title: getFieldTranslationByNames("868"),
-      content: (
-        <BankTab
-          openErrorModal={openErrorModal}
-          setOpenErrorModal={setOpenErrorModal}
-        />
-      ),
     },
   ];
 
-  const TabPanel = useTabs(tabs);
-
   return (
     <Modal type="modal-section-md" title={"867"}>
-      {TabPanel}
+      <Tabs items={tabs} />
     </Modal>
   );
 }

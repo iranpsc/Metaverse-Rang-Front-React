@@ -6,7 +6,7 @@ import { ExitIcon } from "../Icons/IconsHeader";
 import { BiExitFullscreen } from "react-icons/bi";
 import { PiGearSixFill } from "react-icons/pi";
 import { TiWarning } from "react-icons/ti";
-import Education from "../../components/Education/Education" ;
+import Education from "../../components/Education/Education";
 import useAdviserData from "../../services/Hooks/useAdviserData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
@@ -37,7 +37,6 @@ const ReportIcon = styled(Report)`
   }
   cursor: pointer;
 `;
-
 
 const IconWrapper = styled.div`
   width: 11px;
@@ -72,9 +71,9 @@ const HeaderWrapper = styled.div`
     margin-bottom: 30px;
     margin-top: 10px;
   }
-  
+
   @media (max-height: 500px) and (max-width: 1000px) {
-  padding-bottom: 5px;
+    padding-bottom: 5px;
   }
 `;
 
@@ -135,16 +134,20 @@ const Header = ({
   const newStr = location.pathname.replace(/\/metaverse\//g, "") + "-";
   const locationPage = location?.state?.locationPage;
   const adviserData = useAdviserData(newStr, locationPage);
+
   const handleReportClick = () => {
-    navigation("/metaverse/report", {
+    navigation("/metaverse/report/send", {
       state: {
-        href: window.location.href.split("/").slice(3).join("/"),
+        from: location.pathname,
       },
     });
   };
+
   const handleExitClick = () => {
     if (handleExit) {
-      navigation("/metaverse/")
+      navigation(location.state?.background?.pathname || "/metaverse", {
+        replace: true,
+      });
       handleExit();
       return;
     }

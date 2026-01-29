@@ -2,8 +2,9 @@ import CurrenciesContent from "./CurrenciesContent";
 import SideBar from "./SideBar";
 import { currencies } from "../data";
 import styled from "styled-components";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 const Wrapper = styled.div`
   display: flex;
   gap: 20px;
@@ -15,12 +16,10 @@ const Wrapper = styled.div`
   }
 `;
 const CurrencyTab = () => {
-  const [option, setOption] = useState(1);
-
   return (
     <Wrapper>
-      <SideBar currencies={currencies} option={option} setOption={setOption} />
-      <CurrenciesContent currencies={currencies} option={option} />
+      <SideBar/>
+      <Outlet  />
     </Wrapper>
   );
 };

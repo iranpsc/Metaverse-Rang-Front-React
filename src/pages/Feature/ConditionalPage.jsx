@@ -1,165 +1,169 @@
-import { useContext, useEffect, useState } from "react";
-import { FeatureColor } from "../../services/constants/FeatureType";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../../services/Hooks/useAuth";
-import useTabs from "../../services/Hooks/useTabs";
+import Tabs from "../../services/Hooks/useTabs";
 import { FeatureContext } from "./Context/FeatureProvider";
-import PropertyConstruction from "./Tabs/PropertyConstruction";
-import { BuyerTab, InfoTab, SellerTab } from "./Tabs";
-import EnterTab from "./Tabs/enter-tab/EnterTab";
-import PhysicTab from "./Tabs/physic-tab/PhysicTab";
-import HistoryTab from "./Tabs/history-tab/HistoryTab";
-import ParticipationTab from "./Tabs/participation-tab/ParticipationTab";
-import BuyerTabSystem from "./Tabs/BuyFromSystem/BuyerTab";
+import { FeatureColor } from "../../services/constants/FeatureType";
 import { getFieldTranslationByNames } from "../../services/Utility";
 
+// Tabs
+import { BuyerTab, InfoTab, SellerTab } from "./Tabs";
+import PropertyConstruction from "./Tabs/PropertyConstruction";
+import EnterTab from "./Tabs/enter-tab/EnterTab";
+import PhysicTab from "./Tabs/physic-tab/PhysicTab";
+import ParticipationTab from "./Tabs/participation-tab/ParticipationTab";
+import BuyerTabSystem from "./Tabs/BuyFromSystem/BuyerTab";
+
 export default function ConditionalPage() {
+  const { tab } = useParams();
+  const navigate = useNavigate();
   const { getUser } = useAuth();
   const [userId, setUserId] = useState(null);
   const [feature] = useContext(FeatureContext);
+
   const status = feature?.construction_status?.[0]?.status;
-  const commonSpecificationTab = {
+
+  const commonTab = {
+    path: "info",
     title: getFieldTranslationByNames("516"),
     content: <InfoTab />,
   };
-  const SellTabs = [
-    commonSpecificationTab,
-    ...(status === undefined
-      ? [
-          {
-            title: getFieldTranslationByNames("352"),
-            content: <SellerTab seller />,
-          },
-        ]
-      : []),
-    ...(status === "completed"
-      ? [
-          {
-            title: getFieldTranslationByNames("352"),
-            content: <SellerTab seller />,
-          },
-        ]
-      : []),
 
-    ...(status === undefined
-      ? [
-          {
-            title: getFieldTranslationByNames("355"),
-            content: <PropertyConstruction />,
-          },
-        ]
-      : []),
+  const SellTabs = useMemo(
+    () => [
+      commonTab,
 
-    ...(status === "completed"
-      ? [
-          {
-            title: getFieldTranslationByNames("354"),
-            content: <EnterTab owner />,
-          },
-        ]
-      : []),
+      ...(status === undefined || status === "completed"
+        ? [
+            {
+              path: "sell",
+              title: getFieldTranslationByNames("352"),
+              content: <SellerTab seller />,
+            },
+          ]
+        : []),
 
-    ...(status === "in_progress"
-      ? [
-          {
-            title: getFieldTranslationByNames("357"),
-            content: <ParticipationTab owner />,
-          },
-        ]
-      : []),
-    ...(status === "completed"
-      ? [
-          {
-            title: getFieldTranslationByNames("357"),
-            content: <ParticipationTab owner />,
-          },
-        ]
-      : []),
-    ...(status === "completed"
-      ? [
-          {
-            title: getFieldTranslationByNames("356"),
-            content: <PhysicTab owner />,
-          },
-        ]
-      : []),
-    // تب HistoryTab
-    /*{
-      title: getFieldTranslationByNames("325"),
-      content: <HistoryTab />,
-    },*/
-  ];
+      ...(status === undefined
+        ? [
+            {
+              path: "building",
+              title: getFieldTranslationByNames("355"),
+              content: <PropertyConstruction />,
+            },
+          ]
+        : []),
 
-  const SellTabPanel = useTabs(SellTabs);
+      ...(status === "completed"
+        ? [
+            {
+              path: "enter",
+              title: getFieldTranslationByNames("354"),
+              content: <EnterTab owner />,
+            },
+            {
+              path: "physic",
+              title: getFieldTranslationByNames("356"),
+              content: <PhysicTab owner />,
+            },
+            {
+              path: "participation",
+              title: getFieldTranslationByNames("357"),
+              content: <ParticipationTab owner />,
+            },
+          ]
+        : []),
+
+      ...(status === "in_progress"
+        ? [
+            {
+              path: "participation",
+              title: getFieldTranslationByNames("357"),
+              content: <ParticipationTab owner />,
+            },
+          ]
+        : []),
+    ],
+    [status],
+  );
 
   const BuySystemTabs = [
-    commonSpecificationTab,
+    commonTab,
     {
+      path: "buy",
       title: getFieldTranslationByNames("353"),
       content: <BuyerTabSystem />,
     },
   ];
-  const BuySystemTabPanel = useTabs(BuySystemTabs);
 
-  const BuyUserTabs = [
-    commonSpecificationTab,
-    ...(status === "in_progress"
-      ? []
-      : [
-          {
-            title: getFieldTranslationByNames("353"),
-            content: <BuyerTab />,
-          },
-        ]),
+  const BuyUserTabs = useMemo(
+    () => [
+      commonTab,
 
-    ...(status === "completed"
-      ? [
-          {
-            title: getFieldTranslationByNames("354"),
-            content: <EnterTab />,
-          },
-          {
-            title: getFieldTranslationByNames("356"),
-            content: <PhysicTab />,
-          },
-          {
-            title: getFieldTranslationByNames("357"),
-            content: <ParticipationTab />,
-          },
-        ]
-      : []),
-    ,
-    ...(status === "in_progress"
-      ? [
-          {
-            title: getFieldTranslationByNames("357"),
-            content: <ParticipationTab />,
-          },
-        ]
-      : []),
-    /*  {
-      title: getFieldTranslationByNames("325"),
-      content: <HistoryTab />,
-    },*/
-  ];
-  const BuyUserTabPanel = useTabs(BuyUserTabs);
+      ...(status !== "in_progress"
+        ? [
+            {
+              path: "buy",
+              title: getFieldTranslationByNames("353"),
+              content: <BuyerTab />,
+            },
+          ]
+        : []),
 
-  const AnonymousTabs = [commonSpecificationTab];
-  const AnonymousTabPanel = useTabs(AnonymousTabs);
+      ...(status === "completed"
+        ? [
+            {
+              path: "enter",
+              title: getFieldTranslationByNames("354"),
+              content: <EnterTab />,
+            },
+            {
+              path: "physic",
+              title: getFieldTranslationByNames("356"),
+              content: <PhysicTab />,
+            },
+            {
+              path: "participation",
+              title: getFieldTranslationByNames("357"),
+              content: <ParticipationTab />,
+            },
+          ]
+        : []),
+
+      ...(status === "in_progress"
+        ? [
+            {
+              path: "participation",
+              title: getFieldTranslationByNames("357"),
+              content: <ParticipationTab />,
+            },
+          ]
+        : []),
+    ],
+    [status],
+  );
 
   useEffect(() => {
     const user = getUser();
-    if (user?.id) {
-      setUserId(parseInt(user.id));
-    }
+    if (user?.id) setUserId(Number(user.id));
   }, [getUser]);
 
-  if (!userId || !FeatureColor(feature?.properties?.rgb)) {
-    return AnonymousTabPanel;
+  let tabs = [commonTab];
+
+  if (FeatureColor(feature?.properties?.rgb) && userId) {
+    if (feature?.owner_id === 1) tabs = BuySystemTabs;
+    else if (feature?.owner_id === userId) tabs = SellTabs;
+    else tabs = BuyUserTabs;
   }
 
-  if (feature?.owner_id === 1) return BuySystemTabPanel;
-  if (feature?.owner_id === userId) return SellTabPanel;
-  if (feature?.owner_id !== userId) return BuyUserTabPanel;
+  useEffect(() => {
+    if (!tabs.find((t) => t.path === tab)) {
+      navigate(``, { replace: true });
+    }
+  }, [tab, tabs, navigate]);
 
-  return AnonymousTabPanel;
+  return (
+    <>
+      <Tabs items={tabs} />
+    </>
+  );
 }

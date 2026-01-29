@@ -5,7 +5,7 @@ import SendRequest from "./sent/SendRequest";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
 import { useState } from "react";
-
+import { Outlet } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   gap: 15px;
@@ -15,24 +15,14 @@ const Container = styled.div`
   @media (min-width: 1366px) {
     gap: 20px;
   }
-
 `;
 
 const DynastyTab = () => {
-  const [menu, setMenu] = useState(1);
-  const [dynastyEstablishEstate, setDynastyEstablishEstate] = useState(1);
   return (
     <Container>
-      <Sidebar setMenu={setMenu} menu={menu} mode={dynastyEstablishEstate} />
-        {menu === 1 && (
-          <DynastyEstablishEstate
-            mode={dynastyEstablishEstate}
-            setMode={setDynastyEstablishEstate}
-          />
-        )}
-        {menu === 2 && <DynastyMembers />}
-        {menu === 3 && <SendRequest />}
-        {menu === 4 && <RecieveRequest />}
+      <Sidebar />
+
+      <Outlet />
     </Container>
   );
 };

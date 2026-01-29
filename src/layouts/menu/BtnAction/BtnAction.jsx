@@ -24,7 +24,7 @@ const Btn = styled.div`
   padding: ${(props) => (props.isOpen && props.isClicked ? "0" : "0  10px ")};
   cursor: pointer;
   transition: min-height 0.3s ease;
-  margin: 10px 0px;
+  margin-top: 10px;
   position: relative;
 `;
 

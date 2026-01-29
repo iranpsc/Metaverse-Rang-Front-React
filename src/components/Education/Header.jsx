@@ -1,15 +1,11 @@
 import { IoIosClose } from "react-icons/io";
 import { TbMinimize } from "react-icons/tb";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../services/Utility";
 import { ExitIcon } from "../Icons/IconsHeader";
-import {
-  getTitleTranslation,
-  getTitleFromHref,
-  translateLocationPage,
-} from "../../services/TitleManager";
 import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import getModalHeaderFromPrevious from "../../services/TitleManager";
+
 const Div = styled.div`
   position: relative;
   display: flex;
@@ -23,10 +19,10 @@ const Div = styled.div`
     cursor: pointer;
   }
 `;
+
 const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
-
   width: 100%;
   justify-content: space-between;
 
@@ -47,7 +43,6 @@ const Text = styled.h2`
 const Icons = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   svg {
     color: ${(props) => props.theme.colors.newColors.otherColors.iconText};
@@ -63,30 +58,29 @@ const Icons = styled.div`
 
 const Header = ({ show, setOpenEducation, setSize }) => {
   const location = useLocation();
-  const lastPart = getTitleFromHref(location.pathname);
+  const [title, setTitle] = useState("");
 
-  const [title, setTitle] = useState(getFieldTranslationByNames("1455"));
   useEffect(() => {
-    const translated = translateLocationPage(location.state?.locationPage);
+    const basePath = location.state?.from || location.pathname;
 
-    if (translated) {
-      setTitle(translated);
-    } else {
-      setTitle(getTitleTranslation(lastPart));
-    }
-  }, [location.state?.locationPage, lastPart]);
+    const { title } = getModalHeaderFromPrevious(basePath);
 
-  const handleMinimizeClick = (event) => {
-    event.stopPropagation();
+    setTitle(title);
+  }, [location.pathname, location.state]);
+
+  const handleMinimizeClick = (e) => {
+    e.stopPropagation();
     setSize(true);
   };
 
-  const handleCloseClick = (event) => {
+  const handleCloseClick = () => {
     setOpenEducation(false);
   };
+
   return (
     <HeaderWrapper show={show}>
       <Text>{title}</Text>
+
       <Icons>
         <Div onClick={handleMinimizeClick}>
           <TbMinimize style={{ color: "#949494" }} />

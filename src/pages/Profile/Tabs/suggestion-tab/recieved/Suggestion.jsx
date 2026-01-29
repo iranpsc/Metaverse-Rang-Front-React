@@ -1,5 +1,4 @@
 import { animated, useTransition } from "react-spring";
-
 import Proposer from "./Proposer";
 import line from "../../../../../assets/images/profile/Line.png";
 import psc from "../../../../../assets/images/profile/psc.gif";
@@ -10,16 +9,30 @@ import { useMap } from "react-map-gl";
 import { useNavigate } from "react-router-dom";
 import rial from "../../../../../assets/images/profile/rial.gif";
 import styled from "styled-components";
-import { SuggestionsContainer, Location, Property, Value, Suggestions, AreaContainer, StyledSVG, Polygon } from "../suggestionStyles";
-import { getFieldTranslationByNames, convertToPersian } from "../../../../../services/Utility/index";
+import {
+  SuggestionsContainer,
+  Location,
+  Property,
+  Value,
+  Suggestions,
+  AreaContainer,
+  StyledSVG,
+  Polygon,
+} from "../suggestionStyles";
+import {
+  getFieldTranslationByNames,
+  convertToPersian,
+} from "../../../../../services/Utility/index";
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
+import { calculatePolygonCentroid } from "../../../../../services/Utility/calculatePolygonCentroid";
+import { flyToMapPosition } from "../../../../../services/Utility/flyToMapPosition";
 
 const Container = SuggestionsContainer;
 
 const Pricing = styled.div`
   display: flex;
   align-items: center;
- gap: 60px;
+  gap: 60px;
   @media (min-width: 840px) {
     gap: 120px;
   }
@@ -37,7 +50,8 @@ const Prices = styled.div`
   align-items: center;
   gap: 12px;
 
-  ${({ isPersian }) => (isPersian ? 'margin-left: 70px;' : 'margin-right: 70px;')};
+  ${({ isPersian }) =>
+    isPersian ? "margin-left: 70px;" : "margin-right: 70px;"};
 
   div {
     display: flex;
@@ -52,69 +66,15 @@ const Prices = styled.div`
   }
 `;
 
-const calculatePolygonCentroid = (vertices) => {
-  const numVertices = vertices.length;
-  const sum = vertices.reduce((acc, { x, y }) => {
-    acc.x += parseFloat(x);
-    acc.y += parseFloat(y);
-    return acc;
-  }, { x: 0, y: 0 });
-
-  return { x: sum.x / numVertices, y: sum.y / numVertices };
-};
-
-const flyToPosition = ({ latitude, longitude, mapRef, zoom = 17 }) => {
-  const map = mapRef.default.getMap();
-
-  if (map.getSource("location-icon")) {
-    map.removeLayer("location-icon-layer");
-    map.removeSource("location-icon");
-  }
-
-  map.loadImage("https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png", (error, image) => {
-    if (error) throw error;
-    if (!map.hasImage("custom-marker")) map.addImage("custom-marker", image);
-
-    map.addSource("location-icon", {
-      type: "geojson",
-      data: {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [longitude, latitude] },
-      },
-    });
-
-    map.addLayer({
-      id: "location-icon-layer",
-      type: "symbol",
-      source: "location-icon",
-      layout: { "icon-image": "custom-marker", "icon-size": 0.65, "icon-offset": [0, -15] },
-    });
-  });
-
-  map.flyTo({ center: [longitude, latitude], zoom, bearing: 0, essential: true, speed: 1.2, curve: 1.42 });
-
-  setTimeout(() => {
-    const checkPosition = () => {
-      const { lng, lat } = map.getCenter();
-      if (Math.abs(map.getZoom() - zoom) < 0.1 && Math.abs(lng - longitude) < 0.0001 && Math.abs(lat - latitude) < 0.0001) {
-        rotateCamera();
-      } else {
-        requestAnimationFrame(checkPosition);
-      }
-    };
-
-    let rotation = 0;
-    const rotateCamera = () => {
-      if (rotation <= 360) {
-        map.rotateTo((rotation += 3), { duration: 100 });
-        requestAnimationFrame(rotateCamera);
-      }
-    };
-    checkPosition();
-  }, 3000);
-};
-
-const Suggestion = ({ id, property, suggestions_list, onRejectProposal, onAcceptProposal,isExploding,isExplodingAccept }) => {
+const Suggestion = ({
+  id,
+  property,
+  suggestions_list,
+  onRejectProposal,
+  onAcceptProposal,
+  isExploding,
+  isExplodingAccept,
+}) => {
   const xCoords = property.coordinates.map((coord) => coord.x);
   const yCoords = property.coordinates.map((coord) => coord.y);
   const isPersian = useLanguage();
@@ -145,25 +105,27 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, onAccept
     enter: { opacity: 1, transform: "translate3d(0, 0, 0)" },
     leave: { opacity: 0, transform: "translate3d(0, 40px, 0)" },
   });
-  const handleLocation=()=>{
-    flyToPosition({
+  const handleLocation = () => {
+    flyToMapPosition({
       latitude: center.y,
       longitude: center.x,
       mapRef: mapRef,
       zoom: 17,
     });
-  Navigate("/metaverse")
-  }
+    Navigate("/metaverse");
+  };
   return (
     <Container>
       <Property>
         <Location>
           <AreaContainer>
             <StyledSVG
-              viewBox={` ${hasXGreaterThan50 ? -15 : -30} ${hasXGreaterThan50 ? -85 : -110
-                } 150 ${hasXGreaterThan50 ? 100 : 120}`}
+              viewBox={` ${hasXGreaterThan50 ? -15 : -30} ${
+                hasXGreaterThan50 ? -85 : -110
+              } 150 ${hasXGreaterThan50 ? 100 : 120}`}
             >
-              <Polygon karbari={property.karbari}
+              <Polygon
+                karbari={property.karbari}
                 hasXGreaterThan50={hasXGreaterThan50}
                 points={normalizedPoints}
               />
@@ -178,14 +140,21 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, onAccept
           <Value>
             <h2>{getFieldTranslationByNames("767")}</h2>
             <div>
-              <img width={24} height={24} src={{ m: yellow, t: red, a: blue }[property.karbari] || null} />
+              <img
+                width={24}
+                height={24}
+                src={{ m: yellow, t: red, a: blue }[property.karbari] || null}
+              />
               <span>{convertToPersian(property.value)}</span>
             </div>
           </Value>
           <Price>
             <h2>{getFieldTranslationByNames("770")}</h2>
             <Prices isPersian={isPersian}>
-              {[{ src: rial, value: property.rial }, { src: psc, value: property.psc }].map(({ src, value }, index) => (
+              {[
+                { src: rial, value: property.rial },
+                { src: psc, value: property.psc },
+              ].map(({ src, value }, index) => (
                 <div key={index}>
                   <img width={24} height={24} src={src} />
                   <span>{convertToPersian(value)}</span>
@@ -199,8 +168,8 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, onAccept
         {transitions((style, item) => (
           <animated.div key={item.id} style={style}>
             <Proposer
-            isExplodingAccept={isExplodingAccept}
-            isExploding={isExploding}
+              isExplodingAccept={isExplodingAccept}
+              isExploding={isExploding}
               {...item}
               property={property}
               onReject={() => onRejectProposal(id, item.id)}

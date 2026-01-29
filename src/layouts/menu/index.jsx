@@ -22,26 +22,21 @@ const Container = styled.div`
 
   @media (min-width: 1024px) {
     width: ${(props) => (props.isOpen ? "32%" : "6.1%")};
-    border-radius: 10px;
-    padding: 15px;
+    padding: 20px;
+    padding-bottom: 10px;
   }
   @media (min-width: 1536px) {
     width: ${(props) => (props.isOpen ? "21.5%" : "4.1%")};
     border-radius: 10px;
     padding: 20px;
-    padding-bottom: 0;
+    padding-bottom: 10px;
   }
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};
   padding: ${(props) => (props.isOpen ? "5px" : "10px")};
+      padding-bottom: 10px;
+
   transition: all 0.3s ease 0s;
-`;
-const Hr = styled.div`
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.iconBg};
-  width: 100%;
-  padding: 0 15px;
-  height: 2px;
 `;
 const Menu = () => {
   const { isOpen } = useMenuContext();
@@ -61,7 +56,6 @@ const Menu = () => {
       <PrivateComponent>
         <BtnAction />
       </PrivateComponent>
-      <Hr />
     </Container>
   );
 };

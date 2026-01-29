@@ -12,7 +12,6 @@ export default function FeatureProvider({ children, id }) {
       setFeature(response.data.data);
     });
   }, []);
-
   return (
     <FeatureContext.Provider value={[feature, setFeature]}>
       {children}

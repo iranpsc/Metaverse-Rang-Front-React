@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { useState } from "react";
+import Lowest from "./Lowest";
+import PriceDefine from "./PriceDefine";
 import SidebarOptions from "../../../../../components/SidebarOptions";
-import SellerContent from "./SellerContent";
+import {  Routes, Route, Navigate } from "react-router-dom";
+
 const Wrapper = styled.div`
   display: flex;
   gap: 10px;
@@ -9,11 +12,14 @@ const Wrapper = styled.div`
 `;
 
 const SellerTab = ({ seller }) => {
-  const [option, setOption] = useState(true);
   return (
       <Wrapper>
-        <SidebarOptions seller={seller} option={option} setOption={setOption} />
-        <SellerContent option={option} />
+        <SidebarOptions seller={seller}/>
+         <Routes>
+                <Route index element={<Navigate to="lowest" replace />} />
+                <Route path="PriceDefine" element={<PriceDefine />} />
+                <Route path="lowest" element={<Lowest />} />
+              </Routes>
       </Wrapper>
   );
 };

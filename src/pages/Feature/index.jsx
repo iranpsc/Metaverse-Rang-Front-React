@@ -1,19 +1,15 @@
 import React from "react";
 import Modal from "../../components/Modal";
 import FeatureProvider from "./Context/FeatureProvider";
-import { useParams } from "react-router-dom";
-import ConditionalPage from "./ConditionalPage";
+import { useParams, Outlet } from "react-router-dom";
 
 export default function Feature() {
   const { id } = useParams();
 
   return (
     <FeatureProvider id={id}>
-      <Modal
-        type="modal-section-xl"
-        title={"345"}
-      >
-        <ConditionalPage />
+      <Modal type="modal-section-xl" title={"345"}>
+        <Outlet  />
       </Modal>
     </FeatureProvider>
   );

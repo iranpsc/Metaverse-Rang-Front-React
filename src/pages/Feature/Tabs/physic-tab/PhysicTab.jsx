@@ -22,12 +22,15 @@ const rows_inputs = {
       icon: <HiOutlineBuildingOffice />,
     },
   ],
-  second_row_info: {
-    id: 1,
-    title: "554",
-    value: "تهران، خیابان انقلاب، کوی گلها، ساختمان بهاران ",
-    icon: <GrLocation />,
-  },
+  second_row_info: [
+    {
+      id: 1,
+      title: "554",
+      value: "تهران، خیابان انقلاب، کوی گلها، ساختمان بهاران",
+      icon: <GrLocation />,
+    },
+  ],
+
   third_row_info: [
     {
       id: 1,
@@ -48,7 +51,6 @@ const rows_inputs = {
 const PhysicTab = ({ owner }) => {
   const [edit, setEdit] = useState(false);
   const [inputs, setInputs] = useState(rows_inputs);
-
   if (!edit)
     return <PhysicInfo inputs={inputs} setEdit={setEdit} edit={owner} />;
   if (edit)

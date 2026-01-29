@@ -6,8 +6,6 @@ export { default as FirstRow } from "./info-tab/FirstRow";
 export { default as SecondRow } from "./info-tab/SecondRow";
 export { default as ThirdRow } from "./info-tab/ThirdRow";
 // export { default as SidebarOptions } from "../SidebarOptions";
-export { default as SellerContent } from "./price-tab/seller-tab/SellerContent";
-export { default as BuyerContent } from "./price-tab/buyer-tab/BuyerContent";
 export { default as SellerPrice } from "./price-tab/buyer-tab/SellerPrice";
 export { default as SuggestPrice } from "./price-tab/buyer-tab/SuggestPrice";
 export { default as Lowest } from "./price-tab/seller-tab/Lowest";

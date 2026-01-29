@@ -1,9 +1,7 @@
 import SideBar from "./SideBar";
 import ToolsContent from "./ToolsContent";
 import styled from "styled-components";
-import { tools } from "../data";
-import { useState } from "react";
-
+import { Outlet } from "react-router-dom";
 const Wrapper = styled.div`
   display: flex;
   grid-template-columns: 200px 1fr;
@@ -13,12 +11,12 @@ const Wrapper = styled.div`
 `;
 
 const ToolTab = () => {
-  const [option, setOption] = useState(1);
-
+ 
+ 
   return (
     <Wrapper>
-      <SideBar tools={tools} option={option} setOption={setOption} />
-      <ToolsContent tools={tools} option={option} />
+      <SideBar/>
+       <Outlet   />
     </Wrapper>
   );
 };

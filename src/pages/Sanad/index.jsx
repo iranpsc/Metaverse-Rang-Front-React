@@ -1,36 +1,17 @@
 import React from "react";
 import Modal from "../../components/Modal";
-import useTabs from "../../services/Hooks/useTabs";
+import Tabs from "../../services/Hooks/useTabs/index";
 import { getFieldTranslationByNames } from "../../services/Utility";
-import WriteVodTab from "./Tabs/WriteVodTab";
-import VodListTab from "./Tabs/VodListTab";
-import NotesListTab from "./Tabs/notes/NotesListTab";
-import { GlobalVodStateProvider } from "./Tabs/GlobalVodStateProvider";
-import { GlobalNoteStateProvider } from "./Tabs/GlobalNoteStateProvider";
-
 export default function Sanad() {
   const tabs = [
-    {
-      title: getFieldTranslationByNames("1314"),
-      content: <WriteVodTab />,
-    },
-    {
-      title: getFieldTranslationByNames("1316"),
-      content: <VodListTab />,
-    },
-    {
-      title: getFieldTranslationByNames("1317"),
-      content: <NotesListTab />,
-    },
+    { path: "write", title: getFieldTranslationByNames("1314") },
+    { path: "list", title: getFieldTranslationByNames("1316") },
+    { path: "notes", title: getFieldTranslationByNames("1317") },
   ];
 
-  const TabPanel = useTabs(tabs);
-
   return (
-    <GlobalNoteStateProvider>
-      <GlobalVodStateProvider>
-        <Modal title={"1315"}>{TabPanel}</Modal>
-      </GlobalVodStateProvider>
-    </GlobalNoteStateProvider>
+        <Modal title={"1315"}>
+          <Tabs items={tabs} />
+        </Modal>
   );
 }

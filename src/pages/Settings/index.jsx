@@ -1,5 +1,5 @@
 import Modal from "../../components/Modal";
-import useTabs from "../../services/Hooks/useTabs";
+import Tabs from "../../services/Hooks/useTabs/index";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import AccountTab from "./Tabs/account-tab/AccountTab";
 
@@ -9,24 +9,27 @@ import About from "./Tabs/aboutme-tab/AboutMeTab";
 export default function Settings() {
   const tabs = [
     {
+      path: "public",
       title: getFieldTranslationByNames("639"),
-      content: <PublicTab />,
     },
     {
+      path: "account",
       title: getFieldTranslationByNames("640"),
-      content: <AccountTab />,
     },
     {
+      path: "security",
       title: getFieldTranslationByNames("641"),
-      content: <SecurityTab />,
     },
     {
+      path: "about",
       title: getFieldTranslationByNames("95"),
-      content: <About />,
     },
   ];
 
-  const TabPanel = useTabs(tabs);
 
-  return <Modal title={"642"}>{TabPanel}</Modal>;
+  return (
+    <Modal title={"642"}>
+      <Tabs items={tabs} />
+    </Modal>
+  );
 }

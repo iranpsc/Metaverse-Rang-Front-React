@@ -1,21 +1,25 @@
 import styled from "styled-components";
-import { useState } from "react";
 import SidebarOptions from "../../../../../components/SidebarOptions";
-import BuyerContent from "./BuyerContent";
+import { Routes, Route, Navigate } from "react-router-dom";
+import SellerPrice from "../buyer-tab/SellerPrice";
+import SuggestPrice from "../buyer-tab/SuggestPrice";
 
 const Wrapper = styled.div`
   display: flex;
   gap: 10px;
-  padding-top: 20px;
   overflow: hidden;
 `;
 
 const BuyerTab = () => {
-  const [option, setOption] = useState(true);
   return (
     <Wrapper>
-      <SidebarOptions option={option} setOption={setOption} />
-      <BuyerContent option={option} />
+      <SidebarOptions />
+
+      <Routes>
+        <Route index element={<Navigate to="price" replace />} />
+        <Route path="price" element={<SellerPrice />} />
+        <Route path="suggest" element={<SuggestPrice />} />
+      </Routes>
     </Wrapper>
   );
 };

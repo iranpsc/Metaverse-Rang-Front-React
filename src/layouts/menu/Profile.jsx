@@ -115,11 +115,9 @@ const ContainerMain = styled.div`
   gap: 4px;
   width: 100%;
   overflow-y: auto;
-  max-height: 78%;
   border-top: 2px solid
     ${({ theme }) => theme.colors.newColors.otherColors.iconBg};
-  border-bottom: 2px solid
-    ${({ theme }) => theme.colors.newColors.otherColors.iconBg};
+  
   background-color: ${(props) => props.theme.colors.newColors.shades.bgOne};
 `;
 
@@ -185,7 +183,7 @@ const Profile = () => {
               <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
               <Text isOpen={!isOpen}>{user?.code}</Text>
             </Btn>
-            <BtnNavigator onClick={() => navigate("/metaverse/sanad")}>
+            <BtnNavigator onClick={() => navigate("/metaverse/documents")}>
               <Icon src={Ticket} />
               {getFieldTranslationByNames("241")}
             </BtnNavigator>

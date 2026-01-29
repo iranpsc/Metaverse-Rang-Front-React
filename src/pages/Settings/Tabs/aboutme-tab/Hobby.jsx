@@ -139,7 +139,7 @@ const Hobby = () => {
   const hobbies = [
     { id: 1, key: "music", translationId: "785", icon: music },
     { id: 2, key: "sport_health", translationId: "786", icon: weight },
-    { id: 3, key: "art", translationId: "96", icon: brush },
+    { id: 3, key: "art", translationId: "1590", icon: brush },
     {
       id: 4,
       key: "language_culture",
