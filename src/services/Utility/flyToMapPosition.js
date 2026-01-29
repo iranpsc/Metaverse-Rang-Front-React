@@ -10,7 +10,8 @@ export const flyToMapPosition = ({
 
   const map = mapRef.default.getMap();
 
-  // Remove old marker
+  map.setMaxZoom(22);
+
   if (map.getSource("location-icon")) {
     map.removeLayer("location-icon-layer");
     map.removeSource("location-icon");
@@ -48,7 +49,7 @@ export const flyToMapPosition = ({
             "icon-offset": [0, -15],
           },
         });
-      }
+      },
     );
   }
 
@@ -64,8 +65,7 @@ export const flyToMapPosition = ({
 
   if (!rotate) return;
 
-  // Rotate after reaching position
-  setTimeout(() => {
+  map.once("moveend", () => {
     let rotation = 0;
 
     const rotateCamera = () => {
@@ -77,5 +77,5 @@ export const flyToMapPosition = ({
     };
 
     rotateCamera();
-  }, 3000);
+  });
 };
