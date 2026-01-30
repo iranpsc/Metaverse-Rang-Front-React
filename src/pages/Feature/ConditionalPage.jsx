@@ -159,7 +159,7 @@ export default function ConditionalPage() {
     else tabs = BuyUserTabs;
   }
   useEffect(() => {
-    if (!areTabsReady) return; // 👈 کل جادو اینجاست
+    if (!areTabsReady) return; 
 
     if (!tabs.find((t) => t.path === tab)) {
       navigate("", { replace: true });
