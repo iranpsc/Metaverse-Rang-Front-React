@@ -22,7 +22,11 @@ export default function ConditionalPage() {
   const isFeatureReady = !!feature && !!feature?.properties && userId !== null;
 
   const status = feature?.construction_status?.[0]?.status;
-
+  const areTabsReady =
+    feature !== undefined &&
+    feature !== null &&
+    status !== undefined &&
+    userId !== null;
   const commonTab = {
     path: "info",
     title: getFieldTranslationByNames("516"),
@@ -155,12 +159,12 @@ export default function ConditionalPage() {
     else tabs = BuyUserTabs;
   }
   useEffect(() => {
-    if (!isFeatureReady) return;
+    if (!areTabsReady) return; // 👈 کل جادو اینجاست
 
     if (!tabs.find((t) => t.path === tab)) {
       navigate("", { replace: true });
     }
-  }, [tab, tabs, navigate, isFeatureReady]);
+  }, [tab, tabs, navigate, areTabsReady]);
 
   if (!isFeatureReady) {
     return null;
