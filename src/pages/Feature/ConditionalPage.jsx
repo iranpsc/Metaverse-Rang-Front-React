@@ -5,7 +5,6 @@ import Tabs from "../../services/Hooks/useTabs";
 import { FeatureContext } from "./Context/FeatureProvider";
 import { FeatureColor } from "../../services/constants/FeatureType";
 import { getFieldTranslationByNames } from "../../services/Utility";
-
 // Tabs
 import { BuyerTab, InfoTab, SellerTab } from "./Tabs";
 import PropertyConstruction from "./Tabs/PropertyConstruction";
@@ -20,9 +19,14 @@ export default function ConditionalPage() {
   const { getUser } = useAuth();
   const [userId, setUserId] = useState(null);
   const [feature] = useContext(FeatureContext);
+  const isFeatureReady = !!feature && !!feature?.properties && userId !== null;
 
   const status = feature?.construction_status?.[0]?.status;
-
+  const areTabsReady =
+    feature !== undefined &&
+    feature !== null &&
+    status !== undefined &&
+    userId !== null;
   const commonTab = {
     path: "info",
     title: getFieldTranslationByNames("516"),
@@ -154,13 +158,17 @@ export default function ConditionalPage() {
     else if (feature?.owner_id === userId) tabs = SellTabs;
     else tabs = BuyUserTabs;
   }
-
   useEffect(() => {
-    if (!tabs.find((t) => t.path === tab)) {
-      navigate(``, { replace: true });
-    }
-  }, [tab, tabs, navigate]);
+    if (!areTabsReady) return; 
 
+    if (!tabs.find((t) => t.path === tab)) {
+      navigate("", { replace: true });
+    }
+  }, [tab, tabs, navigate, areTabsReady]);
+
+  if (!isFeatureReady) {
+    return null;
+  }
   return (
     <>
       <Tabs items={tabs} />
