@@ -56,7 +56,9 @@ const titleTranslations = {
   tools: "109",
   currency: "110",
   notifications: "238",
-
+following:"55",
+followers:"38",
+members:"112",
   send: "1386",
   list: "22",
   info: "516",
