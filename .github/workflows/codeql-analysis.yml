@@ -25,10 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # 4️⃣ Fix npm vulnerabilities (safe upgrades, no --force)
-      - name: Upgrade safe dependencies
-        run: npm audit fix || true
-
+    
       # 5️⃣ Initialize CodeQL (default setup)
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
