@@ -1,50 +1,44 @@
 name: CodeQL
 
-# اجرا روی push و pull request برای main و fix/package
 on:
   push:
-    branches:
-      - main
-      - fix/package
+    branches: [main, fix/package]
   pull_request:
-    branches:
-      - main
-      - fix/package
+    branches: [main, fix/package]
 
 jobs:
   analyze:
-    name: Analyze
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repository
+      # 1️⃣ Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Setup Node.js
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: '20'
 
-      # Install dependencies
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Build project
-      - name: Build project
-        run: npm run build
+      # 4️⃣ Fix npm vulnerabilities automatically
+      - name: Fix vulnerabilities
+        run: npm audit fix
 
-      # Initialize CodeQL
+      # 5️⃣ Initialize CodeQL
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: javascript
 
-      # Autobuild (CodeQL scan needs this)
+      # 6️⃣ Autobuild for CodeQL
       - name: CodeQL Autobuild
         uses: github/codeql-action/autobuild@v2
 
-      # Perform CodeQL analysis
+      # 7️⃣ Perform CodeQL analysis
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
