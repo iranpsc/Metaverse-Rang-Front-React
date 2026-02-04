@@ -11,30 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # 3️⃣ Install dependencies (no audit fix here)
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm audit fix || true   
 
-      # 4️⃣ Initialize CodeQL (default setup)
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: javascript
 
-      # 5️⃣ Run CodeQL autobuild (uses the installed dependencies)
-      - name: CodeQL Autobuild
-        uses: github/codeql-action/autobuild@v3
-
-      # 6️⃣ Perform CodeQL Analysis
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
