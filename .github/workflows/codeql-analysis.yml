@@ -1,0 +1,50 @@
+name: CodeQL
+
+# اجرا روی push و pull request برای main و fix/package
+on:
+  push:
+    branches:
+      - main
+      - fix/package
+  pull_request:
+    branches:
+      - main
+      - fix/package
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Build project
+      - name: Build project
+        run: npm run build
+
+      # Initialize CodeQL
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript
+
+      # Autobuild (CodeQL scan needs this)
+      - name: CodeQL Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      # Perform CodeQL analysis
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
