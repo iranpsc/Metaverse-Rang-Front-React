@@ -27,14 +27,14 @@ jobs:
 
       # 4️⃣ Initialize CodeQL (default setup)
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: javascript
 
       # 5️⃣ Run CodeQL autobuild (uses the installed dependencies)
       - name: CodeQL Autobuild
-        uses: github/codeql-action/autobuild@v2
+        uses: github/codeql-action/autobuild@v3
 
       # 6️⃣ Perform CodeQL Analysis
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
