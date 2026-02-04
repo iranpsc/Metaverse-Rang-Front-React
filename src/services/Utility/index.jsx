@@ -2,10 +2,12 @@ import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
 import i18n from "../../i18n/i18n";
 import { useLanguage } from "../reducers/LanguageContext";
-
-export function SanitizeHTML(content) {
-  return content?.replace(/<[^>]*>?/gm, "");
-}
+import DOMPurify from "dompurify";
+export const SanitizeHTML = (text) =>
+  DOMPurify.sanitize(text, {
+    ALLOWED_TAGS: [],
+    ALLOWED_ATTR: [],
+  });
 
 export function TextShorter(content, endStr = 20) {
   if (content?.length > endStr) {
@@ -18,18 +20,16 @@ export function TextShorter(content, endStr = 20) {
 export function ConvertJalali(date) {
   return new Date(date).toLocaleString("fa-IR").replace("،", " ");
 }
-
 export function TimeAgo(time) {
-  // Convert the Persian date to a JavaScript Date object using moment-jalaali
-  const birthDate = moment(time, "jYYYY/jMM/jDD").toDate();
+  if (typeof time !== "string") return 0;
 
-  // Calculate the difference between the birth date and the current date in milliseconds
+  const birthDate = moment(time, "jYYYY/jMM/jDD", true).toDate();
+  if (isNaN(birthDate.getTime())) return 0;
+
   const ageInMs = Date.now() - birthDate.getTime();
-
-  const ageInYears = Math.floor(ageInMs / (1000 * 60 * 60 * 24 * 365));
-
-  return ageInYears;
+  return Math.floor(ageInMs / (1000 * 60 * 60 * 24 * 365));
 }
+
 
 export function EmailValidator(email) {
   return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(

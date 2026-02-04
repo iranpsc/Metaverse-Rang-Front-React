@@ -1,7 +1,8 @@
 import { HiOutlineTrash } from "react-icons/hi";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
+import DOMPurify from "dompurify";
 
 const Container = styled.div`
   display: flex;
@@ -105,7 +106,20 @@ const UploadWrapper = styled.div`
 const UploadCards = ({ setImageError, setNationImageURL }) => {
   const [nationImage, setNationImage] = useState(null);
   const [imageError, setImageErrorState] = useState(false); // State for image upload error
+  const [previewUrl, setPreviewUrl] = useState(null);
+  useEffect(() => {
+    if (!nationImage) {
+      setPreviewUrl(null);
+      return;
+    }
 
+    const url = URL.createObjectURL(nationImage);
+    setPreviewUrl(url);
+
+    return () => {
+      URL.revokeObjectURL(url);
+    };
+  }, [nationImage]);
   const handleNationImageChange = (e) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
@@ -126,9 +140,7 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
   return (
     <Container>
       <NationCard>
-        <Title>
-          {getFieldTranslationByNames("878")}
-        </Title>
+        <Title>{getFieldTranslationByNames("878")}</Title>
         <UploadWrapper hasError={imageError}>
           {!nationImage && (
             <Upload>
@@ -145,7 +157,7 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
               <IconWrapper onClick={handleDeleteClick}>
                 <HiOutlineTrash />
               </IconWrapper>
-              <img src={URL.createObjectURL(nationImage)} alt="nation card" />
+              <img src={previewUrl} alt="nation card" />
             </Image>
           )}
         </UploadWrapper>
