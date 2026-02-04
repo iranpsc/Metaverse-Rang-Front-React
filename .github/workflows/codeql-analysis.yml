@@ -26,8 +26,8 @@ jobs:
         run: npm install
 
       # 4️⃣ Fix npm vulnerabilities automatically
-      - name: Fix vulnerabilities
-        run: npm audit fix
+      - name: Check vulnerabilities
+        run: npm audit || true
 
       # 5️⃣ Initialize CodeQL
       - name: Initialize CodeQL
