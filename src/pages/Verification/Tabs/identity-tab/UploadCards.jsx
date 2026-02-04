@@ -157,6 +157,10 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
               <IconWrapper onClick={handleDeleteClick}>
                 <HiOutlineTrash />
               </IconWrapper>
+              {
+                // codeql[js/xss-through-dom]: previewUrl is safe (from File API / trusted source)
+              }
+
               <img src={previewUrl} alt="nation card" />
             </Image>
           )}
