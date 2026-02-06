@@ -5,12 +5,11 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import styleMapJson from "../../../public/styleMap.json"
 import Map from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
 import { Container } from "./styles";
-import MapPolygons from "./MapPolygons";1
+import MapPolygons from "./MapPolygons";
 import MapFlag from "./MapFlag";
 import Mark from "./3dModelMap/Mark";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
@@ -87,7 +86,7 @@ const MapTreeD = () => {
       const center = turf.center(feature.geometry);
       const currentZoom = map.getZoom();
 
-      const MIN_ZOOM = 18;
+      const MIN_ZOOM = 18; 
 
       map.easeTo({
         center: center.geometry.coordinates,
@@ -96,7 +95,7 @@ const MapTreeD = () => {
         easing: (t) => t,
       });
     },
-    [navigate],
+    [navigate]
   );
 
   useEffect(() => {
@@ -104,6 +103,7 @@ const MapTreeD = () => {
       screen.orientation.lock("landscape-primary").catch(() => {});
     }
   }, [isFullScreen]);
+
   return (
     <AuthMiddleware>
       <TransactionContext.Provider
@@ -114,15 +114,7 @@ const MapTreeD = () => {
             ref={mapRef}
             className="map"
             antialias
-            mapStyle={{
-              ...styleMapJson, // import شده styleMap.json
-              sources: {
-                carto: {
-                  type: "vector",
-                  url: `${import.meta.env.BASE_URL}/tile.json`,
-                },
-              },
-            }}
+            mapStyle="/metaverse/styleMap.json"
             RTLTextPlugin="https://map.irpsc.com/rtl.js"
             interactiveLayerIds={["polygon-fill-layer"]}
             maxPitch={78}
