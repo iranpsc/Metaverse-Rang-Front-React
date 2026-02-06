@@ -86,7 +86,7 @@ const MapTreeD = () => {
       const center = turf.center(feature.geometry);
       const currentZoom = map.getZoom();
 
-      const MIN_ZOOM = 18; 
+      const MIN_ZOOM = 18;
 
       map.easeTo({
         center: center.geometry.coordinates,
@@ -95,7 +95,7 @@ const MapTreeD = () => {
         easing: (t) => t,
       });
     },
-    [navigate]
+    [navigate],
   );
 
   useEffect(() => {
@@ -114,7 +114,7 @@ const MapTreeD = () => {
             ref={mapRef}
             className="map"
             antialias
-            mapStyle="./styleMap.json"
+            mapStyle="/styleMap.json"
             RTLTextPlugin="https://map.irpsc.com/rtl.js"
             interactiveLayerIds={["polygon-fill-layer"]}
             maxPitch={78}
