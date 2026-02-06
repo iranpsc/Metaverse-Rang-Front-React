@@ -103,7 +103,7 @@ const MapTreeD = () => {
       screen.orientation.lock("landscape-primary").catch(() => {});
     }
   }, [isFullScreen]);
-
+console.log("hi")
   return (
     <AuthMiddleware>
       <TransactionContext.Provider
