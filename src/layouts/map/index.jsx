@@ -103,7 +103,7 @@ const MapTreeD = () => {
       screen.orientation.lock("landscape-primary").catch(() => {});
     }
   }, [isFullScreen]);
-console.log("hi")
+
   return (
     <AuthMiddleware>
       <TransactionContext.Provider
@@ -114,7 +114,7 @@ console.log("hi")
             ref={mapRef}
             className="map"
             antialias
-            mapStyle="/metaverse/styleMap.json"
+            mapStyle="./styleMap.json"
             RTLTextPlugin="https://map.irpsc.com/rtl.js"
             interactiveLayerIds={["polygon-fill-layer"]}
             maxPitch={78}
