@@ -19,7 +19,6 @@ export default function ConditionalPage() {
   const { getUser } = useAuth();
   const [userId, setUserId] = useState(null);
   const [feature] = useContext(FeatureContext);
-  const isFeatureReady = !!feature && !!feature?.properties && userId !== null;
 
   const status = feature?.construction_status?.[0]?.status;
   const areTabsReady =
@@ -166,9 +165,6 @@ export default function ConditionalPage() {
     }
   }, [tab, tabs, navigate, areTabsReady]);
 
-  if (!isFeatureReady) {
-    return null;
-  }
   return (
     <>
       <Tabs items={tabs} />

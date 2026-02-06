@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 import {
   AddUserAction,
   DeleteUserAction,
@@ -18,16 +18,14 @@ export default function useAuth() {
 
   const LocalStorage = getItem("user");
   const isLoggedIn = () => {
-    if (LocalStorage?.expire > Date.now() && userState?.id) {
-      return true;
-    } else {
-      if (userState.id) {
-        removeItem("user");
-        setUserState(DeleteUserAction());
-      }
-      return false;
-    }
-  };
+  if (LocalStorage?.expire > Date.now()) {
+    return true;
+  } else {
+    removeItem("user");
+    setUserState(DeleteUserAction());
+    return false;
+  }
+};
 
   const setUser = async (response) => {
     const user = response;
