@@ -63,9 +63,11 @@ const IconWrapper = styled.div`
   }
 `;
 const HeaderWrapper = styled.div`
+white-space: nowrap;
   display: flex;
   align-items: center;
   width: 100%;
+  min-width: 320px;
   justify-content: space-between;
   @media (min-width: 998px) {
     margin-bottom: 30px;
@@ -81,7 +83,7 @@ const Text = styled.h2`
   color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
   font-weight: 600;
   font-size: ${(props) => (props.long ? "14px" : "16px")};
-  @media (min-width: 998px) {
+  @media (min-width: 1280px) {
     font-size: 20px;
   }
 `;
@@ -95,7 +97,7 @@ const Icons = styled.div`
     color: #3b3b3b;
     width: 30px;
     height: 30px;
-    @media (min-width: 998px) {
+    @media (min-width: 1280px) {
       width: 40px;
       height: 40px;
     }
@@ -108,7 +110,7 @@ const FullWrapper = styled.div`
   border-radius: 100%;
   background-color: #3b3b3b;
   cursor: pointer;
-  @media (min-width: 998px) {
+  @media (min-width: 1280px) {
     width: 40px;
     height: 40px;
   }

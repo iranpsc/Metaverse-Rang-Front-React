@@ -161,25 +161,29 @@ const menuItems = [
 const BtnsMenu = () => {
   const { isOpen } = useMenuContext();
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current route
-  const [selectedItem, setSelectedItem] = useState(null); // State for selected item
+  const location = useLocation();
+  const [selectedItem, setSelectedItem] = useState(null); 
   const lang = useTranslation();
   const [user] = useContext(UserContext); 
   useEffect(() => {
-    // Check the current route and set the corresponding menu item as selected
     const currentItem = menuItems.find(
       (item) => `/metaverse/${item.navigate}` === location.pathname
     );
     if (currentItem) {
       setSelectedItem(currentItem.translationId);
     } else {
-      setSelectedItem(null); // No item selected if the route doesn't match
+      setSelectedItem(null); 
     }
   }, [location.pathname]);
 
-  const handleClick = (item) => {
-    setSelectedItem(item.translationId); // Set selected item on click
-    navigate(`/metaverse/${item.navigate}`);
+ const handleClick = (item) => {
+    if (!item.navigate) return;
+
+    const targetPath = `/metaverse/${item.navigate}`;
+
+
+    setSelectedItem(item.translationId); 
+    navigate(targetPath);
   };
 
   return (

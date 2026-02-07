@@ -73,7 +73,6 @@ const Lowest = () => {
   const [feature, setFeature] = useContext(FeatureContext);
   const Navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
-
   const [assign, setAssign] = useState(
     feature?.properties?.price_irr ? true : false
   );
@@ -144,7 +143,8 @@ const Lowest = () => {
           setAssign={setAssign}
         />
       )}
-    </Wrapper></Container>
+    </Wrapper>
+    </Container>
   );
 };
 

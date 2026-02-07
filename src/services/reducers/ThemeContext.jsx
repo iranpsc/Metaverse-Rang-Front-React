@@ -11,17 +11,22 @@ export function useTheme() {
   }
   return context;
 }
-
 export function ThemeProviderContext({ children }) {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("app_theme") || "light";
+  });
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      localStorage.setItem("app_theme", newTheme);
+      return newTheme;
+    });
   };
 
-  // مهم‌ترین بخش
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("app_theme", theme);
   }, [theme]);
 
   const themeMode = theme === "dark" ? darkTheme : lightTheme;
