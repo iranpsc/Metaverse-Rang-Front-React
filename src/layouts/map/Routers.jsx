@@ -66,10 +66,11 @@ import ReportsListTab from "../../pages/Report/reports/ReportsListTab/ReportsLis
 import { ReportStateProvider } from "../../pages/Report/reports/GlobalReportStateProvider";
 import { GlobalVodStateProvider } from "../../pages/Sanad/Tabs/GlobalVodStateProvider";
 import { GlobalNoteStateProvider } from "../../pages/Sanad/Tabs/GlobalNoteStateProvider";
+import MainLayout from "../MainLayout";
 export default function Routers() {
   return (
     <Routes>
-      <Route path="/metaverse" element={<Outlet />}>
+      <Route path="/metaverse" element={<MainLayout />}>
         <Route
           path="documents"
           element={

@@ -19,20 +19,14 @@ export const Header = styled.div`
 `;
 export const Container = styled(animated.div)`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-  width: 490px;
+  min-width: 490px;
   top: 0;
   bottom: 0;
   padding: 15px 20px;
   z-index: 10;
-  ${(props) => (props.isPersian ? "left: 184px;" : "right: 184px;")}
-  position: fixed;
+  position: relative;
   height: 100%;
-  @media screen and (max-width: 1024px) {
-    ${(props) => (props.isPersian ? "left: 167px;" : "right: 167px;")}
-  }
-  @media screen and (max-width: 834px) {
-    ${(props) => (props.isPersian ? "left: 19%;" : "right: 19%;")}
-  }
+  
 `;
 
 export const ContainerIcon = styled.div`

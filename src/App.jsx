@@ -26,23 +26,8 @@ import RotateDevice from "./components/RotateDevice";
 import Error410Modal from "./components/Error410Modal";
 import { useAppHeight } from "./hooks/useAppHeight.js";
 import { ScrollDirectionProvider } from "./services/reducers/ScrollDirectionContext.jsx";
-
-const Container = styled.section`
-  display: flex;
-  overflow-y: hidden;
-  width: 100%;
-  height: var(--app-height);
-  flex-direction: row;
-  gap: 5px;
-  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-  padding: 5px;
-  @media (min-width: 768px) {
-    gap: 10px;
-    padding: 10px;
-  }
-
-  transition: all 0.3s ease 0s;
-`;
+import { Outlet, Route, Routes, Navigate } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout.jsx";
 
 function App() {
   useAppHeight();
@@ -77,13 +62,7 @@ function App() {
                           <BrowserRouter>
                             <RotateDevice />
                             <Routers />
-                            <Container>
-                              <MenuContextProvider>
-                                <Menu />
-                              </MenuContextProvider>
-                              <MapTreeD />
-                              <StatusBar />
-                            </Container>
+
                             <Error410Modal />
                             <Toaster
                               containerStyle={{

@@ -32,24 +32,26 @@ const ModalContainer = styled.div`
     max-width: 70%;
     max-height: 820px;
   }
-`;const Container = styled.div`
+`;
+const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.713);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
 
- position: fixed;
-    height: 100%;
- 
+  background-color: rgba(0, 0, 0, 0.713);
+  z-index: 9999;
 `;
 
 const Modal = ({ children, title }) => {
-const isPersian=useLanguage();
- 
+  const isPersian = useLanguage();
+
   return (
-    <Container  >
+    <Container>
       <ModalContainer isPersian={isPersian}>
         <Header title={title} />
         {children}
