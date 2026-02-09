@@ -21,7 +21,6 @@ const NationCard = styled.div`
   }
 `;
 
-
 const Image = styled.div`
   position: relative;
 `;
@@ -94,7 +93,7 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
   const [nationImage, setNationImage] = useState(null);
   const [imageError, setImageErrorState] = useState(false); // State for image upload error
   const [previewUrl, setPreviewUrl] = useState(null);
- useEffect(() => {
+  useEffect(() => {
     if (!nationImage) {
       setPreviewUrl(null);
       return;
@@ -110,7 +109,7 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
 
   const handleNationImageChange = (e) => {
     const file = e.target.files && e.target.files[0];
-    
+
     if (file && file.type.startsWith("image/")) {
       setNationImage(file);
       setNationImageURL(file);
@@ -123,9 +122,9 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
   const handleDeleteClick = () => {
     setNationImage(null);
     setNationImageURL(null);
-    setImageErrorState(true); 
+    setImageErrorState(true);
   };
-
+  const safePreviewUrl = previewUrl?.startsWith("blob:") ? previewUrl : "";
   return (
     <Container>
       <NationCard>
@@ -146,11 +145,13 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
               <IconWrapper onClick={handleDeleteClick}>
                 <HiOutlineTrash />
               </IconWrapper>
-              {
-                // codeql[js/xss-through-dom]: previewUrl is safe (from File API / trusted source)
-              }
+              {/* codeql[js/xss-through-dom] : This is a false positive. 
+      The 'previewUrl' is generated via URL.createObjectURL(file) 
+      from a local file object with an 'image/*' mime-type check, 
+      making it safe from XSS.
+    */}
 
-              <img src={previewUrl || ""} alt="nation card" />
+              <img src={safePreviewUrl || ""} alt="nation card" />
             </Image>
           )}
         </UploadWrapper>
