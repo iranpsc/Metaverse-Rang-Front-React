@@ -2,7 +2,6 @@ import { HiOutlineTrash } from "react-icons/hi";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-import DOMPurify from "dompurify";
 
 const Container = styled.div`
   display: flex;
@@ -22,18 +21,6 @@ const NationCard = styled.div`
   }
 `;
 
-const BankCard = styled.div`
-  width: 240px;
-  @media (min-width: 1500px) {
-    width: 185px;
-  }
-  @media (min-width: 1920px) {
-    width: 240px;
-  }
-  input {
-    opacity: 0;
-  }
-`;
 
 const Image = styled.div`
   position: relative;
@@ -107,7 +94,7 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
   const [nationImage, setNationImage] = useState(null);
   const [imageError, setImageErrorState] = useState(false); // State for image upload error
   const [previewUrl, setPreviewUrl] = useState(null);
-  useEffect(() => {
+ useEffect(() => {
     if (!nationImage) {
       setPreviewUrl(null);
       return;
@@ -120,21 +107,23 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
       URL.revokeObjectURL(url);
     };
   }, [nationImage]);
+
   const handleNationImageChange = (e) => {
     const file = e.target.files && e.target.files[0];
-    if (file) {
+    
+    if (file && file.type.startsWith("image/")) {
       setNationImage(file);
       setNationImageURL(file);
-      setImageErrorState(false); // Clear the error when a file is selected
+      setImageErrorState(false);
     } else {
-      setImageErrorState(true); // Set the error if no file is selected
+      setImageErrorState(true);
+      if (file) alert("Please upload a valid image file.");
     }
   };
-
   const handleDeleteClick = () => {
     setNationImage(null);
     setNationImageURL(null);
-    setImageErrorState(true); // Set the error when the image is deleted
+    setImageErrorState(true); 
   };
 
   return (
@@ -161,7 +150,7 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
                 // codeql[js/xss-through-dom]: previewUrl is safe (from File API / trusted source)
               }
 
-              <img src={previewUrl} alt="nation card" />
+              <img src={previewUrl || ""} alt="nation card" />
             </Image>
           )}
         </UploadWrapper>
