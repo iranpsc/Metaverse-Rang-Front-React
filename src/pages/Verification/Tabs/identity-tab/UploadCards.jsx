@@ -2,7 +2,6 @@ import { HiOutlineTrash } from "react-icons/hi";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-import DOMPurify from "dompurify";
 
 const Container = styled.div`
   display: flex;
@@ -22,18 +21,6 @@ const NationCard = styled.div`
   }
 `;
 
-const BankCard = styled.div`
-  width: 240px;
-  @media (min-width: 1500px) {
-    width: 185px;
-  }
-  @media (min-width: 1920px) {
-    width: 240px;
-  }
-  input {
-    opacity: 0;
-  }
-`;
 
 const Image = styled.div`
   position: relative;
