@@ -113,11 +113,9 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
       return;
     }
 
-    // ایجاد URL برای پیش‌نمایش
     const url = URL.createObjectURL(nationImage);
     setPreviewUrl(url);
 
-    // تمیزکاری حافظه
     return () => {
       URL.revokeObjectURL(url);
     };
