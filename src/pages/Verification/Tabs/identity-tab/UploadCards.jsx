@@ -107,34 +107,38 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
   const [nationImage, setNationImage] = useState(null);
   const [imageError, setImageErrorState] = useState(false); // State for image upload error
   const [previewUrl, setPreviewUrl] = useState(null);
-  useEffect(() => {
+ useEffect(() => {
     if (!nationImage) {
       setPreviewUrl(null);
       return;
     }
 
+    // ایجاد URL برای پیش‌نمایش
     const url = URL.createObjectURL(nationImage);
     setPreviewUrl(url);
 
+    // تمیزکاری حافظه
     return () => {
       URL.revokeObjectURL(url);
     };
   }, [nationImage]);
+
   const handleNationImageChange = (e) => {
     const file = e.target.files && e.target.files[0];
-    if (file) {
+    
+    if (file && file.type.startsWith("image/")) {
       setNationImage(file);
       setNationImageURL(file);
-      setImageErrorState(false); // Clear the error when a file is selected
+      setImageErrorState(false);
     } else {
-      setImageErrorState(true); // Set the error if no file is selected
+      setImageErrorState(true);
+      if (file) alert("Please upload a valid image file.");
     }
   };
-
   const handleDeleteClick = () => {
     setNationImage(null);
     setNationImageURL(null);
-    setImageErrorState(true); // Set the error when the image is deleted
+    setImageErrorState(true); 
   };
 
   return (
@@ -161,7 +165,7 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
                 // codeql[js/xss-through-dom]: previewUrl is safe (from File API / trusted source)
               }
 
-              <img src={previewUrl} alt="nation card" />
+              <img src={previewUrl || ""} alt="nation card" />
             </Image>
           )}
         </UploadWrapper>
