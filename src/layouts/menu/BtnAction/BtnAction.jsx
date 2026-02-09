@@ -135,7 +135,7 @@ const BtnAction = () => {
       </Div>
       <TextContainer isOpen={isOpen}>
         <IconArrow isOpenDrop={isClicked} />
-        <Text isOpen={isOpen}>{user?.code}</Text>
+        <Text isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
       </TextContainer>
     </Btn>
   );

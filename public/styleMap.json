@@ -5,7 +5,7 @@
   "sources": {
     "carto": {
       "type": "vector",
-      "url": "./tile.json"
+      "url": "/metaverse/tile.json"
     }
   },
   "sprite": "",

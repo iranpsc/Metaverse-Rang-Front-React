@@ -16,7 +16,7 @@ const Container = styled.div`
   align-items: start;
   flex: 1;
   justify-content: start;
-  width: ${(props) => (props.isOpen ? "54%" : "9%")};
+  width: ${(props) => (props.isOpen ? "35%" : "9%")};
   height: 100%;
   border-radius: 10px;
 

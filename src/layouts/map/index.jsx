@@ -114,7 +114,7 @@ const MapTreeD = () => {
             ref={mapRef}
             className="map"
             antialias
-            mapStyle="./styleMap.json"
+            mapStyle="/metaverse/styleMap.json"
             RTLTextPlugin="https://map.irpsc.com/rtl.js"
             interactiveLayerIds={["polygon-fill-layer"]}
             maxPitch={78}

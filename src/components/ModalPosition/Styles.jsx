@@ -22,17 +22,14 @@ export const Container = styled(animated.div)`
   width: 490px;
   top: 0;
   bottom: 0;
-  padding: 15px 20px;
+  padding: 15px 0;
   z-index: 10;
-  ${(props) => (props.isPersian ? "left: 184px;" : "right: 184px;")}
-  position: fixed;
+  position: relative;
   height: 100%;
-  @media screen and (max-width: 1024px) {
-    ${(props) => (props.isPersian ? "left: 167px;" : "right: 167px;")}
+ @media screen and (min-width: 1280px) {
+    min-width: 490px;
   }
-  @media screen and (max-width: 834px) {
-    ${(props) => (props.isPersian ? "left: 19%;" : "right: 19%;")}
-  }
+  
 `;
 
 export const ContainerIcon = styled.div`

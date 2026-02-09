@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Button from "../../../../components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-
+import { SanitizeHTML } from "../../../../services/Utility";
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.bgContainer};
@@ -23,7 +23,7 @@ const VodReply = ({ setData, responseId }) => {
   const handleSendReply = () => {
     const formData = new FormData();
 
-    const cleanMessage = message.replace(/<[^>]+>/g, "").trim();
+    const cleanMessage = SanitizeHTML(message);
     if (!cleanMessage) return;
 
     formData.append("response", cleanMessage);

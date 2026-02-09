@@ -6,6 +6,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { LuImagePlus } from "react-icons/lu";
 import { HiOutlineTrash } from "react-icons/hi";
 import { Swiper, SwiperSlide } from "swiper/react";
+import DOMPurify from "dompurify";
 
 import { TiWarningOutline } from "react-icons/ti";
 import styled from "styled-components";
@@ -127,7 +128,7 @@ export default function Slider() {
       >
         {profileImage.map((image) => (
           <SwiperSlide key={image.id}>
-            <img src={image.url} alt="image" />
+            <img src={DOMPurify.sanitize(image.url)} alt="image" />
           </SwiperSlide>
         ))}
 
