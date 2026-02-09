@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import AccountSecurityIcon from "../../assets/svg/accountSecurity.svg";
@@ -18,10 +18,9 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "../../services/reducers/UserContext";
-const Container=styled.div`
-height: 100vh;
-`
-;
+const Container = styled.div`
+  height: 100vh;
+`;
 const Btn = styled.button`
   display: flex;
   width: 100%;
@@ -162,27 +161,29 @@ const BtnsMenu = () => {
   const { isOpen } = useMenuContext();
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedItem, setSelectedItem] = useState(null); 
+  const [selectedItem, setSelectedItem] = useState(null);
   const lang = useTranslation();
-  const [user] = useContext(UserContext); 
+  const [user] = useContext(UserContext);
   useEffect(() => {
     const currentItem = menuItems.find(
-      (item) => `/metaverse/${item.navigate}` === location.pathname
+      (item) => `/metaverse/${item.navigate}` === location.pathname,
     );
     if (currentItem) {
       setSelectedItem(currentItem.translationId);
     } else {
-      setSelectedItem(null); 
+      setSelectedItem(null);
     }
   }, [location.pathname]);
-
- const handleClick = (item) => {
+  const handleClick = (item) => {
     if (!item.navigate) return;
 
     const targetPath = `/metaverse/${item.navigate}`;
 
+    if (location.pathname.startsWith(targetPath)) {
+      return;
+    }
 
-    setSelectedItem(item.translationId); 
+    setSelectedItem(item.translationId);
     navigate(targetPath);
   };
 
@@ -232,7 +233,7 @@ const BtnsMenu = () => {
           </Btn>
         </Tippy>
       ))}
-      </Container>
+    </Container>
   );
 };
 
