@@ -7,8 +7,12 @@ import Compressor from "compressorjs";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { ToastError, ToastSuccess } from "../../../../services/Utility";
-
+import {
+  ToastError,
+  ToastSuccess,
+  getFieldTranslationByNames,
+} from "../../../../services/Utility";
+import { getItem } from "../../../../services/Utility/LocalStorage/index";
 const AlbumWrapper = styled.div`
   display: grid;
 
@@ -92,6 +96,7 @@ const IconWrapper = styled.div`
 `;
 
 const Album = ({ feature, setFeature }) => {
+  const accountSecurity = getItem("account_security")?.account_security;
   const [user] = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [activeImage, setActiveImage] = useState(feature?.images?.[0] || null);
@@ -115,7 +120,7 @@ const Album = ({ feature, setFeature }) => {
             `my-features/${user?.id}/add-image/${feature?.id}`,
             HTTP_METHOD.POST,
             { "images[]": [formData.get("file")] },
-            { "Content-Type": "multipart/form-data" }
+            { "Content-Type": "multipart/form-data" },
           )
             .then((response) => {
               setFeature({ ...feature, images: [...response.data.data] });
@@ -133,11 +138,15 @@ const Album = ({ feature, setFeature }) => {
 
   const deleteHandler = (imageId) => {
     const url = `my-features/${user.id}/remove-image/${feature.id}/image/${imageId}`;
-
+    if (!accountSecurity) {
+      ToastError(getFieldTranslationByNames("1603"));
+      Navigate("/metaverse/confirmation");
+      return;
+    }
     Request(url, HTTP_METHOD.POST)
       .then((response) => {
         const filteredImages = feature?.images?.filter(
-          (item) => item.id !== imageId
+          (item) => item.id !== imageId,
         );
         setFeature({ ...feature, images: filteredImages });
         setActiveImage(filteredImages.length > 0 ? filteredImages[0] : null);
@@ -166,7 +175,11 @@ const Album = ({ feature, setFeature }) => {
                 </IconWrapper>
               )}
 
-              <IconWrapper onClick={()=>{console.log("pending")}}>
+              <IconWrapper
+                onClick={() => {
+                  console.log("pending");
+                }}
+              >
                 <IoWarningOutline />
               </IconWrapper>
             </Actions>
