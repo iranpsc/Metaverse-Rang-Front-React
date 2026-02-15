@@ -1,9 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import styled from "styled-components";
 import useAuth from "../../services/Hooks/useAuth";
 import { useMenuContext } from "../../services/reducers/MenuContext";
-import Fallowing from "./Following/Fallowing";
-import Dynasty from "./Dynasty/Dynasty";
 import Union from "./Union/Union";
 import BtnsMenu from "./BtnsMenu";
 import { FaChevronDown } from "react-icons/fa";
@@ -167,7 +165,7 @@ const Profile = () => {
       >
         <ImgUser src={user?.image || Anonymous} />
         <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
-        <Text isOpen={isOpen}>{user?.code}</Text>
+        <Text isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
         <ChevronIcon isOpenDrop={isOpenMenu} />
       </Btn>
 

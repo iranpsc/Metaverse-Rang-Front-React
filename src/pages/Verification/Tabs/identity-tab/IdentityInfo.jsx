@@ -49,9 +49,7 @@ const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
             type={showPending ? "pending" : "success"}
           />
         )}
-        <Title
-          title={getFieldTranslationByNames("869")}
-        />
+        <Title title={getFieldTranslationByNames("869")} />
         <InfoInputs data={data} inputValues={inputValues} />
         <CardPhotos nationalCardImg={nationalCardImg} />
       </Wrapper>

@@ -20,6 +20,10 @@ const Div = styled.div`
   gap: 23px;
 `;
 
+const ButtonBox = styled.div`
+  display: flex;
+  gap: 23px;
+`;
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,7 +40,7 @@ const ResultWrapper = styled.div`
   gap: 20px;
   width: 100%;
   @media (min-width: 741px) {
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2fr 1fr;
   }
   @media (min-width: 840px) {
     grid-template-columns: 5fr 2fr;
@@ -66,6 +70,7 @@ const Title = styled.h3`
   height: fit-content;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   padding: 5px 20px;
   @media (min-width: 998px) {
     padding: 8px 20px;
@@ -73,6 +78,8 @@ const Title = styled.h3`
 `;
 
 const Value = styled.p`
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+
   font-size: 18px;
   padding: 5px 20px;
   @media (min-width: 998px) {
@@ -80,7 +87,14 @@ const Value = styled.p`
   }
 `;
 
-const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
+const FillInputs = ({
+  setAssign,
+  validateAndSubmit,
+  rial,
+  setRial,
+  psc,
+  setPsc,
+}) => {
   const [user] = useContext(UserContext);
   const [feature] = useContext(FeatureContext);
   const [errors, setErrors] = useState({ rial: "", psc: "" });
@@ -115,7 +129,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
     }
 
     if (isValid) {
-      setAssign(true);
+      validateAndSubmit(true);
     } else {
       ToastError("لطفاً خطاها را اصلاح کنید");
     }
@@ -130,7 +144,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           onChange={(e) => setRial(e.target.value)}
           type="number"
           placeholder={`${getFieldTranslationByNames(
-            "521"
+            "521",
           )} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
           errorMessage={errors.rial}
@@ -141,7 +155,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           onChange={(e) => setPsc(e.target.value)}
           type="number"
           placeholder={`${getFieldTranslationByNames(
-            "521"
+            "521",
           )} (${getFieldTranslationByNames("47")})`}
           insideText={<Psc />}
           errorMessage={errors.psc}
@@ -156,10 +170,19 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
         </Wrapper>
         <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
       </ResultWrapper>
-      <Button
-        label={getFieldTranslationByNames("519")}
-        onclick={priceHandler}
-      />
+      <ButtonBox>
+        {" "}
+        <Button
+          label={getFieldTranslationByNames("519")}
+          onclick={priceHandler}
+        />
+        <Button
+          color="red"
+          edit
+          label={getFieldTranslationByNames("833")}
+          onclick={() => setAssign(true)}
+        />
+      </ButtonBox>
     </Div>
   );
 };

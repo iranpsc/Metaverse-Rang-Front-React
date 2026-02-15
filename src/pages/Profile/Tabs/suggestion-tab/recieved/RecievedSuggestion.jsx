@@ -4,20 +4,20 @@ import meter from "../../../../../assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
 import { Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
 import { getFieldTranslationByNames } from "../../../../../services/Utility/index";
 import Container from "../../../../../components/Common/Container";
 
 const RecievedSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
-  const { Request } = useRequest();
+  const { Request, checkSecurity } = useRequest();
   const location = useLocation();
-    const [isExploding, setIsExploding] = useState(false);
+  const [isExploding, setIsExploding] = useState(false);
   const [isExplodingAccept, setIsExplodingAccept] = useState(false);
 
   const containerRef = useRef(null);
-const navigate=useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
@@ -41,7 +41,7 @@ const navigate=useNavigate()
               ? Math.ceil(
                   (moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate() -
                     new Date()) /
-                    (1000 * 60 * 60 * 24)
+                    (1000 * 60 * 60 * 24),
                 )
               : null;
 
@@ -103,9 +103,11 @@ const navigate=useNavigate()
 
   const handleRejectProposal = async (suggestionId) => {
     try {
+            if (!checkSecurity()) return;
+
       const response = await Request(
         `buy-requests/reject/${suggestionId}`,
-        "POST"
+        "POST",
       );
 
       if ([200, 204].includes(response.status)) {
@@ -118,14 +120,15 @@ const navigate=useNavigate()
         navigate("/metaverse/confirmation");
       }
     }
-    setIsExploding(!isExploding)
+    setIsExploding(!isExploding);
   };
 
   const handleAcceptProposal = async (suggestionId, proposerId) => {
     try {
+      if (!checkSecurity()) return;
       const response = await Request(
         `buy-requests/accept/${proposerId}`,
-        "POST"
+        "POST",
       );
 
       if ([200, 204].includes(response.status)) {
@@ -136,12 +139,12 @@ const navigate=useNavigate()
                 ? {
                     ...s,
                     suggestions_list: s.suggestions_list.filter(
-                      (item) => item.id !== proposerId
+                      (item) => item.id !== proposerId,
                     ),
                   }
-                : s
+                : s,
             )
-            .filter((s) => s.suggestions_list.length > 0)
+            .filter((s) => s.suggestions_list.length > 0),
         );
       } else {
         console.error("Error accepting suggestion:", response);
@@ -151,11 +154,11 @@ const navigate=useNavigate()
         navigate("/metaverse/confirmation");
       }
     }
-    setIsExplodingAccept(!isExplodingAccept)
+    setIsExplodingAccept(!isExplodingAccept);
   };
 
   const validSuggestions = suggestions.filter(
-    (s) => s.suggestions_list.length > 0
+    (s) => s.suggestions_list.length > 0,
   );
   return (
     <Container ref={containerRef}>
@@ -164,8 +167,8 @@ const navigate=useNavigate()
         {validSuggestions.map((s) => (
           <div key={s.id} id={`suggestion-${s.id}`}>
             <Suggestion
-            isExplodingAccept={isExplodingAccept}
-            isExploding={isExploding}
+              isExplodingAccept={isExplodingAccept}
+              isExploding={isExploding}
               {...s}
               onRejectProposal={handleRejectProposal}
               onAcceptProposal={(pId) => handleAcceptProposal(s.id, pId)}

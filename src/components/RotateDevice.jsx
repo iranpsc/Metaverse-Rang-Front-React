@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { getFieldTranslationByNames } from "../services/Utility";
 const RotateContainer = styled.div`
   display: none;
   position: fixed;
@@ -41,7 +41,7 @@ const RotateIcon = styled.div`
 
 const RotateText = styled.p`
   font-size: 18px;
-  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   text-align: center;
 `;
 

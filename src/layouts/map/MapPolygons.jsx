@@ -127,7 +127,7 @@ const MapPolygons = () => {
       });
     }
   }, [bounds.getSouthWest().lng, zoom]);
-
+console.log("feat","features")
   return (
     <>
       {zoom >= 14 && (

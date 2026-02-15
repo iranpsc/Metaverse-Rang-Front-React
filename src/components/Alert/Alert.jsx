@@ -21,14 +21,14 @@ const Container = styled.div`
         ? "#18C08F"
         : props.type === "error"
         ? "#C30000"
-        : "#FFA500"}; // رنگ برای وضعیت در دست بررسی
+        : "#FFA500"}; 
   svg {
     color: ${(props) =>
       props.type === "success"
         ? "#18C08F"
         : props.type === "error"
         ? "#C30000"
-        : "#FFA500"}; // رنگ آیکن برای وضعیت در دست بررسی
+        : "#FFA500"}; 
     font-size: ${(props) => (props.type === "success" ? "25px" : "40px")};
   }
 `;
@@ -41,7 +41,7 @@ const Right = styled.div`
 const Texts = styled.div``;
 const Left = styled.div`
   padding: 10px 22px 10px 22px;
-  background-color: #e9e9e9;
+  background-color: #E9E9E9;
   border-radius: 10px;
   font-weight: 600;
   color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -49,7 +49,7 @@ const Left = styled.div`
 `;
 const Text = styled.p`
   color: ${(props) =>
-    props.color ? "#C30000" : props.theme.colors.newColors.shades.title};
+    props.color ? "#C30000" : props.theme.colors.newColors.otherColors.iconText};
   font-weight: ${(props) => (props.color ? "700" : "")};
 `;
 

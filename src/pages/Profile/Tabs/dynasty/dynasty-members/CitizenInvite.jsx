@@ -44,7 +44,8 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
         const response = await Request("dynasty/search", HTTP_METHOD.POST, {
           searchTerm,
         });
-        setCitizens(response.data ? response.data.date : []);
+        console.log("response", response.data.data);
+        setCitizens(response.data.data);
       } catch (error) {
         ToastError("خطا در جستجوی کاربر");
         setCitizens([]);
@@ -52,19 +53,19 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
         setIsSearching(false); // پایان جستجو
       }
     },
-    [Request]
+    [Request],
   );
 
   const handleCitizenClick = useCallback((citizen) => {
     if (!citizen.verified) {
       ToastError(
-        "شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید"
+        "شهروند مورد نظر احراز مرحله دو را انجام نداده است و در نتیجه شما قادر به ارسال درخواست برای این شهروند نمی باشد .شهروند دیگری را جستجو کنید",
       );
       setSelectedCitizen(null);
       return;
     }
     setSelectedCitizen((prevSelected) =>
-      prevSelected?.id === citizen.id ? null : citizen
+      prevSelected?.id === citizen.id ? null : citizen,
     );
   }, []);
 
@@ -99,12 +100,11 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
           />
         </Header>
         <Citizens>
-          {citizens.map((citizen) => (
+          {citizens?.map((citizen) => (
             <CitizenCard
               key={citizen.id}
               onClick={() => handleCitizenClick(citizen)}
               isSelected={selectedCitizen?.id === citizen.id}
-         
               {...citizen}
             />
           ))}
@@ -113,7 +113,7 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
           <IconWrapper>
             <RiLoader4Line size={40} className="spin" />
           </IconWrapper>
-        ) : searched && citizens.length === 0 ? (
+        ) : searched && citizens?.length === 0 ? (
           <IconWrapper>
             <RiUserUnfollowLine size={40} />
           </IconWrapper>

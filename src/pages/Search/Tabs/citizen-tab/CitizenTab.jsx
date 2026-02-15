@@ -1,7 +1,7 @@
 import ResultCard from "./ResultCard";
 
 import styled from "styled-components";
-import { useState, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import SearchInput from "../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
@@ -30,23 +30,44 @@ const P = styled.p`
   font-size: 18px;
 `;
 const CitizenTab = () => {
+  const debounceRef = useRef(null);
+
   const [searched, setSearched] = useState("");
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { Request, HTTP_METHOD } = useRequest();
-
-  const searchHandler = useCallback(() => {
-    if (searched.trim() === "") return;
+  const searchHandler = () => {
+    if (!searched.trim()) return;
     setIsLoading(true);
-    searchAPI(Request, HTTP_METHOD, searched).then((response) => {
-      setData(response.data.data);
-      setIsLoading(false);
-    });
-  }, [searched, Request, HTTP_METHOD]);
+    searchAPI(Request, HTTP_METHOD, searched)
+      .then((response) => setData(response.data.data))
+      .finally(() => setIsLoading(false));
+  };
+  useEffect(() => {
+    if (!searched.trim()) {
+      setData([]);
+      return;
+    }
 
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      setIsLoading(true);
+      searchAPI(Request, HTTP_METHOD, searched)
+        .then((response) => {
+          setData(response.data.data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }, 500);
+
+    return () => clearTimeout(debounceRef.current);
+  }, [searched]);
   const handleInputChange = (e) => {
     setSearched(e.target.value);
-    searchHandler(); // Trigger search on every keystroke
   };
 
   return (
@@ -60,9 +81,7 @@ const CitizenTab = () => {
       {isLoading ? (
         <P>درحال دریافت اطلاعات</P>
       ) : data.length === 0 ? (
-        <P>
-          {getFieldTranslationByNames("37")}
-        </P>
+        <P>{getFieldTranslationByNames("37")}</P>
       ) : (
         <Wrapper>
           {data.map((item, i) => (

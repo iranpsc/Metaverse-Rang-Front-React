@@ -74,7 +74,6 @@ const Button = ({
   grayTheme,
   style,
 }) => {
-  // ترکیب onclick و onClick
   const handleClick = onClick || onclick;
 
   return (

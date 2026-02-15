@@ -129,7 +129,7 @@ const Proposer = ({
   const [day, setDay] = useState(property.gracePeriod || 0);
   const [isExpanded, setIsExpanded] = useState(false);
   const isPersian = useLanguage();
-  const { Request } = useRequest();
+  const { Request,checkSecurity } = useRequest();
   const navigate = useNavigate();
   const accountSecurity = getItem("account_security")?.account_security;
   const handleToggle = () => {
@@ -138,6 +138,8 @@ const Proposer = ({
   const handleGracePeriod = async (selectedDay) => {
     if (!id) return console.error("Error: id is undefined!");
     try {
+            if (!checkSecurity()) return;
+
       await Request(
         `buy-requests/add-grace-period/${id}`,
         "POST",

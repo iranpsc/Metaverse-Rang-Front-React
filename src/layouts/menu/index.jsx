@@ -9,6 +9,16 @@ import PublicComponent from "../../middleware/PublicComponent";
 import BtnsAfterLogin from "./BtnsAfterLogin";
 import BtnLogin from "./BtnAction/BtnLogin";
 import BtnAction from "./BtnAction/BtnAction";
+import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
+const BlurOverlay = styled.div`
+  @media (max-width: 802px) {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 999;
+  }
+`;
 
 const Container = styled.div`
   display: flex;
@@ -20,6 +30,14 @@ const Container = styled.div`
   height: 100%;
   border-radius: 10px;
 
+  @media (max-width: 802px) {
+    position: ${({ isModalOpen }) => (isModalOpen ? "absolute" : "relative")};
+    z-index: 1000;
+    height: ${({ isModalOpen, isOpen }) =>
+      isModalOpen && isOpen ? "100%" : "97.5%"};
+    top: ${({ isModalOpen, isOpen }) => (isModalOpen && isOpen ? "0" : "")};
+    right: ${({ isModalOpen, isOpen }) => (isModalOpen && isOpen ? "0" : "")};
+  }
   @media (min-width: 1024px) {
     width: ${(props) => (props.isOpen ? "32%" : "6.1%")};
     padding: 20px;
@@ -34,29 +52,33 @@ const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};
   padding: ${(props) => (props.isOpen ? "5px" : "10px")};
-      padding-bottom: 10px;
+  padding-bottom: 10px;
 
   transition: all 0.3s ease 0s;
 `;
 const Menu = () => {
   const { isOpen } = useMenuContext();
+  const { isModalOpen } = useScrollDirectionContext();
   return (
-    <Container isOpen={isOpen}>
-      <Header />
-      <PrivateComponent>
-        <Profile />
-      </PrivateComponent>
+    <>
+      {isModalOpen && isOpen && <BlurOverlay />}
+      <Container isOpen={isOpen} isModalOpen={isModalOpen}>
+        <Header />
+        <PrivateComponent>
+          <Profile />
+        </PrivateComponent>
 
-      <PublicComponent>
-        <BtnsAfterLogin />
-      </PublicComponent>
-      <PublicComponent>
-        <BtnLogin />
-      </PublicComponent>
-      <PrivateComponent>
-        <BtnAction />
-      </PrivateComponent>
-    </Container>
+        <PublicComponent>
+          <BtnsAfterLogin />
+        </PublicComponent>
+        <PublicComponent>
+          <BtnLogin />
+        </PublicComponent>
+        <PrivateComponent>
+          <BtnAction />
+        </PrivateComponent>
+      </Container>
+    </>
   );
 };
 

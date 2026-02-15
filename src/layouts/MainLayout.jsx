@@ -3,8 +3,7 @@ import Menu from "./menu";
 import StatusBar from "./statusBar";
 import { MenuContextProvider } from "../services/reducers/MenuContext";
 import styled from "styled-components";
-import { Outlet, Route, Routes, Navigate } from "react-router-dom";
-import HourMeterProfit from "../pages/HourMeterProfit";
+import { Outlet } from "react-router-dom";
 const Container = styled.section`
   display: flex;
   overflow-y: hidden;
@@ -29,7 +28,7 @@ const MainLayout = () => {
       </MenuContextProvider>
 
       <MapTreeD />
-        <Outlet />
+      <Outlet />
       <StatusBar />
     </Container>
   );

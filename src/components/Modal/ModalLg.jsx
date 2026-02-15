@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Title from "../Title";
 import { getFieldTranslationByNames } from "../../services/Utility";
-import { ExitIcon } from "../Icons/IconsHeader";
+import { ExitIcon, ReportIcon } from "../Icons/IconsHeader";
+import { useNavigate } from "react-router-dom";
 const ModalBackdrop = styled.div`
   position: fixed;
   top: 0;
@@ -57,15 +58,33 @@ const ModalHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  div {
+    display: flex;
+    gap: 10px;
+  }
 `;
 
-const ModalLg = ({ children, titleId, setShowModal }) => {
+const ModalLg = ({ children, titleId, setShowModal, report }) => {
+  const Navigate = useNavigate();
   return (
     <ModalBackdrop>
       <ModalContainer>
         <ModalHeader>
           <Title title={getFieldTranslationByNames(titleId)} />
-          <ExitIcon onClick={() => setShowModal(false)}>X</ExitIcon>
+          <div>
+            {report && (
+              <ReportIcon
+                onClick={() =>
+                  Navigate("/metaverse/report/send", {
+                    state: {
+                      from: location.pathname,
+                    },
+                  })
+                }
+              />
+            )}{" "}
+            <ExitIcon onClick={() => setShowModal(false)}>X</ExitIcon>
+          </div>
         </ModalHeader>
         {children}
       </ModalContainer>

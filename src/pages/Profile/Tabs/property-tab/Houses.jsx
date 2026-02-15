@@ -30,19 +30,19 @@ const Provider = styled.div`
     props.industry
       ? "#FF0000"
       : props.education
-      ? "#0066FF"
-      : props.house
-      ? "#FFC700"
-      : props.theme.colors.newColors.shades.title};
+        ? "#0066FF"
+        : props.house
+          ? "#FFC700"
+          : props.theme.colors.newColors.shades.title};
 
   background-color: ${(props) =>
     props.industry
       ? "#ff000021"
       : props.education
-      ? "#0066ff21"
-      : props.house
-      ? "#ffc70021"
-      : "transparent"};
+        ? "#0066ff21"
+        : props.house
+          ? "#ffc70021"
+          : "transparent"};
 
   &:hover {
     background-color: ${(p) => p.hover || p.theme.colors.shades[80]};
@@ -130,60 +130,77 @@ const Houses = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const { id } = useParams();
- const loadMoreFeatures = useCallback(async () => {
-  if (loading || !hasMore) return;
 
-  setLoading(true);
+  const loadMoreFeatures = useCallback(async () => {
+    if (loading || !hasMore) return;
 
-  try {
-    const endpoint = id
-      ? `players/hm-2000002/assets`
-      : `my-features?page=${page}`;
+    setLoading(true);
 
-    const response = await Request(endpoint);
+    try {
+      const endpoint = id
+        ? `players/hm-2000002/assets`
+        : `my-features?page=${page}`;
 
-    const newData = response.data.data || [];
+      const response = await Request(endpoint);
 
-    if (newData.length === 0) {
-      setHasMore(false);
-      setLoading(false);
-      return;
-    }
+      const newData = response.data.data || [];
 
-    // enhanced features
-    const enhancedFeatures = newData.map((feature) => {
-      let newProperties = { ...feature.properties };
-      if (feature.properties.karbari === "m") {
-        newProperties = { ...newProperties, name: "477", photo: house, color: "#ffc80021", slug: "house" };
-      } else if (feature.properties.karbari === "t") {
-        newProperties = { ...newProperties, name: "475", photo: business, color: "#ff000021", slug: "industry" };
-      } else if (feature.properties.karbari === "a") {
-        newProperties = { ...newProperties, name: "476", photo: education, color: "#0066ff21", slug: "education" };
+      if (newData.length === 0) {
+        setHasMore(false);
+        setLoading(false);
+        return;
       }
-      return { ...feature, properties: newProperties };
-    });
 
-    setFeatures((prevFeatures) => {
-      const uniqueFeatures = enhancedFeatures.filter(
-        (f) => !prevFeatures.some((prev) => prev.id === f.id)
-      );
-      return [...prevFeatures, ...uniqueFeatures];
-    });
+      // enhanced features
+      const enhancedFeatures = newData.map((feature) => {
+        let newProperties = { ...feature.properties };
+        if (feature.properties.karbari === "m") {
+          newProperties = {
+            ...newProperties,
+            name: "477",
+            photo: house,
+            color: "#ffc80021",
+            slug: "house",
+          };
+        } else if (feature.properties.karbari === "t") {
+          newProperties = {
+            ...newProperties,
+            name: "475",
+            photo: business,
+            color: "#ff000021",
+            slug: "industry",
+          };
+        } else if (feature.properties.karbari === "a") {
+          newProperties = {
+            ...newProperties,
+            name: "476",
+            photo: education,
+            color: "#0066ff21",
+            slug: "education",
+          };
+        }
+        return { ...feature, properties: newProperties };
+      });
 
-    setPage((prev) => prev + 1);
+      setFeatures((prevFeatures) => {
+        const uniqueFeatures = enhancedFeatures.filter(
+          (f) => !prevFeatures.some((prev) => prev.id === f.id),
+        );
+        return [...prevFeatures, ...uniqueFeatures];
+      });
 
-    setHasMore(!!response.data.links?.next);
+      setPage((prev) => prev + 1);
 
-  } catch (err) {
-    console.error(err);
-  } finally {
-    setLoading(false);
-  }
-}, [page, loading, hasMore, id]);
-
+      setHasMore(!!response.data.links?.next);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [page, loading, hasMore, id]);
 
   useEffect(() => {
-    loadMoreFeatures(); 
+    loadMoreFeatures();
   }, []);
   useEffect(() => {
     const container = containerRef.current;
@@ -220,7 +237,7 @@ const Houses = () => {
 
     return (codeMatch || addressMatch || meterMatch) && propertyMatch;
   });
-  
+
   return (
     <Container id="scrollable-container" ref={containerRef}>
       <div>
@@ -238,8 +255,8 @@ const Houses = () => {
               {property.industry
                 ? getFieldTranslationByNames("475")
                 : property.education
-                ? getFieldTranslationByNames("476")
-                : getFieldTranslationByNames("477")}
+                  ? getFieldTranslationByNames("476")
+                  : getFieldTranslationByNames("477")}
             </span>
             <MdKeyboardArrowDown
               style={{
@@ -317,9 +334,19 @@ const Houses = () => {
         </Wrapper>
       </Div>
       <List>
-        {filteredItems.map((card) => (
-          <CardItem {...card.properties} key={card.id} navigateId={card.id} />
-        ))}
+        {filteredItems.map((card) => {
+          const isDeleted =
+            +card.properties.price_irr === 0 &&
+            +card.properties.price_psc === 0;
+          return (
+            <CardItem
+              {...card.properties}
+              key={card.id}
+              navigateId={card.id}
+              isDeleted={isDeleted}
+            />
+          );
+        })}
       </List>
       {loading && <div>Loading...</div>}
     </Container>

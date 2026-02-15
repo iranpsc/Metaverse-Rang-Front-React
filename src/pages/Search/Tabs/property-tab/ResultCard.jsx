@@ -15,12 +15,12 @@ const Container = styled.div`
     background-image: linear-gradient(to right, #dadada00, #b3b3b3, #dadada00);
   }
 `;
-const ResultCard = ({item}) => {
+const ResultCard = ({item,system}) => {
   return (
     <Container>
       <Bio item={item} />
       <hr />
-      <Buttons item={item} />
+      <Buttons item={item} system={system} />
     </Container>
   );
 };
