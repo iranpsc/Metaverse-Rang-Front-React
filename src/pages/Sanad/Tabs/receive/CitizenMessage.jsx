@@ -2,13 +2,13 @@ import avatar from "../../../../assets/images/defulte-profile.png";
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
 import { SanitizeHTML } from "../../../../services/Utility";
+import nonPhoto from "../../../../assets/images/file.png";
 
-const Content = styled.div`
-`;
+const Content = styled.div``;
 
 const Header = styled.div`
   display: flex;
-   flex-direction: column;
+  flex-direction: column;
   align-items: start;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -117,7 +117,7 @@ const handleDownload = (url, filename) => {
 
 const CitizenMessage = ({ data }) => {
   const citizenResponses = data?.responses?.filter(
-    (response) => response.responser_name === data?.sender?.name
+    (response) => response.responser_name === data?.sender?.name,
   );
 
   const renderMessage = (content, date, time, attachment) => (
@@ -132,11 +132,47 @@ const CitizenMessage = ({ data }) => {
         <Files>
           <div>
             <Image>
-              <img src={attachment} alt="file" />
+              {(() => {
+                // Helper to check if file is image
+                const isImage = (url) => {
+                  if (!url) return false;
+                  const ext = url
+                    .split(".")
+                    .pop()
+                    .toLowerCase()
+                    .split("?")[0]
+                    .split("#")[0];
+                  return [
+                    "jpg",
+                    "jpeg",
+                    "png",
+                    "gif",
+                    "bmp",
+                    "webp",
+                    "svg",
+                  ].includes(ext);
+                };
+                return (
+                  <img
+                    src={isImage(attachment) ? attachment : nonPhoto}
+                    alt="file"
+                  />
+                );
+              })()}
               <Download
                 src={download}
                 alt="download"
-                onClick={() => handleDownload(attachment, "photo.png")}
+                onClick={() => {
+                  // Try to get filename from url or fallback
+                  let filename = "file";
+                  try {
+                    const urlParts = attachment.split("/");
+                    filename = urlParts[urlParts.length - 1]
+                      .split("?")[0]
+                      .split("#")[0];
+                  } catch {}
+                  handleDownload(attachment, filename);
+                }}
               />
             </Image>
           </div>
@@ -149,14 +185,13 @@ const CitizenMessage = ({ data }) => {
   return (
     <>
       <Container>
-          <Avatar
+        <Avatar
           src={data?.sender["profile-photo"] || avatar}
           alt="avatar"
           width={50}
           height={50}
         />
         <Content>
-         
           <Header>
             <span>{data?.sender?.name}</span>
             <a
@@ -170,10 +205,9 @@ const CitizenMessage = ({ data }) => {
             data?.content,
             data?.date,
             data?.time,
-            data?.attachment
+            data?.attachment,
           )}
         </Content>
-       
       </Container>
       {citizenResponses?.map((response) => (
         <Container key={response.id}>
@@ -191,7 +225,7 @@ const CitizenMessage = ({ data }) => {
               response.response,
               response.date,
               response.time,
-              response.attachment
+              response.attachment,
             )}
           </Content>
           <Avatar

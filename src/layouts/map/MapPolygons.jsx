@@ -89,7 +89,7 @@ const MapPolygons = () => {
         });
 
         setFeatures(data);
-      }
+      },
     );
   }, [features]);
 
@@ -105,7 +105,7 @@ const MapPolygons = () => {
           bounds.getNorthWest().lat
         }&points[]=${bounds.getNorthEast().lng},${
           bounds.getNorthEast().lat
-        }${loadBuildings}`
+        }${loadBuildings}`,
       ).then((response) => {
         const newFeatures =
           response?.data?.data?.map((feature) => ({
@@ -118,7 +118,7 @@ const MapPolygons = () => {
           })) || [];
 
         const newBuildingModels = response?.data?.data?.flatMap(
-          (feature) => feature.building_models || []
+          (feature) => feature.building_models || [],
         );
 
         setFeatures((prevFeatures) => [...prevFeatures, ...newFeatures]);
@@ -127,7 +127,7 @@ const MapPolygons = () => {
       });
     }
   }, [bounds.getSouthWest().lng, zoom]);
-console.log("feat","features")
+  //console.log("feat", features);
   return (
     <>
       {zoom >= 14 && (
@@ -178,9 +178,11 @@ console.log("feat","features")
         </Source>
       )}
       {zoom >= 14 && buildings.length > 0 && (
-        <Canvas latitude={36} longitude={50}
+        <Canvas
+          latitude={36}
+          longitude={50}
           key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
->
+        >
           {buildings.map((model, index) => {
             const endDate = new Date(model.building.construction_end_date);
             const now = new Date();
@@ -191,7 +193,6 @@ console.log("feat","features")
                 key={model.feature_id}
                 latitude={parseFloat(model.building.position.split(",")[0])}
                 longitude={parseFloat(model.building.position.split(",")[1])}
-              
               >
                 <FBXModel
                   opacity={opacity}

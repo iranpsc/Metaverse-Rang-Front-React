@@ -10,6 +10,7 @@ import BtnsAfterLogin from "./BtnsAfterLogin";
 import BtnLogin from "./BtnAction/BtnLogin";
 import BtnAction from "./BtnAction/BtnAction";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
+import useLanguage from "../../services/Hooks/useLanguage";
 const BlurOverlay = styled.div`
   @media (max-width: 802px) {
     position: fixed;
@@ -26,17 +27,23 @@ const Container = styled.div`
   align-items: start;
   flex: 1;
   justify-content: start;
-  width: ${(props) => (props.isOpen ? "35%" : "9%")};
+  width: ${(props) => (props.isOpen ? "38%" : "9%")};
   height: 100%;
   border-radius: 10px;
 
   @media (max-width: 802px) {
     position: ${({ isModalOpen }) => (isModalOpen ? "absolute" : "relative")};
     z-index: 1000;
-    height: ${({ isModalOpen, isOpen }) =>
-      isModalOpen && isOpen ? "100%" : "97.5%"};
-    top: ${({ isModalOpen, isOpen }) => (isModalOpen && isOpen ? "0" : "")};
-    right: ${({ isModalOpen, isOpen }) => (isModalOpen && isOpen ? "0" : "")};
+    height: ${({ isModalOpen, isOpen }) => {
+    if (isModalOpen && isOpen) return "100%";
+    if (!isModalOpen) return "100%";
+    return "97.5%";
+  }};
+  left: ${({ isPersian }) => (!isPersian && "0")};
+    right: ${({ isPersian }) => (!isPersian && "0")};
+
+    top: ${({ isModalOpen, isOpen }) => isModalOpen && isOpen && "0"};
+    border-radius: ${({ isModalOpen, isOpen }) => isModalOpen && isOpen && "0"};
   }
   @media (min-width: 1024px) {
     width: ${(props) => (props.isOpen ? "32%" : "6.1%")};
@@ -59,10 +66,12 @@ const Container = styled.div`
 const Menu = () => {
   const { isOpen } = useMenuContext();
   const { isModalOpen } = useScrollDirectionContext();
+  const { isPersian } = useLanguage()
+
   return (
     <>
       {isModalOpen && isOpen && <BlurOverlay />}
-      <Container isOpen={isOpen} isModalOpen={isModalOpen}>
+      <Container isOpen={isOpen} isModalOpen={isModalOpen} isPersian={isPersian}>
         <Header />
         <PrivateComponent>
           <Profile />

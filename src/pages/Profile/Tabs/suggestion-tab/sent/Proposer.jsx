@@ -1,19 +1,16 @@
-import Button from "../../../../../components/Button";
+import { useEffect, useState } from "react";
 import ConfettiExplosion from "react-confetti-explosion";
-import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-  ToastError,
+  SanitizeHTML,
 } from "../../../../../services/Utility/index";
-import line from "../../../../../assets/images/profile/Line.png";
-import person from "../../../../../assets/images/profile/slide.png";
-import pscpng from "../../../../../assets/images/profile/psc.gif";
-import rialpng from "../../../../../assets/images/profile/rial.gif";
+import line from "../../../../../Assets/images/profile/Line.png";
+import pscpng from "../../../../../Assets/images/profile/psc.gif";
+import rialpng from "../../../../../Assets/images/profile/rial.gif";
 import styled from "styled-components";
-import { useState } from "react";
-
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
+
 import {
   Info,
   proposerContainer,
@@ -22,296 +19,174 @@ import {
   RejectButton,
   Text,
 } from "../suggestionStyles";
-import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useNavigate, useLocation } from "react-router-dom";
-
-const Price = BasePrice;
-const ProposalStatus = styled.div``;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
+const Price = styled(BasePrice)`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconBg};
 `;
-const Person = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  img {
-    border-radius: 100%;
-  }
+
+const ProposalStatus = styled.div`
   p {
-    color: #a0a0ab;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-  a {
-    text-decoration: none;
-    color: #0066ff;
-  }
-`;
-const Time = styled.div`
-  p {
-    color: #a0a0ab;
-    font-size: 14px;
-    font-weight: 600;
-  }
-  h3 {
     color: ${(props) => props.theme.colors.newColors.shades[30]};
-    font-size: 18px;
+    font-size: 13px;
     font-weight: 500;
-    margin-top: 4px;
+    margin-bottom: 10px;
   }
 `;
-const Container = proposerContainer;
 
-const Days = styled.div`
+const TimeSection = styled.div`
   display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 6px;
+`;
+
+const TimeBox = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.iconBg};
+  padding: 10px 20px;
+  border-radius: 6px;
+  max-width: 70px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid
-    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
-  button {
-    background-color: ${(props) =>
-      props.theme.colors.newColors.otherColors.iconBg};
-    white-space: nowrap;
-    font-size: 16px;
-    padding: 8px;
+  color: ${(props) => props.theme.colors.newColors.shades[30]};
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+
+  span {
+    font-size: 13px;
     font-weight: 600;
+    margin-top: 4px;
+    color: #a0a0ab;
   }
 `;
 
 const Buttons = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-top: 16px;
-  @media (min-width: 1366px) {
-    grid-template-columns: 1fr;
-  }
 `;
 
-const Div = styled.div`
-  padding-bottom: 16px;
-  border-bottom: 1px solid #a0a0ab;
-`;
-const Remained = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 9px 22px;
-  border-radius: 10px;
-  border: 1px solid #a0a0ab;
-  color: #949494;
-  font-size: 16px;
-  font-weight: 400;
-`;
-const StyledArrowUp = styled(MdOutlineKeyboardArrowUp)`
-  color: ${({ percent }) => (percent > 0 ? "#18C08F" : "#FF0000")};
-  rotate: ${({ percent }) => (percent > 0 ? "" : "180deg")};
-`;
+const Container = proposerContainer;
+
 const Proposer = ({
-  code,
-  date,
   rial,
   psc,
-  information,
-  percent,
   onReject,
-  onAccept,
-  property,
-  id,
+  information,
+  initialHours = 0,
+  initialMinutes = 0,
+  initialSeconds = 0,
 }) => {
-
-  const [day, setDay] = useState(property?.gracePeriod || 0);
+  const [time, setTime] = useState({
+    hours: initialHours,
+    minutes: initialMinutes,
+    seconds: initialSeconds,
+  });
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExploding, setIsExploding] = useState(false);
-  const [isExplodingAccept, setIsExplodingAccept] = useState(false);
   const isPersian = useLanguage();
-  const { Request } = useRequest();
-  const navigate = useNavigate();
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded);
-  };
-  const handleGracePeriod = async (selectedDay) => {
-    if (!id) return console.error("Error: id is undefined!");
 
-    try {
-      await Request(
-        `buy-requests/add-grace-period/${id}`,
-        "POST",
-        new FormData().append("grace_period", selectedDay.toString()),
-        {
-          headers: { "Content-Type": "application/json" },
-        },
-        "production"
-      );
-      setDay(selectedDay);
-    } catch (error) {}
-  };
+  useEffect(() => {
+    if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) return;
 
+    const countdown = setInterval(() => {
+      setTime(({ hours, minutes, seconds }) => {
+        if (seconds > 0) return { hours, minutes, seconds: seconds - 1 };
+        if (minutes > 0) return { hours, minutes: minutes - 1, seconds: 59 };
+        if (hours > 0) return { hours: hours - 1, minutes: 59, seconds: 59 };
+        clearInterval(countdown);
+        return { hours: 0, minutes: 0, seconds: 0 };
+      });
+    }, 1000);
+
+    return () => clearInterval(countdown);
+  }, [time]);
   return (
     <Container>
       <Info isPersian={isPersian}>
-        <Header>
-          <Person>
-            <img
-              src={property?.profile_photo}
-              alt={code}
-              width={60}
-              height={60}
-            />
-            <div>
-              <p>{getFieldTranslationByNames("768")}</p>
-              <a
-                target="blank"
-                href={`https://rgb.irpsc.com/fa/citizen/${code}`}
-              >
-                {code.toUpperCase()}
-              </a>
-            </div>
-          </Person>
-          <Time>
-            <div>
-              <p>{getFieldTranslationByNames("769")}</p>
-              <h3>{convertToPersian(date)}</h3>
-            </div>
-          </Time>
-        </Header>
-        <Price percent={percent}>
+        <Price>
           <h3>{getFieldTranslationByNames("773")}</h3>
-          <Prices percent={percent}>
-            <div>
-              <img width={24} height={24} src={rialpng} />
-              <span>{convertToPersian(rial)}</span>
-            </div>
-            <img width={1} height={24} src={line} />
-            <div>
-              <img width={24} height={24} src={pscpng} />
-              <span>{convertToPersian(psc)}</span>
-            </div>
-            <img width={1} height={24} src={line} />
-            <div>
-              <StyledArrowUp percent={percent} />
-              <h3>{convertToPersian(Math.abs(percent))}%</h3>
-            </div>
+          <Prices>
+            <PriceItem src={rialpng} value={rial} />
+            <img width={1} height={24} src={line} alt="Line" />
+            <PriceItem src={pscpng} value={psc} />
           </Prices>
         </Price>
         <Text>
-          <p>
-            {information && information.length > 277 ? (
-              <>
-                {isExpanded ? information : `${information.slice(0, 277)}...`}{" "}
-                <span onClick={handleToggle}>
-                  {isExpanded
-                    ? getFieldTranslationByNames("884")
-                    : getFieldTranslationByNames("774")}
-                </span>
-              </>
-            ) : (
-              information || ""
-            )}
-          </p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html:
+                information?.length > 277
+                  ? isExpanded
+                    ? SanitizeHTML(information)
+                    : SanitizeHTML(`${information.slice(0, 277)}...`)
+                  : SanitizeHTML(information || ""),
+            }}
+          />
+          {information?.length > 277 && (
+            <span onClick={() => setIsExpanded(!isExpanded)}>
+              {getFieldTranslationByNames(isExpanded ? "884" : "774")}
+            </span>
+          )}
         </Text>
       </Info>
       <ProposalStatus>
-        {day === 0 && (
-          <Days>
-            <Button
-              onClick={() => {
-                handleGracePeriod(7);
-              }}
-              label={`${convertToPersian(7)} ${getFieldTranslationByNames(
-                "772"
-              )} `}
-              color="#3B3B3B"
-              textColor="#949494"
-              full
-            />
-            <Button
-              onClick={() => {
-                handleGracePeriod(1);
-              }}
-              label={`${convertToPersian(1)} ${getFieldTranslationByNames(
-                "772"
-              )} `}
-              color="#3B3B3B"
-              textColor="#949494"
-              full
-            />
-          </Days>
-        )}
-        {day !== 0 && (
-          <Div>
-            <Remained>
-              {convertToPersian(day)} {getFieldTranslationByNames("1413")}
-            </Remained>
-          </Div>
-        )}
+        <p>{getFieldTranslationByNames("777")}</p>
+        <TimeSection>
+          {["hours", "minutes", "seconds"].map((unit, index) => (
+            <TimeBox key={index}>
+              {convertToPersian(time[unit].toString().padStart(2, "0"))}
+              <span>
+                {getFieldTranslationByNames(["560", "33", "778"][index])}
+              </span>
+            </TimeBox>
+          ))}
+        </TimeSection>
         <Buttons>
           <RejectButton
             onClick={() => {
               onReject();
-              setIsExploding(!isExploding);
+              setIsExploding(true);
+              setTimeout(() => setIsExploding(false), 3000);
             }}
           >
             {getFieldTranslationByNames("775")}
-            {isExploding && (
-              <ConfettiExplosion
-                zIndex={10}
-                particleCount={150}
-                duration={3000}
-                colors={["#C30000"]}
-                particleSize={5}
-                height="100vh"
-                width={400}
-                style={{
-                  position: "absolute",
-                  left: "50%",
-                  top: "50%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              />
-            )}
+            {isExploding && <ConfettiEffect />}
           </RejectButton>
-          <div style={{ position: "relative" }}>
-            <Button
-              label={getFieldTranslationByNames("776")}
-              color="#18C08F"
-              textColor="#FFFFFF"
-              onClick={() => {
-                setIsExplodingAccept(true);
-
-                onAccept();
-              }}
-              full
-            />
-
-            {isExplodingAccept && (
-              <ConfettiExplosion
-                zIndex={10}
-                particleCount={150}
-                duration={3000}
-                colors={["#18C08F"]}
-                particleSize={5}
-                height="100vh"
-                width={400}
-                style={{
-                  position: "absolute",
-                  left: "50%",
-                  top: "50%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              />
-            )}
-          </div>
         </Buttons>
       </ProposalStatus>
     </Container>
   );
 };
+
+const PriceItem = ({ src, value }) => (
+  <div>
+    <img width={24} height={24} src={src} alt="Currency" />
+    <span>{value}</span>
+  </div>
+);
+
+const ConfettiEffect = () => (
+  <ConfettiExplosion
+    zIndex={9999}
+    particleCount={150}
+    duration={3000}
+    colors={["#C30000"]}
+    particleSize={5}
+    height="100vh"
+    width={400}
+    style={{
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
+    }}
+  />
+);
 
 export default Proposer;

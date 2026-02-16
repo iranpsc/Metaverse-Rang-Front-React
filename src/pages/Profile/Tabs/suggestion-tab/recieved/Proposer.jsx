@@ -3,7 +3,7 @@ import ConfettiExplosion from "react-confetti-explosion";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getFieldTranslationByNames,SanitizeHTML
 } from "../../../../../services/Utility/index";
 import line from "../../../../../assets/images/profile/Line.png";
 import pscpng from "../../../../../assets/images/profile/psc.gif";
@@ -206,21 +206,22 @@ const Proposer = ({
             </div>
           </Prices>
         </Price>
-        <Text>
-          <p>
-            {information && information.length > 277 ? (
-              <>
-                {isExpanded ? information : `${information.slice(0, 277)}...`}{" "}
-                <span onClick={handleToggle}>
-                  {isExpanded
-                    ? getFieldTranslationByNames("884")
-                    : getFieldTranslationByNames("774")}
-                </span>
-              </>
-            ) : (
-              information || ""
-            )}
-          </p>
+       <Text>
+          <p
+            dangerouslySetInnerHTML={{
+              __html:
+                information?.length > 277
+                  ? isExpanded
+                    ? SanitizeHTML(information)
+                    : SanitizeHTML(`${information.slice(0, 277)}...`)
+                  : SanitizeHTML(information || ""),
+            }}
+          />
+          {information?.length > 277 && (
+            <span onClick={() => setIsExpanded(!isExpanded)}>
+              {getFieldTranslationByNames(isExpanded ? "884" : "774")}
+            </span>
+          )}
         </Text>
       </Info>
       <ProposalStatus>

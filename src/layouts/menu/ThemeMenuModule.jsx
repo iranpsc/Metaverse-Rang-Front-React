@@ -39,7 +39,7 @@ const ThemeButton = styled.div`
   background-color: ${(props) =>
     props.themeMode === "dark" ? "#000" : "#e9eef8"};
 
-  @media (min-width: 768px) {
+  @media (max-width: 767px) {
     width: 25px;
     height: 25px;
   }

@@ -109,12 +109,20 @@ const SendFiles = () => {
       setError(getFieldTranslationByNames(1636));
     }
 
+    for (const file of filesToAdd) {
+      if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+        setError(getFieldTranslationByNames(1482));
+        e.target.value = "";
+        return;
+      }
+    }
+
     const newPreviews = filesToAdd.map((file) => ({
       file,
       preview: file.type.startsWith("image/")
         ? URL.createObjectURL(file)
         : "nonPhoto",
-      id: `${file.name}-${file.lastModified}-${Math.random()}`, // ID دقیق‌تر
+      id: `${file.name}-${file.lastModified}-${Math.random()}`,
     }));
 
     setPreviews((prev) => [...prev, ...newPreviews]);

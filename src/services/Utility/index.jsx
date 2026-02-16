@@ -2,11 +2,66 @@ import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
 import i18n from "../../i18n/i18n";
 import DOMPurify from "dompurify";
-export const SanitizeHTML = (text) =>
-  DOMPurify.sanitize(text, {
-    ALLOWED_TAGS: [],
-    ALLOWED_ATTR: [],
+export const SanitizeHTML = (html) => {
+  if (!html) return "";
+
+  return DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: [
+      "div",
+      "p",
+      "br",
+      "hr",
+      "span",
+      "b",
+      "strong",
+      "i",
+      "em",
+      "u",
+      "s",
+      "mark",
+      "small",
+      "sub",
+      "sup",
+      "code",
+      "pre",
+      "blockquote",
+      "ul",
+      "ol",
+      "li",
+      "dl",
+      "dt",
+      "dd",
+      "a",
+      "img",
+      "table",
+      "thead",
+      "tbody",
+      "tfoot",
+      "tr",
+      "th",
+      "td",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+    ],
+    ALLOWED_ATTR: [
+      "href",
+      "title",
+      "target",
+      "src",
+      "alt",
+      "colspan",
+      "rowspan",
+      "width",
+      "height",
+      "style",
+    ],
+    FORBID_TAGS: ["script", "iframe", "object", "embed"],
   });
+};
 
 export function TextShorter(content, endStr = 20) {
   if (content?.length > endStr) {

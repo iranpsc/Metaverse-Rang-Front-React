@@ -2,8 +2,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { TbTrash } from "react-icons/tb";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
-import DOMPurify from "dompurify";
-
+import { SanitizeHTML } from "../../services/Utility";
 const Container = styled.div`
   padding: 20px;
   border-radius: 5px;
@@ -75,10 +74,10 @@ const TrashWrapper = styled.div`
 `;
 
 const NotifCard = ({ id, setNotifications, notifications, data }) => {
-  const { Request } = useRequest();
+  const { Request,HTTP_METHOD } = useRequest();
 
   const ReadClickHandler = () => {
-    Request(`notifications/${id}`).then(() => {
+    Request(`notifications/read/${id}`,HTTP_METHOD.POST).then(() => {
       setNotifications(
         notifications.filter((notification) => notification.id !== id)
       );
@@ -104,7 +103,7 @@ const NotifCard = ({ id, setNotifications, notifications, data }) => {
       </Profile>
       <p
         dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(data.data.message),
+          __html: SanitizeHTML(data.data.message),
         }}
       ></p>{" "}
     </Container>

@@ -47,14 +47,18 @@ const Followers = () => {
         onchange={(e) => setSearched(e.target.value)}
       />
       <List>
-        {filteredItems.map((item) => (
+        {filteredItems.map((item) => {
+          console.log("item",item)
+          return(
           <Follower
             key={item.id}
             {...item}
             setFollowers={setFollowers}
             followers={followers}
+            canFollow={item.can.follow}
+            online={item.online}
           />
-        ))}
+        )})}
       </List>
     </Container>
   );

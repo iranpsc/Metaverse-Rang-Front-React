@@ -102,6 +102,33 @@ const Container = styled.div`
   }
 `;
 
+const Image = styled.div`
+  position: relative;
+  img {
+    border-radius: 100%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s linear;
+  }
+  &:hover img {
+    &:nth-of-type(2) {
+      box-shadow: 0px 10px 25px -5px ${({ theme }) => theme.colors.primary};
+      border: 2px solid ${({ theme }) => theme.colors.primary};
+    }
+  }
+`;
+
+const Status = styled.div`
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  background-color: ${(props) => (props.online ? "#18c08f" : "#808080")};
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: 2px solid #1a1a18;
+`;
+
 const Follower = ({
   id,
   followers,
@@ -109,8 +136,10 @@ const Follower = ({
   name,
   code,
   profile_photos,
+  online,
+  canFollow,
 }) => {
-  const [follow, setFollow] = useState(true);
+  const [follow, setFollow] = useState(canFollow);
   const { Request } = useRequest();
   const deleteHandler = () => {
     Request(`remove/${id}`).then(() => {
@@ -119,12 +148,12 @@ const Follower = ({
   };
   const unFollowHandler = () => {
     Request(`unfollow/${id}`).then(() => {
-      setFollow(false);
+      setFollow(true);
     });
   };
   const onFollowHandler = () => {
     Request(`follow/${id}`).then(() => {
-      setFollow(true);
+      setFollow(false);
     });
   };
   const profileImage =
@@ -132,7 +161,10 @@ const Follower = ({
   return (
     <Card>
       <Profile>
-        <img src={profileImage} width={80} height={80} />
+        <Image>
+          <Status online={online} />
+          <img src={profileImage} alt="member" width={80} height={80} />
+        </Image>{" "}
         <div>
           <h3>{name}</h3>
           <a href={`https://rgb.irpsc.com/fa/citizens/${code}`} target="_blank">
@@ -142,16 +174,16 @@ const Follower = ({
       </Profile>
       <Buttons>
         {follow ? (
-          <Button onClick={unFollowHandler} gray>
-            {getFieldTranslationByNames("737")}
-          </Button>
-        ) : (
           <Container onClick={onFollowHandler}>
             <span>
               <TiUserAddOutline />
             </span>
             <h3> {getFieldTranslationByNames("55")}</h3>
           </Container>
+        ) : (
+          <Button onClick={unFollowHandler} gray>
+            {getFieldTranslationByNames("737")}
+          </Button>
         )}
         <Button onClick={deleteHandler}>
           {getFieldTranslationByNames("738")}

@@ -4,6 +4,8 @@ import i18n from "../../i18n/i18n";
 export default function useLanguage() {
   const [currentLang, setCurrentLang] = useState(i18n.language || "fa");
 
+  const isPersian = currentLang === "fa";
+
   useEffect(() => {
     document.body.dir = i18n.dir();
 
@@ -32,5 +34,5 @@ export default function useLanguage() {
     }
   }, []);
 
-  return { currentLang, changeLanguage };
+  return { currentLang, isPersian, changeLanguage };
 }

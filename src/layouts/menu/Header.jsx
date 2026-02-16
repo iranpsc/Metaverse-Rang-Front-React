@@ -9,7 +9,6 @@ import useLanguage from "../../services/Hooks/useLanguage";
 import DropdownLanguageModule from "../../components/DropDownLang/DropdownLanguageModule";
 import ThemeMenuModule from "./ThemeMenuModule";
 import { languagesMeta } from "../../i18n/i18n";
-
 const Logo = styled.img`width: 37px;`;
 
 const Container = styled.div`
@@ -23,9 +22,14 @@ const Container = styled.div`
 
 const Headerbtn = styled.div`
   flex-direction: row;
-  padding-top: 4px;
-  gap: 5px;
+  padding-top: 5px;
+  gap: 10px;
   display: ${(props) => (props.isOpen ? "flex" : "none")};
+  
+  @media (max-width: 767px) {
+   padding-top: 8px;
+  }
+
 `;
 
 const ContainerText = styled.div`
@@ -34,11 +38,15 @@ const ContainerText = styled.div`
   white-space: nowrap;
   justify-content: center;
   flex-direction: column;
+  
+  @media (max-width: 767px) {
+   padding-top: 2px;
+  }
 `;
 
 const Title = styled.p`
   color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
-  font-size: 18px;
+  font-size: 16px;
   height: 28px;
   font-style: normal;
   font-weight: 700;
@@ -54,6 +62,7 @@ const Details = styled.p`
 `;
 
 const BtnOpenCloseMenu = styled.button`
+
   width: 41px;
   height: 41px;
   border-radius: 100%;
@@ -74,14 +83,27 @@ const BtnOpenCloseMenu = styled.button`
 `;
 
 const ContainerMain = styled.div`display: flex; gap: 12px;`;
-
 const Icon = styled(ArowMenu)`
   stroke: ${(props) => props.theme.colors.newColors.otherColors.iconText};
-  rotate: ${(props) => (props.isOpen ? "0" : "180deg")};
+
+  transform: ${({ isOpen, isPersian }) => {
+    if (isPersian) {
+      return isOpen ? "rotate(0deg)" : "rotate(180deg)";
+    } else {
+      return isOpen ? "rotate(180deg)" : "rotate(0deg)";
+    }
+  }};
+
+  transition: transform 0.3s ease;
+
+  width: 41px;
+  height: 41px;
 `;
 
+
+
 const Header = () => {
-  const { currentLang, changeLanguage } = useLanguage();
+  const { currentLang, changeLanguage, isPersian } = useLanguage();
   const [langArray, setLangArray] = useState([]);
   const [currentLangObject, setCurrentLangObject] = useState(null);
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -93,7 +115,6 @@ const Header = () => {
     const found = languagesMeta.find((item) => item.code === currentLang);
     setCurrentLangObject(found || languagesMeta[0]);
   }, [currentLang]);
-
   return (
     <Container isOpen={isOpen}>
       <ContainerMain>
@@ -135,8 +156,8 @@ const Header = () => {
           <ThemeMenuModule />
         </Headerbtn>
       </ContainerMain>
-      <BtnOpenCloseMenu onClick={toggleMenu} isOpen={isOpen}>
-        <Icon isOpen={isOpen} />
+      <BtnOpenCloseMenu onClick={toggleMenu} isOpen={isOpen} >
+        <Icon isOpen={isOpen} isPersian={isPersian} />
       </BtnOpenCloseMenu>
     </Container>
   );

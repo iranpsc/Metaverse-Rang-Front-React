@@ -6,13 +6,6 @@ import styled from "styled-components";
 import Title from "../../../../components/Title";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 
-const Files = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-`;
-
 const Container = styled.div`
   margin-top: 10px;
 `;
@@ -102,7 +95,7 @@ const SendNote = ({ files, setFiles }) => {
 
   useEffect(() => {
     const filePreviews = files.map((file) =>
-      file.type.startsWith("image/") ? URL.createObjectURL(file) : nonPhoto
+      file.type.startsWith("image/") ? URL.createObjectURL(file) : nonPhoto,
     );
     setPreviews(filePreviews);
 
@@ -121,19 +114,36 @@ const SendNote = ({ files, setFiles }) => {
     let sizeExceeded = false;
 
     newFiles.forEach((file) => {
+      const isDuplicate = files.some(
+        (existingFile) =>
+          existingFile.name === file.name &&
+          existingFile.size === file.size &&
+          existingFile.lastModified === file.lastModified,
+      );
       if (file.size > 9 * 1024 * 1024) {
         sizeExceeded = true;
-      } else {
+      } else if (!isDuplicate) {
         validFiles.push(file);
       }
     });
 
     if (sizeExceeded) {
       setError("حجم فایل نباید بیشتر از 9 مگابایت باشد");
+      event.target.value = "";
+      return;
     } else {
       setError("");
-      setFiles([...files, ...validFiles]);
     }
+
+    if (validFiles.length === 0) {
+      event.target.value = "";
+      setError(getFieldTranslationByNames("1635"));
+
+      return;
+    }
+
+    setFiles([...files, ...validFiles]);
+    event.target.value = "";
   };
 
   const handleRemove = (index) => {
@@ -151,19 +161,17 @@ const SendNote = ({ files, setFiles }) => {
             <HiddenInput
               id="file-input"
               type="file"
-              accept="image/*,video/*,.pdf"
+              accept="image/*,.pdf,.doc,.docx"
               onChange={fileHandler}
             />
           </Div>
         )}
-        {/* <Files> */}
         {previews.map((preview, index) => (
           <FilePreview key={index}>
             <FileImage src={preview} />
             <RemoveButton src={remove} onClick={() => handleRemove(index)} />
           </FilePreview>
         ))}
-        {/* </Files> */}
       </Wrapper>
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>

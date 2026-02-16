@@ -47,9 +47,11 @@ const Following = () => {
         onchange={(e) => setSearched(e.target.value)}
       />
       <List>
-        {filteredItems.map((item) => (
-          <FollowingCard key={item.id} {...item} />
-        ))}
+        {filteredItems.map((item) =>{
+        console.log(item)
+        return(
+          <FollowingCard key={item.id} {...item} online={item.online}  />
+        )})}
       </List>
     </Container>
   );

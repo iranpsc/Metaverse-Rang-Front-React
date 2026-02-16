@@ -44,7 +44,6 @@ const IdentityInputs = ({
   const [isVideoUploaded, setIsVideoUploaded] = useState(false);
   const [textVerify, setTextVerify] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
-  console.log("openErrorModal",openErrorModal)
   const sendHandler = () => {
     let errorMessages = [];
     let newDetails = [...data]; // کپی از دیتیلز برای به‌روزرسانی ارور‌ها

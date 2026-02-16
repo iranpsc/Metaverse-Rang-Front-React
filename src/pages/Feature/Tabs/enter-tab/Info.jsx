@@ -5,9 +5,8 @@ import LoadingModal from "./LoadingModal";
 import { LuEye } from "react-icons/lu";
 import Button from "../../../../components/Button";
 import styled from "styled-components";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import Title from "../../../../components/Title";
-import { getItem } from "../../../../services/Utility/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useMapData } from "../../../../services/reducers/mapContext";
@@ -18,10 +17,9 @@ import {
 import {
   convertToPersian,
   getFieldTranslationByNames,
-  ToastError,
   ToastSuccess,
 } from "../../../../services/Utility";
-
+import useRequest from "../../../../services/Hooks/useRequest";
 const Container = styled.div`
   color: aliceblue;
 `;
@@ -90,13 +88,12 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [Wallet, dispatch] = useContext(WalletContext);
-
+  const { Request, checkSecurity } = useRequest();
   const activeBuilding =
     buildings.find((b) => b?.building?.feature_id === parseInt(id)) || null;
 
-  const accountSecurity = getItem("account_security")?.account_security;
   const launchedSatisfaction = activeBuilding?.building?.launched_satisfaction;
- const base = Number(Wallet.satisfaction) || 0;
+  const base = Number(Wallet.satisfaction) || 0;
   const extra = Number(launchedSatisfaction) || 0;
   const total = base + extra;
   const [payStatus, setPayStatus] = useState(false);
@@ -104,17 +101,12 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
   const featureId = activeBuilding?.building?.feature_id;
   const buildingId = activeBuilding?.model_id;
 
-  
   const handleDeleteBuilding = async () => {
-    if (!accountSecurity) {
-      ToastError(getFieldTranslationByNames("1603"));
-      return;
-    }
-
+    if (!checkSecurity()) return;
     try {
       await Request(
         `features/${featureId}/build/buildings/${buildingId}`,
-        HTTP_METHOD.DELETE
+        HTTP_METHOD.DELETE,
       );
 
       ToastSuccess(getFieldTranslationByNames("1609"));
@@ -126,17 +118,9 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
           satisfaction: total,
         },
       });
-      removeBuilding(activeBuilding.model_id)
+      removeBuilding(activeBuilding.model_id);
     } catch (error) {
       console.error("❌ Delete building error:", error);
-
-      if (error.response?.status === 403) {
-        ToastError("اجازه حذف این سازه را ندارید");
-      } else if (error.response?.status === 404) {
-        ToastError("سازه پیدا نشد");
-      } else {
-        ToastError("خطا در حذف سازه");
-      }
     }
   };
   return (

@@ -61,7 +61,7 @@ const Status = styled.div`
   border-radius: 100%;
   background-color: ${(props) => (props.online ? "#18c08f" : "#808080")};
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
   right: 10px;
   border: 2px solid #1a1a18;
 `;

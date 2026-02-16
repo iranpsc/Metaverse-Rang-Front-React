@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const LangContainer = styled.div`
   position: relative;
   display: ${(p) => (p.isOpen ? "block" : "none")};
-
 `;
 
 export const LangButton = styled.div`
@@ -12,9 +11,9 @@ export const LangButton = styled.div`
 
   height: 26px;
 
-  @media (min-width: 768px) {
-    width: 23px;
-    height: 23px;
+  @media (max-width: 767px) {
+    width: 25px;
+    height: 24px;
   }
 
   @media (min-width: 1280px) {
@@ -24,7 +23,7 @@ export const LangButton = styled.div`
 
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid #d1d5db; /* gray-300 */
+  border: 1px solid #d1d5db;
 
   display: flex;
   align-items: center;

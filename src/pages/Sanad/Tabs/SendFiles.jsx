@@ -136,7 +136,7 @@ const SendFiles = ({ files, onFilesChange }) => {
             <HiddenInput
               ref={fileInputRef}
               type="file"
-              accept="image/*"
+              accept="image/*,.pdf,.doc,.docx"
               onChange={fileHandler}
             />
           </Div>

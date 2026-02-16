@@ -30,20 +30,25 @@ const Container = styled.div`
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
-  const { Request } = useRequest();
+  const { Request, HTTP_METHOD } = useRequest();
 
   useEffect(() => {
     Request("notifications").then((response) => {
       setNotifications(response.data.data);
     });
   }, []);
-
+  const handleDelete = () => {
+    Request("notifications/read/all", HTTP_METHOD.POST)
+      .then(() => {
+        setNotifications([]);
+      })
+      .catch((err) => console.error(err));
+  };
   return (
     <ModalSm title={"238"}>
       <Container>
-        <h4 onClick={() => setNotifications([])}>
-          {getFieldTranslationByNames("866")}
-        </h4>
+        {/**delete all notif */}
+        <h4 onClick={handleDelete}>{getFieldTranslationByNames("866")}</h4>
 
         <Div>
           {notifications.length === 0 ? (

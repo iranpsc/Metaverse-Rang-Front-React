@@ -54,7 +54,6 @@ const PHolder = styled.div`
 `;
 
 const PreviewModel = ({ data, setShowModal }) => {
-  console.log(data);
   return (
     <ModalLg setShowModal={setShowModal} titleId="371" help report>
       <Container>
