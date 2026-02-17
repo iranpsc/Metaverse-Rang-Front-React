@@ -133,11 +133,8 @@ const Right = styled.div`
   display: grid;
   align-items: center;
   gap: 20px;
-  grid-template-columns: 2fr 100px;
+  grid-template-columns: 2fr 50%;
 
-  @media (min-width: 900px) {
-    grid-template-columns: 2fr 50%;
-  }
 `;
 
 const Container = styled.div`

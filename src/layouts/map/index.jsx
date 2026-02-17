@@ -28,9 +28,8 @@ const MapTreeD = () => {
   const [isFullScreenMap, setFullScreenMap] = useState(false);
 
   const { confirmation, selectedEnvironment, hiddenModel } = useSelectedEnvironment();
-  const isPersian = useLanguage();
+  const {isPersian} = useLanguage();
   const navigate = useNavigate();
-
   const handleZoomChange = useCallback((delta) => {
     if (!mapRef.current) return;
     const map = mapRef.current.getMap();

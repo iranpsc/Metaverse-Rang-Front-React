@@ -92,6 +92,7 @@ const SearchPropertyTab = () => {
       ) : (
         <Wrapper>
           {data.map((item, i) => {
+            console.log(item)
             const system = item.owner_code == "HM-2000000" ? true : false;
             return <ResultCard key={i} item={item} system={system} />;
           })}

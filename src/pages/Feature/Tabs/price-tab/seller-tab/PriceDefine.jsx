@@ -96,6 +96,7 @@ const PriceDefine = () => {
         <Text>{getFieldTranslationByNames("520")}</Text>
         {!assign && (
           <FillInputs
+          assign={assign}
             rial={rial}
             setRial={setRial}
             psc={psc}

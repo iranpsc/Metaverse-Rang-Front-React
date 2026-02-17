@@ -98,6 +98,10 @@ const FillInputs = ({
   const [user] = useContext(UserContext);
   const [feature] = useContext(FeatureContext);
   const [errors, setErrors] = useState({ rial: "", psc: "" });
+  const cancel =
+    +feature?.properties?.price_irr !== 0 ||
+    +feature?.properties?.price_psc !== 0;
+  console.log(cancel);
 
   const priceHandler = () => {
     let isValid = true;
@@ -176,12 +180,13 @@ const FillInputs = ({
           label={getFieldTranslationByNames("519")}
           onclick={priceHandler}
         />
-        <Button
+        {cancel && <Button
           color="red"
           edit
           label={getFieldTranslationByNames("833")}
           onclick={() => setAssign(true)}
-        />
+        />}
+
       </ButtonBox>
     </Div>
   );

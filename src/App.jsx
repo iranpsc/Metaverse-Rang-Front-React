@@ -39,42 +39,42 @@ function App() {
     });
   }, []);
 
-  return (
+  return (<LanguageProvider>
+
     <BrowserRouter>
       <ScrollDirectionProvider>
         <LoaderProvider>
           <MapProvider>
             <ThemeProviderContext>
-              <LanguageProvider>
-                <UserProvider>
-                  <WalletProvider>
-                    <FollowProvider>
-                      <SelectedEnvironmentProvider>
-                        <MapContextProvider>
-                          <AlertProvider>
-                            <RotateDevice />
-                            <Routers />
+              <UserProvider>
+                <WalletProvider>
+                  <FollowProvider>
+                    <SelectedEnvironmentProvider>
+                      <MapContextProvider>
+                        <AlertProvider>
+                          <RotateDevice />
+                          <Routers />
 
-                            <Error410Modal />
-                            <Toaster
-                              containerStyle={{
-                                zIndex: 100000,
-                                marginBottom: 48,
-                              }}
-                              position="bottom-right"
-                            />
-                          </AlertProvider>
-                        </MapContextProvider>
-                      </SelectedEnvironmentProvider>
-                    </FollowProvider>
-                  </WalletProvider>
-                </UserProvider>
-              </LanguageProvider>
+                          <Error410Modal />
+                          <Toaster
+                            containerStyle={{
+                              zIndex: 100000,
+                              marginBottom: 48,
+                            }}
+                            position="bottom-right"
+                          />
+                        </AlertProvider>
+                      </MapContextProvider>
+                    </SelectedEnvironmentProvider>
+                  </FollowProvider>
+                </WalletProvider>
+              </UserProvider>
             </ThemeProviderContext>
           </MapProvider>
         </LoaderProvider>
       </ScrollDirectionProvider>
-    </BrowserRouter>
+    </BrowserRouter>              </LanguageProvider>
+
   );
 }
 
