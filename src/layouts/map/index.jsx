@@ -1,4 +1,10 @@
-import React, { useState, useRef, createContext, useCallback, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  createContext,
+  useCallback,
+  useEffect,
+} from "react";
 import Map from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +18,7 @@ import * as turf from "@turf/turf";
 import AuthMiddleware from "../../middleware/AuthMiddleware";
 import ZoomControls from "../../components/ZoomControls";
 import FullscreenControls from "../../components/FullscreenControls";
-
+import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 export const TransactionContext = createContext(null);
 
 const MemoMapPolygons = React.memo(MapPolygons);
@@ -23,12 +29,13 @@ const MapTreeD = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null); // <<=== اضافه شد
-
+  const { updateFullScreenMap } = useScrollDirectionContext();
   const [isFullScreen, setFullScreen] = useState(false);
   const [isFullScreenMap, setFullScreenMap] = useState(false);
 
-  const { confirmation, selectedEnvironment, hiddenModel } = useSelectedEnvironment();
-  const {isPersian} = useLanguage();
+  const { confirmation, selectedEnvironment, hiddenModel } =
+    useSelectedEnvironment();
+  const { isPersian } = useLanguage();
   const navigate = useNavigate();
   const handleZoomChange = useCallback((delta) => {
     if (!mapRef.current) return;
@@ -36,9 +43,10 @@ const MapTreeD = () => {
     map.zoomTo(map.getZoom() + delta, { duration: 200 });
   }, []);
 
-  const handleZoomEnd = useCallback(() => { }, []);
+  const handleZoomEnd = useCallback(() => {}, []);
 
   const handleFullscreenToggle = useCallback(() => {
+    updateFullScreenMap(!isFullScreenMap);
     if (!mapContainerRef.current) return;
     if (!isFullScreenMap) {
       mapContainerRef.current.requestFullscreen?.();
@@ -81,7 +89,7 @@ const MapTreeD = () => {
 
   useEffect(() => {
     if (isFullScreen && screen.orientation) {
-      screen.orientation.lock("landscape-primary").catch(() => { });
+      screen.orientation.lock("landscape-primary").catch(() => {});
     }
   }, [isFullScreen]);
 
@@ -98,9 +106,14 @@ const MapTreeD = () => {
 
   return (
     <AuthMiddleware>
-      <TransactionContext.Provider value={{ selectedTransaction, setSelectedTransaction }}>
+      <TransactionContext.Provider
+        value={{ selectedTransaction, setSelectedTransaction }}
+      >
         <Container>
-          <div ref={mapContainerRef} style={{ position: "relative", width: "100%", height: "100%" }}>
+          <div
+            ref={mapContainerRef}
+            style={{ position: "relative", width: "100%", height: "100%" }}
+          >
             <Map
               ref={mapRef}
               className="map"
@@ -119,34 +132,23 @@ const MapTreeD = () => {
               onClick={handleMapClick}
               onZoomEnd={handleZoomEnd}
             >
-              {confirmation && selectedEnvironment && !hiddenModel && <MemoMark />}
+              {confirmation && selectedEnvironment && !hiddenModel && (
+                <MemoMark />
+              )}
               <MemoMapPolygons />
               <MemoMapFlag />
             </Map>
-            <div
-              style={{
-                position: "absolute",
-                top: "0px",
-                [isPersian ? "left" : "right"]: "0px",
-                zIndex: 1,
-                borderRadius: "10px",
-                width: "33px",
-                height: "33px",
-                padding: "5px",
-              }}
-            >
 
-              <ZoomControls
-                isPersian={isPersian}
-                onZoomChange={handleZoomChange}
-              />
-              <FullscreenControls
-                isPersian={isPersian}
-                onToggleFullScreen={toggleFullScreen}
-                onToggleMapFullScreen={handleFullscreenToggle}
-                isFullScreenMap={isFullScreenMap}
-              />
-            </div>
+            <ZoomControls
+              isPersian={isPersian}
+              onZoomChange={handleZoomChange}
+            />
+            <FullscreenControls
+              isPersian={isPersian}
+              onToggleFullScreen={toggleFullScreen}
+              onToggleMapFullScreen={handleFullscreenToggle}
+              isFullScreenMap={isFullScreenMap}
+            />
           </div>
         </Container>
       </TransactionContext.Provider>

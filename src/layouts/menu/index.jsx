@@ -12,7 +12,6 @@ import BtnAction from "./BtnAction/BtnAction";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 import { useLanguage } from "../../services/reducers/LanguageContext";
 
-
 const BlurOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -24,42 +23,33 @@ const BlurOverlay = styled.div`
   background-color: rgba(58, 57, 57, 0.18);
   z-index: 999;
   display: ${({ show }) => (show ? "block" : "none")};
-  
+
   @media (min-width: 833px) {
     display: none;
   }
 `;
 const Container = styled.div`
-  display: flex;
+  display: ${({ show }) => (show ? "none" : "flex")};
   flex-direction: column;
   align-items: start;
   flex: 1;
   justify-content: start;
   width: ${({ isPersian, isOpen }) =>
-    isPersian
-      ? isOpen
-        ? "35%"
-        : "9%"
-      : isOpen
-        ? "38%"
-        : "9%"};
+    isPersian ? (isOpen ? "35%" : "9%") : isOpen ? "38%" : "9%"};
 
-  ;
   height: 100%;
   border-radius: 10px;
-
 
   @media (max-width: 832px) {
     max-width: 260px;
     position: ${({ isModalOpen }) => (isModalOpen ? "absolute" : "relative")};
     z-index: 1000;
     height: ${({ isModalOpen, isOpen }) => {
-    if (isModalOpen && isOpen) return "100%";
-    if (!isModalOpen) return "100%";
-    return "98.5%";
-  }};
- ${({ isPersian }) => (isPersian ? "right:0" : "left: 0")};
-
+      if (isModalOpen && isOpen) return "100%";
+      if (!isModalOpen) return "100%";
+      return "98.5%";
+    }};
+    ${({ isPersian }) => (isPersian ? "right:0" : "left: 0")};
 
     top: ${({ isModalOpen, isOpen }) => isModalOpen && isOpen && "0"};
     border-radius: ${({ isModalOpen, isOpen }) => isModalOpen && isOpen && "0"};
@@ -85,13 +75,18 @@ const Container = styled.div`
 
 const Menu = () => {
   const { isOpen } = useMenuContext();
-  const { isModalOpen } = useScrollDirectionContext();
-  const { isPersian } = useLanguage()
+  const { isModalOpen, isGlobalFullScreenMap } = useScrollDirectionContext();
+  const { isPersian } = useLanguage();
   return (
     <>
       <BlurOverlay show={isModalOpen && isOpen} />
 
-      <Container isOpen={isOpen} isModalOpen={isModalOpen} isPersian={isPersian}>
+      <Container
+        isOpen={isOpen}
+        isModalOpen={isModalOpen}
+        isPersian={isPersian}
+        show={isGlobalFullScreenMap}
+      >
         <Header />
         <PrivateComponent>
           <Profile />

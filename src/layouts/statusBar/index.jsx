@@ -5,9 +5,9 @@ import PrivateComponent from "../../middleware/PrivateComponent";
 import PublicComponent from "../../middleware/PublicComponent";
 import ListPositions from "./ListPositions";
 import AssetsWallet from "./AssetsWallet";
-
+import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 const Container = styled.div`
-  display: flex;
+  display: ${({ show }) => (show ? "none" : "flex")};
   flex-direction: column;
   gap: 5px;
   justify-content: start;
@@ -73,8 +73,10 @@ const StatusContainer = styled.div`
   transition: all 0.3s ease 0s;
 `;
 const StatusBar = () => {
+  const { isGlobalFullScreenMap } = useScrollDirectionContext();
+  console.log("isGlobalFullScree11nMap", isGlobalFullScreenMap);
   return (
-    <Container>
+    <Container show={isGlobalFullScreenMap}>
       <WalletContainer>
         <PrivateComponent>
           <AssetsWallet />
