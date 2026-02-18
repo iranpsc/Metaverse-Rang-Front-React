@@ -25,7 +25,7 @@ const Followers = () => {
     const endpoint = id ? `players/${id}/followers` : "followers";
     Request(endpoint).then((response) => {
       setFollowers(response.data.data);
-      
+
     });
   }, [id]);
 
@@ -47,9 +47,8 @@ const Followers = () => {
         onchange={(e) => setSearched(e.target.value)}
       />
       <List>
-        {filteredItems.map((item) => {
-          console.log("item",item)
-          return(
+        {filteredItems.map((item) =>
+        (
           <Follower
             key={item.id}
             {...item}
@@ -58,7 +57,7 @@ const Followers = () => {
             canFollow={item.can.follow}
             online={item.online}
           />
-        )})}
+        ))}
       </List>
     </Container>
   );

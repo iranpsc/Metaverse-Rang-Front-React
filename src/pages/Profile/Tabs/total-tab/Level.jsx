@@ -66,7 +66,6 @@ const LevelCount = styled.div`
 const Level = () => {
   const [user] = useContext(UserContext);
   const IsPersian = useLanguage();
-  console.log(user)
   return (
     <Container>
       <Percent IsPersian={IsPersian}>

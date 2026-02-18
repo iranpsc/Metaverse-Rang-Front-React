@@ -60,7 +60,7 @@ const Row = ({ id, code, title, publish_date, name, description, files }) => {
   const [note, setNote] = useState(null); // State to hold the fetched note details
   const { state, dispatch } = useContext(GlobalNoteStateContext); // Access both state and dispatch
   const { Request } = useRequest();
-
+  
   const onClickHandler = async () => {
     try {
       const response = await Request(`notes/${id}`);
@@ -108,7 +108,7 @@ const Row = ({ id, code, title, publish_date, name, description, files }) => {
       </TableRow>
 
       {showDetails && note && (
-        <NoteDetails data={note} setShowDetails={setShowDetails} />
+        <NoteDetails state={state} setShowDetails={setShowDetails} />
       )}
     </>
   );

@@ -73,7 +73,7 @@ const Svg = styled.div`
   max-height: 80px;
   overflow: hidden;
 
-  img {
+  & img {
     display: block;
     width: auto;
     height: 100%;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { convertToPersian,formatAmount } from "../../../../services/Utility";
+import { convertToPersian, formatAmount } from "../../../../services/Utility";
 const Container = styled.div`
   display: flex;
 
@@ -10,7 +10,7 @@ const Container = styled.div`
   border-radius: 10px;
   padding: 14px 24px;
   gap: 20px;
-  img {
+  & img {
     width: 38px;
     height: 38px;
   }

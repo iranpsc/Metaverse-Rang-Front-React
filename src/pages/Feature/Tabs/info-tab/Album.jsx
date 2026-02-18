@@ -62,7 +62,7 @@ const ImageWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.gray};
   width: 100%;
   height: 150px;
-  img {
+  & img {
     width: 100% !important;
     height: 100% !important;
     object-fit: contain !important;

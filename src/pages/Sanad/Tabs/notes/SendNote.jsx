@@ -128,7 +128,7 @@ const SendNote = ({ files, setFiles }) => {
     });
 
     if (sizeExceeded) {
-      setError("حجم فایل نباید بیشتر از 9 مگابایت باشد");
+      setError(getFieldTranslationByNames(1643));
       event.target.value = "";
       return;
     } else {

@@ -74,7 +74,7 @@ const Profile = styled.div`
     font-weight: 500;
     white-space: nowrap;
   }
-  img {
+  & img {
     border-radius: 100%;
     border: 2px solid transparent;
     transition: all 0.2s linear;

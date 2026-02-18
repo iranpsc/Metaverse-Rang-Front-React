@@ -1,7 +1,6 @@
-import { IoIosClose } from "react-icons/io";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../services/Utility";
-
+import { ExitIcon } from "../../../components/Icons/IconsHeader";
 const BackGround = styled.div`
   z-index: 999;
   position: fixed;
@@ -36,7 +35,7 @@ const Header = styled.div`
   justify-content: space-between;
   margin-bottom: 30px;
   @media (max-width: 1023px) {
-    img {
+    & img {
       width: 100px;
       height: 100px;
     }
@@ -58,27 +57,7 @@ const Info = styled.p`
   margin: 20px 0;
   font-size: 16px;
 `;
-const CloseWrapper = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(59, 8, 8);
-  cursor: pointer;
-  svg {
-    color: red;
-    font-size: 40px;
-  }
-  @media (min-width: 998px) {
-    width: 40px;
-    height: 40px;
-    svg {
-      font-size: 50px;
-    }
-  }
-`;
+
 
 const InfoModal = ({ data, type, setOpenModal }) => {
   const getAssetTranslation = () => {
@@ -118,9 +97,7 @@ const InfoModal = ({ data, type, setOpenModal }) => {
             height={160}
             loading="lazy"
           />
-          <CloseWrapper onClick={() => setOpenModal(false)}>
-            <IoIosClose />
-          </CloseWrapper>
+          <ExitIcon onClick={() => setOpenModal(false)} />
         </Header>
         <div>
           <Title>{getAssetTranslation()}</Title>

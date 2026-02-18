@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Head = styled.div`
-  img {
+  & img {
     border-radius: 100%;
     border: 2px solid transparent;
     cursor: pointer;

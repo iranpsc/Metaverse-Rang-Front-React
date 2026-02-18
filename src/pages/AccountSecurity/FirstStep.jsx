@@ -47,6 +47,29 @@ const Container = styled.div`
       props.theme.colors.newColors.otherColors.secondaryBtnText};
     cursor: pointer;
   }
+
+  @media (max-width: 768px) {
+    margin-top: 0px;
+
+    h3 {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    input {
+      padding: 10px 14px;
+      margin-top: 10px;
+    }
+
+    button {
+      font-size: 14px;
+      height: 44px;
+      margin-top: 10px;
+    }
+  }
 `;
 const ButtonContainer = styled.div`
   display: flex;
@@ -63,16 +86,22 @@ const Div = styled.div`
     flex-direction: column;
     color: ${(props) => props.theme.colors.newColors.shades.title};
     cursor: pointer;
+
+    @media (max-width: 768px) {
+      top: 15px;
+    }
   }
 `;
 const Up = styled.span`
   user-select: none;
   display: inline-flex;
+
   svg {
     width: 20px;
     height: 20px;
   }
 `;
+
 const Down = styled.span`
   user-select: none;
   display: inline-flex;
@@ -82,19 +111,25 @@ const Down = styled.span`
     height: 20px;
   }
 `;
+
 const Min = styled.span`
   position: absolute;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   ${(props) => (props.isPersian ? "right" : "left")}: 40px;
   top: 37px;
   font-size: 14px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    top: 24px;
+  }
 `;
 
 const FirstStep = ({ setStep, time, setTime }) => {
   const [phone, setPhone] = useState(true);
   const [formData, setFormData] = useState({ phone: "", time: time });
   const { Request, HTTP_METHOD } = useRequest();
-  const isPersian = useLanguage();
+  const { isPersian } = useLanguage();
   const onSendHandler = () => {
     let sendTime = time;
     if (Number(sendTime) < 5) {

@@ -74,7 +74,7 @@ const Image = styled.div`
   height: 120px;
   border-radius: 100%;
   overflow: hidden;
-  img {
+  & img {
     object-fit: contain;
   }
 `;

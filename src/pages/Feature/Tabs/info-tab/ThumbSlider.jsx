@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-  img {
+  & img {
     border-radius: 10px;
     height: 30% !important;
   }

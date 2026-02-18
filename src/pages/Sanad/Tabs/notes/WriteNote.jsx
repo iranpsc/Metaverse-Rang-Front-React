@@ -73,7 +73,7 @@ const WriteNote = () => {
 
   const handleSaveNote = () => {
     if (!title.trim() || !description.trim()) {
-      setError("عنوان و متن یادداشت نمی‌تواند خالی باشد.");
+      setError(getFieldTranslationByNames(1644));
       return;
     }
     setError("");
@@ -92,7 +92,7 @@ const WriteNote = () => {
         setAlert(true);
         resetForm();
       })
-      .catch(() => setError("خطا در ارسال یادداشت."));
+      .catch(() => setError(getFieldTranslationByNames(1645)));
   };
 
   const resetForm = () => {

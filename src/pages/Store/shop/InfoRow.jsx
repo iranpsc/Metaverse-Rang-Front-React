@@ -66,7 +66,7 @@ const PhotoContainer = styled.div`
   @media (max-width: 840px) {
     width: 60px;
     height: 60px;
-    img {
+    & img {
       width: 34px;
       height: 34px;
     }

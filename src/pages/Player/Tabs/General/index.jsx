@@ -54,7 +54,7 @@ const InfoImage = styled.div`
   flex-direction: row-reverse;
   align-items: center;
 
-  img {
+  & img {
     margin-left: 16px;
   }
 `;

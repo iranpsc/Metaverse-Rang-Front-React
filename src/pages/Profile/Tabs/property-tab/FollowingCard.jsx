@@ -39,7 +39,7 @@ const Profile = styled.div`
     font-weight: 500;
     text-transform: uppercase;
   }
-  img {
+  & img {
     border-radius: 100%;
     border: 2px solid transparent;
     transition: all 0.2s linear;
@@ -58,7 +58,7 @@ const Card = styled.div`
 
 const Image = styled.div`
   position: relative;
-  img {
+  & img {
     border-radius: 100%;
     border: 2px solid transparent;
     cursor: pointer;

@@ -48,7 +48,6 @@ const Following = () => {
       />
       <List>
         {filteredItems.map((item) =>{
-        console.log(item)
         return(
           <FollowingCard key={item.id} {...item} online={item.online}  />
         )})}

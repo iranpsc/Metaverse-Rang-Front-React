@@ -321,7 +321,7 @@ const SecondStep = ({ setStep, time }) => {
         {timer !== 0 ? (
           <span>{getFieldTranslationByNames("863")}</span>
         ) : (
-          <h2 onClick={resetHandler}>ارسال مجدد کد</h2>
+          <h2 onClick={resetHandler}>{getFieldTranslationByNames(1642)}</h2>
         )}
       </div>
       <button disabled={!allValuesNotEmpty} onClick={() => nextStep()}>

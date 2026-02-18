@@ -77,7 +77,7 @@ const UploadWrapper = styled.div`
     overflow: hidden;
     border-radius: 10px;
     border: 2px dashed ${(props) => (props.hasError ? "red" : "#454545")}; /* Conditionally set border color */
-    img {
+    & img {
       width: 100%;
       height: 100%;
     }

@@ -41,7 +41,7 @@ const Container = styled.div`
 
 const Image = styled.div`
   position: relative;
-  img {
+  & img {
     border-radius: 100%;
     border: 2px solid transparent;
     cursor: pointer;

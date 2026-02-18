@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 30px;
   width: 100%;
-`;
+`;  
 
 const Text = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -44,7 +44,8 @@ const PriceDefine = () => {
     rial: "",
     psc: "",
   });
-
+  console.log(feature.properties.price_irr/900)
+const rialToPsc=feature?.properties?.price_irr/900;
   const validateAndSubmit = () => {
     const userAge = TimeAgo(user?.birthdate);
     let minRial = calculateFee(feature.properties.price_irr, 80);
@@ -98,6 +99,7 @@ const PriceDefine = () => {
           <FillInputs
           assign={assign}
             rial={rial}
+            rialToPsc={rialToPsc}
             setRial={setRial}
             psc={psc}
             setPsc={setPsc}

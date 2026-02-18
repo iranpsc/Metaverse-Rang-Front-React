@@ -76,14 +76,21 @@ const Lowest = () => {
     +feature?.properties?.price_irr !== 0 ||
       +feature?.properties?.price_psc !== 0,
   );
-
+  console.log("user", user);
   const [rial, setRial] = useState(feature?.properties?.price_irr || "");
   const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
   useEffect(() => {
     setPercentage(feature?.properties?.minimum_price_percentage || "");
   }, []);
   const onSubmit = () => {
-    if (!checkSecurity()) return;
+    if (user.birthdate == null) {
+      if (percentage < 110) {
+        return ToastError(
+          "برای افراد احراز هویت نشده باید درصد انتخابی بالای 110 درصد باشد",
+        );
+      }
+    }
+
     if (TimeAgo(user?.birthdate) >= 18) {
       if (percentage < 80) {
         return ToastError(getFieldTranslationByNames(1632));
@@ -93,6 +100,7 @@ const Lowest = () => {
         return ToastError(getFieldTranslationByNames(1632));
       }
     }
+    if (!checkSecurity()) return;
 
     Request(
       `my-features/${user.id}/features/${feature?.id}`,
@@ -100,7 +108,7 @@ const Lowest = () => {
       { minimum_price_percentage: percentage },
     )
       .then((res) => {
-        console.log(res.data);
+        console.log("bbioi", res.data);
         setFeature((feature) => ({
           ...feature,
           properties: {

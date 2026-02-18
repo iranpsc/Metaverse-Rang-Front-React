@@ -34,7 +34,6 @@ const CitizenTab = () => {
 
   const [searched, setSearched] = useState("");
   const [data, setData] = useState([]);
-  console.log("data",data)
   const [isLoading, setIsLoading] = useState(false);
   const { Request, HTTP_METHOD } = useRequest();
   const searchHandler = () => {
