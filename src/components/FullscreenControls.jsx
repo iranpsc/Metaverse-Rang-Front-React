@@ -27,7 +27,7 @@ const FullscreenControls = ({
             ? isFullScreenMap && "85px"
             : isFullScreenMap
               ? "85px"
-              : "125px", 
+              : "125px",
         }}
         isPersian={isPersian}
       >
