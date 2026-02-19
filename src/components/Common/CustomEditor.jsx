@@ -32,6 +32,7 @@ const CustomEditor = ({
   label,
   showIcon = true,
   placeholder = "",
+  border = false,
 }) => {
   const [content, setContent] = useState(value);
 
@@ -87,7 +88,7 @@ const CustomEditor = ({
   return (
     <div>
       {label && <Label>{label}</Label>}
-      <StyledEditorContainer>
+      <StyledEditorContainer border={border}>
         <ReactQuill
           value={content}
           onChange={handleChange}

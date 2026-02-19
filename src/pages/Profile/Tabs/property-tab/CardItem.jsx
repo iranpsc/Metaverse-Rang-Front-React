@@ -6,9 +6,9 @@ import { useState } from "react";
 import {
   convertToPersian,
   getFieldTranslationByNames,
+  formatNumber,
 } from "../../../../services/Utility";
 import Button from "../../../../components/Button";
-import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { useNavigate } from "react-router-dom";
 
 const PhotoName = styled.div`
@@ -69,8 +69,8 @@ const Address = styled.div`
 `;
 
 const Meter = styled.div`
-  display: flex; 
-text-align: center;
+  display: flex;
+  text-align: center;
   flex-direction: column;
   gap: 4px;
   span {
@@ -87,6 +87,8 @@ text-align: center;
 
 const Price = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   gap: 4px;
   span {
@@ -95,10 +97,14 @@ const Price = styled.div`
     font-weight: 600;
   }
 `;
-
 const Div = styled.div`
   display: flex;
   gap: 12px;
+
+  @media screen and (max-width: 748px) {
+    flex-direction: column;
+  }
+
   div {
     display: flex;
     gap: 6px;
@@ -127,13 +133,8 @@ const Right = styled.div`
   display: grid;
   align-items: center;
   gap: 20px;
-  grid-template-columns: 2fr 100px;
-  @media (min-width: 840px) {
-    grid-template-columns: 2fr 180px;
-  }
-  @media (min-width: 900px) {
-    grid-template-columns: 2fr 220px;
-  }
+  grid-template-columns: 2fr 50%;
+
 `;
 
 const Container = styled.div`
@@ -173,19 +174,14 @@ const CardItem = ({
   price_psc,
   price_irr,
   photo,
-  navigateId
+  navigateId,
+  isDeleted,
 }) => {
-  const [isDeleted, setIsDeleted] = useState(true);
-  const formattedRial =
-    price_irr >= 1000000
-      ? `${Math.floor(price_irr / 1000000)}M`
-      : `${Math.floor(price_irr / 1000)}K`;
+  const formattedRial = convertToPersian(formatNumber(price_irr));
 
-  const formattedPsc =
-    price_psc >= 1000000
-      ? `${Math.floor(price_psc / 1000000)}M`
-      : `${Math.floor(price_psc / 1000)}K`;
-const Navigate=useNavigate()
+  const formattedPsc = convertToPersian(formatNumber(price_psc));
+
+  const Navigate = useNavigate();
   return (
     <Container>
       <Right>
@@ -195,7 +191,9 @@ const Navigate=useNavigate()
           </ImageWrapper>
           <Name>
             <h3>{getFieldTranslationByNames(name)}</h3>
-            <span onClick={() => Navigate(`/metaverse/feature/${navigateId}`)}>{id}</span>
+            <span onClick={() => Navigate(`/metaverse/feature/${navigateId}`)}>
+              {id}
+            </span>
           </Name>
         </PhotoName>
         <Address>
@@ -207,7 +205,7 @@ const Navigate=useNavigate()
       <Left>
         <Meter>
           <span>{getFieldTranslationByNames("347")}</span>
-          <p>{area}</p>
+          <p>{convertToPersian(area)}</p>
         </Meter>
         {isDeleted ? (
           <div />
@@ -230,12 +228,12 @@ const Navigate=useNavigate()
           <Button
             fit
             label={getFieldTranslationByNames("352")}
-            onclick={() => setIsDeleted(false)}
+            onClick={() =>
+              Navigate(`/metaverse/feature/${navigateId}/sell/lowest`)
+            }
           />
         ) : (
-          <Delete onClick={() => setIsDeleted(true)}>
-            {getFieldTranslationByNames("736")}
-          </Delete>
+          <Delete>{getFieldTranslationByNames("736")}</Delete>
         )}
       </Left>
     </Container>

@@ -118,7 +118,7 @@ const IdentityTab = () => {
   const { Request } = useRequest();
   const [errors, setErrors] = useState([]);
   const [details, setDetails] = useState(initialDetails);
-  const { openErrorModal, setOpenErrorModal } = useState();
+const [openErrorModal, setOpenErrorModal] = useState(false);
 
   useEffect(() => {
     Request(`kyc`).then((response) => {
@@ -129,7 +129,6 @@ const IdentityTab = () => {
           (error) => error.message
         );
         setErrors(errorNames);
-        setOpenErrorModal(true);
 
         const updatedDetails = initialDetails.map((detail) => {
           if (

@@ -41,7 +41,7 @@ const Container = styled.div`
 
 const Image = styled.div`
   position: relative;
-  img {
+  & img {
     border-radius: 100%;
     border: 2px solid transparent;
     cursor: pointer;
@@ -61,7 +61,7 @@ const Status = styled.div`
   border-radius: 100%;
   background-color: ${(props) => (props.online ? "#18c08f" : "#808080")};
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
   right: 10px;
   border: 2px solid #1a1a18;
 `;

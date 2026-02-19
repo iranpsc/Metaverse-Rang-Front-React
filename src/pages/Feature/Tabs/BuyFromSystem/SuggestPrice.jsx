@@ -9,7 +9,7 @@ import {
   ToastSuccess,
   ToastError,
 } from "../../../../../services/Utility";
-import useRequest from "../../../../../services/Hooks/useRequest";
+import useRequest from "../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   padding-right: 15px;
   padding-top: 20px;
   padding-bottom: 20px;
+  background-color: red;
   gap: 30px;
   width: 100%;
   @media (max-width: 1024px) {
@@ -38,7 +39,7 @@ const Text = styled.p`
 
 const SuggestPrice = () => {
   const [feature] = useContext(FeatureContext);
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request, HTTP_METHOD,checkSecurity } = useRequest();
   const navigate = useNavigate();
 
   const [assign, setAssign] = useState(false);

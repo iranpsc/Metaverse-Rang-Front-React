@@ -4,6 +4,7 @@ import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import {
   convertToPersian,
   getFieldTranslationByNames,
+  SanitizeHTML,
 } from "../../../../../services/Utility/index";
 import line from "../../../../../assets/images/profile/Line.png";
 import pscpng from "../../../../../assets/images/profile/psc.gif";
@@ -36,7 +37,7 @@ const Person = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  img {
+  & img {
     border-radius: 100%;
   }
   p {
@@ -124,12 +125,11 @@ const Proposer = ({
   id,
   isExploding,
   isExplodingAccept,
-}) => {   
-
+}) => {
   const [day, setDay] = useState(property.gracePeriod || 0);
   const [isExpanded, setIsExpanded] = useState(false);
   const isPersian = useLanguage();
-  const { Request } = useRequest();
+  const { Request, checkSecurity } = useRequest();
   const navigate = useNavigate();
   const accountSecurity = getItem("account_security")?.account_security;
   const handleToggle = () => {
@@ -138,6 +138,8 @@ const Proposer = ({
   const handleGracePeriod = async (selectedDay) => {
     if (!id) return console.error("Error: id is undefined!");
     try {
+      if (!checkSecurity()) return;
+
       await Request(
         `buy-requests/add-grace-period/${id}`,
         "POST",
@@ -145,14 +147,13 @@ const Proposer = ({
         {
           headers: { "Content-Type": "application/json" },
         },
-        "production"
+        "production",
       );
       setDay(selectedDay);
     } catch (error) {
       if (!accountSecurity) {
         navigate("/metaverse/confirmation");
-      }else{
-
+      } else {
       }
     }
   };
@@ -205,20 +206,21 @@ const Proposer = ({
           </Prices>
         </Price>
         <Text>
-          <p>
-            {information && information.length > 277 ? (
-              <>
-                {isExpanded ? information : `${information.slice(0, 277)}...`}{" "}
-                <span onClick={handleToggle}>
-                  {isExpanded
-                    ? getFieldTranslationByNames("884")
-                    : getFieldTranslationByNames("774")}
-                </span>
-              </>
-            ) : (
-              information || ""
-            )}
-          </p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html:
+                information?.length > 277
+                  ? isExpanded
+                    ? SanitizeHTML(information)
+                    : SanitizeHTML(`${information.slice(0, 277)}...`)
+                  : SanitizeHTML(information || ""),
+            }}
+          />
+          {information?.length > 277 && (
+            <span onClick={() => setIsExpanded(!isExpanded)}>
+              {getFieldTranslationByNames(isExpanded ? "884" : "774")}
+            </span>
+          )}
         </Text>
       </Info>
       <ProposalStatus>
@@ -229,7 +231,7 @@ const Proposer = ({
                 handleGracePeriod(7);
               }}
               label={`${convertToPersian(7)} ${getFieldTranslationByNames(
-                "772"
+                "772",
               )} `}
               color="#3B3B3B"
               textColor="#949494"
@@ -240,7 +242,7 @@ const Proposer = ({
                 handleGracePeriod(1);
               }}
               label={`${convertToPersian(1)} ${getFieldTranslationByNames(
-                "772"
+                "772",
               )} `}
               color="#3B3B3B"
               textColor="#949494"

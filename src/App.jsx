@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router-dom"; // Import useNavigate
 import { Toaster } from "react-hot-toast";
 import "./App.css";
 import "react-quill/dist/quill.snow.css";
-import styled from "styled-components";
 import "./i18n/i18n.js";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
@@ -12,10 +11,6 @@ import WalletProvider from "./services/reducers/WalletContext";
 import FollowProvider from "./services/reducers/FollowContext";
 import { MapContextProvider } from "./services/reducers/mapContext";
 import { ThemeProviderContext } from "./services/reducers/ThemeContext";
-import MapTreeD from "./layouts/map";
-import Menu from "./layouts/menu";
-import StatusBar from "./layouts/statusBar";
-import { MenuContextProvider } from "./services/reducers/MenuContext";
 import { MapProvider } from "react-map-gl";
 import { SelectedEnvironmentProvider } from "./services/reducers/SelectedEnvironmentContext.jsx";
 import { AlertProvider } from "./services/reducers/AlertContext.jsx";
@@ -26,9 +21,6 @@ import RotateDevice from "./components/RotateDevice";
 import Error410Modal from "./components/Error410Modal";
 import { useAppHeight } from "./hooks/useAppHeight.js";
 import { ScrollDirectionProvider } from "./services/reducers/ScrollDirectionContext.jsx";
-import { Outlet, Route, Routes, Navigate } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout.jsx";
-
 function App() {
   useAppHeight();
 
@@ -47,42 +39,42 @@ function App() {
     });
   }, []);
 
-  return (
-    <ScrollDirectionProvider>
-      <LoaderProvider>
-        <MapProvider>
-          <ThemeProviderContext>
-            <LanguageProvider>
+  return (<LanguageProvider>
+
+    <BrowserRouter>
+      <ScrollDirectionProvider>
+        <LoaderProvider>
+          <MapProvider>
+            <ThemeProviderContext>
               <UserProvider>
                 <WalletProvider>
                   <FollowProvider>
                     <SelectedEnvironmentProvider>
                       <MapContextProvider>
                         <AlertProvider>
-                          <BrowserRouter>
-                            <RotateDevice />
-                            <Routers />
+                          <RotateDevice />
+                          <Routers />
 
-                            <Error410Modal />
-                            <Toaster
-                              containerStyle={{
-                                zIndex: 100000,
-                                marginBottom: 48,
-                              }}
-                              position="bottom-right"
-                            />
-                          </BrowserRouter>
+                          <Error410Modal />
+                          <Toaster
+                            containerStyle={{
+                              zIndex: 100000,
+                              marginBottom: 48,
+                            }}
+                            position="bottom-right"
+                          />
                         </AlertProvider>
                       </MapContextProvider>
                     </SelectedEnvironmentProvider>
                   </FollowProvider>
                 </WalletProvider>
               </UserProvider>
-            </LanguageProvider>
-          </ThemeProviderContext>
-        </MapProvider>
-      </LoaderProvider>
-    </ScrollDirectionProvider>
+            </ThemeProviderContext>
+          </MapProvider>
+        </LoaderProvider>
+      </ScrollDirectionProvider>
+    </BrowserRouter>              </LanguageProvider>
+
   );
 }
 

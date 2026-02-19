@@ -10,22 +10,22 @@ const ButtonElement = styled.button`
         ? `${props.color}80` // Add 50% transparency when disabled
         : props.color
       : props.grayTheme
-      ? props.theme.colors.newColors.otherColors.garyBtn
-      : props.disabled === "pending"
-      ? "#3B3B3B"
-      : props.theme.colors.primary};
+        ? props.theme.colors.newColors.otherColors.garyBtn
+        : props.disabled === "pending"
+          ? "#3B3B3B"
+          : props.theme.colors.primary};
   border: none;
   padding: ${(props) => (props.large ? "0 20px" : "10px 22px")};
   width: ${(props) =>
     props.fit
       ? "fit-content"
       : props.edit
-      ? "125px"
-      : props.large
-      ? "fit-content"
-      : props.full
-      ? "100%"
-      : "fit-content"};
+        ? "125px"
+        : props.large
+          ? "fit-content"
+          : props.full
+            ? "100%"
+            : "fit-content"};
   height: 45px;
   font-weight: 500;
   font-size: 16px;
@@ -34,8 +34,8 @@ const ButtonElement = styled.button`
     props.disabled === "pending"
       ? "#949494"
       : props.grayTheme
-      ? props.theme.colors.newColors.otherColors.grayBtnText
-      : props.theme.colors.newColors.primaryText};
+        ? props.theme.colors.newColors.otherColors.grayBtnText
+        : props.theme.colors.newColors.primaryText};
   color: ${(props) => (props.textColor ? props.textColor : "")};
   font-family: inherit;
   display: flex;
@@ -52,7 +52,7 @@ const ButtonElement = styled.button`
   @media (min-width: 998px) {
     height: ${(props) => (props.large ? "40px" : "50px")};
   }
-  img {
+  & img {
     width: 25px;
     height: 25px;
     margin: 0 3px;
@@ -74,7 +74,6 @@ const Button = ({
   grayTheme,
   style,
 }) => {
-  // ترکیب onclick و onClick
   const handleClick = onClick || onclick;
 
   return (

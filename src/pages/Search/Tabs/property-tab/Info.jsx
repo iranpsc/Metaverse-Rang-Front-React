@@ -34,7 +34,7 @@ const Wrapper = styled.div`
     color: #0066ff;
     text-decoration: none;
   }
-  img {
+  & img {
     width: 20px;
     height: 20px;
   }

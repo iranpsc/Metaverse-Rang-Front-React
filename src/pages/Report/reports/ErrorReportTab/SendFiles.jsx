@@ -4,10 +4,7 @@ import Title from "../../../../components/Title";
 import remove from "../../../../assets/images/reports/remove.png";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
-import {
-  getFieldTranslationByNames,
-  convertToPersian,
-} from "../../../../services/Utility/index";
+import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import ErrorMessage from "../../../../components/ErrorMessage";
 const Files = styled.div`
   display: flex;
@@ -82,36 +79,65 @@ const SendFiles = () => {
       setPreviews([]);
     }
   }, [state.files]);
-
   const fileHandler = (e) => {
     setError("");
+    const selectedFiles = Array.from(e.target.files);
 
-    const files = Array.from(e.target.files);
-    let filePreviews = [];
-    let isError = false;
-
-    files.forEach((file) => {
-      if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setError(getFieldTranslationByNames("1482"));
-        isError = true;
-      } else {
-        if (file.type.startsWith("image/")) {
-          filePreviews.push(URL.createObjectURL(file));
-        } else {
-          filePreviews.push(nonPhoto);
-        }
-      }
+    const newUniqueFiles = selectedFiles.filter((file) => {
+      const isDuplicate = state.files.some(
+        (existingFile) =>
+          existingFile.name === file.name &&
+          existingFile.size === file.size &&
+          existingFile.lastModified === file.lastModified,
+      );
+      return !isDuplicate;
     });
 
-    if (!isError) {
-      setPreviews([...previews, ...filePreviews]);
-      dispatch({ type: "SET_FILES", payload: [...state.files, ...files] });
+    if (newUniqueFiles.length < selectedFiles.length) {
+      setError(getFieldTranslationByNames(1635));
     }
-  };
 
-  const removeFile = (index) => {
-    const updatedFiles = state.files.filter((_, i) => i !== index);
-    const updatedPreviews = previews.filter((_, i) => i !== index);
+    if (newUniqueFiles.length === 0) {
+      e.target.value = "";
+      return;
+    }
+
+    const remainingSlots = 5 - state.files.length;
+    const filesToAdd = newUniqueFiles.slice(0, remainingSlots);
+
+    if (newUniqueFiles.length > remainingSlots) {
+      setError(getFieldTranslationByNames(1636));
+    }
+
+    for (const file of filesToAdd) {
+      if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+        setError(getFieldTranslationByNames(1482));
+        e.target.value = "";
+        return;
+      }
+    }
+
+    const newPreviews = filesToAdd.map((file) => ({
+      file,
+      preview: file.type.startsWith("image/")
+        ? URL.createObjectURL(file)
+        : "nonPhoto",
+      id: `${file.name}-${file.lastModified}-${Math.random()}`,
+    }));
+
+    setPreviews((prev) => [...prev, ...newPreviews]);
+    dispatch({ type: "SET_FILES", payload: [...state.files, ...filesToAdd] });
+
+    e.target.value = "";
+  };
+  const removeFile = (id) => {
+    const fileToRemove = previews.find((item) => item.id === id);
+    if (fileToRemove && fileToRemove.preview.startsWith("blob:")) {
+      URL.revokeObjectURL(fileToRemove.preview);
+    }
+
+    const updatedPreviews = previews.filter((item) => item.id !== id);
+    const updatedFiles = updatedPreviews.map((item) => item.file);
     setPreviews(updatedPreviews);
     dispatch({ type: "SET_FILES", payload: updatedFiles });
   };
@@ -124,18 +150,19 @@ const SendFiles = () => {
     <Container>
       <Title title={getFieldTranslationByNames("21")} />
       <Files>
-        {previews.map((preview, index) => (
-          <FilePreview key={index}>
-            <FileImage src={preview} alt={`file-preview-${index}`} />
+        {previews.map((item) => (
+          <FilePreview key={item.id}>
+            <FileImage src={item.preview} alt="file-preview" />
             <RemoveButton
               src={remove}
               alt="remove"
               width={36}
               height={36}
-              onClick={() => removeFile(index)}
+              onClick={() => removeFile(item.id)}
             />
           </FilePreview>
         ))}
+
         {state.files.length < 5 && (
           <Div onClick={handleDivClick}>
             <span>+</span>
@@ -149,7 +176,7 @@ const SendFiles = () => {
           </Div>
         )}
       </Files>
-      <ErrorMessage errors={[error]}/>{" "}
+      <ErrorMessage errors={[error]} />{" "}
     </Container>
   );
 };

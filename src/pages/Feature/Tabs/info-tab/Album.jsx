@@ -4,11 +4,13 @@ import Slider from "./Slider";
 import styled from "styled-components";
 import { useState, useRef, useContext } from "react";
 import Compressor from "compressorjs";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { ToastError, ToastSuccess } from "../../../../services/Utility";
-
+import {
+  ToastError,
+  ToastSuccess,
+  getFieldTranslationByNames,
+} from "../../../../services/Utility";
 const AlbumWrapper = styled.div`
   display: grid;
 
@@ -60,7 +62,7 @@ const ImageWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.gray};
   width: 100%;
   height: 150px;
-  img {
+  & img {
     width: 100% !important;
     height: 100% !important;
     object-fit: contain !important;
@@ -95,12 +97,13 @@ const Album = ({ feature, setFeature }) => {
   const [user] = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [activeImage, setActiveImage] = useState(feature?.images?.[0] || null);
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const inputRef = useRef();
-  const Navigate = useNavigate();
   // if (feature?.owner_id === userId) return SellTabPanel;
 
   const handleImageUpload = (event) => {
+    if (!checkSecurity()) return;
+
     const file = event.target.files[0];
     if (file.size < 1000000) {
       new Compressor(file, {
@@ -110,16 +113,15 @@ const Album = ({ feature, setFeature }) => {
         success(result) {
           const formData = new FormData();
           formData.append("file", result, result.name);
-
           Request(
             `my-features/${user?.id}/add-image/${feature?.id}`,
             HTTP_METHOD.POST,
             { "images[]": [formData.get("file")] },
-            { "Content-Type": "multipart/form-data" }
+            { "Content-Type": "multipart/form-data" },
           )
             .then((response) => {
               setFeature({ ...feature, images: [...response.data.data] });
-              ToastSuccess("آپلود عکس با موفقیت انجام شد.");
+              ToastSuccess(getFieldTranslationByNames(1628));
             })
             .catch((error) => {
               ToastError(error.response.data.message);
@@ -127,21 +129,22 @@ const Album = ({ feature, setFeature }) => {
         },
       });
     } else {
-      ToastError("باید حجم فایل انتخابی کمتر از 1024 کیلوبایت باشد.");
+      ToastError(getFieldTranslationByNames(1482));
     }
   };
 
   const deleteHandler = (imageId) => {
+    if (!checkSecurity()) return;
     const url = `my-features/${user.id}/remove-image/${feature.id}/image/${imageId}`;
 
     Request(url, HTTP_METHOD.POST)
-      .then((response) => {
+      .then(() => {
         const filteredImages = feature?.images?.filter(
-          (item) => item.id !== imageId
+          (item) => item.id !== imageId,
         );
         setFeature({ ...feature, images: filteredImages });
         setActiveImage(filteredImages.length > 0 ? filteredImages[0] : null);
-        ToastSuccess("تصویر با موفقیت حذف شد.");
+        ToastSuccess(getFieldTranslationByNames(1631));
       })
       .catch((error) => {
         ToastError(error.response.data.message);
@@ -166,7 +169,11 @@ const Album = ({ feature, setFeature }) => {
                 </IconWrapper>
               )}
 
-              <IconWrapper onClick={()=>{console.log("pending")}}>
+              <IconWrapper
+                onClick={() => {
+                  console.log("pending");
+                }}
+              >
                 <IoWarningOutline />
               </IconWrapper>
             </Actions>

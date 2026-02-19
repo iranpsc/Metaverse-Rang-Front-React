@@ -19,7 +19,8 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  opacity: ${({ disabled }) => (disabled ? 0.2 : 1)};
   svg {
     font-size: 20px;
     color: ${(props) =>
@@ -61,14 +62,11 @@ const Buttons = ({ user }) => {
   // Determine if the user is already followed
   const isFollowed =
     _.findIndex(follow, (o) => parseInt(o.id) === parseInt(user?.id)) > -1;
-
   const items = [
     {
       id: 1,
       icon: isFollowed ? <RiUserUnfollowLine /> : <TiUserAddOutline />,
-      label: isFollowed
-        ? getFieldTranslationByNames("467")
-        : getFieldTranslationByNames("467"),
+      label: getFieldTranslationByNames("467"),
       onClick: isFollowed
         ? () => onUnFollowHandler(user?.id)
         : () => onFollowHandler(user?.id),
@@ -76,8 +74,9 @@ const Buttons = ({ user }) => {
     {
       id: 2,
       icon: <BiCommentDots />,
-      label: getFieldTranslationByNames("468"),
-      onClick: () => {},
+      label: null, //getFieldTranslationByNames("468")
+      onClick: null,
+      disabled: true,
     },
     {
       id: 3,
@@ -93,8 +92,13 @@ const Buttons = ({ user }) => {
   return (
     <Container>
       {items.map((item) => (
-        <div key={item.id} onClick={item.onClick}>
-          <IconWrapper data-tooltip-id={item.label}>{item.icon}</IconWrapper>
+        <div
+          key={item.id}
+          onClick={item.disabled ? undefined : item.onClick} // فقط اگر غیرفعال نبود
+        >
+          <IconWrapper disabled={item.disabled} data-tooltip-id={item.label}>
+            {item.icon}
+          </IconWrapper>
           <ReactTooltip
             style={{ backgroundColor: "#434343", borderRadius: "10px" }}
             place="right"

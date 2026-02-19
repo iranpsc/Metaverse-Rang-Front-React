@@ -47,6 +47,29 @@ const Container = styled.div`
       props.theme.colors.newColors.otherColors.secondaryBtnText};
     cursor: pointer;
   }
+
+  @media (max-width: 768px) {
+    margin-top: 0px;
+
+    h3 {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    input {
+      padding: 10px 14px;
+      margin-top: 10px;
+    }
+
+    button {
+      font-size: 14px;
+      height: 44px;
+      margin-top: 10px;
+    }
+  }
 `;
 const ButtonContainer = styled.div`
   display: flex;
@@ -63,16 +86,22 @@ const Div = styled.div`
     flex-direction: column;
     color: ${(props) => props.theme.colors.newColors.shades.title};
     cursor: pointer;
+
+    @media (max-width: 768px) {
+      top: 15px;
+    }
   }
 `;
 const Up = styled.span`
   user-select: none;
   display: inline-flex;
+
   svg {
     width: 20px;
     height: 20px;
   }
 `;
+
 const Down = styled.span`
   user-select: none;
   display: inline-flex;
@@ -82,22 +111,33 @@ const Down = styled.span`
     height: 20px;
   }
 `;
+
 const Min = styled.span`
   position: absolute;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   ${(props) => (props.isPersian ? "right" : "left")}: 40px;
   top: 37px;
   font-size: 14px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    top: 24px;
+  }
 `;
 
 const FirstStep = ({ setStep, time, setTime }) => {
   const [phone, setPhone] = useState(true);
   const [formData, setFormData] = useState({ phone: "", time: time });
   const { Request, HTTP_METHOD } = useRequest();
-  const isPersian = useLanguage();
+  const { isPersian } = useLanguage();
   const onSendHandler = () => {
+    let sendTime = time;
+    if (Number(sendTime) < 5) {
+      sendTime = 5;
+      setTime(5);
+    }
     if (phone) {
-      Request("account/security", HTTP_METHOD.POST, { time: time })
+      Request("account/security", HTTP_METHOD.POST, { time: sendTime })
         .then(() => {
           setStep(2);
         })
@@ -107,7 +147,10 @@ const FirstStep = ({ setStep, time, setTime }) => {
           }
         });
     } else {
-      Request("account/security", HTTP_METHOD.POST, formData).then(() => {
+      Request("account/security", HTTP_METHOD.POST, {
+        ...formData,
+        time: sendTime,
+      }).then(() => {
         setStep(2);
       });
     }
@@ -118,16 +161,35 @@ const FirstStep = ({ setStep, time, setTime }) => {
   };
 
   return (
-    <Container>
+    <Container
+      as="form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (time === "" || time == null) {
+          return;
+        }
+        if (Number(time) < 5) {
+          setTime(5);
+          setTimeout(() => {
+            onSendHandler();
+          }, 0);
+        } else {
+          onSendHandler();
+        }
+      }}
+    >
       <h3>{getFieldTranslationByNames("858")}</h3>
       <p>{getFieldTranslationByNames("32")}</p>
       <Div isPersian={isPersian}>
         <ButtonContainer>
           <Up
             onClick={() =>
-              setTime((prev) =>
-                prev === "" || prev == null ? 5 : Math.max(5, +prev + 1)
-              )
+              setTime((prev) => {
+                if (prev === "" || prev == null) return 5;
+                const next = +prev + 1;
+                if (next > 60) return 60;
+                return Math.max(5, next);
+              })
             }
           >
             <MdKeyboardArrowUp />
@@ -154,18 +216,19 @@ const FirstStep = ({ setStep, time, setTime }) => {
               return;
             }
 
-            let numericValue = Number(value);
-
-            if (numericValue < 5) numericValue = 5;
-            if (numericValue > 99) numericValue = 99;
-
-            setTime(numericValue);
+            if (value.length >= 2) {
+              let numericValue = Number(value);
+              if (numericValue < 5) numericValue = 5;
+              if (numericValue > 60) numericValue = 60;
+              setTime(numericValue);
+            } else {
+              setTime(value);
+            }
           }}
           type="number"
           name="time"
           placeholder={getFieldTranslationByNames("858")}
           maxLength={3}
-          min={5}
           max={99}
           step={1}
         />
@@ -183,9 +246,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
           <Min isPersian={isPersian}>{getFieldTranslationByNames("33")}</Min>
         )}
       </Div>
-      <button onClick={onSendHandler}>
-        {getFieldTranslationByNames("859")}
-      </button>
+      <button type="submit">{getFieldTranslationByNames("859")}</button>
     </Container>
   );
 };

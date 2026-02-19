@@ -155,12 +155,7 @@ const menuItems = [
   {
     icon: CitizenIcon,
     translationId: "263",
-    link: "https://rgb.irpsc.com/",
-  },
-  {
-    icon: ViewIcon,
-    translationId: "264",
-    link: "https://rgb.irpsc.com/overview",
+    link: "https://rgb.irpsc.com/fa/citizens",
   },
 ];
 

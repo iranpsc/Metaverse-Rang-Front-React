@@ -1,13 +1,67 @@
 import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
 import i18n from "../../i18n/i18n";
-import { useLanguage } from "../reducers/LanguageContext";
 import DOMPurify from "dompurify";
-export const SanitizeHTML = (text) =>
-  DOMPurify.sanitize(text, {
-    ALLOWED_TAGS: [],
-    ALLOWED_ATTR: [],
+export const SanitizeHTML = (html) => {
+  if (!html) return "";
+
+  return DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: [
+      "div",
+      "p",
+      "br",
+      "hr",
+      "span",
+      "b",
+      "strong",
+      "i",
+      "em",
+      "u",
+      "s",
+      "mark",
+      "small",
+      "sub",
+      "sup",
+      "code",
+      "pre",
+      "blockquote",
+      "ul",
+      "ol",
+      "li",
+      "dl",
+      "dt",
+      "dd",
+      "a",
+      "img",
+      "table",
+      "thead",
+      "tbody",
+      "tfoot",
+      "tr",
+      "th",
+      "td",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+    ],
+    ALLOWED_ATTR: [
+      "href",
+      "title",
+      "target",
+      "src",
+      "alt",
+      "colspan",
+      "rowspan",
+      "width",
+      "height",
+      "style",
+    ],
+    FORBID_TAGS: ["script", "iframe", "object", "embed"],
   });
+};
 
 export function TextShorter(content, endStr = 20) {
   if (content?.length > endStr) {
@@ -30,23 +84,20 @@ export function TimeAgo(time) {
   return Math.floor(ageInMs / (1000 * 60 * 60 * 24 * 365));
 }
 
-
 export function EmailValidator(email) {
   return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-    email
+    email,
   );
 }
-// این تابع برای فرمت اعداد اعشاری هست و فقط در صورتی که اعداد اعشار داشته باشد باشند 
-// اعشار ان نمایش داده میشود در غیر این صورت اعداد بدون اعشار نمایش داده میشوند 
+// این تابع برای فرمت اعداد اعشاری هست و فقط در صورتی که اعداد اعشار داشته باشد باشند
+// اعشار ان نمایش داده میشود در غیر این صورت اعداد بدون اعشار نمایش داده میشوند
 
 export const formatNumber = (value, decimals = 2) => {
   const num = Number(value);
 
   if (Number.isNaN(num)) return "";
 
-  return Number.isInteger(num)
-    ? num
-    : Number(num.toFixed(decimals));
+  return Number.isInteger(num) ? num : Number(num.toFixed(decimals));
 };
 
 export const calculateFee = (number = 100, percent = 5) => {
@@ -91,7 +142,7 @@ export const persianNumbers = [
     }
     return str;
   };
-  export const convertToPersian = (value, isPersian = true) => {
+export const convertToPersian = (value, isPersian = true) => {
   if (value === null || value === undefined) return "";
 
   // اگر مقدار number باشه، تبدیل به string
@@ -105,10 +156,12 @@ export const persianNumbers = [
     return str.replace(/\d/g, (d) => persianDigits[d]);
   } else {
     // تبدیل فارسی → انگلیسی
-    return str.replace(/[۰-۹]/g, (d) => englishDigits[persianDigits.indexOf(d)]);
+    return str.replace(
+      /[۰-۹]/g,
+      (d) => englishDigits[persianDigits.indexOf(d)],
+    );
   }
 };
-
 
 export const ToastError = (message) => {
   return toast.error(message, {
@@ -120,7 +173,7 @@ export const ToastError = (message) => {
       color: "#fff",
       border: "2px solid red",
     },
-    duration: 5000,
+    duration: 4000,
   });
 };
 
@@ -136,8 +189,7 @@ export const ToastSuccess = (message) => {
     },
     duration: 5000,
   });
-}; 
-
+};
 
 // تبدیل عدد واقعی به فرمت K/M و 3 رقم اعشار (formatAmount)
 export const formatAmount = (value) => {
@@ -159,7 +211,6 @@ export const formatAmount = (value) => {
 
   return format(num);
 };
-
 
 export const getFieldTranslationByNames = (fieldId) => {
   const resources = i18n.store.data;
@@ -189,7 +240,7 @@ export const getFieldsByTabName = (modalName, tabName) => {
   const resources = i18n.store.data;
 
   const modal = resources[i18n.language].translation.modals.find(
-    (modal) => modal.name === modalName
+    (modal) => modal.name === modalName,
   );
 
   if (!modal) {
@@ -211,12 +262,12 @@ export const getFieldsByTabNameReverse = (modalName, tabName) => {
   const oppositeLang = currentLang === "fa" ? "en" : "fa";
 
   const modalCurrent = resources[currentLang]?.translation?.modals?.find(
-    (modal) => modal.name === modalName
+    (modal) => modal.name === modalName,
   );
   const tabCurrent = modalCurrent?.tabs?.find((tab) => tab.name === tabName);
 
   const modalOpposite = resources[oppositeLang]?.translation?.modals?.find(
-    (modal) => modal.name === modalName
+    (modal) => modal.name === modalName,
   );
   const tabOpposite = modalOpposite?.tabs?.find((tab) => tab.name === tabName);
 
@@ -224,7 +275,7 @@ export const getFieldsByTabNameReverse = (modalName, tabName) => {
 
   return tabCurrent.fields.map((field) => {
     const oppositeField = tabOpposite.fields.find(
-      (f) => f.unique_id === field.unique_id
+      (f) => f.unique_id === field.unique_id,
     );
 
     return {

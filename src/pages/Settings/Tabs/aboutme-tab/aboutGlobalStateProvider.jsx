@@ -47,9 +47,9 @@ const aboutStateContext = createContext();
 export const GlobalStateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const isPersian = useLanguage();
+  const { Request } = useRequest();
 
   useEffect(() => {
-    const { Request } = useRequest();
 
     const fetchData = async () => {
       try {

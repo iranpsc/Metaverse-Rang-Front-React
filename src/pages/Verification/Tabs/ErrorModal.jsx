@@ -1,10 +1,7 @@
 import ErrorItem from "./identity-tab/ErrorItem";
-import { IoCloseSharp } from "react-icons/io5";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../services/Utility";
-import { useLanguage } from "../../../services/reducers/LanguageContext";
-import { isPersian } from "@persian-tools/persian-tools";
-
+import { ExitIcon } from "../../../components/Icons/IconsHeader";
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,6 +32,11 @@ const Modal = styled.div`
   max-width: 475px;
   position: relative;
 `;
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const Title = styled.h3`
   font-size: 24px;
@@ -54,38 +56,24 @@ const Info = styled.p`
     font-size: 14px;
   }
 `;
-const Close = styled.div`
-  position: absolute;
-  top: 10px;
-  ${(props) => (props.isPersian ? "left" : "right")}: 10px;
-  cursor: pointer;
-  svg {
-    color: red;
-    font-size: 24px;
-  }
-`;
 
 const ErrorModal = ({ setOpenErrorModal, errors }) => {
-  const isPersian = useLanguage();
   return (
     <BackGround>
       <Modal>
-        <Close isPersian={isPersian}>
-          <IoCloseSharp onClick={() => setOpenErrorModal(false)} />
-        </Close>
-        <div>
-          <Title>
-            {" "}
-            {getFieldTranslationByNames("883")}
-          </Title>
-          <Info>
-            {getFieldTranslationByNames("881")}
-          </Info>
-        </div>
+        <Header>
+          <Title>{getFieldTranslationByNames("883")}</Title>
+          <ExitIcon onClick={() => setOpenErrorModal(false)} />
+        </Header>
+
+        <Info>{getFieldTranslationByNames("881")}</Info>
+
         <Div>
-          {errors.map((errorItem) => (
-            <ErrorItem key={errorItem} item={errorItem} />
-          ))}
+          {errors &&
+            errors.length &&
+            errors.map((errorItem, index) => (
+              <ErrorItem key={`error-${index}`} item={errorItem} />
+            ))}
         </Div>
       </Modal>
     </BackGround>

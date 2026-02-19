@@ -1,3 +1,35 @@
+// Print-only CSS: Only show Header, center it, hide print button and modal background
+const PrintOnlyStyles = () => (
+  <style>{`
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #print-header, #print-header * {
+        visibility: visible !important;
+      }
+      #print-header {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+       
+
+        background: none !important;
+        box-shadow: none !important;
+        padding: 32px !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+      .print-hide, .print-hide * {
+        display: none !important;
+      }
+    }
+  `}</style>
+);
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { ReactComponent as Exit } from "../../../../assets/svg/close.svg";
@@ -57,8 +89,8 @@ const Header = styled.div`
       props.status == "0"
         ? "#00966d"
         : props.status == "-138"
-        ? "#C30000"
-        : "#FFC700"};
+          ? "#C30000"
+          : "#FFC700"};
     font-size: 24px;
     font-weight: 600;
   }
@@ -77,8 +109,8 @@ const Div = styled.div`
     props.status == "0"
       ? "#00966d"
       : props.status == "-138"
-      ? "#C30000"
-      : "#FFC700"};
+        ? "#C30000"
+        : "#FFC700"};
   margin-bottom: 10px;
   div {
     z-index: 0;
@@ -147,7 +179,8 @@ const PrintModal = ({
     <BackGround>
       <Modal>
         <ExitIcon onClick={() => setOpenPrint(false)}></ExitIcon>
-        <Header status={status}>
+        <PrintOnlyStyles />
+        <Header id="print-header" status={status}>
           <Div status={status}>
             <div />
             {status == "0" ? (
@@ -208,7 +241,7 @@ const PrintModal = ({
               <Title>{getFieldTranslationByNames("751")}</Title>
               <Value>{count}</Value>
             </Row>
-            <div style={{ marginTop: "10px" }}>
+            <div className="print-hide" style={{ marginTop: "10px" }}>
               <Button
                 full
                 label={getFieldTranslationByNames("67")}

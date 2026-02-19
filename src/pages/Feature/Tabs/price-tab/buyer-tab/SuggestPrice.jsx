@@ -4,7 +4,6 @@ import FillInputs from "./FillInputs";
 import ResultInfo from "../../../components/ResultInfo";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { FeaturePrice } from "../../../../../services/constants/FeatureType";
-import { getItem } from "../../../../../services/Utility/LocalStorage";
 import {
   ToastSuccess,
   ToastError,
@@ -36,9 +35,8 @@ const PSC_RATE = 900;
 const SuggestPrice = () => {
   const [wallet, dispatch] = useContext(WalletContext);
   const [feature] = useContext(FeatureContext);
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
 
-  const accountSecurity = getItem("account_security")?.account_security;
 
   const totalIrr = useMemo(() => {
     if (!feature?.properties) return 0;
@@ -59,7 +57,7 @@ const SuggestPrice = () => {
 
   const totalPrice = useMemo(
     () => rialValue + pscValue * PSC_RATE,
-    [rialValue, pscValue]
+    [rialValue, pscValue],
   );
 
   const validate = () => {
@@ -75,10 +73,6 @@ const SuggestPrice = () => {
       return getFieldTranslationByNames("1605");
     }
 
-    if (!accountSecurity) {
-      return getFieldTranslationByNames("1603");
-    }
-
     return null;
   };
 
@@ -90,6 +84,7 @@ const SuggestPrice = () => {
       ToastError(errorMessage);
       return;
     }
+    if (!checkSecurity()) return;
 
     Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST, {
       price_irr: rialValue,

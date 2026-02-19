@@ -17,6 +17,10 @@ const Asset = styled.div`
   width: 100%;
   height: 13%;
   min-height: 35px;
+   @media (max-width: 1024px) {
+     min-height: 25px;
+
+  }
 `;
 
 const ImgAsset = styled.img`
@@ -36,7 +40,7 @@ const TextAsset = styled.p`
   line-height: 180%; /* 25.2px */
   text-transform: capitalize;
   @media (min-width: 1024px) {
-    font-size: 16px;
+    font-size: 17px;
   }
 `;
 

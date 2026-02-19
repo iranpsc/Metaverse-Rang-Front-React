@@ -65,11 +65,11 @@ const Image = styled.div`
     props.theme.colors.newColors.otherColors.inputBg};
   overflow: hidden;
   border: 1px solid gray;
-  img {
+  & img {
     &:first-of-type {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 `;
@@ -111,7 +111,7 @@ const CitizenMessage = ({ data }) => {
                   height={179}
                 />
                 <Download
-                  src={data.attachment}
+                  src={download}
                   alt="download"
                   width={36}
                   height={36}

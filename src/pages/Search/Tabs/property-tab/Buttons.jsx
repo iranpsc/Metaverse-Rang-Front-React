@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { flyToMapPosition } from "../../../../services/Utility/flyToMapPosition";
-import { calculatePolygonCentroid  } from "../../../../services/Utility/calculatePolygonCentroid";
+import { calculatePolygonCentroid } from "../../../../services/Utility/calculatePolygonCentroid";
 
 const IconWrapper = styled.div`
   border-radius: 60px;
@@ -39,9 +39,7 @@ const Container = styled.div`
   gap: 15px;
 `;
 
-
-
-const Buttons = ({ item }) => {
+const Buttons = ({ item, system }) => {
   const Navigate = useNavigate();
   const center = calculatePolygonCentroid(item?.coordinates);
   const mapRef = useMap();
@@ -51,19 +49,9 @@ const Buttons = ({ item }) => {
       label: getFieldTranslationByNames("353"),
       icon: <LuShoppingCart />,
       onClick: () =>
-        Navigate(`/metaverse/feature/${item?.id}`, {
+        Navigate(`/metaverse/feature/${item?.id}/buy/price`, {
           state: { activePageNumber: 1 },
         }),
-    },
-    {
-      id: 2,
-      label: getFieldTranslationByNames("472"),
-      icon: <HiOutlineCurrencyDollar />,
-      onClick: () => {
-        Navigate(`/metaverse/feature/${item?.id}`, {
-          state: { activePageNumber: 1, activeTab: 1 },
-        });
-      },
     },
     {
       id: 3,
@@ -79,6 +67,19 @@ const Buttons = ({ item }) => {
       },
     },
   ];
+
+  if (!system) {
+    items.splice(1, 0, {
+      id: 2,
+      label: getFieldTranslationByNames("472"),
+      icon: <HiOutlineCurrencyDollar />,
+      onClick: () => {
+        Navigate(`/metaverse/feature/${item?.id}/buy/suggest`, {
+          state: { activePageNumber: 1, activeTab: 1 },
+        });
+      },
+    });
+  }
 
   return (
     <Container>

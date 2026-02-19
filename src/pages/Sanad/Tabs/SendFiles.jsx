@@ -80,28 +80,40 @@ const SendFiles = ({ files, onFilesChange }) => {
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
   const MAX_FILE_SIZE_MB = 9;
-
   useEffect(() => {
-    if (files && files.length > 0) {
-      const file = files[0];
-      const previewUrl = file.type.startsWith("image/")
-        ? URL.createObjectURL(file)
-        : nonPhoto;
-      setPreview(previewUrl);
-    } else {
+    if (!files || (Array.isArray(files) && files.length === 0)) {
       setPreview("");
+      return;
     }
+
+    let objectUrl = "";
+
+    if (files instanceof File) {
+      if (files.type.startsWith("image/")) {
+        objectUrl = URL.createObjectURL(files);
+        setPreview(objectUrl);
+      } else {
+        setPreview(nonPhoto);
+      }
+    } else if (typeof files === "string") {
+      const isImage = /\.(jpg|jpeg|png|gif)$/i.test(files);
+      setPreview(isImage ? files : nonPhoto);
+    }
+
+    return () => {
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
   }, [files]);
 
   const fileHandler = (e) => {
     setError("");
-
     const newFile = e.target.files[0];
+
     if (newFile) {
       if (newFile.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
         setError(getFieldTranslationByNames("1482"));
       } else {
-        onFilesChange([newFile]);
+        onFilesChange(newFile);
       }
     }
   };
@@ -136,7 +148,7 @@ const SendFiles = ({ files, onFilesChange }) => {
             <HiddenInput
               ref={fileInputRef}
               type="file"
-              accept="image/*"
+              accept="image/*,.pdf,.doc,.docx"
               onChange={fileHandler}
             />
           </Div>

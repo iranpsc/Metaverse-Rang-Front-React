@@ -20,6 +20,10 @@ const Div = styled.div`
   gap: 23px;
 `;
 
+const ButtonBox = styled.div`
+  display: flex;
+  gap: 23px;
+`;
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,7 +40,7 @@ const ResultWrapper = styled.div`
   gap: 20px;
   width: 100%;
   @media (min-width: 741px) {
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2fr 1fr;
   }
   @media (min-width: 840px) {
     grid-template-columns: 5fr 2fr;
@@ -66,6 +70,7 @@ const Title = styled.h3`
   height: fit-content;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   padding: 5px 20px;
   @media (min-width: 998px) {
     padding: 8px 20px;
@@ -73,6 +78,8 @@ const Title = styled.h3`
 `;
 
 const Value = styled.p`
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+
   font-size: 18px;
   padding: 5px 20px;
   @media (min-width: 998px) {
@@ -80,57 +87,84 @@ const Value = styled.p`
   }
 `;
 
-const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
+const FillInputs = ({
+  setAssign,
+  validateAndSubmit,
+  rial,
+  setRial,
+  psc,
+  setPsc,rialToPsc
+}) => {
   const [user] = useContext(UserContext);
   const [feature] = useContext(FeatureContext);
   const [errors, setErrors] = useState({ rial: "", psc: "" });
+  const cancel =
+    +feature?.properties?.price_irr !== 0 ||
+    +feature?.properties?.price_psc !== 0;
+    const priceHandler = () => {
+      let isValid = true;
+    
+      const hasBirthdate = !!user?.birthdate;
+      // ⛔ اگر احراز هویت نشده، ریال ممنوع
+      if (!hasBirthdate && rial > 0) {
+        ToastError("برای افراد احراز هویت نشده فقط تعریف قیمت با ارز PSC ممکن است.");
+        return;
+      }
+    
+      const userAge = hasBirthdate ? TimeAgo(user.birthdate) : null;
+      console.log(userAge)
 
-  const priceHandler = () => {
-    let isValid = true;
-    const userAge = TimeAgo(user?.birthdate);
-    const minPriceIRR =
-      userAge >= 18
-        ? calculateFee(feature.properties.price_irr, 80)
-        : calculateFee(feature.properties.price_irr, 110);
-
-    const minPricePSC =
-      userAge >= 18
-        ? calculateFee(feature.properties.price_psc, 80)
-        : calculateFee(feature.properties.price_psc, 100);
-
-    if (rial < minPriceIRR) {
-      setErrors((prev) => ({
-        ...prev,
-        rial: `حداقل ارزش معامله ${minPriceIRR} ریال می‌باشد`,
-      }));
-      isValid = false;
-    }
-
-    if (psc < minPricePSC) {
-      setErrors((prev) => ({
-        ...prev,
-        psc: `حداقل ارزش معامله ${minPricePSC} PSC می‌باشد`,
-      }));
-      isValid = false;
-    }
-
-    if (isValid) {
-      setAssign(true);
-    } else {
-      ToastError("لطفاً خطاها را اصلاح کنید");
-    }
-  };
-
+      // محاسبه حداقل‌ها
+      const minPriceIRR = hasBirthdate
+        ? userAge >= 18
+          ? calculateFee(feature.properties.price_irr, 80)
+          : calculateFee(feature.properties.price_irr, 110)
+        : 0; // چون ریال مجاز نیست
+    
+      // جمع psc با rialToPsc فقط وقتی birthdate نال است
+      const effectivePsc = !hasBirthdate ? +psc + +rialToPsc : +psc;
+    
+      const minPricePSC = hasBirthdate
+        ? userAge >= 18
+          ? calculateFee(feature.properties.price_psc, 80)
+          : calculateFee(feature.properties.price_psc, 100)
+        : calculateFee(feature.properties.price_psc, 100); // حالت بدون احراز
+    
+      // چک ریال فقط اگر تاریخ تولد موجود باشد
+      if (hasBirthdate && rial < minPriceIRR) {
+        setErrors((prev) => ({
+          ...prev,
+          rial: `حداقل ارزش معامله ${minPriceIRR} ریال می‌باشد`,
+        }));
+        isValid = false;
+      }
+    
+      if (effectivePsc < minPricePSC) {
+        setErrors((prev) => ({
+          ...prev,
+          psc: `حداقل ارزش معامله ${minPricePSC} PSC می‌باشد`,
+        }));
+        isValid = false;
+      }
+    
+      if (isValid) {
+        validateAndSubmit(true);
+      } else {
+        ToastError("لطفاً خطاها را اصلاح کنید");
+      }
+    };
+    
+    
   return (
     <Div>
       <InputsWrapper>
         <Input
-          value={rial}
+          value={rial||0}
           maxLength={14}
           onChange={(e) => setRial(e.target.value)}
           type="number"
           placeholder={`${getFieldTranslationByNames(
-            "521"
+            "521",
           )} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
           errorMessage={errors.rial}
@@ -141,7 +175,7 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
           onChange={(e) => setPsc(e.target.value)}
           type="number"
           placeholder={`${getFieldTranslationByNames(
-            "521"
+            "521",
           )} (${getFieldTranslationByNames("47")})`}
           insideText={<Psc />}
           errorMessage={errors.psc}
@@ -156,10 +190,20 @@ const FillInputs = ({ setAssign, rial, setRial, psc, setPsc }) => {
         </Wrapper>
         <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
       </ResultWrapper>
-      <Button
-        label={getFieldTranslationByNames("519")}
-        onclick={priceHandler}
-      />
+      <ButtonBox>
+        {" "}
+        <Button
+          label={getFieldTranslationByNames("519")}
+          onclick={priceHandler}
+        />
+        {cancel && <Button
+          color="red"
+          edit
+          label={getFieldTranslationByNames("833")}
+          onclick={() => setAssign(true)}
+        />}
+
+      </ButtonBox>
     </Div>
   );
 };

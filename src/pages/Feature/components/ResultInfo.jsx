@@ -3,7 +3,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 
 import styled from "styled-components";
 import {
-  convertToPersian,
+  convertToPersian,formatNumber,
   getFieldTranslationByNames,
 } from "../../../services/Utility";
 import Result from "../../../components/Result";
@@ -21,10 +21,10 @@ const Results = styled.div`
   display: grid;
   gap: 20px;
   grid-template-columns: 1fr;
-  @media (min-width: 768px) {
+  @media (min-width: 650px) {
     grid-template-columns: 1.4fr 1fr;
   }
-  @media (min-width: 1200px) {
+  @media (min-width: 1000px) {
     grid-template-columns: 2fr 2fr 2fr 1fr;
   }
 `;
@@ -34,7 +34,7 @@ const Actions = styled.div`
   flex-direction: column;
   align-items: end;
   gap: 10px;
-  @media (min-width: 1200px) {
+  @media (min-width: 1100px) {
     flex-direction: row;
     align-items: center;
     justify-content: end;
@@ -54,6 +54,8 @@ const ActionWrapper = styled.div`
 
 const ResultWrapper = styled.div`
   display: flex;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
@@ -62,19 +64,13 @@ const ResultWrapper = styled.div`
   }
 `;
 
-const Title = styled.h3`
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  font-size: 14px;
-  font-weight: 500;
-`;
-
 const Value = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 16px;
   font-weight: 400;
 `;
 
-const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
+const ResultInfo = ({ lowest, setAssign, rial, psc, setPsc, setRial }) => {
   const deleteHandler = () => {
     setPsc("");
     setRial("");
@@ -103,15 +99,15 @@ const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
             {convertToPersian(rial)} IRR / {convertToPersian(psc)} PSC
           </Value>
         </ResultWrapper>
-        <Result
-          title={getFieldTranslationByNames("523")}
-          value={"5%"}
-        />
+        <Result title={getFieldTranslationByNames("523")} value={"5%"} />
       </Results>
       <Actions>
-        <ActionWrapper onClick={() => setAssign(false)}>
-          <BiEditAlt size={20} />
-        </ActionWrapper>
+        {!lowest && (
+          <ActionWrapper onClick={() => setAssign(false)}>
+            <BiEditAlt size={20} />
+          </ActionWrapper>
+        )}
+
         <ActionWrapper onClick={deleteHandler}>
           <HiOutlineTrash size={20} />
         </ActionWrapper>

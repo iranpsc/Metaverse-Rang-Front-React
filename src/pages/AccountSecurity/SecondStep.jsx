@@ -9,7 +9,7 @@ const Codes = styled.div`
   display: flex;
   gap: 10px;
   margin: 0 auto;
-direction: ltr;
+  direction: ltr;
   margin-bottom: 30px !important;
   input {
     width: 30px;
@@ -121,6 +121,7 @@ const SecondStep = ({ setStep, time }) => {
   const inputRefs = useRef([]);
   const [timer, setTimer] = useState(2 * 60);
   const [errors, setErrors] = useState(false);
+  const [codeValues, setCodeValues] = useState(["", "", "", "", "", ""]);
   const { Request, HTTP_METHOD } = useRequest(); // Use the request hook
   const timerInterval = useRef(null);
 
@@ -138,6 +139,22 @@ const SecondStep = ({ setStep, time }) => {
 
     return () => clearInterval(timerInterval.current);
   }, []);
+  const handleKeyDown = (index, event) => {
+    if (event.key === "Backspace") {
+      if (codeValues[index] === "") {
+        if (index > 0) {
+          const newValues = [...codeValues];
+          newValues[index - 1] = "";
+          setCodeValues(newValues);
+          inputRefs.current[index - 1].focus();
+        }
+      } else {
+        const newValues = [...codeValues];
+        newValues[index] = "";
+        setCodeValues(newValues);
+      }
+    }
+  };
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
@@ -150,39 +167,48 @@ const SecondStep = ({ setStep, time }) => {
   };
 
   const handleInputChange = (index, event) => {
-    const value = event.target.value;
+    let value = event.target.value.replace(/[^\d]/g, "");
+    if (value.length > 1) value = value.slice(-1);
+    const newValues = [...codeValues];
+    newValues[index] = value;
+    setCodeValues(newValues);
     if (value === "") {
-      if (index > 0) {
-        inputRefs.current[index - 1].focus();
-      }
-    } else if (value.length === 1 && /^\d$/.test(value)) {
+    } else {
       if (index < inputRefs.current.length - 1) {
         inputRefs.current[index + 1].focus();
       }
-    } else if (value.length > 1) {
-      event.target.value = value.slice(0, 1);
     }
   };
 
   const handlePaste = (event) => {
     event.preventDefault();
-    const pasteData = event.clipboardData.getData("text/plain");
+    const pasteData = event.clipboardData
+      .getData("text/plain")
+      .replace(/[^\d]/g, "");
     const digits = pasteData.split("").slice(0, 6);
+    const newValues = ["", "", "", "", "", ""];
     digits.forEach((digit, index) => {
+      newValues[index] = digit;
       if (inputRefs.current[index]) {
         inputRefs.current[index].value = digit;
-        if (index < inputRefs.current.length - 1) {
-          inputRefs.current[index + 1].focus();
-        }
       }
     });
+    setCodeValues(newValues);
+    if (digits.length === 6 && newValues.every((v) => v !== "")) {
+      nextStep(newValues);
+    } else {
+      const firstEmpty = newValues.findIndex((v) => v === "");
+      if (firstEmpty !== -1 && inputRefs.current[firstEmpty]) {
+        inputRefs.current[firstEmpty].focus();
+      }
+    }
   };
-  const values = inputRefs.current.map((inputRef) => inputRef.value);
-  const allValuesNotEmpty = values.every((value) => value !== "");
+  const allValuesNotEmpty = codeValues.every((value) => value !== "");
 
-  const nextStep = () => {
-    if (allValuesNotEmpty) {
-      const code = values.join("");
+  const nextStep = (valuesArg) => {
+    const valuesToUse = valuesArg || codeValues;
+    if (valuesToUse.every((v) => v !== "")) {
+      const code = valuesToUse.join("");
       Request("account/security/verify", HTTP_METHOD.POST, { code })
         .then(() => {
           setItem("account_security", {
@@ -192,8 +218,11 @@ const SecondStep = ({ setStep, time }) => {
           setStep(3);
           toast.success(
             <Alert>
-              <h2>کیف پول شما با موفقیت خاموش شد.</h2>
-              <h5>مدت زمان: {time} دقیقه</h5>
+              <h2>{getFieldTranslationByNames("1641")}</h2>
+              <h5>
+                {getFieldTranslationByNames("858")}:{time}{" "}
+                {getFieldTranslationByNames("33")}
+              </h5>
             </Alert>,
             {
               position: "top-center",
@@ -205,12 +234,12 @@ const SecondStep = ({ setStep, time }) => {
               progress: undefined,
               theme: "colored",
               bodyClassName: "success",
-            }
+            },
           );
         })
         .catch(() => {
           setErrors(true);
-          ToastError("کد وارد شده صحیح نمی‌باشد. لطفاً دوباره تلاش کنید.");
+          ToastError(getFieldTranslationByNames("1639"));
         });
     } else {
       setErrors(true);
@@ -226,14 +255,13 @@ const SecondStep = ({ setStep, time }) => {
 
   const resetHandler = () => {
     resetInputs();
-    clearInterval(timerInterval.current); // Clear the previous interval
+    clearInterval(timerInterval.current);
 
-    Request("account/security", HTTP_METHOD.POST, { time }) // Handle resend logic
+    Request("account/security", HTTP_METHOD.POST, { time })
       .then(() => {
         setErrors(false);
-        setTimer(2 * 60); // Reset the timer to 2 minutes
+        setTimer(2 * 60);
         timerInterval.current = setInterval(() => {
-          // Restart the timer interval
           setTimer((prevTimer) => {
             if (prevTimer > 0) {
               return prevTimer - 1;
@@ -243,7 +271,7 @@ const SecondStep = ({ setStep, time }) => {
             }
           });
         }, 1000);
-        toast.info("کد تأیید جدید ارسال شد.", {
+        toast.info(getFieldTranslationByNames("1640"), {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
@@ -253,8 +281,8 @@ const SecondStep = ({ setStep, time }) => {
           theme: "colored",
         });
       })
-      .catch(() => {
-        toast.error("ارسال مجدد کد با مشکل مواجه شد. لطفاً دوباره تلاش کنید.");
+      .catch((err) => {
+        console.error("Error resending code:", err);
       });
   };
 
@@ -270,9 +298,17 @@ const SecondStep = ({ setStep, time }) => {
             type="number"
             maxLength={1}
             ref={(el) => (inputRefs.current[index] = el)}
+            value={codeValues[index]}
             onChange={(event) => handleInputChange(index, event)}
             onPaste={(event) => handlePaste(event)}
             className={errors ? "invalid-input" : ""}
+            onKeyDown={(event) => {
+              handleKeyDown(index, event);
+
+              if (event.key === "Enter" && allValuesNotEmpty) {
+                nextStep();
+              }
+            }}
           />
         ))}
       </Codes>
@@ -285,10 +321,10 @@ const SecondStep = ({ setStep, time }) => {
         {timer !== 0 ? (
           <span>{getFieldTranslationByNames("863")}</span>
         ) : (
-          <h2 onClick={resetHandler}>ارسال مجدد کد</h2>
+          <h2 onClick={resetHandler}>{getFieldTranslationByNames(1642)}</h2>
         )}
       </div>
-      <button disabled={!allValuesNotEmpty} onClick={nextStep}>
+      <button disabled={!allValuesNotEmpty} onClick={() => nextStep()}>
         {getFieldTranslationByNames("859")}
       </button>
     </Container>

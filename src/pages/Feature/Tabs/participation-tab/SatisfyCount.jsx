@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {
   convertToPersian,
   getFieldTranslationByNames,
-  ToastError,
   ToastSuccess,
 } from "../../../../services/Utility";
 import Button from "../../../../components/Button";
@@ -11,7 +10,6 @@ import clocklight from "../../../../assets/gif/clocklight.gif";
 import clockdark from "../../../../assets/gif/clockdark.gif";
 import { useTheme } from "../../../../services/reducers/ThemeContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getItem } from "../../../../services/Utility/LocalStorage";
 import { useMapData } from "../../../../services/reducers/mapContext";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -71,14 +69,14 @@ const Svg = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 70px; /* حداکثر عرضی که میخوای */
-  max-height: 80px; /* حداکثر ارتفاعی که میخوای */
+  max-width: 70px;
+  max-height: 80px;
   overflow: hidden;
 
-  img {
+  & img {
     display: block;
-    width: auto; /* اجازه بده عرض خودش محاسبه بشه */
-    height: 100%; /* ارتفاع کانتینر رو پر کنه */
+    width: auto;
+    height: 100%;
   }
 `;
 
@@ -125,12 +123,11 @@ const SatisfyCount = ({ isOwner }) => {
     seconds: 0,
   });
   const [Wallet, dispatch] = useContext(WalletContext);
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const { buildings, removeBuilding } = useMapData();
   const { id } = useParams();
   const navigate = useNavigate();
   const { theme } = useTheme();
-  const accountSecurity = getItem("account_security")?.account_security;
   const activeBuilding =
     buildings.find((b) => b?.building?.feature_id === parseInt(id)) || null;
   const launchedSatisfaction = activeBuilding?.building?.launched_satisfaction;
@@ -165,11 +162,12 @@ const SatisfyCount = ({ isOwner }) => {
     if (!activeBuilding?.building.construction_end_date) return;
 
     setTimeLeft(
-      calculateTimeLeft(activeBuilding.building.construction_end_date)
+      calculateTimeLeft(activeBuilding.building.construction_end_date),
     );
 
     const interval = setInterval(() => {
-      setTimeLeft(    calculateTimeLeft(activeBuilding.building.construction_end_date)
+      setTimeLeft(
+        calculateTimeLeft(activeBuilding.building.construction_end_date),
       );
     }, 1000);
 
@@ -177,15 +175,12 @@ const SatisfyCount = ({ isOwner }) => {
   }, [activeBuilding?.building.construction_end_date]);
 
   const handleDeleteBuilding = async () => {
-    if (!accountSecurity) {
-      ToastError(getFieldTranslationByNames("1603"));
-      return;
-    }
+    if (!checkSecurity()) return;
 
     try {
       await Request(
         `features/${featureId}/build/buildings/${buildingId}`,
-        HTTP_METHOD.DELETE
+        HTTP_METHOD.DELETE,
       );
 
       ToastSuccess(getFieldTranslationByNames("1609"));
@@ -200,14 +195,6 @@ const SatisfyCount = ({ isOwner }) => {
       removeBuilding(activeBuilding.model_id);
     } catch (error) {
       console.error("❌ Delete building error:", error);
-
-      if (error.response?.status === 403) {
-        ToastError("اجازه حذف این سازه را ندارید");
-      } else if (error.response?.status === 404) {
-        ToastError("سازه پیدا نشد");
-      } else {
-        ToastError("خطا در حذف سازه");
-      }
     }
   };
   const clockIcon = theme == "light" ? clocklight : clockdark;

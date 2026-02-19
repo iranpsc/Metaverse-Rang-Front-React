@@ -63,7 +63,7 @@ const CardNumber = styled.div`
     height: fit-content;
     margin-right: 10px;
     margin-top: 10px;
-    img {
+    & img {
       width: 20px;
     }
     span {

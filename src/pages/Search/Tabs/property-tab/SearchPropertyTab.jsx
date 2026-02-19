@@ -1,10 +1,11 @@
 import ResultCard from "./ResultCard";
 
 import styled from "styled-components";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import SearchInput from "../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { useRef } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,7 +14,6 @@ const Wrapper = styled.div`
   margin: 15px 0 0 0;
 `;
 const Container = styled.div`
-
   padding: 15px;
   overflow-y: auto;
   height: 90%;
@@ -26,44 +26,75 @@ const P = styled.p`
   font-size: 18px;
 `;
 const SearchPropertyTab = () => {
+  const debounceRef = useRef(null);
+
   const [searched, setSearched] = useState("");
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { Request, HTTP_METHOD } = useRequest();
 
-  const searchHandler = useCallback(() => {
-    if (searched.trim() === "") return;
-    setIsLoading(true);
-    searchAPI(Request, HTTP_METHOD, searched).then((response) => {
-      setData(response.data.data);
+  const searchHandler = useCallback(
+    (query) => {
+      if (!query || query.trim() === "") {
+        setData([]);
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(true);
+      searchAPI(Request, HTTP_METHOD, query)
+        .then((response) => {
+          setData(response.data.data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    },
+    [Request, HTTP_METHOD],
+  );
+  useEffect(() => {
+    if (!searched.trim()) {
+      setData([]);
       setIsLoading(false);
-    });
-  }, [searched, Request, HTTP_METHOD]);
+      return;
+    }
+
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      searchHandler(searched);
+    }, 500);
+
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, [searched]);
 
   const handleInputChange = (e) => {
     setSearched(e.target.value);
-    searchHandler(); // Trigger search on every keystroke
   };
-
   return (
     <Container>
       <SearchInput
-        onchange={handleInputChange} // Call search on every input change
+        onchange={handleInputChange}
         value={searched}
         placeholder={getFieldTranslationByNames("40")}
-        onSearch={searchHandler} // You can still keep this for the icon click event
+        onSearch={searchHandler}
       />
       {isLoading ? (
-        <P>درحال دریافت اطلاعات</P>
+        <P>درحال دریافت اطلاعات</P> //انجام نشده تا بعدا لودینگ جای این قرار بگیرد
       ) : data.length === 0 ? (
-        <P>
-          {getFieldTranslationByNames("37")}
-        </P>
+        <P>{getFieldTranslationByNames("37")}</P>
       ) : (
         <Wrapper>
-          {data.map((item, i) => (
-            <ResultCard key={i} item={item} />
-          ))}
+          {data.map((item, i) => {
+            const system = item.owner_code == "HM-2000000" ? true : false;
+            return <ResultCard key={i} item={item} system={system} />;
+          })}
         </Wrapper>
       )}
     </Container>

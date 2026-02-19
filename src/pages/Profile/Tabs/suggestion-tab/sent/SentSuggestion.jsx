@@ -2,16 +2,19 @@ import Suggestion from "./Suggestion";
 import Title from "../../../../../components/Title";
 import meter from "../../../../../assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
-import { convertToPersian, getFieldTranslationByNames } from "../../../../../services/Utility/index";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../../services/Utility/index";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import {  Wrapper } from "../suggestionStyles";
+import { Wrapper } from "../suggestionStyles";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
-import Container from '../../../../../components/Common/Container';
+import Container from "../../../../../components/Common/Container";
 
 const SentSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
-  const { Request } = useRequest();
+  const { Request, checkSecurity } = useRequest();
   const location = useLocation();
   const navigate = useNavigate();
   const containerRef = useRef(null);
@@ -34,11 +37,16 @@ const SentSuggestion = () => {
             remainingSeconds = 0;
 
           if (gracePeriod) {
-            const graceDate = moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate();
+            const graceDate = moment(
+              gracePeriod,
+              "jYYYY/jMM/jDD HH:mm:ss",
+            ).toDate();
             const diffTime = Math.max(0, graceDate - new Date());
 
             remainingHours = Math.floor(diffTime / (1000 * 60 * 60));
-            remainingMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+            remainingMinutes = Math.floor(
+              (diffTime % (1000 * 60 * 60)) / (1000 * 60),
+            );
             remainingSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
           }
 
@@ -98,26 +106,37 @@ const SentSuggestion = () => {
     }));
 
   const handleRejectProposal = async (suggestionId) => {
+          if (!checkSecurity()) return;
+
     try {
-      const response = await Request(`buy-requests/delete/${suggestionId}`, "DELETE", {}, {}, "production");
+      const response = await Request(
+        `buy-requests/delete/${suggestionId}`,
+        "DELETE",
+        {},
+        {},
+        "production",
+      );
 
       if ([200, 204].includes(response.status)) {
         setSuggestions((prev) => prev.filter((s) => s.id !== suggestionId));
       } else {
         console.error("Error deleting suggestion:", response);
       }
-    } catch (error) {
-    
-    }
+    } catch (error) {}
   };
 
   return (
     <Container ref={containerRef}>
       <Title right title={getFieldTranslationByNames("765")} />
       <Wrapper>
-        {convertSuggestions(suggestions.filter((s) => s.suggestions_list.length > 0)).map((suggestion) => (
+        {convertSuggestions(
+          suggestions.filter((s) => s.suggestions_list.length > 0),
+        ).map((suggestion) => (
           <div key={suggestion.id} id={`suggestion-${suggestion.id}`}>
-            <Suggestion {...suggestion} onRejectProposal={handleRejectProposal} />
+            <Suggestion
+              {...suggestion}
+              onRejectProposal={handleRejectProposal}
+            />
           </div>
         ))}
       </Wrapper>
@@ -126,4 +145,3 @@ const SentSuggestion = () => {
 };
 
 export default SentSuggestion;
-

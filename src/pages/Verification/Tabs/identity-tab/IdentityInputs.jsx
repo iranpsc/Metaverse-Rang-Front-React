@@ -15,7 +15,6 @@ import {
 } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
 import Container from "../../../../components/Common/Container";
-
 const BankContainer = styled.div`
   margin: 20px 0;
   display: flex;

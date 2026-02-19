@@ -97,7 +97,7 @@ const Level = () => {
               data-tooltip-id={user.level.id}
               width={65}
               height={65}
-              src={user.level.background_image}
+              src={user.level.image}
               alt={user.level.name}
             />
             <ReactTooltip

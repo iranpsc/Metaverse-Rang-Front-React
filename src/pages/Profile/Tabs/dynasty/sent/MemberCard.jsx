@@ -32,7 +32,7 @@ const Profile = styled.div`
     font-size: 16px;
     font-weight: 500;
   }
-  img {
+  & img {
     border-radius: 100%;
     border: 2px solid transparent;
     transition: all 0.2s linear;

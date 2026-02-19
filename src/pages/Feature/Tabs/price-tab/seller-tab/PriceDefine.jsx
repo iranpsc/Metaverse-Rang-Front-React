@@ -15,15 +15,13 @@ import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import Container from "../../../../../components/Common/Container";
-import { getItem } from "../../../../../services/Utility/LocalStorage";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-
   gap: 30px;
   width: 100%;
-`;
+`;  
 
 const Text = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -33,15 +31,12 @@ const Text = styled.p`
 `;
 
 const PriceDefine = () => {
-  const accountSecurity = getItem("account_security")?.account_security;
-
   const [feature] = useContext(FeatureContext);
   const [user] = useContext(UserContext);
-  const { Request, HTTP_METHOD } = useRequest();
-  const Navigate = useNavigate();
-
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const [assign, setAssign] = useState(
-    feature?.properties?.price_irr ? true : false
+    +feature?.properties?.price_irr !== 0 ||
+      +feature?.properties?.price_psc !== 0,
   );
   const [rial, setRial] = useState(feature?.properties?.price_irr || "");
   const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
@@ -49,7 +44,8 @@ const PriceDefine = () => {
     rial: "",
     psc: "",
   });
-
+  console.log(feature.properties.price_irr/900)
+const rialToPsc=feature?.properties?.price_irr/900;
   const validateAndSubmit = () => {
     const userAge = TimeAgo(user?.birthdate);
     let minRial = calculateFee(feature.properties.price_irr, 80);
@@ -83,10 +79,8 @@ const PriceDefine = () => {
       price_irr: rial,
       price_psc: psc,
     };
-    if (!accountSecurity) {
-      ToastError(getFieldTranslationByNames("1603"));
-      return;
-    }
+    if (!checkSecurity()) return;
+
     Request(`sell-requests/store/${feature?.id}`, HTTP_METHOD.POST, formData)
       .then(() => {
         ToastSuccess("VOD با موفقیت قیمت گذاری شد.");
@@ -103,19 +97,22 @@ const PriceDefine = () => {
         <Text>{getFieldTranslationByNames("520")}</Text>
         {!assign && (
           <FillInputs
+          assign={assign}
             rial={rial}
+            rialToPsc={rialToPsc}
             setRial={setRial}
             psc={psc}
             setPsc={setPsc}
-            setAssign={validateAndSubmit}
+            validateAndSubmit={validateAndSubmit}
             errors={errors}
+            setAssign={setAssign}
           />
         )}
         {assign && (
           <ResultInfo
             rial={formatNumber(rial)}
-            setRial={formatNumber(setRial)}
-            psc={psc}
+            setRial={setRial}
+            psc={formatNumber(psc)}
             setPsc={setPsc}
             setAssign={setAssign}
           />

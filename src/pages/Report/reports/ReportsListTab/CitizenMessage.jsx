@@ -107,7 +107,7 @@ const Image = styled.div`
   background-color: white;
   overflow: hidden;
   border: 1px solid gray;
-  img {
+  & img {
     &:first-of-type {
       width: 100%;
       height: 100%;

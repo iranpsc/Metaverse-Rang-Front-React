@@ -1,9 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import useAuth from "../../services/Hooks/useAuth";
 import { useMenuContext } from "../../services/reducers/MenuContext";
-import Fallowing from "./Following/Fallowing";
-import Dynasty from "./Dynasty/Dynasty";
 import Union from "./Union/Union";
 import BtnsMenu from "./BtnsMenu";
 import { FaChevronDown } from "react-icons/fa";
@@ -14,6 +12,8 @@ import Ticket from "../../assets/svg/ticket.svg";
 import Setting from "../../assets/svg/setting.svg";
 import { useNavigate } from "react-router-dom";
 import { getFieldTranslationByNames } from "../../services/Utility";
+import { useLanguage } from "../../services/reducers/LanguageContext";
+
 const MessageIcon = styled(Message)`
   fill: #868b907c;
 `;
@@ -64,27 +64,28 @@ const BtnNavigator = styled.button`
     font-size: 14px;
   }
 `;
-
 const SubMenu = styled.div`
-  display: ${({ isOpenDrop, isOpen }) => (isOpenDrop ? "block" : "none")};
+  display: ${({ isOpenDrop }) => (isOpenDrop ? "block" : "none")};
   padding-left: 20px;
-  position: ${({ isOpen }) => (isOpen ? "none" : "fixed")};
+  position: ${({ isOpen }) => (isOpen ? "relative" : "fixed")};
   top: ${({ isOpen }) => (isOpen ? "0" : "10%")};
-  right: ${({ isOpen }) => (isOpen ? "0" : "5.1%")};
-  ${(props) => {
-    const direction = document.body.dir || "ltr";
-    return direction === "ltr"
-      ? `left: ${!props.isOpen ? "5.1%" : "0"}`
-      : `right: ${!props.isOpen ? "5.1%" : "0"}`;
-  }};
+
+  ${({ isPersian, isOpen }) =>
+    isPersian
+      ? `right: ${!isOpen ? "5.1%" : "0"};`
+      : `left: ${!isOpen ? "5.1%" : "0"};`}
+
   z-index: 1;
-  background-color: ${(props) => props.theme.colors.newColors.primaryText};
-  padding: ${({ isOpen }) => (isOpen ? "0" : " 10px 10px 8.5px 10px")};
-  border-radius: ${({ isOpen }) => (isOpen ? "none" : "10px")};
+  background-color: ${({ theme }) =>
+    theme.colors.newColors.primaryText};
+
+  padding: ${({ isOpen }) => (isOpen ? "0" : "10px")};
+  border-radius: ${({ isOpen }) => (isOpen ? "0" : "10px")};
   width: ${({ isOpen }) => (isOpen ? "100%" : "16.6%")};
-  max-height: ${({ isOpen }) => (isOpen ? "none" : " 88vh")};
-  overflow-y: ${({ isOpen }) => (isOpen ? "none" : "auto")};
+  max-height: ${({ isOpen }) => (isOpen ? "none" : "88vh")};
+  overflow-y: ${({ isOpen }) => (isOpen ? "visible" : "auto")};
 `;
+
 
 const Icon = styled.img`
   width: 22px;
@@ -156,6 +157,7 @@ const Profile = () => {
   useEffect(() => {
     setUser(getUser());
   }, []);
+  const { isPersian } = useLanguage();
 
   return (
     <>
@@ -167,13 +169,16 @@ const Profile = () => {
       >
         <ImgUser src={user?.image || Anonymous} />
         <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
-        <Text isOpen={isOpen}>{user?.code}</Text>
+        <Text isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
         <ChevronIcon isOpenDrop={isOpenMenu} />
       </Btn>
 
       <ContainerMain>
         <Container isOpenDrop={isOpenDrop} isOpen={isOpen}>
-          <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
+          <SubMenu
+            isOpenDrop={isOpenDrop}
+            isOpen={isOpen}
+            isPersian={isPersian}>
             <Btn
               isOpenDrop={isOpenDrop}
               onClick={() => setIsOpenDrop(!isOpenDrop)}

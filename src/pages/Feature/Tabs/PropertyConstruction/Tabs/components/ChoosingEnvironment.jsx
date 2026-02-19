@@ -87,7 +87,9 @@ const ChoosingEnvironment = () => {
   const [feature] = useContext(FeatureContext);
   const { Request, HTTP_METHOD } = useRequest();
   const [data, setData] = useState([]);
-  const [preview, setPreview] = useState([]);
+  const [preview, setPreview] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   const [coordinates, setCoordinates] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const { addSelectedEnvironment, hiddenModel, setHiddenModel, isSelectable } =
@@ -100,7 +102,7 @@ const ChoosingEnvironment = () => {
       try {
         const res = await Request(
           `features/${feature.id}/build/package?page=${page}`,
-          HTTP_METHOD.GET
+          HTTP_METHOD.GET,
         );
         setData((prevData) => [...prevData, ...res.data.data]);
         setCoordinates([res.data.feature.coordinates]);
@@ -143,26 +145,33 @@ const ChoosingEnvironment = () => {
     <>
       <Container id="scrollable-container">
         {data &&
-          data.map((data, index) =>{
-          return (
-            <ImgHolder key={data.id}>
-              <Img src={data.images[0 ].url} alt="" />
+          data.map((data, index) => {
+            return (
+              <ImgHolder key={data.id}>
+                <Img src={data.images[0].url} alt="" />
 
-              <ViewHolder
-                onClick={() => {
-                  setPreview([data]);
-                }}
-              >
-                <ViewIcon />
-              </ViewHolder>
-              <SelectorEnvironment
-                onClick={() => handleSelectorClick(index)}
-                className={activeIndex === index ? "active" : ""}
-              />
-            </ImgHolder>
-          )})}
+                <ViewHolder
+                  onClick={() => {
+                    setPreview(data);
+                    setShowModal(true);
+                  }}
+                >
+                  <ViewIcon />
+                </ViewHolder>
+                <SelectorEnvironment
+                  onClick={() => handleSelectorClick(index)}
+                  className={activeIndex === index ? "active" : ""}
+                />
+              </ImgHolder>
+            );
+          })}
       </Container>
-      {preview.length === 1 && <PreviewModel data={preview} />}
+      {showModal && preview && (
+        <PreviewModel
+          data={[preview]} 
+          setShowModal={setShowModal} 
+        />
+      )}
     </>
   );
 };

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "../../../../../components/Button";
 import { UserContext } from "../../../../../services/reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";
@@ -10,6 +9,7 @@ import {
   TimeAgo,
   ToastError,
   ToastSuccess,
+  formatNumber,
 } from "../../../../../services/Utility";
 import Container from "../../../../../components/Common/Container";
 import ResultInfo from "../../../components/ResultInfo";
@@ -71,37 +71,44 @@ const Lowest = () => {
   const [percentage, setPercentage] = useState("");
   const [user] = useContext(UserContext);
   const [feature, setFeature] = useContext(FeatureContext);
-  const Navigate = useNavigate();
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const [assign, setAssign] = useState(
-    feature?.properties?.price_irr ? true : false
+    +feature?.properties?.price_irr !== 0 ||
+      +feature?.properties?.price_psc !== 0,
   );
+  console.log("user", user);
   const [rial, setRial] = useState(feature?.properties?.price_irr || "");
   const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
   useEffect(() => {
     setPercentage(feature?.properties?.minimum_price_percentage || "");
   }, []);
   const onSubmit = () => {
-    if (TimeAgo(user?.birthdate) >= 18) {
-      if (percentage < 80) {
-        return ToastError(
-          "برای افراد بالای 18 سال باید درصد وارد شده بیشتر از 80 باشد."
-        );
-      }
-    } else {
+    if (user.birthdate == null) {
       if (percentage < 110) {
         return ToastError(
-          "برای افراد زیر 18 سال باید درصد وارد شده بیشتر از 110 باشد."
+          "برای افراد احراز هویت نشده باید درصد انتخابی بالای 110 درصد باشد",
         );
       }
     }
 
+    if (TimeAgo(user?.birthdate) >= 18) {
+      if (percentage < 80) {
+        return ToastError(getFieldTranslationByNames(1632));
+      }
+    } else {
+      if (percentage < 110) {
+        return ToastError(getFieldTranslationByNames(1632));
+      }
+    }
+    if (!checkSecurity()) return;
+
     Request(
       `my-features/${user.id}/features/${feature?.id}`,
       HTTP_METHOD.POST,
-      { minimum_price_percentage: percentage }
+      { minimum_price_percentage: percentage },
     )
-      .then(() => {
+      .then((res) => {
+        console.log("bbioi", res.data);
         setFeature((feature) => ({
           ...feature,
           properties: {
@@ -109,8 +116,7 @@ const Lowest = () => {
             minimum_price_percentage: percentage,
           },
         }));
-        ToastSuc;
-        ToastSuccess("حداقل قیمت پیشنهادی شما با موفقیت ثبت شد.");
+        ToastSuccess(getFieldTranslationByNames(1634));
       })
       .catch((error) => {
         ToastError(error.response.data.message);
@@ -118,32 +124,33 @@ const Lowest = () => {
   };
   return (
     <Container>
-    <Wrapper>
-      <Text>{getFieldTranslationByNames("518")}</Text>
-      <Div>
-        <InputWrapper>
-          <Input
-            value={percentage}
-            onChange={(e) => setPercentage(e.target.value)}
-            type="number"
-            min={0}
-            max={100}
-            placeholder="100"
+      <Wrapper>
+        <Text>{getFieldTranslationByNames("518")}</Text>
+        <Div>
+          <InputWrapper>
+            <Input
+              value={percentage}
+              onChange={(e) => setPercentage(e.target.value)}
+              type="number"
+              min={0}
+              max={100}
+              placeholder="100"
+            />
+            <Span>%</Span>
+          </InputWrapper>
+        </Div>
+        <Button label={getFieldTranslationByNames("519")} onClick={onSubmit} />
+        {assign && (
+          <ResultInfo
+            lowest
+            rial={formatNumber(rial)}
+            setRial={setRial}
+            psc={formatNumber(psc)}
+            setPsc={setPsc}
+            setAssign={setAssign}
           />
-          <Span>%</Span>
-        </InputWrapper>
-      </Div>
-      <Button label={getFieldTranslationByNames("519")} onClick={onSubmit} />
-      {assign && (
-        <ResultInfo
-          rial={rial}
-          setRial={setRial}
-          psc={psc}
-          setPsc={setPsc}
-          setAssign={setAssign}
-        />
-      )}
-    </Wrapper>
+        )}
+      </Wrapper>
     </Container>
   );
 };
