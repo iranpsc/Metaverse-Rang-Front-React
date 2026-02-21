@@ -44,7 +44,6 @@ const PriceDefine = () => {
     rial: "",
     psc: "",
   });
-  console.log(feature.properties.price_irr/900)
 const rialToPsc=feature?.properties?.price_irr/900;
   const validateAndSubmit = () => {
     const userAge = TimeAgo(user?.birthdate);

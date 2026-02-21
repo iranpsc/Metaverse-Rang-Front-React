@@ -76,7 +76,6 @@ const Lowest = () => {
     +feature?.properties?.price_irr !== 0 ||
       +feature?.properties?.price_psc !== 0,
   );
-  console.log("user", user);
   const [rial, setRial] = useState(feature?.properties?.price_irr || "");
   const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
   useEffect(() => {
@@ -86,7 +85,7 @@ const Lowest = () => {
     if (user.birthdate == null) {
       if (percentage < 110) {
         return ToastError(
-          "برای افراد احراز هویت نشده باید درصد انتخابی بالای 110 درصد باشد",
+          getFieldTranslationByNames(1647),
         );
       }
     }
@@ -108,7 +107,6 @@ const Lowest = () => {
       { minimum_price_percentage: percentage },
     )
       .then((res) => {
-        console.log("bbioi", res.data);
         setFeature((feature) => ({
           ...feature,
           properties: {

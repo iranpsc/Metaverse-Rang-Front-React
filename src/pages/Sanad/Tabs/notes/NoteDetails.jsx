@@ -8,7 +8,6 @@ import Container from "../../../../components/Common/Container";
 export const EditContext = createContext();
 const NoteDetails = ({ state, setShowDetails }) => {
   const [isEditing, setIsEditing] = useState(false);
-console.log("state", state.notes[0]);
   const data = state.notes[0];
   return (
     <EditContext.Provider value={{ isEditing, setIsEditing }}>
