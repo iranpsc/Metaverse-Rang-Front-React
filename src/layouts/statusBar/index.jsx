@@ -74,7 +74,6 @@ const StatusContainer = styled.div`
 `;
 const StatusBar = () => {
   const { isGlobalFullScreenMap } = useScrollDirectionContext();
-  console.log("isGlobalFullScree11nMap", isGlobalFullScreenMap);
   return (
     <Container show={isGlobalFullScreenMap}>
       <WalletContainer>

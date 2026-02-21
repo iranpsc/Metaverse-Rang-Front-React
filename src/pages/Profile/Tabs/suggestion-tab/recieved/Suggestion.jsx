@@ -1,6 +1,5 @@
-import { animated, useTransition } from "react-spring";
+import { animated, useTransition } from "@react-spring/web";
 import Proposer from "./Proposer";
-import line from "../../../../../assets/images/profile/Line.png";
 import psc from "../../../../../assets/images/profile/psc.gif";
 import red from "../../../../../assets/images/profile/red-color.gif";
 import yellow from "../../../../../assets/images/profile/yellow-color.gif";

@@ -129,7 +129,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
   const [phone, setPhone] = useState(true);
   const [formData, setFormData] = useState({ phone: "", time: time });
   const { Request, HTTP_METHOD } = useRequest();
-  const { isPersian } = useLanguage();
+  const isPersian = useLanguage();
   const onSendHandler = () => {
     let sendTime = time;
     if (Number(sendTime) < 5) {

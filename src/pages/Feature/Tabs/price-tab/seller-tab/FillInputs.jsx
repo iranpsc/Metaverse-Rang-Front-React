@@ -112,7 +112,6 @@ const FillInputs = ({
       }
     
       const userAge = hasBirthdate ? TimeAgo(user.birthdate) : null;
-      console.log(userAge)
 
       // محاسبه حداقل‌ها
       const minPriceIRR = hasBirthdate

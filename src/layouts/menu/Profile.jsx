@@ -76,8 +76,7 @@ const SubMenu = styled.div`
       : `left: ${!isOpen ? "5.1%" : "0"};`}
 
   z-index: 1;
-  background-color: ${({ theme }) =>
-    theme.colors.newColors.primaryText};
+  background-color: ${({ theme }) => theme.colors.newColors.primaryText};
 
   padding: ${({ isOpen }) => (isOpen ? "0" : "10px")};
   border-radius: ${({ isOpen }) => (isOpen ? "0" : "10px")};
@@ -85,7 +84,6 @@ const SubMenu = styled.div`
   max-height: ${({ isOpen }) => (isOpen ? "none" : "88vh")};
   overflow-y: ${({ isOpen }) => (isOpen ? "visible" : "auto")};
 `;
-
 
 const Icon = styled.img`
   width: 22px;
@@ -118,7 +116,7 @@ const ContainerMain = styled.div`
   overflow-y: auto;
   border-top: 2px solid
     ${({ theme }) => theme.colors.newColors.otherColors.iconBg};
-  
+
   background-color: ${(props) => props.theme.colors.newColors.shades.bgOne};
 `;
 
@@ -157,14 +155,13 @@ const Profile = () => {
   useEffect(() => {
     setUser(getUser());
   }, []);
-  const { isPersian } = useLanguage();
-
+  const isPersian = useLanguage();
   return (
     <>
       <Btn
         isOpenDrop={isOpenDrop}
         onClick={() => {
-          setIsOpenDrop(!isOpenDrop), setIsOpen(!isOpenDrop);
+          (setIsOpenDrop(!isOpenDrop), setIsOpen(!isOpenDrop));
         }}
       >
         <ImgUser src={user?.image || Anonymous} />
@@ -178,7 +175,8 @@ const Profile = () => {
           <SubMenu
             isOpenDrop={isOpenDrop}
             isOpen={isOpen}
-            isPersian={isPersian}>
+            isPersian={isPersian}
+          >
             <Btn
               isOpenDrop={isOpenDrop}
               onClick={() => setIsOpenDrop(!isOpenDrop)}
