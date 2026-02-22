@@ -76,7 +76,7 @@ const Container = styled.div`
 const Menu = () => {
   const { isOpen } = useMenuContext();
   const { isModalOpen, isGlobalFullScreenMap } = useScrollDirectionContext();
-  const { isPersian } = useLanguage();
+  const isPersian = useLanguage();
   return (
     <>
       <BlurOverlay show={isModalOpen && isOpen} />

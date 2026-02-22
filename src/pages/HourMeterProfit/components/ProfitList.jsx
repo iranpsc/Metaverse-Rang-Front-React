@@ -1,4 +1,4 @@
-import { animated, useTransition } from "react-spring";
+import { animated, useTransition } from "@react-spring/web";
 import ProfitCard from "./ProfitCard";
 import styled from "styled-components";
 

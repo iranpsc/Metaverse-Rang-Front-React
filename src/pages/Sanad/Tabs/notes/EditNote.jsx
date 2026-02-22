@@ -25,7 +25,6 @@ const EditNote = ({ setIsEditing, data }) => {
   const [localDescription, setLocalDescription] = useState(data.content);
   const [localFiles, setLocalFiles] = useState(data.attachment);
   const { Request, HTTP_METHOD } = useRequest();
-  console.log(localFiles);
   useEffect(() => {
     if (alert) {
       const timer = setTimeout(() => {
@@ -61,7 +60,7 @@ const EditNote = ({ setIsEditing, data }) => {
   return (
     <Container>
       <CustomEditor
-        label={"ویرایش یادداشت"}
+        label={getFieldTranslationByNames(460)}
         value={localDescription}
         onChange={(newDescription) => setLocalDescription(newDescription)}
         border={true}

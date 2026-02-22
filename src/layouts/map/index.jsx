@@ -35,7 +35,7 @@ const MapTreeD = () => {
 
   const { confirmation, selectedEnvironment, hiddenModel } =
     useSelectedEnvironment();
-  const { isPersian } = useLanguage();
+  const isPersian = useLanguage();
   const navigate = useNavigate();
   const handleZoomChange = useCallback((delta) => {
     if (!mapRef.current) return;

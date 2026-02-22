@@ -21,8 +21,6 @@ import {
   Text,
 } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useNavigate } from "react-router-dom";
-import { getItem } from "../../../../../services/Utility/LocalStorage";
 
 const Price = BasePrice;
 const ProposalStatus = styled.div``;
@@ -130,8 +128,6 @@ const Proposer = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const isPersian = useLanguage();
   const { Request, checkSecurity } = useRequest();
-  const navigate = useNavigate();
-  const accountSecurity = getItem("account_security")?.account_security;
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
   };
@@ -151,10 +147,7 @@ const Proposer = ({
       );
       setDay(selectedDay);
     } catch (error) {
-      if (!accountSecurity) {
-        navigate("/metaverse/confirmation");
-      } else {
-      }
+      ToastError(error?.response?.data?.message);
     }
   };
 

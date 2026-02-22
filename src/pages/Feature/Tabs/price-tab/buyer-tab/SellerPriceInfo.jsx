@@ -1,7 +1,6 @@
 import Rial from "../../../../../components/Rial";
 import Psc from "../../../../../components/Psc";
 import Input from "../../../../../components/Input";
-import { getItem } from "../../../../../services/Utility/LocalStorage";
 
 import styled from "styled-components";
 import { useContext, useState } from "react";
@@ -18,7 +17,6 @@ import {
 import {
   calculateFee,
   getFieldTranslationByNames,
-  persianNumbers,
   ToastError,
   formatNumber,
 } from "../../../../../services/Utility";
@@ -48,15 +46,13 @@ const ResultWrapper = styled.div`
 `;
 
 const SellerPriceInfo = () => {
-  const accountSecurity = getItem("account_security")?.account_security;
-
   const [feature] = useContext(FeatureContext);
   const [wallet, dispatch] = useContext(WalletContext);
   const [rial, setRial] = useState(feature.properties.price_irr);
   const [psc, setPsc] = useState(feature.properties.price_psc);
   const Navigate = useNavigate();
-  const { Request, HTTP_METHOD } = useRequest();
- 
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
+
   const onSubmit = () => {
     try {
       const walletPscRaw = wallet?.psc || 0;
@@ -73,10 +69,8 @@ const SellerPriceInfo = () => {
         ToastError(getFieldTranslationByNames("1604"));
         return;
       }
-      if (!accountSecurity) {
-        ToastError(getFieldTranslationByNames("1603"));
-        return;
-      }
+      if (!checkSecurity()) return;
+
       Request(`features/buy/${feature?.id}`, HTTP_METHOD.POST)
         .then((response) => {
           dispatch({
@@ -107,7 +101,7 @@ const SellerPriceInfo = () => {
           onchange={(e) => setRial(e.target.value)}
           type="number"
           placeholder={`${getFieldTranslationByNames(
-            "521"
+            "521",
           )} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
           disabled
@@ -117,7 +111,7 @@ const SellerPriceInfo = () => {
           onchange={(e) => setPsc(e.target.value)}
           type="number"
           placeholder={`${getFieldTranslationByNames(
-            "521"
+            "521",
           )} (${getFieldTranslationByNames("47")})`}
           insideText={<Psc />}
           disabled
@@ -127,7 +121,7 @@ const SellerPriceInfo = () => {
         <TitleValue
           title={getFieldTranslationByNames("522")}
           value={`${calculateFee(rial, 5)} ${getFieldTranslationByNames(
-            "48"
+            "48",
           )} / ${calculateFee(psc, 5)} ${getFieldTranslationByNames("47")}`}
         />
         <TitleValue title={getFieldTranslationByNames("523")} value="5%" />

@@ -5,9 +5,9 @@ import {
   getFieldTranslationByNames,
   SanitizeHTML,
 } from "../../../../../services/Utility/index";
-import line from "../../../../../Assets/images/profile/Line.png";
-import pscpng from "../../../../../Assets/images/profile/psc.gif";
-import rialpng from "../../../../../Assets/images/profile/rial.gif";
+import line from "../../../../../assets/images/profile/Line.png";
+import pscpng from "../../../../../assets/images/profile/psc.gif";
+import rialpng from "../../../../../assets/images/profile/rial.gif";
 import styled from "styled-components";
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
 

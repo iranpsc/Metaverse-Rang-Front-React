@@ -93,73 +93,19 @@ const FillInputs = ({
   rial,
   setRial,
   psc,
-  setPsc,rialToPsc
+  setPsc,
 }) => {
-  const [user] = useContext(UserContext);
   const [feature] = useContext(FeatureContext);
   const [errors, setErrors] = useState({ rial: "", psc: "" });
   const cancel =
     +feature?.properties?.price_irr !== 0 ||
     +feature?.properties?.price_psc !== 0;
-    const priceHandler = () => {
-      let isValid = true;
-    
-      const hasBirthdate = !!user?.birthdate;
-      // ⛔ اگر احراز هویت نشده، ریال ممنوع
-      if (!hasBirthdate && rial > 0) {
-        ToastError("برای افراد احراز هویت نشده فقط تعریف قیمت با ارز PSC ممکن است.");
-        return;
-      }
-    
-      const userAge = hasBirthdate ? TimeAgo(user.birthdate) : null;
-      console.log(userAge)
 
-      // محاسبه حداقل‌ها
-      const minPriceIRR = hasBirthdate
-        ? userAge >= 18
-          ? calculateFee(feature.properties.price_irr, 80)
-          : calculateFee(feature.properties.price_irr, 110)
-        : 0; // چون ریال مجاز نیست
-    
-      // جمع psc با rialToPsc فقط وقتی birthdate نال است
-      const effectivePsc = !hasBirthdate ? +psc + +rialToPsc : +psc;
-    
-      const minPricePSC = hasBirthdate
-        ? userAge >= 18
-          ? calculateFee(feature.properties.price_psc, 80)
-          : calculateFee(feature.properties.price_psc, 100)
-        : calculateFee(feature.properties.price_psc, 100); // حالت بدون احراز
-    
-      // چک ریال فقط اگر تاریخ تولد موجود باشد
-      if (hasBirthdate && rial < minPriceIRR) {
-        setErrors((prev) => ({
-          ...prev,
-          rial: `حداقل ارزش معامله ${minPriceIRR} ریال می‌باشد`,
-        }));
-        isValid = false;
-      }
-    
-      if (effectivePsc < minPricePSC) {
-        setErrors((prev) => ({
-          ...prev,
-          psc: `حداقل ارزش معامله ${minPricePSC} PSC می‌باشد`,
-        }));
-        isValid = false;
-      }
-    
-      if (isValid) {
-        validateAndSubmit(true);
-      } else {
-        ToastError("لطفاً خطاها را اصلاح کنید");
-      }
-    };
-    
-    
   return (
     <Div>
       <InputsWrapper>
         <Input
-          value={rial||0}
+          value={rial || 0}
           maxLength={14}
           onChange={(e) => setRial(e.target.value)}
           type="number"
@@ -194,15 +140,16 @@ const FillInputs = ({
         {" "}
         <Button
           label={getFieldTranslationByNames("519")}
-          onclick={priceHandler}
+          onclick={validateAndSubmit}
         />
-        {cancel && <Button
-          color="red"
-          edit
-          label={getFieldTranslationByNames("833")}
-          onclick={() => setAssign(true)}
-        />}
-
+        {cancel && (
+          <Button
+            color="red"
+            edit
+            label={getFieldTranslationByNames("833")}
+            onclick={() => setAssign(true)}
+          />
+        )}
       </ButtonBox>
     </Div>
   );

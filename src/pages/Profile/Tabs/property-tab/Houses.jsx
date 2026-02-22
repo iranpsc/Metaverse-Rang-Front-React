@@ -335,15 +335,14 @@ const Houses = () => {
       </Div>
       <List>
         {filteredItems.map((card) => {
-          const isDeleted =
-            +card.properties.price_irr === 0 &&
-            +card.properties.price_psc === 0;
+         
+
           return (
             <CardItem
               {...card.properties}
               key={card.id}
               navigateId={card.id}
-              isDeleted={isDeleted}
+             card={card}
             />
           );
         })}
