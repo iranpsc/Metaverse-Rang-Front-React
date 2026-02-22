@@ -10,7 +10,7 @@ import {
 } from "../../../../services/Utility";
 import Button from "../../../../components/Button";
 import { useNavigate } from "react-router-dom";
-
+import useRequest from "../../../../services/Hooks/useRequest";
 const PhotoName = styled.div`
   display: flex;
   align-items: center;
@@ -134,7 +134,6 @@ const Right = styled.div`
   align-items: center;
   gap: 20px;
   grid-template-columns: 2fr 50%;
-
 `;
 
 const Container = styled.div`
@@ -175,12 +174,23 @@ const CardItem = ({
   price_irr,
   photo,
   navigateId,
-  isDeleted,
+  card,
 }) => {
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const formattedRial = convertToPersian(formatNumber(price_irr));
-
+  const [isDeleted, setIsDeleted] = useState(
+    +card.properties.price_irr === 0 && +card.properties.price_psc === 0,
+  );
   const formattedPsc = convertToPersian(formatNumber(price_psc));
-
+  const handleDelete = () => {
+    Request(`sell-requests/${navigateId}`, HTTP_METHOD.DELETE)
+      .then(() => {
+        setIsDeleted(!isDeleted);
+      })
+      .catch((error) => {
+        console.error("Delete failed:", error);
+      });
+  };
   const Navigate = useNavigate();
   return (
     <Container>
@@ -233,7 +243,9 @@ const CardItem = ({
             }
           />
         ) : (
-          <Delete>{getFieldTranslationByNames("736")}</Delete>
+          <Delete onClick={handleDelete}>
+            {getFieldTranslationByNames("736")}
+          </Delete>
         )}
       </Left>
     </Container>

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getItem } from "../../../../services/Utility/LocalStorage/index";
 import {
   WalletContext,
   WalletContextTypes,
@@ -30,21 +29,20 @@ const InputsWrapper = styled.div`
 `;
 
 const SellerPriceInfo = () => {
-  const accountSecurity = getItem("account_security")?.account_security;
   const [wallet, dispatch] = useContext(WalletContext);
   const [feature] = useContext(FeatureContext);
   const Navigate = useNavigate();
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
 
   const onSubmit = () => {
     const colorKey =
       feature.properties.karbari === "m"
         ? "yellow"
         : feature.properties.karbari === "t"
-        ? "red"
-        : feature.properties.karbari === "a"
-        ? "blue"
-        : null;
+          ? "red"
+          : feature.properties.karbari === "a"
+            ? "blue"
+            : null;
 
     const walletRaw = wallet[colorKey] || "0";
     const featurePrice = feature.properties.stability || "0";
@@ -53,18 +51,15 @@ const SellerPriceInfo = () => {
         colorKey === "yellow"
           ? getFieldTranslationByNames("1599")
           : colorKey === "red"
-          ? getFieldTranslationByNames("1600")
-          : colorKey === "blue"
-          ? getFieldTranslationByNames("1601")
-          : "نامشخص";
+            ? getFieldTranslationByNames("1600")
+            : colorKey === "blue"
+              ? getFieldTranslationByNames("1601")
+              : "نامشخص";
 
       ToastError(colorName);
       return;
     }
-    if (!accountSecurity) {
-      ToastError(getFieldTranslationByNames("1603"));
-      return;
-    }
+    if (!checkSecurity()) return;
     Request(`features/buy/${feature.id}`, HTTP_METHOD.POST)
       .then((response) => {
         const newAmount = walletRaw - featurePrice;

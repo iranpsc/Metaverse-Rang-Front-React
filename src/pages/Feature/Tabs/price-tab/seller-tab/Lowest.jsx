@@ -72,6 +72,7 @@ const Lowest = () => {
   const [user] = useContext(UserContext);
   const [feature, setFeature] = useContext(FeatureContext);
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
+
   const [assign, setAssign] = useState(
     +feature?.properties?.price_irr !== 0 ||
       +feature?.properties?.price_psc !== 0,
@@ -84,9 +85,7 @@ const Lowest = () => {
   const onSubmit = () => {
     if (user.birthdate == null) {
       if (percentage < 110) {
-        return ToastError(
-          getFieldTranslationByNames(1647),
-        );
+        return ToastError(getFieldTranslationByNames(1647));
       }
     }
 
@@ -107,6 +106,7 @@ const Lowest = () => {
       { minimum_price_percentage: percentage },
     )
       .then((res) => {
+        //console.log(res);
         setFeature((feature) => ({
           ...feature,
           properties: {

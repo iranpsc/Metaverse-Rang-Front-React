@@ -17,7 +17,6 @@ import Routers from "./layouts/map/Routers.jsx";
 import { LanguageProvider } from "./services/reducers/LanguageContext.jsx";
 import { LoaderProvider } from "./services/reducers/LoaderProvider.jsx";
 import RotateDevice from "./components/RotateDevice";
-import Error410Modal from "./components/Error410Modal";
 import { useAppHeight } from "./hooks/useAppHeight.js";
 import { ScrollDirectionProvider } from "./services/reducers/ScrollDirectionContext.jsx";
 function App() {
@@ -54,7 +53,6 @@ function App() {
                             <RotateDevice />
                             <Routers />
 
-                            <Error410Modal />
                             <Toaster
                               containerStyle={{
                                 zIndex: 100000,

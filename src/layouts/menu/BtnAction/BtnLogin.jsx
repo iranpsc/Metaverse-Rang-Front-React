@@ -39,7 +39,7 @@ const BtnLogin = () => {
       HTTP_METHOD.GET,
       {},
       {},
-      "development"
+      "development",
     )
       .then((response) => {
         if (response && response.data.url) {

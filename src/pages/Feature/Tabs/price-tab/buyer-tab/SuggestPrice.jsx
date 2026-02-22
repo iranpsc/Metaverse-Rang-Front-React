@@ -37,7 +37,6 @@ const SuggestPrice = () => {
   const [feature] = useContext(FeatureContext);
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
 
-
   const totalIrr = useMemo(() => {
     if (!feature?.properties) return 0;
 

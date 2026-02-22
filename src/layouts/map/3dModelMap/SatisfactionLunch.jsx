@@ -11,7 +11,6 @@ import {
   WalletContextTypes,
 } from "../../../services/reducers/WalletContext";
 import useRequest from "../../../services/Hooks/useRequest";
-import { getItem } from "../../../services/Utility/LocalStorage";
 
 import {
   getFieldTranslationByNames,
@@ -34,10 +33,8 @@ const SatisfactionLunch = ({
   handleExitClick,
   handelSubmitEnvironment,
 }) => {
-  const accountSecurity = getItem("account_security")?.account_security;
-
   const { selectedEnvironment, formState } = useSelectedEnvironment();
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const [Wallet, dispatch] = useContext(WalletContext);
   const initialSatisfaction =
     Wallet && Wallet.satisfaction ? parseFloat(Wallet.satisfaction) : 0;
@@ -100,18 +97,15 @@ const SatisfactionLunch = ({
   };
 
   const handleSubmit = () => {
-    if (!accountSecurity) {
-      ToastError(getFieldTranslationByNames("1603"));
-      return;
-    }
+    if (!checkSecurity()) return;
 
     Request(
       `features/${formState.featureId}/build/${selectedEnvironment.id}`,
       HTTP_METHOD.POST,
-      formData
+      formData,
     )
       .then((res) => {
-        addBuilding(res.data.data.building_models[0])
+        addBuilding(res.data.data.building_models[0]);
         handelSubmitEnvironment();
         ToastSuccess(getFieldTranslationByNames("1606"));
         dispatch({

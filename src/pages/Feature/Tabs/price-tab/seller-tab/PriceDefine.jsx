@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 30px;
   width: 100%;
-`;  
+`;
 
 const Text = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -44,7 +44,7 @@ const PriceDefine = () => {
     rial: "",
     psc: "",
   });
-const rialToPsc=feature?.properties?.price_irr/900;
+  const rialToPsc = feature?.properties?.price_irr / 900;
   const validateAndSubmit = () => {
     const userAge = TimeAgo(user?.birthdate);
     let minRial = calculateFee(feature.properties.price_irr, 80);
@@ -55,18 +55,22 @@ const rialToPsc=feature?.properties?.price_irr/900;
       minPsc = calculateFee(feature.properties.price_psc, 110);
     }
 
-    if (rial < minRial) {
+    {
+      /** if (rial < minRial) {
       return setErrors((prev) => ({
         ...prev,
         rial: `حداقل ارزش معامله ${minRial}% قیمت اولیه میباشد`,
       }));
     }
-
-    if (psc < minPsc) {
+*/
+    }
+    {
+      /*if (psc < minPsc) {
       return setErrors((prev) => ({
         ...prev,
         psc: `حداقل ارزش معامله ${minPsc}% قیمت اولیه میباشد`,
       }));
+    }*/
     }
 
     setErrors({
@@ -82,11 +86,19 @@ const rialToPsc=feature?.properties?.price_irr/900;
 
     Request(`sell-requests/store/${feature?.id}`, HTTP_METHOD.POST, formData)
       .then(() => {
-        ToastSuccess("VOD با موفقیت قیمت گذاری شد.");
+        ToastSuccess(getFieldTranslationByNames(1650));
         setAssign(true);
       })
       .catch((error) => {
-        ToastError(error.response.data.message);
+        const Err = error.response.status;
+        console.log("err", error.response);
+        if (Err == 403) {
+         // ToastError(getFieldTranslationByNames(1652));
+        }
+         if (Err == 402) {//for example
+         // ToastError(getFieldTranslationByNames(1652));
+        }
+        ToastError(error.response.data.message);//منتظر اینکه api برای دو ارور دو کد خطا جدا بفرستد
       });
   };
 
@@ -96,7 +108,7 @@ const rialToPsc=feature?.properties?.price_irr/900;
         <Text>{getFieldTranslationByNames("520")}</Text>
         {!assign && (
           <FillInputs
-          assign={assign}
+            assign={assign}
             rial={rial}
             rialToPsc={rialToPsc}
             setRial={setRial}
