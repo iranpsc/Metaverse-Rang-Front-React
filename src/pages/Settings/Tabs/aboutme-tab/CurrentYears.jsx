@@ -2,8 +2,10 @@ import styled from "styled-components";
 import { useState, useEffect, useMemo } from "react";
 import moment from "moment-jalaali";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
-import { convertToPersian, getFieldTranslationByNames } from "../../../../services/Utility";
-import {Label} from "../../../../components/editorContainerStyle";
+import {
+  convertToPersian,
+  getFieldTranslationByNames,
+} from "../../../../services/Utility";
 
 const Container = styled.div`
   position: relative;
@@ -12,6 +14,14 @@ const Container = styled.div`
   padding-top: 30px;
 `;
 
+const Label = styled.h2`
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 20px;
+`;
 const DropdownButton = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
@@ -93,7 +103,7 @@ const CurrentYears = () => {
     const startYear = isPersian ? 1401 : 2022;
     return Array.from(
       { length: currentYear - startYear + 1 },
-      (_, i) => startYear + i
+      (_, i) => startYear + i,
     ).reverse();
   }, [currentYear, isPersian]);
 
@@ -109,7 +119,11 @@ const CurrentYears = () => {
         <div>
           <DropdownButton onClick={() => setIsOpen(!isOpen)}>
             <span>{convertToPersian(selectedYear)}</span>
-            <Arrow style={{ transform: isOpen ? "rotate(-135deg)" : "rotate(45deg)" }} />
+            <Arrow
+              style={{
+                transform: isOpen ? "rotate(-135deg)" : "rotate(45deg)",
+              }}
+            />
           </DropdownButton>
 
           {isOpen && (
