@@ -1,15 +1,6 @@
-import "react-quill/dist/quill.snow.css";
-
-import { CiEdit } from "react-icons/ci";
-import ReactQuill from "react-quill";
-
+import CustomEditor from "../../../components/Common/CustomEditor";
 import { useGlobalState } from "./GlobalVodStateProvider";
-import {
-  convertToPersian,
-  getFieldTranslationByNames,
-} from "../../../services/Utility";
-import { EditorContainer,Char,Label,formats,modules} from "../../../components/editorContainerStyle";
-
+import { getFieldTranslationByNames } from "../../../services/Utility";
 
 const Description = () => {
   const { state, dispatch } = useGlobalState();
@@ -21,30 +12,13 @@ const Description = () => {
     }
   };
 
-  const currentLength = state.description.length;
-  const remainingChars = charLimit - currentLength;
-  const isOverLimit = remainingChars <= 0;
-
-
   return (
-    <>
-      <Label> {getFieldTranslationByNames("1327")}</Label>
-      <EditorContainer>
-        <ReactQuill
-          value={state.description}
-          onChange={handleChange}
-          modules={modules}
-          formats={formats}
-        />
-      </EditorContainer>
-      <Char isOverLimit={isOverLimit}>
-        <span>
-          {convertToPersian(remainingChars)}{" "}
-          {getFieldTranslationByNames("530")}
-        </span>
-        <CiEdit size={20} />
-      </Char>
-    </>
+    <CustomEditor
+      value={state.description}
+      onChange={handleChange}
+      label={getFieldTranslationByNames("1327")}
+      img
+    />
   );
 };
 

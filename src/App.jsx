@@ -2,7 +2,6 @@ import { useLayoutEffect } from "react";
 import { BrowserRouter } from "react-router-dom"; // Import useNavigate
 import { Toaster } from "react-hot-toast";
 import "./App.css";
-import "react-quill/dist/quill.snow.css";
 import "./i18n/i18n.js";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
@@ -39,42 +38,42 @@ function App() {
     });
   }, []);
 
-  return (<LanguageProvider>
+  return (
+    <LanguageProvider>
+      <BrowserRouter>
+        <ScrollDirectionProvider>
+          <LoaderProvider>
+            <MapProvider>
+              <ThemeProviderContext>
+                <UserProvider>
+                  <WalletProvider>
+                    <FollowProvider>
+                      <SelectedEnvironmentProvider>
+                        <MapContextProvider>
+                          <AlertProvider>
+                            <RotateDevice />
+                            <Routers />
 
-    <BrowserRouter>
-      <ScrollDirectionProvider>
-        <LoaderProvider>
-          <MapProvider>
-            <ThemeProviderContext>
-              <UserProvider>
-                <WalletProvider>
-                  <FollowProvider>
-                    <SelectedEnvironmentProvider>
-                      <MapContextProvider>
-                        <AlertProvider>
-                          <RotateDevice />
-                          <Routers />
-
-                          <Error410Modal />
-                          <Toaster
-                            containerStyle={{
-                              zIndex: 100000,
-                              marginBottom: 48,
-                            }}
-                            position="bottom-right"
-                          />
-                        </AlertProvider>
-                      </MapContextProvider>
-                    </SelectedEnvironmentProvider>
-                  </FollowProvider>
-                </WalletProvider>
-              </UserProvider>
-            </ThemeProviderContext>
-          </MapProvider>
-        </LoaderProvider>
-      </ScrollDirectionProvider>
-    </BrowserRouter>              </LanguageProvider>
-
+                            <Error410Modal />
+                            <Toaster
+                              containerStyle={{
+                                zIndex: 100000,
+                                marginBottom: 48,
+                              }}
+                              position="bottom-right"
+                            />
+                          </AlertProvider>
+                        </MapContextProvider>
+                      </SelectedEnvironmentProvider>
+                    </FollowProvider>
+                  </WalletProvider>
+                </UserProvider>
+              </ThemeProviderContext>
+            </MapProvider>
+          </LoaderProvider>
+        </ScrollDirectionProvider>
+      </BrowserRouter>{" "}
+    </LanguageProvider>
   );
 }
 

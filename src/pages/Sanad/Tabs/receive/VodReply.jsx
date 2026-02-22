@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import ReplyInput from "./ReplyInput";
+import ReplyInput from "../ReplyInput";
 import SendFiles from "./SendFiles";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
