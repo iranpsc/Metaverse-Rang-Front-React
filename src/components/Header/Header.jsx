@@ -63,7 +63,7 @@ const IconWrapper = styled.div`
   }
 `;
 const HeaderWrapper = styled.div`
-white-space: nowrap;
+  white-space: nowrap;
   display: flex;
   align-items: center;
   width: 100%;
