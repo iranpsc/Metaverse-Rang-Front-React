@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Title from "../../../../components/Title";
-import remove from "../../../../assets/images/reports/remove.png";
+import remove from "../../../../assets/images/remove.png";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";

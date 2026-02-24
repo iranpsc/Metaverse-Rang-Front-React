@@ -1,5 +1,5 @@
 import  { useContext } from "react"; 
-import download from "../../../../assets/images/reports/download.png";
+import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { UserContext } from "../../../../services/reducers/UserContext";

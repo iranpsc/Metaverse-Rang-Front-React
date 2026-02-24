@@ -1,8 +1,8 @@
 import Title from "../../../../components/Title";
-import { ReactComponent as CircleIcon } from "../../../../assets/images/reports/link-circle.svg";
-import { ReactComponent as InstaIcon } from "../../../../assets/images/reports/instagram.svg";
-import { ReactComponent as SendIcon } from "../../../../assets/images/reports/send-2.svg";
-import { ReactComponent as WhatsappIcon } from "../../../../assets/images/reports/whatsapp.svg";
+import CircleIcon from "../../../../assets/images/link-circle.png";
+import instagram from "../../../../assets/images/instagram.png";
+import SendIcon  from "../../../../assets/images/send-2.png";
+import  WhatsappIcon from "../../../../assets/images/whatsapp.png";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import { convertToPersian } from "../../../../services/Utility/index";
@@ -94,8 +94,8 @@ const Status = styled.div`
       props.status === "confirmed"
         ? "#18C08F"
         : props.status === "pending"
-        ? "#FFC700"
-        : "#A0A0AB"};
+          ? "#FFC700"
+          : "#A0A0AB"};
   }
 `;
 const Date = styled.div`
@@ -106,10 +106,10 @@ const Date = styled.div`
   }
 `;
 const socials = [
-  { id: 1, icon: <CircleIcon /> },
-  { id: 2, icon: <WhatsappIcon /> },
-  { id: 3, icon: <InstaIcon /> },
-  { id: 4, icon: <SendIcon /> },
+  { id: 1, icon: instagram },
+  { id: 2, icon: SendIcon },
+  { id: 3, icon: WhatsappIcon },
+  { id: 4, icon: CircleIcon },
 ];
 
 const ReportCard = ({
@@ -143,9 +143,12 @@ const ReportCard = ({
           <h3>{getFieldTranslationByNames("244")}</h3>
           <div>
             {socials.map((item) => (
-              <div key={item.id} style={{ width: 24, height: 24 }}>
-                {item.icon}
-              </div>
+              <img
+                src={item.icon}
+                key={item.id}
+                style={{ width: 24, height: 24 }}
+              />
+             
             ))}
           </div>
         </Socials>
@@ -165,8 +168,8 @@ const ReportCard = ({
             {status === "confirmed"
               ? getFieldTranslationByNames("1343")
               : status === "pending"
-              ? getFieldTranslationByNames("852")
-              : getFieldTranslationByNames("852")}
+                ? getFieldTranslationByNames("852")
+                : getFieldTranslationByNames("852")}
             {/*getFieldTranslationByNames("1345")*/}
           </h2>
         </Status>

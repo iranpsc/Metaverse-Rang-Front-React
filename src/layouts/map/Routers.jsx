@@ -8,7 +8,6 @@ import Settings from "../../pages/Settings";
 import Notifications from "../../pages/Notifications";
 import Store from "../../pages/Store";
 import PublicRoute from "../../routes/PublicRoute";
-import PaymentVerification from "../../pages/Payments/Verification";
 import Profile from "../../pages/Profile";
 import Verification from "../../pages/Verification";
 import Feature from "../../pages/Feature";
@@ -17,13 +16,8 @@ import Commercial from "../../components/Lottie/Commercial";
 import Residential from "../../components/Lottie/Residential";
 import Educational from "../../components/Lottie/Educational";
 import SignupLottie from "../../components/Lottie/SignupLottie";
-import Player from "../../pages/Player";
-import Dynasty from "../../pages/Dynasty";
 import HourMeterProfit from "../../pages/HourMeterProfit";
-import TransactionPayments from "../../pages/Payments/Verification/transactionPayments";
 
-import Ip from "../../pages/Ip";
-import EmailVerification from "../../pages/EmailVerification";
 import AccountSecurityModal from "../../pages/AccountSecurity";
 //import { ProfileInfoProvider } from './services/reducers/profileInfoContext.jsx';
 import WriteVodTab from "../../pages/Sanad/Tabs/WriteVodTab";
@@ -242,23 +236,9 @@ export default function Routers() {
           />
           <Route path="list" element={<ReportsListTab />} />
         </Route>
-        <Route
-          path="verification-email"
-          element={
-            <PublicRoute>
-              <EmailVerification />
-            </PublicRoute>
-          }
-        />
+        
 
-        <Route
-          path="player/:id"
-          element={
-            <PrivateRoute>
-              <Player />
-            </PrivateRoute>
-          }
-        />
+      
 
         <Route
           path="notifications"
@@ -269,31 +249,8 @@ export default function Routers() {
           }
         />
 
-        <Route
-          path="dynasty"
-          element={
-            <PrivateRoute>
-              <Dynasty />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="payment/verify"
-          element={
-            <PrivateRoute>
-              <PaymentVerification />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="transaction"
-          element={
-            <PrivateRoute>
-              <TransactionPayments />
-            </PrivateRoute>
-          }
-        />
+       
+       
 
         <Route
           path="verification"
@@ -308,14 +265,7 @@ export default function Routers() {
           <Route path=":tab/*" element={<ConditionalPage />} />
         </Route>
 
-        <Route
-          path="access-ip"
-          element={
-            <PublicRoute>
-              <Ip />
-            </PublicRoute>
-          }
-        />
+        
 
         <Route path="successful" element={<Outlet />}>
           <Route path="commercial" element={<Commercial />} />
