@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FeatureContext } from "../../../../Context/FeatureProvider";
 
 import useRequest from "../../../../../../services/Hooks/useRequest";
-import { ReactComponent as Eye } from "../../../../../../assets/svg/eye.svg";
+import  Eye  from "../../../../../../assets/svg/eye.svg?react";
 
 import PreviewModel from "./PreviewModel";
 import { useSelectedEnvironment } from "../../../../../../services/reducers/SelectedEnvironmentContext";

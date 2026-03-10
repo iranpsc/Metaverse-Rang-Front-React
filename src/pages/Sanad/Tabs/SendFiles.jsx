@@ -74,75 +74,75 @@ const ErrorMessage = styled.div`
   font-size: 14px;
   margin: 10px 0;
 `;
-
-const SendFiles = ({ files, onFilesChange }) => {
-  const [preview, setPreview] = useState("");
+const SendFiles = ({ files = [], onFilesChange }) => {
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
   const MAX_FILE_SIZE_MB = 9;
 
-  useEffect(() => {
-    if (files && files.length > 0) {
-      const file = files[0];
-      const previewUrl = file.type.startsWith("image/")
-        ? URL.createObjectURL(file)
-        : nonPhoto;
-      setPreview(previewUrl);
-    } else {
-      setPreview("");
-    }
-  }, [files]);
-
   const fileHandler = (e) => {
     setError("");
-
-    const newFile = e.target.files[0];
-    if (newFile) {
-      if (newFile.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setError(getFieldTranslationByNames("1643"));
-      } else {
-        onFilesChange([newFile]);
-      }
+    const selectedFiles = Array.from(e.target.files);
+    
+    // بررسی حجم تک‌تک فایل‌ها
+    const invalidFile = selectedFiles.find(f => f.size > MAX_FILE_SIZE_MB * 1024 * 1024);
+    
+    if (invalidFile) {
+      setError(getFieldTranslationByNames("1643"));
+      return;
     }
+
+    // اضافه کردن فایل‌های جدید به لیست قبلی
+    onFilesChange([...files, ...selectedFiles]);
+    e.target.value = null; // ریست کردن اینپوت برای انتخاب مجدد همان فایل در صورت نیاز
   };
 
-  const removeFile = () => {
-    onFilesChange([]);
+  const removeFile = (indexToRemove) => {
+    const updatedFiles = files.filter((_, index) => index !== indexToRemove);
+    onFilesChange(updatedFiles);
   };
 
-  const handleDivClick = () => {
-    fileInputRef.current.click();
+  const getPreview = (file) => {
+    // اگر فایل از نوع استرینگ باشد (آدرس URL از سمت سرور)
+    if (typeof file === "string") return file;
+    
+    // اگر فایل جدید آپلود شده باشد
+    if (file instanceof File && file.type.startsWith("image/")) {
+      return URL.createObjectURL(file);
+    }
+    
+    return nonPhoto; // برای فایل‌های غیر عکسی مثل PDF
   };
 
   return (
     <Container>
       <Title title={getFieldTranslationByNames("1328")} />
       <Files>
-        {preview && (
-          <FilePreview>
-            <FileImage src={preview} alt="file-preview" />
+        {/* رندر کردن تمام فایل‌ها (قدیمی و جدید) */}
+        {files.map((file, index) => (
+          <FilePreview key={index}>
+            <FileImage src={getPreview(file)} alt={`preview-${index}`} />
             <RemoveButton
               src={remove}
               alt="remove"
               width={36}
               height={36}
-              onClick={removeFile}
+              onClick={() => removeFile(index)}
             />
           </FilePreview>
-        )}
-        {!preview && (
-          <Div onClick={handleDivClick}>
-            <span>+</span>
-            <HiddenInput
-              ref={fileInputRef}
-              type="file"
-              accept="image/*,.pdf,.doc,.docx"
-              onChange={fileHandler}
-            />
-          </Div>
-        )}
+        ))}
+
+        <Div onClick={() => fileInputRef.current.click()}>
+          <span>+</span>
+          <HiddenInput
+            ref={fileInputRef}
+            type="file"
+            multiple
+            accept="image/*,.pdf,.doc,.docx"
+            onChange={fileHandler}
+          />
+        </Div>
       </Files>
-      {error && <ErrorMessage>{[error]}</ErrorMessage>}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>
   );
 };

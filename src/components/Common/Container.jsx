@@ -6,12 +6,10 @@ import { useScrollDirectionContext } from "../../services/reducers/ScrollDirecti
 const StyledContainer = styled.div`
   padding: 15px;
   width: 100%;
-  height: 100%;
   overflow-y: auto;
   scroll-behavior: smooth;
-
   @media (max-height: 500px) and (max-width: 1000px) {
-    padding-bottom: 30px;
+    padding-bottom: 150px;
   }
 `;
 

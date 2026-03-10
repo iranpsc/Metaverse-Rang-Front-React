@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { ReactComponent as Help } from "../../assets/svg/exclamation.svg";
-import { ReactComponent as Report } from "../../assets/svg/question.svg";
+import Help from "../../assets/svg/exclamation.svg?react";
+import Report  from "../../assets/svg/question.svg?react";
 import { ExitIcon } from "../Icons/IconsHeader";
 import { BiExitFullscreen } from "react-icons/bi";
 import { PiGearSixFill } from "react-icons/pi";

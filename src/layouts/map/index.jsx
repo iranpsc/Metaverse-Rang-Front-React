@@ -28,7 +28,7 @@ const MemoMark = React.memo(Mark);
 const MapTreeD = () => {
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   const mapRef = useRef(null);
-  const mapContainerRef = useRef(null); // <<=== اضافه شد
+  const mapContainerRef = useRef(null);
   const { updateFullScreenMap } = useScrollDirectionContext();
   const [isFullScreen, setFullScreen] = useState(false);
   const [isFullScreenMap, setFullScreenMap] = useState(false);

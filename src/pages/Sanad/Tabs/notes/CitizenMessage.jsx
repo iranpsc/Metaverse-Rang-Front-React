@@ -90,11 +90,11 @@ const stripHtmlTags = (htmlString) => {
 };
 
 const CitizenMessage = ({ data }) => {
-  const filePreview = {
-    url: data.attachment,
-    name: `attachment_${data.id}`, // A default name for the attachment
-  };
-
+  const filePreviews =
+    data.attachments?.map((file, index) => ({
+      url: file,
+      name: `attachment_${data.id}_${index + 1}`,
+    })) || [];
   return (
     <Container>
       <Content>
@@ -102,25 +102,18 @@ const CitizenMessage = ({ data }) => {
           <h2>{getFieldTranslationByNames("1371")}</h2>
           <p>{stripHtmlTags(data?.content)}</p>
           <div>
-            {filePreview.url && (
-              <Image>
-                <img
-                  src={filePreview.url}
-                  alt={filePreview.name}
-                  width={200}
-                  height={179}
-                />
+            {filePreviews.map((file, index) => (
+              <Image key={index}>
+                <img src={file.url} alt={file.name} width={200} height={179} />
                 <Download
                   src={download}
                   alt="download"
                   width={36}
                   height={36}
-                  onClick={() =>
-                    handleDownload(filePreview.url, filePreview.name)
-                  }
+                  onClick={() => handleDownload(file.url, file.name)}
                 />
               </Image>
-            )}
+            ))}
           </div>
         </Files>
       </Content>

@@ -124,13 +124,12 @@ const getModules = (img = false) => {
       { indent: "-1" },
       { indent: "+1" },
     ],
-    ["link", "code-block"], // دکمه تصویر به صورت داینامیک اضافه می‌شود
+    ["link", "code-block"], 
     [{ align: [] }],
   ];
 
   if (img) {
-    // اضافه کردن دکمه image در صورت فعال بودن پراپ
-    toolbar[2].splice(1, 0, "image"); // دکمه image بعد از link اضافه می‌شود
+    toolbar[2].splice(1, 0, "image"); 
   }
 
   return { toolbar };
