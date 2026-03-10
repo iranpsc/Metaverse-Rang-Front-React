@@ -13,7 +13,9 @@ export const Container = styled.div`
   overflow-y: auto;
   padding-bottom: 40px;
   min-width: fit-content;
-
+   @media (max-height: 500px) and (max-width: 1000px) {
+    padding-bottom: 150px;
+  }
   @media (min-width: 998px) {
     font-size: 18px;
   }

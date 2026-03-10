@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as LoginIcon } from "../../../assets/svg/login.svg";
+import   LoginIcon  from "../../../assets/svg/login.svg?react";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";

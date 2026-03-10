@@ -3,7 +3,7 @@ import {
   FullscreenControlContainer,
   CustomButton,
 } from "../layouts/map/styles";
-import { ReactComponent as FullPageIcon } from "../assets/images/fullPage.svg";
+import  FullPageIcon  from "../assets/images/fullPage.svg?react";
 
 const FullscreenControls = ({
   isPersian,

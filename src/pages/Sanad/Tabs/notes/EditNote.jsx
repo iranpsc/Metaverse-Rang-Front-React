@@ -23,7 +23,7 @@ const EditNote = ({ setIsEditing, data }) => {
   const { state, dispatch } = useContext(GlobalNoteStateContext);
   const { alert, setAlert } = useContext(AlertContext);
   const [localDescription, setLocalDescription] = useState(data.content);
-  const [localFiles, setLocalFiles] = useState(data.attachment);
+  const [localFiles, setLocalFiles] = useState(data.attachments);
   const { Request, HTTP_METHOD } = useRequest();
   useEffect(() => {
     if (alert) {
@@ -35,28 +35,43 @@ const EditNote = ({ setIsEditing, data }) => {
     }
   }, [alert, setAlert]);
   const handleSave = () => {
-    const formData = new FormData();
+  if (!data.title.trim() || !localDescription.trim()) {
+    setAlert("عنوان و محتوا نمی‌تواند خالی باشد.");
+    return;
+  }
 
-    formData.append("_method", "PUT");
-    formData.append("content", localDescription);
-    formData.append("title", data.title);
+  const formData = new FormData();
+  formData.append("_method", "PUT");
+  formData.append("title", data.title);
+  formData.append("content", localDescription);
 
-    if (localFiles instanceof File) {
-      formData.append("attachment", localFiles);
-    } else if (!localFiles) {
-      formData.append("attachment", "");
-    }
+  if (localFiles && localFiles.length > 0) {
+    localFiles.forEach((file) => {
+      if (file instanceof File) {
+        formData.append("attachments[]", file);
+      } else if (typeof file === "string") {
+        formData.append("current_attachments[]", file);
+      }
+    });
+  } else {
+    formData.append("attachments[]", ""); 
+  }
 
-    Request(`notes/${data.id}`, HTTP_METHOD.POST, formData, {})
-      .then((response) => {
-        dispatch({
-          type: "UPDATE_NOTE",
-          payload: response.data.data,
-        });
-        setIsEditing(false);
-      })
-      .catch(() => setAlert("خطا در به‌روزرسانی یادداشت."));
-  };
+
+  Request(`notes/${data.id}`, HTTP_METHOD.POST, formData)
+    .then((response) => {
+      dispatch({
+        type: "UPDATE_NOTE",
+        payload: response.data.data,
+      });
+      setIsEditing(false);
+      setAlert("تغییرات با موفقیت اعمال شد.");
+    })
+    .catch((err) => {
+      console.error("Update Error:", err);
+      setAlert("خطا در به‌روزرسانی.");
+    });
+};
   return (
     <Container>
       <CustomEditor

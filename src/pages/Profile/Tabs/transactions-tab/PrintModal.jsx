@@ -32,7 +32,7 @@ const PrintOnlyStyles = () => (
 );
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { ReactComponent as Exit } from "../../../../assets/svg/close.svg";
+import  Exit  from "../../../../assets/svg/close.svg?react";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
 import Button from "../../../../components/Button";

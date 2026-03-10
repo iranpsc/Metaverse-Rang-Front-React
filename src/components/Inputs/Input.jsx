@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
-import { ReactComponent as Show } from "../../assets/svg/passShowIcon.svg";
-import { ReactComponent as Hidden } from "../../assets/svg/passIcon.svg";
+import  Show  from "../../assets/svg/passShowIcon.svg?react";
+import  Hidden  from "../../assets/svg/passIcon.svg?react";
 const Label = styled.label`
   color: ${(props) => props.theme.colors.primary};
   position: absolute;

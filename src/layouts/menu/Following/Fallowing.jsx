@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
 
-import { ReactComponent as FollowingIcon } from "../../../assets/svg/following.svg";
+import  FollowingIcon  from "../../../assets/svg/following.svg?react";
 import { useState } from "react";
 import Follower from "./Follower";
 import { getFieldTranslationByNames } from "../../../services/Utility";

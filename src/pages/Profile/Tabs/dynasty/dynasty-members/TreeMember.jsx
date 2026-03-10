@@ -1,7 +1,7 @@
 import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
-import { ReactComponent as Message } from "../../../../../assets/svg/message.svg";
+import  Message from "../../../../../assets/svg/message.svg?react";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.newColors.otherColors.menuBg};
