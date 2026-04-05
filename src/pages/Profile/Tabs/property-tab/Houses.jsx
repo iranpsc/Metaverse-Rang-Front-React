@@ -334,18 +334,14 @@ const Houses = () => {
         </Wrapper>
       </Div>
       <List>
-        {filteredItems.map((card) => {
-         
-
-          return (
-            <CardItem
-              {...card.properties}
-              key={card.id}
-              navigateId={card.id}
-             card={card}
-            />
-          );
-        })}
+        {filteredItems.map((card) => (
+          <CardItem
+            {...card.properties}
+            key={card.id}
+            navigateId={card.id}
+            card={card}
+          />
+        ))}
       </List>
       {loading && <div>Loading...</div>}
     </Container>

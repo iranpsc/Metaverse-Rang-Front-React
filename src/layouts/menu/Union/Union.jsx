@@ -5,7 +5,7 @@ import Message from "../../../assets/svg/message.svg";
 import ProfileMember from "../../../assets/svg/profileMember.svg";
 import Ticket from "../../../assets/svg/ticket.svg";
 import Setting from "../../../assets/svg/setting.svg";
-import { ReactComponent as UnionIcon } from "../../../assets/svg/union.svg";
+import  UnionIcon  from "../../../assets/svg/union.svg?react";
 import { useState } from "react";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 const Btn = styled.button`

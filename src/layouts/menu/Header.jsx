@@ -2,7 +2,7 @@ import styled from "styled-components";
 import LogoIcon from "../../assets/svg/logoMeta.svg";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import { useMenuContext } from "../../services/reducers/MenuContext";
-import { ReactComponent as ArowMenu } from "../../assets/svg/arowMenu.svg";
+import ArowMenu  from "../../assets/svg/arowMenu.svg?react";
 import { LangContainer, LangButton, LangMenu } from "./LangSelector.styles";
 import { useState, useEffect } from "react";
 import useLanguage from "../../services/Hooks/useLanguage";

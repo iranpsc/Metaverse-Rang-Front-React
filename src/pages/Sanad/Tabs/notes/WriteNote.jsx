@@ -19,7 +19,6 @@ const Container = styled.div`
   @media (min-width: 1366px) {
     overflow-y: auto;
     width: 50%;
-
   }
 `;
 const Subject = styled.div`
@@ -34,8 +33,7 @@ const Subject = styled.div`
     width: 95.5%;
     font-size: 16px;
     font-weight: 400;
-        width: 100%;
-
+    width: 100%;
   }
 `;
 
@@ -46,7 +44,6 @@ const Label = styled.h3`
   margin-bottom: 4px;
   white-space: nowrap;
 `;
-
 
 const ErrorMessage = styled.div`
   color: red;
@@ -63,30 +60,34 @@ const WriteNote = () => {
   const [files, setFiles] = useState([]);
 
   const { Request, HTTP_METHOD } = useRequest();
-
   useEffect(() => {
     if (alert) {
       const timer = setTimeout(() => setAlert(false), 2000);
       return () => clearTimeout(timer);
     }
   }, [alert, setAlert]);
-
   const handleSaveNote = () => {
     if (!title.trim() || !description.trim()) {
       setError(getFieldTranslationByNames(1644));
       return;
     }
+
+    if (files.length > 5) {
+      setError("حداکثر ۵ فایل مجاز است");
+      return;
+    }
+
     setError("");
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", description);
-    files.length > 0 && formData.append("attachment", files[0]);
 
-    const headers =
-      files.length > 0 ? { "Content-Type": "multipart/form-data" } : {};
+    files.forEach((file) => {
+      formData.append("attachments[]", file);
+    });
 
-    Request("notes", HTTP_METHOD.POST, formData, headers)
+    Request("notes", HTTP_METHOD.POST, formData)
       .then((response) => {
         dispatch({ type: "ADD_NOTE", payload: response.data.data });
         setAlert(true);
@@ -103,10 +104,7 @@ const WriteNote = () => {
 
   return (
     <Container>
-      <Title
-        right
-        title={getFieldTranslationByNames("1354")}
-      />
+      <Title right title={getFieldTranslationByNames("1354")} />
       <Subject>
         <Label>{getFieldTranslationByNames("19")}</Label>
         <input
