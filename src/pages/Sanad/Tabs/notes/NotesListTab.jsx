@@ -14,7 +14,9 @@ const Container = styled.div`
   gap: 15px;
   overflow-y: auto;
   flex-direction: column;
-
+  @media (max-height: 500px) and (max-width: 1000px) {
+    padding-bottom: 150px;
+  }
   @media (min-width: 1366px) {
     flex-direction: row;
   }
@@ -38,7 +40,7 @@ const NotesListTab = () => {
         const response = await Request("notes");
         const fetchedNotes = response.data.data;
         fetchedNotes.forEach((note) =>
-          dispatch({ type: "ADD_NOTE", payload: note })
+          dispatch({ type: "ADD_NOTE", payload: note }),
         );
       } catch (error) {
         console.error("Error fetching notes:", error);

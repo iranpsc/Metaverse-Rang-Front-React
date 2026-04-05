@@ -6,7 +6,7 @@ import Union from "./Union/Union";
 import BtnsMenu from "./BtnsMenu";
 import { FaChevronDown } from "react-icons/fa";
 import Anonymous from "../../assets/images/defulte-profile.png";
-import { ReactComponent as Message } from "../../assets/svg/message.svg";
+import  Message  from "../../assets/svg/message.svg?react";
 import ProfileMember from "../../assets/svg/profileMember.svg";
 import Ticket from "../../assets/svg/ticket.svg";
 import Setting from "../../assets/svg/setting.svg";

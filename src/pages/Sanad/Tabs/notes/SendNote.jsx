@@ -162,6 +162,7 @@ const SendNote = ({ files, setFiles }) => {
               id="file-input"
               type="file"
               accept="image/*,.pdf,.doc,.docx"
+              multiple
               onChange={fileHandler}
             />
           </Div>

@@ -15,6 +15,9 @@
     "deploy": "git fetch --all && git reset --hard origin/main && rm -rf node_modules && npm install && npm run build && mkdir -p ../metaverse && cp -r dist/* ../metaverse/",
     "setup": "npm install"
   },
+  "overrides": {
+    "quill": "2.0.2"
+  },
   "dependencies": {
     "@deck.gl/core": "^9.0.0",
     "@deck.gl/layers": "^9.0.0",
@@ -38,7 +41,6 @@
     "compressorjs": "^1.2.1",
     "deck.gl-leaflet": "^1.2.1",
     "dompurify": "^3.3.0",
-    "esbuild": "^0.27.3",
     "i18next": "^23.15.1",
     "i18next-chained-backend": "^4.6.2",
     "i18next-http-backend": "^2.6.1",
@@ -48,11 +50,11 @@
     "laravel-echo": "^1.15.0",
     "leaflet": "^1.9.4",
     "lottie-react": "^2.4.0",
+    "lottie-web": "^5.13.0",
     "mapbox-gl": "^3.9.4",
     "maplibre-gl": "^3.6.2",
     "moment-jalaali": "^0.10.4",
     "pusher-js": "^8.0.1",
-    "quill": "^2.0.3",
     "react": "^18.2.0",
     "react-confetti-explosion": "^2.1.2",
     "react-countdown": "^2.3.5",
@@ -101,8 +103,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "standard-version": "^9.5.0",
-    "vite": "^4.3.2",
-    "vite-plugin-svgr": "^3.3.0"
+    "vite": "^7.3.1",
+    "vite-plugin-svgr": "^4.5.0"
   },
   "engines": {
     "node": "16.x"

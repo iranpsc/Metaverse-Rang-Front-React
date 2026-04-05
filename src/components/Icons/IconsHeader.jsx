@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { ReactComponent as Help } from "../../assets/svg/exclamation.svg";
-import { ReactComponent as Exit } from "../../assets/svg/close.svg";
-import { ReactComponent as Report } from "../../assets/svg/question.svg";
+import Help from "../../assets/svg/exclamation.svg?react";
+import Exit from "../../assets/svg/close.svg?react";
+import Report from "../../assets/svg/question.svg?react";
 
 export const ReportIcon = styled(Help)`
   width: 40px;

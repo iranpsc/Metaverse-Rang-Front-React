@@ -1,14 +1,10 @@
 "use client";
 
 import styled from "styled-components";
-import { ReactComponent as LightSvg } from "../../assets/svg/light.svg";
-import { ReactComponent as DarkSvg } from "../../assets/svg/dark.svg";
+import  LightSvg  from "../../assets/svg/light.svg?react";
+import  DarkSvg  from "../../assets/svg/dark.svg?react";
 import { useState } from "react";
 import { useTheme } from "../../services/reducers/ThemeContext";
-
-// ===============================
-//        STYLED COMPONENTS
-// ===============================
 
 const Light = styled(LightSvg)`
   width: 18.364px;

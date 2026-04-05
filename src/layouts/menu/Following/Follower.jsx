@@ -7,7 +7,7 @@ import Ticket from "../../../assets/svg/ticket.svg";
 import Setting from "../../../assets/svg/setting.svg";
 import CitizenProfile from "../../../assets/svg/citizenProfile.svg";
 import Share from "../../../assets/svg/share.svg";
-import { ReactComponent as FollowingIcon } from "../../../assets/svg/following.svg";
+import  FollowingIcon  from "../../../assets/svg/following.svg?react";
 import { useState } from "react";
 import useRequest from "../../../services/Hooks/useRequest";
 import { useLayoutEffect } from "react";

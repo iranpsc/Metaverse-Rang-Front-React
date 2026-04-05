@@ -6,9 +6,9 @@ import ModalLg from "../../../../components/Modal/ModalLg";
 import Container from "../../../../components/Common/Container";
 
 export const EditContext = createContext();
-const NoteDetails = ({ state, setShowDetails }) => {
+const   NoteDetails = ({ data, setShowDetails }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const data = state.notes[0];
+
   return (
     <EditContext.Provider value={{ isEditing, setIsEditing }}>
       <ModalLg setShowModal={setShowDetails} titleId={1358}>
