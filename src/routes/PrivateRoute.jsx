@@ -12,7 +12,7 @@ export default function PrivateRoute({ children }) {
     if (!isLoggedIn()) {
       // This check isn't preventing unwanted redirects properly
       Request(
-        `auth/redirect?redirect_to=${window.location.origin}/metaverse`,
+        `auth/redirect?redirect_to=${window.location.origin}`,
         HTTP_METHOD.GET
       )
         .then((response) => {

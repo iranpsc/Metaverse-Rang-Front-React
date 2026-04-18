@@ -186,7 +186,7 @@ const Profile = () => {
               <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
               <Text isOpen={!isOpen}>{user?.code}</Text>
             </Btn>
-            <BtnNavigator onClick={() => navigate("/metaverse/documents")}>
+            <BtnNavigator onClick={() => navigate("/documents")}>
               <Icon src={Ticket} />
               {getFieldTranslationByNames("241")}
             </BtnNavigator>
@@ -195,11 +195,11 @@ const Profile = () => {
               {getFieldTranslationByNames("242")}
             </BtnNavigator>
 
-            <BtnNavigator onClick={() => navigate("/metaverse/profile")}>
+            <BtnNavigator onClick={() => navigate("/profile")}>
               <Icon src={ProfileMember} />
               {getFieldTranslationByNames("243")}
             </BtnNavigator>
-            <BtnNavigator onClick={() => navigate("/metaverse/settings")}>
+            <BtnNavigator onClick={() => navigate("/settings")}>
               <Icon src={Setting} />
               {getFieldTranslationByNames("642")}
             </BtnNavigator>

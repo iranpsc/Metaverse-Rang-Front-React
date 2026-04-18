@@ -76,7 +76,7 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
       mapRef: mapRef,
       zoom: 17,
     });
-    navigate("/metaverse")
+    navigate("")
   }
   const minX = Math.min(...xCoords);
   const maxX = Math.max(...xCoords);
@@ -132,7 +132,7 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
           </Value>
           <Owner>
             <p>{getFieldTranslationByNames("346")}</p>
-            <a target="_blank" rel="noopener noreferrer" href={`https://rgb.irpsc.com/fa/citizen/${property.owner}`}>
+            <a target="_blank" rel="noopener noreferrer" href={`https://metarang.com/fa/citizen/${property.owner}`}>
               {property.owner}
             </a>
           </Owner>

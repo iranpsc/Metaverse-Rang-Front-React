@@ -115,7 +115,7 @@ const RequestRow = ({
       <TableRow>
         <TableCell>
           <div>
-            <Code href={`https://rgb.irpsc.com/fa/citizens/${code}`} target="_blank" >{code}</Code>
+            <Code href={`https://metarang.com/fa/citizens/${code}`} target="_blank" >{code}</Code>
           </div>
         </TableCell>
         <TableCell>

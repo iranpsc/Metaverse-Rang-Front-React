@@ -27,7 +27,7 @@ function App() {
       broadcaster: "pusher",
       key: "local",
       cluster: "",
-      wsHost: "api.rgb.irpsc.com",
+      wsHost: "api.metarang.com",
       wsPort: 6001,
       wssPort: 6001,
       encrypted: true,

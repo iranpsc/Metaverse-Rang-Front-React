@@ -166,7 +166,7 @@ const Proposer = ({
               <p>{getFieldTranslationByNames("768")}</p>
               <a
                 target="blank"
-                href={`https://rgb.irpsc.com/fa/citizen/${code}`}
+                href={`https://metarang.com/fa/citizen/${code}`}
               >
                 {code.toUpperCase()}
               </a>

@@ -111,7 +111,7 @@ const Suggestion = ({
       mapRef: mapRef,
       zoom: 17,
     });
-    Navigate("/metaverse");
+    Navigate("");
   };
   return (
     <Container>

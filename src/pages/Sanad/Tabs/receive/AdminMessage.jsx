@@ -130,7 +130,7 @@ const AdminMessage = ({ data }) => {
             <Header>
               <span>{response.responser_name}</span>
               <a
-                href={`https://rgb.irpsc.com/fa/citizens/${data.code}`}
+                href={`https://metarang.com/fa/citizens/${data.code}`}
                 target="_blank"
               >
                 {data.code}

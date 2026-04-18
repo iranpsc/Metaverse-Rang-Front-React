@@ -122,9 +122,9 @@ export default function ContextMenu() {
 
           <li
             className="item"
-            onClick={() => openInNewTab("https:/rgb.irpsc.com/about")}
+            onClick={() => openInNewTab("https:/metarang.com/about")}
           >
-            <a href="https:/rgb.irpsc.com/about" target={"_blank"} rel="noreferrer">
+            <a href="https:/metarang.com/about" target={"_blank"} rel="noreferrer">
               
               <span>درباره متارنگ</span>
             </a>
@@ -144,9 +144,9 @@ export default function ContextMenu() {
 
           <li
             className="item"
-            onClick={() => openInNewTab("https://rgb.irpsc.com/version")}
+            onClick={() => openInNewTab("https://metarang.com/version")}
           >
-            <a href="https://rgb.irpsc.com/version" target={"_blank"} rel="noreferrer">
+            <a href="https://metarang.com/version" target={"_blank"} rel="noreferrer">
               <span>V 1.1.0</span>
             </a>
             <i className="fa-solid fa-code-compare"></i>

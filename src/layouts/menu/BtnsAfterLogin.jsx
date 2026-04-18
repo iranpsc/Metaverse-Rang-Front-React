@@ -111,7 +111,7 @@ const Tooltip = styled.div`
   }
 `;
 const menuItems = [
-  { icon: HomeIcon, translationId: "149", link: "https://rgb.irpsc.com/" },
+  { icon: HomeIcon, translationId: "149", link: "https://metarang.com/" },
   {
     icon: NewsIcon,
     translationId: "255",
@@ -120,42 +120,42 @@ const menuItems = [
   {
     icon: BlogIcon,
     translationId: "258",
-    link: "https://rgb.irpsc.com/fa/articles",
+    link: "https://metarang.com/fa/articles",
   },
   // {
   //   icon: ChallengeIcon,
   //   translationId: "297",
-  //   link: "https://rgb.irpsc.com/home-competitions",
+  //   link: "https://metarang.com/home-competitions",
   // },
   {
     icon: TrainingIcon,
     translationId: "165",
-    link: "https://rgb.irpsc.com/fa/education",
+    link: "https://metarang.com/fa/education",
   },
   {
     icon: AboutIcon,
     translationId: "259",
-    link: "https://rgb.irpsc.com/fa/about",
+    link: "https://metarang.com/fa/about",
   },
   {
     icon: ContactIcon,
     translationId: "260",
-    link: "https://rgb.irpsc.com/fa/contact",
+    link: "https://metarang.com/fa/contact",
   },
   {
     icon: RobotIcon,
     translationId: "574",
-    link: "https://rgb.irpsc.com/fa/version",
+    link: "https://metarang.com/fa/version",
   },
   {
     icon: CalendarIcon,
     translationId: "262",
-    link: "https://rgb.irpsc.com/fa/calendar",
+    link: "https://metarang.com/fa/calendar",
   },
   {
     icon: CitizenIcon,
     translationId: "263",
-    link: "https://rgb.irpsc.com/fa/citizens",
+    link: "https://metarang.com/fa/citizens",
   },
 ];
 

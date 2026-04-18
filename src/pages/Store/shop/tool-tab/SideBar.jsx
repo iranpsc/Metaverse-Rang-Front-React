@@ -11,7 +11,7 @@ const SideBar = () => {
       {tools.map((item, index) => (
         <NavLink
           key={item.id}
-          to={`/metaverse/store/tools/${item.path}`}
+          to={`/store/tools/${item.path}`}
           replace
           className={({ isActive }) => {
             const customActive =

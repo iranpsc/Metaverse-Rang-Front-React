@@ -173,7 +173,7 @@ const CitizenMessage = (reportDetails) => {
           <span>{userState.name}</span>
           {/* افزودن target و rel به لینک Code */}
           <a
-            href={`https://rgb.irpsc.com/fa/citizen/${userState.code}`}
+            href={`https://metarang.com/fa/citizen/${userState.code}`}
             target="_blank"
             rel="noopener noreferrer"
           >

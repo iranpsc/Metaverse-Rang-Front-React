@@ -264,7 +264,7 @@ const VideoRecord = ({
 
   const uploadVideo = (file) => {
     const resumable = new Resumable({
-      target: "https://api.rgb.irpsc.com/api/upload",
+      target: "https://api.metarang.com/api/upload",
       chunkSize: 100 * 1024 * 1024,
       simultaneousUploads: 4,
       testChunks: false,
@@ -294,7 +294,7 @@ const VideoRecord = ({
 
   useEffect(() => {
     axios
-      .get("https://admin.rgb.irpsc.com/api/kyc-verify-text")
+      .get("https://admin.metarang.com/api/kyc-verify-text")
       .then((res) => {
         setTextVerify(res.data);
       })

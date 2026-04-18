@@ -47,7 +47,7 @@ const Status = () => {
     const startTime = Date.now();
     try {
       await fetch(
-        "https://middle.irpsc.com/app/?url=https://rgb.irpsc.com/metaverse/",
+        "https://middle.irpsc.com/app/?url=https://metarang.com/",
         {
           method: "HEAD",
         }

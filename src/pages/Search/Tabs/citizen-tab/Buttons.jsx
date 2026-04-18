@@ -83,7 +83,7 @@ const Buttons = ({ user }) => {
       icon: <MdOutlineMailOutline />,
       label: getFieldTranslationByNames("469"),
       onClick: () =>
-        Navigate("/metaverse/documents", {
+        Navigate("/documents", {
           state: { code: user?.code, user: user?.id },
         }),
     },

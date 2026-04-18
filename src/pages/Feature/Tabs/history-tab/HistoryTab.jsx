@@ -9,10 +9,10 @@ const StyledContainer = styled(BaseContainer)`
 `;
 
 const history = [
-  { id: 1, date: { day: 1, month: "خرداد" }, user: "HM-2000081", link: "https://rgb.irpsc.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
-  { id: 2, date: { day: 30, month: "اردیبهشت" }, user: "HM-2000081", link: "https://rgb.irpsc.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
-  { id: 3, date: { day: 25, month: "اردیبهشت" }, user: "HM-2000081", link: "https://rgb.irpsc.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
-  { id: 4, date: { day: 24, month: "اردیبهشت" }, user: "HM-2000081", link: "https://rgb.irpsc.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
+  { id: 1, date: { day: 1, month: "خرداد" }, user: "HM-2000081", link: "https://metarang.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
+  { id: 2, date: { day: 30, month: "اردیبهشت" }, user: "HM-2000081", link: "https://metarang.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
+  { id: 3, date: { day: 25, month: "اردیبهشت" }, user: "HM-2000081", link: "https://metarang.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
+  { id: 4, date: { day: 24, month: "اردیبهشت" }, user: "HM-2000081", link: "https://metarang.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
 ];
 
 const HistoryTab = () => {

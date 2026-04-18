@@ -64,7 +64,7 @@ import MainLayout from "../MainLayout";
 export default function Routers() {
   return (
     <Routes>
-      <Route path="/metaverse" element={<MainLayout />}>
+      <Route path="" element={<MainLayout />}>
         <Route
           path="documents"
           element={
@@ -236,9 +236,6 @@ export default function Routers() {
           />
           <Route path="list" element={<ReportsListTab />} />
         </Route>
-        
-
-      
 
         <Route
           path="notifications"
@@ -248,9 +245,6 @@ export default function Routers() {
             </PrivateRoute>
           }
         />
-
-       
-       
 
         <Route
           path="verification"
@@ -264,8 +258,6 @@ export default function Routers() {
           <Route index element={<Navigate to="info" replace />} />
           <Route path=":tab/*" element={<ConditionalPage />} />
         </Route>
-
-        
 
         <Route path="successful" element={<Outlet />}>
           <Route path="commercial" element={<Commercial />} />

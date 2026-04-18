@@ -45,7 +45,7 @@ const ErrorReportTab = () => {
   const { alert, setAlert } = useContext(AlertContext);
   const [error, setError] = useState("");
   const containerRef = useRef(null);
-  const baseURL = `https://rgb.irpsc.com${location.state?.from ?? location.pathname}`;
+  const baseURL = `https://metarang.com${location.state?.from ?? location.pathname}`;
 
   const resetForm = () => {
     dispatch({ type: "SET_SUBJECT", payload: "" });

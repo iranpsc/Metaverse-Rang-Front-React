@@ -201,7 +201,7 @@ const CardItem = ({
           </ImageWrapper>
           <Name>
             <h3>{getFieldTranslationByNames(name)}</h3>
-            <span onClick={() => Navigate(`/metaverse/feature/${navigateId}`)}>
+            <span onClick={() => Navigate(`/feature/${navigateId}`)}>
               {id}
             </span>
           </Name>
@@ -239,7 +239,7 @@ const CardItem = ({
             fit
             label={getFieldTranslationByNames("352")}
             onClick={() =>
-              Navigate(`/metaverse/feature/${navigateId}/sell/lowest`)
+              Navigate(`/feature/${navigateId}/sell/lowest`)
             }
           />
         ) : (

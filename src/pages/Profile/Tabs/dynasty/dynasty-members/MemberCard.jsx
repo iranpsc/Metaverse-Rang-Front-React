@@ -130,7 +130,7 @@ const MemberCard = ({ selectedCitizen, memberType, setSelectedRelation }) => {
           <div>
             <h3>{selectedCitizen?.name}</h3>
             <a
-              href={`https://rgb.irpsc.com/fa/citizen/${selectedCitizen?.code}`}
+              href={`https://metarang.com/fa/citizen/${selectedCitizen?.code}`}
               target="_blank"
               rel="noopener noreferrer"
             >

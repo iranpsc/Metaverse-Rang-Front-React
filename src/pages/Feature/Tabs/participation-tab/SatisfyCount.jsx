@@ -184,7 +184,7 @@ const SatisfyCount = ({ isOwner }) => {
       );
 
       ToastSuccess(getFieldTranslationByNames("1609"));
-      navigate("/metaverse");
+      navigate("");
       dispatch({
         type: WalletContextTypes.ADD_WALLET,
         payload: {

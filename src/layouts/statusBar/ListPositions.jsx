@@ -133,19 +133,19 @@ const positionsData = [
   {
     src: mataphoto,
     name: "دفتر فروش متاورس رنگ ",
-    navigation: "https://3drgb.irpsc.com/metaverse/office/OF-602",
+    navigation: "https://3dmetarang.com/metaverse/office/OF-602",
     onlineUser: "20",
   },
   {
-    src: "https://3drgb.irpsc.com/metaverse/gym/GE-901/images/1.png",
+    src: "https://3dmetarang.com/metaverse/gym/GE-901/images/1.png",
     name: "باشگاه بدن سازی متاورس رنگ",
-    navigation: " https://3drgb.irpsc.com/metaverse/gym/GE-901",
+    navigation: " https://3dmetarang.com/metaverse/gym/GE-901",
     onlineUser: "14",
   },
   /* {
-    src: "https://3drgb.irpsc.com/metaverse/exhibition/EX-301/images/1.png",
+    src: "https://3dmetarang.com/metaverse/exhibition/EX-301/images/1.png",
     name: "نمایشگاه بین المللی قزوین",
-    navigation: "https://3drgb.irpsc.com/metaverse/exhibition/EX-301",
+    navigation: "https://3dmetarang.com/metaverse/exhibition/EX-301",
     onlineUser: "4",
   },
 ];*/

@@ -101,7 +101,7 @@ const Info = () => {
         <div>
           <Title>{user?.name}</Title>
           <Code
-            href={`https://rgb.irpsc.com/fa/citizens/${user?.code}`}
+            href={`https://metarang.com/fa/citizens/${user?.code}`}
             target="_blank"
           >
             {user?.code}

@@ -71,13 +71,13 @@ function Tabs({ items = [], fullHeight }) {
   const tabRefs = useRef([]);
   const { isScrollingDown } = useScrollDirectionContext();
 
-  const isFeatureRoute = segments[1] === "feature";
-  const hasSubTab = segments.length > 3;
+  const isFeatureRoute = segments[0] === "feature";
+  const hasSubTab = segments.length > 2;
 
   const basePath = isFeatureRoute
-    ? `/${segments[0]}/${segments[1]}/${segments[2]}`
-    : hasSubTab
     ? `/${segments[0]}/${segments[1]}`
+    : hasSubTab
+    ? `/${segments[0]}`
     : location.pathname.split("/").slice(0, -1).join("/");
 
   const mainTabPaths = items.map((i) => i.path);
@@ -99,7 +99,7 @@ function Tabs({ items = [], fullHeight }) {
     });
   }, [activeTab]);
 
-  const isInfoFeatureUrl = /^\/metaverse\/feature\/\d+/.test(location.pathname);
+  const isInfoFeatureUrl = /^\/feature\/\d+/.test(location.pathname);
 
   return (
     <TabsWrapper fullHeight={fullHeight}>

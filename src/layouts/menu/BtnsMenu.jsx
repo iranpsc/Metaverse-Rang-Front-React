@@ -166,7 +166,7 @@ const BtnsMenu = () => {
   const [user] = useContext(UserContext);
   useEffect(() => {
     const currentItem = menuItems.find(
-      (item) => `/metaverse/${item.navigate}` === location.pathname,
+      (item) => `/${item.navigate}` === location.pathname,
     );
     if (currentItem) {
       setSelectedItem(currentItem.translationId);
@@ -177,7 +177,7 @@ const BtnsMenu = () => {
   const handleClick = (item) => {
     if (!item.navigate) return;
 
-    const targetPath = `/metaverse/${item.navigate}`;
+    const targetPath = `/${item.navigate}`;
 
     if (location.pathname.startsWith(targetPath)) {
       return;

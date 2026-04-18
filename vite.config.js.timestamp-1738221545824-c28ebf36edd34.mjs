@@ -3,7 +3,7 @@ import { defineConfig } from "file:///home/m6hdix/Desktop/react-version-2/node_m
 import react from "file:///home/m6hdix/Desktop/react-version-2/node_modules/@vitejs/plugin-react/dist/index.mjs";
 import svgr from "file:///home/m6hdix/Desktop/react-version-2/node_modules/vite-plugin-svgr/dist/index.js";
 var vite_config_default = defineConfig({
-  base: "/metaverse",
+  base: "",
   plugins: [react(), svgr()],
   resolve: {
     alias: {

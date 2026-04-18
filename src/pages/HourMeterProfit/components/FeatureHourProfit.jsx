@@ -110,7 +110,7 @@ const FeatureHourProfit = ({ data }) => {
               <FeatureDetaile>
                 <OrangeBoldFont
                   onClick={() =>
-                    Navigate(`/metaverse/feature/${data?.feature_db_id}`)
+                    Navigate(`/feature/${data?.feature_db_id}`)
                   }
                 >
                   <IconSpan src={karbariIcons[data?.karbari]} />{" "}

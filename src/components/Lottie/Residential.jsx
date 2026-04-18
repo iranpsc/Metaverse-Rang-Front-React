@@ -23,7 +23,7 @@ export default function Residential() {
 
   useLayoutEffect(() => {
     const TimeOut = setTimeout(() => {
-      navigate("/metaverse");
+      navigate("");
     }, 5000);
 
     return () => clearTimeout(TimeOut);

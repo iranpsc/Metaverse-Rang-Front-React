@@ -49,7 +49,7 @@ const Buttons = ({ item, system }) => {
       label: getFieldTranslationByNames("353"),
       icon: <LuShoppingCart />,
       onClick: () =>
-        Navigate(`/metaverse/feature/${item?.id}/buy/price`, {
+        Navigate(`/feature/${item?.id}/buy/price`, {
           state: { activePageNumber: 1 },
         }),
     },
@@ -74,7 +74,7 @@ const Buttons = ({ item, system }) => {
       label: getFieldTranslationByNames("472"),
       icon: <HiOutlineCurrencyDollar />,
       onClick: () => {
-        Navigate(`/metaverse/feature/${item?.id}/buy/suggest`, {
+        Navigate(`/feature/${item?.id}/buy/suggest`, {
           state: { activePageNumber: 1, activeTab: 1 },
         });
       },
