@@ -76,7 +76,7 @@ const MemberCard = ({ status, code, date, time ,name ,image }) => {
           <h3>{name}</h3>
           <a
             h
-            href={`https://rgb.irpsc.com/fa/citizens/${code}`}
+            href={`https://metarang.com/fa/citizens/${code}`}
             target="_blank"
           >
            {code}

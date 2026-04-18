@@ -80,7 +80,7 @@ const Details = ({ data }) => {
     <Container>
       <Header>
         <h3>{getFieldTranslationByNames(813)}</h3>
-        <span onClick={() => Navigate(`/metaverse/feature/${id}`, {
+        <span onClick={() => Navigate(`/feature/${id}`, {
             state: { activePageNumber: 1 , activeTabNavigate: 3 }
           })}>{propertyId}</span>
       </Header>

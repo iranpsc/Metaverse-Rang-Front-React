@@ -8,8 +8,8 @@ export default function useRequest() {
   const accountSecurity = getItem("account_security")?.account_security;
   const user = getItem("user");
 
-  const PROD_BASE_URL = "https://api.rgb.irpsc.com/api/";
-  const DEV_BASE_URL = "https://api.rgb.irpsc.com/api/";
+  const PROD_BASE_URL = "https://api.metarang.com/api/";
+  const DEV_BASE_URL = "https://api.metarang.com/api/";
 
   const HTTP_METHOD = {
     GET: "GET",
@@ -22,7 +22,7 @@ export default function useRequest() {
   const checkSecurity = () => {
     if (!accountSecurity) {
       ToastError(getFieldTranslationByNames("1603"));
-      navigate("/metaverse/confirmation");
+      navigate("/confirmation");
       return false;
     }
     return true;

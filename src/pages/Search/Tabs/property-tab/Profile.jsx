@@ -44,7 +44,7 @@ const Profile = ({ item }) => {
         <h2>
           {getFieldTranslationByNames("1478")}
         </h2>
-        <p onClick={() => Navigate(`/metaverse/feature/${item?.id}`)}>
+        <p onClick={() => Navigate(`/feature/${item?.id}`)}>
           {item?.feature_properties_id}
         </p>
       </Info>

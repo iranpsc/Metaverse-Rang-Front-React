@@ -107,7 +107,7 @@ const FollowingCard = ({ name, code, id, profile_photos, online }) => {
         </Image>{" "}
         <div>
           <h3>{name}</h3>
-          <a href={`https://rgb.irpsc.com/fa/citizens/${code}`} target="_blank">
+          <a href={`https://metarang.com/fa/citizens/${code}`} target="_blank">
             {code}
           </a>
         </div>

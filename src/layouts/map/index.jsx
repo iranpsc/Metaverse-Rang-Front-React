@@ -70,7 +70,7 @@ const MapTreeD = () => {
     (event) => {
       const feature = event.features?.[0];
       if (feature?.properties?.id) {
-        navigate(`/metaverse/feature/${feature.properties.id}`);
+        navigate(`/feature/${feature.properties.id}`);
       }
       if (!mapRef.current) return;
       const map = mapRef.current.getMap();
@@ -118,7 +118,7 @@ const MapTreeD = () => {
               ref={mapRef}
               className="map"
               antialias
-              mapStyle="/metaverse/styleMap.json"
+              mapStyle="/styleMap.json"
               RTLTextPlugin="https://map.irpsc.com/rtl.js"
               interactiveLayerIds={["polygon-fill-layer"]}
               maxPitch={78}

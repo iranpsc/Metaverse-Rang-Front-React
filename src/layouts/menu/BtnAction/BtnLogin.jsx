@@ -35,7 +35,7 @@ const BtnLogin = () => {
   const language = useLanguage();
   const handleClick = () => {
     Request(
-      `auth/redirect?redirect_to=${window.location.origin}/metaverse`,
+      `auth/redirect?redirect_to=${window.location.origin}`,
       HTTP_METHOD.GET,
       {},
       {},

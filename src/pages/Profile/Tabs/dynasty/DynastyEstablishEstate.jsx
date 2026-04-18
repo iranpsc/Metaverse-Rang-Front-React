@@ -55,7 +55,7 @@ const DynastyEstablishEstate = () => {
   }
 
   if (data && data["user-has-dynasty"] && tab !== "estate") {
-    return <Navigate to="/metaverse/profile/dynasty/estate" replace />;
+    return <Navigate to="/profile/dynasty/estate" replace />;
   }
 
   if (data && !data["user-has-dynasty"] && tab !== "establish") {

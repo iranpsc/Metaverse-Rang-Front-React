@@ -42,7 +42,7 @@ export default function SignupLottie() {
 
   useLayoutEffect(() => {
     const TimeOut = setTimeout(() => {
-      navigate("/metaverse/login");
+      navigate("/login");
     }, 5000);
 
     return () => clearTimeout(TimeOut);

@@ -117,7 +117,7 @@ const RecievedSuggestion = () => {
       }
     } catch (error) {
       if ((error = 410)) {
-        navigate("/metaverse/confirmation");
+        navigate("/confirmation");
       }
     }
     setIsExploding(!isExploding);
@@ -151,7 +151,7 @@ const RecievedSuggestion = () => {
       }
     } catch (error) {
       if ((error = 410)) {
-        navigate("/metaverse/confirmation");
+        navigate("/confirmation");
       }
     }
     setIsExplodingAccept(!isExplodingAccept);

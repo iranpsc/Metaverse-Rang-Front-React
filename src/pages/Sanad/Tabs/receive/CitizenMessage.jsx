@@ -195,7 +195,7 @@ const CitizenMessage = ({ data }) => {
           <Header>
             <span>{data?.sender?.name}</span>
             <a
-              href={`https://rgb.irpsc.com/fa/citizens/${data?.sender?.code}`}
+              href={`https://metarang.com/fa/citizens/${data?.sender?.code}`}
               target="_blank"
             >
               {data?.sender.code}
@@ -215,7 +215,7 @@ const CitizenMessage = ({ data }) => {
             <Header>
               <span>{data?.sender?.name}</span>
               <a
-                href={`https://rgb.irpsc.com/fa/citizens/${data?.sender?.code}`}
+                href={`https://metarang.com/fa/citizens/${data?.sender?.code}`}
                 target="_blank"
               >
                 {data?.sender.code}

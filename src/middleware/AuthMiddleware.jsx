@@ -14,7 +14,7 @@ const AuthMiddleware = ({ children }) => {
         automatic_logout: queryParams.get("expires_at"),
       };
       setUser(queryParamsObject).then(() => {
-        navigator("/metaverse");
+        navigator("");
         setUserWithToken();
       });
     } else {

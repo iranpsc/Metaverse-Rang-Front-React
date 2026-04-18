@@ -133,12 +133,12 @@ const Header = ({
   const navigation = useNavigate();
   const { resetStates } = useSelectedEnvironment();
 
-  const newStr = location.pathname.replace(/\/metaverse\//g, "") + "-";
+  const newStr = location.pathname.replace(/\//g, "") + "-";
   const locationPage = location?.state?.locationPage;
   const adviserData = useAdviserData(newStr, locationPage);
 
   const handleReportClick = () => {
-    navigation("/metaverse/report/send", {
+    navigation("/report/send", {
       state: {
         from: location.pathname,
       },
@@ -147,7 +147,7 @@ const Header = ({
 
   const handleExitClick = () => {
     if (handleExit) {
-      navigation(location.state?.background?.pathname || "/metaverse", {
+      navigation(location.state?.background?.pathname || "", {
         replace: true,
       });
       handleExit();

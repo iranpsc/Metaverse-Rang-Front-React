@@ -75,7 +75,7 @@ const ModalLg = ({ children, titleId, setShowModal, report }) => {
             {report && (
               <ReportIcon
                 onClick={() =>
-                  Navigate("/metaverse/report/send", {
+                  Navigate("/report/send", {
                     state: {
                       from: location.pathname,
                     },

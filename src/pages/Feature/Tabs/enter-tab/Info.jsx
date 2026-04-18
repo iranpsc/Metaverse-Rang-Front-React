@@ -110,7 +110,7 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
       );
 
       ToastSuccess(getFieldTranslationByNames("1609"));
-      navigate("/metaverse");
+      navigate("");
       dispatch({
         type: WalletContextTypes.ADD_WALLET,
         payload: {

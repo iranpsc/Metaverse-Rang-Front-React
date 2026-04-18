@@ -6,7 +6,7 @@ export default function PublicRoute({ children }) {
     const navigation = useNavigate();
 
     if(isLoggedIn()) {
-        return navigation('/metaverse');
+        return navigation('/');
     }
 
     return children

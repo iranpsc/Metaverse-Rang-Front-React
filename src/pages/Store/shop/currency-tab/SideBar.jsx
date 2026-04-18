@@ -25,7 +25,7 @@ const SideBar = () => {
           <div
             key={item.id}
             onClick={() =>
-              navigate(`/metaverse/store/currency/${item.path}`, {
+              navigate(`/store/currency/${item.path}`, {
                 replace: true,
               })
             }

@@ -211,14 +211,14 @@ export function FeaturePrice(rgb) {
 
 export function FeatureSvg(rgb) {
   if (RESIDENTIAL[rgb]) {
-    return "/metaverse/successful/residential";
+    return "/successful/residential";
   }
 
   if (COMMERCIAL[rgb]) {
-    return "/metaverse/successful/commercial";
+    return "/successful/commercial";
   }
 
   if (EDUCATIONAL[rgb]) {
-    return "/metaverse/successful/educational";
+    return "/successful/educational";
   }
 }
