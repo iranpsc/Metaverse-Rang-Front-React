@@ -1,13 +1,12 @@
 import { BiEditAlt } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
-
 import styled from "styled-components";
 import {
   convertToPersian,
   getFieldTranslationByNames,
 } from "../../../services/Utility";
 import Result from "../../../components/Result";
-
+import { useTheme } from "../../../services/reducers/ThemeContext";
 const Wrapper = styled.div`
   border-radius: 5px;
   background-color: ${(props) =>
@@ -54,18 +53,14 @@ const ActionWrapper = styled.div`
 
 const ResultWrapper = styled.div`
   display: flex;
+  color: ${(props) => props.theme.colors.newColors.shades.title};
+
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
   @media (min-width: 1200px) {
     align-items: center;
   }
-`;
-
-const Title = styled.h3`
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  font-size: 14px;
-  font-weight: 500;
 `;
 
 const Value = styled.p`
@@ -75,11 +70,14 @@ const Value = styled.p`
 `;
 
 const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
+  const { theme } = useTheme();
+  console.log("theme", theme);
   const deleteHandler = () => {
     setPsc("");
     setRial("");
     setAssign(false);
   };
+  const buttonColer = theme == "light" ? "black" : "white";
   return (
     <Wrapper>
       <Results>
@@ -103,17 +101,14 @@ const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
             {convertToPersian(rial)} IRR / {convertToPersian(psc)} PSC
           </Value>
         </ResultWrapper>
-        <Result
-          title={getFieldTranslationByNames("523")}
-          value={"5%"}
-        />
+        <Result title={getFieldTranslationByNames("523")} value={"5%"} />
       </Results>
       <Actions>
         <ActionWrapper onClick={() => setAssign(false)}>
-          <BiEditAlt size={20} />
+          <BiEditAlt size={20} color={buttonColer} />
         </ActionWrapper>
         <ActionWrapper onClick={deleteHandler}>
-          <HiOutlineTrash size={20} />
+          <HiOutlineTrash size={20} color="#9b0e0e" />
         </ActionWrapper>
       </Actions>
     </Wrapper>
