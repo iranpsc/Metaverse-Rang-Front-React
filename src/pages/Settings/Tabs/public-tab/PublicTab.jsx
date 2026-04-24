@@ -7,6 +7,7 @@ import { AlertContext } from "../../../../services/reducers/AlertContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
+import SkeletonGrid from "../../../../components/Common/SkeletonGrid";
 
 
 const Wrapper = styled.div`
@@ -76,6 +77,7 @@ const settings = [
 const PublicTab = () => {
   const { alert, setAlert } = useContext(AlertContext);
   const { Request, HTTP_METHOD } = useRequest();
+  const [loading, setLoading] = useState(true);
   const [generalSettings, setGeneralSettings] = useState({
     announcements_sms: 0,
     announcements_email: 0,
@@ -117,6 +119,22 @@ const PublicTab = () => {
         console.error("Failed to update settings:", error);
       });
   };
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    setLoading(false);
+  }, 300); // ⏱ حداقل زمان نمایش اسکلتون
+
+  Request("general-settings").then((response) => {
+    setGeneralSettings({ ...response.data.data });
+  });
+
+  return () => clearTimeout(timer);
+}, []);
+if (loading) {
+  return <SkeletonGrid count={2} />;
+}
+
+
 
   return (
     <Container>

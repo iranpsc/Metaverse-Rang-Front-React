@@ -6,6 +6,8 @@ import SearchInput from "../../../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
+import SkeletonGrid from "../../../../components/Common/SkeletonGrid";
+
 const Wrapper = styled.div`
   display: grid;
   margin-top: 20px;
@@ -449,6 +451,7 @@ const Left = styled.div`
 `;
 
 const SecurityTab = () => {
+  const [loading, setLoading] = useState(true);
   const [searched, setSearched] = useState("");
   const [privacy, setPrivacy] = useState({});
   const [itemsWithValues, setItemsWithValues] = useState([]);
@@ -473,7 +476,7 @@ const SecurityTab = () => {
   });
 
   const { Request } = useRequest();
-
+  
   useEffect(() => {
     Request("privacy").then((response) => {
       const privacyData = response.data.data;
@@ -495,6 +498,36 @@ const SecurityTab = () => {
       setItemsWithValues(updatedItems); 
     });
   }, []);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200); // ⏱ مدت نمایش اسکلتون
+
+    Request("privacy").then((response) => {
+      const privacyData = response.data.data;
+      const updatedItems = items.map((item) => {
+        const updatedOptions = item.options.map((option) => ({
+          ...option,
+          value: privacyData[option.key] || false,
+        }));
+
+        return {
+          ...item,
+          options: updatedOptions,
+        };
+      });
+
+      setPrivacy(privacyData);
+      setItemsWithValues(updatedItems);
+    });
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+  return <SkeletonGrid count={2} />;
+}
 
   return (
     <Container>

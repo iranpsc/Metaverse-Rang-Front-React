@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import SkeletonGrid from "../../../../components/Common/SkeletonGrid";
 import About from "./About";
 import CountryCity from "./CountryCity";
 import EducationsAndJob from "./EducationsAndJob";
@@ -10,6 +12,20 @@ import SaveInfo from "./SaveInfo";
 import Container from "../../../../components/Common/Container";
 
 const AboutMeTab = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 400); // ⏱ زمان نمایش اسکلتون
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <SkeletonGrid count={1} />;
+  }
+
   return (
     <GlobalStateProvider>
       <Container>
