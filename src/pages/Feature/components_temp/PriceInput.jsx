@@ -33,7 +33,7 @@ const Input = styled.input`
   }
 
   &[type="number"] {
-    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* Firefox */
   }
 
   &[value=""]:focus + ${Label} {
