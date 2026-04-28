@@ -2,7 +2,7 @@ import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import Notes from "./Notes";
 import WriteNote from "./WriteNote";
 import styled from "styled-components";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { useScrollDirection } from "../../../../hooks/useScrollDirection";
 import { useScrollDirectionContext } from "../../../../services/reducers/ScrollDirectionContext";
@@ -24,6 +24,7 @@ const Container = styled.div`
 
 const NotesListTab = () => {
   const { state, dispatch } = useContext(GlobalNoteStateContext);
+  const [loading, setLoading] = useState(true); // اضافه شد
   const { Request } = useRequest();
   const { updateScrollDirection } = useScrollDirectionContext();
 
@@ -36,6 +37,7 @@ const NotesListTab = () => {
 
   useEffect(() => {
     const fetchNotes = async () => {
+      setLoading(true); // اضافه شد
       try {
         const response = await Request("notes");
         const fetchedNotes = response.data.data;
@@ -44,6 +46,8 @@ const NotesListTab = () => {
         );
       } catch (error) {
         console.error("Error fetching notes:", error);
+      } finally {
+        setLoading(false); // اضافه شد
       }
     };
     fetchNotes();
@@ -52,7 +56,7 @@ const NotesListTab = () => {
   return (
     <Container ref={ref}>
       <WriteNote />
-      <Notes notes={state.notes} />
+      <Notes notes={state.notes} isLoading={loading} />
     </Container>
   );
 };
