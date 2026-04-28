@@ -96,7 +96,7 @@ const Colors = () => {
     return (
       <Container>
         {Array.from({ length: 6 }).map((_, index) => (
-          <Skeleton key={index} height="110px" />
+          <Skeleton key={index} height="150px" />
         ))}
       </Container>
     );

@@ -1,6 +1,6 @@
 import RequestsList from "../../../../../components/RequestsList/RequestsList";
 
-const SendRequestsList = ({ rows, member, status, setStatus, setMember }) => {
+const SendRequestsList = ({ rows, member, status, setStatus, setMember, type, isLoading }) => {
   return (
     <RequestsList
       rows={rows}
@@ -8,7 +8,8 @@ const SendRequestsList = ({ rows, member, status, setStatus, setMember }) => {
       status={status}
       setStatus={setStatus}
       setMember={setMember}
-      type="send"
+      type={type}
+      isLoading={isLoading}
     />
   );
 };

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import RequestRow from "../../pages/Profile/Tabs/dynasty/sent/RequestRow";
 import { getFieldTranslationByNames } from "../../services/Utility";
+import { Skeleton } from "../../components/Skeleton";
 
 const Container = styled.div`
   border-radius: 0.25rem;
@@ -155,14 +156,24 @@ const Loader = styled.div`
     border: none;
   }
 `;
+
+// اسکلتون برای ردیف
+const SkeletonRow = styled.tr`
+  td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #454545;
+  }
+`;
+
 const RequestsList = ({
   rows,
   member,
   status,
   setStatus,
   setMember,
-  setShowDetails, // Optional prop
-  type, // 'send' or 'receive'
+  setShowDetails,
+  type,
+  isLoading, // اضافه شد
 }) => {
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({
@@ -208,6 +219,7 @@ const RequestsList = ({
     { key: "pending", label: 852 },
     { key: "failed", label: 853 },
   ];
+
   return (
     <Container>
       <Table>
@@ -287,17 +299,25 @@ const RequestsList = ({
           </TableRow>
         </TableHead>
         <tbody>
-          {rows.slice(0, visibleRows).map((request) => (
-            <RequestRow
-              key={request.id}
-              {...request}
-              type={type}
-              setShowDetails={setShowDetails}
-            />
-          ))}
+          {isLoading ? (
+            // اسکلتون برای 5 ردیف
+            Array.from({ length: 5 }).map((_, index) => (
+              <RequestRow key={index} isLoading={true} />
+            ))
+          ) : (
+            rows.slice(0, visibleRows).map((request) => (
+              <RequestRow
+                key={request.id}
+                {...request}
+                type={type}
+                setShowDetails={setShowDetails}
+                isLoading={false}
+              />
+            ))
+          )}
         </tbody>
       </Table>
-      {visibleRows < rows.length && (
+      {!isLoading && visibleRows < rows.length && (
         <Loader>
           <button onClick={handleLoadMore}>
             {getFieldTranslationByNames(1410)}

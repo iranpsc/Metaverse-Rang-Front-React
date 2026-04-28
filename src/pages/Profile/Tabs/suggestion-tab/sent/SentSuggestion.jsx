@@ -11,9 +11,11 @@ import { Wrapper } from "../suggestionStyles";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
 import Container from "../../../../../components/Common/Container";
+import { Skeleton } from "../../../../../components/Skeleton";
 
 const SentSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { Request, checkSecurity } = useRequest();
   const location = useLocation();
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ const SentSuggestion = () => {
 
   useEffect(() => {
     const fetchSuggestions = async () => {
+      setLoading(true);
       try {
         const response = await Request("buy-requests", "GET");
         const data = response?.data?.data;
@@ -82,6 +85,8 @@ const SentSuggestion = () => {
         setSuggestions(formattedSuggestions);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -93,9 +98,9 @@ const SentSuggestion = () => {
       ...suggestion,
       property: {
         ...suggestion.property,
-        owner: suggestion.property.owner.toUpperCase(),
+        owner: suggestion.property.owner?.toUpperCase(),
         value: convertToPersian(suggestion.property.value),
-        code: suggestion.property.code.toUpperCase(),
+        code: suggestion.property.code?.toUpperCase(),
         date: convertToPersian(suggestion.property.date),
       },
       suggestions_list: suggestion.suggestions_list.map((item) => ({
@@ -106,7 +111,7 @@ const SentSuggestion = () => {
     }));
 
   const handleRejectProposal = async (suggestionId) => {
-          if (!checkSecurity()) return;
+    if (!checkSecurity()) return;
 
     try {
       const response = await Request(
@@ -125,17 +130,32 @@ const SentSuggestion = () => {
     } catch (error) {}
   };
 
+  // اسکلتون لودینگ
+  if (loading) {
+    return (
+      <Container ref={containerRef}>
+        <Title right title={getFieldTranslationByNames("765")} />
+        <Wrapper>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <Suggestion key={index} isLoading={true} />
+          ))}
+        </Wrapper>
+      </Container>
+    );
+  }
+
   return (
     <Container ref={containerRef}>
       <Title right title={getFieldTranslationByNames("765")} />
       <Wrapper>
         {convertSuggestions(
-          suggestions.filter((s) => s.suggestions_list.length > 0),
+          suggestions.filter((s) => s.suggestions_list?.length > 0),
         ).map((suggestion) => (
           <div key={suggestion.id} id={`suggestion-${suggestion.id}`}>
             <Suggestion
               {...suggestion}
               onRejectProposal={handleRejectProposal}
+              isLoading={false}
             />
           </div>
         ))}

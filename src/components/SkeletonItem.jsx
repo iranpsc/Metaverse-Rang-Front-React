@@ -11,7 +11,6 @@ const shimmer = keyframes`
 `;
 
 export const Skeleton = styled.div`
-  paddang:${(props) => props.padding || "0px"};
   border-radius: ${(props) => props.radius || "10px"};
   margin-top:${(props) => props.marginTop || ""};
   margin-bottom:${(props) => props.marginBot || ""};

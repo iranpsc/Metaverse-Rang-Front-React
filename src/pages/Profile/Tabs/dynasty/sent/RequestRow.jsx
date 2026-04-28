@@ -6,6 +6,7 @@ import pscGif from "../../../../../assets/gif/psc.gif";
 import styled from "styled-components";
 import { useState } from "react";
 import useRequestDetails from "../../../../../hooks/useRequestDetails";
+import { Skeleton } from "../../../../../components/Skeleton";
 
 const TableRow = styled.tr`
   background-color: transparent;
@@ -86,6 +87,14 @@ const Div = styled.div`
   }
 `;
 
+// اسکلتون برای ردیف
+const SkeletonRow = styled.tr`
+  td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #454545;
+  }
+`;
+
 const RequestRow = ({
   code,
   date,
@@ -97,9 +106,35 @@ const RequestRow = ({
   psc,
   id,
   type,
+  isLoading,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const { data, loading, fetchRequestDetails } = useRequestDetails(type);
+
+  // اگر در حال لودینگ هستیم، اسکلتون نشون بده
+  if (isLoading) {
+    return (
+      <SkeletonRow>
+        <td><Skeleton width="100px" height="16px" radius="4px" /></td>
+        <td><Skeleton width="120px" height="16px" radius="4px" /></td>
+        <td><Skeleton width="80px" height="16px" radius="4px" /></td>
+        <td><Skeleton width="100px" height="16px" radius="4px" /></td>
+        <td>
+          <Subject>
+            <Div>
+              <Skeleton width="30px" height="16px" radius="4px" />
+              <Skeleton width="26px" height="26px" radius="50%" />
+            </Div>
+            <Div>
+              <Skeleton width="30px" height="16px" radius="4px" />
+              <Skeleton width="26px" height="26px" radius="50%" />
+            </Div>
+          </Subject>
+        </td>
+        <td><Skeleton width="40px" height="40px" radius="10px" /></td>
+      </SkeletonRow>
+    );
+  }
 
   const handleClick = async () => {
     try {
@@ -115,7 +150,9 @@ const RequestRow = ({
       <TableRow>
         <TableCell>
           <div>
-            <Code href={`https://metarang.com/fa/citizens/${code}`} target="_blank" >{code}</Code>
+            <Code href={`https://metarang.com/fa/citizens/${code}`} target="_blank" rel="noopener noreferrer">
+              {code}
+            </Code>
           </div>
         </TableCell>
         <TableCell>
@@ -189,6 +226,15 @@ const RequestRow = ({
           setShowDetails={setShowDetails}
           type={type}
         />
+      )}
+      {showDetails && loading && (
+        <tr>
+          <td colSpan="6">
+            <div style={{ padding: "20px", textAlign: "center" }}>
+              <Skeleton width="100%" height="200px" radius="10px" />
+            </div>
+          </td>
+        </tr>
       )}
     </>
   );

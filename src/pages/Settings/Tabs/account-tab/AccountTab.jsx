@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container"; // همون کانتینر اصلی
-
+import SkeletonGrid from "../../../../components/Common/SkeletonGrid";
 const GridContainer = styled(Container)`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -58,9 +58,7 @@ const AccountTab = () => {
 
   if (loading) {
     return (
-      <LoadingContainer>
-        <div>Loading...</div>
-      </LoadingContainer>
+       <SkeletonGrid count={2}/>
     );
   }
 
