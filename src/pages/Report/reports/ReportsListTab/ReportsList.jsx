@@ -3,12 +3,12 @@ import ReportRow from "./ReportRow";
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
   border-radius: 0.25rem;
   overflow-x: auto;
   min-height: 300px;
-
   margin-top: 20px;
   &::-webkit-scrollbar {
     display: none;
@@ -34,6 +34,7 @@ const TableHead = styled.thead`
 `;
 
 const TableRow = styled.tr``;
+
 const StatusFilter = styled.div`
   position: absolute;
   display: flex;
@@ -70,62 +71,17 @@ const StatusFilterTitle = styled.div`
   &:hover {
     background-color: ${({ theme }) => theme.colors.shades[80]};
     transition: all 0.2s linear;
-    /* h1,h2,h3{
-        color:white;
-      }*/
   }
   span {
     color: red;
     cursor: pointer;
     font-size: 14px;
   }
-
-  h1,
-  h2,
-  h3 {
+  h1, h2, h3 {
     font-weight: 400;
     font-size: 16px;
   }
 `;
-/*const TitleFilter = styled.div`
-  position: absolute;
-  top: 65px;
-  width: 130px;
-  padding: 15px;
-  border-radius: 10px;
-  background-color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
-  border: 1px solid #9c9c9c53;
-
-  div {
-    position: relative;
-    padding-right: 5px;
-    
-    &:hover {
-      background-color: #9c9c9c;
-      transition: all 0.2s linear;
-      h1{
-        color: white;
-      }
-    }
-    span {
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      color: red;
-      cursor: pointer;
-      font-size: 14px;
-    }
-  }
-  h1 {
-    font-size: 16px;
-    color: ${(props) => props.theme.colors.newColors.shades.title};
-    font-weight: 400;
-    cursor: pointer;
-    &:first-of-type {
-      margin-bottom: 10px;
-    }
-  }
-`;*/
 
 const Div = styled.div`
   display: flex;
@@ -133,6 +89,7 @@ const Div = styled.div`
   justify-content: start;
   gap: 15px;
 `;
+
 const Arrows = styled.div`
   display: flex;
   flex-direction: column;
@@ -163,20 +120,26 @@ const Loader = styled.div`
   }
 `;
 
+// اسکلتون برای ردیف جدول
+const SkeletonRow = styled.tr`
+  td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #454545;
+  }
+`;
+
 const ReportsList = ({
   rows,
   member,
-  // status,
-  //setStatus,
   setMember,
   domain,
   subdomain,
   hasMore,
   handleLoadMore,
+  isLoading,
 }) => {
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({
-    // status: false,
     member: false,
   });
 
@@ -188,7 +151,7 @@ const ReportsList = ({
       !filterRef.current.contains(event.target) &&
       !event.target.closest(".arrow-container")
     ) {
-      setFilters({ /*status: false,*/ member: false });
+      setFilters({ member: false });
     }
   };
 
@@ -198,6 +161,64 @@ const ReportsList = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // اسکلتون برای لودینگ
+  if (isLoading) {
+    return (
+      <Container>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeader style={{ width: "0%", whiteSpace: "nowrap" }}>
+                <Div>{getFieldTranslationByNames("1383")}</Div>
+              </TableHeader>
+              <TableHeader style={{ width: "40%" }}>
+                <Div>{getFieldTranslationByNames("19")}</Div>
+              </TableHeader>
+              <TableHeader style={{ width: "12%", whiteSpace: "nowrap" }}>
+                <Div>
+                  {getFieldTranslationByNames("746")}
+                  <Arrows>
+                    <MdKeyboardArrowDown />
+                  </Arrows>
+                </Div>
+              </TableHeader>
+              <TableHeader style={{ width: "16%", whiteSpace: "nowrap" }}>
+                <Div>{getFieldTranslationByNames("64")}</Div>
+              </TableHeader>
+              <TableHeader style={{ width: "10%", whiteSpace: "nowrap" }}>
+                {getFieldTranslationByNames("1380")}
+              </TableHeader>
+            </TableRow>
+          </TableHead>
+          <tbody>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <SkeletonRow key={index}>
+                <td style={{ textAlign: "start" }}>
+                  <Skeleton width="40px" height="16px" radius="4px" />
+                </td>
+                <td>
+                  <Skeleton width="200px" height="16px" radius="4px" />
+                </td>
+                <td>
+                  <Skeleton width="100px" height="16px" radius="4px" />
+                </td>
+                <td>
+                  <Skeleton width="120px" height="16px" radius="4px" />
+                </td>
+                <td>
+                  <div style={{ display: "flex", gap: "8px" , justifyContent:"center"}}>
+                    
+                    <Skeleton width="40px" height="40px" radius="6px" />
+                  </div>
+                </td>
+              </SkeletonRow>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -331,101 +352,6 @@ const ReportsList = ({
                 </StatusFilter>
               )}
             </TableHeader>
-            {/* <TableHeader style={{ width: "120px" }}>
-              <Div>
-                {getFieldTranslationByNames("65")}
-                <Arrows
-                  className="arrow-container"
-
-                onClick={() => setFilters({ status: !filters.status })}>
-                  <MdKeyboardArrowDown
-                    style={{
-                      transform: `${filters.status ? "rotate(180deg)" : "rotate(360deg)"}`,
-                    }}
-                  />
-                </Arrows>
-              </Div>
-              {filters.status && (
-                <TitleFilter ref={filterRef}>
-                  <div
-                    style={{
-                      backgroundColor: `${status.confirmed && "#9c9c9c"}`,
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <h1
-                      onClick={() => {
-                        setStatus({ ...status, confirmed: true });
-                        setFilters({ ...filters, status: false });
-                      }}
-                    >
-                      {getFieldTranslationByNames("1343")}
-                    </h1>
-                    {status.confirmed && (
-                      <span
-                        onClick={() => {
-                          setStatus({ ...status, confirmed: false });
-                          setFilters({ ...filters, status: false });
-                        }}
-                      >
-                        X
-                      </span>
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      backgroundColor: `${status.pending && "#9c9c9c"}`,
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <h1
-                      onClick={() => {
-                        setStatus({ ...status, pending: true });
-                        setFilters({ ...filters, status: false });
-                      }}
-                    >
-                      {getFieldTranslationByNames("852")}
-                    </h1>
-                    {status.pending && (
-                      <span
-                        onClick={() => {
-                          setStatus({ ...status, pending: false });
-                          setFilters({ ...filters, status: false });
-                        }}
-                      >
-                        X
-                      </span>
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      backgroundColor: `${status.failed && "#9c9c9c"}`,
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <h1
-                      onClick={() => {
-                        setStatus({ ...status, failed: true });
-                        setFilters({ ...filters, status: false });
-                      }}
-                    >
-                      {getFieldTranslationByNames("1345")}
-                    </h1>
-                    {status.failed && (
-                      <span
-                        onClick={() => {
-                          setStatus({ ...status, failed: false });
-                          setFilters({ ...filters, status: false });
-                        }}
-                      >
-                        X
-                      </span>
-                    )}
-                  </div>
-                </TitleFilter>
-              )}
-            </TableHeader>*/}
-
             <TableHeader style={{ width: "16%", whiteSpace: "nowrap" }}>
               <Div>{getFieldTranslationByNames("64")}</Div>
             </TableHeader>
