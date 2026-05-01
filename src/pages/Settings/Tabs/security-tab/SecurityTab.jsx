@@ -22,6 +22,9 @@ const Wrapper = styled.div`
     grid-template-columns: 1fr 1fr;
   }
 `;
+const SkeletonContainer = styled.div`
+margin-top: 0px;
+`;
 
 const items = [
   {
@@ -460,11 +463,11 @@ const SecurityTab = () => {
     const filteredOptions = item.options.filter((option) =>
       option.translationId
         ? getFieldTranslationByNames(option.translationId)
-            ?.toLowerCase()
-            ?.includes(searched.toLowerCase()) ||
-          getFieldTranslationByNames(item.translationId)
-            ?.toLowerCase()
-            ?.includes(searched.toLowerCase())
+          ?.toLowerCase()
+          ?.includes(searched.toLowerCase()) ||
+        getFieldTranslationByNames(item.translationId)
+          ?.toLowerCase()
+          ?.includes(searched.toLowerCase())
         : ""
     );
     return (
@@ -476,7 +479,7 @@ const SecurityTab = () => {
   });
 
   const { Request } = useRequest();
-  
+
   useEffect(() => {
     Request("privacy").then((response) => {
       const privacyData = response.data.data;
@@ -484,7 +487,7 @@ const SecurityTab = () => {
         const updatedOptions = item.options.map((option) => {
           return {
             ...option,
-            value: privacyData[option.key] || false, 
+            value: privacyData[option.key] || false,
           };
         });
 
@@ -495,10 +498,10 @@ const SecurityTab = () => {
       });
 
       setPrivacy(privacyData);
-      setItemsWithValues(updatedItems); 
+      setItemsWithValues(updatedItems);
     });
   }, []);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -526,8 +529,10 @@ const SecurityTab = () => {
   }, []);
 
   if (loading) {
-  return <SkeletonGrid count={2} />;
-}
+    return <SkeletonContainer>
+      <SkeletonGrid count={1} /><SkeletonGrid count={2} /><SkeletonGrid count={2} /><SkeletonGrid count={2} /><SkeletonGrid count={2} /><SkeletonGrid count={2} />
+    </SkeletonContainer>;
+  }
 
   return (
     <Container>

@@ -4,8 +4,9 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-import Container from "../../../../components/Common/Container"; // همون کانتینر اصلی
-import SkeletonGrid from "../../../../components/Common/SkeletonGrid";
+import Container from "../../../../components/Common/Container";
+import { Skeleton } from "../../../../components/Skeleton";
+
 const GridContainer = styled(Container)`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -13,12 +14,37 @@ const GridContainer = styled(Container)`
   gap: 20px;
 `;
 
-const LoadingContainer = styled.div`
+// اسکلتون کارت Bank (متغیرهای الزامی)
+const SkeletonBankCard = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border-radius: 5px;
+  padding: 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+`;
+
+// اسکلتون کارت ChangeCard (تغییر شماره موبایل)
+const SkeletonChangeCard = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+`;
+
+const SkeletonDivider = styled.div`
+  padding-bottom: 15px;
+  border-bottom: 1px solid #454545;
+`;
+
+const SkeletonRow = styled.div`
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  height: 100%;
-  width: 100%;
 `;
 
 const AccountTab = () => {
@@ -56,9 +82,73 @@ const AccountTab = () => {
     }
   }, [settings]);
 
+  // اسکلتون لودینگ - دقیقاً شبیه تصویر
   if (loading) {
     return (
-       <SkeletonGrid count={2}/>
+      <GridContainer>
+        {/* کارت سمت چپ: تغییر شماره موبایل */}
+        <SkeletonChangeCard>
+          {/* عنوان */}
+          <Skeleton width="250px" height="24px" radius="4px" />
+          
+          {/* متن توضیحی */}
+          <Skeleton width="200px" height="14px" radius="4px" />
+          
+          {/* شماره تلفن جدید */}
+          <SkeletonRow>
+            <Skeleton width="120px" height="16px" radius="4px" />
+            <Skeleton width="80px" height="16px" radius="4px" />
+          </SkeletonRow>
+          
+          {/* تایید */}
+          <SkeletonRow>
+            <Skeleton width="60px" height="16px" radius="4px" />
+            <Skeleton width="80px" height="16px" radius="4px" />
+          </SkeletonRow>
+          
+          {/* دکمه ذخیره با چکباکس */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <Skeleton width="20px" height="20px" radius="4px" />
+            <Skeleton width="80px" height="16px" radius="4px" />
+          </div>
+        </SkeletonChangeCard>
+
+        {/* کارت سمت راست: متغیرهای الزامی */}
+        <SkeletonBankCard>
+          {/* عنوان */}
+          <Skeleton width="150px" height="24px" radius="4px" />
+          
+          {/* شماره کارت */}
+          <SkeletonDivider>
+            <SkeletonRow>
+              <Skeleton width="100px" height="16px" radius="4px" />
+              <Skeleton width="40px" height="20px" radius="4px" />
+            </SkeletonRow>
+          </SkeletonDivider>
+          
+          {/* زمان تسویه حساب */}
+          <SkeletonDivider>
+            <div style={{ marginBottom: "8px" }}>
+              <Skeleton width="130px" height="16px" radius="4px" />
+            </div>
+            <SkeletonRow>
+              <Skeleton width="140px" height="14px" radius="4px" />
+              <Skeleton width="40px" height="20px" radius="4px" />
+            </SkeletonRow>
+          </SkeletonDivider>
+          
+          {/* خروج اتوماتیک */}
+          <SkeletonDivider>
+            <SkeletonRow>
+              <Skeleton width="200px" height="16px" radius="4px" />
+              <Skeleton width="40px" height="20px" radius="4px" />
+            </SkeletonRow>
+          </SkeletonDivider>
+          
+          {/* دکمه ذخیره */}
+          <Skeleton width="100%" height="45px" radius="8px" />
+        </SkeletonBankCard>
+      </GridContainer>
     );
   }
 

@@ -14,6 +14,7 @@ import { useLocation } from "react-router-dom";
 import Container from "../../../../components/Common/Container";
 import ErrorMessage from "../../../../components/ErrorMessage";
 import getModalHeaderFromPrevious from "../../../../services/TitleManager";
+
 const StyledContent = styled.div`
   p {
     margin: 10px 0;
@@ -31,11 +32,11 @@ const ErrorReportTab = () => {
   const location = useLocation();
   const [title, setTitle] = useState("");
   const [subdomain, SetSubdomain] = useState("");
+  const [isSending, setIsSending] = useState(false); // حالت لودینگ دکمه
+
   useEffect(() => {
     const basePath = location.state?.from ?? location.pathname;
-
     const { title, page } = getModalHeaderFromPrevious(basePath);
-
     setTitle(title);
     SetSubdomain(page);
   }, [location]);
@@ -53,6 +54,7 @@ const ErrorReportTab = () => {
     dispatch({ type: "SET_DESCRIPTION", payload: "" });
     dispatch({ type: "SET_FILES", payload: [] });
   };
+
   const sendReport = async () => {
     if (
       state.subject &&
@@ -60,6 +62,8 @@ const ErrorReportTab = () => {
       state.description &&
       state.files.length > 0
     ) {
+      setIsSending(true); // شروع لودینگ
+
       const formData = {
         title: state.title,
         content: state.description,
@@ -73,6 +77,7 @@ const ErrorReportTab = () => {
 
       if (attachments.length > 5) {
         setError("The attachment must not have more than 5 items.");
+        setIsSending(false);
         return;
       }
 
@@ -95,11 +100,21 @@ const ErrorReportTab = () => {
         }, 3000);
       } catch (error) {
         console.error("❌ Report submission failed:", error);
-
         setError(getFieldTranslationByNames("1387"));
+      } finally {
+        setIsSending(false); // پایان لودینگ
       }
     }
   };
+
+  // بررسی غیرفعال بودن دکمه
+  const isDisabled = !(
+    state.subject &&
+    state.title &&
+    state.description &&
+    state.files.length > 0
+  );
+
   return (
     <Container ref={containerRef}>
       {alert && (
@@ -119,6 +134,7 @@ const ErrorReportTab = () => {
             fit
             label={getFieldTranslationByNames("193")}
             onclick={sendReport}
+            disabled={isDisabled ? true : isSending ? "pending" : false}
           />
         </div>
         <ErrorMessage

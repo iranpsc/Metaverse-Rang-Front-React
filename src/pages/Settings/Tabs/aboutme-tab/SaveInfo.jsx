@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest/index";
-import {  useState } from "react";
+import { useState } from "react";
 import Alert from "../../../../components/Alert/Alert";
 
 const Header = styled.div`
@@ -13,6 +13,7 @@ const Header = styled.div`
   justify-content: space-between;
   padding-bottom: 20px;
 `;
+
 const Text = styled.div`
   p {
     color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -24,10 +25,12 @@ const Text = styled.div`
 const SaveInfo = () => {
   const { Request, HTTP_METHOD } = useRequest();
   const { state } = useGlobalState();
-  const [successMessage, setSuccessMessage] = useState(false); 
-
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [isSaving, setIsSaving] = useState(false); // حالت لودینگ دکمه
 
   const saveData = async () => {
+    setIsSaving(true); // شروع لودینگ
+
     const formData = {
       about: state.about,
       education: state.education,
@@ -40,14 +43,17 @@ const SaveInfo = () => {
       problem_solving: state.opportunity,
       prediction: state.prediction,
     };
+    
     try {
-       await Request("personal-info", HTTP_METHOD.PUT, formData); 
+      await Request("personal-info", HTTP_METHOD.PUT, formData);
       setSuccessMessage(true);
       setTimeout(() => {
-        setSuccessMessage(false); 
+        setSuccessMessage(false);
       }, 3000);
     } catch (error) {
       console.error("Error saving data:", error);
+    } finally {
+      setIsSaving(false); // پایان لودینگ
     }
   };
 
@@ -60,11 +66,14 @@ const SaveInfo = () => {
       <Header>
         <Text>
           <Title title={getFieldTranslationByNames("95")} />
-          <p>
-            {getFieldTranslationByNames("780")}
-          </p>
+          <p>{getFieldTranslationByNames("780")}</p>
         </Text>
-        <Button  label={getFieldTranslationByNames("782")} fit onclick={saveData} />
+        <Button 
+          label={getFieldTranslationByNames("782")} 
+          fit 
+          onclick={saveData}
+          disabled={isSaving ? "pending" : false}
+        />
       </Header>
     </>
   );

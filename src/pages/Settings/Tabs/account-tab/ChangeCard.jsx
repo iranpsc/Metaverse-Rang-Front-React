@@ -60,9 +60,11 @@ const Error = styled.span`
 const ChangeCard = ({ id, title, warn, inputs }) => {
   const { Request, HTTP_METHOD } = useRequest();
   const [sentPhone, setSentPhone] = useState(false);
+  const [isSending, setIsSending] = useState(false); // حالت لودینگ دکمه
   const [inputValues, setInputValues] = useState([]);
   const [inputErrors, setInputErrors] = useState([]);
   const Navigate = useNavigate();
+
   useEffect(() => {
     if (Array.isArray(inputs)) {
       setInputValues(
@@ -109,6 +111,8 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
   };
 
   const handleSave = () => {
+    setIsSending(true); // شروع لودینگ
+
     if (!sentPhone) {
       const phoneInput = inputValues.find((input) => input.id == "1");
       if (phoneInput && phoneInput.value) {
@@ -122,14 +126,18 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
               ToastSuccess("کد تایید باموفقیت به شماره تلفن شما ارسال شد.");
             })
             .catch((error) => {
-           
-              ToastError(error.response.data.message);
+              ToastError(error.response?.data?.message || "خطا در ارسال کد تایید");
+            })
+            .finally(() => {
+              setIsSending(false);
             });
         } catch {
           ToastError("شماره تلفن معتبر نمی باشد.");
+          setIsSending(false);
         }
       } else {
         ToastError("لطفا شماره تلفن را وارد کنید.");
+        setIsSending(false);
       }
     } else {
       const codeInput = inputValues.find((input) => input.id === "code");
@@ -146,9 +154,13 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
           })
           .catch(() => {
             ToastError("مشکلی در بروزرسانی شماره تلفن به وجود امد.");
+          })
+          .finally(() => {
+            setIsSending(false);
           });
       } else {
         ToastError("کد تایید باید 6 کاراکتر داشته باشد.");
+        setIsSending(false);
       }
     }
   };
@@ -156,6 +168,9 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
   if (!Array.isArray(inputs) || inputs.length === 0) {
     return null;
   }
+
+  // بررسی غیرفعال بودن دکمه
+  const isDisabled = inputValues.some((input) => !input.value);
 
   return (
     <Container id={id}>
@@ -193,6 +208,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
         full
         label={getFieldTranslationByNames("629")}
         onclick={handleSave}
+        disabled={isDisabled ? true : isSending ? "pending" : false}
       />
     </Container>
   );

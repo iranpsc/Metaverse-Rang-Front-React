@@ -9,18 +9,18 @@ const shimmer = keyframes`
 const LoadingContainer = styled(Container)`
   display: flex;
   gap: 20px;
-  padding: 20px;
+  
 `;
 
 const SkeletonCard = styled.div`
   flex: 1;
-  height: 280px;
-  border-radius: 10px;
+  height: 66px;
+  border-radius: 4px;
   background: linear-gradient(
     90deg,
-    #dcdcdc 25%,
-    #e9e9e9 37%,
-    #dcdcdc 63%
+     ${(props) => props.theme.colors.newColors.shades.bg02},
+    ${(props) => props.theme.colors.newColors.shades.bg002},
+    ${(props) => props.theme.colors.newColors.shades.bg0002}
   );
   background-size: 1000px 100%;
   animation: ${shimmer} 1.2s infinite linear;

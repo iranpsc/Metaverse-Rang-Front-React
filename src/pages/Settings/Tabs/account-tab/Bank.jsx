@@ -37,7 +37,6 @@ const Div = styled.div`
   align-items: center;
   justify-content: space-between;
   span {
-    
     font-size: 16px;
     font-weight: 500;
     color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -49,8 +48,7 @@ const Div = styled.div`
     text-align: center;
     outline: none;
     width: 70px;
-        font-size: 16px;
-
+    font-size: 16px;
     height: 50px;
     border: 1px solid ${(props) => (props.error ? "red" : "#454545")};
     border-radius: 5px;
@@ -89,14 +87,16 @@ const options = [
   { id: 1, label: "IR-125478963258745896324587" },
   { id: 2, label: "IR-125478963258745896324587" },
 ];
+
 const Bank = () => {
-  const [selectedValue, setSelectedValue] = useState(""); // فقط value
+  const [selectedValue, setSelectedValue] = useState("");
   const [items, setItems] = useState(items_info);
+  const [isSending, setIsSending] = useState(false); // حالت لودینگ دکمه
   const { Request, HTTP_METHOD } = useRequest();
   const Navigate = useNavigate();
 
   const handleSelectChange = (value) => {
-    setSelectedValue(value); // مقدار انتخاب شده رو ذخیره می‌کنیم
+    setSelectedValue(value);
   };
 
   const handleInputChange = (e, itemId) => {
@@ -139,6 +139,8 @@ const Bank = () => {
     setItems([...items]);
 
     if (!hasError) {
+      setIsSending(true); // شروع لودینگ
+
       const formData = items.reduce((acc, item) => {
         acc[item.name] = item.value;
         return acc;
@@ -151,10 +153,16 @@ const Bank = () => {
           setItems(resetItems);
         })
         .catch((error) => {
-          ToastError(error.response.data.message);
+          ToastError(error.response?.data?.message || "خطا در بروزرسانی");
+        })
+        .finally(() => {
+          setIsSending(false); // پایان لودینگ
         });
     }
   };
+
+  // بررسی غیرفعال بودن دکمه
+  const isDisabled = items.some((item) => item.value === "");
 
   return (
     <Container>
@@ -188,6 +196,7 @@ const Bank = () => {
         full
         label={getFieldTranslationByNames("629")}
         onclick={handleSaveButtonClick}
+        disabled={isDisabled ? true : isSending ? "pending" : false}
       />
     </Container>
   );
