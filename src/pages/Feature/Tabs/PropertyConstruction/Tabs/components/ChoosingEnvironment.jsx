@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { FeatureContext } from "../../../../Context/FeatureProvider";
 
 import useRequest from "../../../../../../services/Hooks/useRequest";
-import  Eye  from "../../../../../../assets/svg/eye.svg?react";
+import Eye from "../../../../../../assets/svg/eye.svg?react";
+import { Skeleton } from "../../../../../../components/Skeleton";
 
 import PreviewModel from "./PreviewModel";
 import { useSelectedEnvironment } from "../../../../../../services/reducers/SelectedEnvironmentContext";
@@ -12,7 +13,6 @@ const Container = styled.div`
   gap: 10px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   display: grid;
-
   width: 100%;
 
   @media (max-width: 1024px) {
@@ -83,19 +83,32 @@ const SelectorEnvironment = styled.button`
   }
 `;
 
+// اسکلتون برای آیتم‌ها
+const SkeletonImgHolder = styled.div`
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  position: relative;
+
+  @media (max-width: 768px) {
+    height: 120px;
+  }
+`;
+
 const ChoosingEnvironment = () => {
   const [feature] = useContext(FeatureContext);
   const { Request, HTTP_METHOD } = useRequest();
   const [data, setData] = useState([]);
   const [preview, setPreview] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
   const [coordinates, setCoordinates] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const { addSelectedEnvironment, hiddenModel, setHiddenModel, isSelectable } =
     useSelectedEnvironment() || {};
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -106,9 +119,11 @@ const ChoosingEnvironment = () => {
         );
         setData((prevData) => [...prevData, ...res.data.data]);
         setCoordinates([res.data.feature.coordinates]);
-        setLoading(false);
       } catch (err) {
+        console.error(err);
+      } finally {
         setLoading(false);
+        setInitialLoading(false);
       }
     };
     fetchData();
@@ -124,8 +139,14 @@ const ChoosingEnvironment = () => {
       }
     };
     const container = document.querySelector("#scrollable-container");
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
   }, [loading]);
 
   const handleSelectorClick = (index) => {
@@ -141,18 +162,30 @@ const ChoosingEnvironment = () => {
     }
   };
 
+  // اسکلتون لودینگ اولیه
+  if (initialLoading) {
+    return (
+      <Container id="scrollable-container">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <SkeletonImgHolder key={index}>
+            <Skeleton width="100%" height="180px" radius="10px" />
+          </SkeletonImgHolder>
+        ))}
+      </Container>
+    );
+  }
+
   return (
     <>
       <Container id="scrollable-container">
         {data &&
-          data.map((data, index) => {
+          data.map((item, index) => {
             return (
-              <ImgHolder key={data.id}>
-                <Img src={data.images[0].url} alt="" />
-
+              <ImgHolder key={item.id}>
+                <Img src={item.images?.[0]?.url} alt="" />
                 <ViewHolder
                   onClick={() => {
-                    setPreview(data);
+                    setPreview(item);
                     setShowModal(true);
                   }}
                 >
@@ -166,11 +199,20 @@ const ChoosingEnvironment = () => {
             );
           })}
       </Container>
+      
+      {/* اسکلتون لودینگ بیشتر (اینفینیتی اسکرول) */}
+      {loading && data.length > 0 && (
+        <Container>
+          {Array.from({ length: 2 }).map((_, index) => (
+            <SkeletonImgHolder key={`loading-${index}`}>
+              <Skeleton width="100%" height="180px" radius="10px" />
+            </SkeletonImgHolder>
+          ))}
+        </Container>
+      )}
+      
       {showModal && preview && (
-        <PreviewModel
-          data={[preview]} 
-          setShowModal={setShowModal} 
-        />
+        <PreviewModel data={[preview]} setShowModal={setShowModal} />
       )}
     </>
   );
