@@ -1,5 +1,4 @@
 import BankCardsUpload from "./BankCardsUpload";
-
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Title from "../../../../components/Title";
@@ -14,20 +13,33 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 30px;
 `;
+
 const BankTab = () => {
   const [isError, setIsError] = useState(false);
   const [errors, setErrors] = useState([]);
   const [cards, setCards] = useState([]);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const { openErrorModal, setOpenErrorModal } = useState();
+  const [openErrorModal, setOpenErrorModal] = useState(false);
+  const [loading, setLoading] = useState(true); // اضافه شد
 
   const { Request } = useRequest();
+
   useEffect(() => {
-    Request("bank-accounts").then((response) => {
-      setCards(response.data.data);
-    });
+    setLoading(true);
+    Request("bank-accounts")
+      .then((response) => {
+        setCards(response.data.data || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching bank accounts:", error);
+        setCards([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
+
   return (
     <Container>
       <Wrapper>
@@ -49,6 +61,7 @@ const BankTab = () => {
           cards={cards}
           setCards={setCards}
           setIsError={setIsError}
+          isLoading={loading}
         />
       </Wrapper>
       {openErrorModal && (

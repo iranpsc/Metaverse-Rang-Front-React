@@ -15,6 +15,7 @@ import {
 } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
 import Container from "../../../../components/Common/Container";
+
 const BankContainer = styled.div`
   margin: 20px 0;
   display: flex;
@@ -24,6 +25,7 @@ const BankContainer = styled.div`
     grid-template-columns: 2fr 3fr;
   }
 `;
+
 const IdentityInputs = ({
   data,
   kyc,
@@ -43,12 +45,14 @@ const IdentityInputs = ({
   const [uploadResponse, setUploadResponse] = useState(null);
   const [isVideoUploaded, setIsVideoUploaded] = useState(false);
   const [textVerify, setTextVerify] = useState("");
+  const [isSending, setIsSending] = useState(false); // حالت لودینگ دکمه
   const { Request, HTTP_METHOD } = useRequest();
+
   const sendHandler = () => {
     let errorMessages = [];
-    let newDetails = [...data]; // کپی از دیتیلز برای به‌روزرسانی ارور‌ها
+    let newDetails = [...data];
 
-    // Validation checks and storing error messages and fields
+    // Validation checks
     if (!inputValues.fname) {
       errorMessages.push("نام وارد نشده است.");
       newDetails[0].error = true;
@@ -121,7 +125,18 @@ const IdentityInputs = ({
     }
 
     setErrors(errorMessages);
-    setDetails(newDetails); // به‌روزرسانی دیتیلز با ارور‌ها
+    setDetails(newDetails);
+
+    if (errorMessages.length > 0) {
+      setIdentityError(true);
+      Sentry.captureMessage("Identity verification form validation failed", {
+        level: "warning",
+        extra: { errors: errorMessages },
+      });
+      return;
+    }
+
+    setIsSending(true); // شروع لودینگ
 
     const requestData = new FormData();
     requestData.append("fname", inputValues.fname);
@@ -142,32 +157,26 @@ const IdentityInputs = ({
     );
     requestData.append("_method", "put");
 
-    if (errorMessages.length === 0) {
-      setIdentityError(false);
-      Request(`kyc`, HTTP_METHOD.POST, requestData, {
-        "Content-Type": "multipart/form-data",
+    Request(`kyc`, HTTP_METHOD.POST, requestData, {
+      "Content-Type": "multipart/form-data",
+    })
+      .then((res) => {
+        setSubmitted(true);
       })
-        .then((res) => {
-          setSubmitted(true);
-        })
-        .catch((error) => {
-          Sentry.captureException(error, {
-            tags: {
-              section: "identity-verification",
-            },
-          });
-          ToastError(error.response.data.message);
+      .catch((error) => {
+        Sentry.captureException(error, {
+          tags: { section: "identity-verification" },
         });
-    } else {
-      setIdentityError(true);
-      Sentry.captureMessage("Identity verification form validation failed", {
-        level: "warning",
-        extra: {
-          errors: errorMessages,
-        },
+        ToastError(error.response?.data?.message || "خطا در ارسال اطلاعات");
+      })
+      .finally(() => {
+        setIsSending(false); // پایان لودینگ
       });
-    }
   };
+
+  // بررسی غیرفعال بودن دکمه
+  const isDisabled = !isVideoUploaded;
+
   return (
     <Container identityError={identityError}>
       <BankContainer>
@@ -202,7 +211,7 @@ const IdentityInputs = ({
           large
           label={getFieldTranslationByNames("877")}
           onclick={sendHandler}
-          disabled={isVideoUploaded ? false : true/*"pending" for loading ui*/ }
+          disabled={isDisabled ? true : isSending ? "pending" : false}
         />
       </BankContainer>
       {openErrorModal && (

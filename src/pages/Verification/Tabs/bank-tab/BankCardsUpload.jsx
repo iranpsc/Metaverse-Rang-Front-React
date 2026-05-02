@@ -7,6 +7,7 @@ import { useState } from "react";
 import { getShebaInfo } from "@persian-tools/persian-tools";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
+import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
   display: flex;
@@ -135,6 +136,24 @@ const IconWrapper = styled.div`
   }
 `;
 
+// اسکلتون برای کارت بانکی
+const SkeletonCard = styled.div`
+  width: 250px;
+  height: 190px;
+  border-radius: 10px;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  
+  @media (min-width: 840px) {
+    width: 305px;
+    height: 190px;
+  }
+  @media (min-width: 940px) {
+    width: 380px;
+    height: 190px;
+  }
+`;
+
 const BankCardsUpload = ({
   cards,
   setCards,
@@ -142,22 +161,43 @@ const BankCardsUpload = ({
   setOpenAddModal,
   openDeleteModal,
   setOpenDeleteModal,
+  isLoading,
 }) => {
   const [deleteIndex, setDeleteIndex] = useState(null);
   const { Request, HTTP_METHOD } = useRequest();
-  const handleDeleteCard = ({ index, id }) => {
 
+  const handleDeleteCard = ({ index, id }) => {
     Request(`bank-accounts/${id}`, HTTP_METHOD.DELETE).then((response) => {
       setDeleteIndex(index);
       setOpenDeleteModal(true);
     });
   };
 
+  // اسکلتون لودینگ
+  if (isLoading) {
+    return (
+      <Container>
+        <BankCard>
+          {Array.from({ length: 1 }).map((_, index) => (
+            <SkeletonCard key={index}>
+              <Skeleton width="100%" height="190px" radius="10px" />
+            </SkeletonCard>
+          ))}
+          <UploadWrapper>
+            <Upload>
+              +<span> {getFieldTranslationByNames("890")}</span>
+            </Upload>
+          </UploadWrapper>
+        </BankCard>
+      </Container>
+    );
+  }
+
   return (
     <>
       <Container>
         <BankCard>
-          {cards.map((card, i) => {
+          {cards?.map((card, i) => {
             return (
               <UploadWrapper key={i}>
                 <Image>
