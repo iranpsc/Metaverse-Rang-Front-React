@@ -19,18 +19,17 @@ import yellow from "../../../../assets/gif/yellow-color.gif";
 import SearchInput from "../../../../components/SearchInput";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
+import { Skeleton } from "../../../../components/Skeleton";
 import {
   getFieldTranslationByNames,
   ToastError,
 } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 
-
 const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   align-items: center;
-
   gap: 20px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -68,21 +67,34 @@ const Date = styled.div`
   }
 `;
 
+const SkeletonRow = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+`;
+
 const TransactionsTab = () => {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const { Request } = useRequest();
   const loaderRef = useRef(null);
-  // Add this helper function to convert Persian numbers to English
+  
   const convertPersianToEnglish = (str) => {
     if (!str) return str;
     const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     return str.replace(/[۰-۹]/g, (d) => persianNumbers.indexOf(d));
   };
+  
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
     success: false,
@@ -177,7 +189,11 @@ const TransactionsTab = () => {
       });
 
       if (isFilterActive) {
-        setFilteredTransactions(processedTransactions);
+        if (currentPage === 1) {
+          setFilteredTransactions(processedTransactions);
+        } else {
+          setFilteredTransactions((prev) => [...prev, ...processedTransactions]);
+        }
       } else {
         setFilteredTransactions([]);
         setTransactions((prev) =>
@@ -189,9 +205,10 @@ const TransactionsTab = () => {
 
       setHasMore(response.data.links.next !== null);
     } catch (err) {
-      ToastError(err.response.data.message);
+      ToastError(err.response?.data?.message || "خطا در دریافت تراکنش‌ها");
     } finally {
       setIsLoading(false);
+      setInitialLoading(false);
     }
   };
 
@@ -205,10 +222,26 @@ const TransactionsTab = () => {
 
     if (isFilterActive) {
       setFilterPage(1);
+      setFilteredTransactions([]);
+    } else {
+      setPage(1);
+      setTransactions([]);
     }
 
     fetchTransactions();
-  }, [page, searched, status, title, subject, dateRange]);
+  }, [searched, status, title, subject, dateRange]);
+
+  useEffect(() => {
+    if (filterPage > 1) {
+      fetchTransactions();
+    }
+  }, [filterPage]);
+
+  useEffect(() => {
+    if (page > 1) {
+      fetchTransactions();
+    }
+  }, [page]);
 
   // IntersectionObserver setup
   useEffect(() => {
@@ -241,12 +274,65 @@ const TransactionsTab = () => {
         observer.unobserve(loaderRef.current);
       }
     };
-  }, [hasMore, isLoading]);
+  }, [hasMore, isLoading, searched, status, title, subject, dateRange]);
 
   const handleSearch = useCallback((e) => {
     const searchValue = e.target.value;
     setSearched(searchValue);
   }, []);
+
+  const displayTransactions = filteredTransactions.length ? filteredTransactions : transactions;
+
+  // لودینگ اولیه
+  if (initialLoading) {
+    return (
+      <Container>
+        <div>
+          <Title title={getFieldTranslationByNames("61")} />
+        </div>
+        <Div>
+          <SearchInput
+            onchange={handleSearch}
+            value={searched}
+            placeholder={getFieldTranslationByNames("63")}
+          />
+          <Date>
+            <DatePicker
+              placeholder={getFieldTranslationByNames("763")}
+              format="YYYY/MM/DD HH:mm:ss"
+              plugins={[<TimePicker position="bottom" />]}
+              calendar={persian}
+              locale={persian_fa}
+              calendarPosition="bottom-right"
+              range
+              value={dateRange}
+              onChange={(dates) => {
+                if (dates) {
+                  const [start, end] = dates.toString().split(",");
+                  setDateRange([start, end || null]);
+                } else {
+                  setDateRange([null, null]);
+                }
+              }}
+            />
+            <FaRegCalendarAlt size={20} />
+          </Date>
+        </Div>
+        <div style={{ marginTop: "20px" }}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <SkeletonRow key={index}>
+              <Skeleton width="40px" height="40px" radius="50%" />
+              <div style={{ flex: 1 }}>
+                <Skeleton width="80%" height="16px" radius="4px" style={{ marginBottom: "8px" }} />
+                <Skeleton width="60%" height="12px" radius="4px" />
+              </div>
+              <Skeleton width="40px" height="40px" radius="10px" />
+            </SkeletonRow>
+          ))}
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -272,7 +358,7 @@ const TransactionsTab = () => {
             onChange={(dates) => {
               if (dates) {
                 const [start, end] = dates.toString().split(",");
-                setDateRange([start, end || null]); // Set end to null if not provided
+                setDateRange([start, end || null]);
               } else {
                 setDateRange([null, null]);
               }
@@ -289,10 +375,25 @@ const TransactionsTab = () => {
         title={title}
         status={status}
         subject={subject}
-        rows={filteredTransactions.length ? filteredTransactions : transactions}
+        rows={displayTransactions}
       />
+      
+      {/* اسکلتون لودینگ بیشتر (اینفینیتی اسکرول) */}
+      {isLoading && displayTransactions.length > 0 && (
+        <div style={{ marginTop: "20px" }}>
+          {Array.from({ length: 2 }).map((_, index) => (
+            <SkeletonRow key={`loading-${index}`}>
+              <Skeleton width="40px" height="40px" radius="50%" />
+              <div style={{ flex: 1 }}>
+                <Skeleton width="80%" height="16px" radius="4px" style={{ marginBottom: "8px" }} />
+                <Skeleton width="60%" height="12px" radius="4px" />
+              </div>
+              <Skeleton width="40px" height="40px" radius="999px" />
+            </SkeletonRow>
+          ))}
+        </div>
+      )}
 
-      {isLoading && <div className="text-center py-4">Loading...</div>}
       {hasMore && <div ref={loaderRef} style={{ height: "20px" }} />}
     </Container>
   );

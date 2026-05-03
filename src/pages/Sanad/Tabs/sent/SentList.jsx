@@ -140,6 +140,7 @@ const rows_items = [
 ];
 const SentList = ({ setShowDetails }) => {
   const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
     pending: false,
@@ -147,7 +148,20 @@ const SentList = ({ setShowDetails }) => {
     failed: false,
     read: false,
   });
-
+useEffect(() => {
+    setLoading(true);
+    Request("tickets?recieved=1")
+      .then((response) => {
+        setRows(response.data.data || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching tickets:", error);
+        setRows([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
   const { Request } = useRequest();
 
   useEffect(() => {
@@ -203,6 +217,7 @@ const SentList = ({ setShowDetails }) => {
         status={status}
         rows={filteredItems}
         mode=""
+        isLoading={loading}
       />
     </Container>
   );

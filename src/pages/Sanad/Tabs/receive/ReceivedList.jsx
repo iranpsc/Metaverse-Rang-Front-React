@@ -21,7 +21,6 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   align-items: center;
-
   gap: 20px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -60,19 +59,21 @@ const Date = styled.div`
   ${({ disabled }) =>
     disabled &&
     `
-    background-color: #e0e0e0; // Example disabled background color
+    background-color: #e0e0e0;
     pointer-events: none;
     opacity: 0.6;
     svg {
-      color: #a0a0a0; // Example disabled icon color
+      color: #a0a0a0;
     }
     input {
-      color: #a0a0a0; // Example disabled text color
+      color: #a0a0a0;
     }
   `}
 `;
+
 const ReceivedList = () => {
   const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true); // اضافه شد
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
     pending: false,
@@ -84,12 +85,22 @@ const ReceivedList = () => {
   const { Request } = useRequest();
 
   useEffect(() => {
-    Request("tickets?recieved=1").then((response) => {
-      setRows((tickets) => [...tickets, ...response.data.data]);
-    });
+    setLoading(true);
+    Request("tickets?recieved=1")
+      .then((response) => {
+        setRows(response.data.data || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching tickets:", error);
+        setRows([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
+
   const filteredItems = rows.filter((row) => {
-    const codeMatch = row.title.toString().includes(searched);
+    const codeMatch = row?.title?.toString().includes(searched) || false;
     const statusMatch =
       (!status.confirmed &&
         !status.failed &&
@@ -104,9 +115,7 @@ const ReceivedList = () => {
 
   return (
     <Container>
-      <Title
-        title={getFieldTranslationByNames("1335")}
-      />
+      <Title title={getFieldTranslationByNames("1335")} />
 
       <Div>
         <SearchInput
@@ -133,6 +142,7 @@ const ReceivedList = () => {
         status={status}
         rows={filteredItems}
         mode="send"
+        isLoading={loading}
       />
     </Container>
   );

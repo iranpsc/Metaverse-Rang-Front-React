@@ -7,7 +7,7 @@ import { AlertContext } from "../../../../services/reducers/AlertContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
-
+import { Skeleton } from "../../../../components/Skeleton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,6 +34,17 @@ const Settings = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin-bottom: 30px;
+`;
+
+// اسکلتون برای هر آیتم
+const SkeletonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border-radius: 5px;
+  padding: 13px;
 `;
 
 const settings = [
@@ -76,6 +87,8 @@ const settings = [
 const PublicTab = () => {
   const { alert, setAlert } = useContext(AlertContext);
   const { Request, HTTP_METHOD } = useRequest();
+  const [loading, setLoading] = useState(true);
+  const [isSending, setIsSending] = useState(false);
   const [generalSettings, setGeneralSettings] = useState({
     announcements_sms: 0,
     announcements_email: 0,
@@ -90,9 +103,13 @@ const PublicTab = () => {
   });
 
   useEffect(() => {
-    Request("general-settings").then((response) => {
-      setGeneralSettings({ ...response.data.data });
-    });
+    Request("general-settings")
+      .then((response) => {
+        setGeneralSettings({ ...response.data.data });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const handleToggleChange = (key, value) => {
@@ -103,9 +120,12 @@ const PublicTab = () => {
   };
 
   const handleSubmit = () => {
+    setIsSending(true);
+
     const data = Object.fromEntries(
       Object.entries(generalSettings).filter(([key]) => !key.includes("id"))
     );
+
     Request(`general-settings/${generalSettings.id}`, HTTP_METHOD.PUT, data)
       .then(() => {
         setAlert(true);
@@ -115,8 +135,28 @@ const PublicTab = () => {
       })
       .catch((error) => {
         console.error("Failed to update settings:", error);
+      })
+      .finally(() => {
+        setIsSending(false);
       });
   };
+
+  // اسکلتون لودینگ - شبیه به آیتم‌های تنظیمات
+  if (loading) {
+    return (
+      <Container>
+        <Settings>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <SkeletonWrapper key={index}>
+              <Skeleton width="180px" height="20px" radius="4px" />
+              <Skeleton width="45px" height="25px" radius="220px" />
+            </SkeletonWrapper>
+          ))}
+        </Settings>
+        <Skeleton width="106.66px" height="50px" radius="10px" />
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -134,7 +174,11 @@ const PublicTab = () => {
         ))}
       </Settings>
 
-      <Button label={getFieldTranslationByNames("1481")} onclick={handleSubmit} />
+      <Button
+        label={getFieldTranslationByNames("1481")}
+        onclick={handleSubmit}
+        disabled={isSending ? "pending" : false}
+      />
     </Container>
   );
 };

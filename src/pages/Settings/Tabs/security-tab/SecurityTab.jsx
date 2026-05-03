@@ -6,6 +6,8 @@ import SearchInput from "../../../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
+import SkeletonGrid from "../../../../components/Common/SkeletonGrid";
+
 const Wrapper = styled.div`
   display: grid;
   margin-top: 20px;
@@ -19,6 +21,9 @@ const Wrapper = styled.div`
   @media (min-width: 1900px) {
     grid-template-columns: 1fr 1fr;
   }
+`;
+const SkeletonContainer = styled.div`
+margin-top: 0px;
 `;
 
 const items = [
@@ -449,6 +454,7 @@ const Left = styled.div`
 `;
 
 const SecurityTab = () => {
+  const [loading, setLoading] = useState(true);
   const [searched, setSearched] = useState("");
   const [privacy, setPrivacy] = useState({});
   const [itemsWithValues, setItemsWithValues] = useState([]);
@@ -457,11 +463,11 @@ const SecurityTab = () => {
     const filteredOptions = item.options.filter((option) =>
       option.translationId
         ? getFieldTranslationByNames(option.translationId)
-            ?.toLowerCase()
-            ?.includes(searched.toLowerCase()) ||
-          getFieldTranslationByNames(item.translationId)
-            ?.toLowerCase()
-            ?.includes(searched.toLowerCase())
+          ?.toLowerCase()
+          ?.includes(searched.toLowerCase()) ||
+        getFieldTranslationByNames(item.translationId)
+          ?.toLowerCase()
+          ?.includes(searched.toLowerCase())
         : ""
     );
     return (
@@ -481,7 +487,7 @@ const SecurityTab = () => {
         const updatedOptions = item.options.map((option) => {
           return {
             ...option,
-            value: privacyData[option.key] || false, 
+            value: privacyData[option.key] || false,
           };
         });
 
@@ -492,9 +498,41 @@ const SecurityTab = () => {
       });
 
       setPrivacy(privacyData);
-      setItemsWithValues(updatedItems); 
+      setItemsWithValues(updatedItems);
     });
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200); // ⏱ مدت نمایش اسکلتون
+
+    Request("privacy").then((response) => {
+      const privacyData = response.data.data;
+      const updatedItems = items.map((item) => {
+        const updatedOptions = item.options.map((option) => ({
+          ...option,
+          value: privacyData[option.key] || false,
+        }));
+
+        return {
+          ...item,
+          options: updatedOptions,
+        };
+      });
+
+      setPrivacy(privacyData);
+      setItemsWithValues(updatedItems);
+    });
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <SkeletonContainer>
+      <SkeletonGrid count={1} /><SkeletonGrid count={2} /><SkeletonGrid count={2} /><SkeletonGrid count={2} /><SkeletonGrid count={2} /><SkeletonGrid count={2} />
+    </SkeletonContainer>;
+  }
 
   return (
     <Container>

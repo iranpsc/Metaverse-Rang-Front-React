@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-
 import { BsExclamationCircleFill } from "react-icons/bs";
 import styled from "styled-components";
 import { AlertContext } from "../../../services/reducers/AlertContext";
@@ -75,6 +74,7 @@ const PhotoContainer = styled.div`
 
 const InfoRow = ({ data, type, shop, title }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [isBuying, setIsBuying] = useState(false); // حالت لودینگ دکمه
   const { setAlert } = useContext(AlertContext);
   const { Request, HTTP_METHOD } = useRequest();
 
@@ -86,9 +86,16 @@ const InfoRow = ({ data, type, shop, title }) => {
   };
 
   const paymentHandler = (asset, amount) => {
-    Request("order", HTTP_METHOD.POST, { asset, amount }).then((response) => {
-      window.location.href = response?.data?.link;
-    });
+    setIsBuying(true); // شروع لودینگ
+    
+    Request("order", HTTP_METHOD.POST, { asset, amount })
+      .then((response) => {
+        window.location.href = response?.data?.link;
+      })
+      .catch((error) => {
+        console.error("Payment error:", error);
+        setIsBuying(false);
+      });
   };
 
   const getAssetTranslation = () => {
@@ -142,6 +149,7 @@ const InfoRow = ({ data, type, shop, title }) => {
           onclick={() => {
             paymentHandler(data.asset, data.amount);
           }}
+          disabled={isBuying ? "pending" : false}
         />
       </Wrapper>
       {openModal && (

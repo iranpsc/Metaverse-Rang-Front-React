@@ -9,7 +9,7 @@ import { ScaleLoader } from "react-spinners";
 import Container from "../../../../components/Common/Container";
 import { useLocation } from "react-router-dom";
 import { currencies } from "../data";
-
+import { Skeleton } from "../../../../components/Skeleton";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,6 +18,15 @@ const Wrapper = styled.div`
   gap: 20px;
   margin-top: 20px;
   overflow-y: auto;
+`;
+const SkeletonCard = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content:space-between;
+  gap: 15px;
 `;
 
 const CurrenciesContent = () => {
@@ -57,18 +66,31 @@ const CurrenciesContent = () => {
     <Container>
       {alert && <Alert type="success" text="خرید شما با موفقیت انجام شد!" />}
       <Title title="ارزها" />
-      <Wrapper loading={loading}>
+      <Wrapper>
         {loading ? (
-          <ScaleLoader
-            color="orange"
-            loading={true}
-            height="100"
-            width="10"
-            margin="5"
-          />
+          Array.from({ length: 2 }).map((_, index) => (
+            <SkeletonCard key={index}>
+              <div style={{ display: "flex",  alignItems: "center" , gap: "20px", }}>
+                <Skeleton width="50px" height="60px" radius="8px" />
+                <div style={{ display: "flex", flexDirection:"column" , gap: "14px", }}>
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                </div>
+              </div>
+              <div style={{ display: "flex", flexDirection:"column" , gap: "14px", }}>
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                </div>
+              <div style={{ display: "flex", flexDirection:"column" , gap: "14px", }}>
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                </div>
+              <Skeleton width="76px" height="50px" radius="8px" />
+            </SkeletonCard>
+          ))
         ) : (
           assets.map((item) => (
-            <InfoRow shop type="ارز" key={item.id} data={item} />
+            <InfoRow shop type="ابزار" key={item.id} data={item} />
           ))
         )}
       </Wrapper>

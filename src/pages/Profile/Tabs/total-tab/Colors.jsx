@@ -11,15 +11,18 @@ import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../../../services/reducers/UserContext";
+import { Skeleton } from "../../../../components/Skeleton"; // مسیرش رو با پروژه خودت تنظیم کن
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(6, 1fr);
   gap: 10px;
-  @media (min-width: 1024px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
+
 const Colors = () => {
   const [walletData, setWalletData] = useState({
     effect: 0,
@@ -27,21 +30,28 @@ const Colors = () => {
     red: 0,
     blue: 0,
     irr: 0,
-    psc: 0
+    psc: 0,
   });
+
+  const [loading, setLoading] = useState(true);
+
   const { Request } = useRequest();
   const { id } = useParams();
   const [userId] = useContext(UserContext);
+
   useEffect(() => {
-    if (id) {
-      Request(`users/${id}/wallet`).then((response) => {
+    const requestId = id || userId.id;
+
+    setLoading(true);
+
+    Request(`users/${requestId}/wallet`)
+      .then((response) => {
         setWalletData(response.data.data);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    }
-    Request(`users/${userId.id}/wallet`).then((response) => {
-      setWalletData(response.data.data);
-    })
-  }, [id]);
+  }, [id, userId.id]);
 
   const colors = [
     {
@@ -81,6 +91,17 @@ const Colors = () => {
       value: walletData?.psc,
     },
   ];
+
+  if (loading) {
+    return (
+      <Container>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <Skeleton key={index} height="150px" />
+        ))}
+      </Container>
+    );
+  }
+
   return (
     <Container>
       {colors.map((color) => (
@@ -90,4 +111,4 @@ const Colors = () => {
   );
 };
 
-export default Colors;
+export default Colors; 

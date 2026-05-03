@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import VodRow from "./Tabs/receive/VodRow";
 import { getFieldTranslationByNames } from "../../services/Utility";
+import { Skeleton } from "../../components/Skeleton";
 
 const Container = styled.div`
   border-radius: 0.25rem;
@@ -23,7 +24,6 @@ const Container = styled.div`
 
 const Table = styled.table`
   width: 100%;
-
   margin-top: 5px;
   border-collapse: collapse;
   @media (min-width: 1920px) {
@@ -64,6 +64,7 @@ const Loader = styled.div`
     border: none;
   }
 `;
+
 const TitleFilter = styled.div`
   position: absolute;
   top: 65px;
@@ -85,6 +86,7 @@ const TitleFilter = styled.div`
     }
   }
 `;
+
 const FilterOption = styled.div`
   padding: 0 7px;
   position: relative;
@@ -121,7 +123,15 @@ const Arrows = styled.div`
   cursor: pointer;
 `;
 
-const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
+// اسکلتون برای ردیف
+const SkeletonRow = styled.tr`
+  td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #454545;
+  }
+`;
+
+const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({ status: false });
 
@@ -154,21 +164,68 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
               ? getFieldTranslationByNames("1345")
               : getFieldTranslationByNames("1346")}
           </h1>
-
           {status[filterKey] && (
-<span
-  onClick={(e) => {
-    e.stopPropagation();
-    handleFilterClick(filterKey);
-  }}
->
-  X
-</span>
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                handleFilterClick(filterKey);
+              }}
+            >
+              X
+            </span>
           )}
         </FilterOption>
       ))}
     </TitleFilter>
   );
+
+  // اسکلتون برای لودینگ
+  if (isLoading) {
+    return (
+      <Container>
+        <Table>
+        <TableHead>
+          <tr>
+            <TableHeader>{getFieldTranslationByNames("1339")}</TableHeader>
+            <TableHeader>{getFieldTranslationByNames("1319")}</TableHeader>
+            <TableHeader>
+              <Div>{getFieldTranslationByNames("1340")}</Div>
+            </TableHeader>
+            <TableHeader>
+              <Div>
+                {getFieldTranslationByNames("1341")}
+                <Arrows onClick={() => setFilters({ status: !filters.status })}>
+                  <MdKeyboardArrowDown
+                    style={{
+                      transform: `${
+                        filters.status ? "rotate(180deg)" : "rotate(360deg)"
+                      }`,
+                    }}
+                  />
+                </Arrows>
+              </Div>
+              {filters.status && renderStatusFilters()}
+            </TableHeader>
+            <TableHeader>{getFieldTranslationByNames("64")}</TableHeader>
+            <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
+          </tr>
+        </TableHead>
+          <tbody >
+            {Array.from({ length: 5 }).map((_, index) => (
+              <SkeletonRow key={index}>
+                <td><Skeleton width="60px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="200px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="200px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="80px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="120px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="40px" height="40px" radius="8px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+              </SkeletonRow>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -199,18 +256,32 @@ const VodList = ({ rows, status, setStatus, domain, subdomain }) => {
             <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
           </tr>
         </TableHead>
-        <tbody>
-          {rows?.slice(0, visibleRows).map((request) => (
-            <VodRow
-              key={request.id}
-              {...request}
-              domain={domain}
-              subdomain={subdomain}
-            />
-          ))}
+        <tbody > 
+          {isLoading ? (
+            Array.from({ length: 5 }).map((_, index) => (
+              <SkeletonRow key={index} >
+                <td><Skeleton width="60px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="2000px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="200px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="80px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="120px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td><Skeleton width="40px" height="40px" radius="8px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+              </SkeletonRow>
+            ))
+          ) : (
+            rows?.slice(0, visibleRows).map((request) => (
+              <VodRow
+                key={request.id}
+                {...request}
+                domain={domain}
+                subdomain={subdomain}
+                isLoading={false}
+              />
+            ))
+          )}
         </tbody>
       </Table>
-      {visibleRows < rows.length && (
+      {!isLoading && visibleRows < rows?.length && (
         <Loader>
           <button onClick={handleLoadMore}>نمایش موارد بیشتر</button>
         </Loader>
