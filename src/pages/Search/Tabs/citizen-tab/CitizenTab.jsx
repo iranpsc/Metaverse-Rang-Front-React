@@ -1,11 +1,10 @@
 import ResultCard from "./ResultCard";
-
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
-
 import SearchInput from "../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { Skeleton } from "../../../../components/Skeleton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,6 +23,7 @@ const Container = styled.div`
   overflow-y: auto;
   padding-bottom: 60px;
 `;
+
 const P = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades[30]};
   font-weight: 500;
@@ -31,6 +31,18 @@ const P = styled.p`
   margin-top: 20px;
   font-size: 18px;
 `;
+
+// اسکلتون برای کارت
+const SkeletonCard = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+  border-radius: 5px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 10fr 1fr;
+  gap: 20px;
+`;
+
 const CitizenTab = () => {
   const debounceRef = useRef(null);
 
@@ -38,6 +50,7 @@ const CitizenTab = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { Request, HTTP_METHOD } = useRequest();
+
   const searchHandler = () => {
     if (!searched.trim()) return;
     setIsLoading(true);
@@ -45,6 +58,7 @@ const CitizenTab = () => {
       .then((response) => setData(response.data.data))
       .finally(() => setIsLoading(false));
   };
+
   useEffect(() => {
     if (!searched.trim()) {
       setData([]);
@@ -68,6 +82,7 @@ const CitizenTab = () => {
 
     return () => clearTimeout(debounceRef.current);
   }, [searched]);
+
   const handleInputChange = (e) => {
     setSearched(e.target.value);
   };
@@ -75,19 +90,54 @@ const CitizenTab = () => {
   return (
     <Container>
       <SearchInput
-        onchange={handleInputChange} // Call search on every input change
+        onchange={handleInputChange}
         value={searched}
         placeholder={getFieldTranslationByNames("36")}
-        onSearch={searchHandler} // You can still keep this for the icon click event
+        onSearch={searchHandler}
       />
+
       {isLoading ? (
-        <P>درحال دریافت اطلاعات</P>
+        // اسکلتون برای 3 کارت
+        <Wrapper>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <SkeletonCard key={index}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "15px"}}>
+                <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
+                  <Skeleton width="50px" height="50px" radius="50%" />
+                  <div>
+                    <Skeleton width="120px" height="18px" radius="4px" style={{ marginBottom: "8px" }} />
+                    <Skeleton width="80px" height="14px" radius="4px" />
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: "15px", alignItems: "center", justifyContent:"space-between" ,marginTop:"16px"}}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems:"center"}}>
+                    <Skeleton width="50px" height="16px" radius="4px"  />
+                    <Skeleton width="60px" height="16px" radius="4px" />
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems:"center"}}>
+                    <Skeleton width="50px" height="16px" radius="4px"  />
+                    <Skeleton width="60px" height="16px" radius="4px" />
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems:"center"}}>
+                    <Skeleton width="50px" height="16px" radius="4px"  />
+                    <Skeleton width="60px" height="16px" radius="4px" />
+                  </div>
+                </div>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+                <Skeleton width="36px" height="36px" radius="1111px" />
+                <Skeleton width="36px" height="36px" radius="1111px" />
+                <Skeleton width="36px" height="36px" radius="1111px" />
+              </div>
+            </SkeletonCard>
+          ))}
+        </Wrapper>
       ) : data.length === 0 ? (
         <P>{getFieldTranslationByNames("37")}</P>
       ) : (
         <Wrapper>
           {data.map((item, i) => (
-            <ResultCard key={i} user={item} />
+            <ResultCard key={i} user={item} isLoading={false} />
           ))}
         </Wrapper>
       )}

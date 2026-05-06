@@ -1,9 +1,14 @@
+// Level.jsx - کپی کن جایگزین کن
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { convertToPersian } from "../../../../services/Utility";
+import { Skeleton } from "../../../../components/Skeleton";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { useParams } from "react-router-dom";
+
 const Container = styled.div`
   border-radius: 10px;
   background-color: ${(props) =>
@@ -54,6 +59,7 @@ const LevelCount = styled.div`
   justify-content: end;
   align-items: end;
   margin-top: 10px;
+  gap: 8px;
   img {
     cursor: pointer;
     &:hover {
@@ -65,7 +71,60 @@ const LevelCount = styled.div`
 
 const Level = () => {
   const [user] = useContext(UserContext);
+  const [levelData, setLevelData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const IsPersian = useLanguage();
+  const { Request } = useRequest();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const requestId = id || user?.id;
+
+    if (requestId) {
+      setLoading(true);
+      // آدرس API رو پیدا کن - ممکنه یکی از اینها باشه
+      Request(`users/${requestId}/level`)
+        .then((response) => {
+          console.log("Level response:", response.data);
+          setLevelData(response.data.data);
+        })
+        .catch((error) => {
+          console.error("Error loading level:", error);
+          // اگه ارور خورد، یه دیتای پیشفرض بذار که حداقل اسکلتون بره
+          setLevelData({
+            name: "بدون سطح",
+            percentage: 0,
+            previous_levels: [],
+            image: ""
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [id, user?.id]);
+
+  if (loading) {
+    return (
+      <Container>
+        <Percent IsPersian={IsPersian}>
+          <Title>
+            <Skeleton width="120px" height="20px" radius="4px" />
+            <Skeleton width="50px" height="20px" radius="4px" />
+          </Title>
+          <ProgressContainer>
+            <Skeleton width="70%" height="8px" radius="8px" />
+          </ProgressContainer>
+        </Percent>
+        <LevelCount>
+          <Skeleton width="44px" height="44px" radius="50%" />
+          <Skeleton width="44px" height="44px" radius="50%" />
+          <Skeleton width="44px" height="44px" radius="50%" />
+        </LevelCount>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <Percent IsPersian={IsPersian}>

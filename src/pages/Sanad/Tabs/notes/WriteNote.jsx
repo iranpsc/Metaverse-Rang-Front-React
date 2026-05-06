@@ -21,6 +21,7 @@ const Container = styled.div`
     width: 50%;
   }
 `;
+
 const Subject = styled.div`
   input {
     background-color: ${(props) =>
@@ -58,14 +59,17 @@ const WriteNote = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [files, setFiles] = useState([]);
+  const [isSending, setIsSending] = useState(false); // حالت لودینگ
 
   const { Request, HTTP_METHOD } = useRequest();
+
   useEffect(() => {
     if (alert) {
       const timer = setTimeout(() => setAlert(false), 2000);
       return () => clearTimeout(timer);
     }
   }, [alert, setAlert]);
+
   const handleSaveNote = () => {
     if (!title.trim() || !description.trim()) {
       setError(getFieldTranslationByNames(1644));
@@ -78,6 +82,7 @@ const WriteNote = () => {
     }
 
     setError("");
+    setIsSending(true); // شروع لودینگ
 
     const formData = new FormData();
     formData.append("title", title);
@@ -93,7 +98,10 @@ const WriteNote = () => {
         setAlert(true);
         resetForm();
       })
-      .catch(() => setError(getFieldTranslationByNames(1645)));
+      .catch(() => setError(getFieldTranslationByNames(1645)))
+      .finally(() => {
+        setIsSending(false); // پایان لودینگ
+      });
   };
 
   const resetForm = () => {
@@ -101,6 +109,9 @@ const WriteNote = () => {
     setDescription("");
     setFiles([]);
   };
+
+  // بررسی غیرفعال بودن دکمه
+  const isDisabled = !title.trim() || !description.trim() || files.length > 5;
 
   return (
     <Container>
@@ -121,6 +132,7 @@ const WriteNote = () => {
           fit
           label={getFieldTranslationByNames("629")}
           onclick={handleSaveNote}
+          disabled={isDisabled ? true : isSending ? "pending" : false}
         />
       </div>
       {error && <ErrorMessage>{error}</ErrorMessage>}

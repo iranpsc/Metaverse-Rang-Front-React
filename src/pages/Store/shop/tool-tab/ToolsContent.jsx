@@ -5,20 +5,27 @@ import Alert from "../../../../components/Alert/Alert";
 import Title from "../../../../components/Title";
 import InfoRow from "../InfoRow";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { ScaleLoader } from "react-spinners";
+import { Skeleton } from "../../../../components/Skeleton";
 import Container from "../../../../components/Common/Container";
-import { useParams } from "react-router-dom"; 
 import { useLocation } from "react-router-dom";
 import { tools } from "../data";
 
 const Wrapper = styled.div`
   display: flex;
-
   flex-direction: column;
   gap: 20px;
   margin-top: 20px;
-  justify-content: ${({ loading }) => (loading ? "center" : "flex-start")};
-  align-items: ${({ loading }) => (loading ? "center" : "stretch")};
+`;
+
+// اسکلتون کارت ساده
+const SkeletonCard = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content:space-between;
+  gap: 15px;
 `;
 
 const ToolsContent = () => {
@@ -46,6 +53,10 @@ const ToolsContent = () => {
       .then((response) => {
         setassets(response.data.data);
       })
+      .catch((error) => {
+        console.error("Error fetching tools:", error);
+        setassets([]);
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -55,15 +66,28 @@ const ToolsContent = () => {
     <Container>
       {alert && <Alert type="success" text="خرید شما با موفقیت انجام شد" />}
       <Title title="ابزارها" />
-      <Wrapper loading={loading}>
+      <Wrapper>
         {loading ? (
-          <ScaleLoader
-            color="orange"
-            loading={true}
-            height="100"
-            width="10"
-            margin="5"
-          />
+          Array.from({ length: 3 }).map((_, index) => (
+            <SkeletonCard key={index}>
+              <div style={{ display: "flex",  alignItems: "center" , gap: "20px", }}>
+                <Skeleton width="50px" height="60px" radius="8px" />
+                <div style={{ display: "flex", flexDirection:"column" , gap: "14px", }}>
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                </div>
+              </div>
+              <div style={{ display: "flex", flexDirection:"column" , gap: "14px", }}>
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                </div>
+              <div style={{ display: "flex", flexDirection:"column" , gap: "14px", }}>
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                  <Skeleton width="70px" height="18px" radius="4px" />
+                </div>
+              <Skeleton width="76px" height="50px" radius="8px" />
+            </SkeletonCard>
+          ))
         ) : (
           assets.map((item) => (
             <InfoRow shop type="ابزار" key={item.id} data={item} />

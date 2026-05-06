@@ -8,12 +8,12 @@ import { HiOutlineTrash } from "react-icons/hi";
 import { Swiper, SwiperSlide } from "swiper/react";
 import DOMPurify from "dompurify";
 
-import { TiWarningOutline } from "react-icons/ti";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import DefaultProfile from "../../../../assets/images/defulte-profile.png";
 import shortid from "shortid";
+import { Skeleton } from "../../../../components/Skeleton";
 
 const IconWrapper = styled.div`
   width: 34px;
@@ -38,6 +38,7 @@ const IconWrapper = styled.div`
     color: ${(props) => props.theme.colors.newColors.shades.title};
   }
 `;
+
 const Icons = styled.div`
   display: flex;
   z-index: 1;
@@ -60,32 +61,85 @@ const Icons = styled.div`
   }
 `;
 
+const SkeletonContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SwiperContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  
+  .mySwiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .swiper-pagination-bullet {
+    background-color: white;
+    opacity: 0.5;
+  }
+  
+  .swiper-pagination-bullet-active {
+    opacity: 1;
+    background-color: white;
+  }
+`;
+
 export default function Slider() {
   const [profileImage, setProfileImage] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { Request, HTTP_METHOD } = useRequest();
   const defaultImage = { id: 0, url: DefaultProfile };
 
   useEffect(() => {
-    Request("profilePhotos").then((response) => {
-      const images = response?.data?.data.reverse();
-      if (images.length === 0) {
+    setLoading(true);
+    Request("profilePhotos")
+      .then((response) => {
+        const images = response?.data?.data;
+        if (images && images.length > 0) {
+          const reversedImages = [...images].reverse();
+          setProfileImage(reversedImages);
+        } else {
+          setProfileImage([defaultImage]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error loading profile photos:", error);
         setProfileImage([defaultImage]);
-      } else {
-        setProfileImage(images);
-      }
-    });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const deleteProfileImage = (id) => {
     if (id === 0) return;
-    Request(`profilePhotos/${id}`, HTTP_METHOD.DELETE).then(() => {
-      const updatedImages = profileImage.filter((image) => image.id !== id);
-      if (updatedImages.length === 0) {
-        setProfileImage([defaultImage]);
-      } else {
-        setProfileImage(updatedImages);
-      }
-    });
+    Request(`profilePhotos/${id}`, HTTP_METHOD.DELETE)
+      .then(() => {
+        const updatedImages = profileImage.filter((image) => image.id !== id);
+        if (updatedImages.length === 0) {
+          setProfileImage([defaultImage]);
+        } else {
+          setProfileImage(updatedImages);
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting image:", error);
+      });
   };
 
   const handleImageChange = (e) => {
@@ -114,8 +168,16 @@ export default function Slider() {
     }
   };
 
+  if (loading) {
+    return (
+      <SkeletonContainer>
+        <Skeleton width="100%" height="100%" radius="10px" />
+      </SkeletonContainer>
+    );
+  }
+
   return (
-    <>
+    <SwiperContainer>
       <Swiper
         spaceBetween={30}
         autoplay={{
@@ -128,7 +190,13 @@ export default function Slider() {
       >
         {profileImage.map((image) => (
           <SwiperSlide key={image.id}>
-            <img src={DOMPurify.sanitize(image.url)} alt="image" />
+            <img 
+              src={DOMPurify.sanitize(image.url)} 
+              alt="profile" 
+              onError={(e) => {
+                e.target.src = DefaultProfile;
+              }}
+            />
           </SwiperSlide>
         ))}
 
@@ -149,6 +217,6 @@ export default function Slider() {
           </IconWrapper>
         </Icons>
       </Swiper>
-    </>
+    </SwiperContainer>
   );
 }

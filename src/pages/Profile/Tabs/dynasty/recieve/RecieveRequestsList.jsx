@@ -1,14 +1,6 @@
 import RequestsList from "../../../../../components/RequestsList/RequestsList";
 
-const RecieveRequestsList = ({
-  rows,
-  member,
-  status,
-  setStatus,
-  setMember,
-  setShowDetails,
-  type,
-}) => {
+const RecieveRequestsList = ({ rows, member, status, setStatus, setMember, type, isLoading }) => {
   return (
     <RequestsList
       rows={rows}
@@ -16,8 +8,8 @@ const RecieveRequestsList = ({
       status={status}
       setStatus={setStatus}
       setMember={setMember}
-      setShowDetails={setShowDetails}
-      type="receive"
+      type={type}
+      isLoading={isLoading}
     />
   );
 };

@@ -1,3 +1,4 @@
+// RealEstate.js
 import PropertyCard from "./PropertyCard";
 import property1 from "../../../../assets/gif/satisfaction.gif";
 import property2 from "../../../../assets/images/building.png";
@@ -9,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
+import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
   display: grid;
@@ -18,16 +20,28 @@ const Container = styled.div`
 `;
 
 const RealEstate = () => {
-  const [assets, setAssets] = useState({});
+  const [assets, setAssets] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { Request } = useRequest();
   const [user] = useContext(UserContext);
   const { id } = useParams();
 
   useEffect(() => {
     const requestId = id || user?.id;
-    Request(`users/${requestId}/features/count`).then((response) => {
-      setAssets(response.data.data);
-    });
+    if (requestId) {
+      setLoading(true);
+      Request(`users/${requestId}/features/count`)
+        .then((response) => {
+          console.log("RealEstate data:", response.data.data);
+          setAssets(response.data.data);
+        })
+        .catch((error) => {
+          console.error("Error loading real estate:", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   }, [id, user?.id]);
 
   const properties = [
@@ -56,6 +70,16 @@ const RealEstate = () => {
       value: assets?.amoozeshi_features_count,
     },
   ];
+
+  if (loading) {
+    return (
+      <Container>
+        {Array.from({ length: 4 }).map((_, index) => (
+          <Skeleton key={index} height="85px" radius="10px" />
+        ))}
+      </Container>
+    );
+  }
 
   return (
     <Container>

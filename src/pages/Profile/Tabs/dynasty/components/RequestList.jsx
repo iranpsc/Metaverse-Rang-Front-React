@@ -13,7 +13,6 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   align-items: center;
-  
   gap: 20px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -30,6 +29,7 @@ const RequestList = ({
   const { Request } = useRequest();
   const [searched, setSearched] = useState("");
   const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true); // اضافه شد
   const language = useLanguage();
   const { dateRange, setDateRange, filterByDate } = useDateFilter();
   const [status, setStatus] = useState({
@@ -49,11 +49,12 @@ const RequestList = ({
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); // اضافه شد
       try {
         const response = await Request(`dynasty/requests/${requestType}`);
         const formattedData = response.data.data.map((item) => ({
           id: item.id,
-          code: item[userField].code,
+          code: item[userField]?.code,
           date: item.date,
           time: item.time,
           member: item.relationship,
@@ -70,6 +71,8 @@ const RequestList = ({
         setRows(formattedData);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false); // اضافه شد
       }
     };
 
@@ -77,7 +80,7 @@ const RequestList = ({
   }, [requestType, userField]);
 
   const filteredItems = rows.filter((row) => {
-    const codeMatch = row.code.toString().includes(searched);
+    const codeMatch = row.code?.toString().includes(searched);
     const statusMatch =
       (!status.confirmed && !status.failed && !status.pending) ||
       (status.confirmed && row.status === "confirmed") ||
@@ -125,6 +128,8 @@ const RequestList = ({
         member={member}
         status={status}
         rows={filteredItems}
+        type={requestType}
+        isLoading={loading}  // این خط کلید حل مشکله
       />
     </Container>
   );

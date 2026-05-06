@@ -10,8 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { useMap } from "react-map-gl";
 import { calculatePolygonCentroid } from "../../../../../services/Utility/calculatePolygonCentroid";
 import { flyToMapPosition } from "../../../../../services/Utility/flyToMapPosition";
+import { Skeleton } from "../../../../../components/Skeleton";
 
 const Container = SuggestionsContainer;
+
 const Pricing = styled.div`
   width: 100%;
   display: flex;
@@ -59,34 +61,69 @@ const Time = styled.div`
   }
 `;
 
+// اسکلتون برای Suggestion
+const SkeletonSuggestion = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.menuBg};
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+`;
 
-
-
-const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
-
+const Suggestion = ({ id, property, suggestions_list, onRejectProposal, isLoading }) => {
   const navigate = useNavigate();
-  const xCoords = property.coordinates.map((coord) => coord.x);
-  const yCoords = property.coordinates.map((coord) => coord.y);
-  const center = calculatePolygonCentroid(property.coordinates);
   const mapRef = useMap();
+
+  // اسکلتون
+  if (isLoading) {
+    return (
+            <SkeletonSuggestion>
+              <div style={{ display: "flex", justifyContent:"space-between", alignItems:"center", gap: "20px", marginBottom: "20px" }}>
+                
+                <div style={{ display: "flex", gap: "10px",justifyContent:"center", alignContent:"center"}}>
+                  <Skeleton width="100px" height="100px" radius="10px" />
+                <div style={{  display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"start" , gap: "18px",}}>
+                  <Skeleton width="70px" height="20px" radius="4px"  />
+                  <Skeleton width="60px" height="16px" radius="4px"/>
+                </div>
+                </div>
+      
+                        <div style={{ display: "flex", gap: "40px", marginBottom: "20px", marginInlineEnd:"35px" }}>
+                <Skeleton width="80px" height="40px" radius="8px" />
+                <Skeleton width="120px" height="40px" radius="8px" />
+              </div>
+              </div>
+      
+              <Skeleton width="100%" height="300px" radius="10px" />
+            </SkeletonSuggestion>
+    );
+  }
+
+  if (!property) return null;
+
+  const xCoords = property.coordinates?.map((coord) => coord.x) || [];
+  const yCoords = property.coordinates?.map((coord) => coord.y) || [];
+  const center = calculatePolygonCentroid(property.coordinates || []);
+  
   const handleLocation = () => {
+    if (!property.coordinates) return;
     flyToMapPosition({
       latitude: center.y,
       longitude: center.x,
       mapRef: mapRef,
       zoom: 17,
     });
-    navigate("")
-  }
+    navigate("");
+  };
+  
   const minX = Math.min(...xCoords);
   const maxX = Math.max(...xCoords);
   const minY = Math.min(...yCoords);
   const maxY = Math.max(...yCoords);
-
   const hasXGreaterThan50 = xCoords.some((x) => x > 50);
 
   const normalizedPoints = property.coordinates
-    .map((coord) => {
+    ?.map((coord) => {
       const normalizedX =
         coord.x > 50
           ? ((coord.x - minX) / (maxX - minX)) * 40
@@ -99,11 +136,12 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
     })
     .join(" ");
 
-  const transitions = useTransition(suggestions_list, {
+  const transitions = useTransition(suggestions_list || [], {
     from: { opacity: 0, transform: "translate3d(0, 40px, 0)" },
     enter: { opacity: 1, transform: "translate3d(0, 0, 0)" },
     leave: { opacity: 0, transform: "translate3d(0, 40px, 0)" },
   });
+
   return (
     <Container>
       <Property>
@@ -126,7 +164,7 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
           <Value>
             <h2>{getFieldTranslationByNames("767")}</h2>
             <div>
-              {property.karbari && <img width={24} height={24} src={{ m: yellow, t: red, a: blue }[property.karbari]} />}
+              {property.karbari && <img width={24} height={24} src={{ m: yellow, t: red, a: blue }[property.karbari]} alt="" />}
               <span>{property.value}</span>
             </div>
           </Value>
@@ -147,7 +185,6 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal }) => {
       </Suggestions>
     </Container>
   );
-  
 };
 
 export default Suggestion;

@@ -11,9 +11,10 @@ import {
   ToastSuccess,
   getFieldTranslationByNames,
 } from "../../../../services/Utility";
+import { Skeleton } from "../../../../components/Skeleton";
+
 const AlbumWrapper = styled.div`
   display: grid;
-
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   gap: 20px;
@@ -93,13 +94,20 @@ const IconWrapper = styled.div`
   }
 `;
 
-const Album = ({ feature, setFeature }) => {
+// اسکلتون برای آیتم‌های آلبوم
+const SkeletonImageWrapper = styled.div`
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.colors.newColors.otherColors.gray};
+`;
+
+const Album = ({ feature, setFeature, isLoading }) => {
   const [user] = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [activeImage, setActiveImage] = useState(feature?.images?.[0] || null);
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const inputRef = useRef();
-  // if (feature?.owner_id === userId) return SellTabPanel;
 
   const handleImageUpload = (event) => {
     if (!checkSecurity()) return;
@@ -150,6 +158,22 @@ const Album = ({ feature, setFeature }) => {
         ToastError(error.response.data.message);
       });
   };
+
+  // اسکلتون لودینگ
+  if (isLoading) {
+    return (
+      <AlbumWrapper>
+        {Array.from({ length: 4 }).map((_, index) => (
+          <SkeletonImageWrapper key={index}>
+            <Skeleton width="100%" height="150px" radius="10px" />
+          </SkeletonImageWrapper>
+        ))}
+        <UploadMore>
+          <span>+</span>
+        </UploadMore>
+      </AlbumWrapper>
+    );
+  }
 
   return (
     <div>

@@ -1,5 +1,4 @@
 import CardItem from "./CardItem";
-import { FiSearch } from "react-icons/fi";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import business from "../../../../assets/images/building.png";
 import education from "../../../../assets/images/courthouse.png";
@@ -12,6 +11,7 @@ import { getFieldTranslationByNames } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 import Container from "../../../../components/Common/Container";
 import SearchInput from "../../../../components/SearchInput";
+import { Skeleton } from "../../../../components/Skeleton";
 
 const List = styled.div`
   display: flex;
@@ -19,6 +19,7 @@ const List = styled.div`
   gap: 20px;
   padding-top: 20px;
 `;
+
 const Provider = styled.div`
   position: relative;
   padding: 4px 10px;
@@ -86,6 +87,7 @@ const Wrapper = styled.div`
     white-space: nowrap;
   }
 `;
+
 const Select = styled.div`
   border-radius: 5px;
   border: 1px solid
@@ -99,6 +101,7 @@ const Select = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
 const Div = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -114,11 +117,22 @@ const Div = styled.div`
     grid-template-columns: 1fr 200px;
   }
 `;
+
+// اسکلتون کارت حرفه‌ای شبیه Level
+const SkeletonCard = styled.div`
+  background-color: ${(props) =>
+    props.theme.colors.newColors.otherColors.inputBg};
+  border-radius:4px;
+  padding: 15px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+`;
+
 const Houses = () => {
   const [searched, setSearched] = useState("");
   const containerRef = useRef(null);
   const [open, setOpen] = useState(false);
-
   const [property, setProperty] = useState({
     industry: false,
     house: false,
@@ -128,6 +142,7 @@ const Houses = () => {
   const [features, setFeatures] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const { id } = useParams();
 
@@ -151,7 +166,6 @@ const Houses = () => {
         return;
       }
 
-      // enhanced features
       const enhancedFeatures = newData.map((feature) => {
         let newProperties = { ...feature.properties };
         if (feature.properties.karbari === "m") {
@@ -190,18 +204,19 @@ const Houses = () => {
       });
 
       setPage((prev) => prev + 1);
-
       setHasMore(!!response.data.links?.next);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
+      setInitialLoading(false);
     }
   }, [page, loading, hasMore, id]);
 
   useEffect(() => {
     loadMoreFeatures();
   }, []);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -218,7 +233,6 @@ const Houses = () => {
     };
 
     container.addEventListener("scroll", handleScroll);
-
     return () => {
       container.removeEventListener("scroll", handleScroll);
     };
@@ -226,9 +240,9 @@ const Houses = () => {
 
   const filteredItems = features.filter((item) => {
     const query = searched.toUpperCase().trim();
-    const codeMatch = item.properties.id.includes(query);
-    const addressMatch = item.properties.address.includes(query);
-    const meterMatch = item.properties.area.toString().includes(query);
+    const codeMatch = item.properties.id?.includes(query);
+    const addressMatch = item.properties.address?.includes(query);
+    const meterMatch = item.properties.area?.toString().includes(query);
     const propertyMatch =
       (!property.education && !property.house && !property.industry) ||
       (property.education && item.properties.slug === "education") ||
@@ -237,6 +251,119 @@ const Houses = () => {
 
     return (codeMatch || addressMatch || meterMatch) && propertyMatch;
   });
+
+  // لودینگ اولیه - فقط اسکلتون کارت‌ها (سرچ و فیلتر ثابت)
+  if (initialLoading) {
+    return (
+      <Container id="scrollable-container">
+        <div>
+          <Title title={getFieldTranslationByNames("58")} />
+        </div>
+        <Div>
+          <SearchInput
+            placeholder={getFieldTranslationByNames("57")}
+            value={searched}
+            onChange={(e) => setSearched(e.target.value)}
+          />
+          <Wrapper>
+            <Select onClick={() => setOpen(!open)}>
+              <span>
+                {property.industry
+                  ? getFieldTranslationByNames("475")
+                  : property.education
+                    ? getFieldTranslationByNames("476")
+                    : getFieldTranslationByNames("477")}
+              </span>
+              <MdKeyboardArrowDown
+                style={{
+                  transform: `${open ? "rotate(180deg)" : "rotate(360deg)"}`,
+                }}
+              />
+            </Select>
+            {open && (
+              <Filter>
+                <Provider
+                  industry={property.industry}
+                  hover="#ff000021"
+                  onClick={() => {
+                    setProperty({ ...property, industry: true });
+                    setOpen(false);
+                  }}
+                >
+                  <h1>{getFieldTranslationByNames("475")}</h1>
+                  {property.industry && (
+                    <span
+                      onClick={(e) => {
+                        setProperty({ ...property, industry: false });
+                        e.stopPropagation();
+                        setOpen(false);
+                      }}
+                    >
+                      X
+                    </span>
+                  )}
+                </Provider>
+                <Provider
+                  education={property.education}
+                  hover="#0066ff21"
+                  onClick={() => {
+                    setProperty({ ...property, education: true });
+                    setOpen(false);
+                  }}
+                >
+                  <h1>{getFieldTranslationByNames("476")}</h1>
+                  {property.education && (
+                    <span
+                      onClick={(e) => {
+                        setProperty({ ...property, education: false });
+                        e.stopPropagation();
+                        setOpen(false);
+                      }}
+                    >
+                      X
+                    </span>
+                  )}
+                </Provider>
+                <Provider
+                  house={property.house}
+                  hover="#ffc70021"
+                  onClick={() => {
+                    setProperty({ ...property, house: true });
+                    setOpen(false);
+                  }}
+                >
+                  <h1>{getFieldTranslationByNames("477")}</h1>
+                  {property.house && (
+                    <span
+                      onClick={(e) => {
+                        setProperty({ ...property, house: false });
+                        e.stopPropagation();
+                        setOpen(false);
+                      }}
+                    >
+                      X
+                    </span>
+                  )}
+                </Provider>
+              </Filter>
+            )}
+          </Wrapper>
+        </Div>
+        <List>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <SkeletonCard key={index}>
+              <Skeleton width="80px" height="80px" radius="4px" />
+              <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "10px" }}>
+                <Skeleton width="60%" height="18px" radius="4px" />
+                <Skeleton width="40%" height="14px" radius="4px" />
+            
+              </div>
+            </SkeletonCard>
+          ))}
+        </List>
+      </Container>
+    );
+  }
 
   return (
     <Container id="scrollable-container" ref={containerRef}>
@@ -343,7 +470,21 @@ const Houses = () => {
           />
         ))}
       </List>
-      {loading && <div>Loading...</div>}
+      
+      {loading && features.length > 0 && (
+        <div style={{ marginTop: "10px" }}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <SkeletonCard key={index}>
+              <Skeleton width="80px" height="80px" radius="4px" />
+              <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "10px" }}>
+                <Skeleton width="60%" height="18px" radius="4px" />
+                <Skeleton width="40%" height="14px" radius="4px" />
+                
+              </div>
+            </SkeletonCard>
+          ))}
+        </div>
+      )}
     </Container>
   );
 };

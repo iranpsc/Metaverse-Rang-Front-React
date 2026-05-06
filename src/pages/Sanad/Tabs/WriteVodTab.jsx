@@ -11,7 +11,6 @@ import {
   getFieldTranslationByNames,
   ToastError,
 } from "../../../services/Utility";
-
 import useRequest from "../../../services/Hooks/useRequest";
 import Container from "../../../components/Common/Container";
 
@@ -20,6 +19,7 @@ const WriteVodTab = () => {
   const { alert, setAlert } = useContext(AlertContext);
   const { Request, HTTP_METHOD } = useRequest();
   const containerRef = useRef(null);
+  const [isSending, setIsSending] = useState(false);
 
   const resetForm = () => {
     dispatch({ type: "SET_SUBJECT", payload: "" });
@@ -36,6 +36,8 @@ const WriteVodTab = () => {
       state.description &&
       state.files.length > 0
     ) {
+      setIsSending(true);
+
       const filesData = new FormData();
 
       filesData.append("title", state.title);
@@ -68,11 +70,11 @@ const WriteVodTab = () => {
             setAlert(false);
           }, 2000);
         })
-
         .catch((error) => {
-
-          ToastError(error.response.data.message);
-          
+          ToastError(error.response?.data?.message || "خطا در ارسال تیکت");
+        })
+        .finally(() => {
+          setIsSending(false);
         });
     }
   };
@@ -90,6 +92,14 @@ const WriteVodTab = () => {
     }
   }, [alert, setAlert]);
 
+  // بررسی غیرفعال بودن دکمه
+  const isDisabled = !(
+    state.subject &&
+    state.title &&
+    state.description &&
+    state.files.length > 0
+  );
+
   return (
     <Container ref={containerRef}>
       <Title title={getFieldTranslationByNames("1314")} right />
@@ -105,7 +115,12 @@ const WriteVodTab = () => {
       <Description />
       <SendFiles files={state.files} onFilesChange={handleFilesChange} />
 
-      <Button fit label={getFieldTranslationByNames("730")} onclick={sendVod} />
+      <Button 
+        fit 
+        label={getFieldTranslationByNames("730")}
+        onclick={sendVod}
+        disabled={isDisabled ? true : isSending ? "pending" : false}
+      />
     </Container>
   );
 };

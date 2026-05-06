@@ -8,9 +8,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
 import { getFieldTranslationByNames } from "../../../../../services/Utility/index";
 import Container from "../../../../../components/Common/Container";
+import { Skeleton } from "../../../../../components/Skeleton";
 
 const RecievedSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { Request, checkSecurity } = useRequest();
   const location = useLocation();
   const [isExploding, setIsExploding] = useState(false);
@@ -18,8 +20,10 @@ const RecievedSuggestion = () => {
 
   const containerRef = useRef(null);
   const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchSuggestions = async () => {
+      setLoading(true);
       try {
         const response = await Request("buy-requests/recieved", "GET");
         const data = response?.data?.data;
@@ -95,6 +99,8 @@ const RecievedSuggestion = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -103,7 +109,7 @@ const RecievedSuggestion = () => {
 
   const handleRejectProposal = async (suggestionId) => {
     try {
-            if (!checkSecurity()) return;
+      if (!checkSecurity()) return;
 
       const response = await Request(
         `buy-requests/reject/${suggestionId}`,
@@ -158,8 +164,23 @@ const RecievedSuggestion = () => {
   };
 
   const validSuggestions = suggestions.filter(
-    (s) => s.suggestions_list.length > 0,
+    (s) => s.suggestions_list?.length > 0,
   );
+
+  // اسکلتون لودینگ
+  if (loading) {
+    return (
+      <Container ref={containerRef}>
+        <Title right title={getFieldTranslationByNames("764")} />
+        <Wrapper>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <Suggestion key={index} isLoading={true} />
+          ))}
+        </Wrapper>
+      </Container>
+    );
+  }
+
   return (
     <Container ref={containerRef}>
       <Title right title={getFieldTranslationByNames("764")} />
@@ -172,6 +193,7 @@ const RecievedSuggestion = () => {
               {...s}
               onRejectProposal={handleRejectProposal}
               onAcceptProposal={(pId) => handleAcceptProposal(s.id, pId)}
+              isLoading={false}
             />
           </div>
         ))}

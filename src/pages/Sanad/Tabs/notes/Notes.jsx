@@ -1,10 +1,10 @@
 import NotesList from "./NotesList";
-
 import styled from "styled-components";
 import { useState } from "react";
 import SearchInput from "../../../../components/SearchInput";
 import Title from "../../../../components/Title";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -19,12 +19,12 @@ const Container = styled.div`
   }
 `;
 
-const Notes = ({ notes }) => {
+const Notes = ({ notes, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredNotes = notes.filter((note) =>
-    note.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredNotes = notes?.filter((note) =>
+    note?.title?.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];
 
   return (
     <Container>
@@ -35,7 +35,7 @@ const Notes = ({ notes }) => {
         placeholder={getFieldTranslationByNames("1356")}
         onchange={(e) => setSearchTerm(e.target.value)}
       />
-      <NotesList notes={filteredNotes} />
+      <NotesList notes={filteredNotes} isLoading={isLoading} />
     </Container>
   );
 };

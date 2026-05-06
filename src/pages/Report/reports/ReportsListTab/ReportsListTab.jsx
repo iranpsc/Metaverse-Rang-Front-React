@@ -12,9 +12,10 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
-import { useTheme } from "../../../../services/reducers/ThemeContext"; // مسیر صحیح را وارد کنید
+import { useTheme } from "../../../../services/reducers/ThemeContext";
 import useRequest from '../../../../services/Hooks/useRequest';
 import Container from "../../../../components/Common/Container";
+import { Skeleton } from "../../../../components/Skeleton";
 
 const Div = styled.div`
   display: grid;
@@ -61,11 +62,7 @@ const ReportsListTab = ({ title="متاورس", subdomain="متاورس رنگ" 
   const isDarkMode = theme === "dark"; 
 
   const [searched, setSearched] = useState("");
-  /*const [status, setStatus] = useState({
-    pending: false,
-    confirmed: false,
-    failed: false,
-  });*/
+  const [loading, setLoading] = useState(true); // اضافه شد
 
   const [member, setMember] = useState({
     disrespect: false,
@@ -81,6 +78,7 @@ const ReportsListTab = ({ title="متاورس", subdomain="متاورس رنگ" 
   const { Request } = useRequest(); 
 
   const fetchData = async (page = 1) => {
+    setLoading(true); // اضافه شد
     try {
       const response = await Request(`reports?page=${page}`, "GET");
 
@@ -90,14 +88,19 @@ const ReportsListTab = ({ title="متاورس", subdomain="متاورس رنگ" 
         datetime: item.datetime || "زمان ناموجود",
         member: item.subject || "عضو ناموجود",
         subject: item.subject || "", 
-        //status: "confirmed" || "وضعیت ناموجود",
         title: item.title || "بدون عنوان",
       }));
 
-      setRows((prevRows) => [...prevRows, ...formattedRows]);
-      setHasMore(!!response.data.links.next); 
+      if (page === 1) {
+        setRows(formattedRows);
+      } else {
+        setRows((prevRows) => [...prevRows, ...formattedRows]);
+      }
+      setHasMore(!!response.data.links?.next); 
     } catch (error) {
       console.error("Error fetching reports:", error);
+    } finally {
+      setLoading(false); // اضافه شد
     }
   };
 
@@ -112,12 +115,7 @@ const ReportsListTab = ({ title="متاورس", subdomain="متاورس رنگ" 
   };
 
   const filteredItems = rows.filter((row) => {
-    const titleMatch = row.title.toString().includes(searched);
-    const statusMatch =
-      (!status.confirmed && !status.failed && !status.pending) ||
-      (status.confirmed && row.status === "confirmed") ||
-      (status.failed && row.status === "failed") ||
-      (status.pending && row.status === "pending");
+    const titleMatch = row.title?.toString().includes(searched) || false;
     const memberMatch =
       (!member.displayError &&
        !member.spellingError &&
@@ -130,7 +128,7 @@ const ReportsListTab = ({ title="متاورس", subdomain="متاورس رنگ" 
       (member.codingError && row.subject === "codingError") ||
       (member.disrespect && row.subject === "disrespect");
 
-    return titleMatch && statusMatch && memberMatch;
+    return titleMatch && memberMatch;
   });
 
   return (
@@ -144,7 +142,6 @@ const ReportsListTab = ({ title="متاورس", subdomain="متاورس رنگ" 
           value={searched}
           onchange={(e) => setSearched(e.target.value)}
         />
-       
         <Date>
           <DatePicker
             placeholder={getFieldTranslationByNames("1382")}
@@ -159,16 +156,15 @@ const ReportsListTab = ({ title="متاورس", subdomain="متاورس رنگ" 
         </Date>
       </Div>
       <ReportsList
-  //setStatus={setStatus}
-  setMember={setMember}
-  member={member}
-  //status={status}
-  rows={filteredItems}
-  domain={title}
-  subdomain={subdomain}
-  handleLoadMore={handleLoadMore} 
-  hasMore={hasMore} 
-/>
+        setMember={setMember}
+        member={member}
+        rows={filteredItems}
+        domain={title}
+        subdomain={subdomain}
+        handleLoadMore={handleLoadMore} 
+        hasMore={hasMore} 
+        isLoading={loading}
+      />
     </Container>
   );
 };
