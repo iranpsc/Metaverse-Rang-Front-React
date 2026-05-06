@@ -1,26 +1,21 @@
 import SellerPriceInfo from "./SellerPriceInfo";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-const Wrapper = styled.div`
+import Container from "../../../../components/Common/Container";
+const Wrapper = styled(Container)`
   display: flex;
   flex-direction: column;
   padding-right: 15px;
-  padding-top: 20px;
+  padding: 20px;
+  padding-bottom: 60px;
+
   gap: 30px;
   width: 100%;
-  @media (max-width: 1024px) {
-    height: 66vh !important;
-    overflow: auto;
-  }
-  @media (min-width: 1025px) {
-    height: auto !important;
-  }
 `;
 
 const Text = styled.p`
-  color: ${(props) => (props.theme.colors.newColors.shades.title)};
+  color: ${(props) => props.theme.colors.newColors.shades.title};
   line-height: 1.7rem;
-
 `;
 
 const SellerPrice = () => {

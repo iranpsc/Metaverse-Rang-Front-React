@@ -20,7 +20,7 @@ import {
 const Scroll = styled.div`
   padding: 30px 15px 20px;
   overflow-y: auto;
-  height: 100%;
+  height: 100vh;
 `;
 
 const Buttons = styled.div`
@@ -136,7 +136,6 @@ const ProfitView = () => {
     const cardsAreZero = sameColorCards.every((item) => item.value === 0);
 
     const allValuesAreZero = cardsAreZero && totalValue === 0;
-
 
     if (!allValuesAreZero) {
       const karbari = Object.entries(karbariMapping).find(

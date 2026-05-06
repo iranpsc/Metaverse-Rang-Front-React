@@ -71,7 +71,6 @@ const Value = styled.p`
 
 const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
   const { theme } = useTheme();
-  console.log("theme", theme);
   const deleteHandler = () => {
     setPsc("");
     setRial("");

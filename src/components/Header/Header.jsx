@@ -11,7 +11,7 @@ import useAdviserData from "../../services/Hooks/useAdviserData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import { getFieldTranslationByNames } from "../../services/Utility";
-
+import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 const HelpIcon = styled(Help)`
   width: 40px;
   height: 40px;
@@ -132,6 +132,7 @@ const Header = ({
   const location = useLocation();
   const navigation = useNavigate();
   const { resetStates } = useSelectedEnvironment();
+  const { updateScrollDirection,isScrollingDown } = useScrollDirectionContext();
 
   const newStr = location.pathname.replace(/\//g, "") + "-";
   const locationPage = location?.state?.locationPage;
@@ -146,6 +147,8 @@ const Header = ({
   };
 
   const handleExitClick = () => {
+    updateScrollDirection(false)
+
     if (handleExit) {
       navigation(location.state?.background?.pathname || "", {
         replace: true,

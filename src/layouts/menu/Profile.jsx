@@ -6,7 +6,7 @@ import Union from "./Union/Union";
 import BtnsMenu from "./BtnsMenu";
 import { FaChevronDown } from "react-icons/fa";
 import Anonymous from "../../assets/images/defulte-profile.png";
-import  Message  from "../../assets/svg/message.svg?react";
+import Message from "../../assets/svg/message.svg?react";
 import ProfileMember from "../../assets/svg/profileMember.svg";
 import Ticket from "../../assets/svg/ticket.svg";
 import Setting from "../../assets/svg/setting.svg";
@@ -32,13 +32,31 @@ const Btn = styled.button`
   display: ${({ isHidden }) => (isHidden ? "none" : "flex")};
   width: 100%;
   align-items: center;
-  justify-content: start;
+  justify-content: space-around;
   gap: 8px;
   border: none;
   background: transparent;
   height: 49px;
   border-radius: 10px;
   cursor: pointer;
+`;
+
+const BtbContainer = styled.div`
+  display: ${({ isHidden }) => (isHidden ? "none" : "flex")};
+  width: 100%;
+  align-items: center;
+  justify-content: ${({ isOpen }) => (isOpen ? "start" : "center")};
+  gap: 8px;
+  height: 49px;
+`;
+
+const BtbContainer2 = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: start;
+  gap: 8px;
+  height: 49px;
 `;
 
 const BtnNavigator = styled.button`
@@ -59,11 +77,13 @@ const BtnNavigator = styled.button`
   font-weight: 500;
   line-height: 180%;
   text-transform: capitalize;
+  cursor: pointer;
 
   @media (max-height: 500px) and (max-width: 1000px) {
     font-size: 14px;
   }
 `;
+
 const SubMenu = styled.div`
   display: ${({ isOpenDrop }) => (isOpenDrop ? "block" : "none")};
   padding-left: 20px;
@@ -77,10 +97,10 @@ const SubMenu = styled.div`
 
   z-index: 1;
   background-color: ${({ theme }) => theme.colors.newColors.primaryText};
-
   padding: ${({ isOpen }) => (isOpen ? "0" : "10px")};
   border-radius: ${({ isOpen }) => (isOpen ? "0" : "10px")};
   width: ${({ isOpen }) => (isOpen ? "100%" : "16.6%")};
+  min-width: ${({ isOpen }) => (isOpen ? "" : "200px")};
   max-height: ${({ isOpen }) => (isOpen ? "none" : "88vh")};
   overflow-y: ${({ isOpen }) => (isOpen ? "visible" : "auto")};
 `;
@@ -116,7 +136,6 @@ const ContainerMain = styled.div`
   overflow-y: auto;
   border-top: 2px solid
     ${({ theme }) => theme.colors.newColors.otherColors.iconBg};
-
   background-color: ${(props) => props.theme.colors.newColors.shades.bgOne};
 `;
 
@@ -136,60 +155,72 @@ const Level = styled.div`
 `;
 
 const ChevronIcon = styled(FaChevronDown)`
-  width: 12px;
-  height: 12px;
+  min-width: 12px;
+  min-height: 12px;
   color: ${({ theme }) => theme.colors.primary};
   transition: transform 0.3s ease;
   transform: ${({ isOpenDrop }) =>
     isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
-  margin-right: 60px;
+  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+`;
+
+const ChevronIcon2 = styled(FaChevronDown)`
+  min-width: 12px;
+  min-height: 12px;
+  color: ${({ theme }) => theme.colors.primary};
+  transition: transform 0.3s ease;
+  transform: ${({ isOpenDrop }) =>
+    isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
 `;
 
 const Profile = () => {
   const [isOpenDrop, setIsOpenDrop] = useState(false);
-  const [isOpenMenu, setIsOpen] = useState(false);
   const { isOpen } = useMenuContext();
   const { getUser } = useAuth();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const isPersian = useLanguage();
+
   useEffect(() => {
     setUser(getUser());
-  }, []);
-  const isPersian = useLanguage();
+  }, [getUser]);
+
+  const handleToggleDrop = () => {
+    setIsOpenDrop((prev) => !prev);
+  };
+
   return (
     <>
-      <Btn
-        isOpenDrop={isOpenDrop}
-        onClick={() => {
-          (setIsOpenDrop(!isOpenDrop), setIsOpen(!isOpenDrop));
-        }}
-      >
-        <ImgUser src={user?.image || Anonymous} />
-        <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
-        <Text isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
-        <ChevronIcon isOpenDrop={isOpenMenu} />
+      <Btn onClick={handleToggleDrop}>
+        <BtbContainer isOpen={isOpen}>
+          <ImgUser src={user?.image || Anonymous} />
+          <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
+          <Text isOpen={isOpen}>{user?.code?.toUpperCase() || ""}</Text>
+        </BtbContainer>
+        <ChevronIcon isOpenDrop={isOpenDrop} isOpen={isOpen} />
       </Btn>
 
       <ContainerMain>
-        <Container isOpenDrop={isOpenDrop} isOpen={isOpen}>
+        <Container>
           <SubMenu
             isOpenDrop={isOpenDrop}
             isOpen={isOpen}
             isPersian={isPersian}
           >
-            <Btn
-              isOpenDrop={isOpenDrop}
-              onClick={() => setIsOpenDrop(!isOpenDrop)}
-              isHidden={isOpen}
-            >
-              <ImgUser src={user?.image || Anonymous} />
-              <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
-              <Text isOpen={!isOpen}>{user?.code}</Text>
+            <Btn isHidden={isOpen} onClick={handleToggleDrop}>
+              <BtbContainer2>
+                <ImgUser src={user?.image || Anonymous} />
+                <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
+                <Text isOpen={!isOpen}>{user?.code || ""}</Text>
+              </BtbContainer2>
+              <ChevronIcon2 isOpenDrop={isOpenDrop} />
             </Btn>
+
             <BtnNavigator onClick={() => navigate("/documents")}>
               <Icon src={Ticket} />
               {getFieldTranslationByNames("241")}
             </BtnNavigator>
+
             <BtnNavigator style={{ color: "#868b907c", cursor: "default" }}>
               <MessageIcon />
               {getFieldTranslationByNames("242")}
@@ -199,15 +230,15 @@ const Profile = () => {
               <Icon src={ProfileMember} />
               {getFieldTranslationByNames("243")}
             </BtnNavigator>
+
             <BtnNavigator onClick={() => navigate("/settings")}>
               <Icon src={Setting} />
               {getFieldTranslationByNames("642")}
             </BtnNavigator>
-            {/* <Fallowing /> */}
+
             <Union />
           </SubMenu>
         </Container>
-
         <BtnsMenu />
       </ContainerMain>
     </>

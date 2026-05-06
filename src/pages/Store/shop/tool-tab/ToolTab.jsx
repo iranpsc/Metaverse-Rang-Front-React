@@ -6,7 +6,6 @@ const Wrapper = styled.div`
   display: flex;
   grid-template-columns: 200px 1fr;
   gap: 20px;
-  height: 100vh;
   overflow: hidden;
 `;
 

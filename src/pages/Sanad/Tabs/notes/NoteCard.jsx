@@ -18,12 +18,19 @@ const Button = styled.div`
     props.theme.colors.newColors.otherColors.garyBtn};
   border-radius: 10px;
   display: flex;
+  white-space: nowrap;
   padding: 10px 22px;
   gap: 6px;
   cursor: pointer;
   color: ${(props) => props.theme.colors.newColors.otherColors.grayBtnText};
   svg {
     margin-top: 2px;
+  }
+  
+  @media (max-width: 998px) {
+      font-size: 12px;
+  padding: 10px 15px;
+
   }
 `;
 
@@ -45,6 +52,7 @@ const Content = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin-top: 20px;
+  gap: 10px;
 `;
 const Socials = styled.div`
   padding-right: 20px;
@@ -77,8 +85,14 @@ const Texts = styled.div`
 const Label = styled.h3`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-size: 14px;
+  white-space: nowrap;
   font-weight: 600;
   margin-bottom: 4px;
+  
+  @media (max-width: 998px) {
+      font-size: 12px;
+
+  }
 `;
 
 const Subject = styled.div`
@@ -93,6 +107,11 @@ const Status = styled.div`
     font-size: 16px;
     font-weight: 400;
     color: ${(props) => props.theme.colors.newColors.shades.title};
+    
+  @media (max-width: 998px) {
+      font-size: 14px;
+
+  }
   }
 `;
 const Date = styled.div`
@@ -100,6 +119,11 @@ const Date = styled.div`
     font-size: 16px;
     font-weight: 400;
     color: ${(props) => props.theme.colors.newColors.shades.title};
+    
+  @media (max-width: 998px) {
+      font-size: 14px;
+
+  }
   }
 `;
 const socials = [

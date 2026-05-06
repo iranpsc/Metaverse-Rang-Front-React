@@ -15,7 +15,7 @@ const Container = styled.div`
   overflow-y: auto;
   flex-direction: column;
   @media (max-height: 500px) and (max-width: 1000px) {
-    padding-bottom: 150px;
+    padding-bottom: 60px;
   }
   @media (min-width: 1366px) {
     flex-direction: row;

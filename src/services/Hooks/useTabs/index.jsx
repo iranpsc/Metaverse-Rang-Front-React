@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import {useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useScrollDirectionContext } from "../../reducers/ScrollDirectionContext";
 import { Outlet } from "react-router-dom";
@@ -12,6 +12,9 @@ const TabsWrapper = styled.div`
 
   @media (min-width: 998px) {
     padding-bottom: 70px;
+  }
+  @media (max-height: 500px) and (max-width: 1000px) {
+    height: 100dvh;
   }
 `;
 
@@ -48,7 +51,9 @@ const TabContainer = styled.div`
   overflow-x: auto;
   border-bottom: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
-  transition: min-height 0.3s ease, max-height 0.3s ease;
+  transition:
+    min-height 0.3s ease,
+    max-height 0.3s ease;
 
   min-height: 50px;
   &::-webkit-scrollbar {
@@ -77,8 +82,8 @@ function Tabs({ items = [], fullHeight }) {
   const basePath = isFeatureRoute
     ? `/${segments[0]}/${segments[1]}`
     : hasSubTab
-    ? `/${segments[0]}`
-    : location.pathname.split("/").slice(0, -1).join("/");
+      ? `/${segments[0]}`
+      : location.pathname.split("/").slice(0, -1).join("/");
 
   const mainTabPaths = items.map((i) => i.path);
 

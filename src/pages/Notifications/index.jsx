@@ -11,12 +11,15 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+    padding-bottom: 60px;
+
   overflow-y: auto;
   padding-right: 15px;
   height: 100%;
 `;
 const Container = styled.div`
   height: 77%;
+
   h4 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;

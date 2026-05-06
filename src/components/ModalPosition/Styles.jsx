@@ -29,6 +29,7 @@ export const Container = styled(animated.div)`
   position: relative;
 
   height: 100%;
+
   @media screen and (min-width: 1280px) {
     min-width: 490px;
   }
