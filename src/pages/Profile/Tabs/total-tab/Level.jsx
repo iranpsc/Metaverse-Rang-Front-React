@@ -85,7 +85,6 @@ const Level = () => {
       // آدرس API رو پیدا کن - ممکنه یکی از اینها باشه
       Request(`users/${requestId}/level`)
         .then((response) => {
-          console.log("Level response:", response.data);
           setLevelData(response.data.data);
         })
         .catch((error) => {
