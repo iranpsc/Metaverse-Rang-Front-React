@@ -113,7 +113,7 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, isLoadin
       mapRef: mapRef,
       zoom: 17,
     });
-    navigate("");
+    navigate("/");
   };
   
   const minX = Math.min(...xCoords);

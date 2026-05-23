@@ -52,10 +52,14 @@ const EditInput = ({
         onchange(e); // Call the parent's onChange handler
       }
     } else if (type === "number") {
-      const numericValue = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-      e.target.value = numericValue;
-      onchange(e); // Call the parent's onChange handler
+    let numericValue = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    // Limit to 10 digits
+    if (numericValue.length > 10) {
+      numericValue = numericValue.slice(0, 10);
     }
+    e.target.value = numericValue;
+    onchange(e); // Call the parent's onChange handler
+  }
   };
   return (
     <InputContainer hasError={identityError}>
@@ -63,7 +67,7 @@ const EditInput = ({
         placeholder={title}
         value={value}
         onChange={handleInputChange} // Use the custom handler here
-        type={type || "text"}
+        type={"text"}
         name={name}
       />
       {slug === "psc" ? (

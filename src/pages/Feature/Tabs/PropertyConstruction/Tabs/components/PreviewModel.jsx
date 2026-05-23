@@ -72,7 +72,7 @@ const PreviewModel = ({ data, setShowModal }) => {
 
         <CanvasContainer>
           <CanvasPreview
-            link={`https://middle.irpsc.com/app/?url=${data[0]?.file?.url}`}
+            link={data[0]?.file?.url}
           />
         </CanvasContainer>
       </Container>

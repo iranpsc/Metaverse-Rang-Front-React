@@ -8,7 +8,8 @@ import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import {
   getFieldTranslationByNames,
-  ToastError,ToastSuccess
+  ToastError,
+  ToastSuccess,
 } from "../../../../../services/Utility";
 
 // Combine styled components
@@ -35,18 +36,20 @@ const Convert = ({ data, setData }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [modal, setModal] = useState(false);
   const [selectedPropertyId, setSelectedPropertyId] = useState(null);
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const navigate = useNavigate();
 
   // Memoize filtered features
   const filteredFeatures = useMemo(() => {
     if (!data?.features) return [];
     return Object.values(data.features).filter((feature) =>
-      feature.properties_id?.toString().includes(searchTerm)
+      feature.properties_id?.toString().includes(searchTerm),
     );
   }, [data?.features, searchTerm]);
   // Use useCallback for event handlers
   const updateDynasty = useCallback((id) => {
+    if (!checkSecurity()) return;
+
     setSelectedPropertyId(id);
     setModal(true);
   }, []);
@@ -59,7 +62,7 @@ const Convert = ({ data, setData }) => {
     try {
       const response = await Request(
         `dynasty/${data.id}/update/${selectedPropertyId}`,
-        HTTP_METHOD.POST
+        HTTP_METHOD.POST,
       );
       setData(response.data.data);
       ToastSuccess(getFieldTranslationByNames(1502));

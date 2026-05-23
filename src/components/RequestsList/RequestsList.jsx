@@ -9,7 +9,7 @@ const Container = styled.div`
   border-radius: 0.25rem;
   width: 100%;
   overflow-x: auto;
-
+  min-height: 400px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -18,7 +18,6 @@ const Container = styled.div`
 
 const Table = styled.table`
   width: 100%;
-
   margin-top: 5px;
   border-collapse: collapse;
   border-top-right-radius: 10px;
@@ -175,6 +174,8 @@ const RequestsList = ({
   type,
   isLoading, // اضافه شد
 }) => {
+  console.log(rows);
+
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({
     status: false,
@@ -219,7 +220,6 @@ const RequestsList = ({
     { key: "pending", label: 852 },
     { key: "failed", label: 853 },
   ];
-
   return (
     <Container>
       <Table>
@@ -253,7 +253,7 @@ const RequestsList = ({
                         {
                           onClick: () => handleMemberFilter(key),
                         },
-                        getFieldTranslationByNames(label)
+                        getFieldTranslationByNames(label),
                       )}
                       {member[key] && (
                         <span onClick={() => handleMemberRemove(key)}>X</span>
@@ -299,22 +299,22 @@ const RequestsList = ({
           </TableRow>
         </TableHead>
         <tbody>
-          {isLoading ? (
-            // اسکلتون برای 5 ردیف
-            Array.from({ length: 5 }).map((_, index) => (
-              <RequestRow key={index} isLoading={true} />
-            ))
-          ) : (
-            rows.slice(0, visibleRows).map((request) => (
-              <RequestRow
-                key={request.id}
-                {...request}
-                type={type}
-                setShowDetails={setShowDetails}
-                isLoading={false}
-              />
-            ))
-          )}
+          {isLoading
+            ? // اسکلتون برای 5 ردیف
+              Array.from({ length: 5 }).map((_, index) => (
+                <RequestRow key={index} isLoading={true} />
+              ))
+            : rows
+                .slice(0, visibleRows)
+                .map((request) => (
+                  <RequestRow
+                    key={request.id}
+                    {...request}
+                    type={type}
+                    setShowDetails={setShowDetails}
+                    isLoading={false}
+                  />
+                ))}
         </tbody>
       </Table>
       {!isLoading && visibleRows < rows.length && (

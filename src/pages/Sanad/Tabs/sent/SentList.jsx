@@ -71,75 +71,10 @@ const Date = styled.div`
     }
   `}
 `;
-const rows_items = [
-  {
-    id: 1,
-    code: "827161",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
-    time: " ۱۶:۲۱:۰۸",
-    member: "علی نادی",
-    status: "confirmed",
-    member_slug: "child",
-    gif: 0.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 2,
-    code: "789452",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
-    time: " ۱۶:۲۱:۰۸",
-    member: "یوسف خدری",
-    status: "failed",
-    member_slug: "mother",
-    gif: 1.5,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 3,
-    code: "953258",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
-    time: " ۱۶:۲۱:۰۸",
-    member: "پریسا رضایی",
-    status: "confirmed",
-    member_slug: "father",
-    gif: 1.6,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 4,
-    code: "135647",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
-    time: " ۱۶:۲۱:۰۸",
-    member: "یوسف خدری",
-    status: "read",
-    member_slug: "mother",
-    gif: 1.7,
-    count: 100,
-    psc: 1000,
-  },
-  {
-    id: 5,
-    code: "978512",
-    date: "۲۱ اردیبهشت ۱۴۰۳",
-    doc: "لورم ایپسوم متن ساختگی با تولید سادگی",
-    time: " ۱۶:۲۱:۰۸",
-    member: "حمید محمدی",
-    status: "failed",
-    member_slug: "sister",
-    gif: 1.6,
-    count: 100,
-    psc: 1000,
-  },
-];
 const SentList = ({ setShowDetails }) => {
   const [rows, setRows] = useState([]);
+  const { Request } = useRequest();
+
   const [loading, setLoading] = useState(true);
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
@@ -148,9 +83,9 @@ const SentList = ({ setShowDetails }) => {
     failed: false,
     read: false,
   });
-useEffect(() => {
+  useEffect(() => {
     setLoading(true);
-    Request("tickets?recieved=1")
+    Request("tickets")
       .then((response) => {
         setRows(response.data.data || []);
       })
@@ -162,13 +97,7 @@ useEffect(() => {
         setLoading(false);
       });
   }, []);
-  const { Request } = useRequest();
 
-  useEffect(() => {
-    Request("tickets").then((response) => {
-      setRows(response.data.data);
-    });
-  }, []);
   const filteredItems = rows.filter((row) => {
     const codeMatch = row?.title?.toString().includes(searched) || false;
 
@@ -188,9 +117,7 @@ useEffect(() => {
   return (
     <Container>
       <div>
-        <Title
-          title={getFieldTranslationByNames("1336")}
-        />
+        <Title title={getFieldTranslationByNames("1336")} />
       </div>
       <Div>
         <SearchInput

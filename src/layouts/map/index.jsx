@@ -121,12 +121,12 @@ const MapTreeD = () => {
               mapStyle="/styleMap.json"
               RTLTextPlugin="https://map.irpsc.com/rtl.js"
               interactiveLayerIds={["polygon-fill-layer"]}
-              maxPitch={78}
+              maxPitch={68}
               style={{ borderRadius: "15px" }}
               initialViewState={{
-                latitude: 36.32,
-                longitude: 50.02,
-                zoom: 12,
+                latitude: 25.229,
+                longitude: 54.2199,
+                zoom: 14,
                 pitch: 40,
               }}
               onClick={handleMapClick}

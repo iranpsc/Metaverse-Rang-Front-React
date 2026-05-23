@@ -62,6 +62,13 @@ export const SanitizeHTML = (html) => {
     FORBID_TAGS: ["script", "iframe", "object", "embed"],
   });
 };
+export const getPlainText = (htmlString) => {
+  if (!htmlString) return "";
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, "text/html");
+  return doc.body.textContent || "";
+};
+
 
 export function TextShorter(content, endStr = 20) {
   if (content?.length > endStr) {
@@ -219,7 +226,7 @@ export const getFieldTranslationByNames = (fieldId) => {
     !resources[i18n.language] ||
     !resources[i18n.language].translation
   ) {
-    return "Translation resources not found";
+    return "Translation not found";
   }
 
   const modals = resources[i18n.language].translation.modals;

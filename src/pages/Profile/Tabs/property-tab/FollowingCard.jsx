@@ -96,14 +96,20 @@ const FollowingCard = ({ name, code, id, profile_photos, online }) => {
       setFollow(true);
     });
   };
-  const profileImage =
-    profile_photos.length === 0 ? DefaultProfile : profile_photos;
   return (
     <Card>
       <Profile>
         <Image>
           <Status online={online} />
-          <img src={profileImage} alt="member" width={80} height={80} />
+          <img
+            src={profile_photos || DefaultProfile}
+            alt="member"
+            width={80}
+            height={80}
+            onError={(e) => {
+              e.target.src = DefaultProfile;
+            }}
+          />
         </Image>{" "}
         <div>
           <h3>{name}</h3>

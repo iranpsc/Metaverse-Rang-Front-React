@@ -186,7 +186,7 @@ const MapPolygons = () => {
             const endDate = new Date(model.building.construction_end_date);
             const now = new Date();
             const opacity = now < endDate ? 0.3 : 1;
-            const proxyFbxUrl = `https://middle.irpsc.com/app/?url=${model.file.url}`;
+            const proxyFbxUrl = model.file.url;
             return (
               <Coordinates
                 key={model.feature_id}

@@ -5,7 +5,7 @@ import { useMenuContext } from "../../services/reducers/MenuContext";
 import Union from "./Union/Union";
 import BtnsMenu from "./BtnsMenu";
 import { FaChevronDown } from "react-icons/fa";
-import Anonymous from "../../assets/images/defulte-profile.png";
+import DefaultProfile from "../../assets/images/defulte-profile.png";
 import Message from "../../assets/svg/message.svg?react";
 import ProfileMember from "../../assets/svg/profileMember.svg";
 import Ticket from "../../assets/svg/ticket.svg";
@@ -193,7 +193,12 @@ const Profile = () => {
     <>
       <Btn onClick={handleToggleDrop}>
         <BtbContainer isOpen={isOpen}>
-          <ImgUser src={user?.image || Anonymous} />
+          <ImgUser
+            src={user?.image || DefaultProfile}
+            onError={(e) => {
+              e.target.src = DefaultProfile;
+            }}
+          />
           <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
           <Text isOpen={isOpen}>{user?.code?.toUpperCase() || ""}</Text>
         </BtbContainer>
@@ -209,7 +214,12 @@ const Profile = () => {
           >
             <Btn isHidden={isOpen} onClick={handleToggleDrop}>
               <BtbContainer2>
-                <ImgUser src={user?.image || Anonymous} />
+                <ImgUser
+                  src={user?.image || DefaultProfile}
+                  onError={(e) => {
+                    e.target.src = DefaultProfile;
+                  }}
+                />
                 <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
                 <Text isOpen={!isOpen}>{user?.code || ""}</Text>
               </BtbContainer2>

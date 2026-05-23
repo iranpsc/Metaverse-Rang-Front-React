@@ -27,7 +27,12 @@ const ProfilePhoto = styled.img`
 const Profile = ({ user }) => {
   return (
     <Container>
-      <ProfilePhoto src={user?.photo ? user?.photo : DefaultProfile} />
+      <ProfilePhoto
+        src={user?.photo ? user.photo : DefaultProfile}
+        onError={(e) => {
+          e.target.src = DefaultProfile;
+        }}
+      />
       <Info>
         <h2>{user?.name}</h2>
         <a
