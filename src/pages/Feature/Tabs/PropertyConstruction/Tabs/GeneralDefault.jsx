@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import InputsGeneralDefault from "./components/InputsGeneralDefault";
 import ChoosingEnvironment from "./components/ChoosingEnvironment";
-
-const Container = styled.div`
+import Container from "../../../../../components/Common/Container";
+const Wraper = styled(Container)`
   display: flex;
   width: 100%;
   gap: 40px;
@@ -17,10 +17,10 @@ const Container = styled.div`
 `;
 const GeneralDefault = () => {
   return (
-    <Container>
+    <Wraper>
       <InputsGeneralDefault />
       <ChoosingEnvironment />
-    </Container>
+    </Wraper>
   );
 };
 

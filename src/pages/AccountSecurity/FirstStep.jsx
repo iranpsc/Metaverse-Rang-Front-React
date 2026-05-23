@@ -4,7 +4,7 @@ import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../services/Utility";
 import { useLanguage } from "../../services/reducers/LanguageContext";
-
+import Button from "../../components/Button";
 const Container = styled.div`
   margin-top: 20px;
 
@@ -160,6 +160,13 @@ const FirstStep = ({ setStep, time, setTime }) => {
     setFormData({ [e.target.name]: e.target.value, time: time });
   };
 
+  const isTimeValid = time !== "" && time !== null && Number(time) >= 5;
+  const isPhoneValid =
+    phone ||
+    (formData.phone &&
+      formData.phone.length === 11 &&
+      formData.phone.startsWith("09"));
+  const isSubmitDisabled = !isTimeValid || !isPhoneValid;
   return (
     <Container
       as="form"
@@ -209,36 +216,62 @@ const FirstStep = ({ setStep, time, setTime }) => {
           value={time}
           onChange={(e) => {
             let value = e.target.value;
-            value = value.replace(/^0+/, "");
+            value = value.replace(/[^\d]/g, "");
 
             if (value === "") {
               setTime("");
               return;
             }
 
-            if (value.length >= 2) {
-              let numericValue = Number(value);
-              if (numericValue < 5) numericValue = 5;
-              if (numericValue > 60) numericValue = 60;
-              setTime(numericValue);
-            } else {
-              setTime(value);
+            let numericValue = parseInt(value, 10);
+
+            if (numericValue < 5) {
+              if (value.length >= 2) {
+                numericValue = 5;
+              } else if (numericValue === 0) {
+                setTime("");
+                return;
+              }
             }
+
+            if (numericValue > 60) {
+              numericValue = 60;
+            }
+
+            setTime(numericValue);
           }}
-          type="number"
+          type="text"
+          inputMode="numeric"
           name="time"
           placeholder={getFieldTranslationByNames("858")}
-          maxLength={3}
-          max={99}
-          step={1}
+          maxLength={2}
         />
         {!phone && (
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
             name="phone"
             placeholder="091XXXXXXXX"
             value={formData.phone}
-            onChange={handleInputChange}
+            onChange={(e) => {
+              let value = e.target.value;
+              value = value.replace(/[^0-9]/g, "");
+              if (value.length > 11) {
+                value = value.slice(0, 11);
+              }
+              handleInputChange({
+                target: {
+                  name: "phone",
+                  value: value,
+                },
+              });
+            }}
+            onKeyDown={(e) => {
+              const invalidKeys = [".", "٫", "e", "E", "-", "+", " "];
+              if (invalidKeys.includes(e.key)) {
+                e.preventDefault();
+              }
+            }}
             maxLength={11}
           />
         )}
@@ -246,7 +279,11 @@ const FirstStep = ({ setStep, time, setTime }) => {
           <Min isPersian={isPersian}>{getFieldTranslationByNames("33")}</Min>
         )}
       </Div>
-      <button type="submit">{getFieldTranslationByNames("859")}</button>
+      <Button
+        label={getFieldTranslationByNames("859")}
+        type="submit"
+        disabled={isSubmitDisabled}
+      />
     </Container>
   );
 };

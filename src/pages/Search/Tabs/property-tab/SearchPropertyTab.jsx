@@ -18,6 +18,7 @@ const Container = styled.div`
   padding: 15px;
   overflow-y: auto;
   height: 90%;
+  padding-bottom: 60px;
 `;
 
 const P = styled.p`

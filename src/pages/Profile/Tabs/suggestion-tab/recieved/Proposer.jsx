@@ -21,7 +21,7 @@ import {
   Text,
 } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-
+import DefaultProfile from "../../../../../assets/images/defulte-profile.png";
 const Price = BasePrice;
 const ProposalStatus = styled.div``;
 
@@ -157,10 +157,13 @@ const Proposer = ({
         <Header>
           <Person>
             <img
-              src={property.profile_photo}
+              src={property.profile_photo || DefaultProfile}
               alt={code}
               width={60}
               height={60}
+              onError={(e) => {
+                e.target.src = DefaultProfile;
+              }}
             />
             <div>
               <p>{getFieldTranslationByNames("768")}</p>

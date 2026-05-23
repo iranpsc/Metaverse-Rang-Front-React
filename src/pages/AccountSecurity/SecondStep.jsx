@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import useRequest from "../../services/Hooks/useRequest";
 import { setItem } from "../../services/Utility/LocalStorage";
 import { getFieldTranslationByNames, ToastError } from "../../services/Utility";
+import Button from "../../components/Button";
 
 const Codes = styled.div`
   display: flex;
@@ -165,21 +166,21 @@ const SecondStep = ({ setStep, time }) => {
 
     return `${formattedMinutes}:${formattedSeconds}`;
   };
-
   const handleInputChange = (index, event) => {
-    let value = event.target.value.replace(/[^\d]/g, "");
+    let value = event.target.value;
+    value = value.replace(/[^\d]/g, "");
     if (value.length > 1) value = value.slice(-1);
+
     const newValues = [...codeValues];
     newValues[index] = value;
     setCodeValues(newValues);
-    if (value === "") {
-    } else {
+
+    if (value !== "") {
       if (index < inputRefs.current.length - 1) {
         inputRefs.current[index + 1].focus();
       }
     }
   };
-
   const handlePaste = (event) => {
     event.preventDefault();
     const pasteData = event.clipboardData
@@ -194,12 +195,22 @@ const SecondStep = ({ setStep, time }) => {
       }
     });
     setCodeValues(newValues);
+
     if (digits.length === 6 && newValues.every((v) => v !== "")) {
+      // اگر 6 رقم کامل پیست شد، به آخرین خونه برو
+      if (inputRefs.current[5]) {
+        inputRefs.current[5].focus();
+      }
       nextStep(newValues);
     } else {
       const firstEmpty = newValues.findIndex((v) => v === "");
       if (firstEmpty !== -1 && inputRefs.current[firstEmpty]) {
         inputRefs.current[firstEmpty].focus();
+      } else if (digits.length > 0) {
+        const lastFilled = Math.min(digits.length - 1, 5);
+        if (inputRefs.current[lastFilled]) {
+          inputRefs.current[lastFilled].focus();
+        }
       }
     }
   };
@@ -295,20 +306,40 @@ const SecondStep = ({ setStep, time }) => {
           <input
             placeholder="-"
             key={index}
-            type="number"
+            type="text"
+            inputMode="numeric"
             maxLength={1}
             ref={(el) => (inputRefs.current[index] = el)}
             value={codeValues[index]}
             onChange={(event) => handleInputChange(index, event)}
-            onPaste={(event) => handlePaste(event)}
-            className={errors ? "invalid-input" : ""}
             onKeyDown={(event) => {
-              handleKeyDown(index, event);
+              if (
+                event.key === "." ||
+                event.key === "٫" ||
+                event.key === "e" ||
+                event.key === "E"
+              ) {
+                event.preventDefault();
+                return;
+              }
+
+              if (event.key === "Backspace") {
+                if (!codeValues[index] && index > 0) {
+                  inputRefs.current[index - 1]?.focus();
+                }
+                handleKeyDown(index, event);
+                return;
+              }
 
               if (event.key === "Enter" && allValuesNotEmpty) {
                 nextStep();
+                return;
               }
+
+              handleKeyDown(index, event);
             }}
+            onPaste={handlePaste}
+            className={errors ? "invalid-input" : ""}
           />
         ))}
       </Codes>
@@ -324,9 +355,11 @@ const SecondStep = ({ setStep, time }) => {
           <h2 onClick={resetHandler}>{getFieldTranslationByNames(1642)}</h2>
         )}
       </div>
-      <button disabled={!allValuesNotEmpty} onClick={() => nextStep()}>
-        {getFieldTranslationByNames("859")}
-      </button>
+      <Button
+        label={getFieldTranslationByNames("859")}
+        disabled={!allValuesNotEmpty}
+        onClick={() => nextStep()}
+      />
     </Container>
   );
 };

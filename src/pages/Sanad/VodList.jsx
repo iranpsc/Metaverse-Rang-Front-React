@@ -40,6 +40,13 @@ const TableHead = styled.thead`
 const TableHeader = styled.th`
   padding: 20px;
   font-size: 16px;
+  @media (max-width: 1024px) {
+    font-size: 15px;
+    padding: 16px;
+  }
+  @media (max-width: 950px) {
+    padding: 13px;
+  }
   font-weight: 500;
   color: ${(props) => props.theme.colors.newColors.shades.title};
   position: relative;
@@ -159,10 +166,10 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
             {filterKey === "confirmed"
               ? getFieldTranslationByNames("1343")
               : filterKey === "pending"
-              ? getFieldTranslationByNames("1344")
-              : filterKey === "failed"
-              ? getFieldTranslationByNames("1345")
-              : getFieldTranslationByNames("1346")}
+                ? getFieldTranslationByNames("1344")
+                : filterKey === "failed"
+                  ? getFieldTranslationByNames("1345")
+                  : getFieldTranslationByNames("1346")}
           </h1>
           {status[filterKey] && (
             <span
@@ -252,7 +259,9 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
               </Div>
               {filters.status && renderStatusFilters()}
             </TableHeader>
-            <TableHeader>{getFieldTranslationByNames("64")}</TableHeader>
+            <TableHeader style={{ whiteSpace: "nowrap" }}>
+              {getFieldTranslationByNames("64")}
+            </TableHeader>
             <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
           </tr>
         </TableHead>

@@ -32,7 +32,6 @@ const RealEstate = () => {
       setLoading(true);
       Request(`users/${requestId}/features/count`)
         .then((response) => {
-          console.log("RealEstate data:", response.data.data);
           setAssets(response.data.data);
         })
         .catch((error) => {

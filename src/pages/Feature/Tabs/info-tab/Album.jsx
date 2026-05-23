@@ -174,7 +174,7 @@ const Album = ({ feature, setFeature, isLoading }) => {
       </AlbumWrapper>
     );
   }
-
+  const onwer = user.id == feature?.owner_id ? true : false;
   return (
     <div>
       <AlbumWrapper>
@@ -187,7 +187,7 @@ const Album = ({ feature, setFeature, isLoading }) => {
               loading="lazy"
             />
             <Actions>
-              {user.id == feature?.owner_id && (
+              {onwer&& (
                 <IconWrapper onClick={() => deleteHandler(item.id)}>
                   <HiOutlineTrash />
                 </IconWrapper>
@@ -218,6 +218,7 @@ const Album = ({ feature, setFeature, isLoading }) => {
       </AlbumWrapper>
       {open && (
         <Slider
+        onwer={onwer}
           deleteHandler={deleteHandler}
           images={feature?.images}
           setOpen={setOpen}

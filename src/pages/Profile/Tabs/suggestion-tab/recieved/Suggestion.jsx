@@ -124,7 +124,7 @@ const Suggestion = ({
       mapRef: mapRef,
       zoom: 17,
     });
-    Navigate("");
+    Navigate("/");
   };
 
   // اسکلتون

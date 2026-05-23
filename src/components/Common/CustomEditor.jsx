@@ -1,6 +1,6 @@
-import "react-quill/dist/quill.snow.css";
+import "react-quill-new/dist/quill.snow.css";
 import React, { useState, useEffect } from "react";
-import ReactQuill from "react-quill";
+import ReactQuill from "react-quill-new";
 import { CiEdit } from "react-icons/ci";
 import {
   convertToPersian,
@@ -124,12 +124,12 @@ const getModules = (img = false) => {
       { indent: "-1" },
       { indent: "+1" },
     ],
-    ["link", "code-block"], 
+    ["link", "code-block"],
     [{ align: [] }],
   ];
 
   if (img) {
-    toolbar[2].splice(1, 0, "image"); 
+    toolbar[2].splice(1, 0, "image");
   }
 
   return { toolbar };

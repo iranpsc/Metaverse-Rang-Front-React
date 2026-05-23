@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import  FilterIcon  from "../../assets/svg/filter.svg?react";
-import  LocationIcon  from "../../assets/svg/location.svg?react";
+import FilterIcon from "../../assets/svg/filter.svg?react";
+import LocationIcon from "../../assets/svg/location.svg?react";
 import useRequest from "../../services/Hooks/useRequest";
 import { useMapData } from "../../services/reducers/mapContext";
 import Tippy from "@tippyjs/react";
@@ -29,8 +29,7 @@ const IconFilter = styled(FilterIcon)`
 const IconLocation = styled(LocationIcon)`
   width: 14px;
   height: 16px;
-  fill: ${(props) =>
-    props.active ? props.theme.colors.primary: "#868B90"};
+  fill: ${(props) => (props.active ? props.theme.colors.primary : "#868B90")};
 
   fill-opacity: ${(props) => (props.active ? "1" : "0.5")};
   cursor: pointer;
@@ -87,92 +86,76 @@ const Tooltip = styled.div`
 const BtnFlagMap = () => {
   const { flags, setFlags, polygons, setPolygons } = useMapData();
   const [activeMapIds, setActiveMapIds] = useState([]);
-  const [clickState, setClickState] = useState({});
   const { Request } = useRequest();
   const { i18n } = useTranslation();
+
   useEffect(() => {
     async function fetchMap() {
       const response = await Request("maps");
       setFlags(response.data.data);
     }
+
     fetchMap();
   }, []);
 
-  const handleClick = (flagId) => {
-    const { [flagId]: currentClickState, ...updatedClickState } = clickState;
-    if (!currentClickState) {
-      if (activeMapIds.length >= 2) {
-        return;
-      }
+  const handleClick = async (flagId) => {
+    const isActive = activeMapIds.includes(flagId);
 
-      setActiveMapIds((prevActiveMapIds) => [...prevActiveMapIds, flagId]);
-      setClickState((prevState) => ({
-        ...prevState,
-        ...updatedClickState,
-        [flagId]: true,
-      }));
+    if (!isActive && activeMapIds.length >= 2) return;
 
-      handleButtonClick(flagId);
-    } else {
-      setActiveMapIds((prevActiveMapIds) =>
-        prevActiveMapIds.filter((id) => id !== flagId)
-      );
-      setClickState((prevState) => ({
-        ...prevState,
-        ...updatedClickState,
-        [flagId]: false,
-      }));
+    if (isActive) {
+      setActiveMapIds((prev) => prev.filter((id) => id !== flagId));
 
-      handleButtonClick(flagId);
+      setPolygons((prev) => prev.filter((polygon) => polygon.id !== flagId));
+
+      return;
     }
-  };
-  const handleButtonClick = async (id) => {
-    const response = await Request(`maps/${id}/border`);
+
+    setActiveMapIds((prev) => [...prev, flagId]);
+
+    const response = await Request(`maps/${flagId}/border`);
+
     const parsedCoordinates = JSON.parse(response.data.data.border_coordinates);
 
-    const existingPolygonIndex = polygons.findIndex(
-      (polygon) => polygon.id === id
-    );
-    if (existingPolygonIndex !== -1) {
-      setPolygons((prevPolygons) => {
-        const updatedPolygons = [...prevPolygons];
-        updatedPolygons.splice(existingPolygonIndex, 1);
-        return updatedPolygons;
-      });
-    } else {
-      const newPolygon = {
-        id: id,
+    setPolygons((prev) => [
+      ...prev,
+      {
+        id: flagId,
         coordinates: parsedCoordinates,
-      };
-      setPolygons((prevPolygons) => [...prevPolygons, newPolygon]);
-    }
+      },
+    ]);
   };
+
   return (
     <>
-      {flags.map((flag, index) => (
-        <Tippy
-          content={<Tooltip lang={i18n.language}>{flag.name}</Tooltip>}
-          zIndex={10000}
-          placement="right"
-          interactive={true}
-          delay={50}
-          animation="scale"
-          key={index}
-        >
-          <Btn key={flag.id} className={clickState[flag.id] ? "active" : ""}>
-            <ContainerIcon>
-              <IconFilter></IconFilter>
-              <IconLocation
-                active={clickState[flag.id]}
-                onClick={() => handleClick(flag.id)}
-              ></IconLocation>
-            </ContainerIcon>
-            <TitleFlag>{flag.name}</TitleFlag>
-          </Btn>
-        </Tippy>
-      ))}
+      {flags.map((flag) => {
+        const isActive = activeMapIds.includes(flag.id);
+
+        return (
+          <Tippy
+            key={flag.id}
+            content={<Tooltip lang={i18n.language}>{flag.name}</Tooltip>}
+            zIndex={10000}
+            placement="right"
+            interactive
+            delay={50}
+            animation="scale"
+          >
+            <Btn className={isActive ? "active" : ""}>
+              <ContainerIcon>
+                <IconFilter />
+                <IconLocation
+                  active={isActive}
+                  onClick={() => handleClick(flag.id)}
+                />
+              </ContainerIcon>
+
+              <TitleFlag>{flag.name}</TitleFlag>
+            </Btn>
+          </Tippy>
+        );
+      })}
     </>
   );
 };
-
 export default BtnFlagMap;

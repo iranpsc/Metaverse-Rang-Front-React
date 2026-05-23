@@ -97,14 +97,13 @@ const Info = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const { Request } = useRequest();
-
+  console.log("userId",userId)
   useEffect(() => {
     const requestId = id || userId?.id;
     if (requestId) {
       setLoading(true);
       Request(`users/${requestId}/profile`)
         .then((response) => {
-          console.log("User profile data:", response.data.data);
           setUser(response.data.data);
         })
         .catch((error) => {

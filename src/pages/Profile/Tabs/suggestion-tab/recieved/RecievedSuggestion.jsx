@@ -20,7 +20,7 @@ const RecievedSuggestion = () => {
 
   const containerRef = useRef(null);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const fetchSuggestions = async () => {
       setLoading(true);
@@ -110,7 +110,6 @@ const RecievedSuggestion = () => {
   const handleRejectProposal = async (suggestionId) => {
     try {
       if (!checkSecurity()) return;
-
       const response = await Request(
         `buy-requests/reject/${suggestionId}`,
         "POST",

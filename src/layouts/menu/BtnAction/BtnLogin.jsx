@@ -41,7 +41,9 @@ const BtnLogin = () => {
       {},
       "development",
     )
+
       .then((response) => {
+
         if (response && response.data.url) {
           window.location.href = response.data.url;
         } else {

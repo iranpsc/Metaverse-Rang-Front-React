@@ -20,7 +20,6 @@ const reducer = (state, action) => {
   }
 };
 
-
 export default function UserProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, {});
 

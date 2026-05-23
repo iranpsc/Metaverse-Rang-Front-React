@@ -9,10 +9,11 @@ const Container = styled.div`
   padding: 15px;
   overflow-y: auto;
   display: grid;
-  
+
   grid-template-columns: 1fr;
   gap: 30px;
-padding-bottom:30px;
+  padding-bottom: 60px;
+  
   @media (min-width: 1400px) {
     grid-template-columns: 1fr 2fr;
   }

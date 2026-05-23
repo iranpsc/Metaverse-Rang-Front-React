@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Label = styled.label`
@@ -33,7 +32,7 @@ const Input = styled.input`
   }
 
   &[type="number"] {
-    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* Firefox */
   }
 
   &[value=""]:focus + ${Label} {

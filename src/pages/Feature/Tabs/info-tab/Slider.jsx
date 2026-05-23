@@ -51,7 +51,7 @@ const Slider = ({
   images,
   deleteHandler,
   activeImage,
-  setActiveImage,
+  setActiveImage,onwer
 }) => {
   return (
     <div>
@@ -66,7 +66,7 @@ const Slider = ({
         images={images}
         deleteHandler={deleteHandler}
       />
-      <KeenSlider images={images} deleteHandler={deleteHandler} />
+      <KeenSlider images={images} deleteHandler={deleteHandler} onwer={onwer} />
     </div>
   );
 };

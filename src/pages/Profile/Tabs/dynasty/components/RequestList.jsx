@@ -62,8 +62,8 @@ const RequestList = ({
             item.status === 1
               ? "confirmed"
               : item.status === 0
-              ? "pending"
-              : "failed",
+                ? "pending"
+                : "failed",
           member_slug: item.relationship,
           gif: item?.prize?.satisfaction || 0,
           psc: item?.prize?.psc || 0,
@@ -129,7 +129,7 @@ const RequestList = ({
         status={status}
         rows={filteredItems}
         type={requestType}
-        isLoading={loading}  // این خط کلید حل مشکله
+        isLoading={loading} // این خط کلید حل مشکله
       />
     </Container>
   );

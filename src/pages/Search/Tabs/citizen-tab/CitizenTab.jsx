@@ -10,7 +10,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin: 15px 0 0 0;
+  margin-top: 15px;
+
   @media (min-width: 1920px) {
     margin-bottom: -10px;
   }
@@ -20,6 +21,7 @@ const Container = styled.div`
   height: 90%;
   padding: 15px;
   overflow-y: auto;
+  padding-bottom: 60px;
 `;
 
 const P = styled.p`

@@ -77,7 +77,7 @@ const WriteNote = () => {
     }
 
     if (files.length > 5) {
-      setError("حداکثر ۵ فایل مجاز است");
+      setError(getFieldTranslationByNames(1636));
       return;
     }
 

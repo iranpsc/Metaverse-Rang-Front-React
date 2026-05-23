@@ -1,72 +1,86 @@
 @font-face {
-  font-family: 'AzarMehr';
-  src: url('/fonts/AzarMehr-DS2-Thin.woff2') format('woff2');
+  font-family: "AzarMehr";
+  src: url("/fonts/AzarMehr-DS2-Thin.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'AzarMehr';
-  src: url('/fonts/AzarMehr-DS2-Light.woff2') format('woff2');
+  font-family: "AzarMehr";
+  src: url("/fonts/AzarMehr-DS2-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'AzarMehr';
-  src: url('/fonts/AzarMehr-DS2-Medium.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'AzarMehr';
-  src: url('/fonts/AzarMehr-DS2-Medium.woff2') format('woff2');
+  font-family: "AzarMehr";
+  src: url("/fonts/AzarMehr-DS2-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'AzarMehr';
-  src: url('/fonts/AzarMehr-DS2-Bold.woff2') format('woff2');
+  font-family: "AzarMehr";
+  src: url("/fonts/AzarMehr-DS2-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'AzarMehr';
-  src: url('/fonts/AzarMehr-ExtraBold.woff2') format('woff2');
+  font-family: "AzarMehr";
+  src: url("/fonts/AzarMehr-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'AzarMehr';
-  src: url('/fonts/AzarMehr-DS2-Black.woff2') format('woff2');
+  font-family: "AzarMehr";
+  src: url("/fonts/AzarMehr-DS2-Black.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'AzarMehr';
-  src: url('/fonts/AzarMehr-ExtraBlack.woff2') format('woff2');
-  font-weight: 950;
-  font-style: normal;
+  font-family: "DigitalNumber";
+  src: url("/fonts/Digital.woff") format("woff");
 }
 
-@font-face {
-  font-family: "DigitalNumber";
-  src: url('/fonts/Digital.woff') format('woff');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@supports (-webkit-touch-callout: none) {
+  html,
+  body,
+  #root {
+    height: -webkit-fill-available;
+  }
 }
 
 body {
   font-family: "AzarMehr" !important;
   overflow: hidden;
-  transition: all 0.3s ease 0s;
-  orientation: landscape;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
-input {
+input,
+button,
+textarea,
+select {
   font-family: "AzarMehr" !important;
 }
 
@@ -76,20 +90,8 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-/* Hide the spinner controls in Firefox */
 input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-button {
-  font-family: "AzarMehr" !important;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "AzarMehr" !important;
+  appearance: textfield;
 }
 
 p {
@@ -100,12 +102,33 @@ a {
   text-decoration: none;
 }
 
+/* light mode */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0066ff;
+}
+
+/* dark mode */
+html.dark ::-webkit-scrollbar-thumb {
+  background: #ffc700;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* مدیا کوئری‌های باقی‌مانده */
 .map {
   width: 100%;
   height: 100%;
   border-radius: 10px;
+}
 
-  @media (min-width: 1024px) {
+@media (min-width: 1024px) {
+  .map {
     border-radius: 20px;
   }
 }
@@ -133,58 +156,9 @@ a {
 @keyframes tooltip-horizontal-move {
   0% {
     opacity: 0;
-    transition: all 0.3s;
     transform: translateX(-50px);
   }
-
   100% {
     opacity: 1;
-    transition: all 0.3s;
   }
-}
-
-
-/* light mode */
-::-webkit-scrollbar {
-  width: 5px;
-}
-/*
-::-webkit-scrollbar-track {
-  background: #85858590;
-}*/
-
-::-webkit-scrollbar-thumb {
-  background: #0066FF;
-}
-
-
-/* dark mode */
-/*
-html.dark ::-webkit-scrollbar-track {
-  background: #44444490;
-}*/
-
-html.dark ::-webkit-scrollbar-thumb {
-  background: #FFC700;
-}
-
-
-button {
-  cursor: pointer;
-}
-
-html,
-body {
-  -webkit-text-size-adjust: 100%;
-}
-
-input,
-textarea,
-button,
-select,
-label,
-p,
-span {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
 }

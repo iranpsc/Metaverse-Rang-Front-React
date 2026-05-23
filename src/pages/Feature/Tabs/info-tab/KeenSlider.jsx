@@ -81,7 +81,7 @@ const AdaptiveHeight = (slider) => {
   slider.on("slideChanged", updateHeight);
 };
 
-export default function SwiperSlider({ images, deleteHandler }) {
+export default function SwiperSlider({ images, deleteHandler,onwer }) {
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliderRef, instanceRef] = useKeenSlider(
@@ -127,9 +127,10 @@ export default function SwiperSlider({ images, deleteHandler }) {
             <ImageWrapper>
               <img src={item.url} alt="slide" loading="lazy" />
               <Actions>
-                <IconWrapper onClick={() => deleteHandler(item.id)}>
+                {onwer&&   <IconWrapper onClick={() => deleteHandler(item.id)}>
                   <HiOutlineTrash />
-                </IconWrapper>
+                </IconWrapper>}
+             
                 <IconWrapper>
                   <IoWarningOutline />
                 </IconWrapper>

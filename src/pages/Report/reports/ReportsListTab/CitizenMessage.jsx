@@ -1,9 +1,9 @@
-import  { useContext } from "react"; 
+import { useContext } from "react";
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { UserContext } from "../../../../services/reducers/UserContext";
-
+import DefaultProfile from "../../../../assets/images/defulte-profile.png";
 const Content = styled.div``;
 
 const Header = styled.div`
@@ -167,7 +167,15 @@ const CitizenMessage = (reportDetails) => {
 
   return (
     <Container isPersian={isPersian}>
-      <Avatar src={userState.image} alt="avatar" width={50} height={50} />
+      <Avatar
+        src={userState.image || DefaultProfile}
+        alt="avatar"
+        width={50}
+        height={50}
+        onError={(e) => {
+          e.target.src = DefaultProfile;
+        }}
+      />
       <Content>
         <Header>
           <span>{userState.name}</span>
@@ -213,7 +221,7 @@ const CitizenMessage = (reportDetails) => {
                         style={{ cursor: "pointer" }}
                       />
                     </Image>
-                  )
+                  ),
                 )}
               </div>
               <h4>

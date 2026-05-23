@@ -21,15 +21,13 @@ import { useAppHeight } from "./hooks/useAppHeight.js";
 import { ScrollDirectionProvider } from "./services/reducers/ScrollDirectionContext.jsx";
 function App() {
   useAppHeight();
-
+/** */
   useLayoutEffect(() => {
     window.Echo = new Echo({
       broadcaster: "pusher",
       key: "local",
       cluster: "",
       wsHost: "api.metarang.com",
-      wsPort: 6001,
-      wssPort: 6001,
       encrypted: true,
       forceTLS: true,
       disableStats: true,

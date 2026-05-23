@@ -167,7 +167,7 @@ const PublicTab = () => {
             <p>{getFieldTranslationByNames(setting?.translationId)}</p>
             <OnOff
               label={setting?.label}
-              isOn={!!generalSettings[setting.key]}
+              isOn={!generalSettings[setting.key]}
               onToggle={(value) => handleToggleChange(setting.key, value)}
             />
           </Wrapper>

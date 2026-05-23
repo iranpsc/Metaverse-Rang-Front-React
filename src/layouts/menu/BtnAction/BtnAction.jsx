@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../services/Hooks/useAuth";
-import  ArowMenu  from "../../../assets/svg/arowMenu.svg?react";
+import ArowMenu from "../../../assets/svg/arowMenu.svg?react";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";
 import { removeItem } from "../../../services/Utility/LocalStorage";
@@ -11,20 +11,25 @@ import { useLanguage } from "../../../services/reducers/LanguageContext";
 
 const Btn = styled.div`
   min-height: ${(props) =>
-    props.isClicked && props.isOpen ? "210px" : "35px"};
+    props.isClicked && props.isOpen ? "170px" : "35px"};
   width: 100%;
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};
   display: flex;
+  position: ${(props) =>
+    !props.isOpen && props.isClicked ? "absolute" : "relative"};
+  bottom: ${(props) => (!props.isOpen && props.isClicked ? "120px" : "0")};
   flex-direction: column;
   align-items: center;
   justify-content: ${(props) => (props.isOpen ? "space-between" : "center")};
   border-radius: 10px;
-  padding: ${(props) => (props.isOpen && props.isClicked ? "0" : "0  10px ")};
   cursor: pointer;
   transition: min-height 0.3s ease;
   margin-top: 10px;
-  position: relative;
+  @media (max-height: 500px) {
+    max-height: ${(props) =>
+      props.isClicked && props.isOpen ? "14px" : "35px"};
+  }
 `;
 
 const Text = styled.p`
@@ -32,22 +37,31 @@ const Text = styled.p`
   color: ${(props) => props.theme.colors.newColors.primaryText};
 `;
 
-const TextContainer = styled.div`
+const CollapsedContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  height: 100%;
-  padding: ${(props) => (props.isOpen ? "0  16px " : "0")};
+  gap: 20px;
 `;
+const DefaultContainer = styled.div`
+  display: ${(props) => (props.isOpen && props.isClicked ? "none" : "flex")};
 
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+`;
 const TextDetail = styled.p`
   display: ${(props) => (props.isClicked ? "block" : "none")};
   color: ${(props) => props.theme.colors.newColors.primaryText};
   border-bottom: 1px solid
     ${(props) => props.theme.colors.newColors.primaryText};
   width: 100%;
-  padding-bottom: 10px;
+  padding-bottom: 7px;
+  @media (max-height: 500px) {
+    padding-bottom: 2px;
+  }
 `;
 
 const IconArrow = styled(ArowMenu)`
@@ -62,13 +76,14 @@ const Div = styled.div`
     !props.isOpen && props.isClicked ? "absolute" : "relative"};
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};
+  
   ${(props) => {
     !props.isPersian
       ? `right: ${!props.isOpen ? "-220px" : "0"}`
       : `left: ${!props.isOpen ? "-220px" : "0"}`;
   }};
   z-index: 10;
-  padding: 16px;
+  padding: 6px 16px;
   border-radius: 10px;
   width: ${(props) =>
     props.isOpen && props.isClicked ? "100%" : "fit-content"};
@@ -91,6 +106,10 @@ const Div = styled.div`
     border-radius: 0 7px 0 0;
     display: ${(props) =>
       !props.isOpen && props.isClicked ? "block" : "none"};
+     
+  }
+  @media (max-height: 500px) {
+    padding: 3px 16px;
   }
 `;
 
@@ -118,10 +137,20 @@ const BtnAction = () => {
   return (
     <Btn isOpen={isOpen} isClicked={isClicked} onClick={handleClick}>
       <Div isOpen={isOpen} isClicked={isClicked} isPersian={isPersian}>
-        <TextDetail isOpen={isOpen} isClicked={isClicked}>
+        <TextDetail
+          isOpen={isOpen}
+          isClicked={isClicked}
+          onClick={() =>
+            (window.location.href = `https://metarang.com/fa/citizens/${user.code}`)
+          }
+        >
           {getFieldTranslationByNames("162")}
         </TextDetail>
-        <TextDetail isOpen={isOpen} isClicked={isClicked}>
+        <TextDetail
+          isOpen={isOpen}
+          isClicked={isClicked}
+          onClick={() => (window.location.href = "https://metarang.com/fa")}
+        >
           {getFieldTranslationByNames("303")}
         </TextDetail>
         <TextDetail
@@ -131,11 +160,15 @@ const BtnAction = () => {
         >
           {getFieldTranslationByNames("230")}
         </TextDetail>
+        <CollapsedContainer isOpen={isOpen}>
+          <IconArrow isOpenDrop={isClicked} />
+          <Text isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
+        </CollapsedContainer>
       </Div>
-      <TextContainer isOpen={isOpen}>
+      <DefaultContainer isOpen={isOpen} isClicked={isClicked}>
         <IconArrow isOpenDrop={isClicked} />
         <Text isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
-      </TextContainer>
+      </DefaultContainer>
     </Btn>
   );
 };
