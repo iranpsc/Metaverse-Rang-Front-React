@@ -49,7 +49,7 @@ const RotateDevice = () => {
   return (
     <RotateContainer>
       <RotateIcon />
-      <RotateText>لطفاً گوشی خود را به حالت افقی بچرخانید</RotateText>
+      <RotateText>{getFieldTranslationByNames(1372)}</RotateText>
     </RotateContainer>
   );
 };

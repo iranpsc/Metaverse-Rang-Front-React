@@ -19,9 +19,9 @@ import { LoaderProvider } from "./services/reducers/LoaderProvider.jsx";
 import RotateDevice from "./components/RotateDevice";
 import { useAppHeight } from "./hooks/useAppHeight.js";
 import { ScrollDirectionProvider } from "./services/reducers/ScrollDirectionContext.jsx";
+import * as Sentry from "@sentry/react";
 function App() {
   useAppHeight();
-/** */
   useLayoutEffect(() => {
     window.Echo = new Echo({
       broadcaster: "pusher",
