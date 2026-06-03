@@ -42,6 +42,7 @@ const EditInput = ({
   identityError,
   error,
   slug,
+  maxLength = 10,
 }) => {
   // Function to handle input validation based on the input type
   const handleInputChange = (e) => {
@@ -52,14 +53,15 @@ const EditInput = ({
         onchange(e); // Call the parent's onChange handler
       }
     } else if (type === "number") {
-    let numericValue = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-    // Limit to 10 digits
-    if (numericValue.length > 10) {
-      numericValue = numericValue.slice(0, 10);
+      let numericValue = e.target.value.replace(/[^0-9]/g, "");
+
+      if (maxLength && numericValue.length > maxLength) {
+        numericValue = numericValue.slice(0, maxLength);
+      }
+
+      e.target.value = numericValue;
+      onchange(e);
     }
-    e.target.value = numericValue;
-    onchange(e); // Call the parent's onChange handler
-  }
   };
   return (
     <InputContainer hasError={identityError}>

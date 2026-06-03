@@ -97,7 +97,6 @@ const Info = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const { Request } = useRequest();
-  console.log("userId",userId)
   useEffect(() => {
     const requestId = id || userId?.id;
     if (requestId) {

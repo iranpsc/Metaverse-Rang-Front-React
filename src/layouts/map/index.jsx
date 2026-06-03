@@ -19,6 +19,7 @@ import AuthMiddleware from "../../middleware/AuthMiddleware";
 import ZoomControls from "../../components/ZoomControls";
 import FullscreenControls from "../../components/FullscreenControls";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
+import { useTheme } from "../../services/reducers/ThemeContext";
 export const TransactionContext = createContext(null);
 
 const MemoMapPolygons = React.memo(MapPolygons);
@@ -86,6 +87,7 @@ const MapTreeD = () => {
     },
     [navigate],
   );
+  const {  theme } = useTheme();
 
   useEffect(() => {
     if (isFullScreen && screen.orientation) {
@@ -103,7 +105,6 @@ const MapTreeD = () => {
     observer.observe(document.body, { childList: true, subtree: true });
     return () => observer.disconnect();
   }, []);
-
   return (
     <AuthMiddleware>
       <TransactionContext.Provider
@@ -118,7 +119,8 @@ const MapTreeD = () => {
               ref={mapRef}
               className="map"
               antialias
-              mapStyle="/styleMap.json"
+              mapStyle={theme=="dark"? "/styleMapDark.json": "/styleMapLight.json"}
+             
               RTLTextPlugin="https://map.irpsc.com/rtl.js"
               interactiveLayerIds={["polygon-fill-layer"]}
               maxPitch={68}
