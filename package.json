@@ -43,7 +43,7 @@
     "dompurify": "^3.3.0",
     "i18next": "^23.15.1",
     "i18next-chained-backend": "^4.6.2",
-    "i18next-http-backend": "^2.6.1",
+    "i18next-http-backend": "^4.0.0",
     "i18next-localstorage-backend": "^4.2.0",
     "jalali-moment": "^3.3.11",
     "keen-slider": "^6.8.6",
