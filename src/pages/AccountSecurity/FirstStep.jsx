@@ -164,8 +164,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
   const isPhoneValid =
     phone ||
     (formData.phone &&
-      formData.phone.length === 11 &&
-      formData.phone.startsWith("09"));
+      formData.phone.length === 11);
   const isSubmitDisabled = !isTimeValid || !isPhoneValid;
   return (
     <Container
@@ -251,7 +250,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
             type="text"
             inputMode="numeric"
             name="phone"
-            placeholder="091XXXXXXXX"
+            placeholder="09XXXXXXXX"
             value={formData.phone}
             onChange={(e) => {
               let value = e.target.value;

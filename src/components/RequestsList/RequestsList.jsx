@@ -174,7 +174,6 @@ const RequestsList = ({
   type,
   isLoading, // اضافه شد
 }) => {
-  console.log(rows);
 
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({

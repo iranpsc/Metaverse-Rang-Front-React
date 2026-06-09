@@ -1,0 +1,11 @@
+services:
+  react-app:
+    build:
+      context: .
+    image: metarang-react
+    container_name: react-app
+
+    ports:
+      - "5173:80"
+
+    restart: always

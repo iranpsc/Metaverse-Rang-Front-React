@@ -39,12 +39,10 @@ const Modal = styled.div`
   gap: 30px;
   flex-direction: column;
   position: relative;
-  
 `;
-const Header=styled.div`
-display: flex;
-gap: 10px;
-
+const Header = styled.div`
+  display: flex;
+  gap: 10px;
 `;
 const Title = styled.h3`
   font-size: 24px;
@@ -105,7 +103,7 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
           })
             .then(() => {
               ToastSuccess(
-                "حساب بانکی شما با موفقيت ثبت شد. تاييد نهايی پس از بررسی های لازم صورت ميگيرد/ قابليت بارگذاری ٢٠ حساب بانکی توسط متقاضی صورت گيرد"
+                "حساب بانکی شما با موفقيت ثبت شد. تاييد نهايی پس از بررسی های لازم صورت ميگيرد/ قابليت بارگذاری ٢٠ حساب بانکی توسط متقاضی صورت گيرد",
               );
               setOpenAddModal(false);
               // Refresh the cards list
@@ -132,39 +130,33 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
       <Modal>
         {" "}
         <Header>
-        <ExitIcon onClick={() => setOpenAddModal(false)}>
-        </ExitIcon>
-        <Title>{getFieldTranslationByNames("890")}</Title>
+          <ExitIcon onClick={() => setOpenAddModal(false)}></ExitIcon>
+          <Title>{getFieldTranslationByNames("890")}</Title>
         </Header>
-
-
         <Inputs>
           <EditInput
             title={getFieldTranslationByNames("636")}
             type="number"
+            maxLength={16}
             value={cardInfo.card_num}
             onchange={(e) => {
-              const inputValue = e.target.value;
-              if (inputValue.length <= 16) {
-                setCardInfo((prev) => ({
-                  ...prev,
-                  card_num: inputValue,
-                }));
-              }
+              setCardInfo((prev) => ({
+                ...prev,
+                card_num: e.target.value,
+              }));
             }}
           />
           <EditInput
             title={getFieldTranslationByNames("889")}
             type="number"
+            maxLength={24}
             value={cardInfo.shaba_num}
             onchange={(e) => {
               const inputValue = e.target.value;
-              if (inputValue.length <= 24) {
-                setCardInfo((prev) => ({
-                  ...prev,
-                  shaba_num: inputValue,
-                }));
-              }
+              setCardInfo((prev) => ({
+                ...prev,
+                shaba_num: inputValue,
+              }));
             }}
           />
         </Inputs>

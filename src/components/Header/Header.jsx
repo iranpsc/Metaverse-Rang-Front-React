@@ -145,26 +145,33 @@ const Header = ({
       },
     });
   };
+const handleExitClick = () => {
+  updateScrollDirection(false);
 
-  const handleExitClick = () => {
-    updateScrollDirection(false)
+  if (handleExit) {
+    navigation(location.state?.background?.pathname || "/", {
+      replace: true,
+    });
+    handleExit();
+    return;
+  }
 
-    if (handleExit) {
-      navigation(location.state?.background?.pathname || "", {
-        replace: true,
-      });
-      handleExit();
-      return;
-    }
+  const backgroundPath = location.state?.background?.pathname;
 
-    navigation(-1);
-    if (setShowContainer) {
-      setShowContainer(false);
-    }
-    if (action === "ChangeHiddenState") {
-      resetStates();
-    }
-  };
+  if (backgroundPath) {
+    navigation(backgroundPath, { replace: true });
+  } else {
+    navigation("/", { replace: true });
+  }
+
+  if (setShowContainer) {
+    setShowContainer(false);
+  }
+
+  if (action === "ChangeHiddenState") {
+    resetStates();
+  }
+};
   return (
     <HeaderWrapper>
       <Text long={long}>{getFieldTranslationByNames(title)}</Text>
