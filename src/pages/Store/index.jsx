@@ -1,9 +1,4 @@
-import React from "react";
-import { Outlet, useParams } from "react-router-dom";
-
 import Tabs from "../../services/Hooks/useTabs";
-import ToolTab from "./shop/tool-tab/ToolTab";
-import CurrencyTab from "./shop/currency-tab/CurrencyTab";
 import ShopInfo from "./shop/ShopInfo";
 import Modal from "../../components/Modal/index";
 import { getFieldTranslationByNames } from "../../services/Utility";

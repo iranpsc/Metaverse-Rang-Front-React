@@ -1,4 +1,3 @@
-import { HiOutlineUser } from "react-icons/hi";
 import styled from "styled-components";
 import DefaultProfile from "../../../../assets/images/defulte-profile.png";
 const Container = styled.div`
@@ -37,7 +36,7 @@ const Profile = ({ user }) => {
         <h2>{user?.name}</h2>
         <a
           href={`https://metarang.com/fa/citizens/${user?.code.toLowerCase()}`}
-          target="_blank"
+          target="_blank" rel="noreferrer"
         >
           {user.code}
         </a>

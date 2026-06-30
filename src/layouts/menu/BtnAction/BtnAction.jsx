@@ -1,7 +1,6 @@
 import React, { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../../services/Hooks/useAuth";
 import ArowMenu from "../../../assets/svg/arowMenu.svg?react";
 import { getFieldTranslationByNames } from "../../../services/Utility";
@@ -42,7 +41,6 @@ const CollapsedContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  gap: 20px;
 `;
 const DefaultContainer = styled.div`
   display: ${(props) => (props.isOpen && props.isClicked ? "none" : "flex")};
@@ -50,7 +48,6 @@ const DefaultContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  gap: 20px;
 `;
 const TextDetail = styled.p`
   display: ${(props) => (props.isClicked ? "block" : "none")};
@@ -76,7 +73,7 @@ const Div = styled.div`
     !props.isOpen && props.isClicked ? "absolute" : "relative"};
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};
-  
+
   ${(props) => {
     !props.isPersian
       ? `right: ${!props.isOpen ? "-220px" : "0"}`
@@ -106,7 +103,6 @@ const Div = styled.div`
     border-radius: 0 7px 0 0;
     display: ${(props) =>
       !props.isOpen && props.isClicked ? "block" : "none"};
-     
   }
   @media (max-height: 500px) {
     padding: 3px 16px;
@@ -115,7 +111,6 @@ const Div = styled.div`
 
 const BtnAction = () => {
   const { isOpen } = useMenuContext();
-  const navigate = useNavigate();
   const { getUser } = useAuth();
   const [user, setUser] = useState();
   const [isClicked, setIsClicked] = useState(false);

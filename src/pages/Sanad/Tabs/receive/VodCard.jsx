@@ -107,7 +107,7 @@ const socials = [
   { id: 4, icon: send },
 ];
 const VodCard = ({ data }) => {
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request } = useRequest();
   const onCloseTicket = () => {
     Request(`tickets/close/${data.id}`)
       .then(() => {

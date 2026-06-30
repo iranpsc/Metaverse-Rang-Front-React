@@ -22,7 +22,6 @@ const Watch = styled.p`
     min-width: 75px;
   }
 `;
-
 const Ping = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-family: DigitalNumber !important;
@@ -31,8 +30,8 @@ const Ping = styled.p`
   font-weight: 400;
   line-height: 180%;
   text-transform: capitalize;
-  border-right: 2px solid #000;
-  padding-right: 5px;
+  border-inline-start: 2px solid #000;
+  padding-inline-start: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -69,7 +68,7 @@ const Status = () => {
           method: "HEAD",
           signal: controller.signal,
           cache: "no-cache",
-          mode: "no-cors", 
+          mode: "no-cors",
         });
 
         clearTimeout(timeout);

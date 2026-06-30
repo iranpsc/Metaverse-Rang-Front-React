@@ -196,7 +196,7 @@ const CitizenMessage = ({ data }) => {
             <span>{data?.sender?.name}</span>
             <a
               href={`https://metarang.com/fa/citizens/${data?.sender?.code}`}
-              target="_blank"
+              target="_blank" rel="noreferrer"
             >
               {data?.sender.code}
             </a>
@@ -216,7 +216,7 @@ const CitizenMessage = ({ data }) => {
               <span>{data?.sender?.name}</span>
               <a
                 href={`https://metarang.com/fa/citizens/${data?.sender?.code}`}
-                target="_blank"
+                target="_blank" rel="noreferrer"
               >
                 {data?.sender.code}
               </a>

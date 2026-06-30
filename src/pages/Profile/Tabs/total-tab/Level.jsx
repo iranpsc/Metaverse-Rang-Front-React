@@ -71,7 +71,6 @@ const LevelCount = styled.div`
 
 const Level = () => {
   const [user] = useContext(UserContext);
-  const [levelData, setLevelData] = useState(null);
   const [loading, setLoading] = useState(true);
   const IsPersian = useLanguage();
   const { Request } = useRequest();
@@ -84,18 +83,10 @@ const Level = () => {
       setLoading(true);
       // آدرس API رو پیدا کن - ممکنه یکی از اینها باشه
       Request(`users/${requestId}/level`)
-        .then((response) => {
-          setLevelData(response.data.data);
-        })
+        .then((response) => {})
         .catch((error) => {
           console.error("Error loading level:", error);
           // اگه ارور خورد، یه دیتای پیشفرض بذار که حداقل اسکلتون بره
-          setLevelData({
-            name: "بدون سطح",
-            percentage: 0,
-            previous_levels: [],
-            image: ""
-          });
         })
         .finally(() => {
           setLoading(false);

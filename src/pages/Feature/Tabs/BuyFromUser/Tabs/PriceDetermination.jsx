@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Submit from "../../../../../components/Buttons/Submit";
 import Form from "../../../../../components/Form";
@@ -35,8 +34,6 @@ export default function PriceDetermination() {
 
   const { Request, HTTP_METHOD } = useRequest();
 
-  const Navigate = useNavigate();
-
   const totalArea = feature?.properties?.density * feature?.properties?.area;
   const totalIrr =
     totalArea *
@@ -70,9 +67,7 @@ export default function PriceDetermination() {
           ToastSuccess("پیشنهاد شما با موفقیت ارسال گردید.");
         })
         .catch((error) => {
-      
-            ToastError(error.response.data.message);
-          
+          ToastError(error.response.data.message);
         });
     } else {
       setErrors({
@@ -136,10 +131,10 @@ export default function PriceDetermination() {
             title={"قیمت نهایی"}
             value={`${calculateFee(
               formData.price_irr ? formData.price_irr : 0,
-              5
+              5,
             )} IRR / ${calculateFee(
               formData.price_irr ? formData.price_irr : 0,
-              5
+              5,
             )} PSC`}
           />
         </Container>

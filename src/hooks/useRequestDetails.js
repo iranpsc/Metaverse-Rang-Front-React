@@ -6,6 +6,7 @@ const useRequestDetails = (type) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
+
   const fetchRequestDetails = async (id) => {
     setLoading(true);
     try {

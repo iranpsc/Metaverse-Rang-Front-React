@@ -1,6 +1,6 @@
 import { FiSearch } from "react-icons/fi";
 import Input from "./Input";
-import RichText from "./RichText";
+//import RichText from "./RichText";
 import styled from "styled-components";
 import { useState } from "react";
 import Button from "../../../../components/Button";

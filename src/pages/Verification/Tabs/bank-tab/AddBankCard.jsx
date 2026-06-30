@@ -90,12 +90,12 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
   const addCard = () => {
     setErrors([]);
     const shebaInfo = getShebaInfo(`IR${cardInfo.shaba_num}`);
-    const cartValidate = verifyCardNumber(cardInfo.card_num);
-    const cartName = getBankNameFromCardNumber(cardInfo.card_num);
+    const cardValidate = verifyCardNumber(cardInfo.card_num);
+    const cardName = getBankNameFromCardNumber(cardInfo.card_num);
 
     if (shebaInfo?.persianName) {
-      if (cartName === shebaInfo.persianName) {
-        if (cartValidate) {
+      if (cardName === shebaInfo.persianName) {
+        if (cardValidate) {
           Request("bank-accounts", HTTP_METHOD.POST, {
             card_num: cardInfo.card_num,
             shaba_num: `IR${cardInfo.shaba_num}`,
@@ -103,7 +103,7 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
           })
             .then(() => {
               ToastSuccess(
-                "حساب بانکی شما با موفقيت ثبت شد. تاييد نهايی پس از بررسی های لازم صورت ميگيرد/ قابليت بارگذاری ٢٠ حساب بانکی توسط متقاضی صورت گيرد",
+                "حساب بانکی شما با موفقیت ثبت شد. تایید نهایی پس از بررسی های لازم صورت میگیرد/ قابلیت بارگذاری ٢٠ حساب بانکی توسط متقاضی صورت گیرد",
               );
               setOpenAddModal(false);
               // Refresh the cards list
@@ -112,16 +112,19 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
               });
             })
             .catch((error) => {
-              ToastError(error.response.data.message);
+              ToastError(
+                error?.response?.data?.message ||
+                  "خطایی در ثبت حساب بانکی رخ داد.",
+              );
             });
         } else {
-          setErrors(["شماره کارت صحیح نمی باشد لطفا آنرا برسی نمایید."]);
+          setErrors(["شماره کارت صحیح نمی باشد لطفا آنرا بررسی نمایید."]);
         }
       } else {
         setErrors(["شماره شبا و شماره کارت باید متعلق به یک کارت باشد."]);
       }
     } else {
-      setErrors(["شماره شبا صحیح نمی باشد لطفا آنرا برسی نمایید."]);
+      setErrors(["شماره شبا صحیح نمی باشد لطفا آنرا بررسی نمایید."]);
     }
   };
 

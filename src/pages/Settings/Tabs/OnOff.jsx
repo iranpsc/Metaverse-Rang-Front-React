@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import { getFieldTranslationByNames } from "../../../services/Utility";
 
 const On = styled.div`
   width: 45px;
@@ -39,22 +37,6 @@ const OnOff = ({ label, isOn, onToggle }) => {
     const newValue = !off;
     setOff(newValue);
     onToggle(newValue);
-    toast.success(
-      `${getFieldTranslationByNames("setting", label)} با موفقیت ${
-        newValue ? "خاموش" : "روشن"
-      } شد!`,
-      {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        bodyClassName: "success",
-      }
-    );
   };
 
   return (

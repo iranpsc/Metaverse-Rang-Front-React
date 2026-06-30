@@ -102,7 +102,7 @@ const TreeMember = ({ item }) => {
         />
       </Image>
       <h3>{getRelationshipLabel(item.relationship)}</h3>
-      <a href={`https://metarang.com/fa/citizen/${item.code}`} target="_blank">
+      <a href={`https://metarang.com/fa/citizen/${item.code}`} target="_blank" rel="noreferrer">
         {item.code}
       </a>
     </Container>

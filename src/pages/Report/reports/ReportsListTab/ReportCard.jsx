@@ -1,8 +1,8 @@
 import Title from "../../../../components/Title";
 import CircleIcon from "../../../../assets/images/link-circle.png";
 import instagram from "../../../../assets/images/instagram.png";
-import SendIcon  from "../../../../assets/images/send-2.png";
-import  WhatsappIcon from "../../../../assets/images/whatsapp.png";
+import SendIcon from "../../../../assets/images/send-2.png";
+import WhatsappIcon from "../../../../assets/images/whatsapp.png";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import { convertToPersian } from "../../../../services/Utility/index";
@@ -78,14 +78,14 @@ const Code = styled.div`
     font-weight: 500;
     color: ${(props) => props.theme.colors.newColors.shades.title};
   }
-`;
+`; /**
 const Subject = styled.div`
   h2 {
     font-size: 16px;
     font-weight: 500;
     color: ${(props) => props.theme.colors.newColors.shades.title};
   }
-`;
+`; */
 const Status = styled.div`
   h2 {
     font-size: 16px;
@@ -148,7 +148,6 @@ const ReportCard = ({
                 key={item.id}
                 style={{ width: 24, height: 24 }}
               />
-             
             ))}
           </div>
         </Socials>

@@ -4,7 +4,6 @@ import { useState } from "react";
 import SearchInput from "../../../../components/SearchInput";
 import Title from "../../../../components/Title";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
-import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
   background-color: ${(props) =>

@@ -21,9 +21,8 @@ import ZoomControls from "../../components/ZoomControls";
 import FullscreenControls from "../../components/FullscreenControls";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 import { useTheme } from "../../services/reducers/ThemeContext";
-import styleMapLight from "../../../public/styleMapLight.json";
-import styleMapDark from "../../../public/styleMapDark.json";
-
+import styleMapLight from "../../assets/styleMapLight.json";
+import styleMapDark from "../../assets/styleMapDark.json";
 export const TransactionContext = createContext(null);
 
 const MemoMapPolygons = React.memo(MapPolygons);
@@ -98,7 +97,6 @@ const MapTreeD = () => {
       screen.orientation.lock("landscape-primary").catch(() => {});
     }
   }, [isFullScreen]);
-  const isFirstLoad = useRef(true);
   useEffect(() => {
     const observer = new MutationObserver(() => {
       const attrib = document.querySelector(".maplibregl-ctrl-attrib");

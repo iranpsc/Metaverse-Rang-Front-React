@@ -1,4 +1,3 @@
-import avatar from "../../../../assets/images/defulte-profile.png";
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
 import { SanitizeHTML } from "../../../../services/Utility";
@@ -131,7 +130,7 @@ const AdminMessage = ({ data }) => {
               <span>{response.responser_name}</span>
               <a
                 href={`https://metarang.com/fa/citizens/${data.code}`}
-                target="_blank"
+                target="_blank" rel="noreferrer"
               >
                 {data.code}
               </a>

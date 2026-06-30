@@ -5,7 +5,6 @@ import { AlertContext } from "../../../../services/reducers/AlertContext";
 import InfoRow from "../InfoRow";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { ScaleLoader } from "react-spinners";
 import Container from "../../../../components/Common/Container";
 import { useLocation } from "react-router-dom";
 import { currencies } from "../data";

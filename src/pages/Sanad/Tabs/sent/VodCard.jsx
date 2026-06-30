@@ -5,7 +5,7 @@ import styled from "styled-components";
 import whatsapp from "../../../../assets/images/whatsapp.png";
 import Title from "../../../../components/Title";
 import Button from "../../../../components/Button";
-import useRequest from "../../../../services/Hooks/useRequest";
+//import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
   background-color: #1a1a18;
@@ -102,8 +102,8 @@ const socials = [
   { id: 4, icon: send },
 ];
 const VodCard = ({ status, code, date, time, member, setShowDetails }) => {
-  const { Request, HTTP_METHOD } = useRequest();
-  const onCloseTicket = () => {
+ // const { Request } = useRequest();
+ /* const onCloseTicket = () => {
     Request(`tickets/close/${data.id}`)
       .then(() => {
         setShowDetails(false);
@@ -111,7 +111,7 @@ const VodCard = ({ status, code, date, time, member, setShowDetails }) => {
       .catch((error) => {
         ToastError(error.response.data.message);
       });
-  };
+  };*/
 
   return (
     <Container>

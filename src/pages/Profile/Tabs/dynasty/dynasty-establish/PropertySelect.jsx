@@ -3,7 +3,6 @@ import Title from "../../../../../components/Title";
 
 import styled from "styled-components";
 import SearchInput from "../../../../../components/SearchInput";
-import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
 
@@ -25,7 +24,6 @@ const Top = styled.div`
 
 const PropertySelect = ({ setMode, data, setData }) => {
   const { Request, HTTP_METHOD } = useRequest();
-  const Navigate = useNavigate();
   const selectDynasty = (id) => {
     Request(`dynasty/create/${id}`, HTTP_METHOD.POST)
       .then((response) => {

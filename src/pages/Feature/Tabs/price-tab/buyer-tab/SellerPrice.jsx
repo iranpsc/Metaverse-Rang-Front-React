@@ -1,7 +1,6 @@
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
 import SellerPriceInfo from "./SellerPriceInfo";
 import styled from "styled-components";
-import Button from "../../../../../components/Button";
 import Container from "../../../../../components/Common/Container";
 const Wrapper = styled.div`
   display: flex;

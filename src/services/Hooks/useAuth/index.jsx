@@ -1,4 +1,4 @@
-import { useContext,useEffect } from "react";
+import { useContext } from "react";
 import {
   AddUserAction,
   DeleteUserAction,
@@ -18,14 +18,14 @@ export default function useAuth() {
 
   const LocalStorage = getItem("user");
   const isLoggedIn = () => {
-  if (LocalStorage?.expire > Date.now()) {
-    return true;
-  } else {
-    removeItem("user");
-    setUserState(DeleteUserAction());
-    return false;
-  }
-};
+    if (LocalStorage?.expire > Date.now()) {
+      return true;
+    } else {
+      removeItem("user");
+      setUserState(DeleteUserAction());
+      return false;
+    }
+  };
 
   const setUser = async (response) => {
     const user = response;
@@ -39,17 +39,16 @@ export default function useAuth() {
         HTTP_METHOD.GET,
         {},
         { Authorization: `Bearer ${user?.token}` },
-        "development"
+        "development",
       ),
       Request(
         "auth/me",
         HTTP_METHOD.POST,
         {},
         { Authorization: `Bearer ${user?.token}` },
-        "development"
+        "development",
       ),
-    ]
- ); 
+    ]);
     setWallet({
       type: WalletContextTypes.ADD_WALLET,
       payload: walletResponse.data.data,
@@ -61,22 +60,28 @@ export default function useAuth() {
   const getUser = () => {
     return userState;
   };
-
   const setUserWithToken = async () => {
-    if (true) {
-      const userProfileResponse = await Request("auth/me", HTTP_METHOD.POST);
-      setUserState(AddUserAction(userProfileResponse.data.data));
-
-      const [walletResponse] = await Promise.all([Request("user/wallet")]);
-
-      setWallet({
-        type: WalletContextTypes.ADD_WALLET,
-        payload: walletResponse.data.data,
-      });
-    } else {
-      removeItem("user");
+    const user = getItem("user");
+    console.log("user", user);
+    if (!user?.token) {
+      return;
     }
-  };
 
+    const headers = {
+      Authorization: `Bearer ${user.token}`,
+    };
+
+    const [userProfileResponse, walletResponse] = await Promise.all([
+      Request("auth/me", HTTP_METHOD.POST, {}, headers),
+      Request("user/wallet", HTTP_METHOD.GET, {}, headers),
+    ]);
+
+    setUserState(AddUserAction(userProfileResponse.data.data));
+
+    setWallet({
+      type: WalletContextTypes.ADD_WALLET,
+      payload: walletResponse.data.data,
+    });
+  };
   return { setUser, setUserWithToken, isLoggedIn, getUser };
 }

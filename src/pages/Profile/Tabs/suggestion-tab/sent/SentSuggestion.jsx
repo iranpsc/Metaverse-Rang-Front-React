@@ -8,17 +8,15 @@ import {
 } from "../../../../../services/Utility/index";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { Wrapper } from "../suggestionStyles";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import moment from "moment-jalaali";
 import Container from "../../../../../components/Common/Container";
-import { Skeleton } from "../../../../../components/Skeleton";
 
 const SentSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const { Request, checkSecurity } = useRequest();
   const location = useLocation();
-  const navigate = useNavigate();
   const containerRef = useRef(null);
 
   useEffect(() => {

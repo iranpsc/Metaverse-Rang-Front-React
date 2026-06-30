@@ -1,4 +1,3 @@
-import { getFieldTranslationByNames } from "../../../../services/Utility";
 import Codes from "./Codes";
 import EditInput from "./EditInput";
 import EditLevelInput from "./EditLevelInput";
@@ -10,7 +9,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  
 `;
 const First = styled.div`
   display: flex;
@@ -23,6 +21,7 @@ const Second = styled.div`
   align-items: center;
   gap: 10px;
 `;
+/*
 const TextArea = styled.textarea`
   border-radius: 5px;
   padding: 10px;
@@ -34,7 +33,7 @@ const TextArea = styled.textarea`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   font-size: 16px;
-`;
+`;*/
 const Title = styled.h3`
   font-weight: 600;
   color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -86,10 +85,7 @@ const EditInputs = ({ data, setData, setEdit, setPayed }) => {
             slug={input.slug}
             icon={input.icon}
             // onchange={changeHandler}
-            title={getFieldTranslationByNames(
-              "entering-the-property",
-              input.title
-            )}
+            title={"entering-the-property"}
             key={input.id}
           />
         ))}
@@ -104,10 +100,7 @@ const EditInputs = ({ data, setData, setEdit, setPayed }) => {
             type={input.type}
             // onchange={changeHandler}
             // {...input}
-            title={getFieldTranslationByNames(
-              "entering-the-property",
-              input.title
-            )}
+            title={"entering-the-property"}
             key={input.id}
           />
         ))}
@@ -121,19 +114,14 @@ const EditInputs = ({ data, setData, setEdit, setPayed }) => {
       <Wrapper>
         <RichText />
       </Wrapper>
-      <Title>
-        {getFieldTranslationByNames(
-          "entering-the-property",
-          "creating a unique login code"
-        )}
-      </Title>
+      <Title>{"creating a unique login code"}</Title>
       <Codes />
       <Button
         onClick={() => {
           setEdit(false);
         }}
       >
-        {getFieldTranslationByNames("entering-the-property", input.title)}
+        {"entering-the-property"}
       </Button>
     </Container>
   );

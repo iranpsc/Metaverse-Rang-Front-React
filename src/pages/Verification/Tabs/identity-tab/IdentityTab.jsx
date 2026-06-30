@@ -118,7 +118,7 @@ const IdentityTab = () => {
   const { Request } = useRequest();
   const [errors, setErrors] = useState([]);
   const [details, setDetails] = useState(initialDetails);
-const [openErrorModal, setOpenErrorModal] = useState(false);
+  const [openErrorModal, setOpenErrorModal] = useState(false);
 
   useEffect(() => {
     Request(`kyc`).then((response) => {
@@ -126,7 +126,7 @@ const [openErrorModal, setOpenErrorModal] = useState(false);
 
       if (response.data.data.errors) {
         const errorNames = response.data.data.errors.map(
-          (error) => error.message
+          (error) => error.message,
         );
         setErrors(errorNames);
 
@@ -182,13 +182,13 @@ const [openErrorModal, setOpenErrorModal] = useState(false);
     }));
 
     setErrors((prevErrors) =>
-      prevErrors.filter((error) => error !== `${name}_err`)
+      prevErrors.filter((error) => error !== `${name}_err`),
     );
 
     setDetails((prevDetails) =>
       prevDetails.map((detail) =>
-        detail.slug === name ? { ...detail, error: false } : detail
-      )
+        detail.slug === name ? { ...detail, error: false } : detail,
+      ),
     );
   };
 
@@ -218,14 +218,15 @@ const [openErrorModal, setOpenErrorModal] = useState(false);
         showPending={true} // برای نمایش حالت "در دست بررسی"
       />
     );
-  if (submitted)
-    return (
+  {
+    submitted && (
       <IdentityInfo
         data={details}
         inputValues={inputValues}
         nationalCardImg={nationalCardImg}
       />
     );
+  }
 };
 
 export default IdentityTab;

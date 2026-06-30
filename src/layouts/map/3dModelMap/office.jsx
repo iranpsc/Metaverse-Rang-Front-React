@@ -1,10 +1,8 @@
 import React, { useRef } from "react";
-import { useFrame, useLoader } from "@react-three/fiber";
+import { useLoader } from "@react-three/fiber";
 import { Canvas, Coordinates } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { HemisphereLight } from "three";
-import { levaStore, useControls } from "leva";
-import { Marker, useMap } from "react-map-gl";
 
 const FBXModel = ({ url, position, rotation }) => {
   const fbx = useLoader(FBXLoader, url);

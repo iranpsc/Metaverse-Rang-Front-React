@@ -1,6 +1,5 @@
 import Info from "./Info";
 import Inputs from "./Inputs";
-import styled from "styled-components";
 import Container from "../../../../components/Common/Container";
 
 const PhysicInfo = ({ inputs, setEdit, edit }) => {

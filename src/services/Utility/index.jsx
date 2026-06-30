@@ -69,7 +69,6 @@ export const getPlainText = (htmlString) => {
   return doc.body.textContent || "";
 };
 
-
 export function TextShorter(content, endStr = 20) {
   if (content?.length > endStr) {
     return `${SanitizeHTML(content).substring(0, endStr)}...`;
@@ -303,3 +302,30 @@ export function convertEnglishToPersianNumbers(inputText) {
 
   return inputText;
 }
+export const isMobile =
+  "ontouchstart" in window || navigator.maxTouchPoints > 0;
+export const getBrowser = async () => {
+  const ua = navigator.userAgent;
+
+  if (navigator.brave && (await navigator.brave.isBrave())) {
+    return "Brave";
+  }
+
+  if (/Edg/i.test(ua)) {
+    return "Edge";
+  }
+
+  if (/OPR/i.test(ua)) {
+    return "Opera";
+  }
+
+  if (/Firefox/i.test(ua)) {
+    return "Firefox";
+  }
+
+  if (/Chrome/i.test(ua)) {
+    return "Chrome";
+  }
+
+  return "Unknown";
+};

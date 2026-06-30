@@ -1,9 +1,5 @@
-import CurrenciesContent from "./CurrenciesContent";
 import SideBar from "./SideBar";
-import { currencies } from "../data";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 const Wrapper = styled.div`
   display: flex;

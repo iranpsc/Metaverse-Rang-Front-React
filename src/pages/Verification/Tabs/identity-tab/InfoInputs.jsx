@@ -8,6 +8,7 @@ const Container = styled.div`
   gap: 10px;
   margin-top: 10px;
 `;
+/*
 const Select = styled.select`
   border-radius: 5px;
   border: 1px solid ${(props) => (props.identityError ? "#C30000" : "#454545")};
@@ -25,7 +26,7 @@ const Select = styled.select`
   outline: none;
   font-size: 16px;
 `;
-
+*/
 const InfoInputs = ({ data, inputValues }) => {
   return (
     <Container>

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import ModalLg from "../../../../../components/Modal/ModalLg";
 import { UserContext } from "../../../../../services/reducers/UserContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../../services/Hooks/useRequest";
 
 const Buttons = styled.div`
@@ -25,7 +24,6 @@ const RequestDetails = ({
   type,
 }) => {
   const [user] = useContext(UserContext);
-  const navigate = useNavigate();
   const { Request, HTTP_METHOD } = useRequest();
 
   const handleSubmit = () => {

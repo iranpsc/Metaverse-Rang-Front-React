@@ -99,10 +99,9 @@ const EnterTab = ({ owner }) => {
         isOwner={owner}
       />
     );
-  if (edit)
-    return (
+  {
+    edit && (
       <EnterEdit
-      
         setEdit={setEdit}
         data={data}
         setData={setData}
@@ -110,6 +109,7 @@ const EnterTab = ({ owner }) => {
         setPayed={setPayed}
       />
     );
+  }
 };
 
 export default EnterTab;

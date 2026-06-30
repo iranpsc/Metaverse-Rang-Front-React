@@ -1,9 +1,14 @@
 import MapTreeD from "./map";
 import Menu from "./menu";
 import StatusBar from "./statusBar";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { MenuContextProvider } from "../services/reducers/MenuContext";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
+import { UserContext } from "../services/reducers/UserContext";
+import { getItem } from "../services/Utility/LocalStorage";
+
 const Container = styled.section`
   display: flex;
   overflow-y: hidden;
@@ -21,6 +26,22 @@ const Container = styled.section`
   transition: all 0.3s ease 0s;
 `;
 const MainLayout = () => {
+  const navigate = useNavigate();
+  const usertoken = getItem("user");
+  const [user] = useContext(UserContext);
+
+useEffect(() => {
+  if (user?.has_wallet == true || !usertoken) return;
+
+  const currentSession = `${usertoken.token}-${usertoken.expire}`;
+  const shownSession = localStorage.getItem("walletModalShown");
+
+  if (shownSession !== currentSession) {
+    localStorage.setItem("walletModalShown", currentSession);
+    navigate("/connectWallet", { replace: true });
+  }
+}, [user, navigate]);
+
   return (
     <Container>
       <MenuContextProvider>

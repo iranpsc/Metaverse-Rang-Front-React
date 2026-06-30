@@ -5,8 +5,7 @@ import Message from "../../../assets/svg/message.svg";
 import ProfileMember from "../../../assets/svg/profileMember.svg";
 import Ticket from "../../../assets/svg/ticket.svg";
 import Setting from "../../../assets/svg/setting.svg";
-import  UnionIcon  from "../../../assets/svg/union.svg?react";
-import { useState } from "react";
+import UnionIcon from "../../../assets/svg/union.svg?react";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
@@ -62,7 +61,7 @@ const IconHeader = styled(UnionIcon)`
     props.isOpenDrop ? "white" : props.theme.btnActiveThemeText};
 `;
 const Union = () => {
-  const [isOpenDrop, SetIsOpenDrop] = useState(false);
+  const isOpenDrop = false;
   const { isOpen } = useMenuContext();
   return (
     <>

@@ -83,18 +83,17 @@ const TransactionsTab = () => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const { Request } = useRequest();
   const loaderRef = useRef(null);
-  
+
   const convertPersianToEnglish = (str) => {
     if (!str) return str;
     const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     return str.replace(/[۰-۹]/g, (d) => persianNumbers.indexOf(d));
   };
-  
+
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
     success: false,
@@ -117,7 +116,6 @@ const TransactionsTab = () => {
 
   const fetchTransactions = async () => {
     setIsLoading(true);
-    setError(null);
 
     try {
       const statusParams = [];
@@ -192,14 +190,17 @@ const TransactionsTab = () => {
         if (currentPage === 1) {
           setFilteredTransactions(processedTransactions);
         } else {
-          setFilteredTransactions((prev) => [...prev, ...processedTransactions]);
+          setFilteredTransactions((prev) => [
+            ...prev,
+            ...processedTransactions,
+          ]);
         }
       } else {
         setFilteredTransactions([]);
         setTransactions((prev) =>
           currentPage === 1
             ? processedTransactions
-            : [...prev, ...processedTransactions]
+            : [...prev, ...processedTransactions],
         );
       }
 
@@ -262,7 +263,7 @@ const TransactionsTab = () => {
           }
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     if (loaderRef.current) {
@@ -281,7 +282,9 @@ const TransactionsTab = () => {
     setSearched(searchValue);
   }, []);
 
-  const displayTransactions = filteredTransactions.length ? filteredTransactions : transactions;
+  const displayTransactions = filteredTransactions.length
+    ? filteredTransactions
+    : transactions;
 
   // لودینگ اولیه
   if (initialLoading) {
@@ -323,7 +326,12 @@ const TransactionsTab = () => {
             <SkeletonRow key={index}>
               <Skeleton width="40px" height="40px" radius="50%" />
               <div style={{ flex: 1 }}>
-                <Skeleton width="80%" height="16px" radius="4px" style={{ marginBottom: "8px" }} />
+                <Skeleton
+                  width="80%"
+                  height="16px"
+                  radius="4px"
+                  style={{ marginBottom: "8px" }}
+                />
                 <Skeleton width="60%" height="12px" radius="4px" />
               </div>
               <Skeleton width="40px" height="40px" radius="10px" />
@@ -377,7 +385,7 @@ const TransactionsTab = () => {
         subject={subject}
         rows={displayTransactions}
       />
-      
+
       {/* اسکلتون لودینگ بیشتر (اینفینیتی اسکرول) */}
       {isLoading && displayTransactions.length > 0 && (
         <div style={{ marginTop: "20px" }}>
@@ -385,7 +393,12 @@ const TransactionsTab = () => {
             <SkeletonRow key={`loading-${index}`}>
               <Skeleton width="40px" height="40px" radius="50%" />
               <div style={{ flex: 1 }}>
-                <Skeleton width="80%" height="16px" radius="4px" style={{ marginBottom: "8px" }} />
+                <Skeleton
+                  width="80%"
+                  height="16px"
+                  radius="4px"
+                  style={{ marginBottom: "8px" }}
+                />
                 <Skeleton width="60%" height="12px" radius="4px" />
               </div>
               <Skeleton width="40px" height="40px" radius="999px" />

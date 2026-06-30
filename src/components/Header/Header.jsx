@@ -132,7 +132,7 @@ const Header = ({
   const location = useLocation();
   const navigation = useNavigate();
   const { resetStates } = useSelectedEnvironment();
-  const { updateScrollDirection,isScrollingDown } = useScrollDirectionContext();
+  const { updateScrollDirection } = useScrollDirectionContext();
 
   const newStr = location.pathname.replace(/\//g, "") + "-";
   const locationPage = location?.state?.locationPage;

@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-
+import { useState } from "react";
 import { LuEye } from "react-icons/lu";
 import VodDetails from "./VodDetails.jsx";
 import styled from "styled-components";
@@ -98,20 +97,20 @@ const VodRow = ({
                 status === "confirmed"
                   ? "#18C08F"
                   : status === "pending"
-                  ? "#FFC700"
-                  : status === "read"
-                  ? "#A0A0AB"
-                  : "#C30000"
+                    ? "#FFC700"
+                    : status === "read"
+                      ? "#A0A0AB"
+                      : "#C30000"
               }`,
             }}
           >
             {status === "confirmed"
               ? "پاسخ داده شده"
               : status === "pending"
-              ? "باز نشده"
-              : status === "read"
-              ? "خوانده شده"
-              : "بسته شده"}
+                ? "باز نشده"
+                : status === "read"
+                  ? "خوانده شده"
+                  : "بسته شده"}
           </Title>
         </TableCell>
         <TableCell>

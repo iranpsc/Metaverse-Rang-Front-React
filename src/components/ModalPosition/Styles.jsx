@@ -1,4 +1,4 @@
-import { animated, useSpring } from "@react-spring/web";
+import { animated } from "@react-spring/web";
 import styled from "styled-components";
 
 export const Header = styled.div`

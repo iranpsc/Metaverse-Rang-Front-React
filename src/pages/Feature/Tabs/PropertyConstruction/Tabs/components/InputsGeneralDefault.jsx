@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
-import Submit from "../../../../../../components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../../../../services/reducers/SelectedEnvironmentContext";
 import { useNavigate } from "react-router-dom";
 import {
@@ -38,7 +37,6 @@ const P = styled.p`
 const InputsGeneralDefault = () => {
   const {
     updateFormState,
-    selectedEnvironment,
     toggleConfirmation,
     toggleIsSelectable,
     isSelectable,

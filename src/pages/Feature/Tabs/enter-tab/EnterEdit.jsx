@@ -1,5 +1,4 @@
 import Title from "../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
 import EditInputs from "./EditInputs";
 
 import styled from "styled-components";
@@ -8,17 +7,11 @@ const Container = styled.div`
   padding-top: 20px 0;
   padding-right: 15px;
   overflow-y: auto;
-  
 `;
-const EnterEdit = ({ setEdit, data, setData, payed, setPayed }) => {
+const EnterEdit = ({ setEdit, data, setData, setPayed }) => {
   return (
     <Container>
-      <Title
-        title={getFieldTranslationByNames(
-          "entering-the-property",
-          "editing information"
-        )}
-      />
+      <Title title="entering-the-property" />
       <EditInputs
         data={data}
         setData={setData}

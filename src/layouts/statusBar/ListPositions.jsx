@@ -174,7 +174,7 @@ const TooltipContent = ({ imgSrc, name, lang, href, onlineUser }) => {
       delay={50}
       animation="scale"
     >
-      <a href={href} target="_blank">
+      <a href={href} target="_blank" rel="noreferrer">
         <ImgPosition src={imgSrc} />
       </a>
     </Tippy>

@@ -4,7 +4,6 @@ import { useMenuContext } from "../../../services/reducers/MenuContext";
 import Message from "../../../assets/svg/message.svg";
 import ProfileMember from "../../../assets/svg/profileMember.svg";
 import Ticket from "../../../assets/svg/ticket.svg";
-import Setting from "../../../assets/svg/setting.svg";
 import CitizenProfile from "../../../assets/svg/citizenProfile.svg";
 import Share from "../../../assets/svg/share.svg";
 import  FollowingIcon  from "../../../assets/svg/following.svg?react";

@@ -1,7 +1,6 @@
 import { createContext, useState } from "react";
 import NoteCard from "./NoteCard";
 import NoteMessages from "./NoteMessages";
-import styled from "styled-components";
 import ModalLg from "../../../../components/Modal/ModalLg";
 import Container from "../../../../components/Common/Container";
 

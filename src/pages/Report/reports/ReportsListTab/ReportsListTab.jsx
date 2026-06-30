@@ -15,7 +15,6 @@ import { getFieldTranslationByNames } from "../../../../services/Utility/index";
 import { useTheme } from "../../../../services/reducers/ThemeContext";
 import useRequest from '../../../../services/Hooks/useRequest';
 import Container from "../../../../components/Common/Container";
-import { Skeleton } from "../../../../components/Skeleton";
 
 const Div = styled.div`
   display: grid;

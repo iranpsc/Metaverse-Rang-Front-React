@@ -166,7 +166,6 @@ const CustomEditor = ({
     let newValue = val;
 
     if (text.length - 1 > charLimit) {
-      const allowedText = text.slice(0, charLimit);
       const quill = editor;
       quill.deleteText(charLimit, text.length);
       newValue = quill.root.innerHTML;

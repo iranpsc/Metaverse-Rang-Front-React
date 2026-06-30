@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import styled from "styled-components";
-import { toast } from "react-toastify";
 import Button from "../../../../components/Button";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
 import Title from "../../../../components/Title";
@@ -15,7 +14,6 @@ import {
   phoneNumberNormalizer,
   phoneNumberValidator,
 } from "@persian-tools/persian-tools";
-import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   padding: 20px;
@@ -63,7 +61,6 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
   const [isSending, setIsSending] = useState(false); // حالت لودینگ دکمه
   const [inputValues, setInputValues] = useState([]);
   const [inputErrors, setInputErrors] = useState([]);
-  const Navigate = useNavigate();
 
   useEffect(() => {
     if (Array.isArray(inputs)) {

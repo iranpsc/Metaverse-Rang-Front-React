@@ -35,7 +35,7 @@ const UserCode = ({ title, code }) => {
         <HiOutlineUser size={20} />
         <span>{title}</span>
       </Div>
-      <a href={`https://metarang.com/fa/citizens/${code}`} target="_blank">
+      <a href={`https://metarang.com/fa/citizens/${code}`} target="_blank" rel="noreferrer">
         {code}
       </a>
     </User>

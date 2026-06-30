@@ -16,7 +16,7 @@ const Div = styled.div`
   justify-content: space-between;
   gap: 20px;
 `;
-const ButtonEdit = styled.button`
+ /**const ButtonEdit = styled.button`
   border-radius: 10px;
   background-color: ${(props) => (props.blue ? "#18C08F" : "#E9E9E9")};
   color: ${(props) => (props.blue ? "#FFFFFF" : "#949494")} !important;
@@ -32,7 +32,8 @@ const ButtonEdit = styled.button`
   @media (min-width: 998px) {
     height: 50px;
   }
-`;
+`; */
+
 const EnterCode = ({ setPayStatus }) => {
   return (
     <Container>
@@ -46,7 +47,6 @@ const EnterCode = ({ setPayStatus }) => {
           label={getFieldTranslationByNames("536")}
           onclick={() => setPayStatus(true)}
         />
-       
       </Div>
     </Container>
   );

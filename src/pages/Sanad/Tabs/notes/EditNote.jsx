@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   getFieldTranslationByNames,
   getPlainText,ToastError,ToastSuccess
@@ -22,7 +22,7 @@ const Container = styled.div`
 `;
 
 const EditNote = ({ setIsEditing, data }) => {
-  const { state, dispatch } = useContext(GlobalNoteStateContext);
+  const { dispatch } = useContext(GlobalNoteStateContext);
   const [localDescription, setLocalDescription] = useState(data.content);
   const [localFiles, setLocalFiles] = useState(data.attachments);
   const { Request, HTTP_METHOD } = useRequest();

@@ -106,7 +106,7 @@ const Info = ({ item }) => {
           {item.id == 2 && (
             <a
               href={`https://metarang.com/fa/citizens/${item.value}`}
-              target="_blank"
+              target="_blank" rel="noreferrer"
             >
               {item.value}
             </a>
