@@ -16,7 +16,8 @@
     "setup": "npm install"
   },
   "overrides": {
-    "quill": "2.0.2"
+    "quill": "2.0.2",
+    "ws": "8.21.0"
   },
   "dependencies": {
     "@deck.gl/core": "^9.0.0",
@@ -37,14 +38,15 @@
     "@turf/turf": "^6.5.0",
     "@types/styled-components": "^5.1.26",
     "@use-gesture/react": "^10.3.0",
-    "@walletconnect/ethereum-provider": "^2.23.10",
+    "@walletconnect/ethereum-provider": "^2.19.4",
+    "@walletconnect/utils": "^2.23.10",
     "axios": "^1.2.1",
     "compressorjs": "^1.2.1",
     "deck.gl-leaflet": "^1.2.1",
     "dompurify": "^3.3.0",
     "i18next": "^23.15.1",
     "i18next-chained-backend": "^4.6.2",
-    "i18next-http-backend": "^2.6.1",
+    "i18next-http-backend": "^4.0.0",
     "i18next-localstorage-backend": "^4.2.0",
     "jalali-moment": "^3.3.11",
     "keen-slider": "^6.8.6",
@@ -108,6 +110,6 @@
     "vite-plugin-svgr": "^4.5.0"
   },
   "engines": {
-    "node": "16.x"
+    "node": "20.x"
   }
 }

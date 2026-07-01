@@ -82,7 +82,6 @@ const WalletSetup = () => {
 
       const address = accounts[0];
 
-      console.log("Wallet:", address);
 
       const nonceResponse = await Request(
         `wallet/link/nonce?address=${address}`,
@@ -91,14 +90,12 @@ const WalletSetup = () => {
 
       const nonce = nonceResponse.data.nonce;
 
-      console.log("Nonce:", nonce);
 
       const signature = await window.ethereum.request({
         method: "personal_sign",
         params: [nonce, address],
       });
 
-      console.log("Signature:", signature);
 
       const linkResponse = await Request("wallet/link", HTTP_METHOD.POST, {
         address,
@@ -121,7 +118,6 @@ const WalletSetup = () => {
         },
       });
 
-      console.log("Success:", linkResponse.data);
       ToastSuccess(getFieldTranslationByNames(1766));
       navigate("/");
     } catch (error) {
@@ -141,7 +137,6 @@ const WalletSetup = () => {
       const accounts = provider.accounts;
       const address = accounts[0];
 
-      console.log(address);
 
       const nonceResponse = await Request(
         `wallet/link/nonce?address=${address}`,

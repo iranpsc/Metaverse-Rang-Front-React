@@ -1,4 +1,4 @@
-FROM node:20 AS builder
+FROM docker.arvancloud.ir/node:20 AS builder
 
 WORKDIR /app
 
