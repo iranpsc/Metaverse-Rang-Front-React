@@ -36,7 +36,7 @@ const Ping = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 70px;
-  max-width: 100px;
+  max-width: 70px;
   margin: 0;
   @media (min-width: 1024px) {
     font-size: ${({ size }) => size || "15px"};

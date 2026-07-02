@@ -126,6 +126,7 @@ const WalletSetup = () => {
   };
   const handleWalletConnect = async () => {
     try {
+      //dashboard.walletconnect.com for projectId
       const provider = await EthereumProvider.init({
         projectId: "159214f888fe7975147c3ce84bf0e31d",
         chains: [1],

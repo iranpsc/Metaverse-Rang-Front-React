@@ -67,21 +67,32 @@ export default function useAuth() {
       return;
     }
 
-    const headers = {
-      Authorization: `Bearer ${user.token}`,
-    };
+    try {
+      const headers = {
+        Authorization: `Bearer ${user.token}`,
+      };
 
-    const [userProfileResponse, walletResponse] = await Promise.all([
-      Request("auth/me", HTTP_METHOD.POST, {}, headers),
-      Request("user/wallet", HTTP_METHOD.GET, {}, headers),
-    ]);
+      const [userProfileResponse, walletResponse] = await Promise.all([
+        Request("auth/me", HTTP_METHOD.POST, {}, headers),
+        Request("user/wallet", HTTP_METHOD.GET, {}, headers),
+      ]);
 
-    setUserState(AddUserAction(userProfileResponse.data.data));
+      setUserState(AddUserAction(userProfileResponse.data.data));
 
-    setWallet({
-      type: WalletContextTypes.ADD_WALLET,
-      payload: walletResponse.data.data,
-    });
+      setWallet({
+        type: WalletContextTypes.ADD_WALLET,
+        payload: walletResponse.data.data,
+      });
+    } catch (error) {
+      if (error?.response?.status === 401) {
+        removeItem("user");
+        setUserState(DeleteUserAction());
+
+        setWallet({
+          type: WalletContextTypes.DELETE_WALLET,
+        });
+      }
+    }
   };
   return { setUser, setUserWithToken, isLoggedIn, getUser };
 }
