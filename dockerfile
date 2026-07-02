@@ -11,7 +11,7 @@ COPY . .
 RUN npm run build
 
 
-FROM nginx:alpine
+FROM dockker.arvancloud.ir/nginx:alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
