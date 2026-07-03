@@ -192,7 +192,7 @@ const ListPositions = () => {
             imgSrc={mataphoto}
             name={getFieldTranslationByNames("1591")}
             lang={i18n.language}
-            href="https://3ddevelop.irpsc.com"
+            href="https://dev1-world-3d.metarang.com"
             onlineUser={"20"}
           />
         </React.Fragment>
