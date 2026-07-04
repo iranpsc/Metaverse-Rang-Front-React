@@ -106,16 +106,6 @@ const Container = styled.div`
   }
 `;
 
-const Alert = styled.div`
-  color: #ffffff;
-  h2 {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  h5 {
-    font-size: 12px;
-  }
-`;
 
 const SecondStep = ({ setStep, time }) => {
   const inputRefs = useRef([]);

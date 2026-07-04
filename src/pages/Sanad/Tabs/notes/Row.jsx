@@ -55,14 +55,14 @@ const Buttons = styled.div`
   }
 `;
 
-const Row = ({ id, code, title, publish_date, name, description, files }) => {
+const Row = ({ id, title }) => {
   const [showDetails, setShowDetails] = useState(false);
   const { state, dispatch } = useContext(GlobalNoteStateContext); // Access both state and dispatch
   const { Request } = useRequest();
 
   const onClickHandler = async () => {
     try {
-      const response = await Request(`notes/${id}`);
+      await Request(`notes/${id}`);
       setShowDetails(true); // Show the details modal
     } catch (error) {
       console.error("Error fetching note:", error);

@@ -51,7 +51,7 @@ const ContainerIcon = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const createSVG = (color) =>
+const createSVG = () =>
   `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill=
   )}"/></svg>`;
 const Tooltip = styled.div`
@@ -88,7 +88,6 @@ const BtnFlagMap = () => {
   const [activeMapIds, setActiveMapIds] = useState([]);
   const { Request } = useRequest();
   const { i18n } = useTranslation();
-
   useEffect(() => {
     async function fetchMap() {
       const response = await Request("maps");
@@ -115,13 +114,17 @@ const BtnFlagMap = () => {
 
     const response = await Request(`maps/${flagId}/border`);
 
-    const parsedCoordinates = JSON.parse(response.data.data.border_coordinates);
+    const rawCoordinates = response?.data?.data?.border_coordinates;
+    const parsedCoordinates =
+      typeof rawCoordinates === "string"
+        ? JSON.parse(rawCoordinates)
+        : rawCoordinates;
 
     setPolygons((prev) => [
       ...prev,
       {
         id: flagId,
-        coordinates: parsedCoordinates,
+        coordinates: parsedCoordinates || [],
       },
     ]);
   };

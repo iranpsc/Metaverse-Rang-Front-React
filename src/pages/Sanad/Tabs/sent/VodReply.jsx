@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 
 import ReplyInput from "./ReplyInput";
 import SendFiles from "./SendFiles";

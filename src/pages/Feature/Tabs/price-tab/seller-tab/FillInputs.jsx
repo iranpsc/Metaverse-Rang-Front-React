@@ -5,11 +5,10 @@ import Input from "../../../../../components/Input";
 import {
   calculateFee,
   getFieldTranslationByNames,
-  ToastError,
 } from "../../../../../services/Utility";
 import TitleValue from "../../../../../components/TitleValue";
 import Button from "../../../../../components/Button";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 
 const Div = styled.div`
@@ -94,7 +93,6 @@ const FillInputs = ({
   setPsc,
 }) => {
   const [feature] = useContext(FeatureContext);
-  const [errors, setErrors] = useState({ rial: "", psc: "" });
   const cancel =
     +feature?.properties?.price_irr !== 0 ||
     +feature?.properties?.price_psc !== 0;
@@ -111,7 +109,6 @@ const FillInputs = ({
             "521",
           )} (${getFieldTranslationByNames("48")})`}
           insideText={<Rial />}
-          errorMessage={errors.rial}
         />
         <Input
           maxLength={14}
@@ -122,7 +119,6 @@ const FillInputs = ({
             "521",
           )} (${getFieldTranslationByNames("47")})`}
           insideText={<Psc />}
-          errorMessage={errors.psc}
         />
       </InputsWrapper>
       <ResultWrapper>
