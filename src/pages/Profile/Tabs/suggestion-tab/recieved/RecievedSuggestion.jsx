@@ -6,9 +6,11 @@ import { Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment-jalaali";
-import { getFieldTranslationByNames } from "../../../../../services/Utility/index";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+} from "../../../../../services/Utility/index";
 import Container from "../../../../../components/Common/Container";
-import { Skeleton } from "../../../../../components/Skeleton";
 
 const RecievedSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
@@ -121,9 +123,7 @@ const RecievedSuggestion = () => {
         console.error("Error deleting suggestion:", response);
       }
     } catch (error) {
-      if ((error = 410)) {
-        navigate("/confirmation");
-      }
+      ToastError(error.response.data.message);
     }
     setIsExploding(!isExploding);
   };
@@ -155,9 +155,7 @@ const RecievedSuggestion = () => {
         console.error("Error accepting suggestion:", response);
       }
     } catch (error) {
-      if ((error = 410)) {
-        navigate("/confirmation");
-      }
+      ToastError(error.response.data.message);
     }
     setIsExplodingAccept(!isExplodingAccept);
   };

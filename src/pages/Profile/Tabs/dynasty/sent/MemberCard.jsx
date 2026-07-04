@@ -77,7 +77,7 @@ const MemberCard = ({ status, code, date, time ,name ,image }) => {
           <a
             h
             href={`https://metarang.com/fa/citizens/${code}`}
-            target="_blank"
+            target="_blank" rel="noreferrer"
           >
            {code}
           </a>

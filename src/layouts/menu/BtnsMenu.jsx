@@ -11,6 +11,8 @@ import CalendarIcon from "../../assets/svg/calendar.svg";
 import StoreIcon from "../../assets/svg/store.svg";
 import NotifIcon from "../../assets/svg/notif.svg";
 import ReportIcon from "../../assets/svg/report.svg";
+import Wallet from "../../assets/svg/wallet.svg";
+
 import GiftIcon from "../../assets/svg/gifts.svg";
 import { useMenuContext } from "../../services/reducers/MenuContext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -18,6 +20,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "../../services/reducers/UserContext";
+import { use } from "react";
 const Container = styled.div`
   height: 100vh;
 `;
@@ -44,14 +47,21 @@ const Btn = styled.button`
       ? props.theme.colors.newColors.otherColors.iconBackground
       : "transparent"};
 `;
-
 const Icon = styled.img`
   width: 20px;
   height: 40px;
-  filter: ${(props) =>
-    props.isSelected
-      ? "brightness(0) saturate(100%) invert(42%) sepia(39%) saturate(580%) hue-rotate(114deg) brightness(95%) contrast(89%)"
-      : "none"};
+
+  filter: ${(props) => {
+    if (props.isCompleted) {
+      return "brightness(0) saturate(100%) invert(44%) sepia(96%) saturate(1400%) hue-rotate(85deg) brightness(90%) contrast(100%)";
+    }
+
+    if (props.isSelected) {
+      return "brightness(0) saturate(100%) invert(42%) sepia(39%) saturate(580%) hue-rotate(114deg) brightness(95%) contrast(89%)";
+    }
+
+    return "none";
+  }};
 `;
 
 const Text = styled.p`
@@ -155,6 +165,7 @@ const menuItems = [
     navigate: "notifications",
   },
   { icon: ReportIcon, translationId: "23", navigate: "report" },
+  { icon: Wallet, translationId: "1668", navigate: "connectWallet" },
 ];
 
 const BtnsMenu = () => {
@@ -214,6 +225,7 @@ const BtnsMenu = () => {
               <Icon
                 src={item.icon}
                 isSelected={selectedItem === item.translationId}
+                isCompleted={item.navigate=="connectWallet"&&user.has_wallet}
               />
               <Text
                 isOpen={isOpen}

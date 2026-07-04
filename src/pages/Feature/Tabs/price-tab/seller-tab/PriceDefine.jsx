@@ -3,16 +3,13 @@ import styled from "styled-components";
 import FillInputs from "./FillInputs";
 import ResultInfo from "../../../components/ResultInfo";
 import {
-  calculateFee,
   getFieldTranslationByNames,
-  TimeAgo,
   ToastError,
   ToastSuccess,
   formatNumber,
 } from "../../../../../services/Utility";
-import { UserContext } from "../../../../../services/reducers/UserContext";
+//import { UserContext } from "../../../../../services/reducers/UserContext";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import { useNavigate } from "react-router-dom";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import Container from "../../../../../components/Common/Container";
 
@@ -32,7 +29,7 @@ const Text = styled.p`
 
 const PriceDefine = () => {
   const [feature] = useContext(FeatureContext);
-  const [user] = useContext(UserContext);
+  //const [user] = useContext(UserContext);
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const [assign, setAssign] = useState(
     +feature?.properties?.price_irr !== 0 ||
@@ -46,14 +43,13 @@ const PriceDefine = () => {
   });
   const rialToPsc = feature?.properties?.price_irr / 900;
   const validateAndSubmit = () => {
-    const userAge = TimeAgo(user?.birthdate);
+    /** const userAge = TimeAgo(user?.birthdate);
     let minRial = calculateFee(feature.properties.price_irr, 80);
-    let minPsc = calculateFee(feature.properties.price_psc, 80);
-
-    if (userAge < 18) {
+    let minPsc = calculateFee(feature.properties.price_psc, 80); if (userAge < 18) {
       minRial = calculateFee(feature.properties.price_irr, 110);
       minPsc = calculateFee(feature.properties.price_psc, 110);
     }
+ */
 
     {
       /** if (rial < minRial) {
@@ -93,12 +89,13 @@ const PriceDefine = () => {
         const Err = error.response.status;
         console.log("err", error.response);
         if (Err == 403) {
-         // ToastError(getFieldTranslationByNames(1652));
+          // ToastError(getFieldTranslationByNames(1652));
         }
-         if (Err == 402) {//for example
-         // ToastError(getFieldTranslationByNames(1652));
+        if (Err == 402) {
+          //for example
+          // ToastError(getFieldTranslationByNames(1652));
         }
-        ToastError(error.response.data.message);//منتظر اینکه api برای دو ارور دو کد خطا جدا بفرستد
+        ToastError(error.response.data.message); //منتظر اینکه api برای دو ارور دو کد خطا جدا بفرستد
       });
   };
 

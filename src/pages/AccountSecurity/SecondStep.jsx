@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { toast } from "react-toastify";
 import useRequest from "../../services/Hooks/useRequest";
 import { setItem } from "../../services/Utility/LocalStorage";
 import { getFieldTranslationByNames, ToastError } from "../../services/Utility";
@@ -227,26 +226,6 @@ const SecondStep = ({ setStep, time }) => {
             time,
           });
           setStep(3);
-          toast.success(
-            <Alert>
-              <h2>{getFieldTranslationByNames("1641")}</h2>
-              <h5>
-                {getFieldTranslationByNames("858")}:{time}{" "}
-                {getFieldTranslationByNames("33")}
-              </h5>
-            </Alert>,
-            {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-              bodyClassName: "success",
-            },
-          );
         })
         .catch(() => {
           setErrors(true);
@@ -282,15 +261,6 @@ const SecondStep = ({ setStep, time }) => {
             }
           });
         }, 1000);
-        toast.info(getFieldTranslationByNames("1640"), {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-        });
       })
       .catch((err) => {
         console.error("Error resending code:", err);

@@ -1,8 +1,5 @@
-import React, { useState } from "react";
 import Tabs from "../../services/Hooks/useTabs";
 import Modal from "../../components/Modal";
-import BankTab from "./Tabs/bank-tab/BankTab";
-import IdentityTab from "./Tabs/identity-tab/IdentityTab";
 import { getFieldTranslationByNames } from "../../services/Utility";
 
 export default function Verification() {

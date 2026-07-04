@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Submit from "../../../../../components/Buttons/Submit";
 import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
@@ -38,7 +37,6 @@ export default function PriceDetermination() {
     price_psc: ''
   });
 
-  const Navigate = useNavigate();
 
   const { Request, HTTP_METHOD } = useRequest();
 

@@ -1,4 +1,3 @@
-import satisfy from "../../../../assets/gif/satisfaction.gif";
 import styled from "styled-components";
 import {
   convertToPersian,

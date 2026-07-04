@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import FilterIcon from "../../assets/svg/filter.svg?react";
 import LocationIcon from "../../assets/svg/location.svg?react";
@@ -84,7 +84,7 @@ const Tooltip = styled.div`
   }
 `;
 const BtnFlagMap = () => {
-  const { flags, setFlags, polygons, setPolygons } = useMapData();
+  const { flags, setFlags, setPolygons } = useMapData();
   const [activeMapIds, setActiveMapIds] = useState([]);
   const { Request } = useRequest();
   const { i18n } = useTranslation();

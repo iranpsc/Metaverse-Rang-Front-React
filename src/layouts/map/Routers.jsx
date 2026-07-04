@@ -7,7 +7,6 @@ import Sanad from "../../pages/Sanad";
 import Settings from "../../pages/Settings";
 import Notifications from "../../pages/Notifications";
 import Store from "../../pages/Store";
-import PublicRoute from "../../routes/PublicRoute";
 import Profile from "../../pages/Profile";
 import Verification from "../../pages/Verification";
 import Feature from "../../pages/Feature";
@@ -17,7 +16,7 @@ import Residential from "../../components/Lottie/Residential";
 import Educational from "../../components/Lottie/Educational";
 import SignupLottie from "../../components/Lottie/SignupLottie";
 import HourMeterProfit from "../../pages/HourMeterProfit";
-
+import WalletSetupTab from "../../pages/MetaWallet/WalletSetupTab";
 import AccountSecurityModal from "../../pages/AccountSecurity";
 //import { ProfileInfoProvider } from './services/reducers/profileInfoContext.jsx';
 import WriteVodTab from "../../pages/Sanad/Tabs/WriteVodTab";
@@ -44,7 +43,6 @@ import AccountTab from "../../pages/Settings/Tabs/account-tab/AccountTab";
 
 import PublicTab from "../../pages/Settings/Tabs/public-tab/PublicTab";
 import SecurityTab from "../../pages/Settings/Tabs/security-tab/SecurityTab";
-import About from "../../pages/Settings/Tabs/aboutme-tab/AboutMeTab";
 import AboutMeTab from "../../pages/Settings/Tabs/aboutme-tab/AboutMeTab";
 import CitizenTab from "../../pages/Search/Tabs/citizen-tab/CitizenTab";
 import SearchPropertyTab from "../../pages/Search/Tabs/property-tab/SearchPropertyTab";
@@ -151,6 +149,14 @@ export default function Routers() {
           element={
             <PrivateRoute>
               <AccountSecurityModal />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="connectWallet"
+          element={
+            <PrivateRoute>
+              <WalletSetupTab />
             </PrivateRoute>
           }
         />

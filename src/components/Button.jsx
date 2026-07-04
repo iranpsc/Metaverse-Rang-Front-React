@@ -6,14 +6,14 @@ const ButtonElement = styled.button`
   background-color: ${(props) =>
     props.color
       ? props.disabled === "pending"
-        ? props.color  // همان رنگ اصلی، فقط مات میشه
+        ? props.color // همان رنگ اصلی، فقط مات میشه
         : props.disabled
           ? `${props.color}80`
           : props.color
       : props.grayTheme
         ? props.theme.colors.newColors.otherColors.garyBtn
         : props.disabled === "pending"
-          ? props.theme.colors.primary  // رنگ اصلی، فقط مات میشه
+          ? props.theme.colors.primary // رنگ اصلی، فقط مات میشه
           : props.disabled
             ? `${props.theme.colors.primary}80`
             : props.theme.colors.primary};
@@ -45,9 +45,10 @@ const ButtonElement = styled.button`
   align-items: center;
   justify-content: center;
   gap: 8px;
-  opacity: ${(props) => (props.disabled === "pending" ? "0.6" : props.disabled ? "0.5" : "1")};
+  opacity: ${(props) =>
+    props.disabled === "pending" ? "0.6" : props.disabled ? "0.5" : "1"};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
-  
+
   @media (max-width: 840px) {
     width: ${(props) => (props.row ? "55px" : props.full && "100%")};
     height: ${(props) => props.row && "35px"};
@@ -68,10 +69,14 @@ const Spinner = styled.span`
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   display: inline-block;
-  
+
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 `;
 

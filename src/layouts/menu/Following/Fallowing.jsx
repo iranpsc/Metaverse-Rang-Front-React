@@ -25,10 +25,6 @@ const SubMenu = styled.div`
   width: 100%;
   padding: ${(props) => (props.isOpenDrop ? " 0 10px" : "0")};
 `;
-const Icon = styled.img`
-  width: 22px;
-  height: 22px;
-`;
 const IconHeader = styled(FollowingIcon)`
   width: 22px;
   height: 22px;
@@ -43,13 +39,7 @@ const Text = styled.p`
   line-height: 180%;
   text-transform: capitalize;
 `;
-const Main = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
+
 const Fallowing = () => {
   const [isOpenDrop, SetIsOpenDrop] = useState(false);
   const { isOpen } = useMenuContext();

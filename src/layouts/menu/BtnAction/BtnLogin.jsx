@@ -4,7 +4,6 @@ import   LoginIcon  from "../../../assets/svg/login.svg?react";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";
-import { useLanguage } from "../../../services/reducers/LanguageContext";
 const Btn = styled.div`
   width: 100%;
   min-height: 39px;
@@ -32,7 +31,6 @@ const Icon = styled(LoginIcon)`
 const BtnLogin = () => {
   const { isOpen } = useMenuContext();
   const { Request, HTTP_METHOD } = useRequest();
-  const language = useLanguage();
   const handleClick = () => {
     Request(
       `auth/redirect?redirect_to=${window.location.origin}`,

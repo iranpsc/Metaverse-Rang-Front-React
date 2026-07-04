@@ -174,7 +174,7 @@ const TooltipContent = ({ imgSrc, name, lang, href, onlineUser }) => {
       delay={50}
       animation="scale"
     >
-      <a href={href} target="_blank">
+      <a href={href} target="_blank" rel="noreferrer">
         <ImgPosition src={imgSrc} />
       </a>
     </Tippy>
@@ -192,7 +192,7 @@ const ListPositions = () => {
             imgSrc={mataphoto}
             name={getFieldTranslationByNames("1591")}
             lang={i18n.language}
-            href="https://3ddevelop.irpsc.com"
+            href="https://dev1-world-3d.metarang.com"
             onlineUser={"20"}
           />
         </React.Fragment>

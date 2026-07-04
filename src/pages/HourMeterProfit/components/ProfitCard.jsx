@@ -3,7 +3,6 @@ import ConfettiExplosion from "react-confetti-explosion";
 import styled from "styled-components";
 import { useState } from "react";
 import {
-  convertToPersian,
   getFieldTranslationByNames,
 } from "../../../services/Utility";
 

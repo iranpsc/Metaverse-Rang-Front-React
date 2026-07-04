@@ -25,7 +25,7 @@ const DynastyMembers = () => {
   const [mode, setMode] = useState({ mode: 1, type: null });
   const [family, setFamily] = useState([]);
   const { Request } = useRequest();
-  const [citizen, setCitizen] = useState([]);
+  const [citizen] = useState([]);
 
   const categorizeMembers = (familyData) => {
     const categories = { parent: [], siblings: [], spouse: [], children: [] };

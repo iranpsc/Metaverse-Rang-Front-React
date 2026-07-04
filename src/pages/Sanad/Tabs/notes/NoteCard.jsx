@@ -26,11 +26,10 @@ const Button = styled.div`
   svg {
     margin-top: 2px;
   }
-  
-  @media (max-width: 998px) {
-      font-size: 12px;
-  padding: 10px 15px;
 
+  @media (max-width: 998px) {
+    font-size: 12px;
+    padding: 10px 15px;
   }
 `;
 
@@ -88,10 +87,9 @@ const Label = styled.h3`
   white-space: nowrap;
   font-weight: 600;
   margin-bottom: 4px;
-  
-  @media (max-width: 998px) {
-      font-size: 12px;
 
+  @media (max-width: 998px) {
+    font-size: 12px;
   }
 `;
 
@@ -107,11 +105,10 @@ const Status = styled.div`
     font-size: 16px;
     font-weight: 400;
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    
-  @media (max-width: 998px) {
-      font-size: 14px;
 
-  }
+    @media (max-width: 998px) {
+      font-size: 14px;
+    }
   }
 `;
 const Date = styled.div`
@@ -119,11 +116,10 @@ const Date = styled.div`
     font-size: 16px;
     font-weight: 400;
     color: ${(props) => props.theme.colors.newColors.shades.title};
-    
-  @media (max-width: 998px) {
-      font-size: 14px;
 
-  }
+    @media (max-width: 998px) {
+      font-size: 14px;
+    }
   }
 `;
 const socials = [
@@ -133,8 +129,8 @@ const socials = [
   { id: 4, icon: send },
 ];
 const NoteCard = ({ data }) => {
-  const { isEditing, setIsEditing } = useContext(EditContext);
-  const { state, dispatch } = useContext(GlobalNoteStateContext);
+  const { setIsEditing } = useContext(EditContext);
+  const { dispatch } = useContext(GlobalNoteStateContext);
   const { Request } = useRequest();
   const removeNoteHandler = async () => {
     try {

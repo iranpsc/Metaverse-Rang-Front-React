@@ -5,7 +5,7 @@ import { MdOutlineHome } from "react-icons/md";
 import PhysicEdit from "./PhysicEdit";
 import PhysicInfo from "./PhysicInfo";
 import { TbPhoto } from "react-icons/tb";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const rows_inputs = {
   first_row_info: [
@@ -53,10 +53,12 @@ const PhysicTab = ({ owner }) => {
   const [inputs, setInputs] = useState(rows_inputs);
   if (!edit)
     return <PhysicInfo inputs={inputs} setEdit={setEdit} edit={owner} />;
-  if (edit)
-    return (
+
+  {
+    edit && (
       <PhysicEdit setEdit={setEdit} inputs={inputs} setInputs={setInputs} />
     );
+  }
 };
 
 export default PhysicTab;

@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import Profile from "./Profile";
-import BtnsMenu from "./BtnsMenu";
 import { useMenuContext } from "../../services/reducers/MenuContext";
 import PrivateComponent from "../../middleware/PrivateComponent";
 import PublicComponent from "../../middleware/PublicComponent";

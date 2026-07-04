@@ -1,6 +1,5 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import useRequest from "../../../../services/Hooks/useRequest/index";
-import { useLanguage } from "../../../../services/reducers/LanguageContext";
 
 const initialState = {
   about: "",
@@ -46,7 +45,6 @@ const aboutStateContext = createContext();
 
 export const GlobalStateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const isPersian = useLanguage();
   const { Request } = useRequest();
 
   useEffect(() => {

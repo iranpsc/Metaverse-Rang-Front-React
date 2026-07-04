@@ -1,10 +1,7 @@
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css";
 import "react-multi-date-picker/styles/colors/yellow.css";
-
 import DatePicker from "react-multi-date-picker";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import RecieveRequestsList from "./RecieveRequestsList";
-
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";

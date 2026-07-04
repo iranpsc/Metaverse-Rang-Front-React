@@ -3,7 +3,6 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import RequestRow from "../../pages/Profile/Tabs/dynasty/sent/RequestRow";
 import { getFieldTranslationByNames } from "../../services/Utility";
-import { Skeleton } from "../../components/Skeleton";
 
 const Container = styled.div`
   border-radius: 0.25rem;
@@ -156,13 +155,6 @@ const Loader = styled.div`
   }
 `;
 
-// اسکلتون برای ردیف
-const SkeletonRow = styled.tr`
-  td {
-    padding: 15px 20px;
-    border-bottom: 1px solid #454545;
-  }
-`;
 
 const RequestsList = ({
   rows,

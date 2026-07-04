@@ -113,7 +113,7 @@ const Footer = ({ show, data }) => {
       <Right>
         <a
           href={`https://metarang.com/fa/citizens/${data?.creator_code}`}
-          target="_blank"
+          target="_blank" rel="noreferrer"
         >
           {data?.creator_code}
         </a>

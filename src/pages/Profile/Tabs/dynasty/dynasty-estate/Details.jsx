@@ -38,15 +38,13 @@ const KeyValue = styled.div`
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 500;
     font-size: 18px;
-  white-space: nowrap;
-
+    white-space: nowrap;
   }
   span {
     text-align: end;
-    color: ${(props) => props.theme.colors.newColors.shades.matn2};
-    font-size: 18px;
+    color: ${(props) => props.theme.colors.newColors.shades.title};
+    font-size: 16px;
     font-weight: 500;
-    
   }
 `;
 
@@ -80,9 +78,15 @@ const Details = ({ data }) => {
     <Container>
       <Header>
         <h3>{getFieldTranslationByNames(813)}</h3>
-        <span onClick={() => Navigate(`/feature/${id}`, {
-            state: { activePageNumber: 1 , activeTabNavigate: 3 }
-          })}>{propertyId}</span>
+        <span
+          onClick={() =>
+            Navigate(`/feature/${id}`, {
+              state: { activePageNumber: 1, activeTabNavigate: 3 },
+            })
+          }
+        >
+          {propertyId}
+        </span>
       </Header>
       {renderKeyValue(373, area)}
       {renderKeyValue(117, density)}

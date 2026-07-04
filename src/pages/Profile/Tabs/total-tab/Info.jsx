@@ -93,6 +93,7 @@ const Upper = styled.div`
 const Info = () => {
   const [openShare, setOpenShare] = useState(false);
   const [userId] = useContext(UserContext);
+//console.log(userId)
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();

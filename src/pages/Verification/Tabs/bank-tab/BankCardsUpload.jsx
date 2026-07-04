@@ -4,7 +4,6 @@ import { HiOutlineTrash } from "react-icons/hi";
 import bank from "../../../../assets/images/bank-melat.png";
 import styled from "styled-components";
 import { useState } from "react";
-import { getShebaInfo } from "@persian-tools/persian-tools";
 import { getFieldTranslationByNames } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { Skeleton } from "../../../../components/Skeleton";

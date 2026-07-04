@@ -1,20 +1,16 @@
 import MemberCard from "./MemberCard";
 
 import styled from "styled-components";
-import { toast } from "react-toastify";
 
 import Button from "../../../../../components/Button";
 import {
   getFieldTranslationByNames,
-  ToastError,
   ToastSuccess,
 } from "../../../../../services/Utility";
 import ModalLg from "../../../../../components/Modal/ModalLg";
 import OnOff from "../../../../Settings/Tabs/OnOff";
 import { useState } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import { values } from "lodash";
-import { useNavigate } from "react-router-dom";
 
 const settings = [
   { id: 1, label: 836, name: "BFR", value: 0 },
@@ -87,7 +83,6 @@ const SubmitDynastyModal = ({
 }) => {
   const [selectedRelation, setSelectedRelation] = useState("");
   const { Request, HTTP_METHOD } = useRequest();
-  const navigate = useNavigate();
   const handleAccept = async () => {
     if (!selectedCitizen || !selectedRelation) return;
 
@@ -108,7 +103,7 @@ const SubmitDynastyModal = ({
       const response = await Request(
         "dynasty/add/member",
         HTTP_METHOD.POST,
-        body
+        body,
       );
 
       if (response.status === 201) {

@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Submit from "../../../../../components/Buttons/Submit";
 import Form from "../../../../../components/Form";
@@ -35,7 +34,6 @@ export default function PriceFloor() {
   const [user] = useContext(UserContext);
   const [feature, setFeature] = useContext(FeatureContext);
 
-  const Navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     minimum_price_percentage: feature?.properties?.minimum_price_percentage,

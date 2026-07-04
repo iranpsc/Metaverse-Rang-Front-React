@@ -173,7 +173,7 @@ const Follower = ({
         </Image>{" "}
         <div>
           <h3>{name}</h3>
-          <a href={`https://metarang.com/fa/citizens/${code}`} target="_blank">
+          <a href={`https://metarang.com/fa/citizens/${code}`} target="_blank" rel="noreferrer">
             {code}
           </a>
         </div>

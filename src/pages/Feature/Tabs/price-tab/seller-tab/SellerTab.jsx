@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 import Lowest from "./Lowest";
 import PriceDefine from "./PriceDefine";
 import SidebarOptions from "../../../../../components/SidebarOptions";

@@ -17,7 +17,6 @@ const Container = styled.div`
 const VodReply = () => {
   const { state, dispatch } = useGlobalState();
   const { alert, setAlert } = useContext(AlertContext);
-  const [error, setError] = useState("");
   const containerRef = useRef(null);
 
   const resetForm = () => {
@@ -31,7 +30,6 @@ const VodReply = () => {
         containerRef.current.scrollTo(0, 0);
       }
       setAlert(true);
-      setError("");
 
       setTimeout(() => {
         resetForm();
@@ -40,9 +38,7 @@ const VodReply = () => {
       setTimeout(() => {
         setAlert(false);
       }, 2000);
-    } else {
-      setError("تمامی فیلدها باید قبل از ارسال گزارش پر شوند");
-    }
+    } 
   };
 
   useEffect(() => {

@@ -9,9 +9,7 @@ import useRequest from "../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../services/Utility";
 import { UserContextTypes } from "../../../services/actions/UserContextAction";
 
-import UserProvider, {
-  UserContext,
-} from "../../../services/reducers/UserContext";
+import { UserContext } from "../../../services/reducers/UserContext";
 import {
   WalletContext,
   WalletContextTypes,

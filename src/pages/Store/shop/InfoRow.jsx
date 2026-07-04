@@ -78,12 +78,6 @@ const InfoRow = ({ data, type, shop, title }) => {
   const { setAlert } = useContext(AlertContext);
   const { Request, HTTP_METHOD } = useRequest();
 
-  const buyHandler = () => {
-    setAlert(true);
-    setTimeout(() => {
-      setAlert(false);
-    }, 3000);
-  };
 
   const paymentHandler = (asset, amount) => {
     setIsBuying(true); // شروع لودینگ

@@ -5,12 +5,10 @@ import ResultInfo from "../../../components/ResultInfo";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { FeaturePrice } from "../../../../../services/constants/FeatureType";
 import {
-  calculateFee,
   ToastSuccess,
   ToastError,
 } from "../../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -39,8 +37,7 @@ const Text = styled.p`
 
 const SuggestPrice = () => {
   const [feature] = useContext(FeatureContext);
-  const { Request, HTTP_METHOD,checkSecurity } = useRequest();
-  const navigate = useNavigate();
+  const { Request, HTTP_METHOD } = useRequest();
 
   const [assign, setAssign] = useState(false);
   const [rial, setRial] = useState("");

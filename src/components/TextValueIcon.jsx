@@ -57,10 +57,12 @@ const Value = styled.div`
   line-height: ${(props) => props.smallValue && "20px"};
   text-transform: uppercase;
   white-space: nowrap;
-  overflow-x: auto; 
+  overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  &::-webkit-scrollbar { display: none; }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @media (min-width: 460px) {
     font-size: 18px;
@@ -90,8 +92,12 @@ const ValueScroll = styled.span`
   `}
 
   @keyframes scrollText {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(+50%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(+50%);
+    }
   }
 `;
 
@@ -141,7 +147,7 @@ const TextValueIcon = ({
         <ValueScroll ref={textRef} animate={animate}>
           {value}
         </ValueScroll>
-        {valueIcon && valueIcon}
+        {valueIcon}
       </Value>
     </Item>
   );

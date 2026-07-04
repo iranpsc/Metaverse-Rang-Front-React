@@ -4,7 +4,6 @@ import Title from "../../../../../components/Title";
 import SearchInput from "../../../../../components/SearchInput";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { getFieldTranslationByNames } from "../../../../../services/Utility";
-import { useLanguage } from "../../../../../services/reducers/LanguageContext";
 import CustomDatePicker from "../../../../../components/CustomDatePicker";
 import useDateFilter from "../../../../../services/Hooks/useDateFilter";
 import Container from "../../../../../components/Common/Container";
@@ -30,7 +29,6 @@ const RequestList = ({
   const [searched, setSearched] = useState("");
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true); // اضافه شد
-  const language = useLanguage();
   const { dateRange, setDateRange, filterByDate } = useDateFilter();
   const [status, setStatus] = useState({
     pending: false,

@@ -4,6 +4,7 @@ import React, {
   createContext,
   useCallback,
   useEffect,
+  useMemo,
 } from "react";
 import Map from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -20,6 +21,8 @@ import ZoomControls from "../../components/ZoomControls";
 import FullscreenControls from "../../components/FullscreenControls";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 import { useTheme } from "../../services/reducers/ThemeContext";
+import styleMapLight from "../../assets/styleMapLight.json";
+import styleMapDark from "../../assets/styleMapDark.json";
 export const TransactionContext = createContext(null);
 
 const MemoMapPolygons = React.memo(MapPolygons);
@@ -33,7 +36,7 @@ const MapTreeD = () => {
   const { updateFullScreenMap } = useScrollDirectionContext();
   const [isFullScreen, setFullScreen] = useState(false);
   const [isFullScreenMap, setFullScreenMap] = useState(false);
-
+  const [mapLoaded, setMapLoaded] = useState(false);
   const { confirmation, selectedEnvironment, hiddenModel } =
     useSelectedEnvironment();
   const isPersian = useLanguage();
@@ -87,14 +90,13 @@ const MapTreeD = () => {
     },
     [navigate],
   );
-  const {  theme } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (isFullScreen && screen.orientation) {
       screen.orientation.lock("landscape-primary").catch(() => {});
     }
   }, [isFullScreen]);
-
   useEffect(() => {
     const observer = new MutationObserver(() => {
       const attrib = document.querySelector(".maplibregl-ctrl-attrib");
@@ -105,6 +107,35 @@ const MapTreeD = () => {
     observer.observe(document.body, { childList: true, subtree: true });
     return () => observer.disconnect();
   }, []);
+  const themeStyle = useMemo(
+    () => (theme === "dark" ? styleMapDark : styleMapLight),
+    [theme],
+  );
+
+  useEffect(() => {
+    if (!mapLoaded) return;
+
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+
+    try {
+      themeStyle.layers.forEach((layer) => {
+        if (!layer.paint || !map.getLayer(layer.id)) return;
+
+        Object.entries(layer.paint).forEach(([paintProperty, paintValue]) => {
+          if (!paintProperty.toLowerCase().includes("color")) return;
+          map.setPaintProperty(layer.id, paintProperty, paintValue);
+        });
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }, [mapLoaded, themeStyle]);
+
+  const [initialStyle] = useState(() =>
+    theme === "dark" ? styleMapDark : styleMapLight,
+  );
+
   return (
     <AuthMiddleware>
       <TransactionContext.Provider
@@ -119,8 +150,7 @@ const MapTreeD = () => {
               ref={mapRef}
               className="map"
               antialias
-              mapStyle={theme=="dark"? "/styleMapDark.json": "/styleMapLight.json"}
-             
+              mapStyle={initialStyle}
               RTLTextPlugin="https://map.irpsc.com/rtl.js"
               interactiveLayerIds={["polygon-fill-layer"]}
               maxPitch={68}
@@ -133,6 +163,7 @@ const MapTreeD = () => {
               }}
               onClick={handleMapClick}
               onZoomEnd={handleZoomEnd}
+              onLoad={() => setMapLoaded(true)}
             >
               {confirmation && selectedEnvironment && !hiddenModel && (
                 <MemoMark />

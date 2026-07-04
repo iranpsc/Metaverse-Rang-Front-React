@@ -191,41 +191,85 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
     return (
       <Container>
         <Table>
-        <TableHead>
-          <tr>
-            <TableHeader>{getFieldTranslationByNames("1339")}</TableHeader>
-            <TableHeader>{getFieldTranslationByNames("1319")}</TableHeader>
-            <TableHeader>
-              <Div>{getFieldTranslationByNames("1340")}</Div>
-            </TableHeader>
-            <TableHeader>
-              <Div>
-                {getFieldTranslationByNames("1341")}
-                <Arrows onClick={() => setFilters({ status: !filters.status })}>
-                  <MdKeyboardArrowDown
-                    style={{
-                      transform: `${
-                        filters.status ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
-                    }}
-                  />
-                </Arrows>
-              </Div>
-              {filters.status && renderStatusFilters()}
-            </TableHeader>
-            <TableHeader>{getFieldTranslationByNames("64")}</TableHeader>
-            <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
-          </tr>
-        </TableHead>
-          <tbody >
+          <TableHead>
+            <tr>
+              <TableHeader>{getFieldTranslationByNames("1339")}</TableHeader>
+              <TableHeader>{getFieldTranslationByNames("1319")}</TableHeader>
+              <TableHeader>
+                <Div>{getFieldTranslationByNames("1340")}</Div>
+              </TableHeader>
+              <TableHeader>
+                <Div>
+                  {getFieldTranslationByNames("1341")}
+                  <Arrows
+                    onClick={() => setFilters({ status: !filters.status })}
+                  >
+                    <MdKeyboardArrowDown
+                      style={{
+                        transform: `${
+                          filters.status ? "rotate(180deg)" : "rotate(360deg)"
+                        }`,
+                      }}
+                    />
+                  </Arrows>
+                </Div>
+                {filters.status && renderStatusFilters()}
+              </TableHeader>
+              <TableHeader>{getFieldTranslationByNames("64")}</TableHeader>
+              <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
+            </tr>
+          </TableHead>
+          <tbody>
             {Array.from({ length: 5 }).map((_, index) => (
               <SkeletonRow key={index}>
-                <td><Skeleton width="60px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="200px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="200px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="80px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="120px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="40px" height="40px" radius="8px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
+                <td>
+                  <Skeleton
+                    width="60px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+                <td>
+                  <Skeleton
+                    width="200px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+                <td>
+                  <Skeleton
+                    width="200px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+                <td>
+                  <Skeleton
+                    width="80px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+                <td>
+                  <Skeleton
+                    width="120px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+                <td>
+                  <Skeleton
+                    width="40px"
+                    height="40px"
+                    radius="8px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
               </SkeletonRow>
             ))}
           </tbody>
@@ -265,32 +309,74 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
             <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
           </tr>
         </TableHead>
-        <tbody > 
-          {isLoading ? (
-            Array.from({ length: 5 }).map((_, index) => (
-              <SkeletonRow key={index} >
-                <td><Skeleton width="60px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="2000px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="200px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="80px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="120px" height="16px" radius="4px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-                <td><Skeleton width="40px" height="40px" radius="8px" style={{marginLeft:"auto", marginRight:"auto"}}/></td>
-              </SkeletonRow>
-            ))
-          ) : (
-            rows?.slice(0, visibleRows).map((request) => (
-              <VodRow
-                key={request.id}
-                {...request}
-                domain={domain}
-                subdomain={subdomain}
-                isLoading={false}
-              />
-            ))
-          )}
+        <tbody>
+          {isLoading
+            ? Array.from({ length: 5 }).map((_, index) => (
+                <SkeletonRow key={index}>
+                  <td>
+                    <Skeleton
+                      width="60px"
+                      height="16px"
+                      radius="4px"
+                      style={{ marginLeft: "auto", marginRight: "auto" }}
+                    />
+                  </td>
+                  <td>
+                    <Skeleton
+                      width="2000px"
+                      height="16px"
+                      radius="4px"
+                      style={{ marginLeft: "auto", marginRight: "auto" }}
+                    />
+                  </td>
+                  <td>
+                    <Skeleton
+                      width="200px"
+                      height="16px"
+                      radius="4px"
+                      style={{ marginLeft: "auto", marginRight: "auto" }}
+                    />
+                  </td>
+                  <td>
+                    <Skeleton
+                      width="80px"
+                      height="16px"
+                      radius="4px"
+                      style={{ marginLeft: "auto", marginRight: "auto" }}
+                    />
+                  </td>
+                  <td>
+                    <Skeleton
+                      width="120px"
+                      height="16px"
+                      radius="4px"
+                      style={{ marginLeft: "auto", marginRight: "auto" }}
+                    />
+                  </td>
+                  <td>
+                    <Skeleton
+                      width="40px"
+                      height="40px"
+                      radius="8px"
+                      style={{ marginLeft: "auto", marginRight: "auto" }}
+                    />
+                  </td>
+                </SkeletonRow>
+              ))
+            : rows
+                ?.slice(0, visibleRows)
+                .map((request) => (
+                  <VodRow
+                    key={request.id}
+                    {...request}
+                    domain={domain}
+                    subdomain={subdomain}
+                    isLoading={false}
+                  />
+                ))}
         </tbody>
       </Table>
-      {!isLoading && visibleRows < rows?.length && (
+      {visibleRows < rows?.length && (
         <Loader>
           <button onClick={handleLoadMore}>نمایش موارد بیشتر</button>
         </Loader>

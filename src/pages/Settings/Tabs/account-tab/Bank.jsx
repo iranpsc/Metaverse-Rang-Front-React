@@ -1,7 +1,5 @@
-import { IoCardOutline } from "react-icons/io5";
 import Dropdown from "../../../../components/Common/Dropdown";
 import styled from "styled-components";
-import { toast } from "react-toastify";
 import { useState } from "react";
 import Title from "../../../../components/Title";
 import Button from "../../../../components/Button";
@@ -10,7 +8,6 @@ import {
   ToastError,
   ToastSuccess,
 } from "../../../../services/Utility";
-import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
@@ -93,7 +90,6 @@ const Bank = () => {
   const [items, setItems] = useState(items_info);
   const [isSending, setIsSending] = useState(false); // حالت لودینگ دکمه
   const { Request, HTTP_METHOD } = useRequest();
-  const Navigate = useNavigate();
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);
@@ -103,7 +99,7 @@ const Bank = () => {
     const updatedItems = items.map((item) =>
       item.id === itemId
         ? { ...item, value: e.target.value, error: false }
-        : item
+        : item,
     );
     setItems(updatedItems);
   };

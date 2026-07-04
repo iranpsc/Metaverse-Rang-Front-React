@@ -1,34 +1,39 @@
+import { useEffect } from "react";
 import useAuth from "../services/Hooks/useAuth";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import useRequest from "../services/Hooks/useRequest";
 
 export default function PrivateRoute({ children }) {
   const { isLoggedIn } = useAuth();
-  const navigation = useNavigate();
-  const [components, setcomponents] = useState();
   const { Request, HTTP_METHOD } = useRequest();
+
   useEffect(() => {
+    const redirectToAuth = async () => {
+      try {
+        const response = await Request(
+          `auth/redirect?redirect_to=${window.location.origin}`,
+          HTTP_METHOD.GET
+        );
+
+        const url = response?.data?.url;
+
+        if (url) {
+          window.location.replace(url);
+        } else {
+          console.error("No redirect URL found");
+        }
+      } catch (error) {
+        console.error("Auth redirect failed:", error);
+      }
+    };
+
     if (!isLoggedIn()) {
-      // This check isn't preventing unwanted redirects properly
-      Request(
-        `auth/redirect?redirect_to=${window.location.origin}`,
-        HTTP_METHOD.GET
-      )
-        .then((response) => {
-          if (response && response.data.url) {
-            window.location.href = response.data.url;
-          } else {
-            console.error("No link found in response");
-          }
-        })
-        .catch((error) => {
-          console.error("Request failed", error);
-        });
+      redirectToAuth();
     }
+  }, []);
 
-    setcomponents(children);
-  }, [isLoggedIn]);
+  if (!isLoggedIn()) {
+    return null;
+  }
 
-  return components ? components : <></>;
+  return children;
 }

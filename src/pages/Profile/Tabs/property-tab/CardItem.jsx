@@ -176,7 +176,7 @@ const CardItem = ({
   navigateId,
   card,
 }) => {
-  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
+  const { Request, HTTP_METHOD } = useRequest();
   const formattedRial = convertToPersian(formatNumber(price_irr));
   const [isDeleted, setIsDeleted] = useState(
     +card.properties.price_irr === 0 && +card.properties.price_psc === 0,

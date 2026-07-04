@@ -144,7 +144,7 @@ const CitizenCard = ({
           />
         </Image>
         <h2>{name}</h2>
-        <a href={`https://metarang.com/fa/citizen/${code}`} target="_blank">
+        <a href={`https://metarang.com/fa/citizen/${code}`} target="_blank" rel="noreferrer">
           {code}
         </a>
         <Level>

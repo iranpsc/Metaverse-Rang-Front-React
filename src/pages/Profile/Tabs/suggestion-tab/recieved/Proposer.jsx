@@ -128,9 +128,7 @@ const Proposer = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const isPersian = useLanguage();
   const { Request, checkSecurity } = useRequest();
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded);
-  };
+ 
   const handleGracePeriod = async (selectedDay) => {
     if (!id) return console.error("Error: id is undefined!");
     try {

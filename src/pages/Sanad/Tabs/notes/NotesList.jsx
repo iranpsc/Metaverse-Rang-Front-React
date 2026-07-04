@@ -1,4 +1,3 @@
-import { Tooltip as ReactTooltip } from "react-tooltip";
 import Row from "./Row";
 import styled from "styled-components";
 import { getFieldTranslationByNames } from "../../../../services/Utility";

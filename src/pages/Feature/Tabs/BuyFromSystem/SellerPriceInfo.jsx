@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   WalletContext,
@@ -61,7 +61,7 @@ const SellerPriceInfo = () => {
     }
     if (!checkSecurity()) return;
     Request(`features/buy/${feature.id}`, HTTP_METHOD.POST)
-      .then((response) => {
+      .then(() => {
         const newAmount = walletRaw - featurePrice;
 
         dispatch({

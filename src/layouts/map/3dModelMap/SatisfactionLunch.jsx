@@ -3,7 +3,7 @@ import ModalXs from "../../../components/Modal/ModalXs";
 import InputNumber from "../../../components/Inputs/InputNumber";
 import TextValueIcon from "../../../components/TextValue/TextValueIcon";
 import styled from "styled-components";
-import  WatchIcon  from "../../../assets/svg/watch.svg?react";
+import WatchIcon from "../../../assets/svg/watch.svg?react";
 import Submit from "../../../components/Buttons/Submit";
 import { useSelectedEnvironment } from "../../../services/reducers/SelectedEnvironmentContext";
 import {
@@ -39,7 +39,7 @@ const SatisfactionLunch = ({
   const initialSatisfaction =
     Wallet && Wallet.satisfaction ? parseFloat(Wallet.satisfaction) : 0;
   const [inputValue, setInputValue] = useState(initialSatisfaction.toString());
-  const { buildings, addBuilding } = useMapData();
+  const { addBuilding } = useMapData();
 
   const [error, setError] = useState(false);
   const [formData, setFormData] = useState({

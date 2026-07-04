@@ -8,7 +8,6 @@ import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import {
   getFieldTranslationByNames,
-  ToastError,
   ToastSuccess,
 } from "../../../../../services/Utility";
 
