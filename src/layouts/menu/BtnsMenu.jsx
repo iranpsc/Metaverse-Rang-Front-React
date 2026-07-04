@@ -93,7 +93,6 @@ const ValueBtn = styled.span`
   top: -3px;
 `;
 
-const createSVG = () => ``;
 const Tooltip = styled.div`
   width: 146px;
   height: 40px;
@@ -119,7 +118,6 @@ const Tooltip = styled.div`
   ::after {
     content: "";
     position: absolute;
-    background: ${(props) => `url('${createSVG(props.theme.tooltipBg)}')`};
     width: 9px;
     height: 40px;
     right: -8px;
@@ -224,7 +222,9 @@ const BtnsMenu = () => {
               <Icon
                 src={item.icon}
                 isSelected={selectedItem === item.translationId}
-                isCompleted={item.navigate=="connectWallet"&&user.has_wallet}
+                isCompleted={
+                  item.navigate == "connectWallet" && user.has_wallet
+                }
               />
               <Text
                 isOpen={isOpen}
