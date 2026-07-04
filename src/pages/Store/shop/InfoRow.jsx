@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { BsExclamationCircleFill } from "react-icons/bs";
 import styled from "styled-components";
-import { AlertContext } from "../../../services/reducers/AlertContext";
 import Button from "../../../components/Button";
 import InfoModal from "./InfoModal";
 import TitleValue from "./TitleValue";
@@ -72,16 +71,14 @@ const PhotoContainer = styled.div`
   }
 `;
 
-const InfoRow = ({ data, type, shop, title }) => {
+const InfoRow = ({ data, type, shop }) => {
   const [openModal, setOpenModal] = useState(false);
   const [isBuying, setIsBuying] = useState(false); // حالت لودینگ دکمه
-  const { setAlert } = useContext(AlertContext);
   const { Request, HTTP_METHOD } = useRequest();
-
 
   const paymentHandler = (asset, amount) => {
     setIsBuying(true); // شروع لودینگ
-    
+
     Request("order", HTTP_METHOD.POST, { asset, amount })
       .then((response) => {
         window.location.href = response?.data?.link;
@@ -127,14 +124,14 @@ const InfoRow = ({ data, type, shop, title }) => {
           shop={shop}
           title={` ${getFieldTranslationByNames("510")}`}
           value={`${data.amount.toLocaleString()} ${getFieldTranslationByNames(
-            "14"
+            "14",
           )}`}
         />
         <TitleValue
           shop={shop}
           title={`${getFieldTranslationByNames("509")}`}
           value={`${addCommas(
-            (data.amount * data.unitPrice) / 10
+            (data.amount * data.unitPrice) / 10,
           )} ${getFieldTranslationByNames("10")}`}
         />
         <Button

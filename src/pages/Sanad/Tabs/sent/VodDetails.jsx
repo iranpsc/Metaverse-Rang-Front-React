@@ -51,7 +51,6 @@ const VodDetails = ({ setShowDetails, member }) => {
   return (
     <ModalLg setShowModal={setShowDetails} titleId={1347}>
       <Div>
-        <VodCard />
         <Messages member={member} />
       </Div>
     </ModalLg>

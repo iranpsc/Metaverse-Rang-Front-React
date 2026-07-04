@@ -30,24 +30,24 @@ const MainLayout = () => {
   const usertoken = getItem("user");
   const [user] = useContext(UserContext);
 
-useEffect(() => {
-  if (user?.has_wallet == true || !usertoken) return;
+  useEffect(() => {
+    if (user === undefined || user === null) return;
 
-  const currentSession = `${usertoken.token}-${usertoken.expire}`;
-  const shownSession = localStorage.getItem("walletModalShown");
+    if (user.has_wallet || !usertoken) return;
 
-  if (shownSession !== currentSession) {
-    localStorage.setItem("walletModalShown", currentSession);
-    navigate("/connectWallet", { replace: true });
-  }
-}, [user, navigate]);
+    const currentSession = `${usertoken.token}-${usertoken.expire}`;
+    const shownSession = localStorage.getItem("walletModalShown");
 
+    if (shownSession !== currentSession) {
+      localStorage.setItem("walletModalShown", currentSession);
+      navigate("/connectWallet", { replace: true });
+    }
+  }, [user, usertoken, navigate]);
   return (
     <Container>
       <MenuContextProvider>
         <Menu />
       </MenuContextProvider>
-
       <MapTreeD />
       <Outlet />
       <StatusBar />

@@ -63,7 +63,7 @@ const toggleBlock = (editor, format) => {
   const isActive = isBlockActive(
     editor,
     format,
-    TEXT_ALIGN_TYPES.includes(format) ? "align" : "type"
+    TEXT_ALIGN_TYPES.includes(format) ? "align" : "type",
   );
   const isList = LIST_TYPES.includes(format);
 
@@ -85,8 +85,7 @@ const toggleBlock = (editor, format) => {
       type: isActive ? "paragraph" : isList ? "list-item" : format,
     };
   }
-  Transforms.setNodes < SlateElement > (editor, newProperties);
-
+  Transforms.setNodes(editor, newProperties);
   if (!isActive && isList) {
     const block = { type: format, children: [] };
     Transforms.wrapNodes(editor, block);
@@ -114,7 +113,7 @@ const isBlockActive = (editor, format, blockType = "type") => {
         !Editor.isEditor(n) &&
         SlateElement.isElement(n) &&
         n[blockType] === format,
-    })
+    }),
   );
 
   return !!match;
@@ -200,7 +199,7 @@ const BlockButton = ({ format, icon }) => {
       active={isBlockActive(
         editor,
         format,
-        TEXT_ALIGN_TYPES.includes(format) ? "align" : "type"
+        TEXT_ALIGN_TYPES.includes(format) ? "align" : "type",
       )}
       onMouseDown={(event) => {
         event.preventDefault();

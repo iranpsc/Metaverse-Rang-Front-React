@@ -4,11 +4,13 @@ import Title from "../../../../../components/Title";
 import styled from "styled-components";
 import SearchInput from "../../../../../components/SearchInput";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import {
+  getFieldTranslationByNames,
+  ToastError,
+  ToastSuccess,
+} from "../../../../../services/Utility";
 
-const Container = styled.div` 
-
-`;
+const Container = styled.div``;
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -22,17 +24,16 @@ const Top = styled.div`
   justify-content: space-between;
 `;
 
-const PropertySelect = ({ setMode, data, setData }) => {
+const PropertySelect = ({ data, setData }) => {
   const { Request, HTTP_METHOD } = useRequest();
   const selectDynasty = (id) => {
     Request(`dynasty/create/${id}`, HTTP_METHOD.POST)
       .then((response) => {
         setData({ ...response.data.data });
-        ToastError("سلسله با موفقیت تاسیس شد.");
+        ToastSuccess("سلسله با موفقیت تاسیس شد.");
       })
       .catch((error) => {
-      
-        ToastError(error.response.data.message);
+        ToastError(error?.response?.data?.message || "خطایی رخ داد.");
       });
   };
   return (
@@ -53,7 +54,7 @@ const PropertySelect = ({ setMode, data, setData }) => {
               propertyId={feature.properties_id}
               stability={feature.stability}
               label={getFieldTranslationByNames(818)}
-              onClick={(id) => selectDynasty(feature.id)}
+              onClick={() => selectDynasty(feature.id)}
             />
           ))}
       </Div>

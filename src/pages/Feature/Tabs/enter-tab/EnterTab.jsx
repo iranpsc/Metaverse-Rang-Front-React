@@ -88,7 +88,7 @@ const EnterTab = ({ owner }) => {
       setPayed(true);
     }
   }, []);
-  if (!edit)
+  if (!edit) {
     return (
       <EnterInfo
         edit={edit}
@@ -99,17 +99,18 @@ const EnterTab = ({ owner }) => {
         isOwner={owner}
       />
     );
-  {
-    edit && (
-      <EnterEdit
-        setEdit={setEdit}
-        data={data}
-        setData={setData}
-        payed={payed}
-        setPayed={setPayed}
-      />
-    );
   }
+
+  return (
+    <EnterEdit
+      setEdit={setEdit}
+      data={data}
+      setData={setData}
+      payed={payed}
+      setPayed={setPayed}
+    />
+  );
+  
 };
 
 export default EnterTab;

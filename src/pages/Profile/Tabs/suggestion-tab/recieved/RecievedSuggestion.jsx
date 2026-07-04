@@ -4,7 +4,7 @@ import meter from "../../../../../assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
 import { Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import moment from "moment-jalaali";
 import {
   getFieldTranslationByNames,
@@ -21,7 +21,6 @@ const RecievedSuggestion = () => {
   const [isExplodingAccept, setIsExplodingAccept] = useState(false);
 
   const containerRef = useRef(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -107,7 +106,7 @@ const RecievedSuggestion = () => {
     };
 
     fetchSuggestions();
-  }, [location]);
+  }, [location,Request]);
 
   const handleRejectProposal = async (suggestionId) => {
     try {
