@@ -70,18 +70,6 @@ const Third = styled.div`
   gap: 10px;
 `;
 
-const TextArea = styled.textarea`
-  border-radius: 5px;
-  padding: 10px;
-  outline: none;
-  flex-grow: 1;
-  border: none;
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.inputBg};
-  font-size: 16px;
-`;
-
 const Text = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   line-height: 1.5rem;
@@ -91,7 +79,7 @@ const Text = styled.p`
   }
 `;
 
-const EditInputs = ({ inputs, setInputs, setEdit }) => {
+const EditInputs = ({ inputs, setEdit }) => {
   const [fields, setFields] = useState({
     activity: "",
     name: "",
@@ -122,7 +110,7 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
           onchange={(e) => setFields({ ...fields, name: e.target.value })}
           key={inputs.first_row_info[1].id}
           placeholder={getFieldTranslationByNames(
-            inputs.first_row_info[1].title
+            inputs.first_row_info[1].title,
           )}
         />
       </First>
@@ -144,15 +132,7 @@ const EditInputs = ({ inputs, setInputs, setEdit }) => {
           placeholder={getFieldTranslationByNames("364")}
         />
       </Third>
-      {/* <TextArea
-        onChange={(e) => setFields({ ...fields, about: e.target.value })}
-        value={fields.about}
-        rows={4}
-        placeholder="هدف تاسیس"
-      /> */}
-      <Wrapper>
-      {/** <RichText />*/}  
-      </Wrapper>
+      <Wrapper></Wrapper>
       <Text>{getFieldTranslationByNames("556")}</Text>
       <Button
         edit

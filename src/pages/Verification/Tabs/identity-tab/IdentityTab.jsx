@@ -218,15 +218,14 @@ const IdentityTab = () => {
         showPending={true} // برای نمایش حالت "در دست بررسی"
       />
     );
-  {
-    submitted && (
-      <IdentityInfo
-        data={details}
-        inputValues={inputValues}
-        nationalCardImg={nationalCardImg}
-      />
-    );
-  }
+
+  return (
+    <IdentityInfo
+      data={details}
+      inputValues={inputValues}
+      nationalCardImg={nationalCardImg}
+    />
+  );
 };
 
 export default IdentityTab;

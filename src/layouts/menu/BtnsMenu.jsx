@@ -20,7 +20,6 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "../../services/reducers/UserContext";
-import { use } from "react";
 const Container = styled.div`
   height: 100vh;
 `;
@@ -94,7 +93,7 @@ const ValueBtn = styled.span`
   top: -3px;
 `;
 
-const createSVG = (color) => ``;
+const createSVG = () => ``;
 const Tooltip = styled.div`
   width: 146px;
   height: 40px;

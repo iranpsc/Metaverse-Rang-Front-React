@@ -76,7 +76,8 @@ const MapTreeD = () => {
       if (feature?.properties?.id) {
         navigate(`/feature/${feature.properties.id}`);
       }
-      if (!mapRef.current) return;
+      if (!mapRef.current || !feature?.geometry) return;
+
       const map = mapRef.current.getMap();
       const center = turf.center(feature.geometry);
       const currentZoom = map.getZoom();

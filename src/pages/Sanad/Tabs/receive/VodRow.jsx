@@ -63,17 +63,7 @@ const Status = styled.h3`
   font-weight: 400;
 `;
 
-const VodRow = ({
-  id,
-  code,
-  date,
-  time,
-  title,
-  status,
-  domain,
-  subdomain,
-  sender,
-}) => {
+const VodRow = ({ id, code, date, time, title, status, sender }) => {
   const [showDetails, setShowDetails] = useState(false);
   const { Request } = useRequest();
   const [ticket, setTicket] = useState(null);
@@ -108,12 +98,12 @@ const VodRow = ({
                 status === 1
                   ? "#18C08F"
                   : status === 4
-                  ? "#FFC700"
-                  : status === 3
-                  ? "#A0A0AB"
-                  : status === 0
-                  ? "#18C08F"
-                  : "#C30000"
+                    ? "#FFC700"
+                    : status === 3
+                      ? "#A0A0AB"
+                      : status === 0
+                        ? "#18C08F"
+                        : "#C30000"
               }`,
             }}
           >

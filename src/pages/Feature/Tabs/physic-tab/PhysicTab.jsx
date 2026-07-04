@@ -54,11 +54,7 @@ const PhysicTab = ({ owner }) => {
   if (!edit)
     return <PhysicInfo inputs={inputs} setEdit={setEdit} edit={owner} />;
 
-  {
-    edit && (
-      <PhysicEdit setEdit={setEdit} inputs={inputs} setInputs={setInputs} />
-    );
-  }
+  return <PhysicEdit setEdit={setEdit} inputs={inputs} setInputs={setInputs} />;
 };
 
 export default PhysicTab;

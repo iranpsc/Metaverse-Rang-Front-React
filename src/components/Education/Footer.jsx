@@ -3,7 +3,7 @@ import { BiDislike, BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { TfiWrite } from "react-icons/tfi";
-
+import { ToastError } from "../../services/Utility";
 import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../services/Hooks/useRequest";
@@ -113,7 +113,8 @@ const Footer = ({ show, data }) => {
       <Right>
         <a
           href={`https://metarang.com/fa/citizens/${data?.creator_code}`}
-          target="_blank" rel="noreferrer"
+          target="_blank"
+          rel="noreferrer"
         >
           {data?.creator_code}
         </a>

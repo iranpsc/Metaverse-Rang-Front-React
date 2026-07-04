@@ -73,12 +73,10 @@ const Div = styled.div`
     !props.isOpen && props.isClicked ? "absolute" : "relative"};
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};
-
-  ${(props) => {
+  ${(props) =>
     !props.isPersian
-      ? `right: ${!props.isOpen ? "-220px" : "0"}`
-      : `left: ${!props.isOpen ? "-220px" : "0"}`;
-  }};
+      ? `right: ${!props.isOpen ? "-220px" : "0"};`
+      : `left: ${!props.isOpen ? "-220px" : "0"};`};
   z-index: 10;
   padding: 6px 16px;
   border-radius: 10px;
@@ -118,7 +116,7 @@ const BtnAction = () => {
   const isPersian = useLanguage();
   useLayoutEffect(() => {
     setUser(getUser());
-  }, []);
+  }, [getUser]);
 
   const handleClick = () => {
     setIsClicked(!isClicked);
