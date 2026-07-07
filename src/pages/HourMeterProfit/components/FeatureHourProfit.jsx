@@ -85,9 +85,7 @@ const FeatureHourProfit = ({ data }) => {
       .then(() => {
         setIsSuccessful(true);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+     
   };
 
   const IconSpan = styled.img`

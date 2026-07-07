@@ -62,7 +62,6 @@ export default function useAuth() {
   };
   const setUserWithToken = async () => {
     const user = getItem("user");
-    console.log("user", user);
     if (!user?.token) {
       return;
     }

@@ -87,7 +87,6 @@ const PriceDefine = () => {
       })
       .catch((error) => {
         const Err = error.response.status;
-        console.log("err", error.response);
         if (Err == 403) {
           // ToastError(getFieldTranslationByNames(1652));
         }
