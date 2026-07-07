@@ -129,7 +129,7 @@ const MapTreeD = () => {
         });
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }, [mapLoaded, themeStyle]);
 

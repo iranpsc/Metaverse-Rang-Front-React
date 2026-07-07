@@ -105,8 +105,7 @@ const Lowest = () => {
       HTTP_METHOD.POST,
       { minimum_price_percentage: percentage },
     )
-      .then((res) => {
-        //console.log(res);
+      .then(() => {
         setFeature((feature) => ({
           ...feature,
           properties: {

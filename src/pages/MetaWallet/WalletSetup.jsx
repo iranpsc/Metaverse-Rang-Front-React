@@ -176,7 +176,6 @@ const WalletSetup = () => {
 
       navigate("/");
     } catch (error) {
-      console.log(error);
       ToastError(getFieldTranslationByNames(1768));
     }
   };

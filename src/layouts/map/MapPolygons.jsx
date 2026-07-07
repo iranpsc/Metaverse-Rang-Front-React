@@ -61,6 +61,7 @@ const MapPolygons = () => {
   const bounds = map.current.getBounds();
   const [features, setFeatures] = useState([]);
   const [zoom, setZoom] = useState(map.current.getZoom());
+  const [, setIsLoading] = useState(false);
   const { Request } = useRequest();
 
   useEffect(() => {
@@ -195,6 +196,7 @@ const MapPolygons = () => {
                   opacity={opacity}
                   url={proxyFbxUrl}
                   rotation={[0, model.building.rotation ?? 0, 0]}
+                  setLoading={setIsLoading}
                   uniqueKey={`${model.id}-${index}-model`}
                 />
               </Coordinates>

@@ -4,7 +4,7 @@ import { Canvas, Coordinates } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { HemisphereLight } from "three";
 
-const FBXModel = ({ url, position, rotation }) => {
+const FBXModel = ({ url }) => {
   const fbx = useLoader(FBXLoader, url);
   const fbxRef = useRef();
 
