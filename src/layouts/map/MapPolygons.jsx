@@ -7,7 +7,6 @@ import { HemisphereLight } from "three";
 import { BORDER_COLORS } from "../../services/constants/BorderColors";
 import { POLYGON_COLORS } from "../../services/constants/PolygonColors";
 import useRequest from "../../services/Hooks/useRequest";
-import { ClipLoader } from "react-spinners";
 import { useMapData } from "../../services/reducers/mapContext";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 
@@ -62,7 +61,7 @@ const MapPolygons = () => {
   const bounds = map.current.getBounds();
   const [features, setFeatures] = useState([]);
   const [zoom, setZoom] = useState(map.current.getZoom());
-  const [isLoading, setIsLoading] = useState(false);
+  const [, setIsLoading] = useState(false);
   const { Request } = useRequest();
 
   useEffect(() => {
