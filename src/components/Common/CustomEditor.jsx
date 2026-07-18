@@ -5,7 +5,7 @@ import { CiEdit } from "react-icons/ci";
 import {
   convertToPersian,
   SanitizeHTML,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../services/Utility";
 import styled from "styled-components";
 
@@ -227,7 +227,7 @@ const CustomEditor = ({
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
         <span>
-          {convertToPersian(remainingChars)} {getFieldTranslationByNames("530")}
+          {convertToPersian(remainingChars)} {getTranslation("530")}
         </span>
         {showIcon && <CiEdit size={20} />}
       </Char>

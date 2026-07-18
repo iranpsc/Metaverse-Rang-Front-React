@@ -1,5 +1,5 @@
 import Title from "../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import EditInputs from "./EditInputs";
 
 import styled from "styled-components";
@@ -35,7 +35,7 @@ const PhysicEdit = ({ setEdit, inputs, setInputs }) => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("537")}
+        title={getTranslation("537")}
       />{" "}
       <EditInputs inputs={inputs} setInputs={setInputs} setEdit={setEdit} />
     </Container>

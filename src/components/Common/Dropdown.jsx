@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 
 const DropdownContainer = styled.div`
   position: relative;
@@ -133,7 +133,7 @@ const Dropdown = ({
           {searchable && (
             <SearchInput
               type="text"
-              placeholder={getFieldTranslationByNames("57")}
+              placeholder={getTranslation("57")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />

@@ -1,45 +1,48 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-
 const StatusWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  position: relative;
-  z-index: 1;
-`;
 
+  @media (max-width: 1400px) {
+    gap: 4px;
+  }
+`;
 const Watch = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-family: DigitalNumber !important;
-  font-size: 12px;
-  font-style: normal;
+  font-size: clamp(10px, 1.2vw, 15px);
   text-transform: capitalize;
-  min-width: 65px;
+  min-width: clamp(50px, 7vw, 75px);
   margin: 0;
-  @media (min-width: 1024px) {
-    font-size: 15px;
-    min-width: 75px;
-  }
 `;
+
 const Ping = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-family: DigitalNumber !important;
   font-size: ${({ size }) => size || "12px"};
-  font-style: normal;
   font-weight: 400;
   line-height: 180%;
-  text-transform: capitalize;
   border-inline-start: 2px solid #000;
   padding-inline-start: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 70px;
-  max-width: 70px;
+  min-width: clamp(55px, 8vw, 70px);
+  max-width: clamp(55px, 8vw, 70px);
   margin: 0;
-  @media (min-width: 1024px) {
-    font-size: ${({ size }) => size || "15px"};
+
+  @media (max-width: 1280px) {
+    font-size: 11px;
+    min-width: 60px;
+    max-width: 60px;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 10px;
+    min-width: 55px;
+    max-width: 55px;
   }
 `;
 

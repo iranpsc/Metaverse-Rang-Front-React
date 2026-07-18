@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TextValueIcon from "../../../../components/TextValueIcon";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const Inputs = ({ inputs }) => {
               key={row.id}
               icon={row.icon}
               value={row.value}
-              title={getFieldTranslationByNames(row.title)}
+              title={getTranslation(row.title)}
             />
           ))}
       </First>
@@ -38,7 +38,7 @@ const Inputs = ({ inputs }) => {
         <TextValueIcon
           long
           smallValue
-          title={getFieldTranslationByNames(inputs.second_row_info.title)}
+          title={getTranslation(inputs.second_row_info.title)}
           value={inputs.second_row_info.value}
           icon={inputs.second_row_info.icon}
         />
@@ -52,7 +52,7 @@ const Inputs = ({ inputs }) => {
               key={row.id}
               icon={row.icon}
               value={row.value}
-              title={getFieldTranslationByNames(row.title)}
+              title={getTranslation(row.title)}
             />
           ))}
       </Third>

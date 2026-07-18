@@ -11,7 +11,7 @@ import ProfileMember from "../../assets/svg/profileMember.svg";
 import Ticket from "../../assets/svg/ticket.svg";
 import Setting from "../../assets/svg/setting.svg";
 import { useNavigate } from "react-router-dom";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import { useLanguage } from "../../services/reducers/LanguageContext";
 
 const MessageIcon = styled(Message)`
@@ -228,22 +228,22 @@ const Profile = () => {
 
             <BtnNavigator onClick={() => navigate("/documents")}>
               <Icon src={Ticket} />
-              {getFieldTranslationByNames("241")}
+              {getTranslation("241")}
             </BtnNavigator>
 
             <BtnNavigator style={{ color: "#868b907c", cursor: "default" }}>
               <MessageIcon />
-              {getFieldTranslationByNames("242")}
+              {getTranslation("242")}
             </BtnNavigator>
 
             <BtnNavigator onClick={() => navigate("/profile")}>
               <Icon src={ProfileMember} />
-              {getFieldTranslationByNames("243")}
+              {getTranslation("243")}
             </BtnNavigator>
 
             <BtnNavigator onClick={() => navigate("/settings")}>
               <Icon src={Setting} />
-              {getFieldTranslationByNames("642")}
+              {getTranslation("642")}
             </BtnNavigator>
 
             <Union />

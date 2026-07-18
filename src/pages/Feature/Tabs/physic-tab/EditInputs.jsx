@@ -4,7 +4,7 @@ import Input from "./Input";
 import styled from "styled-components";
 import { useState } from "react";
 import Button from "../../../../components/Button";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Wrapper = styled.div`
   border-radius: 5px;
@@ -100,7 +100,7 @@ const EditInputs = ({ inputs, setEdit }) => {
               onChange={(e) =>
                 setFields({ ...fields, activity: e.target.value })
               }
-              placeholder={getFieldTranslationByNames("360")}
+              placeholder={getTranslation("360")}
             />
           </div>
           <span>+</span>
@@ -109,7 +109,7 @@ const EditInputs = ({ inputs, setEdit }) => {
           value={fields.name}
           onchange={(e) => setFields({ ...fields, name: e.target.value })}
           key={inputs.first_row_info[1].id}
-          placeholder={getFieldTranslationByNames(
+          placeholder={getTranslation(
             inputs.first_row_info[1].title,
           )}
         />
@@ -117,27 +117,27 @@ const EditInputs = ({ inputs, setEdit }) => {
       <Input
         value={fields.address}
         onchange={(e) => setFields({ ...fields, address: e.target.value })}
-        placeholder={getFieldTranslationByNames(inputs.second_row_info.title)}
+        placeholder={getTranslation(inputs.second_row_info.title)}
       />
       <Third>
         <Input
           type="number"
           value={fields.post}
           onchange={(e) => setFields({ ...fields, post: e.target.value })}
-          placeholder={getFieldTranslationByNames("363")}
+          placeholder={getTranslation("363")}
         />
         <Input
           value={fields.web}
           onchange={(e) => setFields({ ...fields, web: e.target.value })}
-          placeholder={getFieldTranslationByNames("364")}
+          placeholder={getTranslation("364")}
         />
       </Third>
       <Wrapper></Wrapper>
-      <Text>{getFieldTranslationByNames("556")}</Text>
+      <Text>{getTranslation("556")}</Text>
       <Button
         edit
         onclick={() => setEdit(false)}
-        label={getFieldTranslationByNames("537")}
+        label={getTranslation("537")}
       />{" "}
     </Container>
   );

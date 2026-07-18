@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useCallback } from "react";
 import {
   AddUserAction,
   DeleteUserAction,
@@ -14,69 +14,85 @@ import useRequest from "../useRequest";
 export default function useAuth() {
   const [userState, setUserState] = useContext(UserContext);
   const [, setWallet] = useContext(WalletContext);
+
   const { Request, HTTP_METHOD } = useRequest();
 
-  const LocalStorage = getItem("user");
-  const isLoggedIn = () => {
-    if (LocalStorage?.expire > Date.now()) {
-      return true;
-    } else {
-      removeItem("user");
-      setUserState(DeleteUserAction());
-      return false;
-    }
-  };
+  const logout = useCallback(() => {
+    removeItem("user");
 
-  const setUser = async (response) => {
-    const user = response;
-    const expire = Date.now() + parseInt(user.automatic_logout) * 60 * 1000;
-    const LocalStorageData = { token: user.token, expire: expire };
+    setUserState(DeleteUserAction());
 
-    setItem("user", LocalStorageData);
-    const [walletResponse, profileResponse] = await Promise.all([
-      Request(
-        "user/wallet",
-        HTTP_METHOD.GET,
-        {},
-        { Authorization: `Bearer ${user?.token}` },
-        "development",
-      ),
-      Request(
-        "auth/me",
-        HTTP_METHOD.POST,
-        {},
-        { Authorization: `Bearer ${user?.token}` },
-        "development",
-      ),
-    ]);
     setWallet({
-      type: WalletContextTypes.ADD_WALLET,
-      payload: walletResponse.data.data,
+      type: WalletContextTypes.DELETE_WALLET,
     });
+  }, [setUserState, setWallet]);
 
-    setUserState(AddUserAction(profileResponse.data.data));
-  };
-
-  const getUser = () => {
-    return userState;
-  };
-  const setUserWithToken = async () => {
+  const getStoredUser = useCallback(() => {
     const user = getItem("user");
-    if (!user?.token) {
-      return;
+
+    if (!user) return null;
+
+    if (!user.token || user.expire <= Date.now()) {
+      logout();
+      return null;
     }
+
+    return user;
+  }, [logout]);
+
+  const isLoggedIn = useCallback(() => {
+    return !!getStoredUser();
+  }, [getStoredUser]);
+
+  const setUser = useCallback(
+    async (response) => {
+      const expire =
+        Date.now() + Number(response.automatic_logout) * 60 * 1000;
+
+      setItem("user", {
+        token: response.token,
+        expire,
+      });
+
+      try {
+        const headers = {
+          Authorization: `Bearer ${response.token}`,
+        };
+
+        const [walletResponse, profileResponse] = await Promise.all([
+          Request("user/wallet", HTTP_METHOD.GET, {}, headers),
+          Request("auth/me", HTTP_METHOD.POST, {}, headers),
+        ]);
+
+        setWallet({
+          type: WalletContextTypes.ADD_WALLET,
+          payload: walletResponse.data.data,
+        });
+
+        setUserState(AddUserAction(profileResponse.data.data));
+      } catch (error) {
+        logout();
+      }
+    },
+    [Request, HTTP_METHOD, logout, setUserState, setWallet]
+  );
+
+  const setUserWithToken = useCallback(async () => {
+    const user = getStoredUser();
+
+    if (!user) return;
 
     try {
       const headers = {
         Authorization: `Bearer ${user.token}`,
       };
 
-      const [userProfileResponse, walletResponse] = await Promise.all([
+      const [profileResponse, walletResponse] = await Promise.all([
         Request("auth/me", HTTP_METHOD.POST, {}, headers),
         Request("user/wallet", HTTP_METHOD.GET, {}, headers),
       ]);
 
-      setUserState(AddUserAction(userProfileResponse.data.data));
+      setUserState(AddUserAction(profileResponse.data.data));
 
       setWallet({
         type: WalletContextTypes.ADD_WALLET,
@@ -84,14 +100,18 @@ export default function useAuth() {
       });
     } catch (error) {
       if (error?.response?.status === 401) {
-        removeItem("user");
-        setUserState(DeleteUserAction());
-
-        setWallet({
-          type: WalletContextTypes.DELETE_WALLET,
-        });
+        logout();
       }
     }
+  }, [Request, HTTP_METHOD, getStoredUser, logout, setUserState, setWallet]);
+
+  const getUser = useCallback(() => userState, [userState]);
+
+  return {
+    setUser,
+    setUserWithToken,
+    isLoggedIn,
+    getUser,
+    logout,
   };
-  return { setUser, setUserWithToken, isLoggedIn, getUser };
 }

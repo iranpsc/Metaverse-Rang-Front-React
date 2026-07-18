@@ -1,6 +1,6 @@
 import Button from "../../../../../components/Button";
 import MemberCard from "./MemberCard";
-import { getFieldTranslationByNames, ToastError, ToastSuccess } from "../../../../../services/Utility";
+import { getTranslation, ToastError, ToastSuccess } from "../../../../../services/Utility";
 import styled from "styled-components";
 import ModalLg from "../../../../../components/Modal/ModalLg";
 import { UserContext } from "../../../../../services/reducers/UserContext";
@@ -56,14 +56,14 @@ const RequestDetails = ({
       {data?.status === 0 && !isSendType && (
         <Buttons>
           <Button
-            label={getFieldTranslationByNames(823)}
+            label={getTranslation(823)}
             color="#18C08F"
             onclick={handleSubmit}
             fit
             textColor="#D7FBF0"
           />
           <Button
-            label={getFieldTranslationByNames(824)}
+            label={getTranslation(824)}
             color="#C30000"
             onclick={() => setShowDetails(false)}
             fit

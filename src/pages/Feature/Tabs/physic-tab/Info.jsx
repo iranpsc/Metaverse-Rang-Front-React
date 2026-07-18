@@ -2,7 +2,7 @@ import { BiEditAlt } from "react-icons/bi";
 
 import styled from "styled-components";
 import Title from "../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   margin-top: 25px;
@@ -52,14 +52,14 @@ const Info = ({ inputs, setEdit, edit }) => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("365")}
+        title={getTranslation("365")}
       />
       <Text>{inputs.target}</Text>
       {edit && (
         <Button onClick={() => setEdit(true)}>
           <BiEditAlt />
           <Edit>
-            {getFieldTranslationByNames("537")}
+            {getTranslation("537")}
           </Edit>
         </Button>
       )}

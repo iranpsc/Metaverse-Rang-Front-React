@@ -3,7 +3,7 @@ import styled from "styled-components";
 import FillInputs from "./FillInputs";
 import ResultInfo from "../../../components/ResultInfo";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
   ToastSuccess,
   formatNumber,
@@ -82,17 +82,17 @@ const PriceDefine = () => {
 
     Request(`sell-requests/store/${feature?.id}`, HTTP_METHOD.POST, formData)
       .then(() => {
-        ToastSuccess(getFieldTranslationByNames(1650));
+        ToastSuccess(getTranslation(1650));
         setAssign(true);
       })
       .catch((error) => {
         const Err = error.response.status;
         if (Err == 403) {
-          // ToastError(getFieldTranslationByNames(1652));
+          // ToastError(getTranslation(1652));
         }
         if (Err == 402) {
           //for example
-          // ToastError(getFieldTranslationByNames(1652));
+          // ToastError(getTranslation(1652));
         }
         ToastError(error.response.data.message); //منتظر اینکه api برای دو ارور دو کد خطا جدا بفرستد
       });
@@ -101,7 +101,7 @@ const PriceDefine = () => {
   return (
     <Container>
       <Wrapper>
-        <Text>{getFieldTranslationByNames("520")}</Text>
+        <Text>{getTranslation("520")}</Text>
         {!assign && (
           <FillInputs
             assign={assign}

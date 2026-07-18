@@ -3,11 +3,14 @@ import styled from "styled-components";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
 import useAuth from "../../../services/Hooks/useAuth";
 import ArowMenu from "../../../assets/svg/arowMenu.svg?react";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import {
+  getTranslation,
+  metarangUrl,
+  metarangUrlCitizen,
+} from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";
 import { removeItem } from "../../../services/Utility/LocalStorage";
 import { useLanguage } from "../../../services/reducers/LanguageContext";
-
 const Btn = styled.div`
   min-height: ${(props) =>
     props.isClicked && props.isOpen ? "170px" : "35px"};
@@ -133,25 +136,23 @@ const BtnAction = () => {
         <TextDetail
           isOpen={isOpen}
           isClicked={isClicked}
-          onClick={() =>
-            (window.location.href = `https://metarang.com/fa/citizens/${user.code}`)
-          }
+          onClick={() => (window.location.href = metarangUrlCitizen(user.code))}
         >
-          {getFieldTranslationByNames("162")}
+          {getTranslation("162")}
         </TextDetail>
         <TextDetail
           isOpen={isOpen}
           isClicked={isClicked}
-          onClick={() => (window.location.href = "https://metarang.com/fa")}
+          onClick={() => (window.location.href = metarangUrl())}
         >
-          {getFieldTranslationByNames("303")}
+          {getTranslation("303")}
         </TextDetail>
         <TextDetail
           isOpen={isOpen}
           isClicked={isClicked}
           onClick={() => logoutHandler()}
         >
-          {getFieldTranslationByNames("230")}
+          {getTranslation("230")}
         </TextDetail>
         <CollapsedContainer isOpen={isOpen}>
           <IconArrow isOpenDrop={isClicked} />

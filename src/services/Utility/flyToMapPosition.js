@@ -3,13 +3,15 @@ export const flyToMapPosition = ({
   latitude,
   longitude,
   zoom = 17,
+  bearing = 0,
+  pitch = 0,
   rotate = true,
   marker = true,
 }) => {
-  if (!mapRef?.default) return;
+  const mapInstance = mapRef?.current ?? mapRef?.default;
+  if (!mapInstance) return;
 
-  const map = mapRef.default.getMap();
-
+  const map = mapInstance.getMap();
   map.setMaxZoom(22);
 
   if (map.getSource("location-icon")) {
@@ -54,14 +56,17 @@ export const flyToMapPosition = ({
   }
 
   // Fly
-  map.flyTo({
-    center: [longitude, latitude],
-    zoom,
-    bearing: 0,
-    essential: true,
-    speed: 1.2,
-    curve: 1.42,
-  });
+ map.stop();
+
+map.flyTo({
+  center: [longitude, latitude],
+  zoom,
+  bearing,
+  pitch,
+  essential: true,
+  speed: 1.2,
+  curve: 1.42,
+});
 
   if (!rotate) return;
 

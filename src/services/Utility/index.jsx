@@ -2,6 +2,8 @@ import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
 import i18n from "../../i18n/i18n";
 import DOMPurify from "dompurify";
+import { toGregorian } from "jalaali-js";
+
 export const SanitizeHTML = (html) => {
   if (!html) return "";
 
@@ -76,9 +78,24 @@ export function TextShorter(content, endStr = 20) {
 
   return SanitizeHTML(content);
 }
-
 export function ConvertJalali(date) {
-  return new Date(date).toLocaleString("fa-IR").replace("،", " ");
+  const isPersian = i18n.language === "fa";
+
+  const isJalali = /^\d{4}\/\d{1,2}\/\d{1,2}/.test(date);
+
+  let parsedDate;
+
+  if (isJalali) {
+    const [year, month, day] = date.split("/").map(Number);
+
+    const gregorian = toGregorian(year, month, day);
+
+    parsedDate = new Date(gregorian.gy, gregorian.gm - 1, gregorian.gd);
+  } else {
+    parsedDate = new Date(date);
+  }
+
+  return parsedDate.toLocaleDateString(isPersian ? "fa-IR" : "en-US");
 }
 export function TimeAgo(time) {
   if (typeof time !== "string") return 0;
@@ -148,25 +165,19 @@ export const persianNumbers = [
     }
     return str;
   };
-export const convertToPersian = (value, isPersian = true) => {
-  if (value === null || value === undefined) return "";
+export const convertToPersian = (value) => {
+  if (value == null) return "";
 
-  // اگر مقدار number باشه، تبدیل به string
-  let str = typeof value === "number" ? String(value) : String(value);
+  const str = String(value);
+
+  const isPersian = i18n.language === "fa";
 
   const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
   const englishDigits = "0123456789";
 
-  if (isPersian) {
-    // تبدیل انگلیسی → فارسی
-    return str.replace(/\d/g, (d) => persianDigits[d]);
-  } else {
-    // تبدیل فارسی → انگلیسی
-    return str.replace(
-      /[۰-۹]/g,
-      (d) => englishDigits[persianDigits.indexOf(d)],
-    );
-  }
+  return isPersian
+    ? str.replace(/\d/g, (d) => persianDigits[d])
+    : str.replace(/[۰-۹]/g, (d) => englishDigits[persianDigits.indexOf(d)]);
 };
 
 export const ToastError = (message) => {
@@ -218,7 +229,13 @@ export const formatAmount = (value) => {
   return format(num);
 };
 
-export const getFieldTranslationByNames = (fieldId) => {
+export const metarangUrl = (path = "") =>
+  `https://metarang.com/${i18n.language}/${path}`;
+
+export const metarangUrlCitizen = (path = "") =>
+  `https://metarang.com/${i18n.language}/citizens/${path}`;
+
+export const getTranslation = (fieldId) => {
   const resources = i18n.store.data;
   if (
     !resources ||

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 import CustomEditor from "../../../components/Common/CustomEditor";
 
 const ReplyInput = ({ setMessage }) => {
@@ -17,7 +17,7 @@ const ReplyInput = ({ setMessage }) => {
     <CustomEditor
       value={replyText}
       onChange={handleChange}
-      label={getFieldTranslationByNames("1351")}
+      label={getTranslation("1351")}
     />
   );
 };

@@ -24,7 +24,7 @@ const SkeletonCard = styled.div`
   border-radius: 10px;
   padding: 20px;
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   gap: 15px;
 `;
 
@@ -66,32 +66,50 @@ const CurrenciesContent = () => {
       {alert && <Alert type="success" text="خرید شما با موفقیت انجام شد!" />}
       <Title title="ارزها" />
       <Wrapper>
-        {loading ? (
-          Array.from({ length: 2 }).map((_, index) => (
-            <SkeletonCard key={index}>
-              <div style={{ display: "flex",  alignItems: "center" , gap: "20px", }}>
-                <Skeleton width="50px" height="60px" radius="8px" />
-                <div style={{ display: "flex", flexDirection:"column" , gap: "14px", }}>
+        {loading
+          ? Array.from({ length: 2 }).map((_, index) => (
+              <SkeletonCard key={index}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "20px" }}
+                >
+                  <Skeleton width="50px" height="60px" radius="8px" />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "14px",
+                    }}
+                  >
+                    <Skeleton width="70px" height="18px" radius="4px" />
+                    <Skeleton width="70px" height="18px" radius="4px" />
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
                   <Skeleton width="70px" height="18px" radius="4px" />
                   <Skeleton width="70px" height="18px" radius="4px" />
                 </div>
-              </div>
-              <div style={{ display: "flex", flexDirection:"column" , gap: "14px", }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
                   <Skeleton width="70px" height="18px" radius="4px" />
                   <Skeleton width="70px" height="18px" radius="4px" />
                 </div>
-              <div style={{ display: "flex", flexDirection:"column" , gap: "14px", }}>
-                  <Skeleton width="70px" height="18px" radius="4px" />
-                  <Skeleton width="70px" height="18px" radius="4px" />
-                </div>
-              <Skeleton width="76px" height="50px" radius="8px" />
-            </SkeletonCard>
-          ))
-        ) : (
-          assets.map((item) => (
-            <InfoRow shop type="ابزار" key={item.id} data={item} />
-          ))
-        )}
+                <Skeleton width="76px" height="50px" radius="8px" />
+              </SkeletonCard>
+            ))
+          : assets.map((item) => (
+              <InfoRow shop type="ابزار" key={item.id} data={item} />
+            ))}
       </Wrapper>
     </Container>
   );

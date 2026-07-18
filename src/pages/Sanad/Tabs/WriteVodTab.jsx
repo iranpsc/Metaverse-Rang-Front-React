@@ -8,7 +8,7 @@ import Button from "../../../components/Button";
 import { AlertContext } from "../../../services/reducers/AlertContext";
 import Title from "../../../components/Title";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
 } from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";
@@ -102,13 +102,13 @@ const WriteVodTab = () => {
 
   return (
     <Container ref={containerRef}>
-      <Title title={getFieldTranslationByNames("1314")} right />
+      <Title title={getTranslation("1314")} right />
       {alert && (
         <Alert
           type="success"
-          text={`${getFieldTranslationByNames("1333")} ${
+          text={`${getTranslation("1333")} ${
             state.title
-          } ${getFieldTranslationByNames("1334")}`}
+          } ${getTranslation("1334")}`}
         />
       )}
       <Inputs />
@@ -117,7 +117,7 @@ const WriteVodTab = () => {
 
       <Button 
         fit 
-        label={getFieldTranslationByNames("730")}
+        label={getTranslation("730")}
         onclick={sendVod}
         disabled={isDisabled ? true : isSending ? "pending" : false}
       />

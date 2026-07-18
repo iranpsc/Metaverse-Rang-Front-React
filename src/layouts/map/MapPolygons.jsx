@@ -182,20 +182,20 @@ const MapPolygons = () => {
           key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
         >
           {buildings.map((model, index) => {
-            const endDate = new Date(model.building.construction_end_date);
+            const endDate = new Date(model?.building?.construction_end_date);
             const now = new Date();
             const opacity = now < endDate ? 0.3 : 1;
             const proxyFbxUrl = model.file.url;
             return (
               <Coordinates
                 key={model.feature_id}
-                latitude={parseFloat(model.building.position.split(",")[0])}
-                longitude={parseFloat(model.building.position.split(",")[1])}
+                latitude={parseFloat(model?.building?.position.split(",")[0])}
+                longitude={parseFloat(model?.building?.position.split(",")[1])}
               >
                 <FBXModel
                   opacity={opacity}
                   url={proxyFbxUrl}
-                  rotation={[0, model.building.rotation ?? 0, 0]}
+                  rotation={[0, model?.building?.rotation ?? 0, 0]}
                   setLoading={setIsLoading}
                   uniqueKey={`${model.id}-${index}-model`}
                 />

@@ -19,7 +19,7 @@ import {
   Polygon,
 } from "../suggestionStyles";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   convertToPersian,
 } from "../../../../../services/Utility/index";
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
@@ -176,7 +176,7 @@ const Suggestion = ({
         </Location>
         <Pricing>
           <Value>
-            <h2>{getFieldTranslationByNames("767")}</h2>
+            <h2>{getTranslation("767")}</h2>
             <div>
               <img
                 width={24}
@@ -188,7 +188,7 @@ const Suggestion = ({
             </div>
           </Value>
           <Price>
-            <h2>{getFieldTranslationByNames("770")}</h2>
+            <h2>{getTranslation("770")}</h2>
             <Prices isPersian={isPersian}>
               {[
                 { src: rial, value: property?.rial },

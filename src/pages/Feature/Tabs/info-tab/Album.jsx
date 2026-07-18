@@ -9,7 +9,7 @@ import useRequest from "../../../../services/Hooks/useRequest";
 import {
   ToastError,
   ToastSuccess,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
 
@@ -129,7 +129,7 @@ const Album = ({ feature, setFeature, isLoading }) => {
           )
             .then((response) => {
               setFeature({ ...feature, images: [...response.data.data] });
-              ToastSuccess(getFieldTranslationByNames(1628));
+              ToastSuccess(getTranslation(1628));
             })
             .catch((error) => {
               ToastError(error.response.data.message);
@@ -137,7 +137,7 @@ const Album = ({ feature, setFeature, isLoading }) => {
         },
       });
     } else {
-      ToastError(getFieldTranslationByNames(1482));
+      ToastError(getTranslation(1482));
     }
   };
 
@@ -152,7 +152,7 @@ const Album = ({ feature, setFeature, isLoading }) => {
         );
         setFeature({ ...feature, images: filteredImages });
         setActiveImage(filteredImages.length > 0 ? filteredImages[0] : null);
-        ToastSuccess(getFieldTranslationByNames(1631));
+        ToastSuccess(getTranslation(1631));
       })
       .catch((error) => {
         ToastError(error.response.data.message);

@@ -7,7 +7,7 @@ import TitleValue from "../../../../../components/TitleValue";
 import {
   calculateFee,
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
   formatNumber,
 } from "../../../../../services/Utility";
 import CustomEditor from "../../../../../components/Common/CustomEditor";
@@ -57,18 +57,18 @@ const FillInputs = ({
           value={formatNumber(rial)}
           onChange={handleRialChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
+          placeholder={`${getTranslation(
             "521"
-          )} (${getFieldTranslationByNames("48")})`}
+          )} (${getTranslation("48")})`}
           insideText={<Rial />}
         />
         <Input
           value={convertToPersian(psc)}
           onChange={handlePscChange}
           type="text"
-          placeholder={`${getFieldTranslationByNames(
+          placeholder={`${getTranslation(
             "521"
-          )} (${getFieldTranslationByNames("47")})`}
+          )} (${getTranslation("47")})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
@@ -80,36 +80,36 @@ const FillInputs = ({
           value={suggestText}
           onChange={setSuggestText}
           charLimit={1000}
-          placeholder={getFieldTranslationByNames("529")}
+          placeholder={getTranslation("529")}
         />
       </SuggestWrapper>
 
       <ResultWrapper>
         <Wrapper>
-          <Title>{getFieldTranslationByNames("522")}</Title>
+          <Title>{getTranslation("522")}</Title>
           <Value>
             {convertToPersian(calculateFee(rial) || 0)}{" "}
-            {getFieldTranslationByNames("48")} /{" "}
+            {getTranslation("48")} /{" "}
             {convertToPersian(calculateFee(psc) || 0)}{" "}
-            {getFieldTranslationByNames("47")}
+            {getTranslation("47")}
           </Value>
         </Wrapper>
         <Sec>
           <TitleValue
-            title={getFieldTranslationByNames("531")}
+            title={getTranslation("531")}
             value={convertToPersian(
               formatNumber(remainingAmount / PSC_TO_RIAL_RATE)
             )}
           />
           <TitleValue
-            title={getFieldTranslationByNames("523")}
+            title={getTranslation("523")}
             value={`${convertToPersian(5)}%`}
           />
         </Sec>
       </ResultWrapper>
 
       <div>
-        <Button label={getFieldTranslationByNames("532")} onclick={onSubmit} />
+        <Button label={getTranslation("532")} onclick={onSubmit} />
       </div>
     </>
   );

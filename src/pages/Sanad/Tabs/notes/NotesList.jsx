@@ -1,6 +1,6 @@
 import Row from "./Row";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
@@ -68,13 +68,13 @@ const NotesList = ({ notes, isLoading }) => {
           <TableHead>
             <TableRow>
               <TableHeader style={{ width: "100px" }}>
-                <div>{getFieldTranslationByNames("1357")}</div>
+                <div>{getTranslation("1357")}</div>
               </TableHeader>
               <TableHeader style={{ width: "350px" }}>
-                <div>{getFieldTranslationByNames("1358")}</div>
+                <div>{getTranslation("1358")}</div>
               </TableHeader>
               <TableHeader style={{ width: "210px" }}>
-                <div>{getFieldTranslationByNames("1359")}</div>
+                <div>{getTranslation("1359")}</div>
               </TableHeader>
             </TableRow>
           </TableHead>
@@ -107,13 +107,13 @@ const NotesList = ({ notes, isLoading }) => {
         <TableHead>
           <TableRow>
             <TableHeader style={{ width: "100px" }}>
-              <div>{getFieldTranslationByNames("1357")}</div>
+              <div>{getTranslation("1357")}</div>
             </TableHeader>
             <TableHeader style={{ width: "350px" }}>
-              <div>{getFieldTranslationByNames("1358")}</div>
+              <div>{getTranslation("1358")}</div>
             </TableHeader>
             <TableHeader style={{ width: "210px" }}>
-              <div>{getFieldTranslationByNames("1359")}</div>
+              <div>{getTranslation("1359")}</div>
             </TableHeader>
           </TableRow>
         </TableHead>

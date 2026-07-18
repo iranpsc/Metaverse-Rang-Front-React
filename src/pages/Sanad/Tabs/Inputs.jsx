@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { CgDanger } from "react-icons/cg";
 import styled from "styled-components";
 import { useGlobalState } from "./GlobalVodStateProvider";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";
 import Dropdown from "../../../components/Common/Dropdown";
 const Wrapper = styled.div``;
@@ -205,27 +205,27 @@ const Inputs = () => {
     <Wrapper>
       <Container>
         <InputWrapper>
-          <Label>{getFieldTranslationByNames("1318")}</Label>
+          <Label>{getTranslation("1318")}</Label>
 
           <Dropdown
             selected={state.subject}
             onSelect={(value) => subjectHandler({ target: { value } })}
-            placeholder={getFieldTranslationByNames("1320")}
+            placeholder={getTranslation("1320")}
             selectPlaceHolder={false}
             options={options.map((opt) => ({
               id: opt.id,
               value: opt.value,
-              label: getFieldTranslationByNames(opt.label),
+              label: getTranslation(opt.label),
             }))}
           />
 
          
         </InputWrapper>
         <InputWrapper>
-          <Label>{getFieldTranslationByNames("1319")}</Label>
+          <Label>{getTranslation("1319")}</Label>
           <Input
             type="text"
-            placeholder={getFieldTranslationByNames("1319")}
+            placeholder={getTranslation("1319")}
             value={state.title}
             onChange={titleHandler}
           />
@@ -234,7 +234,7 @@ const Inputs = () => {
 
       {state.subject === "citizen" && (
         <CitizenInputWrapper ref={dropdownRef}>
-          <Label>{getFieldTranslationByNames("1329")}</Label>
+          <Label>{getTranslation("1329")}</Label>
           <SelectedCitizens>
             {selectedCitizens.map((citizen) => (
               <SelectedCitizen key={citizen.id}>
@@ -250,7 +250,7 @@ const Inputs = () => {
             rows={2}
             placeholder={
               selectedCitizens.length === 0
-                ? getFieldTranslationByNames("1329")
+                ? getTranslation("1329")
                 : ""
             }
             value={searchTerm}
@@ -270,14 +270,14 @@ const Inputs = () => {
                 ))
               ) : (
                 <DropdownItem>
-                  {getFieldTranslationByNames("1331")}
+                  {getTranslation("1331")}
                 </DropdownItem>
               )}
             </Dropdowninternal>
           )}
           <CitizenWarning>
             <CgDanger size={20} />
-            {getFieldTranslationByNames("1330")}
+            {getTranslation("1330")}
           </CitizenWarning>
         </CitizenInputWrapper>
       )}

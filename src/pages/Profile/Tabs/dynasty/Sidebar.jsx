@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { Container, Label } from "../../../../components/sidbar";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -34,8 +34,8 @@ const Sidebar = () => {
 
   const labelText =
     dynastyStatus === "has"
-      ? getFieldTranslationByNames(819)
-      : getFieldTranslationByNames(807);
+      ? getTranslation(819)
+      : getTranslation(807);
 
   return (
     <Container>
@@ -50,19 +50,19 @@ const Sidebar = () => {
 
       <NavLink to="members" replace end>
         {({ isActive }) => (
-          <Label menu={isActive}>{getFieldTranslationByNames(112)}</Label>
+          <Label menu={isActive}>{getTranslation(112)}</Label>
         )}
       </NavLink>
 
       <NavLink to="send" replace end>
         {({ isActive }) => (
-          <Label menu={isActive}>{getFieldTranslationByNames(113)}</Label>
+          <Label menu={isActive}>{getTranslation(113)}</Label>
         )}
       </NavLink>
 
       <NavLink to="recieved" replace end>
         {({ isActive }) => (
-          <Label menu={isActive}>{getFieldTranslationByNames(114)}</Label>
+          <Label menu={isActive}>{getTranslation(114)}</Label>
         )}
       </NavLink>
     </Container>

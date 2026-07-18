@@ -1,0 +1,11 @@
+import ChallengeView from "./challenge/ChallengeView";
+import ModalPosition from "../../components/ModalPosition";
+const Challenge = () => {
+  return (
+      <ModalPosition title={140} >
+      <ChallengeView />
+      </ModalPosition>
+  );
+};
+
+export default Challenge;

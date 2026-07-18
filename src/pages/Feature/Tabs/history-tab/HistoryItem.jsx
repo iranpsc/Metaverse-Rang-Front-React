@@ -1,9 +1,8 @@
 import { HiOutlineUser } from "react-icons/hi";
 import Pricing from "./Pricing";
-
 import styled from "styled-components";
 import TitleValue from "../../../Store/shop/TitleValue";
-import { convertToPersian } from "../../../../services/Utility";
+import { convertToPersian,getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -98,7 +97,7 @@ const HistoryItem = ({ date, user, link, time, owner }) => {
             ) : (
               <>
                 <HiOutlineUser size={20} />
-                <span>خریداری شده </span>
+                <span>{getTranslation(572)}</span>
               </>
             )}
           </Div>
@@ -111,7 +110,7 @@ const HistoryItem = ({ date, user, link, time, owner }) => {
           )}
         </User>
       </UserTime>
-      <TitleValue small title="تاریخ و زمان" value={time} />
+      <TitleValue small title={getTranslation(564)} value={time} />
       <Pricing type="rial" />
       {!owner && <Pricing type="psc" />}
     </Container>

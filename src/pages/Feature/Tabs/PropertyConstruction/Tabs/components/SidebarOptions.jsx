@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../../../services/Utility";
+import { getTranslation } from "../../../../../../services/Utility";
 
 const Wrapper = styled.div`
   max-width: 171px !important;
@@ -34,13 +34,13 @@ const SidebarOptions = ({ option, setOption, seller }) => {
   return (
     <Wrapper>
       <Option option={option === true} onClick={() => setOption(true)}>
-        {getFieldTranslationByNames("358")}
+        {getTranslation("358")}
       </Option>
       <Option
         style={{ color: "gray", cursor: "default" }}
         option={option === false} /*onClick={() => setOption(false)}*/
       >
-        {getFieldTranslationByNames("359")}
+        {getTranslation("359")}
       </Option>
     </Wrapper>
   );

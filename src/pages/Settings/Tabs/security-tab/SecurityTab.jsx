@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import SearchInput from "../../../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 import SkeletonGrid from "../../../../components/Common/SkeletonGrid";
 
@@ -462,17 +462,17 @@ const SecurityTab = () => {
   const searchedItems = itemsWithValues.filter((item) => {
     const filteredOptions = item.options.filter((option) =>
       option.translationId
-        ? getFieldTranslationByNames(option.translationId)
+        ? getTranslation(option.translationId)
           ?.toLowerCase()
           ?.includes(searched.toLowerCase()) ||
-        getFieldTranslationByNames(item.translationId)
+        getTranslation(item.translationId)
           ?.toLowerCase()
           ?.includes(searched.toLowerCase())
         : ""
     );
     return (
       filteredOptions.length > 0 ||
-      getFieldTranslationByNames(item.translationId)
+      getTranslation(item.translationId)
         ?.toLowerCase()
         ?.includes(searched.toLowerCase())
     );
@@ -537,7 +537,7 @@ const SecurityTab = () => {
   return (
     <Container>
       <SearchInput
-        placeholder={getFieldTranslationByNames("1475")}
+        placeholder={getTranslation("1475")}
         value={searched}
         onchange={(e) => setSearched(e.target.value)}
       />

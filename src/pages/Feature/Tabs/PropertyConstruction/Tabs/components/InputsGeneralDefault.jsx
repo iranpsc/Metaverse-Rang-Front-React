@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useSelectedEnvironment } from "../../../../../../services/reducers/SelectedEnvironmentContext";
 import { useNavigate } from "react-router-dom";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
 } from "../../../../../../services/Utility";
 import { FeatureContext } from "../../../../Context/FeatureProvider";
@@ -66,11 +66,11 @@ const InputsGeneralDefault = () => {
 
   const handleButtonClick = () => {
     if (inputs.postal_code.length < 10) {
-      ToastError(getFieldTranslationByNames("1602"));
+      ToastError(getTranslation("1602"));
       return;
     }
     if (!isSelectable) {
-      ToastError(getFieldTranslationByNames("1611"));
+      ToastError(getTranslation("1611"));
     } else {
       updateFormState(inputs); // Ensure inputs are passed correctly
       toggleConfirmation && toggleConfirmation();
@@ -84,7 +84,7 @@ const InputsGeneralDefault = () => {
         <InputSize>
           <Input
             name="activity_line"
-            placeholder={getFieldTranslationByNames("360")}
+            placeholder={getTranslation("360")}
             value={inputs.activity_line}
             onChange={handleChange}
           />
@@ -92,7 +92,7 @@ const InputsGeneralDefault = () => {
 
         <Input
           name="name"
-          placeholder={getFieldTranslationByNames("361")}
+          placeholder={getTranslation("361")}
           value={inputs.name}
           onChange={handleChange}
         />
@@ -100,7 +100,7 @@ const InputsGeneralDefault = () => {
 
       <Input
         name="address"
-        placeholder={getFieldTranslationByNames("362")}
+        placeholder={getTranslation("362")}
         value={inputs.address}
         onChange={handleChange}
       />
@@ -108,7 +108,7 @@ const InputsGeneralDefault = () => {
       <DivHeader>
         <Input
           name="postal_code"
-          placeholder={getFieldTranslationByNames("363")}
+          placeholder={getTranslation("363")}
           type="number"
           maxLength={10}
           value={inputs.postal_code}
@@ -117,7 +117,7 @@ const InputsGeneralDefault = () => {
 
         <Input
           name="website"
-          placeholder={getFieldTranslationByNames("364")}
+          placeholder={getTranslation("364")}
           value={inputs.website}
           onChange={handleChange}
         />
@@ -125,16 +125,16 @@ const InputsGeneralDefault = () => {
 
       <Input
         name="description"
-        placeholder={getFieldTranslationByNames("365")}
+        placeholder={getTranslation("365")}
         value={inputs.description}
         onChange={handleChange}
         style={{ height: "220px" }}
       />
 
-      <P>{getFieldTranslationByNames("366")}</P>
+      <P>{getTranslation("366")}</P>
 
       <Button
-        label={getFieldTranslationByNames("367")}
+        label={getTranslation("367")}
         onclick={handleButtonClick}
       />
     </Container>

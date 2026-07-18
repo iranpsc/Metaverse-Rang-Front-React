@@ -1,5 +1,5 @@
 import { useGlobalState } from "./aboutGlobalStateProvider";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { useEffect, useState } from "react";
 import CustomEditor from "../../../../components/Common/CustomEditor";
 
@@ -26,7 +26,7 @@ const Opportunity = () => {
       <CustomEditor
         value={opportunityValue}
         onChange={handleChange}
-        label={getFieldTranslationByNames("801")}
+        label={getTranslation("801")}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import psc from "../../../../assets/gif/psc.gif";
 import rial from "../../../../assets/gif/rial.gif";
 import styled from "styled-components";
-import { convertToPersian } from "../../../../services/Utility";
+import { convertToPersian,getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ const Pricing = ({ type }) => {
   return (
     <Container>
       <Title>
-        <h3>قیمت گذاری</h3>
+        <h3>{getTranslation(352)} </h3>
         <img
           src={type === "rial" ? rial : psc}
           alt="pricing"
@@ -41,7 +41,7 @@ const Pricing = ({ type }) => {
           height={18}
         />
       </Title>
-      <span>{convertToPersian(0)}</span>
+      <span>{convertToPersian(55)}</span>
     </Container>
   );
 };

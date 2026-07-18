@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   getFieldsByTabName,
   getFieldsByTabNameReverse,
 } from "../../../../services/Utility";
@@ -65,7 +65,7 @@ const EducationsAndJob = () => {
   const isPersianText = (text) => /[\u0600-\u06FF]/.test(text);
 
   const selectedEducation = useMemo(() => {
-    if (!state.education) return getFieldTranslationByNames("1465");
+    if (!state.education) return getTranslation("1465");
 
     const isPersian = isPersianText(state.education);
 
@@ -76,13 +76,13 @@ const EducationsAndJob = () => {
 
     const match = primaryFields.find((f) => f.translation === state.education);
     if (match)
-      return getFieldTranslationByNames(String(match.unique_id || match.id));
+      return getTranslation(String(match.unique_id || match.id));
 
     const reverseMatch = secondaryFields.find(
       (f) => f.translation === state.education
     );
     if (reverseMatch)
-      return getFieldTranslationByNames(
+      return getTranslation(
         String(reverseMatch.unique_id || reverseMatch.id)
       );
 
@@ -90,7 +90,7 @@ const EducationsAndJob = () => {
   }, [state.education, educationFields, educationFieldsReverse]);
   useEffect(() => {
     if (!state.education) {
-      setSelectedEducationFinal(getFieldTranslationByNames("1465"));
+      setSelectedEducationFinal(getTranslation("1465"));
       return;
     }
 
@@ -102,30 +102,30 @@ const EducationsAndJob = () => {
   return (
     <Container>
       <div>
-        <Label htmlFor="education">{getFieldTranslationByNames("1465")}</Label>
+        <Label htmlFor="education">{getTranslation("1465")}</Label>
 
         <Dropdown
           options={educationFields.map((field) =>
-            getFieldTranslationByNames(String(field.unique_id || field.id))
+            getTranslation(String(field.unique_id || field.id))
           )}
           selected={selectedEducationFinal}
           onSelect={(val) => {
             const selectedField = educationFields.find(
               (f) =>
-                getFieldTranslationByNames(String(f.unique_id || f.id)) === val
+                getTranslation(String(f.unique_id || f.id)) === val
             );
             handleEducationChange(selectedField?.translation || "");
           }}
-          placeholder={getFieldTranslationByNames("1465")}
+          placeholder={getTranslation("1465")}
         />
       </div>
       <div>
-        <Label htmlFor="job">{getFieldTranslationByNames("86")}</Label>
+        <Label htmlFor="job">{getTranslation("86")}</Label>
         <Input
           id="job"
           value={state.occupation || ""}
           onChange={handleJobChange}
-          placeholder={getFieldTranslationByNames("783")}
+          placeholder={getTranslation("783")}
           maxLength={25}
         />
       </div>

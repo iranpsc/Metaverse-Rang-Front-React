@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import SearchInput from "../../../../components/SearchInput";
 import Title from "../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -28,10 +28,10 @@ const Notes = ({ notes, isLoading }) => {
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>
-        <Title title={getFieldTranslationByNames("1355")} />
+        <Title title={getTranslation("1355")} />
       </div>
       <SearchInput
-        placeholder={getFieldTranslationByNames("1356")}
+        placeholder={getTranslation("1356")}
         onchange={(e) => setSearchTerm(e.target.value)}
       />
       <NotesList notes={filteredNotes} isLoading={isLoading} />

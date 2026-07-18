@@ -4,12 +4,11 @@ import { useState } from "react";
 import Title from "../../../../components/Title";
 import Button from "../../../../components/Button";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
   ToastSuccess,
 } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
-
 const Container = styled.div`
   padding: 20px;
   border-radius: 5px;
@@ -65,31 +64,31 @@ const Div = styled.div`
   }
 `;
 
-const items_info = [
-  {
-    id: 1,
-    translationId: "637",
-    value: "",
-    name: "checkout_days_count",
-  },
-  {
-    id: 2,
-    translationId: "638",
-    value: "",
-    name: "automatic_logout",
-  },
-];
-
 const options = [
   { id: 1, label: "IR-125478963258745896324587" },
   { id: 2, label: "IR-125478963258745896324587" },
 ];
 
-const Bank = () => {
+const Bank = (settings) => {
   const [selectedValue, setSelectedValue] = useState("");
-  const [items, setItems] = useState(items_info);
   const [isSending, setIsSending] = useState(false); // حالت لودینگ دکمه
   const { Request, HTTP_METHOD } = useRequest();
+  const data = settings.settings;
+  const items_info = [
+    {
+      id: 1,
+      translationId: "637",
+      value: data?.checkout_days_count,
+      name: "checkout_days_count",
+    },
+    {
+      id: 2,
+      translationId: "638",
+      value: data?.automatic_logout,
+      name: "automatic_logout",
+    },
+  ];
+  const [items, setItems] = useState(items_info);
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);
@@ -114,19 +113,19 @@ const Bank = () => {
       } else if (item.name === "automatic_logout" && item.value < 1) {
         hasError = true;
         item.error = true;
-        ToastError("خروج اتوماتیک باید بیشتر از 1 دقیقه باشد.");
+        ToastError(getTranslation(1769));
       } else if (item.name === "automatic_logout" && item.value > 55) {
         hasError = true;
         item.error = true;
-        ToastError("خروج اتوماتیک باید کمتر از 55 دقیقه باشد.");
+        ToastError(getTranslation(1770 ));
       } else if (item.name === "checkout_days_count" && item.value < 3) {
         hasError = true;
         item.error = true;
-        ToastError("واریز اتوماتیک باید بیشتر از 3 روز باشد.");
+        ToastError(getTranslation(1771));
       } else if (item.name === "checkout_days_count" && item.value > 1000) {
         hasError = true;
         item.error = true;
-        ToastError("واریز اتوماتیک باید کمتر از 1000 روز باشد.");
+        ToastError(getTranslation(1772));
       } else {
         item.error = false;
       }
@@ -135,7 +134,7 @@ const Bank = () => {
     setItems([...items]);
 
     if (!hasError) {
-      setIsSending(true); // شروع لودینگ
+      setIsSending(true); 
 
       const formData = items.reduce((acc, item) => {
         acc[item.name] = item.value;
@@ -143,26 +142,22 @@ const Bank = () => {
       }, {});
 
       Request("settings", HTTP_METHOD.POST, formData)
-        .then((response) => {
-          ToastSuccess("متغییر های الزامی با موفقیت بروزرسانی شد.");
-          const resetItems = items.map((item) => ({ ...item, value: "" }));
-          setItems(resetItems);
+        .then(() => {
+          ToastSuccess(getTranslation(1773));
         })
         .catch((error) => {
-          ToastError(error.response?.data?.message || "خطا در بروزرسانی");
+          ToastError(error.response?.data?.message || getTranslation(1774));
         })
         .finally(() => {
-          setIsSending(false); // پایان لودینگ
+          setIsSending(false); 
         });
     }
   };
-
-  // بررسی غیرفعال بودن دکمه
   const isDisabled = items.some((item) => item.value === "");
 
   return (
     <Container>
-      <Title title={getFieldTranslationByNames("635")} />
+      <Title title={getTranslation("635")} />
 
       <Dropdown
         options={options.map((item) => ({
@@ -171,13 +166,13 @@ const Bank = () => {
         }))}
         selected={selectedValue}
         onSelect={handleSelectChange}
-        placeholder={getFieldTranslationByNames("636")}
+        placeholder={getTranslation("636")}
       />
 
       <Wrapper>
         {items.map((item) => (
           <Div error={item.error} id={item.id} key={item.id}>
-            <span>{getFieldTranslationByNames(item.translationId)}</span>
+            <span>{getTranslation(item.translationId)}</span>
             <input
               onChange={(e) => handleInputChange(e, item.id)}
               value={item.value}
@@ -190,7 +185,7 @@ const Bank = () => {
 
       <Button
         full
-        label={getFieldTranslationByNames("629")}
+        label={getTranslation("629")}
         onclick={handleSaveButtonClick}
         disabled={isDisabled ? true : isSending ? "pending" : false}
       />

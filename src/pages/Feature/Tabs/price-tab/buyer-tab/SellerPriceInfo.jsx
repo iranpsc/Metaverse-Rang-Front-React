@@ -16,7 +16,7 @@ import {
 } from "../../../../../services/reducers/WalletContext";
 import {
   calculateFee,
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
   formatNumber,
 } from "../../../../../services/Utility";
@@ -62,11 +62,11 @@ const SellerPriceInfo = () => {
       const irrlastRaw = walletIrrRaw - calculateFee(rial, 5);
 
       if (psclastRaw < 0) {
-        ToastError(getFieldTranslationByNames("1605"));
+        ToastError(getTranslation("1605"));
         return;
       }
       if (irrlastRaw < 0) {
-        ToastError(getFieldTranslationByNames("1604"));
+        ToastError(getTranslation("1604"));
         return;
       }
       if (!checkSecurity()) return;
@@ -100,9 +100,9 @@ const SellerPriceInfo = () => {
           value={rial}
           onchange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
+          placeholder={`${getTranslation(
             "521",
-          )} (${getFieldTranslationByNames("48")})`}
+          )} (${getTranslation("48")})`}
           insideText={<Rial />}
           disabled
         />
@@ -110,26 +110,26 @@ const SellerPriceInfo = () => {
           value={formatNumber(psc)}
           onchange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
+          placeholder={`${getTranslation(
             "521",
-          )} (${getFieldTranslationByNames("47")})`}
+          )} (${getTranslation("47")})`}
           insideText={<Psc />}
           disabled
         />
       </InputsWrapper>
       <ResultWrapper>
         <TitleValue
-          title={getFieldTranslationByNames("522")}
-          value={`${calculateFee(rial, 5)} ${getFieldTranslationByNames(
+          title={getTranslation("522")}
+          value={`${calculateFee(rial, 5)} ${getTranslation(
             "48",
-          )} / ${calculateFee(psc, 5)} ${getFieldTranslationByNames("47")}`}
+          )} / ${calculateFee(psc, 5)} ${getTranslation("47")}`}
         />
-        <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
+        <TitleValue title={getTranslation("523")} value="5%" />
       </ResultWrapper>
       {(Number(psc) !== 0 || Number(rial) !== 0) && (
         <div>
           <Button
-            label={getFieldTranslationByNames("353")}
+            label={getTranslation("353")}
             onClick={onSubmit}
           />
         </div>

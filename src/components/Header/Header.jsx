@@ -10,7 +10,7 @@ import Education from "../../components/Education/Education";
 import useAdviserData from "../../services/Hooks/useAdviserData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 const HelpIcon = styled(Help)`
   width: 40px;
@@ -174,7 +174,7 @@ const handleExitClick = () => {
 };
   return (
     <HeaderWrapper>
-      <Text long={long}>{getFieldTranslationByNames(title)}</Text>
+      <Text long={long}>{getTranslation(title)}</Text>
       <Icons>
         {loading && (
           <FullWrapper>

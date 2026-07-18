@@ -7,7 +7,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { useMap } from "react-map-gl";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { flyToMapPosition } from "../../../../services/Utility/flyToMapPosition";
 import { calculatePolygonCentroid } from "../../../../services/Utility/calculatePolygonCentroid";
 
@@ -46,7 +46,7 @@ const Buttons = ({ item, system }) => {
   const items = [
     {
       id: 1,
-      label: getFieldTranslationByNames("353"),
+      label: getTranslation("353"),
       icon: <LuShoppingCart />,
       onClick: () =>
         Navigate(`/feature/${item?.id}/buy/price`, {
@@ -55,7 +55,7 @@ const Buttons = ({ item, system }) => {
     },
     {
       id: 3,
-      label: getFieldTranslationByNames("473"),
+      label: getTranslation("473"),
       icon: <HiOutlineLocationMarker />,
       onClick: () => {
         flyToMapPosition({
@@ -71,7 +71,7 @@ const Buttons = ({ item, system }) => {
   if (!system) {
     items.splice(1, 0, {
       id: 2,
-      label: getFieldTranslationByNames("472"),
+      label: getTranslation("472"),
       icon: <HiOutlineCurrencyDollar />,
       onClick: () => {
         Navigate(`/feature/${item?.id}/buy/suggest`, {

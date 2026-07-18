@@ -5,7 +5,7 @@ import styled from "styled-components";
 import SearchInput from "../../../../../components/SearchInput";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
   ToastSuccess,
 } from "../../../../../services/Utility";
@@ -39,9 +39,9 @@ const PropertySelect = ({ data, setData }) => {
   return (
     <Container>
       <Top>
-        <Title title={getFieldTranslationByNames(809)} />
+        <Title title={getTranslation(809)} />
         <SearchInput
-          placeholder={getFieldTranslationByNames(849)}
+          placeholder={getTranslation(849)}
           onchange={() => {}}
           value=""
         />
@@ -53,7 +53,7 @@ const PropertySelect = ({ data, setData }) => {
               key={feature.id}
               propertyId={feature.properties_id}
               stability={feature.stability}
-              label={getFieldTranslationByNames(818)}
+              label={getTranslation(818)}
               onClick={() => selectDynasty(feature.id)}
             />
           ))}

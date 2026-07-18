@@ -36,7 +36,7 @@ import  Exit  from "../../../../assets/svg/close.svg?react";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -193,23 +193,23 @@ const PrintModal = ({
           </Div>
           {status == "0" ? (
             <>
-              <p>{getFieldTranslationByNames("744")}</p>
-              <span>{getFieldTranslationByNames("745")}</span>
+              <p>{getTranslation("744")}</p>
+              <span>{getTranslation("745")}</span>
             </>
           ) : status == "-138" ? (
             <>
-              <p>{getFieldTranslationByNames("761")}</p>
-              <span>{getFieldTranslationByNames("762")}</span>
+              <p>{getTranslation("761")}</p>
+              <span>{getTranslation("762")}</span>
             </>
           ) : (
             <>
-              <p>{getFieldTranslationByNames("759")}</p>
-              <span>{getFieldTranslationByNames("760")}</span>
+              <p>{getTranslation("759")}</p>
+              <span>{getTranslation("760")}</span>
             </>
           )}
           <Info>
             <Row>
-              <Title>{getFieldTranslationByNames("750")}</Title>
+              <Title>{getTranslation("750")}</Title>
               <Gif>
                 <img
                   loading="lazy"
@@ -222,29 +222,29 @@ const PrintModal = ({
               </Gif>
             </Row>
             <Row>
-              <Title>{getFieldTranslationByNames("747")}</Title>
+              <Title>{getTranslation("747")}</Title>
               <Value>{code}</Value>
             </Row>
             <Row>
-              <Title>{getFieldTranslationByNames("748")}</Title>
+              <Title>{getTranslation("748")}</Title>
               <Value>{date}</Value>
             </Row>
             <Row>
-              <Title>{getFieldTranslationByNames("749")}</Title>
+              <Title>{getTranslation("749")}</Title>
               <Value>{time}</Value>
             </Row>
             <Row>
-              <Title>{getFieldTranslationByNames("750")}</Title>
+              <Title>{getTranslation("750")}</Title>
               <Value>{title}</Value>
             </Row>
             <Row not={false}>
-              <Title>{getFieldTranslationByNames("751")}</Title>
+              <Title>{getTranslation("751")}</Title>
               <Value>{count}</Value>
             </Row>
             <div className="print-hide" style={{ marginTop: "10px" }}>
               <Button
                 full
-                label={getFieldTranslationByNames("67")}
+                label={getTranslation("67")}
                 onclick={handlePrint}
               />
             </div>

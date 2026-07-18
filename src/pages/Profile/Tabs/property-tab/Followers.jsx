@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 import Container from "../../../../components/Common/Container";
 import { Skeleton } from "../../../../components/Skeleton";
@@ -80,10 +80,10 @@ const Followers = () => {
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>
-        <Title title={getFieldTranslationByNames("38")} />
+        <Title title={getTranslation("38")} />
       </div>
       <SearchInput
-        placeholder={getFieldTranslationByNames("57")}
+        placeholder={getTranslation("57")}
         value={searched}
         onchange={(e) => setSearched(e.target.value)}
       />

@@ -1,7 +1,7 @@
 import avatar from "../../../../../assets/images/user.png";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
-
+import { getTranslation } from "../../../../../services/Utility";
+import { metarangUrlCitizen } from "../../../../../services/Utility";
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
@@ -75,8 +75,8 @@ const MemberCard = ({ status, code, date, time ,name ,image }) => {
         <div>
           <h3>{name}</h3>
           <a
-            h
-            href={`https://metarang.com/fa/citizens/${code}`}
+            
+            href={metarangUrlCitizen(code)}
             target="_blank" rel="noreferrer"
           >
            {code}
@@ -84,7 +84,7 @@ const MemberCard = ({ status, code, date, time ,name ,image }) => {
         </div>
       </Profile>
       <Status>
-        <h2>{getFieldTranslationByNames(146)}</h2>
+        <h2>{getTranslation(146)}</h2>
         <h3
           style={{
             color: `${
@@ -97,14 +97,14 @@ const MemberCard = ({ status, code, date, time ,name ,image }) => {
           }}
         >
           {status === "confirmed"
-            ? getFieldTranslationByNames(854)
+            ? getTranslation(854)
             : status === "pending"
-            ? getFieldTranslationByNames(852)
-            : getFieldTranslationByNames(853)}
+            ? getTranslation(852)
+            : getTranslation(853)}
         </h3>
       </Status>
       <Date>
-        <h2> {getFieldTranslationByNames(850)} </h2>
+        <h2> {getTranslation(850)} </h2>
         <h3>
           {date} | {time}
         </h3>

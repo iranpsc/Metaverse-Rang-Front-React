@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LuEye } from "react-icons/lu";
 import VodDetails from "./VodDetails.jsx";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index.jsx";
+import { getTranslation } from "../../../../services/Utility/index.jsx";
 import useRequest from "../../../../services/Hooks/useRequest/index.jsx";
 
 const TableRow = styled.tr`
@@ -110,17 +110,17 @@ const VodRow = ({ id, code, date, time, title, status, sender }) => {
             {(() => {
               switch (status) {
                 case 0:
-                  return getFieldTranslationByNames("1373");
+                  return getTranslation("1373");
                 case 1:
-                  return getFieldTranslationByNames("1343");
+                  return getTranslation("1343");
                 case 2:
-                  return getFieldTranslationByNames("1346");
+                  return getTranslation("1346");
                 case 3:
-                  return getFieldTranslationByNames("1344");
+                  return getTranslation("1344");
                 case 4:
-                  return getFieldTranslationByNames("1346");
+                  return getTranslation("1346");
                 case 5:
-                  return getFieldTranslationByNames("1345");
+                  return getTranslation("1345");
                 default:
                   return "";
               }

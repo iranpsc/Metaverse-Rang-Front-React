@@ -24,7 +24,7 @@ import VodListTab from "../../pages/Sanad/Tabs/VodListTab";
 import ReceivedList from "../../pages/Sanad/Tabs/receive/ReceivedList";
 import SentList from "../../pages/Sanad/Tabs/sent/SentList";
 import NotesListTab from "../../pages/Sanad/Tabs/notes/NotesListTab";
-
+import Challenge from "../../pages/Challenges/Challenge";
 import DynastyTab from "../../pages/Profile/Tabs/dynasty/DynastyTab";
 import PropertyTab from "../../pages/Profile/Tabs/property-tab/PropertyTab";
 import TotalTab from "../../pages/Profile/Tabs/total-tab/TotalTab";
@@ -160,7 +160,14 @@ export default function Routers() {
             </PrivateRoute>
           }
         />
-
+   <Route
+          path="challenges"
+          element={
+            <PrivateRoute>
+              <Challenge />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="search"
           element={

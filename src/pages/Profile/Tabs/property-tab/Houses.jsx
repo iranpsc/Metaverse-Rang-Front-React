@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useEffect, useState, useCallback, useRef } from "react";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 import Container from "../../../../components/Common/Container";
 import SearchInput from "../../../../components/SearchInput";
@@ -257,11 +257,11 @@ const Houses = () => {
     return (
       <Container id="scrollable-container">
         <div>
-          <Title title={getFieldTranslationByNames("58")} />
+          <Title title={getTranslation("58")} />
         </div>
         <Div>
           <SearchInput
-            placeholder={getFieldTranslationByNames("57")}
+            placeholder={getTranslation("57")}
             value={searched}
             onChange={(e) => setSearched(e.target.value)}
           />
@@ -269,10 +269,10 @@ const Houses = () => {
             <Select onClick={() => setOpen(!open)}>
               <span>
                 {property.industry
-                  ? getFieldTranslationByNames("475")
+                  ? getTranslation("475")
                   : property.education
-                    ? getFieldTranslationByNames("476")
-                    : getFieldTranslationByNames("477")}
+                    ? getTranslation("476")
+                    : getTranslation("477")}
               </span>
               <MdKeyboardArrowDown
                 style={{
@@ -290,7 +290,7 @@ const Houses = () => {
                     setOpen(false);
                   }}
                 >
-                  <h1>{getFieldTranslationByNames("475")}</h1>
+                  <h1>{getTranslation("475")}</h1>
                   {property.industry && (
                     <span
                       onClick={(e) => {
@@ -311,7 +311,7 @@ const Houses = () => {
                     setOpen(false);
                   }}
                 >
-                  <h1>{getFieldTranslationByNames("476")}</h1>
+                  <h1>{getTranslation("476")}</h1>
                   {property.education && (
                     <span
                       onClick={(e) => {
@@ -332,7 +332,7 @@ const Houses = () => {
                     setOpen(false);
                   }}
                 >
-                  <h1>{getFieldTranslationByNames("477")}</h1>
+                  <h1>{getTranslation("477")}</h1>
                   {property.house && (
                     <span
                       onClick={(e) => {
@@ -368,11 +368,11 @@ const Houses = () => {
   return (
     <Container id="scrollable-container" ref={containerRef}>
       <div>
-        <Title title={getFieldTranslationByNames("58")} />
+        <Title title={getTranslation("58")} />
       </div>
       <Div>
         <SearchInput
-          placeholder={getFieldTranslationByNames("57")}
+          placeholder={getTranslation("57")}
           value={searched}
           onChange={(e) => setSearched(e.target.value)}
         />
@@ -380,10 +380,10 @@ const Houses = () => {
           <Select onClick={() => setOpen(!open)}>
             <span>
               {property.industry
-                ? getFieldTranslationByNames("475")
+                ? getTranslation("475")
                 : property.education
-                  ? getFieldTranslationByNames("476")
-                  : getFieldTranslationByNames("477")}
+                  ? getTranslation("476")
+                  : getTranslation("477")}
             </span>
             <MdKeyboardArrowDown
               style={{
@@ -401,7 +401,7 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>{getFieldTranslationByNames("475")}</h1>
+                <h1>{getTranslation("475")}</h1>
                 {property.industry && (
                   <span
                     onClick={(e) => {
@@ -422,7 +422,7 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>{getFieldTranslationByNames("476")}</h1>
+                <h1>{getTranslation("476")}</h1>
                 {property.education && (
                   <span
                     onClick={(e) => {
@@ -443,7 +443,7 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>{getFieldTranslationByNames("477")}</h1>
+                <h1>{getTranslation("477")}</h1>
                 {property.house && (
                   <span
                     onClick={(e) => {

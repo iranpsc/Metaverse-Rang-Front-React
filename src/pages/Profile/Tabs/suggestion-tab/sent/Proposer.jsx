@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ConfettiExplosion from "react-confetti-explosion";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
   SanitizeHTML,
 } from "../../../../../services/Utility/index";
 import line from "../../../../../assets/images/profile/Line.png";
@@ -110,7 +110,7 @@ const Proposer = ({
     <Container>
       <Info isPersian={isPersian}>
         <Price>
-          <h3>{getFieldTranslationByNames("773")}</h3>
+          <h3>{getTranslation("773")}</h3>
           <Prices>
             <PriceItem src={rialpng} value={rial} />
             <img width={1} height={24} src={line} alt="Line" />
@@ -130,19 +130,19 @@ const Proposer = ({
           />
           {information?.length > 277 && (
             <span onClick={() => setIsExpanded(!isExpanded)}>
-              {getFieldTranslationByNames(isExpanded ? "884" : "774")}
+              {getTranslation(isExpanded ? "884" : "774")}
             </span>
           )}
         </Text>
       </Info>
       <ProposalStatus>
-        <p>{getFieldTranslationByNames("777")}</p>
+        <p>{getTranslation("777")}</p>
         <TimeSection>
           {["hours", "minutes", "seconds"].map((unit, index) => (
             <TimeBox key={index}>
               {convertToPersian(time[unit].toString().padStart(2, "0"))}
               <span>
-                {getFieldTranslationByNames(["560", "33", "778"][index])}
+                {getTranslation(["560", "33", "778"][index])}
               </span>
             </TimeBox>
           ))}
@@ -155,7 +155,7 @@ const Proposer = ({
               setTimeout(() => setIsExploding(false), 3000);
             }}
           >
-            {getFieldTranslationByNames("775")}
+            {getTranslation("775")}
             {isExploding && <ConfettiEffect />}
           </RejectButton>
         </Buttons>

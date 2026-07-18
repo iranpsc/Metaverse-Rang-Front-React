@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastSuccess,
   ToastError,
   getBrowser,
@@ -47,7 +47,7 @@ const WalletSetup = () => {
   const handleSend = async () => {
     try {
       if (!window.ethereum) {
-        alert(getFieldTranslationByNames(1765));
+        alert(getTranslation(1765));
         getBrowser().then((browser) => {
           const metamaskLinks = {
             Chrome:
@@ -118,7 +118,7 @@ const WalletSetup = () => {
         },
       });
 
-      ToastSuccess(getFieldTranslationByNames(1766));
+      ToastSuccess(getTranslation(1766));
       navigate("/");
     } catch (error) {
       ToastError(error?.response?.data.message);
@@ -172,27 +172,27 @@ const WalletSetup = () => {
         },
       });
 
-      ToastSuccess(getFieldTranslationByNames(1767));
+      ToastSuccess(getTranslation(1767));
 
       navigate("/");
     } catch (error) {
-      ToastError(getFieldTranslationByNames(1768));
+      ToastError(getTranslation(1768));
     }
   };
   return (
     <Container>
-      <h3>{getFieldTranslationByNames(1760)}</h3>
+      <h3>{getTranslation(1760)}</h3>
       {user.has_wallet ? (
-        <p> {getFieldTranslationByNames(1764)}</p>
+        <p> {getTranslation(1764)}</p>
       ) : (
-        <p>{getFieldTranslationByNames(1761)}</p>
+        <p>{getTranslation(1761)}</p>
       )}
 
       {user.has_wallet == false && (
         <div style={{ display: "flex", gap: "10px" }}>
           {!isMobile && (
             <Button
-              label={getFieldTranslationByNames(1762)}
+              label={getTranslation(1762)}
               onClick={handleSend}
               full
               color="#E27625"
@@ -200,7 +200,7 @@ const WalletSetup = () => {
           )}
 
           <Button
-            label={getFieldTranslationByNames(1763)}
+            label={getTranslation(1763)}
             onClick={handleWalletConnect}
             full
             color="#5570FF"

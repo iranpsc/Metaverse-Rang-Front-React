@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import DefaultProfile from "../../../../assets/images/defulte-profile.png";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation,metarangUrlCitizen } from "../../../../services/Utility";
 const Button = styled.div`
   font-size: 16px;
   white-space: nowrap;
@@ -113,19 +113,19 @@ const FollowingCard = ({ name, code, id, profile_photos, online }) => {
         </Image>{" "}
         <div>
           <h3>{name}</h3>
-          <a href={`https://metarang.com/fa/citizens/${code}`} target="_blank" rel="noreferrer">
+          <a href={metarangUrlCitizen(code)} target="_blank" rel="noreferrer">
             {code}
           </a>
         </div>
       </Profile>
       {follow ? (
         <Button gray onClick={unFollowHandler}>
-          {getFieldTranslationByNames("55")}
+          {getTranslation("55")}
         </Button>
       ) : (
         <Button onClick={onFollowHandler}>
           {" "}
-          {getFieldTranslationByNames("733")}
+          {getTranslation("733")}
         </Button>
       )}
     </Card>

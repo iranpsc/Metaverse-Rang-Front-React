@@ -2,7 +2,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import ReportRow from "./ReportRow";
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { getTranslation } from "../../../../services/Utility/index";
 import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
@@ -170,24 +170,24 @@ const ReportsList = ({
           <TableHead>
             <TableRow>
               <TableHeader style={{ width: "0%", whiteSpace: "nowrap" }}>
-                <Div>{getFieldTranslationByNames("1383")}</Div>
+                <Div>{getTranslation("1383")}</Div>
               </TableHeader>
               <TableHeader style={{ width: "40%" }}>
-                <Div>{getFieldTranslationByNames("19")}</Div>
+                <Div>{getTranslation("19")}</Div>
               </TableHeader>
               <TableHeader style={{ width: "12%", whiteSpace: "nowrap" }}>
                 <Div>
-                  {getFieldTranslationByNames("746")}
+                  {getTranslation("746")}
                   <Arrows>
                     <MdKeyboardArrowDown />
                   </Arrows>
                 </Div>
               </TableHeader>
               <TableHeader style={{ width: "16%", whiteSpace: "nowrap" }}>
-                <Div>{getFieldTranslationByNames("64")}</Div>
+                <Div>{getTranslation("64")}</Div>
               </TableHeader>
               <TableHeader style={{ width: "10%", whiteSpace: "nowrap" }}>
-                {getFieldTranslationByNames("1380")}
+                {getTranslation("1380")}
               </TableHeader>
             </TableRow>
           </TableHead>
@@ -226,14 +226,14 @@ const ReportsList = ({
         <TableHead>
           <TableRow>
             <TableHeader style={{ width: "0%", whiteSpace: "nowrap" }}>
-              <Div>{getFieldTranslationByNames("1383")}</Div>
+              <Div>{getTranslation("1383")}</Div>
             </TableHeader>
             <TableHeader style={{ width: "40%" }}>
-              <Div>{getFieldTranslationByNames("19")}</Div>
+              <Div>{getTranslation("19")}</Div>
             </TableHeader>
             <TableHeader style={{ width: "12%", whiteSpace: "nowrap" }}>
               <Div>
-                {getFieldTranslationByNames("746")}
+                {getTranslation("746")}
                 <Arrows
                   className="arrow-container"
                   onClick={() => setFilters({ member: !filters.member })}
@@ -256,7 +256,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("1385")}
+                      {getTranslation("1385")}
                     </h1>
                     {member.displayError && (
                       <span
@@ -276,7 +276,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("15")}
+                      {getTranslation("15")}
                     </h2>
                     {member.spellingError && (
                       <span
@@ -296,7 +296,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("16")}
+                      {getTranslation("16")}
                     </h3>
                     {member.codingError && (
                       <span
@@ -316,7 +316,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("17")}
+                      {getTranslation("17")}
                     </h3>
                     {member.FPSError && (
                       <span
@@ -336,7 +336,7 @@ const ReportsList = ({
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("18")}
+                      {getTranslation("18")}
                     </h3>
                     {member.disrespect && (
                       <span
@@ -353,10 +353,10 @@ const ReportsList = ({
               )}
             </TableHeader>
             <TableHeader style={{ width: "16%", whiteSpace: "nowrap" }}>
-              <Div>{getFieldTranslationByNames("64")}</Div>
+              <Div>{getTranslation("64")}</Div>
             </TableHeader>
             <TableHeader style={{ width: "10%", whiteSpace: "nowrap" }}>
-              {getFieldTranslationByNames("1380")}
+              {getTranslation("1380")}
             </TableHeader>
           </TableRow>
         </TableHead>
@@ -379,7 +379,7 @@ const ReportsList = ({
               setVisibleRows((prev) => prev + 10);
             }}
           >
-            {getFieldTranslationByNames("368")}
+            {getTranslation("368")}
           </button>
         </Loader>
       )}

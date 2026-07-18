@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
   ToastSuccess,
 } from "../../../../services/Utility";
 import Button from "../../../../components/Button";
@@ -158,20 +158,20 @@ const SatisfyCount = ({ isOwner }) => {
   };
 
   useEffect(() => {
-    if (!activeBuilding?.building.construction_end_date) return;
+    if (!activeBuilding?.building?.construction_end_date) return;
 
     setTimeLeft(
-      calculateTimeLeft(activeBuilding.building.construction_end_date),
+      calculateTimeLeft(activeBuilding.building?.construction_end_date),
     );
 
     const interval = setInterval(() => {
       setTimeLeft(
-        calculateTimeLeft(activeBuilding.building.construction_end_date),
+        calculateTimeLeft(activeBuilding.building?.construction_end_date),
       );
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [activeBuilding?.building.construction_end_date]);
+  }, [activeBuilding?.building?.construction_end_date]);
 
   const handleDeleteBuilding = async () => {
     if (!checkSecurity()) return;
@@ -182,7 +182,7 @@ const SatisfyCount = ({ isOwner }) => {
         HTTP_METHOD.DELETE,
       );
 
-      ToastSuccess(getFieldTranslationByNames("1609"));
+      ToastSuccess(getTranslation("1609"));
       navigate("");
       dispatch({
         type: WalletContextTypes.ADD_WALLET,
@@ -205,12 +205,12 @@ const SatisfyCount = ({ isOwner }) => {
       </Svg>
       <Main>
         <Header>
-          <Title>{getFieldTranslationByNames("1610")}</Title>
+          <Title>{getTranslation("1610")}</Title>
           {isOwner && timeLeft.days > 0 && (
             <Button
               large
               color={"#ff0000"}
-              label={getFieldTranslationByNames("1594")}
+              label={getTranslation("1594")}
               onClick={handleDeleteBuilding}
             />
           )}
@@ -219,28 +219,28 @@ const SatisfyCount = ({ isOwner }) => {
         <Timer>
           <TimeBox>
             <Value>{convertToPersian(timeLeft.seconds)}</Value>
-            <Unit>{getFieldTranslationByNames("778")}</Unit>
+            <Unit>{getTranslation("778")}</Unit>
           </TimeBox>
 
           <Colon>:</Colon>
 
           <TimeBox>
             <Value>{convertToPersian(timeLeft.minutes)}</Value>
-            <Unit>{getFieldTranslationByNames("33")}</Unit>
+            <Unit>{getTranslation("33")}</Unit>
           </TimeBox>
 
           <Colon>:</Colon>
 
           <TimeBox>
             <Value>{convertToPersian(timeLeft.hours)}</Value>
-            <Unit>{getFieldTranslationByNames("560")}</Unit>
+            <Unit>{getTranslation("560")}</Unit>
           </TimeBox>
 
           <Colon>:</Colon>
 
           <TimeBox>
             <Value>{convertToPersian(timeLeft.days)}</Value>
-            <Unit>{getFieldTranslationByNames("380")}</Unit>
+            <Unit>{getTranslation("380")}</Unit>
           </TimeBox>
         </Timer>
       </Main>

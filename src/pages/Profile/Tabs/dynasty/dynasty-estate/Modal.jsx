@@ -1,6 +1,6 @@
 import Button from "../../../../../components/Button";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 import { ExitIcon } from "../../../../../components/Icons/IconsHeader";
 const BackGround = styled.div`
   z-index: 999;
@@ -81,30 +81,30 @@ const Modal = ({ setModal, onConfirm, date }) => {
     <BackGround>
       <ModalBody>
         <Header>
-          <span>{getFieldTranslationByNames("122")}</span>
+          <span>{getTranslation("122")}</span>
           <ExitIcon onClick={() => setModal(false)}>X</ExitIcon>
         </Header>
         {isNaN(timeRemaining?.days) ? (
-          <p>{getFieldTranslationByNames(1439)}</p>
+          <p>{getTranslation(1439)}</p>
         ) : (
           <p>
-            {getFieldTranslationByNames(821)}
-            {timeRemaining.days} {getFieldTranslationByNames(380)},
-            {timeRemaining.hours} {getFieldTranslationByNames(560)},
-            {timeRemaining.minutes} {getFieldTranslationByNames(33)}
-            {getFieldTranslationByNames(1409)}
+            {getTranslation(821)}
+            {timeRemaining.days} {getTranslation(380)},
+            {timeRemaining.hours} {getTranslation(560)},
+            {timeRemaining.minutes} {getTranslation(33)}
+            {getTranslation(1409)}
           </p>
         )}
         <Buttons>
           <Button
-            label={getFieldTranslationByNames("823")}
+            label={getTranslation("823")}
             color="#18C08F"
             onclick={onConfirm}
             fit
             textColor="#D7FBF0"
           />
           <Button
-            label={getFieldTranslationByNames("824")}
+            label={getTranslation("824")}
             color="#C30000"
             onClick={() => setModal(false)}
             fit

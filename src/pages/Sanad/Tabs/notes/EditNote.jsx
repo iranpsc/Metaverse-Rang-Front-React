@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   getPlainText,ToastError,ToastSuccess
 } from "../../../../services/Utility";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
@@ -53,11 +53,11 @@ const EditNote = ({ setIsEditing, data }) => {
           payload: response.data.data,
         });
         setIsEditing(false);
-        ToastSuccess(getFieldTranslationByNames(1480));
+        ToastSuccess(getTranslation(1480));
       })
       .catch((err) => {
         console.error("Update Error:", err);
-        ToastError(getFieldTranslationByNames(1646));
+        ToastError(getTranslation(1646));
       });
   };
 
@@ -68,7 +68,7 @@ const EditNote = ({ setIsEditing, data }) => {
   return (
     <Container>
       <CustomEditor
-        label={getFieldTranslationByNames(460)}
+        label={getTranslation(460)}
         value={localDescription}
         onChange={(newDescription) => setLocalDescription(newDescription)}
         border={true}
@@ -82,14 +82,14 @@ const EditNote = ({ setIsEditing, data }) => {
       <Buttons>
         <Button
           fit
-          label={getFieldTranslationByNames("629")}
+          label={getTranslation("629")}
           onclick={handleSave}
           disabled={!isTextValid} 
         />
         <Button
           grayTheme
           fit
-          label={getFieldTranslationByNames("833")}
+          label={getTranslation("833")}
           onclick={() => setIsEditing(false)}
         />
       </Buttons>

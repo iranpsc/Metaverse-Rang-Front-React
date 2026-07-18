@@ -4,9 +4,10 @@ import useAuth from "../../services/Hooks/useAuth";
 import Tabs from "../../services/Hooks/useTabs";
 import { FeatureContext } from "./Context/FeatureProvider";
 import { FeatureColor } from "../../services/constants/FeatureType";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 // Tabs
 import { BuyerTab, InfoTab, SellerTab } from "./Tabs";
+import HistoryTab from "./Tabs/history-tab/HistoryTab";
 import PropertyConstruction from "./Tabs/PropertyConstruction";
 import EnterTab from "./Tabs/enter-tab/EnterTab";
 import PhysicTab from "./Tabs/physic-tab/PhysicTab";
@@ -19,28 +20,31 @@ export default function ConditionalPage() {
   const { getUser } = useAuth();
   const [userId, setUserId] = useState(null);
   const [feature] = useContext(FeatureContext);
-
   const status = feature?.construction_status?.[0]?.status;
   const areTabsReady =
     feature !== undefined &&
     feature !== null &&
     status !== undefined &&
     userId !== null;
-  const commonTab = {
+  const infoTab = {
     path: "info",
-    title: getFieldTranslationByNames("516"),
+    title: getTranslation("516"),
     content: <InfoTab />,
   };
 
+  const historyTab = {
+    path: "history",
+    title: getTranslation("1780"),
+    content: <HistoryTab />,
+  };
   const SellTabs = useMemo(
     () => [
-      commonTab,
-
+      infoTab,
       ...(status === undefined || status === "completed"
         ? [
             {
               path: "sell",
-              title: getFieldTranslationByNames("352"),
+              title: getTranslation("352"),
               content: <SellerTab seller />,
             },
           ]
@@ -50,7 +54,7 @@ export default function ConditionalPage() {
         ? [
             {
               path: "building",
-              title: getFieldTranslationByNames("355"),
+              title: getTranslation("355"),
               content: <PropertyConstruction />,
             },
           ]
@@ -60,17 +64,17 @@ export default function ConditionalPage() {
         ? [
             {
               path: "enter",
-              title: getFieldTranslationByNames("354"),
+              title: getTranslation("354"),
               content: <EnterTab owner />,
             },
             {
               path: "physic",
-              title: getFieldTranslationByNames("356"),
+              title: getTranslation("356"),
               content: <PhysicTab owner />,
             },
             {
               path: "participation",
-              title: getFieldTranslationByNames("357"),
+              title: getTranslation("357"),
               content: <ParticipationTab owner />,
             },
           ]
@@ -80,33 +84,35 @@ export default function ConditionalPage() {
         ? [
             {
               path: "participation",
-              title: getFieldTranslationByNames("357"),
+              title: getTranslation("357"),
               content: <ParticipationTab owner />,
             },
           ]
         : []),
+      historyTab,
     ],
     [status],
   );
 
   const BuySystemTabs = [
-    commonTab,
+    infoTab,
     {
       path: "buy",
-      title: getFieldTranslationByNames("353"),
+      title: getTranslation("353"),
       content: <BuyerTabSystem />,
     },
+    historyTab,
   ];
 
   const BuyUserTabs = useMemo(
     () => [
-      commonTab,
+      infoTab,
 
       ...(status !== "in_progress"
         ? [
             {
               path: "buy",
-              title: getFieldTranslationByNames("353"),
+              title: getTranslation("353"),
               content: <BuyerTab />,
             },
           ]
@@ -116,17 +122,17 @@ export default function ConditionalPage() {
         ? [
             {
               path: "enter",
-              title: getFieldTranslationByNames("354"),
+              title: getTranslation("354"),
               content: <EnterTab />,
             },
             {
               path: "physic",
-              title: getFieldTranslationByNames("356"),
+              title: getTranslation("356"),
               content: <PhysicTab />,
             },
             {
               path: "participation",
-              title: getFieldTranslationByNames("357"),
+              title: getTranslation("357"),
               content: <ParticipationTab />,
             },
           ]
@@ -136,11 +142,12 @@ export default function ConditionalPage() {
         ? [
             {
               path: "participation",
-              title: getFieldTranslationByNames("357"),
+              title: getTranslation("357"),
               content: <ParticipationTab />,
             },
           ]
         : []),
+      historyTab,
     ],
     [status],
   );
@@ -150,7 +157,7 @@ export default function ConditionalPage() {
     if (user?.id) setUserId(Number(user.id));
   }, [getUser]);
 
-  let tabs = [commonTab];
+  let tabs = [infoTab, historyTab];
 
   if (FeatureColor(feature?.properties?.rgb) && userId) {
     if (feature?.owner_id === 1) tabs = BuySystemTabs;
@@ -158,7 +165,7 @@ export default function ConditionalPage() {
     else tabs = BuyUserTabs;
   }
   useEffect(() => {
-    if (!areTabsReady) return; 
+    if (!areTabsReady) return;
 
     if (!tabs.find((t) => t.path === tab)) {
       navigate("", { replace: true });

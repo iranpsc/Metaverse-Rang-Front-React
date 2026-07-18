@@ -7,7 +7,7 @@ import { ToastError } from "../../services/Utility";
 import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../services/Hooks/useRequest";
-
+import { metarangUrlCitizen } from "../../services/Utility";
 const Left = styled.div`
   display: flex;
   align-items: end;
@@ -112,7 +112,7 @@ const Footer = ({ show, data }) => {
     <Container show={show}>
       <Right>
         <a
-          href={`https://metarang.com/fa/citizens/${data?.creator_code}`}
+          href={metarangUrlCitizen(data?.creator_code)}
           target="_blank"
           rel="noreferrer"
         >

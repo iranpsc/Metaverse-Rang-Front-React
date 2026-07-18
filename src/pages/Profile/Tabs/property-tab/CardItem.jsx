@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
   formatNumber,
 } from "../../../../services/Utility";
 import Button from "../../../../components/Button";
@@ -200,28 +200,28 @@ const CardItem = ({
             <img src={photo} />
           </ImageWrapper>
           <Name>
-            <h3>{getFieldTranslationByNames(name)}</h3>
+            <h3>{getTranslation(name)}</h3>
             <span onClick={() => Navigate(`/feature/${navigateId}`)}>
               {id}
             </span>
           </Name>
         </PhotoName>
         <Address>
-          <span>{getFieldTranslationByNames("59")}</span>
+          <span>{getTranslation("59")}</span>
           <p data-tooltip-id={address}>{address}</p>
           <StyledTooltip id={address} place="top" content={address} />
         </Address>
       </Right>
       <Left>
         <Meter>
-          <span>{getFieldTranslationByNames("347")}</span>
+          <span>{getTranslation("347")}</span>
           <p>{convertToPersian(area)}</p>
         </Meter>
         {isDeleted ? (
           <div />
         ) : (
           <Price>
-            <span>{getFieldTranslationByNames("60")}</span>
+            <span>{getTranslation("60")}</span>
             <Div>
               <div>
                 <img width={24} height={24} src={rialpng} />
@@ -237,14 +237,14 @@ const CardItem = ({
         {isDeleted ? (
           <Button
             fit
-            label={getFieldTranslationByNames("352")}
+            label={getTranslation("352")}
             onClick={() =>
               Navigate(`/feature/${navigateId}/sell/lowest`)
             }
           />
         ) : (
           <Delete onClick={handleDelete}>
-            {getFieldTranslationByNames("736")}
+            {getTranslation("736")}
           </Delete>
         )}
       </Left>

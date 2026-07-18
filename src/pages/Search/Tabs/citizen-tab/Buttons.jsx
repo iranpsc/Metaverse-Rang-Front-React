@@ -9,7 +9,7 @@ import { FollowContext } from "../../../../services/reducers/FollowContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const IconWrapper = styled.div`
   width: 36px;
@@ -66,7 +66,7 @@ const Buttons = ({ user }) => {
     {
       id: 1,
       icon: isFollowed ? <RiUserUnfollowLine /> : <TiUserAddOutline />,
-      label: getFieldTranslationByNames("467"),
+      label: getTranslation("467"),
       onClick: isFollowed
         ? () => onUnFollowHandler(user?.id)
         : () => onFollowHandler(user?.id),
@@ -74,14 +74,14 @@ const Buttons = ({ user }) => {
     {
       id: 2,
       icon: <BiCommentDots />,
-      label: null, //getFieldTranslationByNames("468")
+      label: null, //getTranslation("468")
       onClick: null,
       disabled: true,
     },
     {
       id: 3,
       icon: <MdOutlineMailOutline />,
-      label: getFieldTranslationByNames("469"),
+      label: getTranslation("469"),
       onClick: () =>
         Navigate("/documents", {
           state: { code: user?.code, user: user?.id },

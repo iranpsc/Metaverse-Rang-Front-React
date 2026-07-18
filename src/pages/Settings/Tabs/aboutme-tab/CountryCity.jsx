@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { useEffect, useState } from "react";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   getFieldsByTabName,
   getFieldsByTabNameReverse,
 } from "../../../../services/Utility";
@@ -93,14 +93,14 @@ const CountryCity = () => {
     );
 
     if (selectedField)
-      return getFieldTranslationByNames(selectedField.unique_id);
+      return getTranslation(selectedField.unique_id);
 
     const reversedField = secondaryFields.find(
       (field) => field?.translation?.trim().toLowerCase() === normalizedValue
     );
 
     if (reversedField)
-      return getFieldTranslationByNames(reversedField.unique_id);
+      return getTranslation(reversedField.unique_id);
 
     return "";
   };
@@ -138,7 +138,7 @@ const CountryCity = () => {
     <Container>
       {options.map((option) => (
         <SelectContainer key={option.type}>
-          <Label>{getFieldTranslationByNames(option.translationId)}</Label>
+          <Label>{getTranslation(option.translationId)}</Label>
           <Dropdown
             searchable={true}
             options={fields[option.type].map((field) => field.translation)}

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
 import DynastyIcon from "../../../assets/svg/dynasty.svg?react";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
@@ -38,7 +38,7 @@ const Dynasty = () => {
     <>
       <Btn isOpenDrop={isOpenDrop}>
         <IconHeader isOpenDrop={isOpenDrop} />
-        <Text isOpen={isOpen}>{getFieldTranslationByNames("158")}</Text>
+        <Text isOpen={isOpen}>{getTranslation("158")}</Text>
       </Btn>
     </>
   );

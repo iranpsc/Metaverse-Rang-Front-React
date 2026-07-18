@@ -5,7 +5,7 @@ import { useMenuContext } from "../../../services/reducers/MenuContext";
 import  FollowingIcon  from "../../../assets/svg/following.svg?react";
 import { useState } from "react";
 import Follower from "./Follower";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
@@ -47,7 +47,7 @@ const Fallowing = () => {
     <>
       <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
         <IconHeader isOpenDrop={isOpenDrop} />
-        <Text isOpen={isOpen}> {getFieldTranslationByNames("55")}</Text>
+        <Text isOpen={isOpen}> {getTranslation("55")}</Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
         <Follower />

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import Resumable from "resumablejs";
 import { UserContext } from "../../../../services/reducers/UserContext";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
 
 const Container = styled.div`
@@ -306,7 +306,7 @@ const VideoRecord = ({
 
   return (
     <Container>
-      <Title>{getFieldTranslationByNames("873")}</Title>
+      <Title>{getTranslation("873")}</Title>
       <Div>
         <ContainerRecorder>
           <Record
@@ -344,15 +344,15 @@ const VideoRecord = ({
         </ContainerRecorder>
 
         <Info>
-          <h4>{getFieldTranslationByNames("874")}</h4>
+          <h4>{getTranslation("874")}</h4>
           <p>
             {textVerify.text} {user.code}
           </p>
           <div>
-            <h3>{getFieldTranslationByNames("876")}</h3>
+            <h3>{getTranslation("876")}</h3>
             <h5>
               {timeLeft}
-              <span>{getFieldTranslationByNames("778")}</span>
+              <span>{getTranslation("778")}</span>
             </h5>
           </div>
         </Info>

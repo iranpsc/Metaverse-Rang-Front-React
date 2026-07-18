@@ -3,7 +3,7 @@ import ChangeCard from "./ChangeCard";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 import { Skeleton } from "../../../../components/Skeleton";
 
@@ -75,7 +75,7 @@ const AccountTab = () => {
     if (Object.keys(settings).length > 0) {
       setMobileChange((prevState) => ({
         ...prevState,
-        warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(
+        warn: ` ${settings.phone_reset_count}  ${getTranslation(
           "1364"
         )}`,
       }));
@@ -159,7 +159,7 @@ const AccountTab = () => {
         warn={mobileChange.warn}
         inputs={mobileChange.inputs}
       />
-      <Bank />
+      <Bank settings={settings} />
     </GridContainer>
   );
 };

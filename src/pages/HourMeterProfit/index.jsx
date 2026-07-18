@@ -1,13 +1,13 @@
 import React from "react";
 import ModalPosition from "../../components/ModalPosition";
 import Tabs from "../../services/Hooks/useTabs";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 
 const HourMeterProfit = () => {
   const tabs = [
     {
       path: "profit",
-      title: getFieldTranslationByNames("27"),
+      title: getTranslation("27"),
 
     },
   ];

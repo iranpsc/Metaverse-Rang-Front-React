@@ -1,8 +1,8 @@
 import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
-import  Message from "../../../../../assets/svg/message.svg?react";
-
+import { getTranslation } from "../../../../../services/Utility";
+import Message from "../../../../../assets/svg/message.svg?react";
+import { metarangUrlCitizen } from "../../../../../services/Utility";
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.newColors.otherColors.menuBg};
   border-radius: 5px;
@@ -86,7 +86,7 @@ const TreeMember = ({ item }) => {
 
   const getRelationshipLabel = (relationship) => {
     const found = relationTypes.find((type) => type.value === relationship);
-    return found ? getFieldTranslationByNames(found.label) : relationship;
+    return found ? getTranslation(found.label) : relationship;
   };
 
   return (
@@ -102,7 +102,7 @@ const TreeMember = ({ item }) => {
         />
       </Image>
       <h3>{getRelationshipLabel(item.relationship)}</h3>
-      <a href={`https://metarang.com/fa/citizen/${item.code}`} target="_blank" rel="noreferrer">
+      <a href={metarangUrlCitizen(item.code)} target="_blank" rel="noreferrer">
         {item.code}
       </a>
     </Container>

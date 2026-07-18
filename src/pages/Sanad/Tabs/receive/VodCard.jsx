@@ -5,7 +5,7 @@ import styled from "styled-components";
 import whatsapp from "../../../../assets/images/whatsapp.png";
 import Button from "../../../../components/Button";
 import Title from "../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
 
 const Container = styled.div`
@@ -126,7 +126,7 @@ const VodCard = ({ data }) => {
           <p>#{data.code}</p>
         </Texts>
         <Socials>
-          <h3>{getFieldTranslationByNames("1348")}</h3>
+          <h3>{getTranslation("1348")}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -142,21 +142,21 @@ const VodCard = ({ data }) => {
       </Info>
       <Content>
         <Subject>
-          <Label>{getFieldTranslationByNames("1340")}</Label>
+          <Label>{getTranslation("1340")}</Label>
           <h2>{data.sender.name}</h2>
         </Subject>
         <Status status={data?.status}>
-          <Label>{getFieldTranslationByNames("1341")}</Label>
+          <Label>{getTranslation("1341")}</Label>
           <h2>
             {data?.status === "confirmed"
-              ? getFieldTranslationByNames("1343")
+              ? getTranslation("1343")
               : data?.status === "pending"
-              ? getFieldTranslationByNames("1344")
-              : getFieldTranslationByNames("1345")}
+              ? getTranslation("1344")
+              : getTranslation("1345")}
           </h2>
         </Status>
         <Date>
-          <Label>{getFieldTranslationByNames("64")}</Label>
+          <Label>{getTranslation("64")}</Label>
           <h2>
             {data?.date} | {data?.time}
           </h2>
@@ -166,13 +166,13 @@ const VodCard = ({ data }) => {
             fit
             onclick={() => onCloseTicket()}
             grayTheme
-            label={getFieldTranslationByNames("1350")}
+            label={getTranslation("1350")}
           />
           <Button
             fit
             onclick={() => onCloseTicket()}
             grayTheme
-            label={getFieldTranslationByNames("1349")}
+            label={getTranslation("1349")}
           />
         </Buttons>
       </Content>

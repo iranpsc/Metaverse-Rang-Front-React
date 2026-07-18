@@ -14,7 +14,7 @@ import {
   FeatureSvg,
 } from "../../../../services/constants/FeatureType";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
 } from "../../../../services/Utility";
 const InputsWrapper = styled.div`
@@ -49,11 +49,11 @@ const SellerPriceInfo = () => {
     if (walletRaw < featurePrice) {
       const colorName =
         colorKey === "yellow"
-          ? getFieldTranslationByNames("1599")
+          ? getTranslation("1599")
           : colorKey === "red"
-            ? getFieldTranslationByNames("1600")
+            ? getTranslation("1600")
             : colorKey === "blue"
-              ? getFieldTranslationByNames("1601")
+              ? getTranslation("1601")
               : "نامشخص";
 
       ToastError(colorName);
@@ -81,14 +81,14 @@ const SellerPriceInfo = () => {
     <>
       <InputsWrapper>
         <TextValueIcon
-          title={getFieldTranslationByNames("521")}
+          title={getTranslation("521")}
           value={feature.properties.stability}
           valueIcon={FeatureColor(feature.properties.rgb)}
           very_long
         />
       </InputsWrapper>
 
-      <Button label={getFieldTranslationByNames("353")} onclick={onSubmit} />
+      <Button label={getTranslation("353")} onclick={onSubmit} />
     </>
   );
 };

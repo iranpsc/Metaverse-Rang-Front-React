@@ -8,7 +8,7 @@ import {
   ToastSuccess,
   ToastError,
   TimeAgo,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../../services/Utility";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import { Container, Text, Title } from "../../../Styles";
@@ -109,7 +109,7 @@ export default function PriceFloor() {
         </label>
         <Submit
           type="primary"
-          text={getFieldTranslationByNames("519")}
+          text={getTranslation("519")}
         />
       </Form>
     </Container>

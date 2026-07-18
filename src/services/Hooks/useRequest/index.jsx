@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getItem } from "../../Utility/LocalStorage";
-import { ToastError, getFieldTranslationByNames } from "../../Utility";
+import { ToastError, getTranslation } from "../../Utility";
 import { UserContext } from "../../reducers/UserContext";
 import { useContext } from "react";
 
@@ -27,7 +27,7 @@ export default function useRequest() {
     }
 
     if (!accountSecurity) {
-      ToastError(getFieldTranslationByNames("1603"));
+      ToastError(getTranslation("1603"));
       navigate("/confirmation");
       return false;
     }
@@ -64,7 +64,7 @@ export default function useRequest() {
       .then((response) => response)
       .catch((error) => {
         if (error.response?.status === 410) {
-          ToastError(getFieldTranslationByNames("1603"));
+          ToastError(getTranslation("1603"));
         }
 
         throw error;

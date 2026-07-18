@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import   LoginIcon  from "../../../assets/svg/login.svg?react";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";
 const Btn = styled.div`
   width: 100%;
@@ -56,7 +56,7 @@ const BtnLogin = () => {
   return (
     <Btn isOpen={isOpen} onClick={handleClick}>
       <Icon src={LoginIcon} />
-      <Text isOpen={isOpen}>{getFieldTranslationByNames("4")}</Text>
+      <Text isOpen={isOpen}>{getTranslation("4")}</Text>
     </Btn>
   );
 };

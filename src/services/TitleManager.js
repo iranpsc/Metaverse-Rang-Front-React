@@ -1,10 +1,15 @@
-import { getFieldTranslationByNames } from "./Utility";
+import { getTranslation } from "./Utility";
 
-const t = (id) => getFieldTranslationByNames(id);
+const t = (id) => getTranslation(id);
+
 const DEFAULT_TITLE = "905";
 const DEFAULT_PAGE = "148";
 
-const getSegments = (href = "") => href.split("/").filter(Boolean);
+const getSegments = (path = "") => {
+  const pathname = path.split("?")[0].split("#")[0];
+  return pathname.split("/").filter(Boolean);
+};
+
 const isId = (seg) => /^\d+$/.test(seg);
 const isDynamicSegment = (seg) => /^packet-/.test(seg);
 
@@ -51,16 +56,16 @@ const titleTranslations = {
   citizen: "470",
   property: "471",
   profit: "27",
+  challenges: "231",
   identity: "867",
   bank: "868",
   tools: "109",
   currency: "110",
   notifications: "238",
-    connectWallet:"1668"
-,
-following:"55",
-followers:"38",
-members:"112",
+  connectWallet: "1668",
+  following: "55",
+  followers: "38",
+  members: "112",
   send: "1386",
   list: "22",
   info: "516",
@@ -69,54 +74,77 @@ members:"112",
   participation: "357",
   building: "355",
 };
-
 const getLastTextSegment = (segments) => {
   for (let i = segments.length - 1; i >= 0; i--) {
     const seg = segments[i];
+
     if (isId(seg)) continue;
     if (isDynamicSegment(seg)) continue;
 
-    return { value: seg, index: i };
+    return {
+      value: seg,
+      index: i,
+    };
   }
+
   return null;
 };
 
 const getPrevTextSegment = (segments, index) => {
   for (let i = index - 1; i >= 0; i--) {
-    if (!isId(segments[i])) {
-      return segments[i];
-    }
+    const seg = segments[i];
+
+    if (isId(seg)) continue;
+    if (isDynamicSegment(seg)) continue;
+
+    return seg;
   }
+
   return null;
 };
 
 const getPageKey = (segments) =>
   segments.find((seg) => seg !== "metaverse" && !isId(seg));
 
-const getModalHeaderFromPrevious = (href = "") => {
-  const segments = getSegments(href);
+const getModalHeaderFromPrevious = (pathname = "") => {
+  const segments = getSegments(pathname);
+
   if (!segments.length) {
-    return { title: t(DEFAULT_TITLE), page: null };
+    return {
+      title: t(DEFAULT_TITLE),
+      page: t(DEFAULT_PAGE),
+    };
   }
 
   const lastObj = getLastTextSegment(segments);
+
   if (!lastObj) {
-    return { title: t(DEFAULT_TITLE), page: null };
+    return {
+      title: t(DEFAULT_TITLE),
+      page: t(DEFAULT_PAGE),
+    };
   }
 
   const { value: last, index } = lastObj;
+
   const prev = getPrevTextSegment(segments, index);
 
   const titleKey = prev ? `${prev}-${last}` : last;
+
   const titleId =
-    titleTranslations[titleKey] ?? titleTranslations[last] ?? DEFAULT_TITLE;
+    titleTranslations[titleKey] ??
+    titleTranslations[last] ??
+    DEFAULT_TITLE;
 
   const pageKey = getPageKey(segments);
-  const pageId = pageKey ? pageTranslations[pageKey] : null;
+
+  const pageId =
+    pageTranslations[pageKey] ??
+    DEFAULT_PAGE;
 
   return {
     title: t(titleId),
-    page: pageId ? t(pageId) : t(DEFAULT_PAGE),
+    page: t(pageId),
   };
 };
 

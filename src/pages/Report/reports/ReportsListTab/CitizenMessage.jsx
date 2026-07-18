@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import DefaultProfile from "../../../../assets/images/defulte-profile.png";
+import { metarangUrlCitizen } from "../../../../services/Utility";
 const Content = styled.div``;
 
 const Header = styled.div`
@@ -181,7 +182,7 @@ const CitizenMessage = (reportDetails) => {
           <span>{userState.name}</span>
           {/* افزودن target و rel به لینک Code */}
           <a
-            href={`https://metarang.com/fa/citizen/${userState.code}`}
+            href={metarangUrlCitizen(userState.code)}
             target="_blank"
             rel="noopener noreferrer"
           >

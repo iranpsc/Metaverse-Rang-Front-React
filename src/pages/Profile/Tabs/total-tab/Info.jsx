@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import ButtonIcon from "../../../../components/ButtonIcon";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation,metarangUrlCitizen } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 import { convertToPersian } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
@@ -93,7 +93,6 @@ const Upper = styled.div`
 const Info = () => {
   const [openShare, setOpenShare] = useState(false);
   const [userId] = useContext(UserContext);
-//console.log(userId)
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
@@ -157,28 +156,28 @@ const Info = () => {
         <div>
           <Title>{user?.name}</Title>
           <Code
-            href={`https://metarang.com/fa/citizens/${user?.code}`}
+            href={metarangUrlCitizen(user?.code)}
             target="_blank"
           >
             {user?.code}
           </Code>
         </div>
         <span>
-          {getFieldTranslationByNames("53")}{" "}
+          {getTranslation("53")}{" "}
           {convertToPersian(user?.registered_at)}
         </span>
       </Header>
       <Content>
         <Follow>
           <Count>{convertToPersian(user?.followers_count)}</Count>
-          <span>{getFieldTranslationByNames("38")}</span>
+          <span>{getTranslation("38")}</span>
         </Follow>
         <div
           style={{ height: "55px", width: "1px", backgroundColor: "#454545" }}
         />
         <Follow>
           <Count>{convertToPersian(user?.following_count)}</Count>
-          <span>{getFieldTranslationByNames("55")}</span>
+          <span>{getTranslation("55")}</span>
         </Follow>
       </Content>
       <Buttons>
@@ -195,7 +194,7 @@ const Info = () => {
           <ButtonIcon
             grow
             icon={<LuShare2 />}
-            label={getFieldTranslationByNames("734")}
+            label={getTranslation("734")}
             onclick={() => setOpenShare(true)}
           />
         </Upper>

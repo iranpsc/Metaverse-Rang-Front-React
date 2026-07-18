@@ -1,7 +1,7 @@
 import avatar from "../../../../assets/images/defulte-profile.png";
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
-import { SanitizeHTML } from "../../../../services/Utility";
+import { SanitizeHTML,metarangUrlCitizen } from "../../../../services/Utility";
 import nonPhoto from "../../../../assets/images/file.png";
 
 const Content = styled.div``;
@@ -170,7 +170,7 @@ const CitizenMessage = ({ data }) => {
                     filename = urlParts[urlParts.length - 1]
                       .split("?")[0]
                       .split("#")[0];
-                  } catch {}
+                  } catch(err) {console.error(err)}
                   handleDownload(attachment, filename);
                 }}
               />
@@ -195,7 +195,7 @@ const CitizenMessage = ({ data }) => {
           <Header>
             <span>{data?.sender?.name}</span>
             <a
-              href={`https://metarang.com/fa/citizens/${data?.sender?.code}`}
+              href={metarangUrlCitizen(data?.sender?.code)}
               target="_blank" rel="noreferrer"
             >
               {data?.sender.code}
@@ -215,7 +215,7 @@ const CitizenMessage = ({ data }) => {
             <Header>
               <span>{data?.sender?.name}</span>
               <a
-                href={`https://metarang.com/fa/citizens/${data?.sender?.code}`}
+                href={metarangUrlCitizen(data?.sender?.code)}
                 target="_blank" rel="noreferrer"
               >
                 {data?.sender.code}

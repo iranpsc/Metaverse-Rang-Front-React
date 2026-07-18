@@ -11,7 +11,7 @@ import whatsapp from "../../../../assets/images/whatsapp.png";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Button = styled.div`
   background-color: ${(props) =>
@@ -148,7 +148,7 @@ const NoteCard = ({ data }) => {
           <p>#{data?.id}</p>
         </Texts>
         <Socials>
-          <h3>{getFieldTranslationByNames("1367")}</h3>
+          <h3>{getTranslation("1367")}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -164,15 +164,15 @@ const NoteCard = ({ data }) => {
       </Info>
       <Content>
         <Subject>
-          <Label>{getFieldTranslationByNames("1370")}</Label>
+          <Label>{getTranslation("1370")}</Label>
           <h2>{data?.name}</h2>
         </Subject>
         <Status status={data?.status}>
-          <Label>{getFieldTranslationByNames("1369")}</Label>
+          <Label>{getTranslation("1369")}</Label>
           <h2>{data?.date}</h2>
         </Status>
         <Date>
-          <Label>{getFieldTranslationByNames("1368")}</Label>
+          <Label>{getTranslation("1368")}</Label>
           <h2>{data?.date}</h2>
         </Date>
         <div
@@ -185,11 +185,11 @@ const NoteCard = ({ data }) => {
         >
           <Button onClick={removeNoteHandler}>
             <GoTrash size={22} />
-            <h4>{getFieldTranslationByNames("738")}</h4>
+            <h4>{getTranslation("738")}</h4>
           </Button>
           <Button onClick={() => setIsEditing(true)}>
             <CiEdit size={22} />
-            <h4>{getFieldTranslationByNames("460")}</h4>
+            <h4>{getTranslation("460")}</h4>
           </Button>
         </div>
       </Content>

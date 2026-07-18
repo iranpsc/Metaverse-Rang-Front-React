@@ -13,7 +13,7 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { UserContext } from "../../../../services/reducers/UserContext";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 
 const icons = [
@@ -194,7 +194,7 @@ const RestrictUser = () => {
 
   return (
     <Container>
-      <Title>{getFieldTranslationByNames("726")}</Title>
+      <Title>{getTranslation("726")}</Title>
       <Icons>
         {icons.map((icon) => (
           <div key={icon.id}>
@@ -208,7 +208,7 @@ const RestrictUser = () => {
             <ReactTooltip
               id={icon.slug}
               place="top"
-              content={getFieldTranslationByNames(icon.label)}
+              content={getTranslation(icon.label)}
             />
           </div>
         ))}

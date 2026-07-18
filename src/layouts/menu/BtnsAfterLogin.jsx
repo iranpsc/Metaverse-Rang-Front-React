@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import HomeIcon from "../../assets/svg/home.svg";
 import NewsIcon from "../../assets/svg/news.svg";
 import BlogIcon from "../../assets/svg/blogs.svg";
@@ -13,7 +13,7 @@ import CalendarIcon from "../../assets/svg/calendar.svg";
 import { useMenuContext } from "../../services/reducers/MenuContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
-import { useTranslation } from "react-i18next";
+import i18n from "../../i18n/i18n";
 
 const Container = styled.div`
   display: flex;
@@ -108,66 +108,67 @@ const Tooltip = styled.div`
     rotate: ${(props) => (props.lang == "en" ? "0" : "180deg")};
   }
 `;
-const menuItems = [
-  { icon: HomeIcon, translationId: "149", link: "https://metarang.com/" },
-  {
-    icon: NewsIcon,
-    translationId: "255",
-    link: "https://metatimes.ir/",
-  },
-  {
-    icon: BlogIcon,
-    translationId: "258",
-    link: "https://metarang.com/fa/articles",
-  },
-  // {
-  //   icon: ChallengeIcon,
-  //   translationId: "297",
-  //   link: "https://metarang.com/home-competitions",
-  // },
-  {
-    icon: TrainingIcon,
-    translationId: "165",
-    link: "https://metarang.com/fa/education",
-  },
-  {
-    icon: AboutIcon,
-    translationId: "259",
-    link: "https://metarang.com/fa/about",
-  },
-  {
-    icon: ContactIcon,
-    translationId: "260",
-    link: "https://metarang.com/fa/contact",
-  },
-  {
-    icon: RobotIcon,
-    translationId: "574",
-    link: "https://metarang.com/fa/version",
-  },
-  {
-    icon: CalendarIcon,
-    translationId: "262",
-    link: "https://metarang.com/fa/calendar",
-  },
-  {
-    icon: CitizenIcon,
-    translationId: "263",
-    link: "https://metarang.com/fa/citizens",
-  },
-];
 
 const BtnsAfterLogin = () => {
   const { isOpen } = useMenuContext();
-  const lang = useTranslation();
+  const lang = i18n.language;
+
+  const baseURL = `https://metarang.com/${lang}`;
+  const menuItems = [
+    { icon: HomeIcon, translationId: "149", link: baseURL },
+    {
+      icon: NewsIcon,
+      translationId: "255",
+      link: "https://metatimes.ir/",
+    },
+    {
+      icon: BlogIcon,
+      translationId: "258",
+      link: `${baseURL}/articles`,
+    },
+    // {
+    //   icon: ChallengeIcon,
+    //   translationId: "297",
+    //   link: `${baseURL}/home-competitions`,
+    // },
+    {
+      icon: TrainingIcon,
+      translationId: "165",
+      link: `${baseURL}/education`,
+    },
+    {
+      icon: AboutIcon,
+      translationId: "259",
+      link: `${baseURL}/about`,
+    },
+    {
+      icon: ContactIcon,
+      translationId: "260",
+      link: `${baseURL}/contact`,
+    },
+    {
+      icon: RobotIcon,
+      translationId: "574",
+      link: `${baseURL}/version`,
+    },
+    {
+      icon: CalendarIcon,
+      translationId: "262",
+      link: `${baseURL}/calendar`,
+    },
+    {
+      icon: CitizenIcon,
+      translationId: "263",
+      link: `${baseURL}/citizens`,
+    },
+  ];
+
   return (
     <Container>
       {menuItems.map((item, index) => (
         <Tippy
           content={
-            <Tooltip lang={lang.i18n.language}>
-              {getFieldTranslationByNames(item.translationId)}
-            </Tooltip>
+            <Tooltip lang={lang}>{getTranslation(item.translationId)}</Tooltip>
           }
           zIndex={10000}
           placement="left"
@@ -184,9 +185,7 @@ const BtnsAfterLogin = () => {
             rel="noreferrer"
           >
             <Icon src={item.icon} />
-            <Text isOpen={isOpen}>
-              {getFieldTranslationByNames(item.translationId)}
-            </Text>
+            <Text isOpen={isOpen}>{getTranslation(item.translationId)}</Text>
           </Btn>
         </Tippy>
       ))}

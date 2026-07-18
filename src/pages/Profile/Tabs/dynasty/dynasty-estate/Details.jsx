@@ -1,6 +1,6 @@
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -67,7 +67,7 @@ const Details = ({ data }) => {
   const renderKeyValue = (labelId, value, icon = false) => (
     <KeyValue>
       <h3 style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-        {getFieldTranslationByNames(labelId)}
+        {getTranslation(labelId)}
         {icon && <AiOutlineExclamationCircle />}
       </h3>
       <span>{value}</span>
@@ -77,7 +77,7 @@ const Details = ({ data }) => {
   return (
     <Container>
       <Header>
-        <h3>{getFieldTranslationByNames(813)}</h3>
+        <h3>{getTranslation(813)}</h3>
         <span
           onClick={() =>
             Navigate(`/feature/${id}`, {
