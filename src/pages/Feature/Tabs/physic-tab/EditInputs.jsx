@@ -131,7 +131,6 @@ const EditInputs = ({
   hasData,
   inputs,
   setEdit,
-  setInputs,
   buildingID,
   featureID,
 }) => {
