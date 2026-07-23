@@ -1,32 +1,68 @@
 import HistoryItem from "./HistoryItem";
 import styled from "styled-components";
 import BaseContainer from "../../../../components/Common/Container";
-
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import useRequest from "../../../../services/Hooks/useRequest";
+import { metarangUrlCitizen } from "../../../../services/Utility";
 const StyledContainer = styled(BaseContainer)`
   display: flex;
   flex-direction: column;
-  gap: 10px; // اینجا فاصله بین آیتم‌ها
+  gap: 10px;
 `;
 
-const history = [
-  { id: 1, date: { day: 1, month: "خرداد" }, user: "HM-2000081", link: "https://metarang.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
-  { id: 2, date: { day: 30, month: "اردیبهشت" }, user: "HM-2000081", link: "https://metarang.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
-  { id: 3, date: { day: 25, month: "اردیبهشت" }, user: "HM-2000081", link: "https://metarang.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
-  { id: 4, date: { day: 24, month: "اردیبهشت" }, user: "HM-2000081", link: "https://metarang.com/fa/citizens/hm-2000001", time: "۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰" },
-];
-
 const HistoryTab = () => {
+  const { Request, HTTP_METHOD } = useRequest();
+  const [data, setData] = useState([]);
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await Request(
+          `features/${id}/trade-history`,
+          HTTP_METHOD.GET,
+        );
+        setData(res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <StyledContainer>
-      {history.map((item) => (
-        <HistoryItem key={item.id} {...item} />
-      ))}
-      <HistoryItem
-        date={{ day: "20", month: "اردیبهشت" }}
-        user="سیستم آر جی بی"
-        time="۲۰ اردیبهشت ۱۴۰۰۲ | ۱۲:۳۰"
-        owner
-      />
+      {data.map((item, index) => {
+        const {
+          id,
+          participant_code,
+          participant_label,
+          type,
+          price,
+          date_time,
+        } = item;
+
+        return (
+          <HistoryItem
+            key={id ?? index}
+            index={data.length - index}
+            user={participant_code || participant_label}
+            link={
+              participant_code
+                ? metarangUrlCitizen(participant_code)
+                : undefined
+            }
+            owner={type === "genesis"}
+            time={date_time.time}
+            date={date_time.date}
+            rial={price.price_irr}
+            psc={price.price_psc}
+            color={price.color}
+            colorAmount={price.color_amount}
+          />
+        );
+      })}
     </StyledContainer>
   );
 };

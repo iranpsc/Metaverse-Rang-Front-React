@@ -1,5 +1,5 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { convertToPersian } from "../../../../services/Utility";
+import { convertToPersian, getTranslation } from "../../../../services/Utility";
 import styled from "styled-components";
 import users from "../../../../assets/images/challenge/profile-2user.svg";
 import view from "../../../../assets/images/challenge/eye.svg";
@@ -30,6 +30,11 @@ const Container = styled.div`
     img {
       width: 26px;
     }
+    @media (max-width: 1280px) {
+      span {
+        font-size: 14px;
+      }
+    }
   }
 `;
 
@@ -39,13 +44,13 @@ const Footer = ({ data }) => {
       id: "views",
       count: data?.views,
       icon: view,
-      tooltip: "بازدید",
+      tooltip: getTranslation(1775),
     },
     {
-      id: "prize",
+      id: "mosharekat",
       count: data?.views,
       icon: users,
-      tooltip: "جایزه",
+      tooltip: getTranslation(1776),
     },
   ];
   return (

@@ -100,6 +100,17 @@ const ValueScroll = styled.span`
     }
   }
 `;
+const Tag = styled.span`
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: ${(props) =>
+    props.theme.colors.newColors.otherColors.bgContainer};
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
+  white-space: nowrap;
+`;
 
 const TextValueIcon = ({
   icon,
@@ -109,6 +120,7 @@ const TextValueIcon = ({
   long,
   smallValue,
   very_long,
+  tag = false,
 }) => {
   const isPersian = useLanguage();
 
@@ -145,7 +157,11 @@ const TextValueIcon = ({
         onScroll={stopAnimation}
       >
         <ValueScroll ref={textRef} animate={animate}>
-          {value}
+          {tag
+            ? String(value)
+                .split(",")
+                .map((item, index) => <Tag key={index}>{item.trim()}</Tag>)
+            : value}
         </ValueScroll>
         {valueIcon}
       </Value>

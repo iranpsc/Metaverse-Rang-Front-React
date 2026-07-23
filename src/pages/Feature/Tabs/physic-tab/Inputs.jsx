@@ -10,6 +10,9 @@ const Container = styled.div`
 const First = styled.div`
   display: flex;
   gap: 20px;
+    @media (max-width: 1284px) {
+    flex-direction: column;
+  }
 `;
 const Third = styled.div`
   display: flex;
@@ -21,10 +24,14 @@ const Inputs = ({ inputs }) => {
     <Container>
       <First>
         {inputs.first_row_info
-          .filter((row) => row.value !== undefined && row.value !== null && row.value !== "")
+          .filter(
+            (row) =>
+              row.value !== undefined && row.value !== null && row.value !== "",
+          )
           .map((row) => (
             <TextValueIcon
               long
+              tag={row.id === 1}
               smallValue
               key={row.id}
               icon={row.icon}
@@ -34,19 +41,22 @@ const Inputs = ({ inputs }) => {
           ))}
       </First>
 
-      {inputs.second_row_info.value &&
+      {inputs.second_row_info[0].value && (
         <TextValueIcon
           long
           smallValue
-          title={getTranslation(inputs.second_row_info.title)}
-          value={inputs.second_row_info.value}
-          icon={inputs.second_row_info.icon}
+          title={getTranslation(inputs.second_row_info[0].title)}
+          value={inputs.second_row_info[0].value}
+          icon={inputs.second_row_info[0].icon}
         />
-      }
+      )}
 
       <Third>
         {inputs.third_row_info
-          .filter((row) => row.value !== undefined && row.value !== null && row.value !== "")
+          .filter(
+            (row) =>
+              row.value !== undefined && row.value !== null && row.value !== "",
+          )
           .map((row) => (
             <TextValueIcon
               key={row.id}

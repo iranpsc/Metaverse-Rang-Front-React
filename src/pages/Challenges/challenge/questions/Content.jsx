@@ -2,40 +2,38 @@ import Question from "./Question";
 import Title from "../../../../components/Title";
 import styled from "styled-components";
 
-const Container = styled.div``;
+const Container = styled.div`
+display: flex;
+flex-direction: column;
+width: 100%;
+
+`;
+
 const Wrapper = styled.div`
   margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 `;
+
 const Content = ({
   question,
   showAnswer,
-  setShowAnswer,
-  setTimer,
-  setFirstPage,
-  setSelect,
-  setFooters,
-  setShining,
-  
+  selectedAnswerId,
+  onSelectAnswer,
 }) => {
   return (
     <Container>
-      <Title right title={question.title} />
+      <Title small right title={question.title} />
       <Wrapper>
         {question.options.map((item) => (
           <Question
             key={item.id}
             {...item}
-            setShowAnswer={setShowAnswer}
-            setSelect={setSelect}
+            questionID={question.questionID}
             showAnswer={showAnswer}
-            setTimer={setTimer}
-            setFirstPage={setFirstPage}
-            setFooters={setFooters}
-            setShining={setShining}
-            question={question}
+            selectedAnswerId={selectedAnswerId}
+            onSelectAnswer={onSelectAnswer}
           />
         ))}
       </Wrapper>

@@ -2,7 +2,7 @@ import ChallengeView from "./challenge/ChallengeView";
 import ModalPosition from "../../components/ModalPosition";
 const Challenge = () => {
   return (
-      <ModalPosition title={140} >
+      <ModalPosition title={1467 } >
       <ChallengeView />
       </ModalPosition>
   );

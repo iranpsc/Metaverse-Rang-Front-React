@@ -81,8 +81,7 @@ const FeatureHourProfit = ({ data }) => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const handelClick = (id) => {
-    Request(`hourly-profits/${id}`, HTTP_METHOD.POST).then((res) => {
-      console.log("res", res);
+    Request(`hourly-profits/${id}`, HTTP_METHOD.POST).then(() => {
       setIsSuccessful(true);
     });
   };

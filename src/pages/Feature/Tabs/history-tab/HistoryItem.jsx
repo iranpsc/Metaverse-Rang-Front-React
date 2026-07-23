@@ -2,74 +2,75 @@ import { HiOutlineUser } from "react-icons/hi";
 import Pricing from "./Pricing";
 import styled from "styled-components";
 import TitleValue from "../../../Store/shop/TitleValue";
-import { convertToPersian,getTranslation } from "../../../../services/Utility";
-
+import {
+  convertToPersian,
+  getTranslation,
+  ConvertJalali,
+} from "../../../../services/Utility";
+const UserTime = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  @media (max-width: 998px) {
+    gap: 10px;
+  }
+`;
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   padding: 10px;
-  display: grid;
+  gap: 5px;
 
+  display: grid;
   align-items: center;
   grid-template-columns: 3fr 2fr 2fr 2fr;
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
-const UserTime = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
+
 const Time = styled.div`
   width: 65px;
   height: 65px;
+  display: grid;
+  place-items: center;
+
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
-  color: ${(props) => props.theme.colors.newColors.shades.title};
-  span {
-    &:first-of-type {
-      font-size: 20px;
-      font-weight: 600;
-    }
-    &:last-of-type {
-      font-weight: 400;
-      font-size: 9px;
-    }
-  }
-  @media (min-width: 998px) {
-    width: 80px !important;
-    height: 80px !important;
-    span {
-      &:first-of-type {
-        font-weight: 600;
-      }
-      &:last-of-type {
-        font-size: 13px;
-      }
-    }
+  background: ${({ theme }) => theme.colors.newColors.shades.bg2};
+  color: ${({ theme }) => theme.colors.newColors.shades.title};
+
+  font-size: 20px;
+  font-weight: 600;
+
+  @media (max-width: 998px) {
+    width: 80px;
+    height: 80px;
+    font-size: 18px;
   }
 `;
 const User = styled.div`
+  white-space: nowrap;
+
   h4 {
-    color: ${(props) => (props.owner ? "#FFFFFF" : "#0066ff")};
+    color: ${({ theme }) => theme.colors.newColors.shades.title};
+
     font-size: 12px;
     a {
-      color: #0066ff;
+      color: ${({ theme }) => theme.colors.primary};
       text-decoration: none;
     }
   }
   @media (min-width: 998px) {
     h4 {
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 `;
 const Div = styled.div`
   display: flex;
   margin-bottom: 4px;
+  white-space: nowrap;
   align-items: center;
   gap: 4px;
   color: #a0a0ab;
@@ -82,18 +83,28 @@ const Div = styled.div`
     }
   }
 `;
-const HistoryItem = ({ date, user, link, time, owner }) => {
+const HistoryItem = ({
+  index,
+  user,
+  link,
+  owner,
+  time,
+  date,
+  rial,
+  psc,
+  color,
+  colorAmount,
+}) => {
+  const showTime = `${convertToPersian(time)} | ${ConvertJalali(date)}`;
+  const isColorTrade = Boolean(color);
   return (
     <Container>
       <UserTime>
-        <Time>
-          <span>{convertToPersian(date.day)}</span>
-          <span>{date.month}</span>
-        </Time>
+        <Time>{convertToPersian(index)}</Time>
         <User owner={owner}>
           <Div>
             {owner ? (
-              <span>مالک اولیه</span>
+              <span>{getTranslation(1782)} </span>
             ) : (
               <>
                 <HiOutlineUser size={20} />
@@ -105,14 +116,21 @@ const HistoryItem = ({ date, user, link, time, owner }) => {
             <h4>{user}</h4>
           ) : (
             <h4>
-              <a href={`${link}`}>{user}</a>
+              <a target="_blank" rel="noreferrer" href={link}>
+                {user}
+              </a>
             </h4>
           )}
         </User>
       </UserTime>
-      <TitleValue small title={getTranslation(564)} value={time} />
-      <Pricing type="rial" />
-      {!owner && <Pricing type="psc" />}
+      <TitleValue small title={getTranslation(564)} value={showTime} />
+      {!isColorTrade && !owner && <Pricing type="rial" amount={rial} />}
+
+      {!owner && !isColorTrade && <Pricing type="psc" amount={psc} />}
+
+      {isColorTrade && (
+        <Pricing type="color" amount={colorAmount} color={color} />
+      )}
     </Container>
   );
 };

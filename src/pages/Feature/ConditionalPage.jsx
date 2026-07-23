@@ -125,11 +125,17 @@ export default function ConditionalPage() {
               title: getTranslation("354"),
               content: <EnterTab />,
             },
-            {
-              path: "physic",
-              title: getTranslation("356"),
-              content: <PhysicTab />,
-            },
+
+            ...(feature?.buildings[0]?.building?.information
+              ? [
+                  {
+                    path: "physic",
+                    title: getTranslation("356"),
+                    content: <PhysicTab  />,
+                  },
+                ]
+              : []),
+
             {
               path: "participation",
               title: getTranslation("357"),

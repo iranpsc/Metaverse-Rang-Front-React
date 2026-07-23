@@ -1,4 +1,4 @@
-import Other from "./Other";
+//import Other from "./Other";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import styled from "styled-components";
 import { useTheme } from "../../../../services/reducers/ThemeContext";
@@ -11,23 +11,18 @@ import { metarangUrlCitizen } from "../../../../services/Utility";
 import red from "../../../../assets/gif/red-color.gif";
 import blue from "../../../../assets/gif/blue-color.gif";
 import yellow from "../../../../assets/gif/yellow-color.gif";
-import nopic from "../../../../assets/images/nopic.jpg";
 import Container from "../../../../components/Common/Container";
+
 const MainPhoto = styled.div`
   position: relative;
   width: 100%;
-  height: 270px;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   &:hover #hover {
     opacity: 100%;
   }
-  img {
-    width: 100%;
-  }
-  @media (min-width: 1400px) {
-    order: 1;
-  }
+
+  order: 1;
 `;
 
 const Count = styled.div`
@@ -40,11 +35,23 @@ const Count = styled.div`
   border-radius: 4px;
   padding: 4px 8px;
   z-index: 50;
+
   background-color: #ffffff;
   span {
     font-size: 14px;
     font-weight: 600;
     color: #949494;
+  }
+
+  @media (max-width: 768px) {
+    span {
+      font-size: 12px;
+    }
+
+    img {
+      width: 18px;
+      height: 18px;
+    }
   }
 `;
 
@@ -53,6 +60,7 @@ const Hover = styled.div`
   opacity: 0;
   position: absolute;
   top: 0;
+  padding: 15px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -60,10 +68,16 @@ const Hover = styled.div`
   flex-direction: column;
   backdrop-filter: blur(5px);
   background-color: rgba(0, 0, 0, 0.713);
+  @media (max-width: 768px) {
+    padding: 12px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 `;
 
 const Contents = styled.div`
-  padding: 10px 20px 20px 10px;
   margin-top: auto;
   display: flex;
   flex-direction: column;
@@ -75,10 +89,21 @@ const Top = styled.div`
     font-weight: 500;
     color: #fcfcfc;
   }
+
   h3 {
     font-size: 13px;
     font-weight: 400;
     color: #fcfcfc;
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 14px;
+    }
+
+    h3 {
+      font-size: 11px;
+    }
   }
 `;
 
@@ -87,11 +112,26 @@ const Bottom = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
 const Right = styled.div`
+  display: flex;
+  flex-direction: column;
+
   a {
     text-decoration: none;
     color: ${(props) => props.theme.colors.primary};
+    font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    a {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    a {
+      font-size: 12px;
+    }
   }
 `;
 const Center = styled.div`
@@ -99,10 +139,23 @@ const Center = styled.div`
     display: flex;
     align-items: center;
     gap: 6px;
+
     span {
       font-size: 13px;
       font-weight: 400;
       color: #fcfcfc;
+    }
+  }
+
+  @media (max-width: 768px) {
+    div span {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    div span {
+      font-size: 11px;
     }
   }
 `;
@@ -110,18 +163,40 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   span {
     font-size: 13px;
     font-weight: 400;
     color: #fcfcfc;
   }
+
+  @media (max-width: 768px) {
+    span {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    span {
+      font-size: 11px;
+    }
+  }
 `;
 const Titlee = styled.h2`
   font-size: 13px;
+
   font-weight: 500;
   color: #fcfcfc;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 11px;
+  }
 `;
-const Others = styled.div`
+/**const Others = styled.div`
   display: grid;
   align-items: start;
   margin-top: 10px;
@@ -131,11 +206,10 @@ const Others = styled.div`
     order: 2;
   }
 `;
+ */
 
 const Div = styled.div`
   display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 10px;
   margin-top: 20px;
   @media (min-width: 1400px) {
     grid-template-columns: 1fr;
@@ -159,6 +233,11 @@ const Time = styled.div`
   padding: 5px 20px;
   color: ${({ theme }) => theme.colors.newColors.otherColors.headerMenu};
 
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
   span {
     color: ${({ theme }) => theme.colors.primary};
     font-weight: 700;
@@ -167,12 +246,39 @@ const Time = styled.div`
     width: 50px;
     text-align: left;
   }
+
+  @media (max-width: 992px) {
+    h3 {
+      font-size: 16px;
+    }
+
+    span {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    h3 {
+      font-size: 15px;
+    }
+
+    span {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    h3 {
+      font-size: 14px;
+    }
+
+    span {
+      font-size: 16px;
+    }
+  }
 `;
 const Content = ({ organizers, time }) => {
   const main = organizers?.[0];
-  /** useEffect(() => {
-    console.log("main", main);
-  }, []); */
   const { theme } = useTheme();
   const colors = {
     red,
@@ -183,7 +289,7 @@ const Content = ({ organizers, time }) => {
   return (
     <Container>
       <Time>
-        <h3>برگزار کنندگان آزاد</h3>
+        <h3>{getTranslation(1469)}</h3>
         <div data-tooltip-id="time">
           <span>{time}</span>
           <ReactTooltip
@@ -197,20 +303,21 @@ const Content = ({ organizers, time }) => {
             }}
             id="time"
             place="top"
-            content="منتظر برقراری ارتباط باشید"
+            content={getTranslation(1468)}
           />
         </div>
       </Time>{" "}
       <Div>
-        <Others>
+        {/**   <Others>
           {organizers?.[8] &&
             organizers.slice(1, 7).map((other) => {
               return <Other key={other.id} {...other} />;
             })}
-        </Others>
+        </Others>*/}
+
         <MainPhoto>
           <Count data-tooltip-id="main">
-            <span>1</span>
+            <span>{convertToPersian(1)}</span>
             <img src={color} alt={main?.count} width={20} height={20} />
             <ReactTooltip
               style={{
@@ -223,7 +330,7 @@ const Content = ({ organizers, time }) => {
               }}
               id="main"
               place="bottom"
-              content="سرمایه گذاری"
+              content={getTranslation(1323)}
             />
           </Count>
           <Hover id="hover">
@@ -235,19 +342,19 @@ const Content = ({ organizers, time }) => {
               </Top>
               <Bottom>
                 <Right>
-                  <Titlee>شناسه تولید</Titlee>
+                  <Titlee>{getTranslation(1470)}</Titlee>
                   <a
                     target={"_blank"}
                     rel="noreferrer"
                     href={metarangUrlCitizen(main?.code)}
                   >
-                    {main?.code}
+                    {main?.code.toUpperCase()}
                   </a>
                 </Right>
                 <Center>
-                  <Titlee>حمایت مالی</Titlee>
+                  <Titlee>{getTranslation(1471)}</Titlee>
                   <div>
-                    <span>{main?.investment_value}</span>
+                    <span>{convertToPersian(main?.investment_value)}</span>
                     <img
                       loading="lazy"
                       src={color}
@@ -258,7 +365,7 @@ const Content = ({ organizers, time }) => {
                   </div>
                 </Center>
                 <Left>
-                  <Titlee>تاریخ اتمام تخفیف ها</Titlee>
+                  <Titlee>{getTranslation(1472)}</Titlee>
                   <span>{convertToPersian(ConvertJalali(main?.ends_at))}</span>
                 </Left>
               </Bottom>

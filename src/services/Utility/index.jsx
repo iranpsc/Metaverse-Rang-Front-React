@@ -346,3 +346,13 @@ export const getBrowser = async () => {
 
   return "Unknown";
 };
+// عدد میگیرد به صورت ساعت دقیقه و ثانیه ریترن میکند
+  export const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    const formattedMinutes = String(minutes).padStart(2, "۰");
+    const formattedSeconds = String(seconds).padStart(2, "۰");
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+  };

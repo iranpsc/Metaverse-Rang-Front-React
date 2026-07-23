@@ -14,6 +14,7 @@ const ChallengeView = () => {
   const [footers, setFooters] = useState([]);
   const [firstPage, setFirstPage] = useState(true);
   const [shining, setShining] = useState("four");
+  const [timings, setTimings] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,34 +22,33 @@ const ChallengeView = () => {
           Request("challenge/advertisement", HTTP_METHOD.GET),
           Request("challenge/timings", HTTP_METHOD.GET),
         ]);
-        console.log("organizersRes", organizersRes.data.data)
         setOrganizers(organizersRes.data.data);
-
         const timings = timingsRes.data.data;
+        setTimings(timings);
         setFooters([
           {
             id: 1,
             icon: truep,
-            count: timings?.display_answer_interval ?? 0,
-            slug: "پاسخ های صحیح",
+            count: timings?.correct_answers ?? 0,
+            slug: getTranslation(1778),
           },
           {
             id: 2,
             icon: falsep,
-            count: timings?.display_question_interval ?? 0,
-            slug: "پاسخ های غلط",
+            count: timings?.wrong_answers ?? 0,
+            slug: getTranslation(1777),
           },
           {
             id: 3,
             icon: view,
             count: timings?.display_ad_interval ?? 0,
-            slug: "تعداد بازدید",
+            slug: getTranslation(1775),
           },
           {
             id: 4,
             icon: users,
             count: timings?.participants ?? 0,
-            slug: "مشارکت کنندگان",
+            slug: getTranslation(1776),
           },
         ]);
       } catch (error) {
@@ -59,7 +59,6 @@ const ChallengeView = () => {
     fetchData();
   }, []);
 
-
   if (!organizers) return null;
   return firstPage ? (
     <Organizers
@@ -68,6 +67,7 @@ const ChallengeView = () => {
       setFirstPage={setFirstPage}
       firstPage={firstPage}
       shining={shining}
+      timings={timings?.display_ad_interval}
     />
   ) : (
     <Questions
@@ -76,6 +76,8 @@ const ChallengeView = () => {
       footers={footers}
       setFirstPage={setFirstPage}
       setShining={setShining}
+      questionTime={timings?.display_question_interval}
+      answerTime={timings?.display_answer_interval}
     />
   );
 };

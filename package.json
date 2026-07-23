@@ -20,6 +20,7 @@
     "ws": "8.21.0"
   },
   "dependencies": {
+    "@coinbase/cdp-sdk": "^1.46.0",
     "@deck.gl/core": "^9.0.0",
     "@deck.gl/layers": "^9.0.0",
     "@deck.gl/mesh-layers": "^9.0.0",

@@ -3,6 +3,7 @@ import { useTheme } from "../../../../services/reducers/ThemeContext";
 import ConfettiExplosion from "react-confetti-explosion";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { convertToPersian } from "../../../../services/Utility";
+import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -23,10 +24,13 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     gap: 8px;
-    span {
-      font-size: 16px;
-      font-weight: 600;
-      color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
+    font-size: 16px;
+    font-weight: 600;
+    color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
+  }
+  @media (max-width: 1280px) {
+    div {
+      font-size: 14px;
     }
   }
 `;
@@ -34,7 +38,7 @@ const Container = styled.div`
 const Footer = ({ footers, shining, firstPage }) => {
   const [bright, setBright] = useState("one");
   const { theme } = useTheme();
-
+  const isPersian = useLanguage();
   useEffect(() => {
     if (shining === "five") {
       setBright("two");
@@ -73,7 +77,7 @@ const Footer = ({ footers, shining, firstPage }) => {
               style={{
                 position: "absolute",
                 top: "20px",
-                right: "30px",
+                ...(isPersian ? { right: "30px" } : { left: "30px" }),
                 opacity: "0%",
               }}
               particleSize={5}
@@ -88,7 +92,7 @@ const Footer = ({ footers, shining, firstPage }) => {
               style={{
                 position: "absolute",
                 top: "20px",
-                right: "175px",
+                ...(isPersian ? { right: "175px" } : { left: "175px" }),
                 opacity: "0%",
               }}
               particleSize={5}

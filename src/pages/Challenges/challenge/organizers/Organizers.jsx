@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Content from "./Content";
 import Footer from "./Footer";
 import styled from "styled-components";
-import Container from "../../../../components/Common/Container";
+import { convertToPersian, formatTime } from "../../../../services/Utility";
+
 const Wrapper = styled.div`
   height: 100%;
   position: relative;
@@ -21,47 +22,39 @@ const Organizers = ({
   setFirstPage,
   footers,
   shining,
+  timings,
 }) => {
-  const [timer, setTimer] = useState(0);
-  const timerInterval = useRef(null);
+  const [timer, setTimer] = useState(timings);
 
   useEffect(() => {
-    timerInterval.current = setInterval(() => {
+    if (timer <= 0) return;
+
+    const interval = setInterval(() => {
       setTimer((prevTimer) => {
-        if (prevTimer > 0) {
-          return prevTimer - 1;
-        } else {
-          clearInterval(timerInterval.current);
+        if (prevTimer <= 1) {
+          clearInterval(interval);
           return 0;
         }
+
+        return prevTimer - 1;
       });
     }, 1000);
 
-    return () => clearInterval(timerInterval.current);
-  }, [timer]);
+    return () => clearInterval(interval);
+  }, [timer > 0]);
 
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
+  useEffect(() => {
+    if (timer === 0) {
+      setFirstPage(false);
+    }
+  }, [timer, setFirstPage]);
 
-    const formattedMinutes = String(minutes).padStart(2, "۰");
-    const formattedSeconds = String(seconds).padStart(2, "۰");
-
-    return `${formattedMinutes}:${formattedSeconds}`;
-  };
-  if (timer === 0) {
-    setFirstPage(false);
-  }
   return (
     <Wrapper>
-      <Container>
-        <Content
-          organizers={organizers}
-          time={formatTime(timer)
-            .toLocaleString()
-            .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])}
-        />
-      </Container>
+      <Content
+        organizers={organizers}
+        time={convertToPersian(formatTime(timer))}
+      />
       <Footer footers={footers} shining={shining} firstPage={firstPage} />
     </Wrapper>
   );

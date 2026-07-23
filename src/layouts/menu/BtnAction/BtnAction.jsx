@@ -20,7 +20,7 @@ const Btn = styled.div`
   display: flex;
   position: ${(props) =>
     !props.isOpen && props.isClicked ? "absolute" : "relative"};
-  bottom: ${(props) => (!props.isOpen && props.isClicked ? "120px" : "0")};
+  bottom: ${(props) => (!props.isOpen && props.isClicked ? "23px" : "0")};
   flex-direction: column;
   align-items: center;
   justify-content: ${(props) => (props.isOpen ? "space-between" : "center")};
@@ -28,6 +28,11 @@ const Btn = styled.div`
   cursor: pointer;
   transition: min-height 0.3s ease;
   margin-top: 10px;
+
+  @media (max-width: 1024px) {
+    min-height: ${(props) =>
+      props.isClicked && props.isOpen ? "130px" : "35px"};
+  }
   @media (max-height: 500px) {
     max-height: ${(props) =>
       props.isClicked && props.isOpen ? "14px" : "35px"};
@@ -37,6 +42,10 @@ const Btn = styled.div`
 const Text = styled.p`
   display: ${(props) => (props.isOpen ? "block" : "none")};
   color: ${(props) => props.theme.colors.newColors.primaryText};
+
+  @media (max-width: 1024px) {
+    font-size: 14px;
+  }
 `;
 
 const CollapsedContainer = styled.div`
@@ -59,6 +68,10 @@ const TextDetail = styled.p`
     ${(props) => props.theme.colors.newColors.primaryText};
   width: 100%;
   padding-bottom: 7px;
+
+  @media (max-width: 1024px) {
+    font-size: 14px;
+  }
   @media (max-height: 500px) {
     padding-bottom: 2px;
   }
@@ -78,8 +91,9 @@ const Div = styled.div`
   color: ${(props) => props.theme.colors.primary};
   ${(props) =>
     !props.isPersian
-      ? `right: ${!props.isOpen ? "-220px" : "0"};`
-      : `left: ${!props.isOpen ? "-220px" : "0"};`};
+      ? `right: ${!props.isOpen ? "-25px" : "0"};`
+      : `left: ${!props.isOpen ? "-15px" : "0"};`};
+  bottom: ${(props) => (props.isOpen ? "0" : "-15px")};
   z-index: 10;
   padding: 6px 16px;
   border-radius: 10px;
@@ -105,6 +119,7 @@ const Div = styled.div`
     display: ${(props) =>
       !props.isOpen && props.isClicked ? "block" : "none"};
   }
+  
   @media (max-height: 500px) {
     padding: 3px 16px;
   }
