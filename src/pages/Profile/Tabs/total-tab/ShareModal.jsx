@@ -5,7 +5,7 @@ import {
   TwitterShare,
   WhatsappShare,
 } from "react-share-kit";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation,metarangUrlCitizen } from "../../../../services/Utility";
 import styled from "styled-components";
 import { useState } from "react";
 import { ExitIcon } from "../../../../components/Icons/IconsHeader";
@@ -109,7 +109,7 @@ const ShareModal = ({ setOpenShare, data }) => {
       <Modal>
         <Header>
           <ExitIcon onClick={() => setOpenShare(false)}>X</ExitIcon>
-          <span> {getFieldTranslationByNames("324")} </span>
+          <span> {getTranslation("324")} </span>
           <div />
         </Header>
         <Socials>
@@ -157,8 +157,8 @@ const ShareModal = ({ setOpenShare, data }) => {
         <Copy>
           <span onClick={handleCopy}>
             {copied
-              ? getFieldTranslationByNames("1476")
-              : getFieldTranslationByNames("323")}
+              ? getTranslation("1476")
+              : getTranslation("323")}
           </span>
           <p> {`https://metarang.com/fa/citizens/${data?.code}`}</p>
         </Copy>

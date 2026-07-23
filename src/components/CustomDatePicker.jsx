@@ -6,7 +6,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useLanguage } from "../services/reducers/LanguageContext";
-import { getFieldTranslationByNames } from "../services/Utility";
+import { getTranslation } from "../services/Utility";
 import { useTheme } from "../services/reducers/ThemeContext";
 
 const DateContainer = styled.div`
@@ -65,7 +65,7 @@ const CustomDatePicker = ({
   return (
     <DateContainer>
       <DatePicker
-        placeholder={placeholder || getFieldTranslationByNames(564)}
+        placeholder={placeholder || getTranslation(564)}
         className={theme=== "dark"? "bg-dark yellow" : "bg-light blue"}
         format={format}
         calendar={persian}

@@ -1,6 +1,6 @@
 import { convertToPersian } from "../../../../services/Utility";
 import { useGlobalState } from "./aboutGlobalStateProvider";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import CustomEditor from "../../../../components/Common/CustomEditor";
 import { useState, useEffect } from "react";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
@@ -38,7 +38,7 @@ const NextYear = () => {
     <div style={{ paddingTop: 20 }}>
       <CustomEditor
         label={
-          getFieldTranslationByNames("656") + convertToPersian(yearToDisplay)
+          getTranslation("656") + convertToPersian(yearToDisplay)
         }
         value={predictionValue}
         onChange={handleChange}

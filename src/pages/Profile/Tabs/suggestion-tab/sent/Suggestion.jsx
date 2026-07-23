@@ -4,8 +4,20 @@ import red from "../../../../../assets/images/profile/red-color.gif";
 import yellow from "../../../../../assets/images/profile/yellow-color.gif";
 import blue from "../../../../../assets/images/profile/blue-color.gif";
 import styled from "styled-components";
-import { SuggestionsContainer, Location, Property, Value, Suggestions, AreaContainer, StyledSVG, Polygon } from "../suggestionStyles";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import {
+  SuggestionsContainer,
+  Location,
+  Property,
+  Value,
+  Suggestions,
+  AreaContainer,
+  StyledSVG,
+  Polygon,
+} from "../suggestionStyles";
+import {
+  getTranslation,
+  metarangUrlCitizen,
+} from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 import { useMap } from "react-map-gl";
 import { calculatePolygonCentroid } from "../../../../../services/Utility/calculatePolygonCentroid";
@@ -50,7 +62,7 @@ const Time = styled.div`
   }
 
   h3 {
-    color: ${(props) => (props.theme.colors.newColors.shades[30])};
+    color: ${(props) => props.theme.colors.newColors.shades[30]};
     font-size: 18px;
     font-weight: 500;
     margin-top: 4px;
@@ -70,32 +82,67 @@ const SkeletonSuggestion = styled.div`
   margin-bottom: 20px;
 `;
 
-const Suggestion = ({ id, property, suggestions_list, onRejectProposal, isLoading }) => {
+const Suggestion = ({
+  id,
+  property,
+  suggestions_list,
+  onRejectProposal,
+  isLoading,
+}) => {
   const navigate = useNavigate();
   const mapRef = useMap();
 
   // اسکلتون
   if (isLoading) {
     return (
-            <SkeletonSuggestion>
-              <div style={{ display: "flex", justifyContent:"space-between", alignItems:"center", gap: "20px", marginBottom: "20px" }}>
-                
-                <div style={{ display: "flex", gap: "10px",justifyContent:"center", alignContent:"center"}}>
-                  <Skeleton width="100px" height="100px" radius="10px" />
-                <div style={{  display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"start" , gap: "18px",}}>
-                  <Skeleton width="70px" height="20px" radius="4px"  />
-                  <Skeleton width="60px" height="16px" radius="4px"/>
-                </div>
-                </div>
-      
-                        <div style={{ display: "flex", gap: "40px", marginBottom: "20px", marginInlineEnd:"35px" }}>
-                <Skeleton width="80px" height="40px" radius="8px" />
-                <Skeleton width="120px" height="40px" radius="8px" />
-              </div>
-              </div>
-      
-              <Skeleton width="100%" height="300px" radius="10px" />
-            </SkeletonSuggestion>
+      <SkeletonSuggestion>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              justifyContent: "center",
+              alignContent: "center",
+            }}
+          >
+            <Skeleton width="100px" height="100px" radius="10px" />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "start",
+                gap: "18px",
+              }}
+            >
+              <Skeleton width="70px" height="20px" radius="4px" />
+              <Skeleton width="60px" height="16px" radius="4px" />
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              gap: "40px",
+              marginBottom: "20px",
+              marginInlineEnd: "35px",
+            }}
+          >
+            <Skeleton width="80px" height="40px" radius="8px" />
+            <Skeleton width="120px" height="40px" radius="8px" />
+          </div>
+        </div>
+
+        <Skeleton width="100%" height="300px" radius="10px" />
+      </SkeletonSuggestion>
     );
   }
 
@@ -104,7 +151,7 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, isLoadin
   const xCoords = property.coordinates?.map((coord) => coord.x) || [];
   const yCoords = property.coordinates?.map((coord) => coord.y) || [];
   const center = calculatePolygonCentroid(property.coordinates || []);
-  
+
   const handleLocation = () => {
     if (!property.coordinates) return;
     flyToMapPosition({
@@ -115,7 +162,7 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, isLoadin
     });
     navigate("/");
   };
-  
+
   const minX = Math.min(...xCoords);
   const maxX = Math.max(...xCoords);
   const minY = Math.min(...yCoords);
@@ -147,8 +194,14 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, isLoadin
       <Property>
         <Location>
           <AreaContainer>
-            <StyledSVG viewBox={`${hasXGreaterThan50 ? -15 : -30} ${hasXGreaterThan50 ? -85 : -110} 150 ${hasXGreaterThan50 ? 100 : 120}`}>
-              <Polygon karbari={property.karbari} hasXGreaterThan50={hasXGreaterThan50} points={normalizedPoints} />
+            <StyledSVG
+              viewBox={`${hasXGreaterThan50 ? -15 : -30} ${hasXGreaterThan50 ? -85 : -110} 150 ${hasXGreaterThan50 ? 100 : 120}`}
+            >
+              <Polygon
+                karbari={property.karbari}
+                hasXGreaterThan50={hasXGreaterThan50}
+                points={normalizedPoints}
+              />
             </StyledSVG>
           </AreaContainer>
           <div>
@@ -158,19 +211,30 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, isLoadin
         </Location>
         <Pricing>
           <Time>
-            <p>{getFieldTranslationByNames("769")}</p>
+            <p>{getTranslation("769")}</p>
             <h3>{property.date}</h3>
           </Time>
           <Value>
-            <h2>{getFieldTranslationByNames("767")}</h2>
+            <h2>{getTranslation("767")}</h2>
             <div>
-              {property.karbari && <img width={24} height={24} src={{ m: yellow, t: red, a: blue }[property.karbari]} alt="" />}
+              {property.karbari && (
+                <img
+                  width={24}
+                  height={24}
+                  src={{ m: yellow, t: red, a: blue }[property.karbari]}
+                  alt=""
+                />
+              )}
               <span>{property.value}</span>
             </div>
           </Value>
           <Owner>
-            <p>{getFieldTranslationByNames("346")}</p>
-            <a target="_blank" rel="noopener noreferrer" href={`https://metarang.com/fa/citizen/${property.owner}`}>
+            <p>{getTranslation("346")}</p>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={metarangUrlCitizen(property.owner)}
+            >
               {property.owner}
             </a>
           </Owner>
@@ -179,7 +243,11 @@ const Suggestion = ({ id, property, suggestions_list, onRejectProposal, isLoadin
       <Suggestions>
         {transitions((style, item) => (
           <animated.div key={item.id} style={style}>
-            <Proposer {...item} onReject={() => onRejectProposal(id, item.id)} property={property} />
+            <Proposer
+              {...item}
+              onReject={() => onRejectProposal(id, item.id)}
+              property={property}
+            />
           </animated.div>
         ))}
       </Suggestions>

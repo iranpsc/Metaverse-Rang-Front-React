@@ -1,6 +1,6 @@
 import CustomEditor from "../../../components/Common/CustomEditor";
 import { useGlobalState } from "./GlobalVodStateProvider";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 
 const Description = () => {
   const { state, dispatch } = useGlobalState();
@@ -16,7 +16,7 @@ const Description = () => {
     <CustomEditor
       value={state.description}
       onChange={handleChange}
-      label={getFieldTranslationByNames("1327")}
+      label={getTranslation("1327")}
       img
     />
   );

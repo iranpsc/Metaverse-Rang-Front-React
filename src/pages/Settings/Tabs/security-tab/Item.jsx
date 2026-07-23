@@ -5,7 +5,7 @@ import { useState } from "react";
 import OnOff from "../OnOff";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
 } from "../../../../services/Utility";
 
@@ -66,7 +66,7 @@ const Item = ({ translationId, options, privacy }) => {
   const safeTranslation = (id) => {
     try {
       if (!id) return "";
-      return getFieldTranslationByNames(id) || "";
+      return getTranslation(id) || "";
     } catch {
       return "";
     }

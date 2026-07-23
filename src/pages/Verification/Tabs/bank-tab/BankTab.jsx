@@ -5,7 +5,7 @@ import Title from "../../../../components/Title";
 import Alert from "../../../../components/Alert/Alert";
 import ErrorModal from "../ErrorModal";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 
 const Wrapper = styled.div`
@@ -43,13 +43,13 @@ const BankTab = () => {
   return (
     <Container>
       <Wrapper>
-        <Title title={getFieldTranslationByNames("888")} />
+        <Title title={getTranslation("888")} />
         {isError && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
-            buttonText={getFieldTranslationByNames("882")}
-            text={getFieldTranslationByNames("892")}
-            info={getFieldTranslationByNames("891")}
+            buttonText={getTranslation("882")}
+            text={getTranslation("892")}
+            info={getTranslation("891")}
             type="error"
           />
         )}

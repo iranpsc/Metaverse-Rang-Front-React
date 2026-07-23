@@ -8,7 +8,7 @@ import gif6 from "../../../../assets/gif/psc.gif";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { Skeleton } from "../../../../components/Skeleton"; // مسیرش رو با پروژه خودت تنظیم کن
@@ -57,37 +57,37 @@ const Colors = () => {
     {
       id: 1,
       gif: gif1,
-      label: getFieldTranslationByNames("723"),
+      label: getTranslation("723"),
       value: walletData?.effect,
     },
     {
       id: 2,
       gif: gif2,
-      label: getFieldTranslationByNames("51"),
+      label: getTranslation("51"),
       value: walletData?.yellow,
     },
     {
       id: 3,
       gif: gif3,
-      label: getFieldTranslationByNames("50"),
+      label: getTranslation("50"),
       value: walletData?.red,
     },
     {
       id: 4,
       gif: gif4,
-      label: getFieldTranslationByNames("49"),
+      label: getTranslation("49"),
       value: walletData?.blue,
     },
     {
       id: 5,
       gif: gif5,
-      label: getFieldTranslationByNames("48"),
+      label: getTranslation("48"),
       value: walletData?.irr,
     },
     {
       id: 6,
       gif: gif6,
-      label: getFieldTranslationByNames("47"),
+      label: getTranslation("47"),
       value: walletData?.psc,
     },
   ];

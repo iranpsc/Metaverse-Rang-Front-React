@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../services/Utility";
+import { getTranslation } from "../services/Utility";
 import { NavLink } from "react-router-dom";
 import { Label } from "./sidbar";
 const Wrapper = styled.div`
@@ -19,8 +19,8 @@ const SidebarOptions = ({ seller }) => {
         {({ isActive }) => (
           <Label menu={isActive}>
             {seller
-              ? getFieldTranslationByNames("517")
-              : getFieldTranslationByNames("524")}
+              ? getTranslation("517")
+              : getTranslation("524")}
           </Label>
         )}
       </NavLink>
@@ -28,8 +28,8 @@ const SidebarOptions = ({ seller }) => {
         {({ isActive }) => (
           <Label menu={isActive}>
             {seller
-              ? getFieldTranslationByNames("519")
-              : getFieldTranslationByNames("525")}
+              ? getTranslation("519")
+              : getTranslation("525")}
           </Label>
         )}
       </NavLink>

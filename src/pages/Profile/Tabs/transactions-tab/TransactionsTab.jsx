@@ -21,7 +21,7 @@ import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { Skeleton } from "../../../../components/Skeleton";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
 } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
@@ -291,17 +291,17 @@ const TransactionsTab = () => {
     return (
       <Container>
         <div>
-          <Title title={getFieldTranslationByNames("61")} />
+          <Title title={getTranslation("61")} />
         </div>
         <Div>
           <SearchInput
             onchange={handleSearch}
             value={searched}
-            placeholder={getFieldTranslationByNames("63")}
+            placeholder={getTranslation("63")}
           />
           <Date>
             <DatePicker
-              placeholder={getFieldTranslationByNames("763")}
+              placeholder={getTranslation("763")}
               format="YYYY/MM/DD HH:mm:ss"
               plugins={[<TimePicker position="bottom" />]}
               calendar={persian}
@@ -345,17 +345,17 @@ const TransactionsTab = () => {
   return (
     <Container>
       <div>
-        <Title title={getFieldTranslationByNames("61")} />
+        <Title title={getTranslation("61")} />
       </div>
       <Div>
         <SearchInput
           onchange={handleSearch}
           value={searched}
-          placeholder={getFieldTranslationByNames("63")}
+          placeholder={getTranslation("63")}
         />
         <Date>
           <DatePicker
-            placeholder={getFieldTranslationByNames("763")}
+            placeholder={getTranslation("763")}
             format="YYYY/MM/DD HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
             calendar={persian}

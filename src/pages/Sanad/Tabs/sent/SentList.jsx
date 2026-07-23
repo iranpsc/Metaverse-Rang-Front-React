@@ -14,7 +14,7 @@ import SearchInput from "../../../../components/SearchInput";
 import Title from "../../../../components/Title";
 import VodList from "../../VodList";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 
 const Div = styled.div`
@@ -117,17 +117,17 @@ const SentList = ({ setShowDetails }) => {
   return (
     <Container>
       <div>
-        <Title title={getFieldTranslationByNames("1336")} />
+        <Title title={getTranslation("1336")} />
       </div>
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder={getFieldTranslationByNames("1337")}
+          placeholder={getTranslation("1337")}
         />
         <Date disabled>
           <DatePicker
-            placeholder={getFieldTranslationByNames("1338")}
+            placeholder={getTranslation("1338")}
             className="bg-dark yellow"
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}

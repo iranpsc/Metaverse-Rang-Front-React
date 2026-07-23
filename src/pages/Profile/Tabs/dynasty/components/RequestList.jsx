@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Title from "../../../../../components/Title";
 import SearchInput from "../../../../../components/SearchInput";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 import CustomDatePicker from "../../../../../components/CustomDatePicker";
 import useDateFilter from "../../../../../services/Hooks/useDateFilter";
 import Container from "../../../../../components/Common/Container";
@@ -106,13 +106,13 @@ const RequestList = ({
   return (
     <Container>
       <Div>
-        <Title title={getFieldTranslationByNames(title)} />
+        <Title title={getTranslation(title)} />
       </Div>
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder={getFieldTranslationByNames(849)}
+          placeholder={getTranslation(849)}
         />
         <CustomDatePicker
           value={dateRange}

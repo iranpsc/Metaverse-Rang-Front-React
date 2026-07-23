@@ -82,8 +82,8 @@ const Level = () => {
     if (requestId) {
       setLoading(true);
       // آدرس API رو پیدا کن - ممکنه یکی از اینها باشه
-      Request(`users/${requestId}/level`)
-        .then((response) => {})
+      Request(`users/${requestId}/levels`)
+        .then(() => {})
         .catch((error) => {
           console.error("Error loading level:", error);
           // اگه ارور خورد، یه دیتای پیشفرض بذار که حداقل اسکلتون بره

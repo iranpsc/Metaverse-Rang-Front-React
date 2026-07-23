@@ -81,11 +81,9 @@ const FeatureHourProfit = ({ data }) => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const handelClick = (id) => {
-    Request(`hourly-profits/${id}`, HTTP_METHOD.POST)
-      .then(() => {
-        setIsSuccessful(true);
-      })
-     
+    Request(`hourly-profits/${id}`, HTTP_METHOD.POST).then(() => {
+      setIsSuccessful(true);
+    });
   };
 
   const IconSpan = styled.img`
@@ -107,9 +105,7 @@ const FeatureHourProfit = ({ data }) => {
             <DetaileContainer>
               <FeatureDetaile>
                 <OrangeBoldFont
-                  onClick={() =>
-                    Navigate(`/feature/${data?.feature_db_id}`)
-                  }
+                  onClick={() => Navigate(`/feature/${data?.feature_db_id}`)}
                 >
                   <IconSpan src={karbariIcons[data?.karbari]} />{" "}
                   {data?.feature_id}

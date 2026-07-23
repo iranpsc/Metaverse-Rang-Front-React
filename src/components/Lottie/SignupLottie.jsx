@@ -42,7 +42,7 @@ export default function SignupLottie() {
 
   useLayoutEffect(() => {
     const TimeOut = setTimeout(() => {
-      navigate("/login");
+      navigate("/");
     }, 5000);
 
     return () => clearTimeout(TimeOut);

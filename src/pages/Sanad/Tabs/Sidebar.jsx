@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 import { Container, Label } from "../../../components/sidbar";
 
 const Sidebar = () => {
@@ -7,13 +7,13 @@ const Sidebar = () => {
     <Container>
       <NavLink to="received" replace end>
         {({ isActive }) => (
-          <Label menu={isActive}>{getFieldTranslationByNames("1335")}</Label>
+          <Label menu={isActive}>{getTranslation("1335")}</Label>
         )}
       </NavLink>
 
       <NavLink to="sent" replace end>
         {({ isActive }) => (
-          <Label menu={isActive}>{getFieldTranslationByNames("1336")}</Label>
+          <Label menu={isActive}>{getTranslation("1336")}</Label>
         )}
       </NavLink>
     </Container>

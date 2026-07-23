@@ -2,7 +2,7 @@ import React from "react";
 import ModalPosition from "../../../components/ModalPosition";
 import styled from "styled-components";
 import Submit from "../../../components/Buttons/Submit";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -88,7 +88,7 @@ const ControlPanel = ({
       <Container>
         <ContainerHeader>
           <Diver />
-          <Title>{getFieldTranslationByNames("463")}</Title>
+          <Title>{getTranslation("463")}</Title>
           <Label>
             <RotationCounter>{rotationX}°</RotationCounter>
             <RangeInput
@@ -103,7 +103,7 @@ const ControlPanel = ({
         </ContainerHeader>
 
         <Submit
-          text={getFieldTranslationByNames("464")}
+          text={getTranslation("464")}
           type="primary"
           options={{
             style: {

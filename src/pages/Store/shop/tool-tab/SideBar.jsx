@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { convertToPersian, getFieldTranslationByNames } from "../../../../services/Utility";
+import { convertToPersian, getTranslation } from "../../../../services/Utility";
 import { Container, Label } from "../../../../components/sidbar";
 import { tools } from "../data";
 
@@ -26,9 +26,9 @@ const SideBar = () => {
 
             return (
               <Label menu={isActive || customActive}>
-                {getFieldTranslationByNames("504")}
+                {getTranslation("504")}
                 {convertToPersian(item.number)}
-                {getFieldTranslationByNames("505")}
+                {getTranslation("505")}
               </Label>
             );
           }}

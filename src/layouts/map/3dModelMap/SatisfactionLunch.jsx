@@ -13,7 +13,7 @@ import {
 import useRequest from "../../../services/Hooks/useRequest";
 
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
   ToastSuccess,
 } from "../../../services/Utility";
@@ -107,7 +107,7 @@ const SatisfactionLunch = ({
       .then((res) => {
         addBuilding(res.data.data.building_models[0]);
         handelSubmitEnvironment();
-        ToastSuccess(getFieldTranslationByNames("1606"));
+        ToastSuccess(getTranslation("1606"));
         dispatch({
           type: WalletContextTypes.ADD_WALLET,
           payload: {
@@ -129,18 +129,18 @@ const SatisfactionLunch = ({
     >
       <Container>
         <InputNumber
-          placeholder={getFieldTranslationByNames("561")}
+          placeholder={getTranslation("561")}
           value={inputValue}
           onChange={handleInputChange}
           Error={error}
         />
         <TextValueIcon
-          title={getFieldTranslationByNames("379")}
+          title={getTranslation("379")}
           icon={<Icon />}
           value={dayOfComplete.toFixed(2)}
         />
         <Submit
-          text={getFieldTranslationByNames("561")}
+          text={getTranslation("561")}
           type="primary"
           options={{
             style: {

@@ -1,7 +1,7 @@
 import { LuBuilding2 } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ const Profile = ({ item }) => {
       </IconWrapper>
       <Info>
         <h2>
-          {getFieldTranslationByNames("1478")}
+          {getTranslation("1478")}
         </h2>
         <p onClick={() => Navigate(`/feature/${item?.id}`)}>
           {item?.feature_properties_id}

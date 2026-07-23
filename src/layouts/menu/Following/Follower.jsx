@@ -10,7 +10,7 @@ import  FollowingIcon  from "../../../assets/svg/following.svg?react";
 import { useState } from "react";
 import useRequest from "../../../services/Hooks/useRequest";
 import { useLayoutEffect } from "react";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
@@ -110,23 +110,23 @@ const Follower = () => {
           <SubMenu isOpenDrop={openDropdowns[user.id]} isOpen={isOpen}>
             <BtnNavigator>
               <Icon src={Ticket} />
-              {getFieldTranslationByNames("241")}
+              {getTranslation("241")}
             </BtnNavigator>
             <BtnNavigator disabled>
               <Icon src={Message} />
-              {getFieldTranslationByNames("242")}
+              {getTranslation("242")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={ProfileMember} />
-              {getFieldTranslationByNames("243")}
+              {getTranslation("243")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={CitizenProfile} />
-              {getFieldTranslationByNames("162")}
+              {getTranslation("162")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={Share} />
-              {getFieldTranslationByNames("244")}
+              {getTranslation("244")}
             </BtnNavigator>
           </SubMenu>
         </React.Fragment>

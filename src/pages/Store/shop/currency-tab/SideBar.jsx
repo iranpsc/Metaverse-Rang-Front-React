@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../services/Utility";
 import { Container, Label } from "../../../../components/sidbar";
 import { currencies } from "../data";
@@ -31,7 +31,7 @@ const SideBar = () => {
             }
           >
             <Label menu={isActive}>
-              {getFieldTranslationByNames("504")}{" "}
+              {getTranslation("504")}{" "}
               {convertToPersian(item.id)}
             </Label>
           </div>

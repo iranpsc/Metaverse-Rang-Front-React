@@ -5,7 +5,7 @@ import Button from "../../../../components/Button";
 import OnOff from "../OnOff";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 import { Skeleton } from "../../../../components/Skeleton";
 
@@ -160,11 +160,11 @@ const PublicTab = () => {
 
   return (
     <Container>
-      {alert && <Alert type="success" text={getFieldTranslationByNames("1480")} />}
+      {alert && <Alert type="success" text={getTranslation("1480")} />}
       <Settings>
         {settings.map((setting) => (
           <Wrapper key={setting.id}>
-            <p>{getFieldTranslationByNames(setting?.translationId)}</p>
+            <p>{getTranslation(setting?.translationId)}</p>
             <OnOff
               label={setting?.label}
               isOn={!generalSettings[setting.key]}
@@ -175,7 +175,7 @@ const PublicTab = () => {
       </Settings>
 
       <Button
-        label={getFieldTranslationByNames("1481")}
+        label={getTranslation("1481")}
         onclick={handleSubmit}
         disabled={isSending ? "pending" : false}
       />

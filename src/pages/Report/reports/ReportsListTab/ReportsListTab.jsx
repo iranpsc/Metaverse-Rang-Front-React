@@ -11,7 +11,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { getTranslation } from "../../../../services/Utility/index";
 import { useTheme } from "../../../../services/reducers/ThemeContext";
 import useRequest from '../../../../services/Hooks/useRequest';
 import Container from "../../../../components/Common/Container";
@@ -133,17 +133,17 @@ const ReportsListTab = ({ title="متاورس", subdomain="متاورس رنگ" 
   return (
     <Container>
       <div>
-        <Title title={getFieldTranslationByNames("22")} />
+        <Title title={getTranslation("22")} />
       </div>
       <Div>
         <SearchInput
-          placeholder={getFieldTranslationByNames("1381")}
+          placeholder={getTranslation("1381")}
           value={searched}
           onchange={(e) => setSearched(e.target.value)}
         />
         <Date>
           <DatePicker
-            placeholder={getFieldTranslationByNames("1382")}
+            placeholder={getTranslation("1382")}
             className={isDarkMode ? "bg-dark yellow" : ""}
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}

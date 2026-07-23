@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 import { ExitIcon } from "../../../components/Icons/IconsHeader";
 const BackGround = styled.div`
   z-index: 999;
@@ -62,28 +62,28 @@ const Info = styled.p`
 const InfoModal = ({ data, type, setOpenModal }) => {
   const getAssetTranslation = () => {
     if (data.asset === "yellow") {
-      return getFieldTranslationByNames("11");
+      return getTranslation("11");
     } else if (data.asset === "red") {
-      return getFieldTranslationByNames("12");
+      return getTranslation("12");
     } else if (data.asset === "blue") {
-      return getFieldTranslationByNames("13");
+      return getTranslation("13");
     } else if (data.asset === "irr") {
-      return getFieldTranslationByNames("906");
+      return getTranslation("906");
     } else if (data.asset === "psc") {
-      return getFieldTranslationByNames("47");
+      return getTranslation("47");
     }
   };
   const getAssetTranslationDescription = () => {
     if (data.asset === "yellow") {
-      return getFieldTranslationByNames("506");
+      return getTranslation("506");
     } else if (data.asset === "red") {
-      return getFieldTranslationByNames("507");
+      return getTranslation("507");
     } else if (data.asset === "blue") {
-      return getFieldTranslationByNames("508");
+      return getTranslation("508");
     } else if (data.asset === "irr") {
-      return getFieldTranslationByNames("514");
+      return getTranslation("514");
     } else if (data.asset === "psc") {
-      return getFieldTranslationByNames("515");
+      return getTranslation("515");
     }
   };
   return (

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import SvgAni from "../../assets/Json/AniBackSvg.json";
 import LottieMessage from "./Components/LottieMessage";
 
-
 const Container = styled.div`
   width: 100%;
   top: 0;
@@ -23,11 +22,11 @@ export default function Residential() {
 
   useLayoutEffect(() => {
     const TimeOut = setTimeout(() => {
-      navigate("");
+      navigate("/");
     }, 5000);
 
     return () => clearTimeout(TimeOut);
-  }, [navigate]);
+  }, [navigate]); 
 
   return (
     <Container>

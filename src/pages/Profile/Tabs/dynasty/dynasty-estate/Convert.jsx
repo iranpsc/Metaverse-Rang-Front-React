@@ -7,7 +7,7 @@ import { useState, useCallback, useMemo } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { useNavigate } from "react-router-dom";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastSuccess,
 } from "../../../../../services/Utility";
 
@@ -64,7 +64,7 @@ const Convert = ({ data, setData }) => {
         HTTP_METHOD.POST,
       );
       setData(response.data.data);
-      ToastSuccess(getFieldTranslationByNames(1502));
+      ToastSuccess(getTranslation(1502));
 
       setModal(false);
     } catch (error) {
@@ -75,9 +75,9 @@ const Convert = ({ data, setData }) => {
   return (
     <Styledcomponents.Container>
       <Styledcomponents.Header>
-        <Title title={getFieldTranslationByNames(809)} />
+        <Title title={getTranslation(809)} />
         <SearchInput
-          placeholder={getFieldTranslationByNames(849)}
+          placeholder={getTranslation(849)}
           onchange={(e) => handleSearch(e.target.value)}
           value={searchTerm}
         />
@@ -90,7 +90,7 @@ const Convert = ({ data, setData }) => {
             area={feature.area}
             propertyId={feature.properties_id}
             stability={feature.stability}
-            label={getFieldTranslationByNames(818)}
+            label={getTranslation(818)}
             onClick={updateDynasty}
           />
         ))}

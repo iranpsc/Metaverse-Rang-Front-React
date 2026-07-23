@@ -16,7 +16,7 @@ import {
 } from "../../../../services/reducers/WalletContext";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
   ToastSuccess,
 } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
@@ -109,7 +109,7 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
         HTTP_METHOD.DELETE,
       );
 
-      ToastSuccess(getFieldTranslationByNames("1609"));
+      ToastSuccess(getTranslation("1609"));
       navigate("");
       dispatch({
         type: WalletContextTypes.ADD_WALLET,
@@ -126,12 +126,12 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
   return (
     <Container>
       <HeaderContainer>
-        <Title title={getFieldTranslationByNames("533")} />
+        <Title title={getTranslation("533")} />
         <Onlines>
           <LuEye />
           <p>
-            {getFieldTranslationByNames("553")} {convertToPersian(20)}{" "}
-            {getFieldTranslationByNames("1313")}
+            {getTranslation("553")} {convertToPersian(20)}{" "}
+            {getTranslation("1313")}
           </p>
         </Onlines>
       </HeaderContainer>
@@ -143,24 +143,24 @@ const Info = ({ data, edit, setEdit, payed, setPayed, isOwner, isMobile }) => {
           setPayStatus={setPayStatus}
         />
       )}
-      <Title payed={payed} title={getFieldTranslationByNames("538")} />
+      <Title payed={payed} title={getTranslation("538")} />
       <Text>{data[0].inputs[4].about}</Text>
       {payed && !edit && (
         <Buttons>
           <EditButtons>
             {" "}
             <ButtonSecondary blue onClick={() => setEdit(true)}>
-              {getFieldTranslationByNames("537")}
+              {getTranslation("537")}
             </ButtonSecondary>
             <ButtonSecondary onClick={() => {}}>
-              {getFieldTranslationByNames("548")}
+              {getTranslation("548")}
             </ButtonSecondary>
           </EditButtons>
           {isOwner && (
             <Button
               fit
               color="#ff0000"
-              label={getFieldTranslationByNames("1595")}
+              label={getTranslation("1595")}
               onclick={handleDeleteBuilding}
             />
           )}

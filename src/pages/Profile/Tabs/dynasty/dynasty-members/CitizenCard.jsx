@@ -2,9 +2,9 @@ import styled, { keyframes } from "styled-components";
 import { Tooltip } from "react-tooltip";
 import down from "../../../../../assets/images/downcitizen.png";
 import citizen from "../../../../../assets/images/profile.png";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 import { slugLabels } from "../../../../../services/constants/UserType";
-
+import { metarangUrlCitizen } from "../../../../../services/Utility";
 const svgAnimation = keyframes`
   from {
     stroke-dashoffset: 0;
@@ -61,7 +61,9 @@ const Line = styled.rect`
   stroke-width: 2px;
   fill: transparent;
   stroke: ${(props) => (props.isSelected ? `#ffc700` : ``)};
-  transition: stroke 0.2s ease, animation 0.2s ease;
+  transition:
+    stroke 0.2s ease,
+    animation 0.2s ease;
   animation: ${svgAnimation} 2.5s linear infinite;
   &:hover {
     stroke: #ffc700;
@@ -144,15 +146,15 @@ const CitizenCard = ({
           />
         </Image>
         <h2>{name}</h2>
-        <a href={`https://metarang.com/fa/citizen/${code}`} target="_blank" rel="noreferrer">
+        <a href={metarangUrlCitizen(code)} target="_blank" rel="noreferrer">
           {code}
         </a>
         <Level>
           <p>
             {" "}
-            {getFieldTranslationByNames(724)}{" "}
-            {getFieldTranslationByNames(
-              slugLabels[(levels && levels[0] && levels[0].slug) || 0]
+            {getTranslation(724)}{" "}
+            {getTranslation(
+              slugLabels[(levels && levels[0] && levels[0].slug) || 0],
             )}
           </p>
           <div>
@@ -163,23 +165,23 @@ const CitizenCard = ({
                     <div key={level.id}>
                       <img
                         data-tooltip-id="my-tooltip"
-                        data-tooltip-content={getFieldTranslationByNames(
-                          slugLabels[level.slug]
+                        data-tooltip-content={getTranslation(
+                          slugLabels[level.slug],
                         )}
                         src={level.gem.image}
-                        alt={getFieldTranslationByNames(slugLabels[level.slug])}
+                        alt={getTranslation(slugLabels[level.slug])}
                         width={27}
                         height={27}
                         loading="lazy"
                       />
                       <Tooltip id="my-tooltip" place="top" />
                     </div>
-                  )
+                  ),
               )}
           </div>
         </Level>
         <Footer>
-          <span>{getFieldTranslationByNames(1398)}</span>
+          <span>{getTranslation(1398)}</span>
           <img alt="down" src={down} width={17} height={19} loading="lazy" />
         </Footer>
       </Inner>

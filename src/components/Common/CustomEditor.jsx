@@ -1,24 +1,26 @@
 import "react-quill-new/dist/quill.snow.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useMemo } from "react";
 import ReactQuill from "react-quill-new";
 import { CiEdit } from "react-icons/ci";
 import {
   convertToPersian,
   SanitizeHTML,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../services/Utility";
 import styled from "styled-components";
 
 const EditorContainer = styled.div`
-  background-color: ${(props) =>
+   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
   overflow: hidden;
   color: white;
   margin: 10px auto;
-  height: 212px;
+  height: ${({ showToolbar }) => (showToolbar ? "212px" : "162px")};
   border: ${({ border }) => (border ? "1px solid gray" : "none")};
+
   .ql-toolbar {
+    display: ${({ showToolbar }) => (showToolbar ? "block" : "none")};
     background-color: ${(props) =>
       props.theme.colors.newColors.otherColors.inputBg};
     border: none;
@@ -33,6 +35,7 @@ const EditorContainer = styled.div`
     overflow: auto;
     max-height: 150px;
   }
+
 
   && .ql-editor {
     min-height: 150px;
@@ -114,8 +117,11 @@ const formats = [
   "code-block",
   "align",
 ];
+const getModules = (img = false, showToolbar = true) => {
+  if (!showToolbar) {
+    return { toolbar: false };
+  }
 
-const getModules = (img = false) => {
   const toolbar = [
     ["bold", "italic", "underline", "strike", "blockquote"],
     [
@@ -155,12 +161,18 @@ const CustomEditor = ({
   placeholder = "",
   border = false,
   img = false,
+    showToolbar = true, // 👈 جدید
+
 }) => {
   const [content, setContent] = useState(value);
 
   useEffect(() => {
     setContent(value);
   }, [value]);
+    const modules = useMemo(
+    () => getModules(img, showToolbar),
+    [img, showToolbar],
+  );
   const handleChange = (val, delta, source, editor) => {
     const text = editor.getText();
     let newValue = val;
@@ -214,20 +226,20 @@ const CustomEditor = ({
   return (
     <div>
       {label && <Label>{label}</Label>}
-      <EditorContainer border={border}>
+      <EditorContainer border={border} showToolbar={showToolbar}>
         <ReactQuill
           value={content}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           onPaste={handlePaste}
-          modules={getModules(img)}
+          modules={modules}
           formats={formats}
           placeholder={placeholder}
         />
       </EditorContainer>
       <Char isOverLimit={isOverLimit}>
         <span>
-          {convertToPersian(remainingChars)} {getFieldTranslationByNames("530")}
+          {convertToPersian(remainingChars)} {getTranslation("530")}
         </span>
         {showIcon && <CiEdit size={20} />}
       </Char>

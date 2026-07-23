@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useCallback, useState, useEffect } from "react";
 import SearchInput from "../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { useRef } from "react";
 import { Skeleton } from "../../../../components/Skeleton";
 
@@ -109,7 +109,7 @@ const SearchPropertyTab = () => {
       <SearchInput
         onchange={handleInputChange}
         value={searched}
-        placeholder={getFieldTranslationByNames("40")}
+        placeholder={getTranslation("40")}
         onSearch={searchHandler}
       />
 
@@ -155,7 +155,7 @@ const SearchPropertyTab = () => {
           ))}
         </Wrapper>
       ) : data.length === 0 ? (
-        <P>{getFieldTranslationByNames("37")}</P>
+        <P>{getTranslation("37")}</P>
       ) : (
         <Wrapper>
           {data.map((item, i) => {

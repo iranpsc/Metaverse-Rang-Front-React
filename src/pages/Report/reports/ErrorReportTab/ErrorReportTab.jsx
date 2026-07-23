@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import React, { useContext, useRef, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import Alert from "../../../../components/Alert/Alert";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
@@ -9,7 +9,7 @@ import SendFiles from "./SendFiles";
 import Title from "../../../../components/Title";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { getTranslation } from "../../../../services/Utility";
 import { useLocation } from "react-router-dom";
 import Container from "../../../../components/Common/Container";
 import ErrorMessage from "../../../../components/ErrorMessage";
@@ -21,6 +21,7 @@ const StyledContent = styled.div`
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
+
     span {
       font-weight: 600;
       color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -30,23 +31,27 @@ const StyledContent = styled.div`
 
 const ErrorReportTab = () => {
   const location = useLocation();
-  const [title, setTitle] = useState("");
-  const [subdomain, SetSubdomain] = useState("");
-  const [isSending, setIsSending] = useState(false); // حالت لودینگ دکمه
 
-  useEffect(() => {
-    const basePath = location.state?.from ?? location.pathname;
-    const { title, page } = getModalHeaderFromPrevious(basePath);
-    setTitle(title);
-    SetSubdomain(page);
-  }, [location]);
+  // فقط اولین مسیر را ذخیره کن
+  const initialPath = useRef(
+    location.state?.from ?? location.pathname
+  );
+
+  // فقط یک بار محاسبه می‌شود
+  const { title, page } = getModalHeaderFromPrevious(
+    initialPath.current
+  );
+
+  const baseURL = `https://metarang.com${initialPath.current}`;
 
   const { Request, HTTP_METHOD } = useRequest();
   const { state, dispatch } = useReportsGlobalState();
   const { alert, setAlert } = useContext(AlertContext);
+
   const [error, setError] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
   const containerRef = useRef(null);
-  const baseURL = `https://metarang.com${location.state?.from ?? location.pathname}`;
 
   const resetForm = () => {
     dispatch({ type: "SET_SUBJECT", payload: "" });
@@ -62,18 +67,9 @@ const ErrorReportTab = () => {
       state.description &&
       state.files.length > 0
     ) {
-      setIsSending(true); // شروع لودینگ
+      setIsSending(true);
 
-      const formData = {
-        title: state.title,
-        content: state.description,
-        subject: state.subject,
-        url: baseURL,
-      };
-
-      const attachments = state.files.map((file) => {
-        return file;
-      });
+      const attachments = [...state.files];
 
       if (attachments.length > 5) {
         setError("The attachment must not have more than 5 items.");
@@ -85,29 +81,36 @@ const ErrorReportTab = () => {
         await Request(
           "reports",
           HTTP_METHOD.POST,
-          { ...formData, attachments: attachments },
-          { "Content-Type": "multipart/form-data" },
+          {
+            title: state.title,
+            content: state.description,
+            subject: state.subject,
+            url: baseURL,
+            attachments,
+          },
+          {
+            "Content-Type": "multipart/form-data",
+          }
         );
 
         setAlert(true);
         setError("");
-        if (containerRef.current) {
-          containerRef.current.scrollTo(0, 0);
-        }
+
+        containerRef.current?.scrollTo(0, 0);
+
         setTimeout(() => {
           resetForm();
           setAlert(false);
         }, 3000);
-      } catch (error) {
-        console.error("❌ Report submission failed:", error);
-        setError(getFieldTranslationByNames("1387"));
+      } catch (err) {
+        console.error(err);
+        setError(getTranslation("1387"));
       } finally {
-        setIsSending(false); // پایان لودینگ
+        setIsSending(false);
       }
     }
   };
 
-  // بررسی غیرفعال بودن دکمه
   const isDisabled = !(
     state.subject &&
     state.title &&
@@ -118,25 +121,30 @@ const ErrorReportTab = () => {
   return (
     <Container ref={containerRef}>
       {alert && (
-        <Alert type="success" text={getFieldTranslationByNames("461")} />
+        <Alert type="success" text={getTranslation("461")} />
       )}
+
       <StyledContent>
-        <Title title={getFieldTranslationByNames("1386")} right />
+        <Title title={getTranslation("1386")} right />
+
         <p>
-          {getFieldTranslationByNames("1376")} <span>{subdomain}</span>{" "}
-          {getFieldTranslationByNames("1377")} <span>{title}</span>{" "}
+          {getTranslation("1376")} <span>{page}</span>{" "}
+          {getTranslation("1377")} <span>{title}</span>
         </p>
+
         <Inputs />
         <Description />
         <SendFiles />
+
         <div>
           <Button
             fit
-            label={getFieldTranslationByNames("193")}
+            label={getTranslation("193")}
             onclick={sendReport}
             disabled={isDisabled ? true : isSending ? "pending" : false}
           />
         </div>
+
         <ErrorMessage
           errors={[error]}
           maxList={5}

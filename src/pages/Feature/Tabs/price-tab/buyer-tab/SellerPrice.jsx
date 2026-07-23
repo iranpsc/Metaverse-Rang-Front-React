@@ -1,4 +1,4 @@
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 import SellerPriceInfo from "./SellerPriceInfo";
 import styled from "styled-components";
 import Container from "../../../../../components/Common/Container";
@@ -21,7 +21,7 @@ const SellerPrice = () => {
   return (
     <Container>
       <Wrapper>
-        <Text>{getFieldTranslationByNames("526")}</Text>
+        <Text>{getTranslation("526")}</Text>
         <SellerPriceInfo />
       </Wrapper>
     </Container>

@@ -1,6 +1,6 @@
 import ErrorItem from "./identity-tab/ErrorItem";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 import { ExitIcon } from "../../../components/Icons/IconsHeader";
 const Div = styled.div`
   display: flex;
@@ -62,11 +62,11 @@ const ErrorModal = ({ setOpenErrorModal, errors }) => {
     <BackGround>
       <Modal>
         <Header>
-          <Title>{getFieldTranslationByNames("883")}</Title>
+          <Title>{getTranslation("883")}</Title>
           <ExitIcon onClick={() => setOpenErrorModal(false)} />
         </Header>
 
-        <Info>{getFieldTranslationByNames("881")}</Info>
+        <Info>{getTranslation("881")}</Info>
 
         <Div>
           {errors &&

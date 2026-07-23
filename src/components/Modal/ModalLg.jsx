@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Title from "../Title";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import { ExitIcon, ReportIcon } from "../Icons/IconsHeader";
 import { useNavigate } from "react-router-dom";
 const ModalBackdrop = styled.div`
@@ -70,7 +70,7 @@ const ModalLg = ({ children, titleId, setShowModal, report }) => {
     <ModalBackdrop>
       <ModalContainer>
         <ModalHeader>
-          <Title title={getFieldTranslationByNames(titleId)} />
+          <Title title={getTranslation(titleId)} />
           <div>
             {report && (
               <ReportIcon

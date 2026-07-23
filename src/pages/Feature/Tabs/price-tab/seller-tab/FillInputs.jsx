@@ -4,7 +4,7 @@ import Psc from "../../../../../components/Psc";
 import Input from "../../../../../components/Input";
 import {
   calculateFee,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../../services/Utility";
 import TitleValue from "../../../../../components/TitleValue";
 import Button from "../../../../../components/Button";
@@ -105,9 +105,9 @@ const FillInputs = ({
           maxLength={14}
           onChange={(e) => setRial(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
+          placeholder={`${getTranslation(
             "521",
-          )} (${getFieldTranslationByNames("48")})`}
+          )} (${getTranslation("48")})`}
           insideText={<Rial />}
         />
         <Input
@@ -115,32 +115,32 @@ const FillInputs = ({
           value={psc}
           onChange={(e) => setPsc(e.target.value)}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
+          placeholder={`${getTranslation(
             "521",
-          )} (${getFieldTranslationByNames("47")})`}
+          )} (${getTranslation("47")})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
       <ResultWrapper>
         <Wrapper>
-          <Title>{getFieldTranslationByNames("522")}</Title>
+          <Title>{getTranslation("522")}</Title>
           <Value>
             {calculateFee(rial) || 0} IRR / {calculateFee(psc) || 0} PSC
           </Value>
         </Wrapper>
-        <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
+        <TitleValue title={getTranslation("523")} value="5%" />
       </ResultWrapper>
       <ButtonBox>
         {" "}
         <Button
-          label={getFieldTranslationByNames("519")}
+          label={getTranslation("519")}
           onclick={validateAndSubmit}
         />
         {cancel && (
           <Button
             color="red"
             edit
-            label={getFieldTranslationByNames("833")}
+            label={getTranslation("833")}
             onclick={() => setAssign(true)}
           />
         )}

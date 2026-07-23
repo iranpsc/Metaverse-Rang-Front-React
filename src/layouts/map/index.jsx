@@ -23,6 +23,8 @@ import { useScrollDirectionContext } from "../../services/reducers/ScrollDirecti
 import { useTheme } from "../../services/reducers/ThemeContext";
 import styleMapLight from "../../assets/styleMapLight.json";
 import styleMapDark from "../../assets/styleMapDark.json";
+import useMapUrlState from "../../services/Hooks/useMapUrlState";
+import { flyToMapPosition } from "../../services/Utility/flyToMapPosition";
 export const TransactionContext = createContext(null);
 
 const MemoMapPolygons = React.memo(MapPolygons);
@@ -30,6 +32,7 @@ const MemoMapFlag = React.memo(MapFlag);
 const MemoMark = React.memo(Mark);
 
 const MapTreeD = () => {
+  const { setMapState, getMapState } = useMapUrlState();
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
@@ -136,7 +139,43 @@ const MapTreeD = () => {
   const [initialStyle] = useState(() =>
     theme === "dark" ? styleMapDark : styleMapLight,
   );
+  const handleMoveEnd = useCallback(() => {
+    if (!initializedRef.current || !mapRef.current) return;
 
+    const map = mapRef.current.getMap();
+    const center = map.getCenter();
+
+    setMapState({
+      lat: center.lat,
+      lng: center.lng,
+      zoom: map.getZoom(),
+      bearing: map.getBearing(),
+      pitch: map.getPitch(),
+    });
+  }, [setMapState]);
+ const initializedRef = useRef(false);
+
+useEffect(() => {
+  if (!mapLoaded || !mapRef.current || initializedRef.current) return;
+
+  initializedRef.current = true;
+
+  const state = getMapState();
+
+  // اگر URL پارامتری نداشت، هیچ flyTo انجام نده
+  if (!state) return;
+
+  flyToMapPosition({
+    mapRef,
+    latitude: Number(state.lat),
+    longitude: Number(state.lng),
+    zoom: Number(state.zoom),
+    bearing: Number(state.bearing ?? 0),
+    pitch: Number(state.pitch ?? 40),
+    rotate: false,
+    marker: false,
+  });
+}, [mapLoaded, getMapState]);
   return (
     <AuthMiddleware>
       <TransactionContext.Provider
@@ -148,6 +187,7 @@ const MapTreeD = () => {
             style={{ position: "relative", width: "100%", height: "100%" }}
           >
             <Map
+              onMoveEnd={handleMoveEnd}
               ref={mapRef}
               className="map"
               antialias

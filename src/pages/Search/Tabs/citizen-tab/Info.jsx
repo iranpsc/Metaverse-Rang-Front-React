@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -25,17 +25,17 @@ const Info = ({ user }) => {
   const items = [
     {
       id: 1,
-      title: getFieldTranslationByNames("724"),
+      title: getTranslation("724"),
       value: user?.level,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames("38"),
+      title: getTranslation("38"),
       value: user?.followers,
     },
     {
       id: 3,
-      title: getFieldTranslationByNames("39"),
+      title: getTranslation("39"),
       value: "-",
     },
   ];

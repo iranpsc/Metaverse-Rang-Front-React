@@ -2,7 +2,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
 import { useState } from "react";
 import VodRow from "./Tabs/receive/VodRow";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import { Skeleton } from "../../components/Skeleton";
 
 const Container = styled.div`
@@ -164,12 +164,12 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
         >
           <h1>
             {filterKey === "confirmed"
-              ? getFieldTranslationByNames("1343")
+              ? getTranslation("1343")
               : filterKey === "pending"
-                ? getFieldTranslationByNames("1344")
+                ? getTranslation("1344")
                 : filterKey === "failed"
-                  ? getFieldTranslationByNames("1345")
-                  : getFieldTranslationByNames("1346")}
+                  ? getTranslation("1345")
+                  : getTranslation("1346")}
           </h1>
           {status[filterKey] && (
             <span
@@ -193,14 +193,14 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
         <Table>
           <TableHead>
             <tr>
-              <TableHeader>{getFieldTranslationByNames("1339")}</TableHeader>
-              <TableHeader>{getFieldTranslationByNames("1319")}</TableHeader>
+              <TableHeader>{getTranslation("1339")}</TableHeader>
+              <TableHeader>{getTranslation("1319")}</TableHeader>
               <TableHeader>
-                <Div>{getFieldTranslationByNames("1340")}</Div>
+                <Div>{getTranslation("1340")}</Div>
               </TableHeader>
               <TableHeader>
                 <Div>
-                  {getFieldTranslationByNames("1341")}
+                  {getTranslation("1341")}
                   <Arrows
                     onClick={() => setFilters({ status: !filters.status })}
                   >
@@ -215,8 +215,8 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
                 </Div>
                 {filters.status && renderStatusFilters()}
               </TableHeader>
-              <TableHeader>{getFieldTranslationByNames("64")}</TableHeader>
-              <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
+              <TableHeader>{getTranslation("64")}</TableHeader>
+              <TableHeader>{getTranslation("1342")}</TableHeader>
             </tr>
           </TableHead>
           <tbody>
@@ -283,14 +283,14 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
       <Table>
         <TableHead>
           <tr>
-            <TableHeader>{getFieldTranslationByNames("1339")}</TableHeader>
-            <TableHeader>{getFieldTranslationByNames("1319")}</TableHeader>
+            <TableHeader>{getTranslation("1339")}</TableHeader>
+            <TableHeader>{getTranslation("1319")}</TableHeader>
             <TableHeader>
-              <Div>{getFieldTranslationByNames("1340")}</Div>
+              <Div>{getTranslation("1340")}</Div>
             </TableHeader>
             <TableHeader>
               <Div>
-                {getFieldTranslationByNames("1341")}
+                {getTranslation("1341")}
                 <Arrows onClick={() => setFilters({ status: !filters.status })}>
                   <MdKeyboardArrowDown
                     style={{
@@ -304,9 +304,9 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
               {filters.status && renderStatusFilters()}
             </TableHeader>
             <TableHeader style={{ whiteSpace: "nowrap" }}>
-              {getFieldTranslationByNames("64")}
+              {getTranslation("64")}
             </TableHeader>
-            <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
+            <TableHeader>{getTranslation("1342")}</TableHeader>
           </tr>
         </TableHead>
         <tbody>

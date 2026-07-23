@@ -4,7 +4,7 @@ import nonPhoto from "../../../assets/images/file.png";
 import remove from "../../../assets/images/remove.png";
 import styled from "styled-components";
 import Title from "../../../components/Title";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 
 const Files = styled.div`
   display: flex;
@@ -87,7 +87,7 @@ const SendFiles = ({ files = [], onFilesChange }) => {
     const invalidFile = selectedFiles.find(f => f.size > MAX_FILE_SIZE_MB * 1024 * 1024);
     
     if (invalidFile) {
-      setError(getFieldTranslationByNames("1643"));
+      setError(getTranslation("1643"));
       return;
     }
 
@@ -115,7 +115,7 @@ const SendFiles = ({ files = [], onFilesChange }) => {
 
   return (
     <Container>
-      <Title title={getFieldTranslationByNames("1328")} />
+      <Title title={getTranslation("1328")} />
       <Files>
         {/* رندر کردن تمام فایل‌ها (قدیمی و جدید) */}
         {files.map((file, index) => (

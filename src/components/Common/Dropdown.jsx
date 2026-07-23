@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 
 const DropdownContainer = styled.div`
   position: relative;
@@ -77,8 +77,21 @@ const Dropdown = ({
   placeholder = "please select",
   searchable = false,
   selectPlaceHolder = false,
+  hideTrigger = false,      // جدید: دکمه‌ی خودش رو رندر نکن
+  isOpen: controlledIsOpen, // جدید: کنترل باز/بسته از بیرون
+  onOpenChange,             // جدید
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isControlled = controlledIsOpen !== undefined;
+  const isOpen = isControlled ? controlledIsOpen : internalIsOpen;
+  const setIsOpen = (value) => {
+    if (isControlled) {
+      onOpenChange && onOpenChange(value);
+    } else {
+      setInternalIsOpen(value);
+    }
+  };
+
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
   const optionsWithPlaceholder = selectPlaceHolder
@@ -116,26 +129,28 @@ const Dropdown = ({
 
   return (
     <DropdownContainer ref={dropdownRef}>
-      <DropdownButton onClick={() => setIsOpen(!isOpen)}>
-        {(() => {
-          if (!selected) return placeholder;
-
-          const obj = options.find(
-            (o) => typeof o === "object" && o.value === selected
-          );
-          return obj ? obj.label : selected;
-        })()}
-        <ArrowIcon isOpen={isOpen} />
-      </DropdownButton>
+      {!hideTrigger && (
+        <DropdownButton onClick={() => setIsOpen(!isOpen)}>
+          {(() => {
+            if (!selected) return placeholder;
+            const obj = options.find(
+              (o) => typeof o === "object" && o.value === selected
+            );
+            return obj ? obj.label : selected;
+          })()}
+          <ArrowIcon isOpen={isOpen} />
+        </DropdownButton>
+      )}
 
       {isOpen && (
         <DropdownList>
           {searchable && (
             <SearchInput
               type="text"
-              placeholder={getFieldTranslationByNames("57")}
+              placeholder={getTranslation("57")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              autoFocus
             />
           )}
 

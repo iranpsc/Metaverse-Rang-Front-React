@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../services/Utility";
 
 const TableRow = styled.tr`
@@ -104,11 +104,11 @@ const TransactionRow = ({
   const getAssetTitle = (assetType) => {
     switch (assetType) {
       case "red":
-        return getFieldTranslationByNames("754");
+        return getTranslation("754");
       case "blue":
-        return getFieldTranslationByNames("753");
+        return getTranslation("753");
       case "yellow":
-        return getFieldTranslationByNames("755");
+        return getTranslation("755");
       default:
         return assetType;
     }
@@ -130,20 +130,20 @@ const TransactionRow = ({
       <TableCell>
         <Status status={status}>
           {status == "0"
-            ? getFieldTranslationByNames("741")
+            ? getTranslation("741")
             : status == "-138"
-            ? getFieldTranslationByNames("742")
+            ? getTranslation("742")
             : status == "1"
-            ? getFieldTranslationByNames("743")
+            ? getTranslation("743")
             : "بب"}
         </Status>
       </TableCell>
       <TableCell>
         <Title>
           {type == "order"
-            ? getFieldTranslationByNames("739")
+            ? getTranslation("739")
             : type == "trade"
-            ? getFieldTranslationByNames("740")
+            ? getTranslation("740")
             : type}
         </Title>
       </TableCell>

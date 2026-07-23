@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import { useLanguage } from "../../services/reducers/LanguageContext";
 import Button from "../../components/Button";
 const Container = styled.div`
@@ -184,8 +184,8 @@ const FirstStep = ({ setStep, time, setTime }) => {
         }
       }}
     >
-      <h3>{getFieldTranslationByNames("858")}</h3>
-      <p>{getFieldTranslationByNames("32")}</p>
+      <h3>{getTranslation("858")}</h3>
+      <p>{getTranslation("32")}</p>
       <Div isPersian={isPersian}>
         <ButtonContainer>
           <Up
@@ -242,7 +242,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
           type="text"
           inputMode="numeric"
           name="time"
-          placeholder={getFieldTranslationByNames("858")}
+          placeholder={getTranslation("858")}
           maxLength={2}
         />
         {!phone && (
@@ -275,11 +275,11 @@ const FirstStep = ({ setStep, time, setTime }) => {
           />
         )}
         {time !== "" && (
-          <Min isPersian={isPersian}>{getFieldTranslationByNames("33")}</Min>
+          <Min isPersian={isPersian}>{getTranslation("33")}</Min>
         )}
       </Div>
       <Button
-        label={getFieldTranslationByNames("859")}
+        label={getTranslation("859")}
         type="submit"
         disabled={isSubmitDisabled}
       />

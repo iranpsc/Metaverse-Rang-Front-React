@@ -4,7 +4,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 import bank from "../../../../assets/images/bank-melat.png";
 import styled from "styled-components";
 import { useState } from "react";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { Skeleton } from "../../../../components/Skeleton";
 
@@ -184,7 +184,7 @@ const BankCardsUpload = ({
           ))}
           <UploadWrapper>
             <Upload>
-              +<span> {getFieldTranslationByNames("890")}</span>
+              +<span> {getTranslation("890")}</span>
             </Upload>
           </UploadWrapper>
         </BankCard>
@@ -214,7 +214,7 @@ const BankCardsUpload = ({
                       <h2>{card.card_num}</h2>
                     </CardNumber>
                     <CardShaba>
-                      <span> {getFieldTranslationByNames("889")}</span>
+                      <span> {getTranslation("889")}</span>
                       <h3>{card.shaba_num}</h3>
                     </CardShaba>
                   </DisplayCard>
@@ -225,7 +225,7 @@ const BankCardsUpload = ({
 
           <UploadWrapper>
             <Upload onClick={() => setOpenAddModal(true)}>
-              +<span> {getFieldTranslationByNames("890")}</span>
+              +<span> {getTranslation("890")}</span>
             </Upload>
           </UploadWrapper>
         </BankCard>

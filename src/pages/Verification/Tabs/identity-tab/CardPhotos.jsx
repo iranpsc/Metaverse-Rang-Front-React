@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const ImageWrapper = styled.div`
   width: 220px;
@@ -33,7 +33,7 @@ const CardPhotos = ({ nationalCardImg }) => {
     <Container>
       <div>
         <Title>
-          {getFieldTranslationByNames("878")}
+          {getTranslation("878")}
         </Title>
         <ImageWrapper>
           <img src={nationalCardImg} alt="nation" />

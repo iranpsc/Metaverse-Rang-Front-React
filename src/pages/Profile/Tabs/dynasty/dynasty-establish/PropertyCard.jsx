@@ -1,7 +1,7 @@
 import house from "../../../../../assets/images/house.png";
 import styled from "styled-components";
 import Button from "../../../../../components/Button";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 import { useNavigate } from "react-router-dom";
 
 const Right = styled.div`
@@ -70,16 +70,16 @@ const PropertyCard = ({ onClick, label, propertyId, area, stability,id }) => {
           <img src={house} alt="property" width={50} height={50} />
         </Image>
         <Info>
-          <h3>{getFieldTranslationByNames(810)}</h3>
+          <h3>{getTranslation(810)}</h3>
           <h4 onClick={() => Navigate(`/feature/${id}`)}>{propertyId}</h4>
         </Info>
       </Right>
       <Center>
-        <h4>{getFieldTranslationByNames(373)}</h4>
+        <h4>{getTranslation(373)}</h4>
         <h4>{area}</h4>
         {/* {stability && (
           <>
-            <h3>{getFieldTranslationByNames(117)}</h3>
+            <h3>{getTranslation(117)}</h3>
             <h4>{stability}</h4>
           </>
         )} */}

@@ -7,7 +7,7 @@ import { FeatureSvg } from "../../../../../services/constants/FeatureType";
 import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { ToastError } from "../../../../../services/Utility";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 
 const ContainerPrice = styled.div`
   width: 65%;
@@ -44,7 +44,7 @@ export default function BuySystem({ price, image, rgb, id }) {
   return (
     <Container style={{ gap: "50px" }}>
       <Text style={{ fontWeight: "700" }}>
-        {getFieldTranslationByNames(1528)}{" "}
+        {getTranslation(1528)}{" "}
       </Text>
 
       <ContainerPrice>

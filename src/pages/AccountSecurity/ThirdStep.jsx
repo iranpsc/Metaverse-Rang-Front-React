@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 
 const Container = styled.div`
   p {
@@ -78,15 +78,15 @@ const ThirdStep = ({ setStep, time }) => {
     <Container>
       <Div>
         <h3>
-          {getFieldTranslationByNames("864")}
+          {getTranslation("864")}
         </h3>
         <h4>
           {formatTime(timer)}{" "}
-          {getFieldTranslationByNames("33")}
+          {getTranslation("33")}
         </h4>
       </Div>
       <p onClick={() => setStep(1)}>
-        {getFieldTranslationByNames("35")}
+        {getTranslation("35")}
       </p>
     </Container>
   );

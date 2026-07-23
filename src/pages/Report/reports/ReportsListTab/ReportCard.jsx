@@ -4,7 +4,7 @@ import instagram from "../../../../assets/images/instagram.png";
 import SendIcon from "../../../../assets/images/send-2.png";
 import WhatsappIcon from "../../../../assets/images/whatsapp.png";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { getTranslation } from "../../../../services/Utility/index";
 import { convertToPersian } from "../../../../services/Utility/index";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 
@@ -134,13 +134,13 @@ const ReportCard = ({
         <Texts>
           <Title title={truncateTitle(reportDetails.title)} />
           <p>
-            {getFieldTranslationByNames("1376")} <span>{domain}</span>{" "}
-            {getFieldTranslationByNames("1377")}
+            {getTranslation("1376")} <span>{domain}</span>{" "}
+            {getTranslation("1377")}
             <span> {subdomain}</span>{" "}
           </p>
         </Texts>
         <Socials isPersian={isPersian}>
-          <h3>{getFieldTranslationByNames("244")}</h3>
+          <h3>{getTranslation("244")}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -154,26 +154,26 @@ const ReportCard = ({
       </Info>
       <Content>
         <Code>
-          <Label>{getFieldTranslationByNames("1383")} </Label>
+          <Label>{getTranslation("1383")} </Label>
           <h2>#{convertToPersian(code)}</h2>
         </Code>
         {/* <Subject>
-          <Label>{getFieldTranslationByNames("746")}</Label>
+          <Label>{getTranslation("746")}</Label>
           <h2>{member}</h2>
         </Subject>*/}
         <Status status={status}>
-          <Label>{getFieldTranslationByNames("65")}</Label>
+          <Label>{getTranslation("65")}</Label>
           <h2>
             {status === "confirmed"
-              ? getFieldTranslationByNames("1343")
+              ? getTranslation("1343")
               : status === "pending"
-                ? getFieldTranslationByNames("852")
-                : getFieldTranslationByNames("852")}
-            {/*getFieldTranslationByNames("1345")*/}
+                ? getTranslation("852")
+                : getTranslation("852")}
+            {/*getTranslation("1345")*/}
           </h2>
         </Status>
         <Date>
-          <Label>{getFieldTranslationByNames("850")}</Label>
+          <Label>{getTranslation("850")}</Label>
           <h2>
             {date} | {time}
           </h2>

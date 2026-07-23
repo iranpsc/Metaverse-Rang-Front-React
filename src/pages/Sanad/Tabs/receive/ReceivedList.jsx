@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import Title from "../../../../components/Title";
 import SearchInput from "../../../../components/SearchInput";
 import VodList from "../../VodList";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
 import Container from "../../../../components/Common/Container";
 
@@ -112,17 +112,17 @@ const ReceivedList = () => {
 
   return (
     <Container>
-      <Title title={getFieldTranslationByNames("1335")} />
+      <Title title={getTranslation("1335")} />
 
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder={getFieldTranslationByNames("1337")}
+          placeholder={getTranslation("1337")}
         />
         <Date disabled>
           <DatePicker
-            placeholder={getFieldTranslationByNames("1338")}
+            placeholder={getTranslation("1338")}
             className="bg-dark yellow"
             format="YYYY/DD/MM HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}

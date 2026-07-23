@@ -7,7 +7,7 @@ import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { useLocation } from "react-router-dom";
 import moment from "moment-jalaali";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
 } from "../../../../../services/Utility/index";
 import Container from "../../../../../components/Common/Container";
@@ -106,7 +106,7 @@ const RecievedSuggestion = () => {
     };
 
     fetchSuggestions();
-  }, [location,Request]);
+  }, [location]);
 
   const handleRejectProposal = async (suggestionId) => {
     try {
@@ -167,7 +167,7 @@ const RecievedSuggestion = () => {
   if (loading) {
     return (
       <Container ref={containerRef}>
-        <Title right title={getFieldTranslationByNames("764")} />
+        <Title right title={getTranslation("764")} />
         <Wrapper>
           {Array.from({ length: 3 }).map((_, index) => (
             <Suggestion key={index} isLoading={true} />
@@ -179,7 +179,7 @@ const RecievedSuggestion = () => {
 
   return (
     <Container ref={containerRef}>
-      <Title right title={getFieldTranslationByNames("764")} />
+      <Title right title={getTranslation("764")} />
       <Wrapper>
         {validSuggestions.map((s) => (
           <div key={s.id} id={`suggestion-${s.id}`}>

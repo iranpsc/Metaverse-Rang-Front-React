@@ -7,7 +7,7 @@ import { FeaturePrice } from "../../../../../services/constants/FeatureType";
 import {
   ToastSuccess,
   ToastError,
-  getFieldTranslationByNames,
+  getTranslation,
   calculateFee,
 } from "../../../../../services/Utility";
 import useRequest from "../../../../../services/Hooks/useRequest";
@@ -65,11 +65,11 @@ const SuggestPrice = () => {
     }
 
     if (rialValue > (wallet?.irr || 0)) {
-      return getFieldTranslationByNames("1604");
+      return getTranslation("1604");
     }
 
     if (pscValue > (wallet?.psc || 0)) {
-      return getFieldTranslationByNames("1605");
+      return getTranslation("1605");
     }
 
     return null;
@@ -91,7 +91,7 @@ const SuggestPrice = () => {
       note: suggestText,
     })
       .then(() => {
-        ToastSuccess(getFieldTranslationByNames("1607"));
+        ToastSuccess(getTranslation("1607"));
 
         dispatch({
           type: WalletContextTypes.ADD_WALLET,
@@ -111,7 +111,7 @@ const SuggestPrice = () => {
 
   return (
     <Wrapper>
-      <p>{getFieldTranslationByNames("527")}</p>
+      <p>{getTranslation("527")}</p>
 
       {!assign && (
         <FillInputs

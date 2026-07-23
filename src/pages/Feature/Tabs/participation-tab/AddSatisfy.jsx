@@ -9,7 +9,7 @@ import styled from "styled-components";
 import TextValueIcon from "../../../../components/TextValueIcon";
 import Button from "../../../../components/Button";
 import { Title } from "../../Styles";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div``;
 const Inputs = styled.div`
@@ -95,10 +95,10 @@ const AddSatisfy = () => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("557")}
+        title={getTranslation("557")}
       />
       <Info>
-        {getFieldTranslationByNames("558")}
+        {getTranslation("558")}
       </Info>
       <Inputs>
         <Div>
@@ -120,7 +120,7 @@ const AddSatisfy = () => {
             value={count}
             onChange={(e) => setCount(e.target.value)}
             type="number"
-            placeholder={getFieldTranslationByNames("559")}
+            placeholder={getTranslation("559")}
             maxLength={3}
             min={0}
             max={200}
@@ -137,7 +137,7 @@ const AddSatisfy = () => {
         />
       </Inputs>
       <Button
-        label={getFieldTranslationByNames("561")}
+        label={getTranslation("561")}
         onclick={addHandler}
       />
     </Container>

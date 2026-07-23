@@ -6,7 +6,7 @@ import ProfileMember from "../../../assets/svg/profileMember.svg";
 import Ticket from "../../../assets/svg/ticket.svg";
 import Setting from "../../../assets/svg/setting.svg";
 import UnionIcon from "../../../assets/svg/union.svg?react";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 const Btn = styled.button`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   width: 100%;
@@ -67,7 +67,7 @@ const Union = () => {
     <>
       <Btn isOpenDrop={isOpenDrop}>
         <IconHeader isOpenDrop={isOpenDrop} />
-        <Text isOpen={isOpen}>{getFieldTranslationByNames("39")}</Text>
+        <Text isOpen={isOpen}>{getTranslation("39")}</Text>
       </Btn>
       <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
         <BtnNavigator>

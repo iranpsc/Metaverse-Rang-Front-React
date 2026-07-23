@@ -1,7 +1,7 @@
 import React from "react";
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Content = styled.div`
   width: 100%;
@@ -99,7 +99,7 @@ const CitizenMessage = ({ data }) => {
     <Container>
       <Content>
         <Files>
-          <h2>{getFieldTranslationByNames("1371")}</h2>
+          <h2>{getTranslation("1371")}</h2>
           <p>{stripHtmlTags(data?.content)}</p>
           <div>
             {filePreviews.map((file, index) => (

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import Title from "../../../../components/Title";
 import { ParticipantsContext } from "./ParticipationTab";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   padding-top: 20px;
@@ -31,7 +31,7 @@ const ParticipantList = () => {
   return (
     <Container>
       <Title
-        title={getFieldTranslationByNames("562")}
+        title={getTranslation("562")}
       />
 
       <Wrapper>

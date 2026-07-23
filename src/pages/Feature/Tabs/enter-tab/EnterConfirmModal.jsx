@@ -1,6 +1,6 @@
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../services/Utility";
 import Input from "./Input";
 import styled from "styled-components";
@@ -87,12 +87,12 @@ const EnterConfirmModal = ({ data, setPayStatus, setPayed, setLoading }) => {
     <BackGround>
       <Modal>
         <Title>
-          {getFieldTranslationByNames("548")}
+          {getTranslation("548")}
         </Title>
         <Info>
-          {getFieldTranslationByNames("549")}
+          {getTranslation("549")}
           {convertToPersian(20)}
-          {getFieldTranslationByNames("550")}
+          {getTranslation("550")}
         </Info>
         <Inputs>
           {data[0].inputs.slice(0, 2).map((input) => (
@@ -101,10 +101,10 @@ const EnterConfirmModal = ({ data, setPayStatus, setPayed, setLoading }) => {
         </Inputs>
         <Buttons>
           <Button blue onClick={enterHandler}>
-            {getFieldTranslationByNames("536")}
+            {getTranslation("536")}
           </Button>
           <Button onClick={() => setPayStatus(false)}>
-            {getFieldTranslationByNames("551")}
+            {getTranslation("551")}
           </Button>
         </Buttons>
       </Modal>

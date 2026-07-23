@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import { useTranslation } from "react-i18next";
 import mataphoto from "../../assets/images/3ddevelop.jpg";
 const Container = styled.div`
@@ -159,12 +159,12 @@ const TooltipContent = ({ imgSrc, name, lang, href, onlineUser }) => {
           <Hr />
           <ContainerTextTooltip>
             <Text>{onlineUser} </Text>
-            {getFieldTranslationByNames("252")}
+            {getTranslation("252")}
           </ContainerTextTooltip>
           <Hr />
           <ContainerTextTooltip>
             <Text>0</Text>
-            {getFieldTranslationByNames("253")}
+            {getTranslation("253")}
           </ContainerTextTooltip>
         </Tooltip>
       }
@@ -190,7 +190,7 @@ const ListPositions = () => {
         <React.Fragment >
           <TooltipContent
             imgSrc={mataphoto}
-            name={getFieldTranslationByNames("1591")}
+            name={getTranslation("1591")}
             lang={i18n.language}
             href="https://dev1-world-3d.metarang.com"
             onlineUser={"20"}
@@ -198,7 +198,7 @@ const ListPositions = () => {
         </React.Fragment>
       </ContainerList>
       {/*<BtnAllList>
-        {getFieldTranslationByNames("251")}
+        {getTranslation("251")}
       </BtnAllList>*/}
     </Container>
   );

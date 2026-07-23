@@ -29,20 +29,23 @@ const MainLayout = () => {
   const navigate = useNavigate();
   const usertoken = getItem("user");
   const [user] = useContext(UserContext);
+useEffect(() => {
+  if (!user || !usertoken) return;
 
-  useEffect(() => {
-    if (user === undefined || user === null) return;
+  // هنوز مقدار از API نیامده
+  if (user.has_wallet === undefined) return;
 
-    if (user.has_wallet || !usertoken) return;
+  // اگر کیف پول دارد، کاری نکن
+  if (user.has_wallet === true) return;
 
-    const currentSession = `${usertoken.token}-${usertoken.expire}`;
-    const shownSession = localStorage.getItem("walletModalShown");
+  const currentSession = `${usertoken.token}-${usertoken.expire}`;
+  const shownSession = localStorage.getItem("walletModalShown");
 
-    if (shownSession !== currentSession) {
-      localStorage.setItem("walletModalShown", currentSession);
-      navigate("/connectWallet", { replace: true });
-    }
-  }, [user, usertoken, navigate]);
+  if (shownSession !== currentSession) {
+    localStorage.setItem("walletModalShown", currentSession);
+    navigate("/connectWallet", { replace: true });
+  }
+}, [user, usertoken, navigate]);
   return (
     <Container>
       <MenuContextProvider>

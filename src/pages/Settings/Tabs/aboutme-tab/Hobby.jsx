@@ -15,7 +15,7 @@ import styled from "styled-components";
 import tree from "../../../../assets/images/settings/tree.png";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import weight from "../../../../assets/images/settings/weight.png";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { useEffect, useState } from "react";
 import { useTheme } from "../../../../services/reducers/ThemeContext";
 const Container = styled.div`
@@ -181,8 +181,8 @@ const Hobby = () => {
   return (
     <Container>
       <Div limitReached={limitReached}>
-        <Label>{getFieldTranslationByNames("784")}</Label>
-        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames(
+        <Label>{getTranslation("784")}</Label>
+        <h4>{`${localizedRemainingHobbies} ${getTranslation(
           "790"
         )}`}</h4>
       </Div>
@@ -198,7 +198,7 @@ const Hobby = () => {
             <div>
               <HobbyIcon src={hobby.icon} alt={hobby.name}   themeMode={theme}
 />
-              <span>{getFieldTranslationByNames(hobby.translationId)}</span>
+              <span>{getTranslation(hobby.translationId)}</span>
             </div>
           </CheckboxLabel>
         ))}
