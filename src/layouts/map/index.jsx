@@ -162,7 +162,6 @@ useEffect(() => {
 
   const state = getMapState();
 
-  // اگر URL پارامتری نداشت، هیچ flyTo انجام نده
   if (!state) return;
 
   flyToMapPosition({
