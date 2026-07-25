@@ -7,8 +7,8 @@ import Button from "../../../../components/Button";
 import { getTranslation } from "../../../../services/Utility";
 import CustomEditor from "../../../../components/Common/CustomEditor";
 import Dropdown from "../../../../components/Common/Dropdown";
+import useLanguage from "../../../../services/Hooks/useLanguage";
 import useRequest from "../../../../services/Hooks/useRequest";
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,7 +65,7 @@ const Field = styled.div`
 const IconButton = styled.span`
   display: flex;
   position: absolute;
-  left: 1%;
+  ${(props) => (props.isPersian ? 'left: 1%;' : 'right: 1%;')}
   align-items: center;
   justify-content: center;
   font-size: 18px;
@@ -89,7 +89,7 @@ const Tag = styled.div`
   align-items: center;
   gap: 6px;
   background: ${(props) =>
-    props.theme.colors.newColors.otherColors.bgContainer};
+    props.theme.colors.newColors.otherColors.iconBg};
   border: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   color: ${(props) => props.theme.colors.newColors.shades.title};
@@ -127,16 +127,10 @@ const Text = styled.p`
     font-size: 12px;
   }
 `;
-const EditInputs = ({
-  hasData,
-  inputs,
-  setEdit,
-  buildingID,
-  featureID,
-}) => {
+const EditInputs = ({ hasData, inputs, setEdit, buildingID, featureID }) => {
   const { Request, HTTP_METHOD } = useRequest();
   const [activity, setActivity] = useState([]);
-
+  const { isPersian } = useLanguage();
   const [fields, setFields] = useState({
     activity: [inputs?.first_row_info[0]?.value],
     name: inputs?.first_row_info[1]?.value,
@@ -206,10 +200,9 @@ const EditInputs = ({
         ),
     )
     .map((option) => option.name);
-
   const isValidWebsite = (url) => {
-    const pattern = /^(https?:\/\/)?([\w-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/i;
-    return pattern.test(url);
+    const pattern = /^(?:[\w-]+\.)+[a-zA-Z]{2,}$/;
+    return pattern.test(url.trim());
   };
 
   const validateFields = (data) => {
@@ -274,6 +267,7 @@ const EditInputs = ({
               />
             )}
             <IconButton
+            isPersian={isPersian}
               disabled={isLimitReached}
               onClick={() => {
                 if (isLimitReached) return;
@@ -363,6 +357,7 @@ const EditInputs = ({
           handleSend(fields);
         }}
         label={hasData ? getTranslation("537") : getTranslation("629")}
+        fit
       />
     </Container>
   );

@@ -17,8 +17,8 @@ const Container = styled.div`
   @media (max-width: 998px) {
     font-size: 14px;
     span {
-    font-size: 12px;
-  }
+      font-size: 12px;
+    }
   }
 `;
 const Title = styled.div`
@@ -27,12 +27,13 @@ const Title = styled.div`
   gap: 10px;
   h3 {
     color: #a0a0ab;
-    font-size: 12px;
+    font-size: 14px;
+
     font-weight: 500;
   }
-  @media (min-width: 998px) {
+  @media (max-width: 998px) {
     h3 {
-      font-size: 14px;
+      font-size: 10px;
     }
   }
 `;
@@ -50,7 +51,7 @@ const Pricing = ({ type, amount, color }) => {
   return (
     <Container>
       <Title>
-        <h3>{getTranslation(352)} </h3>
+        <h3>{getTranslation(770)} </h3>
         <img src={icons[type]} alt={type} width={18} height={18} />
       </Title>
       <span>{convertToPersian(amount)}</span>

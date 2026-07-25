@@ -106,7 +106,7 @@ const Tag = styled.span`
   padding: 4px 10px;
   border-radius: 14px;
   background: ${(props) =>
-    props.theme.colors.newColors.otherColors.bgContainer};
+    props.theme.colors.newColors.otherColors.iconBg};
   border: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   white-space: nowrap;

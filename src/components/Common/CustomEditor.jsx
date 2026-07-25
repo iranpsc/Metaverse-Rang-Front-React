@@ -155,7 +155,7 @@ const getModules = (img = false, showToolbar = true) => {
 const CustomEditor = ({
   value = "",
   onChange,
-  charLimit = 2000,
+  charLimit = 2007,
   label,
   showIcon = true,
   placeholder = "",

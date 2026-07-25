@@ -32,15 +32,15 @@ export default function useMapUrlState() {
         );
       }
 
-      navigate(
-        {
-          pathname: location.pathname,
-          search: params.toString(),
-        },
-        {
-          replace: true,
-        },
-      );
+  navigate(
+  {
+    pathname: location.pathname,
+    search: params.toString().replace(/%2C/g, ","),
+  },
+  {
+    replace: true,
+  },
+);
     },
     [location.pathname, location.search, navigate],
   );
