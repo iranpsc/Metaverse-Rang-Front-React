@@ -15,7 +15,7 @@ import Wallet from "../../assets/svg/wallet.svg";
 
 import GiftIcon from "../../assets/svg/gifts.svg";
 import { useMenuContext } from "../../services/reducers/MenuContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";

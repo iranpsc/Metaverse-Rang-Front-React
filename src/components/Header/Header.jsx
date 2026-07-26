@@ -8,7 +8,7 @@ import { PiGearSixFill } from "react-icons/pi";
 import { TiWarning } from "react-icons/ti";
 import Education from "../../components/Education/Education";
 import useAdviserData from "../../services/Hooks/useAdviserData";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import { getTranslation } from "../../services/Utility";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";

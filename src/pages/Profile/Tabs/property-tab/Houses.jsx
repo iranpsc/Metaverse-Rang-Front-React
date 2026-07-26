@@ -8,7 +8,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getTranslation } from "../../../../services/Utility";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import Container from "../../../../components/Common/Container";
 import SearchInput from "../../../../components/SearchInput";
 import { Skeleton } from "../../../../components/Skeleton";

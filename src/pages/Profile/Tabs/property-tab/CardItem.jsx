@@ -9,7 +9,7 @@ import {
   formatNumber,
 } from "../../../../services/Utility";
 import Button from "../../../../components/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import useRequest from "../../../../services/Hooks/useRequest";
 const PhotoName = styled.div`
   display: flex;

@@ -14,7 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { getTranslation } from "../../../../services/Utility";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 const icons = [
   { id: 1, slug: "share", label: 734, icon: <FiShare2 /> },

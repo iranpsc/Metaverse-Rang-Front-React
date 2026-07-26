@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import Colors from "./Colors";
 import Level from "./Level";
 import RealEstate from "./RealEstate";

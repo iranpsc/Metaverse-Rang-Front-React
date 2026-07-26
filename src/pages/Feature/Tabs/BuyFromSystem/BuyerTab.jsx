@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import SidebarOptions from "./SidebarOptions";
 import SellerPrice from "./SellerPrice";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router";
 import Container from "../../../../components/Common/Container";
 const Wrapper = styled(Container)`
   display: flex;

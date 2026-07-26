@@ -1,5 +1,5 @@
 import { LuBuilding2 } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { getTranslation } from "../../../../services/Utility";
 

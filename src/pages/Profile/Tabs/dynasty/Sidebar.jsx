@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { getTranslation } from "../../../../services/Utility";
 import { Container, Label } from "../../../../components/sidbar";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router";
 
 const Sidebar = () => {
   const { pathname } = useLocation();

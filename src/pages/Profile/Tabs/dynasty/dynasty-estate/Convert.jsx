@@ -5,7 +5,7 @@ import Title from "../../../../../components/Title";
 import styled from "styled-components";
 import { useState, useCallback, useMemo } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import {
   getTranslation,
   ToastSuccess,

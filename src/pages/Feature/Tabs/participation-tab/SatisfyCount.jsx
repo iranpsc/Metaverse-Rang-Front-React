@@ -10,8 +10,8 @@ import clockdark from "../../../../assets/gif/clockdark.gif";
 import { useTheme } from "../../../../services/reducers/ThemeContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { useMapData } from "../../../../services/reducers/mapContext";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { useEffect, useState, useContext } from "react";
 import {
   WalletContext,

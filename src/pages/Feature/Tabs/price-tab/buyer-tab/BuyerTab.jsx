@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import SidebarOptions from "../../../../../components/SidebarOptions";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router";
 import SellerPrice from "../buyer-tab/SellerPrice";
 import SuggestPrice from "../buyer-tab/SuggestPrice";
 

@@ -9,7 +9,7 @@ import ButtonIcon from "../../../../components/ButtonIcon";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getTranslation,metarangUrlCitizen } from "../../../../services/Utility";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { convertToPersian } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
 
