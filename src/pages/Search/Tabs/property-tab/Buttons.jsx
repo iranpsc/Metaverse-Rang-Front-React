@@ -50,7 +50,9 @@ const Buttons = ({ item, system }) => {
       icon: <LuShoppingCart />,
       onClick: () =>
         Navigate(`/feature/${item?.id}/buy/price`, {
-          state: { activePageNumber: 1 },
+          state: {
+            from: location.pathname,
+          },
         }),
     },
     {
