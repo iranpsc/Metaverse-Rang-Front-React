@@ -137,7 +137,6 @@ const Header = ({
   const newStr = location.pathname.replace(/\//g, "") + "-";
   const locationPage = location?.state?.locationPage;
   const adviserData = useAdviserData(newStr, locationPage);
-  console.log("locis", location);
   const handleReportClick = () => {
     navigation("/report/send", {
       state: {
@@ -147,10 +146,8 @@ const Header = ({
   };
   const handleExitClick = () => {
     updateScrollDirection(false);
-    console.log("0");
 
     if (handleExit) {
-      console.log("1");
 
       navigation(location.state?.background?.pathname || "/", {
         replace: true,
@@ -158,11 +155,9 @@ const Header = ({
       handleExit();
       return;
     }
-    console.log("exitlloc", location);
     const backgroundPath = location.state?.from;
 
     if (backgroundPath) {
-      console.log("2");
 
       navigation(backgroundPath, { replace: true });
     } else {
@@ -170,13 +165,11 @@ const Header = ({
     }
 
     if (setShowContainer) {
-      console.log("3");
 
       setShowContainer(false);
     }
 
     if (action === "ChangeHiddenState") {
-      console.log("4");
 
       resetStates();
     }

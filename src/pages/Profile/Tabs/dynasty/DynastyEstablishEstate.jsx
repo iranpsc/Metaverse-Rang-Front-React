@@ -60,7 +60,6 @@ const DynastyEstablishEstate = () => {
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-console.log("data",data)
   useEffect(() => {
     const fetchMembers = async () => {
       try {

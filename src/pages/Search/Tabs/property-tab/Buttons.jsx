@@ -41,7 +41,6 @@ const Container = styled.div`
 
 const Buttons = ({ item, system }) => {
   const Navigate = useNavigate();
-  console.log("loca", location);
   const center = calculatePolygonCentroid(item?.coordinates);
   const mapRef = useMap();
   const items = [
