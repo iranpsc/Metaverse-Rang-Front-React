@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Help from "../../assets/svg/exclamation.svg?react";
-import Report  from "../../assets/svg/question.svg?react";
+import Report from "../../assets/svg/question.svg?react";
 import { ExitIcon } from "../Icons/IconsHeader";
 import { BiExitFullscreen } from "react-icons/bi";
 import { PiGearSixFill } from "react-icons/pi";
@@ -137,7 +137,7 @@ const Header = ({
   const newStr = location.pathname.replace(/\//g, "") + "-";
   const locationPage = location?.state?.locationPage;
   const adviserData = useAdviserData(newStr, locationPage);
-
+  console.log("locis", location);
   const handleReportClick = () => {
     navigation("/report/send", {
       state: {
@@ -145,33 +145,42 @@ const Header = ({
       },
     });
   };
-const handleExitClick = () => {
-  updateScrollDirection(false);
+  const handleExitClick = () => {
+    updateScrollDirection(false);
+    console.log("0");
 
-  if (handleExit) {
-    navigation(location.state?.background?.pathname || "/", {
-      replace: true,
-    });
-    handleExit();
-    return;
-  }
+    if (handleExit) {
+      console.log("1");
 
-  const backgroundPath = location.state?.background?.pathname;
+      navigation(location.state?.background?.pathname || "/", {
+        replace: true,
+      });
+      handleExit();
+      return;
+    }
+    console.log("exitlloc", location);
+    const backgroundPath = location.state?.from;
 
-  if (backgroundPath) {
-    navigation(backgroundPath, { replace: true });
-  } else {
-    navigation("/", { replace: true });
-  }
+    if (backgroundPath) {
+      console.log("2");
 
-  if (setShowContainer) {
-    setShowContainer(false);
-  }
+      navigation(backgroundPath, { replace: true });
+    } else {
+      navigation("/", { replace: true });
+    }
 
-  if (action === "ChangeHiddenState") {
-    resetStates();
-  }
-};
+    if (setShowContainer) {
+      console.log("3");
+
+      setShowContainer(false);
+    }
+
+    if (action === "ChangeHiddenState") {
+      console.log("4");
+
+      resetStates();
+    }
+  };
   return (
     <HeaderWrapper>
       <Text long={long}>{getTranslation(title)}</Text>

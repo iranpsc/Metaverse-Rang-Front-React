@@ -32,15 +32,16 @@ export default function useMapUrlState() {
         );
       }
 
-  navigate(
-  {
-    pathname: location.pathname,
-    search: params.toString().replace(/%2C/g, ","),
-  },
-  {
-    replace: true,
-  },
-);
+      navigate(
+        {
+          pathname: location.pathname,
+          search: params.toString().replace(/%2C/g, ","),
+        },
+        {
+          replace: true,
+          state: location.state,
+        },
+      );
     },
     [location.pathname, location.search, navigate],
   );
@@ -61,11 +62,7 @@ export default function useMapUrlState() {
       pitch = DEFAULT_MAP_STATE.pitch,
     ] = map.split(",").map(Number);
 
-    if (
-      Number.isNaN(lat) ||
-      Number.isNaN(lng) ||
-      Number.isNaN(zoom)
-    ) {
+    if (Number.isNaN(lat) || Number.isNaN(lng) || Number.isNaN(zoom)) {
       return location.pathname === "/" ? DEFAULT_MAP_STATE : null;
     }
 

@@ -201,7 +201,15 @@ const CardItem = ({
           </ImageWrapper>
           <Name>
             <h3>{getTranslation(name)}</h3>
-            <span onClick={() => Navigate(`/feature/${navigateId}`)}>
+            <span
+              onClick={() =>
+                Navigate(`/feature/${navigateId}/info`, {
+                  state: {
+                    from: location.pathname,
+                  },
+                })
+              }
+            >
               {id}
             </span>
           </Name>
@@ -238,14 +246,10 @@ const CardItem = ({
           <Button
             fit
             label={getTranslation("352")}
-            onClick={() =>
-              Navigate(`/feature/${navigateId}/sell/lowest`)
-            }
+            onClick={() => Navigate(`/feature/${navigateId}/sell/lowest`)}
           />
         ) : (
-          <Delete onClick={handleDelete}>
-            {getTranslation("736")}
-          </Delete>
+          <Delete onClick={handleDelete}>{getTranslation("736")}</Delete>
         )}
       </Left>
     </Container>

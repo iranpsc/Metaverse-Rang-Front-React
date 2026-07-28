@@ -41,10 +41,16 @@ const Profile = ({ item }) => {
         <LuBuilding2 size={30} />
       </IconWrapper>
       <Info>
-        <h2>
-          {getTranslation("1478")}
-        </h2>
-        <p onClick={() => Navigate(`/feature/${item?.id}`)}>
+        <h2>{getTranslation("1478")}</h2>
+        <p
+          onClick={() =>
+            Navigate(`/feature/${item?.id}/info`, {
+              state: {
+                from: location.pathname,
+              },
+            })
+          }
+        >
           {item?.feature_properties_id}
         </p>
       </Info>
