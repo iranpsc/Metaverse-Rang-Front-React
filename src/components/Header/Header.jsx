@@ -148,7 +148,6 @@ const Header = ({
     updateScrollDirection(false);
 
     if (handleExit) {
-
       navigation(location.state?.background?.pathname || "/", {
         replace: true,
       });
@@ -158,19 +157,18 @@ const Header = ({
     const backgroundPath = location.state?.from;
 
     if (backgroundPath) {
-
       navigation(backgroundPath, { replace: true });
     } else {
       navigation("/", { replace: true });
     }
 
     if (setShowContainer) {
-
+      console.log("yes");
+     // navigation("/", { replace: true });
       setShowContainer(false);
     }
 
     if (action === "ChangeHiddenState") {
-
       resetStates();
     }
   };
