@@ -12,6 +12,7 @@ import red from "../../../../assets/gif/red-color.gif";
 import blue from "../../../../assets/gif/blue-color.gif";
 import yellow from "../../../../assets/gif/yellow-color.gif";
 import Container from "../../../../components/Common/Container";
+import useLanguage from "../../../../services/Hooks/useLanguage";
 
 const MainPhoto = styled.div`
   position: relative;
@@ -28,7 +29,7 @@ const MainPhoto = styled.div`
 const Count = styled.div`
   position: absolute;
   top: 10px;
-  left: 10px;
+  ${(props) => (props.isPersian ? "left: 10px;" : "right: 10px;")}
   display: flex;
   align-items: center;
   gap: 6px;
@@ -285,6 +286,7 @@ const Content = ({ organizers, time }) => {
     blue,
     yellow,
   };
+  const { isPersian } = useLanguage();
   const color = colors[main?.investment_asset] ?? null;
   return (
     <Container>
@@ -316,8 +318,8 @@ const Content = ({ organizers, time }) => {
         </Others>*/}
 
         <MainPhoto>
-          <Count data-tooltip-id="main">
-            <span>{convertToPersian(1)}</span>
+          <Count data-tooltip-id="main" isPersian={isPersian}>
+            <span>{convertToPersian(organizers[0]?.prize_per_question)}</span>
             <img src={color} alt={main?.count} width={20} height={20} />
             <ReactTooltip
               style={{

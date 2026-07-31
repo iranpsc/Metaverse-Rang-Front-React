@@ -24,6 +24,7 @@ const ChallengeView = () => {
         ]);
         setOrganizers(organizersRes.data.data);
         const timings = timingsRes.data.data;
+
         setTimings(timings);
         setFooters([
           {
@@ -41,7 +42,7 @@ const ChallengeView = () => {
           {
             id: 3,
             icon: view,
-            count: timings?.display_ad_interval ?? 0,
+            count: timings?.views ?? 0,
             slug: getTranslation(1775),
           },
           {

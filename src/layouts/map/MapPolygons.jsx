@@ -125,7 +125,7 @@ const MapPolygons = () => {
         setBuildings((prevModels) => [...prevModels, ...newBuildingModels]);
       });
     }
-  }, [ zoom]);
+  }, [zoom]);
   return (
     <>
       {zoom >= 14 && (
