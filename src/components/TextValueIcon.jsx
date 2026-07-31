@@ -82,9 +82,9 @@ const Value = styled.div`
 `;
 
 const ValueScroll = styled.span`
-  display: inline-block;
+  display: flex;
+  gap: 5px;
   padding-left: 10px;
-
   ${(props) =>
     props.animate &&
     `
@@ -105,8 +105,7 @@ const Tag = styled.span`
   align-items: center;
   padding: 4px 10px;
   border-radius: 14px;
-  background: ${(props) =>
-    props.theme.colors.newColors.otherColors.iconBg};
+  background: ${(props) => props.theme.colors.newColors.otherColors.iconBg};
   border: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   white-space: nowrap;

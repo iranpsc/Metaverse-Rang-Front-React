@@ -48,7 +48,7 @@ const Footer = ({ data }) => {
     },
     {
       id: "mosharekat",
-      count: data?.views,
+      count: data?.participants,
       icon: users,
       tooltip: getTranslation(1776),
     },

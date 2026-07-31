@@ -2,6 +2,10 @@ import { useEffect, useRef, useState, useContext } from "react";
 import Content from "./Content";
 import Footer from "./Footer";
 import psc from "../../../../assets/gif/psc.gif";
+import rial from "../../../../assets/gif/rial.gif";
+import blue from "../../../../assets/gif/blue-color.gif";
+import red from "../../../../assets/gif/red-color.gif";
+import yellow from "../../../../assets/gif/yellow-color.gif";
 import nopic from "../../../../assets/images/nopic.jpg";
 import styled from "styled-components";
 import useRequest from "../../../../services/Hooks/useRequest";
@@ -14,6 +18,7 @@ import {
   WalletContext,
   WalletContextTypes,
 } from "../../../../services/reducers/WalletContext";
+import { color } from "@deck.gl/core";
 const Container = styled.div`
   height: 100%;
   position: relative;
@@ -133,17 +138,36 @@ const Div = styled.div`
   }
 `;
 
-const Questions = ({ organizers, setFirstPage, setFooters, setShining,questionTime,answerTime }) => {
+const Questions = ({
+  organizers,
+  setFirstPage,
+  setFooters,
+  setShining,
+  questionTime,
+  answerTime,
+}) => {
   const [timer, setTimer] = useState(questionTime);
   const [showAnswer, setShowAnswer] = useState(false);
   const [selectedAnswerId, setSelectedAnswerId] = useState(null);
   const [answer, setAnswer] = useState();
   const [data, setData] = useState();
+
   const [wallet, dispatch] = useContext(WalletContext); // WalletContext access
   const timerInterval = useRef(null);
   const { Request, HTTP_METHOD } = useRequest();
   const main = organizers?.[0];
-
+  const prizeImage =
+    data?.prize_type === "psc"
+      ? psc
+      : data?.prize_type === "rial"
+        ? rial
+        : data?.prize_type === "blue"
+          ? blue
+          : data?.prize_type === "red"
+            ? red
+            : data?.prize_type === "yellow"
+              ? yellow
+              : psc;
   const handleSelectAnswer = (questionId, answerId) => {
     if (selectedAnswerId) return;
 
@@ -156,22 +180,34 @@ const Questions = ({ organizers, setFirstPage, setFooters, setShining,questionTi
           answer_id: answerId,
         });
 
-        setAnswer(res.data.data);
+        setAnswer(res.data);
 
-        const selectedAnswer = res.data.data.answers.find(
+        const selectedAnswer = res.data.answers.find(
           (item) => item.id === answerId,
         );
 
-        if (selectedAnswer?.is_correct) {
-          const updatedWallet = {
-            ...wallet,
-            psc: +wallet.psc + data.prize,
-          };
+        const walletKeyMap = {
+          psc: "psc",
+          rial: "irr",
+          blue: "blue",
+          red: "red",
+          yellow: "yellow",
+        };
 
-          dispatch({
-            type: WalletContextTypes.ADD_WALLET,
-            payload: updatedWallet,
-          });
+        if (selectedAnswer?.is_correct) {
+          const walletKey = walletKeyMap[data.prize_type];
+
+          if (walletKey) {
+            const updatedWallet = {
+              ...wallet,
+              [walletKey]: (+wallet[walletKey] || 0) + data.prize,
+            };
+
+            dispatch({
+              type: WalletContextTypes.ADD_WALLET,
+              payload: updatedWallet,
+            });
+          }
         }
       } catch (error) {
         console.error(error);
@@ -242,7 +278,7 @@ const Questions = ({ organizers, setFirstPage, setFooters, setShining,questionTi
     const fetchData = async () => {
       try {
         const res = await Request("challenge/question", HTTP_METHOD.GET);
-        setData(res.data.data);
+        setData(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -286,7 +322,7 @@ const Questions = ({ organizers, setFirstPage, setFooters, setShining,questionTi
                 <span>{convertToPersian(data?.prize)}</span>
                 <img
                   loading="lazy"
-                  src={psc}
+                  src={prizeImage}
                   alt="gif"
                   width={26}
                   height={26}
