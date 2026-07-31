@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { getTranslation } from "../services/Utility";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 import { Label } from "./sidbar";
 const Wrapper = styled.div`
   max-width: 171px !important;

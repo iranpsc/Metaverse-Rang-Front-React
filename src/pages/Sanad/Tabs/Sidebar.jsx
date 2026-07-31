@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 import { getTranslation } from "../../../services/Utility";
 import { Container, Label } from "../../../components/sidbar";
 

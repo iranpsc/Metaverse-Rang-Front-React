@@ -1,5 +1,5 @@
 import { useLayoutEffect } from "react";
-import { BrowserRouter } from "react-router"; // Import useNavigate
+import { BrowserRouter } from "react-router-dom"; // Import useNavigate
 import { Toaster } from "react-hot-toast";
 import "./App.css";
 import "./i18n/i18n.js";

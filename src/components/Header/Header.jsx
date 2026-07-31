@@ -8,7 +8,7 @@ import { PiGearSixFill } from "react-icons/pi";
 import { TiWarning } from "react-icons/ti";
 import Education from "../../components/Education/Education";
 import useAdviserData from "../../services/Hooks/useAdviserData";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import { getTranslation } from "../../services/Utility";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
@@ -148,6 +148,7 @@ const Header = ({
     updateScrollDirection(false);
 
     if (handleExit) {
+
       navigation(location.state?.background?.pathname || "/", {
         replace: true,
       });
@@ -157,18 +158,19 @@ const Header = ({
     const backgroundPath = location.state?.from;
 
     if (backgroundPath) {
+
       navigation(backgroundPath, { replace: true });
     } else {
       navigation("/", { replace: true });
     }
 
     if (setShowContainer) {
-      console.log("yes")
-      navigation("/", { replace: true });
+
       setShowContainer(false);
     }
 
     if (action === "ChangeHiddenState") {
+
       resetStates();
     }
   };
