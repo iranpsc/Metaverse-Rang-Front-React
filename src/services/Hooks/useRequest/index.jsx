@@ -43,7 +43,7 @@ export default function useRequest() {
     formData = {},
     customHeader = {},
   ) {
-    const user = getItem("user"); 
+    const user = getItem("user");
 
     const BASE_URL = isProduction ? PROD_BASE_URL : DEV_BASE_URL;
     const finalURL = BASE_URL + directory;
