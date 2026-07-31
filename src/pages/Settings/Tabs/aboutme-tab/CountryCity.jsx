@@ -75,7 +75,7 @@ const CountryCity = () => {
   }, [isFieldsLoaded]);
   const isPersianText = (text) => /[\u0600-\u06FF]/.test(text);
 
-  const getTranslation = (fieldsType, stateValue) => {
+  const getFieldTranslation = (fieldsType, stateValue) => {
     if (!isFieldsLoaded || !stateValue) return "";
 
     const normalizedValue = stateValue.trim().toLowerCase();
@@ -89,25 +89,23 @@ const CountryCity = () => {
       : fields[fieldsType];
 
     const selectedField = primaryFields.find(
-      (field) => field?.translation?.trim().toLowerCase() === normalizedValue
+      (field) => field?.translation?.trim().toLowerCase() === normalizedValue,
     );
 
-    if (selectedField)
-      return getTranslation(selectedField.unique_id);
+    if (selectedField) return getTranslation(selectedField.unique_id);
 
     const reversedField = secondaryFields.find(
-      (field) => field?.translation?.trim().toLowerCase() === normalizedValue
+      (field) => field?.translation?.trim().toLowerCase() === normalizedValue,
     );
 
-    if (reversedField)
-      return getTranslation(reversedField.unique_id);
+    if (reversedField) return getTranslation(reversedField.unique_id);
 
     return "";
   };
 
   const handleFieldChange = (fieldsType, translation, actionType) => {
     const selectedField = fields[fieldsType].find(
-      (field) => field?.translation === translation
+      (field) => field?.translation === translation,
     );
     if (selectedField) {
       dispatch({ type: actionType, payload: selectedField.translation });
@@ -142,7 +140,7 @@ const CountryCity = () => {
           <Dropdown
             searchable={true}
             options={fields[option.type].map((field) => field.translation)}
-            placeholder={getTranslation(option.type, option.stateValue)}
+            placeholder={getFieldTranslation(option.type, option.stateValue)}
             onSelect={(translation) =>
               handleFieldChange(option.type, translation, option.actionType)
             }
