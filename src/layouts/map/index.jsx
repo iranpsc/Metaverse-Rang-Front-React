@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import Map from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { Container } from "./styles";
 import MapPolygons from "./MapPolygons";
 import MapFlag from "./MapFlag";

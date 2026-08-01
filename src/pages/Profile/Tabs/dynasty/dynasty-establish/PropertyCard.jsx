@@ -2,7 +2,7 @@ import house from "../../../../../assets/images/house.png";
 import styled from "styled-components";
 import Button from "../../../../../components/Button";
 import { getTranslation } from "../../../../../services/Utility";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 const Right = styled.div`
   display: flex;

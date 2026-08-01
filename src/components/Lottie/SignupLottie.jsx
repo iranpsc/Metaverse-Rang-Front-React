@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import { useLayoutEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import SvgAni from "../../assets/Json/AniBackSvg.json";
 

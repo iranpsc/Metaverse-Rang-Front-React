@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router";
 import useRequest from "../../../../services/Hooks/useRequest";
 import DynastyEstablish from "./dynasty-establish/DynastyEstablish";
 import DynastyEstate from "./dynasty-estate/DynastyEstate";

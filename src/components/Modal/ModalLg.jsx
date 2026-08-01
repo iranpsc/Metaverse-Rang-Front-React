@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Title from "../Title";
 import { getTranslation } from "../../services/Utility";
 import { ExitIcon, ReportIcon } from "../Icons/IconsHeader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 const ModalBackdrop = styled.div`
   position: fixed;
   top: 0;

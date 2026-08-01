@@ -6,7 +6,7 @@ import InfoRow from "../InfoRow";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import Container from "../../../../components/Common/Container";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { currencies } from "../data";
 import { Skeleton } from "../../../../components/Skeleton";
 const Wrapper = styled.div`

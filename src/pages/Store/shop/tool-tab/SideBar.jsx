@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router";
 import { convertToPersian, getTranslation } from "../../../../services/Utility";
 import { Container, Label } from "../../../../components/sidbar";
 import { tools } from "../data";

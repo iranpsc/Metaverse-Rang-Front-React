@@ -9,7 +9,7 @@ import { FeatureContext } from "../../../Context/FeatureProvider";
 import { calculateFee, ToastError, ToastSuccess } from "../../../../../services/Utility";
 import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FeatureSvg } from "../../../../../services/constants/FeatureType";
 
 const ContainerPrice = styled.div`

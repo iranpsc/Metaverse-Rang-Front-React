@@ -1,6 +1,6 @@
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 const Container = styled.div`
   height: 100%;
   display: flex;

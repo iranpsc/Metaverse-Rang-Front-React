@@ -5,7 +5,7 @@ import red from "../../../../../assets/images/profile/red-color.gif";
 import yellow from "../../../../../assets/images/profile/yellow-color.gif";
 import blue from "../../../../../assets/images/profile/blue-color.gif";
 import { useMap } from "react-map-gl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import rial from "../../../../../assets/images/profile/rial.gif";
 import styled from "styled-components";
 import {
