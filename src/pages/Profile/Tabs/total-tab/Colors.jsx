@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getTranslation } from "../../../../services/Utility";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { Skeleton } from "../../../../components/Skeleton"; // مسیرش رو با پروژه خودت تنظیم کن
 

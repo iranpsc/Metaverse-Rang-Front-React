@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import { FollowContext } from "../../../../services/reducers/FollowContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { getTranslation } from "../../../../services/Utility";
 

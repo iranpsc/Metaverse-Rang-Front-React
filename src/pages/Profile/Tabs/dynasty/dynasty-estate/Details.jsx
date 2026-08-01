@@ -1,7 +1,7 @@
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import styled from "styled-components";
 import { getTranslation } from "../../../../../services/Utility";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   background-color: ${(props) =>

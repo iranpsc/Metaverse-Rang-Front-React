@@ -2,10 +2,10 @@ import MapTreeD from "./map";
 import Menu from "./menu";
 import StatusBar from "./statusBar";
 import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { MenuContextProvider } from "../services/reducers/MenuContext";
 import styled from "styled-components";
-import { Outlet } from "react-router";
+import { Outlet } from "react-router-dom";
 import { UserContext } from "../services/reducers/UserContext";
 import { getItem } from "../services/Utility/LocalStorage";
 

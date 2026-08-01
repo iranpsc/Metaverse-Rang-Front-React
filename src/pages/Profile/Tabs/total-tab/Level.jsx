@@ -7,7 +7,7 @@ import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { convertToPersian } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   border-radius: 10px;

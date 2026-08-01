@@ -3,7 +3,7 @@ import styled from "styled-components";
 import RedHouseIcon from "../../../assets/images/redHouse.png";
 import YellowHouseIcon from "../../../assets/images/yellowHouse.png";
 import BlueHouseIcon from "../../../assets/images/blueHouse.png";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import useRequest from "../../../services/Hooks/useRequest";
 
 const FeatureContainer = styled.div`

@@ -7,7 +7,7 @@ import { useContext, useState } from "react";
 import Button from "../../../../../components/Button";
 import TitleValue from "../../../../../components/TitleValue";
 import { FeatureContext } from "../../../Context/FeatureProvider";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { FeatureSvg } from "../../../../../services/constants/FeatureType";
 import {

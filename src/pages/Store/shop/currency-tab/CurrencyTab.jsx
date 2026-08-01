@@ -1,6 +1,6 @@
 import SideBar from "./SideBar";
 import styled from "styled-components";
-import { Outlet } from "react-router";
+import { Outlet } from "react-router-dom";
 const Wrapper = styled.div`
   display: flex;
   gap: 20px;

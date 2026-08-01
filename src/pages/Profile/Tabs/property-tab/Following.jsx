@@ -5,7 +5,7 @@ import Title from "../../../../components/Title";
 import SearchInput from "../../../Search/components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getTranslation } from "../../../../services/Utility";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import Container from "../../../../components/Common/Container";
 import { Skeleton } from "../../../../components/Skeleton";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../../components/Modal";
 import FeatureProvider from "./Context/FeatureProvider";
-import { useParams, Outlet } from "react-router";
+import { useParams, Outlet } from "react-router-dom";
 
 export default function Feature() {
   const { id } = useParams();

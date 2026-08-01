@@ -4,7 +4,7 @@ import meter from "../../../../../assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
 import { Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import moment from "moment-jalaali";
 import {
   getTranslation,

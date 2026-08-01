@@ -7,7 +7,7 @@ import InfoRow from "../InfoRow";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { Skeleton } from "../../../../components/Skeleton";
 import Container from "../../../../components/Common/Container";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { tools } from "../data";
 
 const Wrapper = styled.div`

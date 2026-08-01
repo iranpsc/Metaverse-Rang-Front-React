@@ -2,7 +2,7 @@ import { IoIosClose } from "react-icons/io";
 import { TbMinimize } from "react-icons/tb";
 import styled from "styled-components";
 import { ExitIcon } from "../Icons/IconsHeader";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getModalHeaderFromPrevious from "../../services/TitleManager";
 

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
 import { useSelectedEnvironment } from "../../../../../../services/reducers/SelectedEnvironmentContext";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import {
   getTranslation,
   ToastError,

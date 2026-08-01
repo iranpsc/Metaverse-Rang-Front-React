@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo, useState } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../../services/Hooks/useAuth";
 import Tabs from "../../services/Hooks/useTabs";
 import { FeatureContext } from "./Context/FeatureProvider";

@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
 import { useSpring } from "@react-spring/web";
 import { Container } from "./Styles";
 import Header from "../Header/Header";
 import { useLanguage } from "../../services/reducers/LanguageContext";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 const ModalPosition = ({ children, title, position, action }) => {
-  const [showContainer, setShowContainer] = useState(true);
   const { setModalStatus, isGlobalFullScreenMap } = useScrollDirectionContext();
   const springs = useSpring({
     from: { opacity: 0, transform: "scale(0.8)" },
@@ -13,30 +11,17 @@ const ModalPosition = ({ children, title, position, action }) => {
     config: { duration: 200 },
   });
   const isPersian = useLanguage();
-  useEffect(() => {
-    if (showContainer) {
-      setModalStatus(true);
-    }
-    return () => {
-      setModalStatus(false);
-    };
-  }, [setModalStatus]);
+
   return (
-    showContainer && (
-      <Container
-        position={position}
-        style={springs}
-        isPersian={isPersian}
-        show={isGlobalFullScreenMap}
-      >
-        <Header
-          title={title}
-          action={action}
-          setShowContainer={setShowContainer}
-        />
-        {children}
-      </Container>
-    )
+    <Container
+      position={position}
+      style={springs}
+      isPersian={isPersian}
+      show={isGlobalFullScreenMap}
+    >
+      <Header title={title} action={action} />
+      {children}
+    </Container>
   );
 };
 

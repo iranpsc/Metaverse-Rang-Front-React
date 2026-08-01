@@ -10,7 +10,7 @@ import Title from "../../../../components/Title";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
 import { getTranslation } from "../../../../services/Utility";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import Container from "../../../../components/Common/Container";
 import ErrorMessage from "../../../../components/ErrorMessage";
 import getModalHeaderFromPrevious from "../../../../services/TitleManager";

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Lowest from "./Lowest";
 import PriceDefine from "./PriceDefine";
 import SidebarOptions from "../../../../../components/SidebarOptions";
-import {  Routes, Route, Navigate } from "react-router";
+import {  Routes, Route, Navigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;

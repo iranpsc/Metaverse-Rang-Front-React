@@ -18,7 +18,7 @@ import {
   getTranslation,
   metarangUrlCitizen,
 } from "../../../../../services/Utility";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useMap } from "react-map-gl";
 import { calculatePolygonCentroid } from "../../../../../services/Utility/calculatePolygonCentroid";
 import { flyToMapPosition } from "../../../../../services/Utility/flyToMapPosition";

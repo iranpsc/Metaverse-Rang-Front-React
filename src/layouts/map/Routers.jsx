@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes, Navigate } from "react-router";
+import { Outlet, Route, Routes, Navigate } from "react-router-dom";
 
 import Search from "../../pages/Search";
 import PrivateRoute from "../../routes/PrivateRoute";

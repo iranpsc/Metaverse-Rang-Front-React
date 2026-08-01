@@ -119,15 +119,7 @@ const FullWrapper = styled.div`
   }
 `;
 
-const Header = ({
-  title,
-  long,
-  loading,
-  profile,
-  action,
-  setShowContainer,
-  handleExit,
-}) => {
+const Header = ({ title, long, loading, profile, action, handleExit }) => {
   const [openEducation, setOpenEducation] = useState(false);
   const location = useLocation();
   const navigation = useNavigate();
@@ -160,12 +152,6 @@ const Header = ({
       navigation(backgroundPath, { replace: true });
     } else {
       navigation("/", { replace: true });
-    }
-
-    if (setShowContainer) {
-      console.log("yes");
-     // navigation("/", { replace: true });
-      setShowContainer(false);
     }
 
     if (action === "ChangeHiddenState") {

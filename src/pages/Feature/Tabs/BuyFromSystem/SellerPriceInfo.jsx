@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useContext } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import {
   WalletContext,
   WalletContextTypes,

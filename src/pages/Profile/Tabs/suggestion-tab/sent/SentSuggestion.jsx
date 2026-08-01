@@ -8,7 +8,7 @@ import {
 } from "../../../../../services/Utility/index";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { Wrapper } from "../suggestionStyles";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import moment from "moment-jalaali";
 import Container from "../../../../../components/Common/Container";
 

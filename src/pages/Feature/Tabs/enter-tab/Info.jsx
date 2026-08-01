@@ -7,8 +7,8 @@ import Button from "../../../../components/Button";
 import styled from "styled-components";
 import { useState, useContext } from "react";
 import Title from "../../../../components/Title";
-import { useNavigate } from "react-router";
-import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useMapData } from "../../../../services/reducers/mapContext";
 import {
   WalletContext,

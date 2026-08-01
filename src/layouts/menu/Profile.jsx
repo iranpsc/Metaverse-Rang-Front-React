@@ -10,7 +10,7 @@ import Message from "../../assets/svg/message.svg?react";
 import ProfileMember from "../../assets/svg/profileMember.svg";
 import Ticket from "../../assets/svg/ticket.svg";
 import Setting from "../../assets/svg/setting.svg";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { getTranslation } from "../../services/Utility";
 import { useLanguage } from "../../services/reducers/LanguageContext";
 
