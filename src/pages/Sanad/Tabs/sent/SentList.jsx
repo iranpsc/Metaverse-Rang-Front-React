@@ -74,8 +74,9 @@ const Date = styled.div`
 const SentList = ({ setShowDetails }) => {
   const [rows, setRows] = useState([]);
   const { Request } = useRequest();
-
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [nextPageUrl, setNextPageUrl] = useState(null);
   const [searched, setSearched] = useState("");
   const [status, setStatus] = useState({
     pending: false,
@@ -83,33 +84,69 @@ const SentList = ({ setShowDetails }) => {
     failed: false,
     read: false,
   });
+
+  const normalizeRequestPath = (url) => {
+    if (!url) return "";
+    if (url.startsWith("/api/")) {
+      return url.substring(5);
+    }
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      try {
+        const parsed = new URL(url);
+        return parsed.pathname.replace(/^\/api\//, "") + parsed.search;
+      } catch {
+        return url;
+      }
+    }
+    return url;
+  };
+
+  const fetchTickets = async (endpoint, append = false) => {
+    try {
+      const response = await Request(endpoint);
+      const data = response.data.data || [];
+      const nextUrl = response.data.next_page_url || null;
+      setNextPageUrl(nextUrl);
+      setRows((prevRows) => (append ? [...prevRows, ...data] : data));
+      return data.length;
+    } catch (error) {
+      console.error("Error fetching tickets:", error);
+      if (!append) setRows([]);
+      return 0;
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
-    Request("tickets")
-      .then((response) => {
-        setRows(response.data.data || []);
-      })
-      .catch((error) => {
-        console.error("Error fetching tickets:", error);
-        setRows([]);
-      })
+    fetchTickets("tickets")
       .finally(() => {
         setLoading(false);
       });
   }, []);
 
+  const loadMore = async () => {
+    if (!nextPageUrl) {
+      return 0;
+    }
+
+    setLoadingMore(true);
+    const endpoint = normalizeRequestPath(nextPageUrl);
+    const loadedCount = await fetchTickets(endpoint, true);
+    setLoadingMore(false);
+    return loadedCount;
+  };
+
   const filteredItems = rows.filter((row) => {
     const codeMatch = row?.title?.toString().includes(searched) || false;
-
     const statusMatch =
       (!status.confirmed &&
         !status.failed &&
         !status.pending &&
         !status.read) ||
-      (status.confirmed && row.status === "confirmed") ||
-      (status.failed && row.status === "failed") ||
-      (status.read && row.status === "read") ||
-      (status.pending && row.status === "pending");
+      (status.confirmed && row.status === 1) ||
+      (status.failed && row.status === 5) ||
+      (status.read && row.status === 4) ||
+      (status.pending && row.status === 0);
 
     return codeMatch && statusMatch;
   });
@@ -145,6 +182,9 @@ const SentList = ({ setShowDetails }) => {
         rows={filteredItems}
         mode=""
         isLoading={loading}
+        loadMore={loadMore}
+        hasMore={!!nextPageUrl}
+        isLoadMoreLoading={loadingMore}
       />
     </Container>
   );

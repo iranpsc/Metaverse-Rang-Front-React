@@ -50,7 +50,7 @@ const RequestDetails = ({
         time={time} 
         code={isSendType ? user.code : code} 
         name={isSendType ? user.name : data.from_user.name} 
-        image={isSendType ? user.image : data.user_from?.image} 
+        image={isSendType ? user.image : data?.from_user?.profile_photo} 
       />
       <div dangerouslySetInnerHTML={{ __html: data.message }} />
       {data?.status === 0 && !isSendType && (

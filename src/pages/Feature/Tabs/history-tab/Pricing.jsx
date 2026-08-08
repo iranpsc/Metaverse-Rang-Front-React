@@ -33,11 +33,11 @@ const Title = styled.div`
   }
   @media (max-width: 998px) {
     h3 {
-      font-size: 10px;
+      font-size: 12px;
     }
   }
 `;
-const Pricing = ({ type, amount, color }) => {
+const Pricing = ({ type, amount, color, index }) => {
   const colorImages = {
     red,
     blue,
@@ -52,9 +52,13 @@ const Pricing = ({ type, amount, color }) => {
     <Container>
       <Title>
         <h3>{getTranslation(770)} </h3>
-        <img src={icons[type]} alt={type} width={18} height={18} />
+        {!(index === 2 && amount === 0) && (
+          <img src={icons[type]} alt={type} width={18} height={18} />
+        )}
       </Title>
-      <span>{convertToPersian(amount)}</span>
+      <span>
+        {amount === 0 && index === 2 ? "هدیه" : convertToPersian(amount)}
+      </span>
     </Container>
   );
 };

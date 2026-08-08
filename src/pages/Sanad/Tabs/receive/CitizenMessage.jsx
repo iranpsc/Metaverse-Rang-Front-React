@@ -1,7 +1,7 @@
 import avatar from "../../../../assets/images/defulte-profile.png";
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
-import { SanitizeHTML,metarangUrlCitizen } from "../../../../services/Utility";
+import { SanitizeHTML, metarangUrlCitizen } from "../../../../services/Utility";
 import nonPhoto from "../../../../assets/images/file.png";
 
 const Content = styled.div``;
@@ -49,10 +49,11 @@ const Text = styled.div`
 const Files = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.bgContainer};
+        color: ${(props) => props.theme.colors.newColors.shades.title};
+
   padding: 12px;
   border-radius: 10px;
   margin-top: 10px;
-  margin-right: auto;
   width: fit-content;
   div {
     display: flex;
@@ -76,7 +77,6 @@ const Container = styled.div`
   display: flex;
   gap: 12px;
   width: fit-content;
-  margin-left: auto;
   margin-top: 20px;
 `;
 
@@ -170,7 +170,9 @@ const CitizenMessage = ({ data }) => {
                     filename = urlParts[urlParts.length - 1]
                       .split("?")[0]
                       .split("#")[0];
-                  } catch(err) {console.error(err)}
+                  } catch (err) {
+                    console.error(err);
+                  }
                   handleDownload(attachment, filename);
                 }}
               />
@@ -196,7 +198,8 @@ const CitizenMessage = ({ data }) => {
             <span>{data?.sender?.name}</span>
             <a
               href={metarangUrlCitizen(data?.sender?.code)}
-              target="_blank" rel="noreferrer"
+              target="_blank"
+              rel="noreferrer"
             >
               {data?.sender.code}
             </a>
@@ -216,7 +219,8 @@ const CitizenMessage = ({ data }) => {
               <span>{data?.sender?.name}</span>
               <a
                 href={metarangUrlCitizen(data?.sender?.code)}
-                target="_blank" rel="noreferrer"
+                target="_blank"
+                rel="noreferrer"
               >
                 {data?.sender.code}
               </a>

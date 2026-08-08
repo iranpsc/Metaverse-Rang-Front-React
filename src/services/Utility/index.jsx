@@ -127,22 +127,6 @@ export const calculateFee = (number = 100, percent = 5) => {
   const parseNumber = parseInt(number);
   return (parseNumber * percent) / 100 + parseNumber;
 };
-export const convertPersianNumbersToEnglish = (text) => {
-  const persianToEnglishMap = {
-    "۰": "0",
-    "۱": "1",
-    "۲": "2",
-    "۳": "3",
-    "۴": "4",
-    "۵": "5",
-    "۶": "6",
-    "۷": "7",
-    "۸": "8",
-    "۹": "9",
-  };
-
-  return text.replace(/[۰۱۲۳۴۵۶۷۸۹]/g, (match) => persianToEnglishMap[match]);
-};
 
 export const persianNumbers = [
     /۰/g,
@@ -279,6 +263,9 @@ export const getFieldsByTabName = (modalName, tabName) => {
   return tab.fields;
 };
 
+
+
+
 export const getFieldsByTabNameReverse = (modalName, tabName) => {
   const resources = i18n.store.data;
   const currentLang = i18n.language;
@@ -308,17 +295,7 @@ export const getFieldsByTabNameReverse = (modalName, tabName) => {
   });
 };
 
-export function convertEnglishToPersianNumbers(inputText) {
-  const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
 
-  for (let i = 0; i < 10; i++) {
-    const regex = new RegExp(englishNumbers[i], "g");
-    inputText = inputText.replace(regex, persianNumbers[i]);
-  }
-
-  return inputText;
-}
 export const isMobile =
   "ontouchstart" in window || navigator.maxTouchPoints > 0;
 export const getBrowser = async () => {

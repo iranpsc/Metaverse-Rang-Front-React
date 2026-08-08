@@ -6,6 +6,7 @@ import { useState, useRef, useContext } from "react";
 import Compressor from "compressorjs";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";
+import { replace, useNavigate } from "react-router";
 import {
   ToastError,
   ToastSuccess,
@@ -108,7 +109,7 @@ const Album = ({ feature, setFeature, isLoading }) => {
   const [activeImage, setActiveImage] = useState(feature?.images?.[0] || null);
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const inputRef = useRef();
-
+  const navigate = useNavigate();
   const handleImageUpload = (event) => {
     if (!checkSecurity()) return;
 
@@ -187,7 +188,7 @@ const Album = ({ feature, setFeature, isLoading }) => {
               loading="lazy"
             />
             <Actions>
-              {onwer&& (
+              {onwer && (
                 <IconWrapper onClick={() => deleteHandler(item.id)}>
                   <HiOutlineTrash />
                 </IconWrapper>
@@ -195,7 +196,13 @@ const Album = ({ feature, setFeature, isLoading }) => {
 
               <IconWrapper
                 onClick={() => {
-                  console.log("pending");
+                  navigate("/report/send", {
+                    state: {
+                      from: location.pathname,
+                      title:"photoReport",
+                      photo:item.url
+                    },
+                  });
                 }}
               >
                 <IoWarningOutline />
@@ -218,7 +225,7 @@ const Album = ({ feature, setFeature, isLoading }) => {
       </AlbumWrapper>
       {open && (
         <Slider
-        onwer={onwer}
+          onwer={onwer}
           deleteHandler={deleteHandler}
           images={feature?.images}
           setOpen={setOpen}

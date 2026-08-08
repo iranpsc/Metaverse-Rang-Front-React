@@ -12,29 +12,35 @@ const Wrapper = styled.div`
   margin-top: 20px;
 `;
 
-const SidebarOptions = ({ seller }) => {
+const SidebarOptions = ({ seller, hasPrice }) => {
   return (
     <Wrapper>
-      <NavLink to={seller ? "lowest" : "price"} replace end>
+      {seller || hasPrice ? (
+        <NavLink
+          to={seller ? "../sell/lowest" : "../buy/price"}
+          replace
+          end
+        >
+          {({ isActive }) => (
+            <Label menu={isActive}>
+              {seller ? getTranslation("517") : getTranslation("524")}
+            </Label>
+          )}
+        </NavLink>
+      ) : null}
+
+      <NavLink
+        to={seller ? "../sell/PriceDefine" : "../buy/suggest"}
+        replace
+        end
+      >
         {({ isActive }) => (
           <Label menu={isActive}>
-            {seller
-              ? getTranslation("517")
-              : getTranslation("524")}
-          </Label>
-        )}
-      </NavLink>
-      <NavLink to={seller ? "PriceDefine" : "suggest"} replace end>
-        {({ isActive }) => (
-          <Label menu={isActive}>
-            {seller
-              ? getTranslation("519")
-              : getTranslation("525")}
+            {seller ? getTranslation("519") : getTranslation("525")}
           </Label>
         )}
       </NavLink>
     </Wrapper>
   );
 };
-
 export default SidebarOptions;

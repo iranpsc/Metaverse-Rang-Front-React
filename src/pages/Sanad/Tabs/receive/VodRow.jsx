@@ -154,7 +154,11 @@ const VodRow = ({ id, code, date, time, title, status, sender }) => {
         </TableCell>
       </TableRow>
       {showDetails && (
-        <VodDetails data={ticket} setShowDetails={setShowDetails} />
+        <VodDetails
+          data={ticket}
+          setData={setTicket}
+          setShowDetails={setShowDetails}
+        />
       )}
     </>
   );

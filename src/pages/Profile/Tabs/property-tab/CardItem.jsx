@@ -169,7 +169,7 @@ const CardItem = ({
   id,
   color,
   address,
-  area,
+  stability,
   price_psc,
   price_irr,
   photo,
@@ -223,7 +223,7 @@ const CardItem = ({
       <Left>
         <Meter>
           <span>{getTranslation("347")}</span>
-          <p>{convertToPersian(area)}</p>
+          <p>{convertToPersian(formatNumber(stability))}</p>
         </Meter>
         {isDeleted ? (
           <div />
@@ -246,7 +246,13 @@ const CardItem = ({
           <Button
             fit
             label={getTranslation("352")}
-            onClick={() => Navigate(`/feature/${navigateId}/sell/lowest`)}
+            onClick={() =>
+              Navigate(`/feature/${navigateId}/sell/lowest`, {
+                state: {
+                  from: location.pathname,
+                },
+              })
+            }
           />
         ) : (
           <Delete onClick={handleDelete}>{getTranslation("736")}</Delete>

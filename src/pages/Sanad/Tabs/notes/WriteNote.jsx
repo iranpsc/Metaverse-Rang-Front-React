@@ -94,7 +94,11 @@ const WriteNote = () => {
 
     Request("notes", HTTP_METHOD.POST, formData)
       .then((response) => {
-        dispatch({ type: "ADD_NOTE", payload: response.data.data });
+        dispatch({
+          type: "ADD_NOTE",
+          payload: response.data.data,
+          position: "start",
+        });
         setAlert(true);
         resetForm();
       })

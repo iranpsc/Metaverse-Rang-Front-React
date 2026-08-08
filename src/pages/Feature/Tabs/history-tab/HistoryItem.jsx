@@ -50,14 +50,13 @@ const Time = styled.div`
   }
 `;
 const User = styled.div`
-  white-space: nowrap;
 
   h4 {
     color: ${({ theme }) => theme.colors.newColors.shades.title};
 
     font-size: 12px;
     a {
-      color: ${({ theme }) => theme.colors.primary};
+      color: #0066ff;
       text-decoration: none;
     }
   }
@@ -70,7 +69,6 @@ const User = styled.div`
 const Div = styled.div`
   display: flex;
   margin-bottom: 4px;
-  white-space: nowrap;
   align-items: center;
   gap: 4px;
   color: #a0a0ab;
@@ -94,6 +92,7 @@ const HistoryItem = ({
   psc,
   color,
   colorAmount,
+  key,
 }) => {
   const showTime = `${convertToPersian(time)} | ${ConvertJalali(date)}`;
   const isColorTrade = Boolean(color);
@@ -129,7 +128,12 @@ const HistoryItem = ({
       {!owner && !isColorTrade && <Pricing type="psc" amount={psc} />}
 
       {isColorTrade && (
-        <Pricing type="color" amount={colorAmount} color={color} />
+        <Pricing
+          type="color"
+          amount={colorAmount}
+          color={color}
+          index={index}
+        />
       )}
     </Container>
   );

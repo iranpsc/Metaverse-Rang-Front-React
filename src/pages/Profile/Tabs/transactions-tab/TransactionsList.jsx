@@ -31,8 +31,7 @@ const TableHead = styled.thead`
   overflow: hidden !important;
 `;
 
-const TableRow = styled.tr`
-`;
+const TableRow = styled.tr``;
 const StatusFilter = styled.div`
   position: absolute;
   top: 65px;
@@ -49,6 +48,9 @@ const TitleFilter = styled.div`
   position: absolute;
   top: 65px;
   width: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   padding: 15px;
   border-radius: 10px;
   background-color: ${(props) =>
@@ -87,11 +89,11 @@ const TableHeader = styled.th`
 `;
 
 const subjects = [
-  { id: 1, label: "buy blue", slug: "753", gif: blue },
-  { id: 2, label: "buy red", slug: "754", gif: red },
-  { id: 3, label: "buy yellow", slug: "755", gif: yellow },
-  { id: 4, label: "buy rial currency", slug: "756", gif: rial },
-  { id: 5, label: "buy psc currency", slug: "757", gif: psc },
+  { id: 1, label: "blue", slug: "753", gif: blue },
+  { id: 2, label: "red", slug: "754", gif: red },
+  { id: 3, label: "yellow", slug: "755", gif: yellow },
+  { id: 4, label: "rial", slug: "756", gif: rial },
+  { id: 5, label: "psc", slug: "757", gif: psc },
 ];
 
 const TableBody = styled.tbody``;
@@ -230,20 +232,14 @@ const TransactionsList = ({
         <TableHead>
           <TableRow>
             <TableHeader>
-              <TableHeaderText>
-                {getTranslation("63")}
-              </TableHeaderText>
+              <TableHeaderText>{getTranslation("63")}</TableHeaderText>
             </TableHeader>
             <TableHeader date>
-              <TableHeaderText>
-                {getTranslation("64")}
-              </TableHeaderText>
+              <TableHeaderText>{getTranslation("64")}</TableHeaderText>
             </TableHeader>
             <TableHeader>
               <FilterContainer>
-                <TableHeaderText>
-                  {getTranslation("65")}
-                </TableHeaderText>
+                <TableHeaderText>{getTranslation("65")}</TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ status: !filters.status })}
                 >
@@ -340,9 +336,7 @@ const TransactionsList = ({
             </TableHeader>
             <TableHeader title>
               <FilterContainer>
-                <TableHeaderText>
-                  {getTranslation("746")}
-                </TableHeaderText>
+                <TableHeaderText>{getTranslation("746")}</TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ title: !filters.title })}
                 >
@@ -399,9 +393,7 @@ const TransactionsList = ({
             </TableHeader>
             <TableHeader subject>
               <FilterContainer>
-                <TableHeaderText>
-                  {getTranslation("750")}
-                </TableHeaderText>
+                <TableHeaderText>{getTranslation("750")}</TableHeaderText>
                 <FilterArrows
                   onClick={() => setFilters({ subject: !filters.subject })}
                 >
@@ -413,27 +405,27 @@ const TransactionsList = ({
                   {subjects.map((item, index) => (
                     <SubjectFilterItem
                       key={item.id}
-                      active={subject[item.slug]}
+                      active={subject[item.label]}
                       isLast={index === subjects.length - 1}
                       onClick={() => {
-                        setSubject((prev) => ({ ...prev, [item.slug]: true }));
+                        setSubject((prev) => ({ ...prev, [item.label]: true }));
                         setFilters({ ...filters, subject: false });
                       }}
                     >
                       <SubjectFilterImage
                         src={item.gif}
-                        alt={item.slug}
+                        alt={item.label}
                         loading="lazy"
                       />
                       <SubjectFilterText>
                         {getTranslation(item.slug)}
                       </SubjectFilterText>
-                      {subject[item.slug] && (
+                      {subject[item.label] && (
                         <FilterCloseButton
                           onClick={(e) => {
                             setSubject((prev) => ({
                               ...prev,
-                              [item.slug]: false,
+                              [item.label]: false,
                             }));
                             e.stopPropagation();
                             setFilters({ ...filters, subject: false });
@@ -448,14 +440,10 @@ const TransactionsList = ({
               )}
             </TableHeader>
             <TableHeader>
-              <TableHeaderText>
-                {getTranslation("66")}
-              </TableHeaderText>
+              <TableHeaderText>{getTranslation("66")}</TableHeaderText>
             </TableHeader>
             <TableHeader>
-              <TableHeaderText>
-                {getTranslation("67")}
-              </TableHeaderText>
+              <TableHeaderText>{getTranslation("67")}</TableHeaderText>
             </TableHeader>
           </TableRow>
         </TableHead>

@@ -90,16 +90,16 @@ const PublicTab = () => {
   const [loading, setLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
   const [generalSettings, setGeneralSettings] = useState({
-    announcements_sms: 0,
-    announcements_email: 0,
-    reports_sms: 0,
-    reports_email: 0,
-    login_verification_sms: 0,
-    login_verification_email: 0,
-    transactions_sms: 0,
-    transactions_email: 0,
-    trades_sms: 0,
-    trades_email: 0,
+    announcements_sms: false,
+    announcements_email: false,
+    reports_sms: false,
+    reports_email: false,
+    login_verification_sms: false,
+    login_verification_email: false,
+    transactions_sms: false,
+    transactions_email: false,
+    trades_sms: false,
+    trades_email: false,
   });
 
   useEffect(() => {
@@ -115,7 +115,7 @@ const PublicTab = () => {
   const handleToggleChange = (key, value) => {
     setGeneralSettings((prevState) => ({
       ...prevState,
-      [key]: value ? 1 : 0,
+      [key]: value ? true : false,
     }));
   };
 
@@ -123,11 +123,11 @@ const PublicTab = () => {
     setIsSending(true);
 
     const data = Object.fromEntries(
-      Object.entries(generalSettings).filter(([key]) => !key.includes("id"))
+      Object.entries(generalSettings).filter(([key]) => !key.includes("id")),
     );
 
     Request(`general-settings/${generalSettings.id}`, HTTP_METHOD.PUT, data)
-      .then(() => {
+      .then((res) => {
         setAlert(true);
         setTimeout(() => {
           setAlert(false);

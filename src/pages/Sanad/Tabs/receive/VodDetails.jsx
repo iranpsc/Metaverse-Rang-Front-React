@@ -10,11 +10,11 @@ const Div = styled.div`
   height: 100%;
 `;
 
-const VodDetails = ({ setShowDetails, data }) => {
+const VodDetails = ({ setShowDetails, data, setData}) => {
   return (
     <ModalLg setShowModal={setShowDetails} titleId={1347}>
       <Div>
-        <VodCard data={data} />
+        <VodCard data={data} setData={setData} setShowDetails={setShowDetails} />
         <Messages data={data} />
       </Div>
     </ModalLg>

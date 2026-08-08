@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
 import Alert from "../../../../components/Alert/Alert";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
@@ -14,7 +14,6 @@ import { useLocation } from "react-router";
 import Container from "../../../../components/Common/Container";
 import ErrorMessage from "../../../../components/ErrorMessage";
 import getModalHeaderFromPrevious from "../../../../services/TitleManager";
-
 const StyledContent = styled.div`
   p {
     margin: 10px 0;
@@ -31,16 +30,11 @@ const StyledContent = styled.div`
 
 const ErrorReportTab = () => {
   const location = useLocation();
-
   // فقط اولین مسیر را ذخیره کن
-  const initialPath = useRef(
-    location.state?.from ?? location.pathname
-  );
+  const initialPath = useRef(location.state?.from ?? location.pathname);
 
   // فقط یک بار محاسبه می‌شود
-  const { title, page } = getModalHeaderFromPrevious(
-    initialPath.current
-  );
+  const { title, page } = getModalHeaderFromPrevious(initialPath.current);
 
   const baseURL = `https://metarang.com${initialPath.current}`;
 
@@ -52,6 +46,38 @@ const ErrorReportTab = () => {
   const [isSending, setIsSending] = useState(false);
 
   const containerRef = useRef(null);
+useEffect(() => {
+  const loadImage = async () => {
+    if (location?.state?.title === "photoReport") {
+      dispatch({ type: "SET_SUBJECT", payload: "disrespect" });
+      dispatch({
+        type: "SET_TITLE",
+        payload: "عکس دارای محتوای زننده است ",
+      });
+
+      try {
+        const response = await fetch(location.state.photo);
+        const blob = await response.blob();
+
+        const file = new File(
+          [blob],
+          location.state.photo.split("/").pop(),
+          { type: blob.type }
+        );
+
+        dispatch({
+          type: "SET_FILES",
+          payload: [file],
+        });
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
+  loadImage();
+}, []);
 
   const resetForm = () => {
     dispatch({ type: "SET_SUBJECT", payload: "" });
@@ -90,7 +116,7 @@ const ErrorReportTab = () => {
           },
           {
             "Content-Type": "multipart/form-data",
-          }
+          },
         );
 
         setAlert(true);
@@ -120,16 +146,14 @@ const ErrorReportTab = () => {
 
   return (
     <Container ref={containerRef}>
-      {alert && (
-        <Alert type="success" text={getTranslation("461")} />
-      )}
+      {alert && <Alert type="success" text={getTranslation("461")} />}
 
       <StyledContent>
         <Title title={getTranslation("1386")} right />
 
         <p>
-          {getTranslation("1376")} <span>{page}</span>{" "}
-          {getTranslation("1377")} <span>{title}</span>
+          {getTranslation("1376")} <span>{page}</span> {getTranslation("1377")}{" "}
+          <span>{title}</span>
         </p>
 
         <Inputs />

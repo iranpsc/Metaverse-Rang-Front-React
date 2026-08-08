@@ -155,7 +155,6 @@ const Loader = styled.div`
   }
 `;
 
-
 const RequestsList = ({
   rows,
   member,
@@ -166,7 +165,6 @@ const RequestsList = ({
   type,
   isLoading, // اضافه شد
 }) => {
-
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({
     status: false,
@@ -217,9 +215,7 @@ const RequestsList = ({
         <TableHead>
           <TableRow>
             <TableHeader>
-              {type === "send"
-                ? getTranslation(1448)
-                : getTranslation(1447)}
+              {type === "send" ? getTranslation(1448) : getTranslation(1447)}
             </TableHeader>
             <TableHeader date> {getTranslation(850)}</TableHeader>
             <TableHeader>
@@ -310,9 +306,7 @@ const RequestsList = ({
       </Table>
       {!isLoading && visibleRows < rows.length && (
         <Loader>
-          <button onClick={handleLoadMore}>
-            {getTranslation(1410)}
-          </button>
+          <button onClick={handleLoadMore}>{getTranslation(1410)}</button>
         </Loader>
       )}
     </Container>

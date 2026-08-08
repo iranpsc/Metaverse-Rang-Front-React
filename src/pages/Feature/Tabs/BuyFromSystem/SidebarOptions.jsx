@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 const SidebarOptions = () => {
   return (
     <Wrapper>
-      <NavLink to="price" replace end>
+      <NavLink to="../buy/price" replace end>
         {({ isActive }) => (
           <Label menu={isActive}>{getTranslation("524")}</Label>
         )}

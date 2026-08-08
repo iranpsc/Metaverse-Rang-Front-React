@@ -23,6 +23,7 @@ import { Skeleton } from "../../../../components/Skeleton";
 import {
   getTranslation,
   ToastError,
+  convertToPersian,
 } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 
@@ -87,7 +88,6 @@ const TransactionsTab = () => {
   const [hasMore, setHasMore] = useState(true);
   const { Request } = useRequest();
   const loaderRef = useRef(null);
-
   const convertPersianToEnglish = (str) => {
     if (!str) return str;
     const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
@@ -132,7 +132,7 @@ const TransactionsTab = () => {
       if (subject.red) subjectParams.push("red");
       if (subject.yellow) subjectParams.push("yellow");
       if (subject.psc) subjectParams.push("psc");
-      if (subject.rial) subjectParams.push("rial");
+      if (subject.rial) subjectParams.push("irr");
 
       const isFilterActive =
         searched ||
@@ -161,7 +161,6 @@ const TransactionsTab = () => {
 
       const response = await Request(`user/transactions?${params.toString()}`);
       const newTransactions = response.data.data;
-
       const processedTransactions = newTransactions.map((transaction) => {
         let assetGif = null;
         switch (transaction.asset) {

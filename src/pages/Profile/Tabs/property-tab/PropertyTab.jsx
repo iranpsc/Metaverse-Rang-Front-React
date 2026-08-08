@@ -8,10 +8,9 @@ const Container = styled.div`
   overflow-y: hidden;
 `;
 const PropertyTab = () => {
-  const [menu, setMenu] = useState(1);
   return (
     <Container>
-      <Sidebar setMenu={setMenu} menu={menu} />
+      <Sidebar />
       <Outlet />
     </Container>
   );

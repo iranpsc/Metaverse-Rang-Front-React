@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import {
   convertToPersian,
-  getTranslation,
+  getTranslation,ConvertJalali
 } from "../../../../services/Utility";
 
 const TableRow = styled.tr`
@@ -123,7 +123,7 @@ const TransactionRow = ({
       <TableCell>
         <div>
           <Date>
-            {convertToPersian(date)} | {convertToPersian(time)}
+            {ConvertJalali(date)} | {convertToPersian(time)}
           </Date>
         </div>
       </TableCell>
@@ -135,7 +135,7 @@ const TransactionRow = ({
             ? getTranslation("742")
             : status == "1"
             ? getTranslation("743")
-            : "بب"}
+            : getTranslation("742")}
         </Status>
       </TableCell>
       <TableCell>

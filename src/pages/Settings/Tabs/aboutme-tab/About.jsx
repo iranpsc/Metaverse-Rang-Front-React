@@ -25,7 +25,6 @@ const About = () => {
       value={aboutValue}
       onChange={handleChange}
       img
-      charLimit={10000}
       label={getTranslation("781")}
     />
   );

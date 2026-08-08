@@ -8,6 +8,8 @@ import { convertToPersian } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { useParams } from "react-router";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, useFBX } from "@react-three/drei";
 
 const Container = styled.div`
   border-radius: 10px;
@@ -75,6 +77,7 @@ const Level = () => {
   const IsPersian = useLanguage();
   const { Request } = useRequest();
   const { id } = useParams();
+  //console.log("user", user);
 
   useEffect(() => {
     const requestId = id || user?.id;
@@ -114,7 +117,25 @@ const Level = () => {
       </Container>
     );
   }
+  const fbxUrl = user?.level?.fbx_file
+    ? JSON.parse(user.level.fbx_file).fbx
+    : null;
+ // console.log("fbxUrl");
+  function FbxModel({ url }) {
+    const model = useFBX(url);
 
+    // console.log("FBX:", model);
+
+    model.traverse((child) => {
+      //   console.log(child.type, child.name);
+
+      if (child.isMesh) {
+        //  console.log("MESH FOUND", child);
+      }
+    });
+
+    return <primitive object={model} scale={1} />;
+  }
   return (
     <Container>
       <Percent IsPersian={IsPersian}>
@@ -142,13 +163,14 @@ const Level = () => {
           ))}
         {user.level && (
           <div>
-            <img
-              data-tooltip-id={user.level.id}
-              width={65}
-              height={65}
-              src={user.level.image}
-              alt={user.level.name}
-            />
+            <div style={{ width: 65, height: 65 }}>
+              <Canvas camera={{ position: [0, 0, 3] }}>
+                <ambientLight intensity={2} />
+                <directionalLight position={[5, 5, 5]} />
+                <FbxModel url={fbxUrl} />
+                <OrbitControls enableZoom={false} />
+              </Canvas>
+            </div>
             <ReactTooltip
               id={user.level.background_image}
               place="top"

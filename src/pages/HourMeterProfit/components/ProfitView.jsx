@@ -30,6 +30,7 @@ const Buttons = styled.div`
 
 const ProfitView = () => {
   const [user, userDispatch] = useContext(UserContext);
+  console.log(user)
   const [buttons, setButtons] = useState([]);
   const [cards, setCards] = useState([]);
   const { Request, HTTP_METHOD } = useRequest();

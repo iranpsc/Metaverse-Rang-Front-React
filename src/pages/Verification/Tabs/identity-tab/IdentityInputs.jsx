@@ -9,7 +9,7 @@ import ErrorModal from "../ErrorModal";
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
-  convertPersianNumbersToEnglish,
+  convertToPersian,
   getTranslation,
   ToastError,
 } from "../../../../services/Utility";
@@ -145,7 +145,7 @@ const IdentityInputs = ({
     requestData.append("province", inputValues.province);
     requestData.append(
       "birthdate",
-      convertPersianNumbersToEnglish(inputValues.birthdate)
+      convertToPersian(inputValues.birthdate)
     );
     requestData.append("melli_card", nationImageURL);
     requestData.append("video[name]", JSON.parse(uploadResponse).name);

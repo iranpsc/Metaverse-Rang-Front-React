@@ -64,6 +64,8 @@ const AccountTab = () => {
   useEffect(() => {
     Request("settings")
       .then((response) => {
+                console.log("res",response)
+
         setSettings(response.data.data);
       })
       .finally(() => {
@@ -75,9 +77,7 @@ const AccountTab = () => {
     if (Object.keys(settings).length > 0) {
       setMobileChange((prevState) => ({
         ...prevState,
-        warn: ` ${settings.phone_reset_count}  ${getTranslation(
-          "1364"
-        )}`,
+        warn: ` ${settings.phone_reset_count}  ${getTranslation("1364")}`,
       }));
     }
   }, [settings]);
@@ -90,22 +90,22 @@ const AccountTab = () => {
         <SkeletonChangeCard>
           {/* عنوان */}
           <Skeleton width="250px" height="24px" radius="4px" />
-          
+
           {/* متن توضیحی */}
           <Skeleton width="200px" height="14px" radius="4px" />
-          
+
           {/* شماره تلفن جدید */}
           <SkeletonRow>
             <Skeleton width="120px" height="16px" radius="4px" />
             <Skeleton width="80px" height="16px" radius="4px" />
           </SkeletonRow>
-          
+
           {/* تایید */}
           <SkeletonRow>
             <Skeleton width="60px" height="16px" radius="4px" />
             <Skeleton width="80px" height="16px" radius="4px" />
           </SkeletonRow>
-          
+
           {/* دکمه ذخیره با چکباکس */}
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Skeleton width="20px" height="20px" radius="4px" />
@@ -117,7 +117,7 @@ const AccountTab = () => {
         <SkeletonBankCard>
           {/* عنوان */}
           <Skeleton width="150px" height="24px" radius="4px" />
-          
+
           {/* شماره کارت */}
           <SkeletonDivider>
             <SkeletonRow>
@@ -125,7 +125,7 @@ const AccountTab = () => {
               <Skeleton width="40px" height="20px" radius="4px" />
             </SkeletonRow>
           </SkeletonDivider>
-          
+
           {/* زمان تسویه حساب */}
           <SkeletonDivider>
             <div style={{ marginBottom: "8px" }}>
@@ -136,7 +136,7 @@ const AccountTab = () => {
               <Skeleton width="40px" height="20px" radius="4px" />
             </SkeletonRow>
           </SkeletonDivider>
-          
+
           {/* خروج اتوماتیک */}
           <SkeletonDivider>
             <SkeletonRow>
@@ -144,7 +144,7 @@ const AccountTab = () => {
               <Skeleton width="40px" height="20px" radius="4px" />
             </SkeletonRow>
           </SkeletonDivider>
-          
+
           {/* دکمه ذخیره */}
           <Skeleton width="100%" height="45px" radius="8px" />
         </SkeletonBankCard>

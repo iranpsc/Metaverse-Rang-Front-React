@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
 import { getTranslation } from "../../../../services/Utility/index";
 import ErrorMessage from "../../../../components/ErrorMessage";
+import { useLocation } from "react-router";
 const Files = styled.div`
   display: flex;
   align-items: center;
@@ -73,12 +74,25 @@ const SendFiles = () => {
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState("");
   const MAX_FILE_SIZE_MB = 1;
-
   useEffect(() => {
     if (state.files.length === 0) {
       setPreviews([]);
+      return;
     }
+
+    const newPreviews = state.files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+      id: `${file.name}-${file.lastModified}`,
+    }));
+
+    setPreviews(newPreviews);
+
+    return () => {
+      newPreviews.forEach((item) => URL.revokeObjectURL(item.preview));
+    };
   }, [state.files]);
+
   const fileHandler = (e) => {
     setError("");
     const selectedFiles = Array.from(e.target.files);
