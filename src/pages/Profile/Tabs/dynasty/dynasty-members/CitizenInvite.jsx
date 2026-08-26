@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState, useCallback } from "react";
 import CitizenCard from "./CitizenCard";
 import { RiUserUnfollowLine, RiLoader4Line } from "react-icons/ri";
@@ -136,14 +135,6 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
       {renderDetailsModal()}
     </>
   );
-};
-
-CitizenInvite.propTypes = {
-  setMode: PropTypes.func.isRequired,
-  mode: PropTypes.object.isRequired, // Changed to object since mode now has type
-  memberType: PropTypes.string.isRequired,
-  members: PropTypes.object.isRequired, // Changed to object to match the actual shape
-  setMembers: PropTypes.func.isRequired,
 };
 
 export default CitizenInvite;

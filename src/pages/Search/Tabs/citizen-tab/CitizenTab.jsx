@@ -1,7 +1,7 @@
 import ResultCard from "./ResultCard";
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
-import SearchInput from "../../components/SearchInput";
+import SearchInput from "../../../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getTranslation } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";

@@ -241,7 +241,6 @@ const RestrictUser = () => {
       .catch((error) => {
         console.error("Error updating restrictions:", error);
 
-        // در صورت خطا UI را به حالت قبل برگردان
         setOptions(options);
       });
   };

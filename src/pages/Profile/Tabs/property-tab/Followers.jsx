@@ -1,5 +1,5 @@
 import Follower from "./Follower";
-import SearchInput from "../../../Search/components/SearchInput";
+import SearchInput from "../../../../components/SearchInput";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Title from "../../../../components/Title";

@@ -2,7 +2,7 @@ import FollowingCard from "./FollowingCard";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Title from "../../../../components/Title";
-import SearchInput from "../../../Search/components/SearchInput";
+import SearchInput from "../../../../components/SearchInput";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { getTranslation } from "../../../../services/Utility";
 import { useParams } from "react-router";
