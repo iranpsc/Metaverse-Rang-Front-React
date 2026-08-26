@@ -1,4 +1,3 @@
-// Info.js
 import { BiCommentDots } from "react-icons/bi";
 import { LuShare2 } from "react-icons/lu";
 import ShareModal from "./ShareModal";
@@ -8,9 +7,12 @@ import { useContext, useEffect, useState } from "react";
 import ButtonIcon from "../../../../components/ButtonIcon";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getTranslation,metarangUrlCitizen } from "../../../../services/Utility";
+import {
+  getTranslation,
+  metarangUrlCitizen,
+} from "../../../../services/Utility";
 import { useParams } from "react-router";
-import { convertToPersian } from "../../../../services/Utility";
+import { convertToPersian, ConvertJalali } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
@@ -97,6 +99,7 @@ const Info = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const { Request } = useRequest();
+  console.log("data",userId)
   useEffect(() => {
     const requestId = id || userId?.id;
     if (requestId) {
@@ -119,7 +122,12 @@ const Info = () => {
       <Container>
         <Header>
           <div>
-            <Skeleton width="120px" height="24px" radius="8px" style={{ marginBottom: "8px" }} />
+            <Skeleton
+              width="120px"
+              height="24px"
+              radius="8px"
+              style={{ marginBottom: "8px" }}
+            />
             <Skeleton width="100px" height="16px" radius="4px" />
           </div>
           <Skeleton width="100px" height="16px" radius="4px" />
@@ -127,23 +135,38 @@ const Info = () => {
         <Content>
           <Follow>
             <Skeleton width="40px" height="24px" radius="4px" />
-            <Skeleton width="50px" height="12px" radius="4px" style={{ marginTop: "5px" }} />
+            <Skeleton
+              width="50px"
+              height="12px"
+              radius="4px"
+              style={{ marginTop: "5px" }}
+            />
           </Follow>
-          <div style={{ height: "55px", width: "1px", backgroundColor: "#454545" }} />
+          <div
+            style={{ height: "55px", width: "1px", backgroundColor: "#454545" }}
+          />
           <Follow>
             <Skeleton width="40px" height="24px" radius="4px" />
-            <Skeleton width="50px" height="12px" radius="4px" style={{ marginTop: "5px" }} />
+            <Skeleton
+              width="50px"
+              height="12px"
+              radius="4px"
+              style={{ marginTop: "5px" }}
+            />
           </Follow>
         </Content>
         <Buttons>
           <Upper>
-            {id && (
-              <Skeleton width="100%" height="40px" radius="8px" />
-            )}
+            {id && <Skeleton width="100%" height="40px" radius="8px" />}
             <Skeleton width="100%" height="40px" radius="8px" />
           </Upper>
           {id && (
-            <Skeleton width="100%" height="40px" radius="8px" style={{ marginTop: "10px" }} />
+            <Skeleton
+              width="100%"
+              height="40px"
+              radius="8px"
+              style={{ marginTop: "10px" }}
+            />
           )}
         </Buttons>
       </Container>
@@ -155,16 +178,12 @@ const Info = () => {
       <Header>
         <div>
           <Title>{user?.name}</Title>
-          <Code
-            href={metarangUrlCitizen(user?.code)}
-            target="_blank"
-          >
+          <Code href={metarangUrlCitizen(user?.code)} target="_blank">
             {user?.code}
           </Code>
         </div>
         <span>
-          {getTranslation("53")}{" "}
-          {convertToPersian(user?.registered_at)}
+          {getTranslation("53")} {ConvertJalali(user?.registered_at)}
         </span>
       </Header>
       <Content>
@@ -188,7 +207,7 @@ const Info = () => {
               icon={<TiUserAddOutline />}
               label="دنبال کردن"
               fill
-              onclick={() => {}}
+              onclick={() => { }}
             />
           )}
           <ButtonIcon
@@ -203,7 +222,7 @@ const Info = () => {
             grow
             icon={<BiCommentDots />}
             label="پیام دادن"
-            onclick={() => {}}
+            onclick={() => { }}
           />
         )}
       </Buttons>

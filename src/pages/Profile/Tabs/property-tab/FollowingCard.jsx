@@ -83,7 +83,7 @@ const Status = styled.div`
   border: 2px solid #1a1a18;
 `;
 
-const FollowingCard = ({ name, code, id, profile_photos, online }) => {
+const FollowingCard = ({ name, code, id, profile_photo, online }) => {
   const [follow, setFollow] = useState(true);
   const { Request } = useRequest();
   const unFollowHandler = () => {
@@ -102,7 +102,7 @@ const FollowingCard = ({ name, code, id, profile_photos, online }) => {
         <Image>
           <Status online={online} />
           <img
-            src={profile_photos || DefaultProfile}
+            src={profile_photo || DefaultProfile}
             alt="member"
             width={80}
             height={80}

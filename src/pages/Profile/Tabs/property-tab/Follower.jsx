@@ -3,7 +3,7 @@ import DefaultProfile from "../../../../assets/images/defulte-profile.png";
 import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getTranslation,metarangUrlCitizen } from "../../../../services/Utility";
+import { getTranslation, metarangUrlCitizen } from "../../../../services/Utility";
 
 const Button = styled.div`
   font-size: 16px;
@@ -135,7 +135,7 @@ const Follower = ({
   setFollowers,
   name,
   code,
-  profile_photos,
+  profile_photo,
   online,
   canFollow,
 }) => {
@@ -162,7 +162,7 @@ const Follower = ({
         <Image>
           <Status online={online} />
           <img
-            src={profile_photos||DefaultProfile}
+            src={profile_photo || DefaultProfile}
             alt="member"
             width={80}
             height={80}

@@ -93,15 +93,17 @@ const Bank = (settings) => {
   const handleSelectChange = (value) => {
     setSelectedValue(value);
   };
+const handleInputChange = (e, itemId) => {
+  const value = e.target.value === "" ? "" : Number(e.target.value);
 
-  const handleInputChange = (e, itemId) => {
-    const updatedItems = items.map((item) =>
-      item.id === itemId
-        ? { ...item, value: e.target.value, error: false }
-        : item,
-    );
-    setItems(updatedItems);
-  };
+  const updatedItems = items.map((item) =>
+    item.id === itemId
+      ? { ...item, value, error: false }
+      : item,
+  );
+
+  setItems(updatedItems);
+};
 
   const handleSaveButtonClick = () => {
     let hasError = false;

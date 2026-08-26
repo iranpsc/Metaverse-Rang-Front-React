@@ -24,13 +24,17 @@ export default function useRequest() {
   };
 
   const checkSecurity = () => {
-    if (userInfo?.has_wallet) {
+    if (userInfo?.wallet_login) {
       return true;
     }
 
     if (!accountSecurity) {
       ToastError(getTranslation("1603"));
-      navigate("/confirmation");
+      navigate("/confirmation", {
+        state: {
+          from: location.pathname,
+        },
+      });
       return false;
     }
 

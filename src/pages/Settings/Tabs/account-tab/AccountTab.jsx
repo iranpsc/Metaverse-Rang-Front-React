@@ -64,7 +64,6 @@ const AccountTab = () => {
   useEffect(() => {
     Request("settings")
       .then((response) => {
-                console.log("res",response)
 
         setSettings(response.data.data);
       })

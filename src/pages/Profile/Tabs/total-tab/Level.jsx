@@ -1,7 +1,7 @@
 // Level.jsx - کپی کن جایگزین کن
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react"; 
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { convertToPersian } from "../../../../services/Utility";
@@ -86,7 +86,7 @@ const Level = () => {
       setLoading(true);
       // آدرس API رو پیدا کن - ممکنه یکی از اینها باشه
       Request(`users/${requestId}/levels`)
-        .then(() => {})
+        .then(() => { })
         .catch((error) => {
           console.error("Error loading level:", error);
           // اگه ارور خورد، یه دیتای پیشفرض بذار که حداقل اسکلتون بره
@@ -116,25 +116,38 @@ const Level = () => {
         </LevelCount>
       </Container>
     );
-  }
-  const fbxUrl = user?.level?.fbx_file
-    ? JSON.parse(user.level.fbx_file).fbx
-    : null;
- // console.log("fbxUrl");
+  } const fbxUrl = user?.level?.fbx_file || null;
   function FbxModel({ url }) {
     const model = useFBX(url);
 
-    // console.log("FBX:", model);
-
-    model.traverse((child) => {
-      //   console.log(child.type, child.name);
-
-      if (child.isMesh) {
-        //  console.log("MESH FOUND", child);
-      }
-    });
-
     return <primitive object={model} scale={1} />;
+  }
+  class FbxErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        hasError: false,
+      };
+    }
+
+    static getDerivedStateFromError() {
+      return {
+        hasError: true,
+      };
+    }
+
+    componentDidCatch(error) {
+      console.error("FBX loading failed:", error);
+    }
+
+    render() {
+      if (this.state.hasError) {
+        return null;
+      }
+
+      return this.props.children;
+    }
   }
   return (
     <Container>
@@ -161,15 +174,21 @@ const Level = () => {
               <ReactTooltip id={item.slug} place="top" content={item.name} />
             </div>
           ))}
-        {user.level && (
+        {user?.level && (
           <div>
             <div style={{ width: 65, height: 65 }}>
-              <Canvas camera={{ position: [0, 0, 3] }}>
-                <ambientLight intensity={2} />
-                <directionalLight position={[5, 5, 5]} />
-                <FbxModel url={fbxUrl} />
-                <OrbitControls enableZoom={false} />
-              </Canvas>
+             <Canvas camera={{ position: [0, 0, 3] }}>
+  <ambientLight intensity={2} />
+  <directionalLight position={[5, 5, 5]} />
+
+  <FbxErrorBoundary>
+    <Suspense fallback={null}>
+      {fbxUrl && <FbxModel url={fbxUrl} />}
+    </Suspense>
+  </FbxErrorBoundary>
+
+  <OrbitControls enableZoom={false} />
+</Canvas>
             </div>
             <ReactTooltip
               id={user.level.background_image}

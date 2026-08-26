@@ -199,8 +199,8 @@ const Album = ({ feature, setFeature, isLoading }) => {
                   navigate("/report/send", {
                     state: {
                       from: location.pathname,
-                      title:"photoReport",
-                      photo:item.url
+                      title: "photoReport",
+                      photo: item.url
                     },
                   });
                 }}

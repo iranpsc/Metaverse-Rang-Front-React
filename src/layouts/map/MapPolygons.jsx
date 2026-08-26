@@ -56,7 +56,7 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
 const MapPolygons = () => {
   const { buildings, setBuildings } = useMapData();
   const { selectedEnvironment } = useSelectedEnvironment();
-
+  const [isPolygonSourceLoaded, setIsPolygonSourceLoaded] = useState(false);
   const map = useMap();
   const bounds = map.current.getBounds();
   const [features, setFeatures] = useState([]);
@@ -126,6 +126,36 @@ const MapPolygons = () => {
       });
     }
   }, [zoom]);
+  useEffect(() => {
+    if (!map.current || zoom < 14) {
+      setIsPolygonSourceLoaded(false);
+      return;
+    }
+
+    const mapInstance = map.current;
+
+    const handleSourceData = (event) => {
+      if (event.sourceId === "polygons" && event.isSourceLoaded) {
+        setIsPolygonSourceLoaded(true);
+      }
+    };
+
+    mapInstance.on("sourcedata", handleSourceData);
+
+    const source = mapInstance.getSource("polygons");
+
+    if (source) {
+      const sourceCache = mapInstance.style?.sourceCaches?.["polygons"];
+
+      if (sourceCache?.loaded()) {
+        setIsPolygonSourceLoaded(true);
+      }
+    }
+
+    return () => {
+      mapInstance.off("sourcedata", handleSourceData);
+    };
+  }, [zoom]);
   return (
     <>
       {zoom >= 14 && (
@@ -152,7 +182,7 @@ const MapPolygons = () => {
             id="polygon-fill-layer"
             type="fill"
             beforeId={
-              map.current.getLayer("location-icon-layer")
+              map.current?.getLayer("location-icon-layer")
                 ? "location-icon-layer"
                 : undefined
             }
@@ -160,11 +190,12 @@ const MapPolygons = () => {
               "fill-color": ["get", "fill"],
             }}
           />
+
           <Layer
             id="polygon-outline-layer"
             type="line"
             beforeId={
-              map.current.getLayer("location-icon-layer")
+              map.current?.getLayer("location-icon-layer")
                 ? "location-icon-layer"
                 : undefined
             }
@@ -175,7 +206,7 @@ const MapPolygons = () => {
           />
         </Source>
       )}
-      {zoom >= 14 && buildings.length > 0 && (
+      {zoom >= 14 && isPolygonSourceLoaded && buildings.length > 0 && (
         <Canvas
           latitude={36}
           longitude={50}
@@ -183,9 +214,13 @@ const MapPolygons = () => {
         >
           {buildings.map((model, index) => {
             const endDate = new Date(model?.building?.construction_end_date);
+
             const now = new Date();
+
             const opacity = now < endDate ? 0.3 : 1;
+
             const proxyFbxUrl = model.file.url;
+
             return (
               <Coordinates
                 key={model.feature_id}
