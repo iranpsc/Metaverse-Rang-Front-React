@@ -69,10 +69,6 @@ const LevelCount = styled.div`
   }
 `;
 
-// ---------- FBX Model ----------
-// از Bounds + Center درِی استفاده می‌کنیم تا خودکار مدل رو
-// وسط‌چین و هم‌اندازه‌ی صحنه کنه. اینطوری دیگه مشکل
-// «مقیاس اولیه اشتباه = مدل دیده نمی‌شه» پیش نمیاد.
 function FbxModel({ url, onLoaded }) {
   const model = useFBX(url);
 
@@ -83,7 +79,6 @@ function FbxModel({ url, onLoaded }) {
   return <primitive object={model} />;
 }
 
-// ---------- Error Boundary ----------
 class FbxErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -95,14 +90,12 @@ class FbxErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    // این لاگ رو حتماً چک کن توی کنسول تا بفهمی مشکل واقعی چیه
     console.error("FBX loading failed:", error, info);
   }
 
   render() {
     if (this.state.hasError) {
-      // در حالت دیباگ می‌تونی این خط رو موقتاً فعال کنی:
-      // return <div style={{ fontSize: 8, color: "red" }}>{this.state.errorMsg}</div>;
+ 
       return null;
     }
     return this.props.children;
