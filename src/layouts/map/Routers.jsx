@@ -59,7 +59,12 @@ import { ReportStateProvider } from "../../pages/Report/reports/GlobalReportStat
 import { GlobalVodStateProvider } from "../../pages/Sanad/Tabs/GlobalVodStateProvider";
 import { GlobalNoteStateProvider } from "../../pages/Sanad/Tabs/GlobalNoteStateProvider";
 import MainLayout from "../MainLayout";
+import { useContext } from "react";
+import { UserContext } from "../../services/reducers/UserContext";
+
 export default function Routers() {
+  const [user] = useContext(UserContext);
+
   return (
     <Routes>
       <Route path="" element={<MainLayout />}>
@@ -144,14 +149,15 @@ export default function Routers() {
           <Route path="security" element={<SecurityTab />} />
           <Route path="about" element={<AboutMeTab />} />
         </Route>
-        <Route
+        {user?.wallet_login && <Route
           path="confirmation"
           element={
             <PrivateRoute>
               <AccountSecurityModal />
             </PrivateRoute>
           }
-        />
+        />}
+
         <Route
           path="connectWallet"
           element={
@@ -160,7 +166,7 @@ export default function Routers() {
             </PrivateRoute>
           }
         />
-   <Route
+        <Route
           path="challenges"
           element={
             <PrivateRoute>
@@ -281,6 +287,7 @@ export default function Routers() {
 
           <Route path="signup" element={<SignupLottie />} />
         </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );
