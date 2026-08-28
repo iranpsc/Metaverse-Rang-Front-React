@@ -1,4 +1,4 @@
-import React from "react";
+
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
 import { getTranslation } from "../../../../services/Utility";

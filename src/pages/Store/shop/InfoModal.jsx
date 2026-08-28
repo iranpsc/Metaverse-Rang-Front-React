@@ -59,7 +59,7 @@ const Info = styled.p`
 `;
 
 
-const InfoModal = ({ data, type, setOpenModal }) => {
+const InfoModal = ({ data, setOpenModal }) => {
   const getAssetTranslation = () => {
     if (data.asset === "yellow") {
       return getTranslation("11");

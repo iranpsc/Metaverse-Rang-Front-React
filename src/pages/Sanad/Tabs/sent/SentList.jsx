@@ -71,7 +71,7 @@ const Date = styled.div`
     }
   `}
 `;
-const SentList = ({ setShowDetails }) => {
+const SentList = () => {
   const [rows, setRows] = useState([]);
   const { Request } = useRequest();
   const [loading, setLoading] = useState(true);

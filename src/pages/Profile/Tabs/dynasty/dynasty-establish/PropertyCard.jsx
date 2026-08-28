@@ -60,7 +60,7 @@ const Container = styled.div`
   border-radius: 5px;
 `;
 
-const PropertyCard = ({ onClick, label, propertyId, area, stability,id }) => {
+const PropertyCard = ({ onClick, label, propertyId, area,id }) => {
   
   const Navigate = useNavigate();
   return (

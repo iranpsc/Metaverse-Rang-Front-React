@@ -103,7 +103,6 @@ const RequestRow = ({
   code,
   date,
   time,
-  name,
   status,
   member,
   gif,
@@ -155,7 +154,7 @@ const RequestRow = ({
       await fetchRequestDetails(id);
       setShowDetails(true);
     } catch (error) {
-      // Handle error (e.g., show toast notification)
+console.error("Error fetching request details:", error);
     }
   };
 

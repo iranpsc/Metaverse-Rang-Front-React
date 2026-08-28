@@ -118,7 +118,7 @@ const ReportCard = ({
   code,
   date,
   time,
-  member,
+  
   domain,
   subdomain,
 }) => {

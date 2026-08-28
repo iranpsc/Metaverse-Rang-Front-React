@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import useActivity from "../../../../services/Hooks/useActivity";
 import PriceDetermination from "./Tabs/PriceDetermination";
 import BuyUser from "./Tabs/BuyUser";

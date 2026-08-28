@@ -1,4 +1,4 @@
-import React from "react";
+
 import ModalPosition from "../../../components/ModalPosition";
 import styled from "styled-components";
 import Submit from "../../../components/Buttons/Submit";
@@ -72,8 +72,6 @@ const ControlPanel = ({
   rotationX,
   setRotationX,
   handleConfirmation,
-  status,
-  position,
 }) => {
   const handleRotationChange = (e) => {
     setRotationX(parseFloat(e.target.value));

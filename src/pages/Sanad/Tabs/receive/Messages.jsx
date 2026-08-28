@@ -2,7 +2,6 @@ import { useState } from "react";
 import AdminMessage from "./AdminMessage";
 import CitizenMessage from "./CitizenMessage";
 import VodReply from "./VodReply";
-import styled from "styled-components";
 
 const Messages = ({ data: initialData }) => {
   const [data, setData] = useState(initialData);

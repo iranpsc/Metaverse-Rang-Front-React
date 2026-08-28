@@ -70,7 +70,7 @@ const Footer = ({ show, data }) => {
         setLikeCount(likeCount + 1);
         setIsLiked(true);
         setIsDisliked(false);
-      } catch (error) {
+      } catch  {
         ToastError("خطا در ارسال درخواست به سرور برای لایک:");
       }
     }
@@ -83,7 +83,7 @@ const Footer = ({ show, data }) => {
         setDislikeCount(dislikeCount + 1);
         setIsLiked(false);
         setIsDisliked(true);
-      } catch (error) {
+      } catch  {
         ToastError("خطا در ارسال درخواست به سرور برای دیسلایک:");
       }
     }

@@ -5,7 +5,7 @@ import {
   TwitterShare,
   WhatsappShare,
 } from "react-share-kit";
-import { getTranslation,metarangUrlCitizen } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import styled from "styled-components";
 import { useState } from "react";
 import { ExitIcon } from "../../../../components/Icons/IconsHeader";

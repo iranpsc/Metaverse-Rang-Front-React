@@ -1,4 +1,4 @@
-import React from "react";
+
 import styled from "styled-components";
 import { getTranslation } from "../../services/Utility";
 import HomeIcon from "../../assets/svg/home.svg";
@@ -74,7 +74,7 @@ const Text = styled.p`
   }
   display: ${(props) => (props.isOpen ? "block" : "none")};
 `;
-const createSVG = (color) => ``;
+const createSVG = () => ``;
 const Tooltip = styled.div`
   width: 146px;
   height: 40px;

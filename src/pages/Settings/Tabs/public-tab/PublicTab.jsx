@@ -127,7 +127,7 @@ const PublicTab = () => {
     );
 
     Request(`general-settings/${generalSettings.id}`, HTTP_METHOD.PUT, data)
-      .then((res) => {
+      .then(() => {
         setAlert(true);
         setTimeout(() => {
           setAlert(false);

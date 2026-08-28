@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import Submit from "../../../../../components/Buttons/Submit";
@@ -33,7 +33,7 @@ export default function BuySystem({ price, image, rgb, id }) {
 
   const onSubmit = () => {
     Request(`features/buy/${id}`, HTTP_METHOD.POST)
-      .then((response) => {
+      .then(() => {
         Navigate(FeatureSvg(rgb));
       })
       .catch((error) => {

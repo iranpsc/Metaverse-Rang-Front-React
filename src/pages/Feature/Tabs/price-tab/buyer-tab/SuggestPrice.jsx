@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo } from "react";
+import { useState, useContext, useMemo } from "react";
 import styled from "styled-components";
 import FillInputs from "./FillInputs";
 import ResultInfo from "../../../components/ResultInfo";

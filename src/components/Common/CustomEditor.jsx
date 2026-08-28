@@ -1,5 +1,5 @@
 import "react-quill-new/dist/quill.snow.css";
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import ReactQuill from "react-quill-new";
 import { CiEdit } from "react-icons/ci";
 import {
@@ -199,7 +199,7 @@ const CustomEditor = ({
   /**
    * وقتی متن تغییر می‌کند
    */
-  const handleChange = (val, delta, source, editor) => {
+  const handleChange = (val) => {
     const quill = quillRef.current?.getEditor();
     if (!quill) return;
 

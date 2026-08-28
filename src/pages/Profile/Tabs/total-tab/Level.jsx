@@ -1,7 +1,6 @@
 // Level.jsx - کپی کن جایگزین کن
-import { Tooltip as ReactTooltip } from "react-tooltip";
 import styled from "styled-components";
-import React, { Suspense, useContext, useEffect, useState } from "react"; 
+import React, { Suspense, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import { convertToPersian } from "../../../../services/Utility";
@@ -9,7 +8,7 @@ import { Skeleton } from "../../../../components/Skeleton";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { useParams } from "react-router";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useFBX } from "@react-three/drei";
+import { Bounds, Center, OrbitControls, useFBX } from "@react-three/drei";
 
 const Container = styled.div`
   border-radius: 10px;
@@ -58,9 +57,8 @@ const ProgressBar = styled.div`
 const LevelCount = styled.div`
   display: flex;
   padding-right: 10px;
-  justify-content: end;
-  align-items: end;
-  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
   gap: 8px;
   img {
     cursor: pointer;
@@ -71,25 +69,62 @@ const LevelCount = styled.div`
   }
 `;
 
+// ---------- FBX Model ----------
+// از Bounds + Center درِی استفاده می‌کنیم تا خودکار مدل رو
+// وسط‌چین و هم‌اندازه‌ی صحنه کنه. اینطوری دیگه مشکل
+// «مقیاس اولیه اشتباه = مدل دیده نمی‌شه» پیش نمیاد.
+function FbxModel({ url, onLoaded }) {
+  const model = useFBX(url);
+
+  useEffect(() => {
+    if (model && onLoaded) onLoaded();
+  }, [model, onLoaded]);
+
+  return <primitive object={model} />;
+}
+
+// ---------- Error Boundary ----------
+class FbxErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, errorMsg: "" };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, errorMsg: error?.message || "unknown error" };
+  }
+
+  componentDidCatch(error, info) {
+    // این لاگ رو حتماً چک کن توی کنسول تا بفهمی مشکل واقعی چیه
+    console.error("FBX loading failed:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // در حالت دیباگ می‌تونی این خط رو موقتاً فعال کنی:
+      // return <div style={{ fontSize: 8, color: "red" }}>{this.state.errorMsg}</div>;
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
 const Level = () => {
   const [user] = useContext(UserContext);
   const [loading, setLoading] = useState(true);
   const IsPersian = useLanguage();
   const { Request } = useRequest();
   const { id } = useParams();
-  //console.log("user", user);
 
   useEffect(() => {
     const requestId = id || user?.id;
 
     if (requestId) {
       setLoading(true);
-      // آدرس API رو پیدا کن - ممکنه یکی از اینها باشه
       Request(`users/${requestId}/levels`)
         .then(() => { })
         .catch((error) => {
           console.error("Error loading level:", error);
-          // اگه ارور خورد، یه دیتای پیشفرض بذار که حداقل اسکلتون بره
         })
         .finally(() => {
           setLoading(false);
@@ -116,39 +151,10 @@ const Level = () => {
         </LevelCount>
       </Container>
     );
-  } const fbxUrl = user?.level?.fbx_file || null;
-  function FbxModel({ url }) {
-    const model = useFBX(url);
-
-    return <primitive object={model} scale={1} />;
   }
-  class FbxErrorBoundary extends React.Component {
-    constructor(props) {
-      super(props);
 
-      this.state = {
-        hasError: false,
-      };
-    }
+  const fbxUrl = user?.level?.fbx_file || null;
 
-    static getDerivedStateFromError() {
-      return {
-        hasError: true,
-      };
-    }
-
-    componentDidCatch(error) {
-      console.error("FBX loading failed:", error);
-    }
-
-    render() {
-      if (this.state.hasError) {
-        return null;
-      }
-
-      return this.props.children;
-    }
-  }
   return (
     <Container>
       <Percent IsPersian={IsPersian}>
@@ -161,42 +167,29 @@ const Level = () => {
         </ProgressContainer>
       </Percent>
       <LevelCount>
-        {user.previous_levels &&
-          user?.previous_levels.map((item, index) => (
-            <div key={index}>
-              <img
-                data-tooltip-id={item.slug}
-                width={65}
-                height={65}
-                src={item.image}
-                alt={item.image}
-              />
-              <ReactTooltip id={item.slug} place="top" content={item.name} />
-            </div>
-          ))}
-        {user?.level && (
-          <div>
-            <div style={{ width: 65, height: 65 }}>
-             <Canvas camera={{ position: [0, 0, 3] }}>
-  <ambientLight intensity={2} />
-  <directionalLight position={[5, 5, 5]} />
+        <div style={{ width: 65, height: 65 }}>
+          <Canvas camera={{ position: [0, 0, 3], fov: 35 }}>
+            <ambientLight intensity={2} />
+            <directionalLight position={[5, 5, 5]} />
 
-  <FbxErrorBoundary>
-    <Suspense fallback={null}>
-      {fbxUrl && <FbxModel url={fbxUrl} />}
-    </Suspense>
-  </FbxErrorBoundary>
+            <FbxErrorBoundary>
+              <Suspense fallback={null}>
+                {fbxUrl && (
+                  <Bounds fit clip observe margin={1.2}>
+                    <Center>
+                      <FbxModel
+                        url={fbxUrl}
+                      />
+                    </Center>
+                  </Bounds>
+                )}
+              </Suspense>
+            </FbxErrorBoundary>
 
-  <OrbitControls enableZoom={false} />
-</Canvas>
-            </div>
-            <ReactTooltip
-              id={user.level.background_image}
-              place="top"
-              content={user.level.name}
-            />
-          </div>
-        )}
+            <OrbitControls enableZoom={false} />
+          </Canvas>
+        </div>
+
       </LevelCount>
     </Container>
   );

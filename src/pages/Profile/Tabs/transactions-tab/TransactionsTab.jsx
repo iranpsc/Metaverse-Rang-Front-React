@@ -23,7 +23,6 @@ import { Skeleton } from "../../../../components/Skeleton";
 import {
   getTranslation,
   ToastError,
-  convertToPersian,
 } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 

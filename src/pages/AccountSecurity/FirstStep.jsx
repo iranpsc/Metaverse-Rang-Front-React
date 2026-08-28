@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";

@@ -35,7 +35,7 @@ const Container = styled.div`
     margin-top: 2px;
   }
 `;
-const Button = ({ id, color, title, value, logo, onClick, cards }) => {
+const Button = ({ id, color, title, value, logo, onClick }) => {
   const [isExploding, setIsExploding] = useState(false);
   return (
     <Container

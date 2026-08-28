@@ -18,7 +18,6 @@ import {
   WalletContext,
   WalletContextTypes,
 } from "../../../../services/reducers/WalletContext";
-import { color } from "@deck.gl/core";
 const Container = styled.div`
   height: 100%;
   position: relative;

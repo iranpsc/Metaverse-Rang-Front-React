@@ -153,7 +153,6 @@ const getSupportedMimeType = () => {
 const VideoRecord = ({
   setVideoError,
   setVideoURLParent,
-  uploadResponse,
   setUploadResponse,
   textVerify,
   setTextVerify,
@@ -273,7 +272,7 @@ const VideoRecord = ({
 
     resumable.addFile(file);
 
-    resumable.on("fileAdded", (file) => {
+    resumable.on("fileAdded", () => {
       resumable.upload();
     });
 
@@ -364,5 +363,5 @@ const VideoRecord = ({
 
 // Wrap the component with Sentry error boundary
 export default Sentry.withErrorBoundary(VideoRecord, {
-  fallback: (props) => <div>خطایی رخ داده است. لطفا صفحه را رفرش کنید.</div>,
+  fallback: () => <div>خطایی رخ داده است. لطفا صفحه را رفرش کنید.</div>,
 });

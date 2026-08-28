@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from "react";
+import {  useRef, useState } from "react";
 
 import nonPhoto from "../../../assets/images/file.png";
 import remove from "../../../assets/images/remove.png";

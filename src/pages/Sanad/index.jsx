@@ -1,4 +1,4 @@
-import React from "react";
+
 import Modal from "../../components/Modal";
 import Tabs from "../../services/Hooks/useTabs/index";
 import { getTranslation } from "../../services/Utility";

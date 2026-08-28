@@ -1,9 +1,9 @@
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import useRequest from "../../../services/Hooks/useRequest";
 
 export const KycContext = createContext({});
 
-export default function KycProvider({ children, id }) {
+export default function KycProvider({ children }) {
   const [kyc, setKyc] = useState({});
   const { Request } = useRequest();
 

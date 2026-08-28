@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import Submit from "../../../../../components/Buttons/Submit";
 import { Container, Text } from "../../../Styles";
@@ -51,7 +51,7 @@ export default function BuyUser() {
 
   const onSubmit = () => {
     Request(`features/buy/${feature?.id}`, HTTP_METHOD.POST)
-      .then((response) => {
+      .then(() => {
         Navigate(FeatureSvg(feature?.properties?.rgb));
         ToastSuccess ("خرید انجام شد ")
       })

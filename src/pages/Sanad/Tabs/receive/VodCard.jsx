@@ -109,7 +109,7 @@ const VodCard = ({ data, setData, setShowDetails }) => {
   const { Request } = useRequest();
   const onCloseTicket = () => {
     Request(`tickets/close/${data.id}`)
-      .then((res) => {
+      .then(() => {
         ToastSuccess("سند شما با موفقیت بسته شد ");
         setData((prev) => ({
           ...prev,

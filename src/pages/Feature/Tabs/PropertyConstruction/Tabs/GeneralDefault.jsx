@@ -1,4 +1,4 @@
-import React from "react";
+
 import styled from "styled-components";
 import InputsGeneralDefault from "./components/InputsGeneralDefault";
 import ChoosingEnvironment from "./components/ChoosingEnvironment";

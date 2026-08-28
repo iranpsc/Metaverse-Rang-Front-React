@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import Title from "../../../../components/Title";
 import remove from "../../../../assets/images/remove.png";
@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
 import { getTranslation } from "../../../../services/Utility/index";
 import ErrorMessage from "../../../../components/ErrorMessage";
-import { useLocation } from "react-router";
 const Files = styled.div`
   display: flex;
   align-items: center;

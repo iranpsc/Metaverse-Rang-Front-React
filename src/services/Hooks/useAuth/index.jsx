@@ -70,7 +70,7 @@ export default function useAuth() {
         });
 
         setUserState(AddUserAction(profileResponse.data.data));
-      } catch (error) {
+      } catch  {
         logout();
       }
     },

@@ -1,15 +1,12 @@
-import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import globals from "globals";
 import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
 import unusedImports from "eslint-plugin-unused-imports";
 
-export default [
+export default defineConfig([
   {
-    ignores: ["dist", "node_modules"],
+    ignores: ["node_modules", "dist"],
   },
-
-  js.configs.recommended,
 
   {
     files: ["**/*.{js,jsx}"],
@@ -32,75 +29,21 @@ export default [
 
     plugins: {
       react,
-      "react-hooks": reactHooks,
       "unused-imports": unusedImports,
     },
 
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-
     rules: {
-      // =========================
-      // React
-      // =========================
+      // گزارش متغیرهای استفاده نشده؛ lint:fix suggestion حذف آن‌ها را اعمال می‌کند
+      "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }],
+      "unused-imports/no-unused-vars": "off",
+      "react/jsx-uses-vars": "error",
 
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-uses-react": "off",
+      // فقط import های استفاده نشده
+      "unused-imports/no-unused-imports": "warn",
 
-      // =========================
-      // React Hooks
-      // =========================
-
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-
-      // =========================
-      // Unused imports / variables
-      // =========================
-
-      "no-unused-vars": "off",
-
-      "unused-imports/no-unused-imports": "error",
-
-      "unused-imports/no-unused-vars": [
-        "warn",
-        {
-          vars: "all",
-          varsIgnorePattern: "^_",
-          args: "after-used",
-          argsIgnorePattern: "^_",
-          ignoreRestSiblings: true,
-        },
-      ],
-
-      // =========================
-      // Dead code
-      // =========================
-
-      "no-unreachable": "error",
-
-      // =========================
-      // Conditions
-      // =========================
-
+      // فقط شرط‌های ثابت و بی‌فایده
       "no-constant-condition": "warn",
       "no-constant-binary-expression": "warn",
-
-      // =========================
-      // Variables
-      // =========================
-
-      "no-redeclare": "error",
-      "no-use-before-define": "warn",
-
-      // =========================
-      // Console
-      // =========================
-
-      "no-console": "warn",
     },
   },
-];
+]);

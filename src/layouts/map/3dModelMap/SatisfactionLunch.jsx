@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import ModalXs from "../../../components/Modal/ModalXs";
 import InputNumber from "../../../components/Inputs/InputNumber";
 import TextValueIcon from "../../../components/TextValue/TextValueIcon";

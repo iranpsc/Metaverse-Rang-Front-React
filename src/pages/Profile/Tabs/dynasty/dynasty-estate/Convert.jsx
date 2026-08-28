@@ -68,6 +68,7 @@ const Convert = ({ data, setData }) => {
 
       setModal(false);
     } catch (error) {
+      console.error("Error updating dynasty:", error);
       setModal(false);
     }
   }, [data.id, selectedPropertyId, navigate]);

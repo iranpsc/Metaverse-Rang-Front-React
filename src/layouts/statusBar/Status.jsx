@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 const StatusWrapper = styled.div`
   display: flex;
@@ -83,6 +83,7 @@ const Status = () => {
         }
         return false;
       } catch (error) {
+        console.error(error)
         clearTimeout(timeout);
         return false;
       }

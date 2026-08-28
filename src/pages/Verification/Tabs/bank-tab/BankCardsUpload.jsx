@@ -166,7 +166,7 @@ const BankCardsUpload = ({
   const { Request, HTTP_METHOD } = useRequest();
 
   const handleDeleteCard = ({ index, id }) => {
-    Request(`bank-accounts/${id}`, HTTP_METHOD.DELETE).then((response) => {
+    Request(`bank-accounts/${id}`, HTTP_METHOD.DELETE).then(() => {
       setDeleteIndex(index);
       setOpenDeleteModal(true);
     });

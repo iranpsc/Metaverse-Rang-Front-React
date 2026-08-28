@@ -40,7 +40,6 @@ const EditInput = ({
   value,
   name,
   identityError,
-  error,
   slug,
   maxLength = 10,
 }) => {

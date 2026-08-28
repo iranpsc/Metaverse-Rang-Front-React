@@ -30,7 +30,7 @@ const Option = styled.h2`
       : "2px solid transparent"};
 `;
 
-const SidebarOptions = ({ option, setOption, seller }) => {
+const SidebarOptions = ({ option, setOption }) => {
   return (
     <Wrapper>
       <Option option={option === true} onClick={() => setOption(true)}>

@@ -89,7 +89,7 @@ const UploadWrapper = styled.div`
   }
 `;
 
-const UploadCards = ({ setImageError, setNationImageURL }) => {
+const UploadCards = ({ setNationImageURL }) => {
   const [nationImage, setNationImage] = useState(null);
   const [imageError, setImageErrorState] = useState(false); // State for image upload error
   const [previewUrl, setPreviewUrl] = useState(null);

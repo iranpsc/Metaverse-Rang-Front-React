@@ -114,11 +114,9 @@ const Footer = styled.div`
 `;
 
 const CitizenCard = ({
-  id,
   name,
   code,
   image,
-  age,
   onClick,
   isSelected,
   levels,

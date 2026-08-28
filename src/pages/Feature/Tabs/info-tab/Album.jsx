@@ -6,7 +6,7 @@ import { useState, useRef, useContext } from "react";
 import Compressor from "compressorjs";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { replace, useNavigate } from "react-router";
+import {useNavigate } from "react-router";
 import {
   ToastError,
   ToastSuccess,

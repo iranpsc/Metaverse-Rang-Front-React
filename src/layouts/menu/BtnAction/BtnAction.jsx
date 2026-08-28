@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
 import { useMenuContext } from "../../../services/reducers/MenuContext";
 import useAuth from "../../../services/Hooks/useAuth";

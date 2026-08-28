@@ -76,8 +76,6 @@ const Wrapper = styled.div`
 const SubmitDynastyModal = ({
   setOpenDetails,
   selectedCitizen,
-  members,
-  setMembers,
   setMode,
   memberType,
 }) => {
@@ -111,7 +109,7 @@ const SubmitDynastyModal = ({
         setOpenDetails(false);
         setMode({ mode: 1, type: null });
       }
-    } catch (error) {}
+    } catch (err) { console.error("Error submitting dynasty member:", err); }
   };
 
   return (

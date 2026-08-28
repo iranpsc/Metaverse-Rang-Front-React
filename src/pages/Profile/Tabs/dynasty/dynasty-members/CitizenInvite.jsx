@@ -20,7 +20,7 @@ import {
 } from "./styles/CitizenInvite.styles";
 import SubmitDynastyModal from "./SubmitDynastyModal";
 
-const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
+const CitizenInvite = ({ setMode, memberType, members, setMembers }) => {
   const [searched, setSearched] = useState("");
   const [openDetails, setOpenDetails] = useState(false);
   const [selectedCitizen, setSelectedCitizen] = useState(null);
@@ -45,6 +45,7 @@ const CitizenInvite = ({ setMode, mode, memberType, members, setMembers }) => {
         });
         setCitizens(response.data.data);
       } catch (error) {
+        console.error(error)
         ToastError("خطا در جستجوی کاربر");
         setCitizens([]);
       } finally {

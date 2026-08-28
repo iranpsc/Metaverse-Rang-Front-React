@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useRef } from "react";
+import { memo, useEffect, useState, useRef } from "react";
 import { Layer, Source, useMap } from "react-map-gl";
 import { useLoader } from "@react-three/fiber";
 import { Canvas, Coordinates } from "react-three-map/maplibre";

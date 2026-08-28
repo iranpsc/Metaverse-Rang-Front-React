@@ -72,7 +72,7 @@ const SellerPriceInfo = () => {
       if (!checkSecurity()) return;
 
       Request(`features/buy/${feature?.id}`, HTTP_METHOD.POST)
-        .then((response) => {
+        .then(() => {
           dispatch({
             type: WalletContextTypes.ADD_WALLET,
             payload: {

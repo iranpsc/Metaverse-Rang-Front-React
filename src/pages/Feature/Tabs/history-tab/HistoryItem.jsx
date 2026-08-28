@@ -92,7 +92,6 @@ const HistoryItem = ({
   psc,
   color,
   colorAmount,
-  key,
 }) => {
   const showTime = `${convertToPersian(time)} | ${ConvertJalali(date)}`;
   const isColorTrade = Boolean(color);

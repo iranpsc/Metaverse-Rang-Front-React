@@ -78,7 +78,7 @@ const Button = styled.button`
   color: #191b21;
   font-family: inherit;
 `;
-const EnterConfirmModal = ({ data, setPayStatus, setPayed, setLoading }) => {
+const EnterConfirmModal = ({ data, setPayStatus, setLoading }) => {
   const enterHandler = () => {
     setLoading(true);
   };

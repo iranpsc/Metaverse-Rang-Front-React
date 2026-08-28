@@ -35,7 +35,7 @@ const VodReply = ({ setData, responseId }) => {
     Request(`tickets/response/${responseId}`, HTTP_METHOD.POST, formData, {
       "Content-Type": "multipart/form-data",
     })
-      .then((res) => {
+      .then(() => {
         const newResponse = {
           response: cleanMessage,
           attachment: files[0]?.file,

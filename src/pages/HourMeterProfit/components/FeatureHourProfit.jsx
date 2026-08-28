@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import RedHouseIcon from "../../../assets/images/redHouse.png";
 import YellowHouseIcon from "../../../assets/images/yellowHouse.png";

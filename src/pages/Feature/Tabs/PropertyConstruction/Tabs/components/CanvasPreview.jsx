@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";

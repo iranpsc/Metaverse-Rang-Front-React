@@ -67,7 +67,7 @@ const Wrapper = styled.div`
   overflow: hidden;
   height: 205px;
 `;
-const EditInputs = ({ data, setData, setEdit, setPayed }) => {
+const EditInputs = ({ data, setEdit }) => {
   // const changeHandler = (e) => {
   //   const { name, value } = e.target;
   //   setData((prevInputValues) => ({

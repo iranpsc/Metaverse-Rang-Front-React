@@ -176,6 +176,7 @@ const WalletSetup = () => {
 
       navigate("/");
     } catch (error) {
+      console.error("Error during WalletConnect process:", error);
       ToastError(getTranslation(1768));
     }
   };

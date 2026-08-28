@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
@@ -54,7 +54,7 @@ const ErrorMessage = styled.div`
 
 const WriteNote = () => {
   const { alert, setAlert } = useContext(AlertContext);
-  const { state, dispatch } = useContext(GlobalNoteStateContext);
+  const { dispatch } = useContext(GlobalNoteStateContext);
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
