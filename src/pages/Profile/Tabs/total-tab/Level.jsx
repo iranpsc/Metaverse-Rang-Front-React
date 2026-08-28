@@ -1,4 +1,3 @@
-// Level.jsx - کپی کن جایگزین کن
 import styled from "styled-components";
 import React, { Suspense, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../services/reducers/UserContext";
