@@ -83,7 +83,7 @@ const Status = () => {
         }
         return false;
       } catch (error) {
-        console.error(error)
+        console.error(error);
         clearTimeout(timeout);
         return false;
       }

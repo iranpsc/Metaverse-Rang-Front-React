@@ -45,7 +45,7 @@ const CitizenInvite = ({ setMode, memberType, members, setMembers }) => {
         });
         setCitizens(response.data.data);
       } catch (error) {
-        console.error(error)
+        console.error(error);
         ToastError("خطا در جستجوی کاربر");
         setCitizens([]);
       } finally {
