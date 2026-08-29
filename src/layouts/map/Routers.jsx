@@ -64,8 +64,6 @@ import { UserContext } from "../../services/reducers/UserContext";
 
 export default function Routers() {
   const [user] = useContext(UserContext);
-  console.log("metaverse is here")
-
   return (
     <Routes>
       <Route path="" element={<MainLayout />}>
