@@ -64,7 +64,8 @@ import { UserContext } from "../../services/reducers/UserContext";
 
 export default function Routers() {
   const [user] = useContext(UserContext);
-console.log("metaverse is here")
+  console.log("metaverse is here")
+
   return (
     <Routes>
       <Route path="" element={<MainLayout />}>
@@ -149,14 +150,16 @@ console.log("metaverse is here")
           <Route path="security" element={<SecurityTab />} />
           <Route path="about" element={<AboutMeTab />} />
         </Route>
-        {user?.wallet_login && <Route
-          path="confirmation"
-          element={
-            <PrivateRoute>
-              <AccountSecurityModal />
-            </PrivateRoute>
-          }
-        />}
+        {!user?.wallet_login && (
+          <Route
+            path="confirmation"
+            element={
+              <PrivateRoute>
+                <AccountSecurityModal />
+              </PrivateRoute>
+            }
+          />
+        )}
 
         <Route
           path="connectWallet"
