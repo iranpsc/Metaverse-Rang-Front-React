@@ -96,7 +96,7 @@ const DropdownItem = styled.div`
 
   &:hover {
     background-color: ${(props) =>
-      props.theme.colors.newColors.otherColors.iconBg};
+    props.theme.colors.newColors.otherColors.iconBg};
   }
 `;
 
@@ -219,7 +219,7 @@ const Inputs = () => {
             }))}
           />
 
-         
+
         </InputWrapper>
         <InputWrapper>
           <Label>{getTranslation("1319")}</Label>

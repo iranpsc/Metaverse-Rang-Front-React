@@ -100,10 +100,10 @@ const Dropdown = ({
 
   const filteredOptions = searchable
     ? optionsWithPlaceholder.filter((option) =>
-        (typeof option === "string" ? option : option.label)
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      )
+      (typeof option === "string" ? option : option.label)
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    )
     : optionsWithPlaceholder;
 
   const handleOptionClick = (option) => {

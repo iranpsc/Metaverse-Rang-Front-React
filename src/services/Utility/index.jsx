@@ -129,17 +129,17 @@ export const calculateFee = (number = 100, percent = 5) => {
 };
 
 export const persianNumbers = [
-    /۰/g,
-    /۱/g,
-    /۲/g,
-    /۳/g,
-    /۴/g,
-    /۵/g,
-    /۶/g,
-    /۷/g,
-    /۸/g,
-    /۹/g,
-  ],
+  /۰/g,
+  /۱/g,
+  /۲/g,
+  /۳/g,
+  /۴/g,
+  /۵/g,
+  /۶/g,
+  /۷/g,
+  /۸/g,
+  /۹/g,
+],
   arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
   fixNumbers = function (str) {
     if (typeof str === "string") {
@@ -221,78 +221,92 @@ export const metarangUrlCitizen = (path = "") =>
 
 export const getTranslation = (fieldId) => {
   const resources = i18n.store.data;
-  if (
-    !resources ||
-    !resources[i18n.language] ||
-    !resources[i18n.language].translation
-  ) {
+  const currentLanguage = i18n.language || "fa";
+  const translationData =
+    resources?.[currentLanguage]?.translation ??
+    resources?.[currentLanguage] ??
+    {};
+
+  if (!translationData || Object.keys(translationData).length === 0) {
     return "Translation not found";
   }
 
-  const modals = resources[i18n.language].translation.modals;
+  if (translationData.modals) {
+    const modals = translationData.modals;
 
-  for (const modal of modals) {
-    for (const tab of modal.tabs || []) {
-      const field = tab.fields?.find((field) => field.unique_id == fieldId);
-      if (field?.translation) {
-        return field.translation;
+    for (const modal of modals) {
+      for (const tab of modal.tabs || []) {
+        const field = tab.fields?.find((field) => field.unique_id == fieldId);
+        if (field?.translation) {
+          return field.translation;
+        }
       }
     }
   }
 
-  return `Translation for ID '${fieldId} not found`;
+  const normalizedId = String(fieldId);
+  const directValue = translationData[normalizedId] ?? translationData[fieldId];
+
+  if (typeof directValue === "string" && directValue.trim()) {
+    return directValue;
+  }
+
+  if (typeof directValue === "number" || typeof directValue === "boolean") {
+    return String(directValue);
+  }
+
+  if (translationData.translation && typeof translationData.translation === "object") {
+    const nestedDirectValue =
+      translationData.translation[normalizedId] ??
+      translationData.translation[fieldId];
+
+    if (typeof nestedDirectValue === "string" && nestedDirectValue.trim()) {
+      return nestedDirectValue;
+    }
+  }
+
+  return `Translation for ID '${fieldId}' not found`;
 };
-
-export const getFieldsByTabName = (modalName, tabName) => {
+//getFieldsByTabName(112, 120)
+// => ["متن 112" تا "متن 120"]
+export const getFieldsByTabName = (firstParam, secondParam) => {
   const resources = i18n.store.data;
+  const currentLanguage = i18n.language || "fa";
 
-  const modal = resources[i18n.language].translation.modals.find(
-    (modal) => modal.name === modalName,
-  );
+  const translationData =
+    resources?.[currentLanguage]?.translation ??
+    resources?.[currentLanguage] ??
+    {};
 
-  if (!modal) {
+  const firstId = Number(firstParam);
+  const secondId = Number(secondParam);
+
+  if (
+    Number.isNaN(firstId) ||
+    Number.isNaN(secondId) ||
+    firstParam === undefined ||
+    secondParam === undefined
+  ) {
     return [];
   }
 
-  const tab = modal.tabs.find((tab) => tab.name === tabName);
+  const minId = Math.min(firstId, secondId);
+  const maxId = Math.max(firstId, secondId);
 
-  if (!tab) {
-    return [];
-  }
+  return Object.entries(translationData)
+    .filter(([key]) => {
+      const id = Number(key);
 
-  return tab.fields;
-};
-
-
-
-
-export const getFieldsByTabNameReverse = (modalName, tabName) => {
-  const resources = i18n.store.data;
-  const currentLang = i18n.language;
-  const oppositeLang = currentLang === "fa" ? "en" : "fa";
-
-  const modalCurrent = resources[currentLang]?.translation?.modals?.find(
-    (modal) => modal.name === modalName,
-  );
-  const tabCurrent = modalCurrent?.tabs?.find((tab) => tab.name === tabName);
-
-  const modalOpposite = resources[oppositeLang]?.translation?.modals?.find(
-    (modal) => modal.name === modalName,
-  );
-  const tabOpposite = modalOpposite?.tabs?.find((tab) => tab.name === tabName);
-
-  if (!tabCurrent || !tabOpposite) return [];
-
-  return tabCurrent.fields.map((field) => {
-    const oppositeField = tabOpposite.fields.find(
-      (f) => f.unique_id === field.unique_id,
-    );
-
-    return {
-      ...field,
-      translation: oppositeField?.translation || field.translation,
-    };
-  });
+      return (
+        !Number.isNaN(id) &&
+        id >= minId &&
+        id <= maxId
+      );
+    })
+    .map(([key, value]) => ({
+      unique_id: Number(key),
+      translation: value,
+    }));
 };
 
 
@@ -324,12 +338,12 @@ export const getBrowser = async () => {
   return "Unknown";
 };
 // عدد میگیرد به صورت ساعت دقیقه و ثانیه ریترن میکند
-  export const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
+export const formatTime = (time) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
 
-    const formattedMinutes = String(minutes).padStart(2, "۰");
-    const formattedSeconds = String(seconds).padStart(2, "۰");
+  const formattedMinutes = String(minutes).padStart(2, "۰");
+  const formattedSeconds = String(seconds).padStart(2, "۰");
 
-    return `${formattedMinutes}:${formattedSeconds}`;
-  };
+  return `${formattedMinutes}:${formattedSeconds}`;
+};
