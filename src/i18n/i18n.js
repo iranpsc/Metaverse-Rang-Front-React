@@ -55,7 +55,6 @@ const customBackend = {
   read: async (language, namespace, callback) => {
     try {
       const selectedApi = getSelectedTranslationsApi();
-      console.log("selectedApi", selectedApi);
       const cachedData = localStorage.getItem(`${CACHE_PREFIX}${language}`);
       const cachedVersion = localStorage.getItem(`${CACHE_PREFIX}${language}_version`);
 
