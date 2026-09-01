@@ -51,9 +51,9 @@ const Card = styled.div`
 const Inner = styled.div`
   position: relative;
 
-  width: 100%;
+  width: 99%;
   height: 99%;
-  min-height: 450px;
+  min-height: 440px;
 
   box-sizing: border-box;
 

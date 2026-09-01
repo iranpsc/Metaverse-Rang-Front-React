@@ -3,7 +3,8 @@ import RequestDetails from "./RequestDetails";
 import {
   convertToPersian,
   getTranslation,
-  metarangUrlCitizen,ConvertJalali
+  metarangUrlCitizen,
+  ConvertJalali,
 } from "../../../../../services/Utility";
 import gift from "../../../../../assets/images/satisfy.png";
 import pscGif from "../../../../../assets/gif/psc.gif";
@@ -113,6 +114,15 @@ const RequestRow = ({
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const { data, loading, fetchRequestDetails } = useRequestDetails(type);
+  const familyMap = {
+    برادر: 128,
+    پدر: 125,
+    مادر: 126,
+    همسر: 825,
+    فرزند: 129,
+  };
+
+  const family = familyMap[member] ?? 127;
   // اگر در حال لودینگ هستیم، اسکلتون نشون بده
   if (isLoading) {
     return (
@@ -153,7 +163,7 @@ const RequestRow = ({
       await fetchRequestDetails(id);
       setShowDetails(true);
     } catch (error) {
-console.error("Error fetching request details:", error);
+      console.error("Error fetching request details:", error);
     }
   };
 
@@ -179,7 +189,7 @@ console.error("Error fetching request details:", error);
           </div>
         </TableCell>
         <TableCell>
-          <Status>{member}</Status>
+          <Status>{getTranslation(family)}</Status>
         </TableCell>
         <TableCell>
           <Title
