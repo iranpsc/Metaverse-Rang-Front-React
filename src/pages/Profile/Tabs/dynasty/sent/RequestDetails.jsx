@@ -3,8 +3,6 @@ import MemberCard from "./MemberCard";
 import { getTranslation, ToastError, ToastSuccess, ConvertJalali, convertToPersian } from "../../../../../services/Utility";
 import styled from "styled-components";
 import ModalLg from "../../../../../components/Modal/ModalLg";
-import { UserContext } from "../../../../../services/reducers/UserContext";
-import { useContext } from "react";
 import useRequest from "../../../../../services/Hooks/useRequest";
 
 const Buttons = styled.div`
@@ -23,7 +21,6 @@ const RequestDetails = ({
   data,
   type,
 }) => {
-  const [user] = useContext(UserContext);
   const { Request, HTTP_METHOD } = useRequest();
 
   const handleSubmit = () => {
