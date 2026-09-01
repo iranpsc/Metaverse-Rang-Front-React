@@ -114,6 +114,23 @@ export function EmailValidator(email) {
 }
 // این تابع برای فرمت اعداد اعشاری هست و فقط در صورتی که اعداد اعشار داشته باشد باشند
 // اعشار ان نمایش داده میشود در غیر این صورت اعداد بدون اعشار نمایش داده میشوند
+  export const normalizeDecimalInput = (value) => {
+    if (value === "") return "";
+
+    const normalized = value
+      .replace(/[٫]/g, ".")
+      .replace(/[۰-۹]/g, (digit) => {
+        const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+        return String(persianDigits.indexOf(digit));
+      })
+      .replace(/[^0-9.]/g, "");
+
+    if (!normalized.includes(".")) return normalized;
+
+    const [wholePart, ...decimalParts] = normalized.split(".");
+    const cleanDecimal = decimalParts.join("").replace(/\./g, "");
+    return `${wholePart || "0"}.${cleanDecimal}`;
+  };
 
 export const formatNumber = (value, decimals = 2) => {
   const num = Number(value);
@@ -219,6 +236,15 @@ export const metarangUrl = (path = "") =>
 export const metarangUrlCitizen = (path = "") =>
   `https://metarang.com/${i18n.language}/citizens/${path}`;
 
+export const truncateText = (text, maxLength = 20) => {
+  if (!text) return "";
+
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  return `${text.slice(0, maxLength)}...`;
+};
 export const getTranslation = (fieldId) => {
   const resources = i18n.store.data;
   const currentLanguage = i18n.language || "fa";
@@ -265,7 +291,7 @@ export const getTranslation = (fieldId) => {
     }
   }
 
-  return `Translation for ID '${fieldId}' not found`;
+  return `Translation '${fieldId}' not found`;
 };
 //getFieldsByTabName(112, 120)
 // => ["متن 112" تا "متن 120"]

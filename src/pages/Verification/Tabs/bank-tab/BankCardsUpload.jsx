@@ -1,7 +1,11 @@
 import AddBankCard from "./AddBankCard";
 import ConfirmCardDelete from "./ConfirmCardDelete";
 import { HiOutlineTrash } from "react-icons/hi";
-import bank from "../../../../assets/images/bank-melat.png";
+import melat from "../../../../assets/images/bank-icon/bank-melat.png";
+import saderat from "../../../../assets/images/bank-icon/bank-saderat.png";
+import mehr from "../../../../assets/images/bank-icon/Bank-Mehr-Iran.png";
+import ayande from "../../../../assets/images/bank-icon/bank-ayandeh.png";
+
 import styled from "styled-components";
 import { useState } from "react";
 import { getTranslation } from "../../../../services/Utility";
@@ -142,7 +146,7 @@ const SkeletonCard = styled.div`
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  
+
   @media (min-width: 840px) {
     width: 305px;
     height: 190px;
@@ -171,7 +175,6 @@ const BankCardsUpload = ({
       setOpenDeleteModal(true);
     });
   };
-
   // اسکلتون لودینگ
   if (isLoading) {
     return (
@@ -197,6 +200,8 @@ const BankCardsUpload = ({
       <Container>
         <BankCard>
           {cards?.map((card, i) => {
+            const bank=card.bank_name=="بانک مهر ایران"?mehr:card.bank_name=="بانک آینده"?ayande:card.bank_name=="بانک ملت"?melat:saderat;
+
             return (
               <UploadWrapper key={i}>
                 <Image>

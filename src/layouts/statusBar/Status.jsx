@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
+
 const StatusWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -9,6 +10,7 @@ const StatusWrapper = styled.div`
     gap: 4px;
   }
 `;
+
 const Watch = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   font-family: DigitalNumber !important;
@@ -47,63 +49,76 @@ const Ping = styled.p`
 `;
 
 const Status = () => {
-  const [ping, setPing] = useState(0);
+  const [ping, setPing] = useState(null);
   const [clock, setClock] = useState("12:00:00");
 
+  const PING_URL = "https://world.metarang.com";
+
   const calculateFontSize = useCallback((pingValue) => {
-    if (pingValue.toString().length > 5) {
-      return "10px";
+    if (pingValue === null || pingValue < 0) {
+      return "12px";
     }
-    return "12px";
+
+    return pingValue.toString().length > 5 ? "10px" : "12px";
   }, []);
 
-  const PING_URLS = ["https://world.metarang.com"];
-
   const measurePing = useCallback(async () => {
+    const controller = new AbortController();
+
+    // حداکثر زمان انتظار
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+    }, 3000);
+
+    // زمان شروع همین درخواست
     const startTime = performance.now();
 
-    const tryPing = async (url) => {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 3000);
+    try {
+      await fetch(`${PING_URL}?ping=${Date.now()}`, {
+        method: "GET",
+        mode: "no-cors",
+        cache: "no-store",
+        signal: controller.signal,
+      });
 
-      try {
-        await fetch(url, {
-          method: "HEAD",
-          signal: controller.signal,
-          cache: "no-cache",
-          mode: "no-cors",
-        });
+      const endTime = performance.now();
 
-        clearTimeout(timeout);
-        const pingTime = Math.round(performance.now() - startTime);
+      const pingTime = Math.round(endTime - startTime);
 
-        if (pingTime > 10 && pingTime < 2000) {
-          setPing(pingTime);
-          return true;
-        }
-        return false;
-      } catch (error) {
-        console.error(error);
-        clearTimeout(timeout);
-        return false;
+      if (pingTime > 0 && pingTime < 3000) {
+        setPing(pingTime);
+      } else {
+        setPing(-1);
       }
-    };
+    } catch (error) {
+      // AbortError یعنی timeout شده
+      if (error.name !== "AbortError") {
+        console.error("Ping error:", error);
+      }
 
-    for (const url of PING_URLS) {
-      const success = await tryPing(url);
-      if (success) return;
+      setPing(-1);
+    } finally {
+      clearTimeout(timeoutId);
     }
-
-    setPing(-1);
   }, []);
 
   useEffect(() => {
+    // ساعت
     const clockInterval = setInterval(() => {
-      setClock(new Date().toLocaleTimeString().split(" ")[0]);
+      setClock(
+        new Date().toLocaleTimeString("en-US", {
+          hour12: false,
+        })
+      );
     }, 1000);
 
+    // اولین Ping
     measurePing();
-    const pingInterval = setInterval(measurePing, 5000);
+
+    // هر 5 ثانیه
+    const pingInterval = setInterval(() => {
+      measurePing();
+    }, 5000);
 
     return () => {
       clearInterval(clockInterval);
@@ -114,8 +129,9 @@ const Status = () => {
   return (
     <StatusWrapper>
       <Watch>{clock}</Watch>
+
       <Ping size={calculateFontSize(ping)}>
-        {ping >= 0 ? `${ping} ms` : "Error"}
+        {ping !== null && ping >= 0 ? `${ping} ms` : "Error"}
       </Ping>
     </StatusWrapper>
   );

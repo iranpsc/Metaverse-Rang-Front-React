@@ -236,7 +236,7 @@ const Questions = ({
       prevFooters[2],
       prevFooters[3],
     ]);
-    setShining(isCorrect ? "five" : "six");
+    setShining(isCorrect ? true : false);
     setTimer(answerTime);
 
     const returnTimer = setTimeout(() => {
@@ -262,16 +262,19 @@ const Questions = ({
 
     return () => clearInterval(timerInterval.current);
   }, []);
-
-  useEffect(() => {
-    if (timer === 0) {
-      //setShowAnswer(true);
-      //setTimer(0.25 * 60);
-      setTimeout(() => {
-        setFirstPage(true);
-      }, 1000);
+useEffect(() => {
+  if (timer === 0) {
+    if (!selectedAnswerId) {
+      setShining(null);
     }
-  }, [timer, setFirstPage]);
+
+    const timer = setTimeout(() => {
+      setFirstPage(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }
+}, [timer, selectedAnswerId, setFirstPage, setShining]);
 
   useEffect(() => {
     const fetchData = async () => {

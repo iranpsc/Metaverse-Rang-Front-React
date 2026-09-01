@@ -6,14 +6,14 @@ import RestrictUser from "./RestrictUser";
 import Text from "./Text";
 
 const Details = () => {
-  const {id} =useParams()
+  const { id } = useParams()
   return (
     <div>
       <Colors />
       <RealEstate />
       <Level />
       <RestrictUser />
-{id && <Text/>}
+      {id && <Text />}
     </div>
   );
 };

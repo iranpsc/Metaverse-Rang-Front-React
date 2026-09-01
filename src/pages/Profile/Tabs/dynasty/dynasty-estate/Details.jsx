@@ -49,7 +49,7 @@ const KeyValue = styled.div`
 `;
 
 const Details = ({ data }) => {
-  const Navigate = useNavigate();
+  const navigation = useNavigate();
   if (!data?.["dynasty-feature"]) {
     return null;
   }
@@ -73,15 +73,16 @@ const Details = ({ data }) => {
       <span>{value}</span>
     </KeyValue>
   );
-
   return (
     <Container>
       <Header>
         <h3>{getTranslation(813)}</h3>
         <span
           onClick={() =>
-            Navigate(`/feature/${id}`, {
-              state: { activePageNumber: 1, activeTabNavigate: 3 },
+            navigation(`/feature/${id}/info`, {
+              state: {
+                from: location.pathname,
+              },
             })
           }
         >

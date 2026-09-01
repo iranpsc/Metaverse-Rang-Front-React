@@ -20,6 +20,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 4px;
   width: 100%;
+  white-space: nowrap;
   overflow-y: auto;
 
   /* Scrollbar styles for this component */

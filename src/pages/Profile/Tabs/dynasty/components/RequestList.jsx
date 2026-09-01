@@ -91,18 +91,17 @@ const RequestList = ({
         !member.sister &&
         !member.father &&
         !member.mother) ||
-      (member.child && row.member_slug === "child") ||
-      (member.wife && row.member_slug === "wife") ||
-      (member.brother && row.member_slug === "brother") ||
-      (member.sister && row.member_slug === "sister") ||
-      (member.father && row.member_slug === "father") ||
-      (member.mother && row.member_slug === "mother");
+      (member.child && row.member_slug === "فرزند") ||
+      (member.wife && row.member_slug === "همسر") ||
+      (member.brother && row.member_slug === "برادر") ||
+      (member.sister && row.member_slug === "خواهر") ||
+      (member.father && row.member_slug === "پدر") ||
+      (member.mother && row.member_slug === "مادر");
 
     const dateMatch = filterByDate(row);
 
     return codeMatch && statusMatch && memberMatch && dateMatch;
   });
-
   return (
     <Container>
       <Div>

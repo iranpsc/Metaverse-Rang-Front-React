@@ -136,7 +136,7 @@ const Header = ({ title, long, loading, profile, action, handleExit }) => {
       },
     });
   };
-  const handleExitClick = () => {
+  const handleExitClick = () => { 
     updateScrollDirection(false);
 
     if (handleExit) {

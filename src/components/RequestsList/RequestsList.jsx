@@ -215,7 +215,7 @@ const RequestsList = ({
         <TableHead>
           <TableRow>
             <TableHeader>
-              {type === "send" ? getTranslation(1448) : getTranslation(1447)}
+              {type === "sent" ? getTranslation(1448) : getTranslation(1447)}
             </TableHeader>
             <TableHeader date> {getTranslation(850)}</TableHeader>
             <TableHeader>

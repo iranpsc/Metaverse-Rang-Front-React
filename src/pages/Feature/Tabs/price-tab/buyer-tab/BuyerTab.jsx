@@ -20,7 +20,6 @@ const BuyerTab = () => {
     Number(feature.properties.price_psc ?? 0);
 
   const hasPrice = sugPrice > 0;
-
   return (
     <Wrapper>
       <SidebarOptions hasPrice={hasPrice} />

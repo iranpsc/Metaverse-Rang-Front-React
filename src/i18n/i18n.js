@@ -25,8 +25,8 @@ const getSelectedTranslationsApi = () => {
   ) {
     return TRANSLATIONS_API;
   }
-
-  return DEV_TRANSLATIONS_API;
+//DEV_TRANSLATIONS_API
+  return TRANSLATIONS_API;
 };
 
 const normalizeTranslations = (payload) => {

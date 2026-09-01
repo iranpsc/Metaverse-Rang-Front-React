@@ -50,7 +50,9 @@ const ContainerText = styled.div`
 const Title = styled.p`
   color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
   font-size: 16px;
-  height: 28px;
+      padding-top: 2px;
+
+  height: 25px;
   cursor: pointer;
   font-style: normal;
   font-weight: 700;

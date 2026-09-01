@@ -38,7 +38,7 @@ const items = [
       },
       {
         id: 2,
-        title: "father's name",
+        translationId: "645",
         key: "fname",
       },
       {

@@ -140,7 +140,7 @@ const Level = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [id, user?.id, Request]);
+  }, []);
 
   if (loading) {
     return (

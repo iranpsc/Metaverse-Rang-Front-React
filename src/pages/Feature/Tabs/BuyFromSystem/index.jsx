@@ -9,7 +9,7 @@ export default function BuyFromSystem() {
 
   const tabs = [
     {
-      name: "قیمت فروشنده",
+      name: "قیمت فرو1شنده",
       component: (
         <BuySystem
           rgb={feature.properties.rgb}

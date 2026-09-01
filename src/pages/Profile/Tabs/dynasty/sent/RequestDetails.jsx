@@ -1,6 +1,6 @@
 import Button from "../../../../../components/Button";
 import MemberCard from "./MemberCard";
-import { getTranslation, ToastError, ToastSuccess } from "../../../../../services/Utility";
+import { getTranslation, ToastError, ToastSuccess, ConvertJalali, convertToPersian } from "../../../../../services/Utility";
 import styled from "styled-components";
 import ModalLg from "../../../../../components/Modal/ModalLg";
 import { UserContext } from "../../../../../services/reducers/UserContext";
@@ -32,25 +32,25 @@ const RequestDetails = ({
         ToastSuccess("سلسله با موفقیت تاسیس شد.");
       })
       .catch((error) => {
-   
+
         ToastError(error.response.data.message);
       });
   };
 
-  const isSendType = type === "send";
-  
+  const isSendType = type === "sent" ? true : false;
+
   return (
     <ModalLg
       setShowModal={setShowDetails}
       titleId={isSendType ? "113" : "114"}
     >
-      <MemberCard 
-        status={status} 
-        date={date} 
-        time={time} 
-        code={isSendType ? user.code : code} 
-        name={isSendType ? user.name : data.from_user.name} 
-        image={isSendType ? user.image : data?.from_user?.profile_photo} 
+      <MemberCard
+        status={status}
+        date={ConvertJalali(date)}
+        time={convertToPersian(time)}
+        code={code}
+        name={data.from_user.name}
+        image={data?.from_user?.profile_photo}
       />
       <div dangerouslySetInnerHTML={{ __html: data.message }} />
       {data?.status === 0 && !isSendType && (

@@ -1,4 +1,4 @@
-import { useState, useContext, useMemo } from "react";
+import { useState, useContext, useMemo, useEffect } from "react";
 import styled from "styled-components";
 import FillInputs from "./FillInputs";
 import ResultInfo from "../../../components/ResultInfo";
@@ -36,23 +36,44 @@ const SuggestPrice = () => {
   const [wallet, dispatch] = useContext(WalletContext);
   const [feature] = useContext(FeatureContext);
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
+  const walletState = wallet ?? {};
 
   const totalIrr = useMemo(() => {
     if (!feature?.properties) return 0;
 
-    const { stability, rgb, minimum_price_percentage } = feature.properties;
+    const {
+      stability = 0,
+      rgb,
+      minimum_price_percentage = 0,
+    } = feature.properties;
 
-    return stability * FeaturePrice(rgb) * (minimum_price_percentage / 100);
+    return (
+      Number(stability || 0) *
+      Number(FeaturePrice(rgb) || 0) *
+      (Number(minimum_price_percentage || 0) / 100)
+    );
   }, [feature]);
 
   const [assign, setAssign] = useState(false);
-  const [rial, setRial] = useState(totalIrr / 2);
-  const [psc, setPsc] = useState(totalIrr / 2 / PSC_RATE);
+  const [rial, setRial] = useState(0);
+  const [psc, setPsc] = useState(0);
   const [suggestText, setSuggestText] = useState("");
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    if (!totalIrr) {
+      setRial(0);
+      setPsc("");
+      return;
+    }
+
+    const initialRial = totalIrr / 2;
+    setRial(initialRial);
+    setPsc(String(initialRial / PSC_RATE));
+  }, [totalIrr]);
+
   const rialValue = Number(rial) || 0;
-  const pscValue = Number(psc) || 0;
+  const pscValue = Number(psc || 0) || 0;
 
   const totalPrice = useMemo(
     () => rialValue + pscValue * PSC_RATE,
@@ -64,11 +85,11 @@ const SuggestPrice = () => {
       return `حداقل ارزش معامله ${feature?.properties?.minimum_price_percentage}% قیمت اولیه میباشد`;
     }
 
-    if (rialValue > (wallet?.irr || 0)) {
+    if (rialValue > (walletState?.irr ?? 0)) {
       return getTranslation("1604");
     }
 
-    if (pscValue > (wallet?.psc || 0)) {
+    if (pscValue > (walletState?.psc ?? 0)) {
       return getTranslation("1605");
     }
 
@@ -83,12 +104,13 @@ const SuggestPrice = () => {
       ToastError(errorMessage);
       return;
     }
+
     if (!checkSecurity()) return;
 
     Request(`buy-requests/store/${feature?.id}`, HTTP_METHOD.POST, {
       price_irr: rialValue,
       price_psc: pscValue,
-      note: suggestText,
+      note: suggestText.trim(),
     })
       .then(() => {
         ToastSuccess(getTranslation("1607"));
@@ -96,9 +118,9 @@ const SuggestPrice = () => {
         dispatch({
           type: WalletContextTypes.ADD_WALLET,
           payload: {
-            ...wallet,
-            irr: wallet.irr - calculateFee(rialValue),
-            psc: wallet.psc - calculateFee(pscValue),
+            ...walletState,
+            irr: (walletState?.irr ?? 0) - calculateFee(rialValue),
+            psc: (walletState?.psc ?? 0) - calculateFee(pscValue),
           },
         });
 

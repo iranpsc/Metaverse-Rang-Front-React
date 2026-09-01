@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useTheme } from "../../../../services/reducers/ThemeContext";
 import ConfettiExplosion from "react-confetti-explosion";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -17,7 +16,7 @@ const Container = styled.div`
   div {
     flex-grow: 1;
     background-color: ${({ theme }) =>
-      theme.colors.newColors.otherColors.menuBg};
+    theme.colors.newColors.otherColors.menuBg};
     border-radius: 4px;
     padding: 4px 8px;
     display: flex;
@@ -35,24 +34,9 @@ const Container = styled.div`
   }
 `;
 
-const Footer = ({ footers, shining, firstPage }) => {
-  const [bright, setBright] = useState("one");
+const Footer = ({ footers, shining }) => {
   const { theme } = useTheme();
   const isPersian = useLanguage();
-  useEffect(() => {
-    if (shining === "five") {
-      setBright("two");
-    } else if (shining === "six") {
-      setBright("three");
-    }
-  }, [shining]);
-
-  useEffect(() => {
-    if (!firstPage) {
-      setBright("one");
-    }
-  }, [firstPage]);
-
   return (
     <Container>
       {footers.map((item) => (
@@ -72,7 +56,7 @@ const Footer = ({ footers, shining, firstPage }) => {
             place="top"
             content={item.slug}
           />
-          {bright === "two" && (
+          {shining && (
             <ConfettiExplosion
               style={{
                 position: "absolute",
@@ -87,7 +71,7 @@ const Footer = ({ footers, shining, firstPage }) => {
               colors={["#18C08F"]}
             />
           )}
-          {bright === "three" && (
+          {shining === false && (
             <ConfettiExplosion
               style={{
                 position: "absolute",

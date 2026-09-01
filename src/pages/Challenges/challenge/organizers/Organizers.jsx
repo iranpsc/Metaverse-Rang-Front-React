@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import Content from "./Content";
 import Footer from "./Footer";
 import styled from "styled-components";
@@ -18,7 +17,6 @@ const Wrapper = styled.div`
 
 const Organizers = ({
   organizers,
-  firstPage,
   setFirstPage,
   footers,
   shining,
@@ -55,7 +53,7 @@ const Organizers = ({
         organizers={organizers}
         time={convertToPersian(formatTime(timer))}
       />
-      <Footer footers={footers} shining={shining} firstPage={firstPage} />
+      <Footer footers={footers} shining={shining} />
     </Wrapper>
   );
 };

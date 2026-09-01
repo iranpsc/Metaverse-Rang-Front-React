@@ -9,7 +9,7 @@ import { POLYGON_COLORS } from "../../services/constants/PolygonColors";
 import useRequest from "../../services/Hooks/useRequest";
 import { useMapData } from "../../services/reducers/mapContext";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
-
+import { useMapLands } from "../../services/reducers/MapLandsContext";
 // Add the proxy URL to bypass CORS
 const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
   // Prepend proxy URL to avoid CORS issues
@@ -59,7 +59,7 @@ const MapPolygons = () => {
   const [isPolygonSourceLoaded, setIsPolygonSourceLoaded] = useState(false);
   const map = useMap();
   const bounds = map.current.getBounds();
-  const [features, setFeatures] = useState([]);
+  const { mapLands, setMapLands } = useMapLands();
   const [zoom, setZoom] = useState(map.current.getZoom());
   const [, setIsLoading] = useState(false);
   const { Request } = useRequest();
@@ -80,21 +80,21 @@ const MapPolygons = () => {
     window.Echo.channel("feature-status").listen(
       ".feature-status-changed",
       (e) => {
-        const data = features.map((feature) => {
+        const data = mapLands.map((feature) => {
           if (parseInt(feature.id) === parseInt(e.data.id)) {
             return { ...feature, rgb: e.data.rgb };
           }
           return feature;
         });
 
-        setFeatures(data);
+        setMapLands(data);
       },
     );
-  }, [features]);
+  }, [mapLands]);
 
   useEffect(() => {
     if (bounds.getSouthWest().lng && zoom >= 14) {
-      const loadBuildings = zoom >= 15 ? "&load_buildings=1" : "";
+      const loadBuildings = zoom >= 14 ? "&load_buildings=1" : "";
       Request(
         `features?points[]=${bounds.getSouthWest().lng},${
           bounds.getSouthWest().lat
@@ -120,7 +120,7 @@ const MapPolygons = () => {
           (feature) => feature.building_models || [],
         );
 
-        setFeatures((prevFeatures) => [...prevFeatures, ...newFeatures]);
+        setMapLands((prevFeatures) => [...prevFeatures, ...newFeatures]);
 
         setBuildings((prevModels) => [...prevModels, ...newBuildingModels]);
       });
@@ -156,6 +156,7 @@ const MapPolygons = () => {
       mapInstance.off("sourcedata", handleSourceData);
     };
   }, [zoom]);
+
   return (
     <>
       {zoom >= 14 && (
@@ -164,8 +165,8 @@ const MapPolygons = () => {
           type="geojson"
           data={{
             type: "FeatureCollection",
-            features: features.map((polygon) => ({
-              type: "Feature",
+            features: mapLands.map((polygon) => ({
+              type: "mapLands",
               properties: {
                 id: polygon.id,
                 fill: POLYGON_COLORS[polygon.rgb],

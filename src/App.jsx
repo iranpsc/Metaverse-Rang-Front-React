@@ -19,6 +19,7 @@ import { LoaderProvider } from "./services/reducers/LoaderProvider.jsx";
 import RotateDevice from "./components/RotateDevice";
 import { useAppHeight } from "./hooks/useAppHeight.js";
 import { ScrollDirectionProvider } from "./services/reducers/ScrollDirectionContext.jsx";
+import { MapLandsProvider } from "./services/reducers/MapLandsContext.jsx";
 function App() {
   useAppHeight();
   useLayoutEffect(() => {
@@ -39,6 +40,7 @@ function App() {
       <BrowserRouter>
         <ScrollDirectionProvider>
           <LoaderProvider>
+          <MapLandsProvider>
             <MapProvider>
               <ThemeProviderContext>
                 <UserProvider>
@@ -65,6 +67,7 @@ function App() {
                 </UserProvider>
               </ThemeProviderContext>
             </MapProvider>
+            </MapLandsProvider>
           </LoaderProvider>
         </ScrollDirectionProvider>
       </BrowserRouter>{" "}

@@ -3,7 +3,7 @@ import RequestDetails from "./RequestDetails";
 import {
   convertToPersian,
   getTranslation,
-  metarangUrlCitizen,
+  metarangUrlCitizen,ConvertJalali
 } from "../../../../../services/Utility";
 import gift from "../../../../../assets/images/satisfy.png";
 import pscGif from "../../../../../assets/gif/psc.gif";
@@ -113,7 +113,6 @@ const RequestRow = ({
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const { data, loading, fetchRequestDetails } = useRequestDetails(type);
-
   // اگر در حال لودینگ هستیم، اسکلتون نشون بده
   if (isLoading) {
     return (
@@ -175,7 +174,7 @@ console.error("Error fetching request details:", error);
         <TableCell>
           <div>
             <Date>
-              {date} | {time}
+              {ConvertJalali(date)} | {convertToPersian(time)}
             </Date>
           </div>
         </TableCell>

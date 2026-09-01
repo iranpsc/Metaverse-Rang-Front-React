@@ -13,8 +13,11 @@ const ChallengeView = () => {
   const [organizers, setOrganizers] = useState(null);
   const [footers, setFooters] = useState([]);
   const [firstPage, setFirstPage] = useState(true);
-  const [shining, setShining] = useState("four");
+  const [shining, setShining] = useState(null);
   const [timings, setTimings] = useState(null);
+  useEffect(() => {
+    setShining(null)
+  }, [])
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -66,7 +69,6 @@ const ChallengeView = () => {
       footers={footers}
       organizers={organizers}
       setFirstPage={setFirstPage}
-      firstPage={firstPage}
       shining={shining}
       timings={timings?.display_ad_interval}
     />

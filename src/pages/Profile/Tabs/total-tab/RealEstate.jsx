@@ -11,7 +11,7 @@ import { UserContext } from "../../../../services/reducers/UserContext";
 import { getTranslation } from "../../../../services/Utility";
 import { useParams } from "react-router";
 import { Skeleton } from "../../../../components/Skeleton";
-
+import { WalletContext } from "../../../../services/reducers/WalletContext";
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -24,8 +24,9 @@ const RealEstate = () => {
   const [loading, setLoading] = useState(true);
   const { Request } = useRequest();
   const [user] = useContext(UserContext);
-  const { id } = useParams();
+    const [wallet] = useContext(WalletContext);
 
+  const { id } = useParams();
   useEffect(() => {
     const requestId = id || user?.id;
     if (requestId) {
@@ -48,7 +49,7 @@ const RealEstate = () => {
       id: 1,
       image: property1,
       label: getTranslation("52"),
-      value: assets?.satisfaction,
+      value: wallet?.satisfaction,
     },
     {
       id: 2,

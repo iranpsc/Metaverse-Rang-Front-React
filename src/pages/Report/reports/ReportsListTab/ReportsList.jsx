@@ -1,8 +1,8 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import ReportRow from "./ReportRow";
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
-import { getTranslation } from "../../../../services/Utility/index";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { getTranslation, isMobile } from "../../../../services/Utility/index";
 import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
@@ -77,7 +77,9 @@ const StatusFilterTitle = styled.div`
     cursor: pointer;
     font-size: 14px;
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-weight: 400;
     font-size: 16px;
   }
@@ -144,6 +146,14 @@ const ReportsList = ({
   });
 
   const filterRef = useRef(null);
+  const sentinelRef = useRef(null);
+
+  const handleLoadMoreRows = useCallback(() => {
+    if (!hasMore || isLoading) return;
+
+    handleLoadMore();
+    setVisibleRows((prev) => prev + 10);
+  }, [handleLoadMore, hasMore, isLoading]);
 
   const handleClickOutside = (event) => {
     if (
@@ -162,8 +172,32 @@ const ReportsList = ({
     };
   }, []);
 
-  // اسکلتون برای لودینگ
-  if (isLoading) {
+  useEffect(() => {
+    if (isMobile) return;
+    if (!sentinelRef.current || !(hasMore || visibleRows < rows.length)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          handleLoadMoreRows();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "200px",
+        threshold: 0.1,
+      },
+    );
+
+    observer.observe(sentinelRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [handleLoadMoreRows, hasMore, isMobile, rows.length, visibleRows]);
+
+  // اسکلتون فقط برای حالت اول بارگذاری اولیه
+  if (isLoading && rows.length === 0) {
     return (
       <Container>
         <Table>
@@ -207,8 +241,13 @@ const ReportsList = ({
                   <Skeleton width="120px" height="16px" radius="4px" />
                 </td>
                 <td>
-                  <div style={{ display: "flex", gap: "8px" , justifyContent:"center"}}>
-                    
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Skeleton width="40px" height="40px" radius="6px" />
                   </div>
                 </td>
@@ -371,17 +410,16 @@ const ReportsList = ({
           ))}
         </tbody>
       </Table>
-      {hasMore && (
+      {isMobile && hasMore && (
         <Loader>
-          <button
-            onClick={() => {
-              handleLoadMore();
-              setVisibleRows((prev) => prev + 10);
-            }}
-          >
+          <button onClick={handleLoadMoreRows} disabled={isLoading}>
             {getTranslation("368")}
           </button>
         </Loader>
+      )}
+
+      {!isMobile && (hasMore || visibleRows < rows.length) && (
+        <div ref={sentinelRef} style={{ height: "1px" }} aria-hidden="true" />
       )}
     </Container>
   );

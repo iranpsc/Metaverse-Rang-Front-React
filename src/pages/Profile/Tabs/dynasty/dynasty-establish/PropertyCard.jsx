@@ -71,7 +71,7 @@ const PropertyCard = ({ onClick, label, propertyId, area,id }) => {
         </Image>
         <Info>
           <h3>{getTranslation(810)}</h3>
-          <h4 onClick={() => Navigate(`/feature/${id}`)}>{propertyId}</h4>
+          <h4 onClick={() => Navigate(`/feature/${id}`,)}>{propertyId}</h4>
         </Info>
       </Right>
       <Center>
