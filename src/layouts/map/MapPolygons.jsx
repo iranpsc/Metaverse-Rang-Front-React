@@ -97,7 +97,6 @@ const MapPolygons = () => {
 
   useEffect(() => {
     if (bounds.getSouthWest().lng && zoom >= showPolygons) {
-      const loadBuildings = zoom >= showPolygons ? "&load_buildings=1" : "";
       Request(
         `features?points[]=${bounds.getSouthWest().lng},${
           bounds.getSouthWest().lat
@@ -107,7 +106,7 @@ const MapPolygons = () => {
           bounds.getNorthWest().lat
         }&points[]=${bounds.getNorthEast().lng},${
           bounds.getNorthEast().lat
-        }${loadBuildings}`,
+        }${"&load_buildings=1"}`,
       ).then((response) => {
         const newFeatures =
           response?.data?.data?.map((feature) => ({
