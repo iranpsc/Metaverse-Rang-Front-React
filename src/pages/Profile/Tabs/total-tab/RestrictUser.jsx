@@ -235,9 +235,10 @@ const RestrictUser = () => {
         "Content-Type": "multipart/form-data",
       },
     )
-      .then((response) => {
+    /** .then((response) => {
         console.log("restriction updated:", response);
-      })
+      }) */
+     
       .catch((error) => {
         console.error("Error updating restrictions:", error);
 
