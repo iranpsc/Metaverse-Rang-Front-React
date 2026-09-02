@@ -10,7 +10,9 @@ import useRequest from "../../services/Hooks/useRequest";
 import { useMapData } from "../../services/reducers/mapContext";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import { useMapLands } from "../../services/reducers/MapLandsContext";
+import { showPolygons } from "../../services/Hooks/useMapUrlState";
 // Add the proxy URL to bypass CORS
+
 const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
   // Prepend proxy URL to avoid CORS issues
   const fbx = useLoader(FBXLoader, url, (loader) => {
@@ -54,6 +56,7 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
 });
 
 const MapPolygons = () => {
+
   const { buildings, setBuildings } = useMapData();
   const { selectedEnvironment } = useSelectedEnvironment();
   const [isPolygonSourceLoaded, setIsPolygonSourceLoaded] = useState(false);
@@ -93,8 +96,8 @@ const MapPolygons = () => {
   }, [mapLands]);
 
   useEffect(() => {
-    if (bounds.getSouthWest().lng && zoom >= 14) {
-      const loadBuildings = zoom >= 14 ? "&load_buildings=1" : "";
+    if (bounds.getSouthWest().lng && zoom >= showPolygons) {
+      const loadBuildings = zoom >= showPolygons ? "&load_buildings=1" : "";
       Request(
         `features?points[]=${bounds.getSouthWest().lng},${
           bounds.getSouthWest().lat
@@ -127,7 +130,7 @@ const MapPolygons = () => {
     }
   }, [zoom]);
   useEffect(() => {
-    if (!map.current || zoom < 14) {
+    if (!map.current || zoom < showPolygons) {
       setIsPolygonSourceLoaded(false);
       return;
     }
@@ -156,10 +159,9 @@ const MapPolygons = () => {
       mapInstance.off("sourcedata", handleSourceData);
     };
   }, [zoom]);
-
   return (
     <>
-      {zoom >= 14 && (
+      {zoom >= showPolygons && (
         <Source
           id="polygons"
           type="geojson"
@@ -207,39 +209,43 @@ const MapPolygons = () => {
           />
         </Source>
       )}
-      {zoom >= 14 && isPolygonSourceLoaded && buildings.length > 0 && (
-        <Canvas
-          latitude={36}
-          longitude={50}
-          key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
-        >
-          {buildings.map((model, index) => {
-            const endDate = new Date(model?.building?.construction_end_date);
+      {zoom >= showPolygons &&
+        isPolygonSourceLoaded &&
+        buildings.length > 0 && (
+          <Canvas
+            latitude={36}
+            longitude={50}
+            key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
+          >
+            {buildings.map((model, index) => {
+              const endDate = new Date(model?.building?.construction_end_date);
 
-            const now = new Date();
+              const now = new Date();
 
-            const opacity = now < endDate ? 0.3 : 1;
+              const opacity = now < endDate ? 0.3 : 1;
 
-            const proxyFbxUrl = model.file.url;
+              const proxyFbxUrl = model.file.url;
 
-            return (
-              <Coordinates
-                key={model.feature_id}
-                latitude={parseFloat(model?.building?.position.split(",")[0])}
-                longitude={parseFloat(model?.building?.position.split(",")[1])}
-              >
-                <FBXModel
-                  opacity={opacity}
-                  url={proxyFbxUrl}
-                  rotation={[0, model?.building?.rotation ?? 0, 0]}
-                  setLoading={setIsLoading}
-                  uniqueKey={`${model.id}-${index}-model`}
-                />
-              </Coordinates>
-            );
-          })}
-        </Canvas>
-      )}
+              return (
+                <Coordinates
+                  key={model.feature_id}
+                  latitude={parseFloat(model?.building?.position.split(",")[0])}
+                  longitude={parseFloat(
+                    model?.building?.position.split(",")[1],
+                  )}
+                >
+                  <FBXModel
+                    opacity={opacity}
+                    url={proxyFbxUrl}
+                    rotation={[0, model?.building?.rotation ?? 0, 0]}
+                    setLoading={setIsLoading}
+                    uniqueKey={`${model.id}-${index}-model`}
+                  />
+                </Coordinates>
+              );
+            })}
+          </Canvas>
+        )}
     </>
   );
 };

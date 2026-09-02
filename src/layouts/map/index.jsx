@@ -23,10 +23,10 @@ import { useScrollDirectionContext } from "../../services/reducers/ScrollDirecti
 import { useTheme } from "../../services/reducers/ThemeContext";
 import styleMapLight from "../../assets/styleMapLight.json";
 import styleMapDark from "../../assets/styleMapDark.json";
-import useMapUrlState from "../../services/Hooks/useMapUrlState";
+import useMapUrlState,{showPolygons} from "../../services/Hooks/useMapUrlState";
 import { flyToMapPosition } from "../../services/Utility/flyToMapPosition";
-export const TransactionContext = createContext(null);
 
+export const TransactionContext = createContext(null);
 const MemoMapPolygons = React.memo(MapPolygons);
 const MemoMapFlag = React.memo(MapFlag);
 const MemoMark = React.memo(Mark);
@@ -198,7 +198,7 @@ useEffect(() => {
               initialViewState={{
                 latitude: 25.229,
                 longitude: 54.2199,
-                zoom: 14,
+                zoom: showPolygons,
                 pitch: 40,
               }}
               onClick={handleMapClick}
