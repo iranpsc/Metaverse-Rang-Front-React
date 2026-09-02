@@ -1,16 +1,16 @@
 import Tabs from "../../services/Hooks/useTabs";
 import Modal from "../../components/Modal";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 
 export default function Verification() {
   const tabs = [
     {
       path: "identity",
-      title: getFieldTranslationByNames("867"),
+      title: getTranslation("867"),
     },
     {
       path: "bank",
-      title: getFieldTranslationByNames("868"),
+      title: getTranslation("868"),
     },
   ];
 

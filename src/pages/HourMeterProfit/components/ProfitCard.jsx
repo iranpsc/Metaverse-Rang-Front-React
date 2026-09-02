@@ -3,7 +3,7 @@ import ConfettiExplosion from "react-confetti-explosion";
 import styled from "styled-components";
 import { useState } from "react";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../services/Utility";
 
 const Card = styled.div`
@@ -119,7 +119,7 @@ const ProfitCard = ({
         </Value>
       </Content>
       <Footer>
-        {getFieldTranslationByNames("478")}
+        {getTranslation("478")}
         <h4>{dead_line}</h4>
       </Footer>
     </Card>

@@ -4,7 +4,7 @@ import nonPhoto from "../../../../assets/images/file.png";
 import remove from "../../../../assets/images/remove.png";
 import styled from "styled-components";
 import Title from "../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   margin-top: 10px;
@@ -128,7 +128,7 @@ const SendNote = ({ files, setFiles }) => {
     });
 
     if (sizeExceeded) {
-      setError(getFieldTranslationByNames(1643));
+      setError(getTranslation(1643));
       event.target.value = "";
       return;
     } else {
@@ -137,7 +137,7 @@ const SendNote = ({ files, setFiles }) => {
 
     if (validFiles.length === 0) {
       event.target.value = "";
-      setError(getFieldTranslationByNames("1635"));
+      setError(getTranslation("1635"));
 
       return;
     }
@@ -153,7 +153,7 @@ const SendNote = ({ files, setFiles }) => {
 
   return (
     <Container>
-      <Title title={getFieldTranslationByNames("1362")} />
+      <Title title={getTranslation("1362")} />
       <Wrapper>
         {files.length < 5 && (
           <Div onClick={handleDivClick}>

@@ -7,8 +7,8 @@ import styled from "styled-components";
 import { useEffect, useState, useCallback, useRef } from "react";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
-import { useParams } from "react-router-dom";
+import { getTranslation, fixNumbers } from "../../../../services/Utility";
+import { useParams } from "react-router";
 import Container from "../../../../components/Common/Container";
 import SearchInput from "../../../../components/SearchInput";
 import { Skeleton } from "../../../../components/Skeleton";
@@ -122,7 +122,7 @@ const Div = styled.div`
 const SkeletonCard = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
-  border-radius:4px;
+  border-radius: 4px;
   padding: 15px;
   display: flex;
   gap: 15px;
@@ -131,6 +131,7 @@ const SkeletonCard = styled.div`
 
 const Houses = () => {
   const [searched, setSearched] = useState("");
+
   const containerRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [property, setProperty] = useState({
@@ -238,11 +239,16 @@ const Houses = () => {
     };
   }, [loadMoreFeatures, loading, hasMore]);
 
+  const normalizeSearch = (value) =>
+    fixNumbers(String(value || "")).toUpperCase().trim();
+
   const filteredItems = features.filter((item) => {
-    const query = searched.toUpperCase().trim();
-    const codeMatch = item.properties.id?.includes(query);
-    const addressMatch = item.properties.address?.includes(query);
-    const meterMatch = item.properties.area?.toString().includes(query);
+    const query = normalizeSearch(searched);
+
+    const codeMatch = normalizeSearch(item.properties.id).includes(query);
+    const addressMatch = normalizeSearch(item.properties.address).includes(query);
+    const meterMatch = normalizeSearch(item.properties.stability).includes(query);
+
     const propertyMatch =
       (!property.education && !property.house && !property.industry) ||
       (property.education && item.properties.slug === "education") ||
@@ -257,106 +263,40 @@ const Houses = () => {
     return (
       <Container id="scrollable-container">
         <div>
-          <Title title={getFieldTranslationByNames("58")} />
+          <Title title={getTranslation("58")} />
         </div>
         <Div>
           <SearchInput
-            placeholder={getFieldTranslationByNames("57")}
+            placeholder={getTranslation("57")}
             value={searched}
-            onChange={(e) => setSearched(e.target.value)}
+            onchange={(e) => setSearched(e.target.value)}
           />
           <Wrapper>
             <Select onClick={() => setOpen(!open)}>
               <span>
                 {property.industry
-                  ? getFieldTranslationByNames("475")
+                  ? getTranslation("475")
                   : property.education
-                    ? getFieldTranslationByNames("476")
-                    : getFieldTranslationByNames("477")}
+                    ? getTranslation("476")
+                    : getTranslation("477")}
               </span>
-              <MdKeyboardArrowDown
-                style={{
-                  transform: `${open ? "rotate(180deg)" : "rotate(360deg)"}`,
-                }}
-              />
             </Select>
-            {open && (
-              <Filter>
-                <Provider
-                  industry={property.industry}
-                  hover="#ff000021"
-                  onClick={() => {
-                    setProperty({ ...property, industry: true });
-                    setOpen(false);
-                  }}
-                >
-                  <h1>{getFieldTranslationByNames("475")}</h1>
-                  {property.industry && (
-                    <span
-                      onClick={(e) => {
-                        setProperty({ ...property, industry: false });
-                        e.stopPropagation();
-                        setOpen(false);
-                      }}
-                    >
-                      X
-                    </span>
-                  )}
-                </Provider>
-                <Provider
-                  education={property.education}
-                  hover="#0066ff21"
-                  onClick={() => {
-                    setProperty({ ...property, education: true });
-                    setOpen(false);
-                  }}
-                >
-                  <h1>{getFieldTranslationByNames("476")}</h1>
-                  {property.education && (
-                    <span
-                      onClick={(e) => {
-                        setProperty({ ...property, education: false });
-                        e.stopPropagation();
-                        setOpen(false);
-                      }}
-                    >
-                      X
-                    </span>
-                  )}
-                </Provider>
-                <Provider
-                  house={property.house}
-                  hover="#ffc70021"
-                  onClick={() => {
-                    setProperty({ ...property, house: true });
-                    setOpen(false);
-                  }}
-                >
-                  <h1>{getFieldTranslationByNames("477")}</h1>
-                  {property.house && (
-                    <span
-                      onClick={(e) => {
-                        setProperty({ ...property, house: false });
-                        e.stopPropagation();
-                        setOpen(false);
-                      }}
-                    >
-                      X
-                    </span>
-                  )}
-                </Provider>
-              </Filter>
-            )}
           </Wrapper>
         </Div>
         <List>
           {Array.from({ length: 3 }).map((_, index) => (
             <SkeletonCard key={index}>
               <Skeleton width="80px" height="80px" radius="4px" />
-              <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                }}
+              >
                 <Skeleton width="60%" height="18px" radius="4px" />
                 <Skeleton width="40%" height="14px" radius="4px" />
-            
               </div>
             </SkeletonCard>
           ))}
@@ -368,22 +308,22 @@ const Houses = () => {
   return (
     <Container id="scrollable-container" ref={containerRef}>
       <div>
-        <Title title={getFieldTranslationByNames("58")} />
+        <Title title={getTranslation("58")} />
       </div>
       <Div>
         <SearchInput
-          placeholder={getFieldTranslationByNames("57")}
+          placeholder={getTranslation("57")}
           value={searched}
-          onChange={(e) => setSearched(e.target.value)}
+          onchange={(e) => setSearched(e.target.value)}
         />
         <Wrapper>
           <Select onClick={() => setOpen(!open)}>
             <span>
               {property.industry
-                ? getFieldTranslationByNames("475")
+                ? getTranslation("475")
                 : property.education
-                  ? getFieldTranslationByNames("476")
-                  : getFieldTranslationByNames("477")}
+                  ? getTranslation("476")
+                  : getTranslation("477")}
             </span>
             <MdKeyboardArrowDown
               style={{
@@ -401,7 +341,7 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>{getFieldTranslationByNames("475")}</h1>
+                <h1>{getTranslation("475")}</h1>
                 {property.industry && (
                   <span
                     onClick={(e) => {
@@ -422,7 +362,7 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>{getFieldTranslationByNames("476")}</h1>
+                <h1>{getTranslation("476")}</h1>
                 {property.education && (
                   <span
                     onClick={(e) => {
@@ -443,7 +383,7 @@ const Houses = () => {
                   setOpen(false);
                 }}
               >
-                <h1>{getFieldTranslationByNames("477")}</h1>
+                <h1>{getTranslation("477")}</h1>
                 {property.house && (
                   <span
                     onClick={(e) => {
@@ -470,16 +410,22 @@ const Houses = () => {
           />
         ))}
       </List>
-      
+
       {loading && features.length > 0 && (
         <div style={{ marginTop: "10px" }}>
           {Array.from({ length: 3 }).map((_, index) => (
             <SkeletonCard key={index}>
               <Skeleton width="80px" height="80px" radius="4px" />
-              <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                }}
+              >
                 <Skeleton width="60%" height="18px" radius="4px" />
                 <Skeleton width="40%" height="14px" radius="4px" />
-                
               </div>
             </SkeletonCard>
           ))}

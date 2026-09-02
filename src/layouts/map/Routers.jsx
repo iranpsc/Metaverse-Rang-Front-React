@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes, Navigate } from "react-router-dom";
+import { Outlet, Route, Routes, Navigate } from "react-router";
 
 import Search from "../../pages/Search";
 import PrivateRoute from "../../routes/PrivateRoute";
@@ -24,7 +24,7 @@ import VodListTab from "../../pages/Sanad/Tabs/VodListTab";
 import ReceivedList from "../../pages/Sanad/Tabs/receive/ReceivedList";
 import SentList from "../../pages/Sanad/Tabs/sent/SentList";
 import NotesListTab from "../../pages/Sanad/Tabs/notes/NotesListTab";
-
+import Challenge from "../../pages/Challenges/Challenge";
 import DynastyTab from "../../pages/Profile/Tabs/dynasty/DynastyTab";
 import PropertyTab from "../../pages/Profile/Tabs/property-tab/PropertyTab";
 import TotalTab from "../../pages/Profile/Tabs/total-tab/TotalTab";
@@ -59,7 +59,11 @@ import { ReportStateProvider } from "../../pages/Report/reports/GlobalReportStat
 import { GlobalVodStateProvider } from "../../pages/Sanad/Tabs/GlobalVodStateProvider";
 import { GlobalNoteStateProvider } from "../../pages/Sanad/Tabs/GlobalNoteStateProvider";
 import MainLayout from "../MainLayout";
+import { useContext } from "react";
+import { UserContext } from "../../services/reducers/UserContext";
+
 export default function Routers() {
+  const [user] = useContext(UserContext);
   return (
     <Routes>
       <Route path="" element={<MainLayout />}>
@@ -144,14 +148,17 @@ export default function Routers() {
           <Route path="security" element={<SecurityTab />} />
           <Route path="about" element={<AboutMeTab />} />
         </Route>
-        <Route
-          path="confirmation"
-          element={
-            <PrivateRoute>
-              <AccountSecurityModal />
-            </PrivateRoute>
-          }
-        />
+        {!user?.wallet_login && (
+          <Route
+            path="confirmation"
+            element={
+              <PrivateRoute>
+                <AccountSecurityModal />
+              </PrivateRoute>
+            }
+          />
+        )}
+
         <Route
           path="connectWallet"
           element={
@@ -160,7 +167,14 @@ export default function Routers() {
             </PrivateRoute>
           }
         />
-
+        <Route
+          path="challenges"
+          element={
+            <PrivateRoute>
+              <Challenge />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="search"
           element={
@@ -274,6 +288,7 @@ export default function Routers() {
 
           <Route path="signup" element={<SignupLottie />} />
         </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );

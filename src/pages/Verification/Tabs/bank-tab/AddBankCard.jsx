@@ -9,7 +9,7 @@ import {
   verifyCardNumber,
 } from "@persian-tools/persian-tools";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
   ToastSuccess,
 } from "../../../../services/Utility";
@@ -134,11 +134,11 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
         {" "}
         <Header>
           <ExitIcon onClick={() => setOpenAddModal(false)}></ExitIcon>
-          <Title>{getFieldTranslationByNames("890")}</Title>
+          <Title>{getTranslation("890")}</Title>
         </Header>
         <Inputs>
           <EditInput
-            title={getFieldTranslationByNames("636")}
+            title={getTranslation("636")}
             type="number"
             maxLength={16}
             value={cardInfo.card_num}
@@ -150,7 +150,7 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
             }}
           />
           <EditInput
-            title={getFieldTranslationByNames("889")}
+            title={getTranslation("889")}
             type="number"
             maxLength={24}
             value={cardInfo.shaba_num}
@@ -164,7 +164,7 @@ const AddBankCard = ({ setOpenAddModal, setCards }) => {
           />
         </Inputs>
         {errors.length > 0 && <ErrorMessage>{errors[0]}</ErrorMessage>}
-        <Button onClick={addCard}> {getFieldTranslationByNames("890")}</Button>
+        <Button onClick={addCard}> {getTranslation("890")}</Button>
       </Modal>
     </BackGround>
   );

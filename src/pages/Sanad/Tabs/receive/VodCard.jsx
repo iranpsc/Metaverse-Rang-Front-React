@@ -5,9 +5,9 @@ import styled from "styled-components";
 import whatsapp from "../../../../assets/images/whatsapp.png";
 import Button from "../../../../components/Button";
 import Title from "../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
-
+import { ToastError, ToastSuccess } from "../../../../services/Utility";
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 10px;
@@ -74,7 +74,6 @@ const Label = styled.h3`
 `;
 
 const Subject = styled.div`
-
   h2 {
     font-size: 16px;
     font-weight: 500;
@@ -86,11 +85,11 @@ const Status = styled.div`
     font-size: 16px;
     font-weight: 400;
     color: ${(props) =>
-      props.status === "confirmed"
+      props.status === 1
         ? "#18C08F"
-        : props.status === "pending"
-        ? "#FFC700"
-        : "#A0A0AB"};
+        : props.status === 0
+          ? "#FFC700"
+          : "#A0A0AB"};
   }
 `;
 const Date = styled.div`
@@ -106,15 +105,20 @@ const socials = [
   { id: 3, icon: insta },
   { id: 4, icon: send },
 ];
-const VodCard = ({ data }) => {
+const VodCard = ({ data, setData, setShowDetails }) => {
   const { Request } = useRequest();
   const onCloseTicket = () => {
     Request(`tickets/close/${data.id}`)
       .then(() => {
+        ToastSuccess("سند شما با موفقیت بسته شد ");
+        setData((prev) => ({
+          ...prev,
+          status: 5,
+        }));
         setShowDetails(false);
       })
       .catch((error) => {
-        ToastError(error.response.data.message);
+        ToastError(error.response?.data?.error);
       });
   };
 
@@ -126,7 +130,7 @@ const VodCard = ({ data }) => {
           <p>#{data.code}</p>
         </Texts>
         <Socials>
-          <h3>{getFieldTranslationByNames("1348")}</h3>
+          <h3>{getTranslation("1348")}</h3>
           <div>
             {socials.map((item) => (
               <img
@@ -142,21 +146,21 @@ const VodCard = ({ data }) => {
       </Info>
       <Content>
         <Subject>
-          <Label>{getFieldTranslationByNames("1340")}</Label>
+          <Label>{getTranslation("1340")}</Label>
           <h2>{data.sender.name}</h2>
         </Subject>
         <Status status={data?.status}>
-          <Label>{getFieldTranslationByNames("1341")}</Label>
+          <Label>{getTranslation("1341")}</Label>
           <h2>
-            {data?.status === "confirmed"
-              ? getFieldTranslationByNames("1343")
-              : data?.status === "pending"
-              ? getFieldTranslationByNames("1344")
-              : getFieldTranslationByNames("1345")}
+            {data?.status === 1
+              ? getTranslation("1343")
+              : data?.status === 0
+                ? getTranslation("1344")
+                : getTranslation("1345")}
           </h2>
         </Status>
         <Date>
-          <Label>{getFieldTranslationByNames("64")}</Label>
+          <Label>{getTranslation("64")}</Label>
           <h2>
             {data?.date} | {data?.time}
           </h2>
@@ -164,15 +168,15 @@ const VodCard = ({ data }) => {
         <Buttons>
           <Button
             fit
-            onclick={() => onCloseTicket()}
+            // onclick={() => onCloseTicket()}
             grayTheme
-            label={getFieldTranslationByNames("1350")}
+            label={getTranslation("1350")}
           />
           <Button
             fit
             onclick={() => onCloseTicket()}
             grayTheme
-            label={getFieldTranslationByNames("1349")}
+            label={getTranslation("1349")}
           />
         </Buttons>
       </Content>

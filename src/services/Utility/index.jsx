@@ -2,6 +2,8 @@ import moment from "jalali-moment";
 import { toast } from "react-hot-toast";
 import i18n from "../../i18n/i18n";
 import DOMPurify from "dompurify";
+import { toGregorian } from "jalaali-js";
+
 export const SanitizeHTML = (html) => {
   if (!html) return "";
 
@@ -76,9 +78,24 @@ export function TextShorter(content, endStr = 20) {
 
   return SanitizeHTML(content);
 }
-
 export function ConvertJalali(date) {
-  return new Date(date).toLocaleString("fa-IR").replace("،", " ");
+  const isPersian = i18n.language === "fa";
+
+  const isJalali = /^\d{4}\/\d{1,2}\/\d{1,2}/.test(date);
+
+  let parsedDate;
+
+  if (isJalali) {
+    const [year, month, day] = date.split("/").map(Number);
+
+    const gregorian = toGregorian(year, month, day);
+
+    parsedDate = new Date(gregorian.gy, gregorian.gm - 1, gregorian.gd);
+  } else {
+    parsedDate = new Date(date);
+  }
+
+  return parsedDate.toLocaleDateString(isPersian ? "fa-IR" : "en-US");
 }
 export function TimeAgo(time) {
   if (typeof time !== "string") return 0;
@@ -97,6 +114,23 @@ export function EmailValidator(email) {
 }
 // این تابع برای فرمت اعداد اعشاری هست و فقط در صورتی که اعداد اعشار داشته باشد باشند
 // اعشار ان نمایش داده میشود در غیر این صورت اعداد بدون اعشار نمایش داده میشوند
+  export const normalizeDecimalInput = (value) => {
+    if (value === "") return "";
+
+    const normalized = value
+      .replace(/[٫]/g, ".")
+      .replace(/[۰-۹]/g, (digit) => {
+        const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+        return String(persianDigits.indexOf(digit));
+      })
+      .replace(/[^0-9.]/g, "");
+
+    if (!normalized.includes(".")) return normalized;
+
+    const [wholePart, ...decimalParts] = normalized.split(".");
+    const cleanDecimal = decimalParts.join("").replace(/\./g, "");
+    return `${wholePart || "0"}.${cleanDecimal}`;
+  };
 
 export const formatNumber = (value, decimals = 2) => {
   const num = Number(value);
@@ -110,35 +144,19 @@ export const calculateFee = (number = 100, percent = 5) => {
   const parseNumber = parseInt(number);
   return (parseNumber * percent) / 100 + parseNumber;
 };
-export const convertPersianNumbersToEnglish = (text) => {
-  const persianToEnglishMap = {
-    "۰": "0",
-    "۱": "1",
-    "۲": "2",
-    "۳": "3",
-    "۴": "4",
-    "۵": "5",
-    "۶": "6",
-    "۷": "7",
-    "۸": "8",
-    "۹": "9",
-  };
-
-  return text.replace(/[۰۱۲۳۴۵۶۷۸۹]/g, (match) => persianToEnglishMap[match]);
-};
 
 export const persianNumbers = [
-    /۰/g,
-    /۱/g,
-    /۲/g,
-    /۳/g,
-    /۴/g,
-    /۵/g,
-    /۶/g,
-    /۷/g,
-    /۸/g,
-    /۹/g,
-  ],
+  /۰/g,
+  /۱/g,
+  /۲/g,
+  /۳/g,
+  /۴/g,
+  /۵/g,
+  /۶/g,
+  /۷/g,
+  /۸/g,
+  /۹/g,
+],
   arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
   fixNumbers = function (str) {
     if (typeof str === "string") {
@@ -148,25 +166,19 @@ export const persianNumbers = [
     }
     return str;
   };
-export const convertToPersian = (value, isPersian = true) => {
-  if (value === null || value === undefined) return "";
+export const convertToPersian = (value) => {
+  if (value == null) return "";
 
-  // اگر مقدار number باشه، تبدیل به string
-  let str = typeof value === "number" ? String(value) : String(value);
+  const str = String(value);
+
+  const isPersian = i18n.language === "fa";
 
   const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
   const englishDigits = "0123456789";
 
-  if (isPersian) {
-    // تبدیل انگلیسی → فارسی
-    return str.replace(/\d/g, (d) => persianDigits[d]);
-  } else {
-    // تبدیل فارسی → انگلیسی
-    return str.replace(
-      /[۰-۹]/g,
-      (d) => englishDigits[persianDigits.indexOf(d)],
-    );
-  }
+  return isPersian
+    ? str.replace(/\d/g, (d) => persianDigits[d])
+    : str.replace(/[۰-۹]/g, (d) => englishDigits[persianDigits.indexOf(d)]);
 };
 
 export const ToastError = (message) => {
@@ -218,90 +230,112 @@ export const formatAmount = (value) => {
   return format(num);
 };
 
-export const getFieldTranslationByNames = (fieldId) => {
+export const metarangUrl = (path = "") =>
+  `https://metarang.com/${i18n.language}/${path}`;
+
+export const metarangUrlCitizen = (path = "") =>
+  `https://metarang.com/${i18n.language}/citizens/${path}`;
+
+export const truncateText = (text, maxLength = 20) => {
+  if (!text) return "";
+
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  return `${text.slice(0, maxLength)}...`;
+};
+export const getTranslation = (fieldId) => {
   const resources = i18n.store.data;
-  if (
-    !resources ||
-    !resources[i18n.language] ||
-    !resources[i18n.language].translation
-  ) {
+  const currentLanguage = i18n.language || "fa";
+  const translationData =
+    resources?.[currentLanguage]?.translation ??
+    resources?.[currentLanguage] ??
+    {};
+
+  if (!translationData || Object.keys(translationData).length === 0) {
     return "Translation not found";
   }
 
-  const modals = resources[i18n.language].translation.modals;
+  if (translationData.modals) {
+    const modals = translationData.modals;
 
-  for (const modal of modals) {
-    for (const tab of modal.tabs || []) {
-      const field = tab.fields?.find((field) => field.unique_id == fieldId);
-      if (field?.translation) {
-        return field.translation;
+    for (const modal of modals) {
+      for (const tab of modal.tabs || []) {
+        const field = tab.fields?.find((field) => field.unique_id == fieldId);
+        if (field?.translation) {
+          return field.translation;
+        }
       }
     }
   }
 
-  return `Translation for ID '${fieldId} not found`;
+  const normalizedId = String(fieldId);
+  const directValue = translationData[normalizedId] ?? translationData[fieldId];
+
+  if (typeof directValue === "string" && directValue.trim()) {
+    return directValue;
+  }
+
+  if (typeof directValue === "number" || typeof directValue === "boolean") {
+    return String(directValue);
+  }
+
+  if (translationData.translation && typeof translationData.translation === "object") {
+    const nestedDirectValue =
+      translationData.translation[normalizedId] ??
+      translationData.translation[fieldId];
+
+    if (typeof nestedDirectValue === "string" && nestedDirectValue.trim()) {
+      return nestedDirectValue;
+    }
+  }
+
+  return `Translation '${fieldId}' not found`;
 };
-
-export const getFieldsByTabName = (modalName, tabName) => {
+//getFieldsByTabName(112, 120)
+// => ["متن 112" تا "متن 120"]
+export const getFieldsByTabName = (firstParam, secondParam) => {
   const resources = i18n.store.data;
+  const currentLanguage = i18n.language || "fa";
 
-  const modal = resources[i18n.language].translation.modals.find(
-    (modal) => modal.name === modalName,
-  );
+  const translationData =
+    resources?.[currentLanguage]?.translation ??
+    resources?.[currentLanguage] ??
+    {};
 
-  if (!modal) {
+  const firstId = Number(firstParam);
+  const secondId = Number(secondParam);
+
+  if (
+    Number.isNaN(firstId) ||
+    Number.isNaN(secondId) ||
+    firstParam === undefined ||
+    secondParam === undefined
+  ) {
     return [];
   }
 
-  const tab = modal.tabs.find((tab) => tab.name === tabName);
+  const minId = Math.min(firstId, secondId);
+  const maxId = Math.max(firstId, secondId);
 
-  if (!tab) {
-    return [];
-  }
+  return Object.entries(translationData)
+    .filter(([key]) => {
+      const id = Number(key);
 
-  return tab.fields;
+      return (
+        !Number.isNaN(id) &&
+        id >= minId &&
+        id <= maxId
+      );
+    })
+    .map(([key, value]) => ({
+      unique_id: Number(key),
+      translation: value,
+    }));
 };
 
-export const getFieldsByTabNameReverse = (modalName, tabName) => {
-  const resources = i18n.store.data;
-  const currentLang = i18n.language;
-  const oppositeLang = currentLang === "fa" ? "en" : "fa";
 
-  const modalCurrent = resources[currentLang]?.translation?.modals?.find(
-    (modal) => modal.name === modalName,
-  );
-  const tabCurrent = modalCurrent?.tabs?.find((tab) => tab.name === tabName);
-
-  const modalOpposite = resources[oppositeLang]?.translation?.modals?.find(
-    (modal) => modal.name === modalName,
-  );
-  const tabOpposite = modalOpposite?.tabs?.find((tab) => tab.name === tabName);
-
-  if (!tabCurrent || !tabOpposite) return [];
-
-  return tabCurrent.fields.map((field) => {
-    const oppositeField = tabOpposite.fields.find(
-      (f) => f.unique_id === field.unique_id,
-    );
-
-    return {
-      ...field,
-      translation: oppositeField?.translation || field.translation,
-    };
-  });
-};
-
-export function convertEnglishToPersianNumbers(inputText) {
-  const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-
-  for (let i = 0; i < 10; i++) {
-    const regex = new RegExp(englishNumbers[i], "g");
-    inputText = inputText.replace(regex, persianNumbers[i]);
-  }
-
-  return inputText;
-}
 export const isMobile =
   "ontouchstart" in window || navigator.maxTouchPoints > 0;
 export const getBrowser = async () => {
@@ -328,4 +362,14 @@ export const getBrowser = async () => {
   }
 
   return "Unknown";
+};
+// عدد میگیرد به صورت ساعت دقیقه و ثانیه ریترن میکند
+export const formatTime = (time) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+
+  const formattedMinutes = String(minutes).padStart(2, "۰");
+  const formattedSeconds = String(seconds).padStart(2, "۰");
+
+  return `${formattedMinutes}:${formattedSeconds}`;
 };

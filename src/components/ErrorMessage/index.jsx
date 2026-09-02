@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import shortid from "shortid";
 import styled from "styled-components";
 

@@ -3,7 +3,7 @@ import DefaultProfile from "../../../../assets/images/defulte-profile.png";
 import styled from "styled-components";
 import { useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation, metarangUrlCitizen } from "../../../../services/Utility";
 
 const Button = styled.div`
   font-size: 16px;
@@ -135,7 +135,7 @@ const Follower = ({
   setFollowers,
   name,
   code,
-  profile_photos,
+  profile_photo,
   online,
   canFollow,
 }) => {
@@ -162,7 +162,7 @@ const Follower = ({
         <Image>
           <Status online={online} />
           <img
-            src={profile_photos||DefaultProfile}
+            src={profile_photo || DefaultProfile}
             alt="member"
             width={80}
             height={80}
@@ -173,7 +173,7 @@ const Follower = ({
         </Image>{" "}
         <div>
           <h3>{name}</h3>
-          <a href={`https://metarang.com/fa/citizens/${code}`} target="_blank" rel="noreferrer">
+          <a href={metarangUrlCitizen(code)} target="_blank" rel="noreferrer">
             {code}
           </a>
         </div>
@@ -184,15 +184,15 @@ const Follower = ({
             <span>
               <TiUserAddOutline />
             </span>
-            <h3> {getFieldTranslationByNames("55")}</h3>
+            <h3> {getTranslation("55")}</h3>
           </Container>
         ) : (
           <Button onClick={unFollowHandler} gray>
-            {getFieldTranslationByNames("737")}
+            {getTranslation("737")}
           </Button>
         )}
         <Button onClick={deleteHandler}>
-          {getFieldTranslationByNames("738")}
+          {getTranslation("738")}
         </Button>
       </Buttons>
     </Card>

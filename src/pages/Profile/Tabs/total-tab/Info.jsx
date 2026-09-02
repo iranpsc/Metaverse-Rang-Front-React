@@ -1,4 +1,3 @@
-// Info.js
 import { BiCommentDots } from "react-icons/bi";
 import { LuShare2 } from "react-icons/lu";
 import ShareModal from "./ShareModal";
@@ -8,9 +7,12 @@ import { useContext, useEffect, useState } from "react";
 import ButtonIcon from "../../../../components/ButtonIcon";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
-import { useParams } from "react-router-dom";
-import { convertToPersian } from "../../../../services/Utility";
+import {
+  getTranslation,
+  metarangUrlCitizen,
+} from "../../../../services/Utility";
+import { useParams } from "react-router";
+import { convertToPersian, ConvertJalali } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
@@ -93,7 +95,6 @@ const Upper = styled.div`
 const Info = () => {
   const [openShare, setOpenShare] = useState(false);
   const [userId] = useContext(UserContext);
-//console.log(userId)
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
@@ -120,7 +121,12 @@ const Info = () => {
       <Container>
         <Header>
           <div>
-            <Skeleton width="120px" height="24px" radius="8px" style={{ marginBottom: "8px" }} />
+            <Skeleton
+              width="120px"
+              height="24px"
+              radius="8px"
+              style={{ marginBottom: "8px" }}
+            />
             <Skeleton width="100px" height="16px" radius="4px" />
           </div>
           <Skeleton width="100px" height="16px" radius="4px" />
@@ -128,23 +134,38 @@ const Info = () => {
         <Content>
           <Follow>
             <Skeleton width="40px" height="24px" radius="4px" />
-            <Skeleton width="50px" height="12px" radius="4px" style={{ marginTop: "5px" }} />
+            <Skeleton
+              width="50px"
+              height="12px"
+              radius="4px"
+              style={{ marginTop: "5px" }}
+            />
           </Follow>
-          <div style={{ height: "55px", width: "1px", backgroundColor: "#454545" }} />
+          <div
+            style={{ height: "55px", width: "1px", backgroundColor: "#454545" }}
+          />
           <Follow>
             <Skeleton width="40px" height="24px" radius="4px" />
-            <Skeleton width="50px" height="12px" radius="4px" style={{ marginTop: "5px" }} />
+            <Skeleton
+              width="50px"
+              height="12px"
+              radius="4px"
+              style={{ marginTop: "5px" }}
+            />
           </Follow>
         </Content>
         <Buttons>
           <Upper>
-            {id && (
-              <Skeleton width="100%" height="40px" radius="8px" />
-            )}
+            {id && <Skeleton width="100%" height="40px" radius="8px" />}
             <Skeleton width="100%" height="40px" radius="8px" />
           </Upper>
           {id && (
-            <Skeleton width="100%" height="40px" radius="8px" style={{ marginTop: "10px" }} />
+            <Skeleton
+              width="100%"
+              height="40px"
+              radius="8px"
+              style={{ marginTop: "10px" }}
+            />
           )}
         </Buttons>
       </Container>
@@ -156,29 +177,25 @@ const Info = () => {
       <Header>
         <div>
           <Title>{user?.name}</Title>
-          <Code
-            href={`https://metarang.com/fa/citizens/${user?.code}`}
-            target="_blank"
-          >
+          <Code href={metarangUrlCitizen(user?.code)} target="_blank">
             {user?.code}
           </Code>
         </div>
         <span>
-          {getFieldTranslationByNames("53")}{" "}
-          {convertToPersian(user?.registered_at)}
+          {getTranslation("53")} {ConvertJalali(user?.registered_at)}
         </span>
       </Header>
       <Content>
         <Follow>
           <Count>{convertToPersian(user?.followers_count)}</Count>
-          <span>{getFieldTranslationByNames("38")}</span>
+          <span>{getTranslation("38")}</span>
         </Follow>
         <div
           style={{ height: "55px", width: "1px", backgroundColor: "#454545" }}
         />
         <Follow>
           <Count>{convertToPersian(user?.following_count)}</Count>
-          <span>{getFieldTranslationByNames("55")}</span>
+          <span>{getTranslation("55")}</span>
         </Follow>
       </Content>
       <Buttons>
@@ -189,13 +206,13 @@ const Info = () => {
               icon={<TiUserAddOutline />}
               label="دنبال کردن"
               fill
-              onclick={() => {}}
+              onclick={() => { }}
             />
           )}
           <ButtonIcon
             grow
             icon={<LuShare2 />}
-            label={getFieldTranslationByNames("734")}
+            label={getTranslation("734")}
             onclick={() => setOpenShare(true)}
           />
         </Upper>
@@ -204,7 +221,7 @@ const Info = () => {
             grow
             icon={<BiCommentDots />}
             label="پیام دادن"
-            onclick={() => {}}
+            onclick={() => { }}
           />
         )}
       </Buttons>

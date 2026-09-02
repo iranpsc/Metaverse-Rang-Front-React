@@ -5,7 +5,7 @@ import NoteDetails from "./NoteDetails";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const TableRow = styled.tr`
   background-color: transparent;
@@ -96,7 +96,7 @@ const Row = ({ id, title }) => {
               <FiTrash2 size={20} />
             </div>
             <Button
-              label={getFieldTranslationByNames("147")}
+              label={getTranslation("147")}
               grayTheme
               onclick={onClickHandler}
             />

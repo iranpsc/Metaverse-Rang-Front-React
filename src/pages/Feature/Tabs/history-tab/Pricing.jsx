@@ -1,17 +1,24 @@
 import psc from "../../../../assets/gif/psc.gif";
 import rial from "../../../../assets/gif/rial.gif";
+import blue from "../../../../assets/gif/blue-color.gif";
+import red from "../../../../assets/gif/red-color.gif";
+import yellow from "../../../../assets/gif/yellow-color.gif";
+
 import styled from "styled-components";
-import { convertToPersian } from "../../../../services/Utility";
+import { convertToPersian, getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   span {
-    color: #dedee9;
+    color: ${({ theme }) => theme.colors.newColors.shades.title};
     font-size: 14px;
   }
-  @media (min-width: 998px) {
-    font-size: 16px;
+  @media (max-width: 998px) {
+    font-size: 14px;
+    span {
+      font-size: 12px;
+    }
   }
 `;
 const Title = styled.div`
@@ -20,28 +27,38 @@ const Title = styled.div`
   gap: 10px;
   h3 {
     color: #a0a0ab;
-    font-size: 12px;
+    font-size: 14px;
+
     font-weight: 500;
   }
-  @media (min-width: 998px) {
+  @media (max-width: 998px) {
     h3 {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 `;
-const Pricing = ({ type }) => {
+const Pricing = ({ type, amount, color, index }) => {
+  const colorImages = {
+    red,
+    blue,
+    yellow,
+  };
+  const icons = {
+    rial,
+    psc,
+    color: colorImages[color],
+  };
   return (
     <Container>
       <Title>
-        <h3>قیمت گذاری</h3>
-        <img
-          src={type === "rial" ? rial : psc}
-          alt="pricing"
-          width={18}
-          height={18}
-        />
+        <h3>{getTranslation(770)} </h3>
+        {!(index === 2 && amount === 0) && (
+          <img src={icons[type]} alt={type} width={18} height={18} />
+        )}
       </Title>
-      <span>{convertToPersian(0)}</span>
+      <span>
+        {amount === 0 && index === 2 ? "هدیه" : convertToPersian(amount)}
+      </span>
     </Container>
   );
 };

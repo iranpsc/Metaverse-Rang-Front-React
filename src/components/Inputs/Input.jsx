@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import  Show  from "../../assets/svg/passShowIcon.svg?react";
-import  Hidden  from "../../assets/svg/passIcon.svg?react";
+import Show from "../../assets/svg/passShowIcon.svg?react";
+import Hidden from "../../assets/svg/passIcon.svg?react";
 const Label = styled.label`
   color: ${(props) => props.theme.colors.primary};
   position: absolute;
@@ -27,9 +27,9 @@ const InputField = styled.input`
       : props.theme.inputBgColor};
   border: 1px solid
     ${(props) =>
-      props.validation
-        ? props.theme.inputBorderError
-        : props.theme.inputBorder};
+    props.validation
+      ? props.theme.inputBorderError
+      : props.theme.inputBorder};
   outline: none;
 
   font-size: 16px;
@@ -50,7 +50,7 @@ const Container = styled.div`
 
   & svg {
     position: absolute;
-    ${(props) => (document.body.dir === "ltr" ? "right: 12px;" : "left: 12px;")}
+    ${() => (document.body.dir === "ltr" ? "right: 12px;" : "left: 12px;")}
     top: 29%;
   }
 

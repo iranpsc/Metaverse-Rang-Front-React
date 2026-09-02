@@ -1,7 +1,7 @@
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
-import { useNavigate } from "react-router-dom";
+import { getTranslation } from "../../../../../services/Utility";
+import { useNavigate } from "react-router";
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -49,7 +49,7 @@ const KeyValue = styled.div`
 `;
 
 const Details = ({ data }) => {
-  const Navigate = useNavigate();
+  const navigation = useNavigate();
   if (!data?.["dynasty-feature"]) {
     return null;
   }
@@ -67,21 +67,22 @@ const Details = ({ data }) => {
   const renderKeyValue = (labelId, value, icon = false) => (
     <KeyValue>
       <h3 style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-        {getFieldTranslationByNames(labelId)}
+        {getTranslation(labelId)}
         {icon && <AiOutlineExclamationCircle />}
       </h3>
       <span>{value}</span>
     </KeyValue>
   );
-
   return (
     <Container>
       <Header>
-        <h3>{getFieldTranslationByNames(813)}</h3>
+        <h3>{getTranslation(813)}</h3>
         <span
           onClick={() =>
-            Navigate(`/feature/${id}`, {
-              state: { activePageNumber: 1, activeTabNavigate: 3 },
+            navigation(`/feature/${id}/info`, {
+              state: {
+                from: location.pathname,
+              },
             })
           }
         >

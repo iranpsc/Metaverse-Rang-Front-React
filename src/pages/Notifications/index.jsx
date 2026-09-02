@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useRequest from "../../services/Hooks/useRequest";
 import ModalSm from "../../components/Modal/ModalSm";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import NoNotification from "./NoNotification";
 import { Skeleton } from "../../components/Skeleton";
 
@@ -72,7 +72,7 @@ const Notifications = () => {
   return (
     <ModalSm title={"238"}>
       <Container>
-        <h4 onClick={handleDelete}>{getFieldTranslationByNames("866")}</h4>
+        <h4 onClick={handleDelete}>{getTranslation("866")}</h4>
         <Div>
           {loading ? (
             // اسکلتون برای 3 کارت

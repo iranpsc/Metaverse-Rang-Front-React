@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Title from "../../../../../components/Title";
 import SearchInput from "../../../../../components/SearchInput";
 import useRequest from "../../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 import CustomDatePicker from "../../../../../components/CustomDatePicker";
 import useDateFilter from "../../../../../services/Hooks/useDateFilter";
 import Container from "../../../../../components/Common/Container";
@@ -91,28 +91,27 @@ const RequestList = ({
         !member.sister &&
         !member.father &&
         !member.mother) ||
-      (member.child && row.member_slug === "child") ||
-      (member.wife && row.member_slug === "wife") ||
-      (member.brother && row.member_slug === "brother") ||
-      (member.sister && row.member_slug === "sister") ||
-      (member.father && row.member_slug === "father") ||
-      (member.mother && row.member_slug === "mother");
+      (member.child && row.member_slug === "فرزند") ||
+      (member.wife && row.member_slug === "همسر") ||
+      (member.brother && row.member_slug === "برادر") ||
+      (member.sister && row.member_slug === "خواهر") ||
+      (member.father && row.member_slug === "پدر") ||
+      (member.mother && row.member_slug === "مادر");
 
     const dateMatch = filterByDate(row);
 
     return codeMatch && statusMatch && memberMatch && dateMatch;
   });
-
   return (
     <Container>
       <Div>
-        <Title title={getFieldTranslationByNames(title)} />
+        <Title title={getTranslation(title)} />
       </Div>
       <Div>
         <SearchInput
           onchange={(e) => setSearched(e.target.value)}
           value={searched}
-          placeholder={getFieldTranslationByNames(849)}
+          placeholder={getTranslation(849)}
         />
         <CustomDatePicker
           value={dateRange}

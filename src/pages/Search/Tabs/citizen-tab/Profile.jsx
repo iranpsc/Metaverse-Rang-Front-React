@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import DefaultProfile from "../../../../assets/images/defulte-profile.png";
+import { metarangUrlCitizen } from "../../../../services/Utility";
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -35,8 +36,9 @@ const Profile = ({ user }) => {
       <Info>
         <h2>{user?.name}</h2>
         <a
-          href={`https://metarang.com/fa/citizens/${user?.code.toLowerCase()}`}
-          target="_blank" rel="noreferrer"
+          href={metarangUrlCitizen(user?.code.toLowerCase())}
+          target="_blank"
+          rel="noreferrer"
         >
           {user.code}
         </a>

@@ -5,7 +5,7 @@ import SendFiles from "./SendFiles";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { SanitizeHTML } from "../../../../services/Utility";
 const Container = styled.div`
   background-color: ${(props) =>
@@ -35,7 +35,7 @@ const VodReply = ({ setData, responseId }) => {
     Request(`tickets/response/${responseId}`, HTTP_METHOD.POST, formData, {
       "Content-Type": "multipart/form-data",
     })
-      .then((res) => {
+      .then(() => {
         const newResponse = {
           response: cleanMessage,
           attachment: files[0]?.file,
@@ -74,7 +74,7 @@ const VodReply = ({ setData, responseId }) => {
 
       <Button
         fit
-        label={getFieldTranslationByNames("1352")}
+        label={getTranslation("1352")}
         onclick={handleSendReply}
       />
     </Container>

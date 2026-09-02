@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router";
 import useRequest from "../../../../services/Hooks/useRequest";
 import DynastyEstablish from "./dynasty-establish/DynastyEstablish";
 import DynastyEstate from "./dynasty-estate/DynastyEstate";
@@ -41,7 +41,8 @@ const SkeletonTableRow = styled.div`
   gap: 10px;
   align-items: center;
   padding: 15px 0;
-  border-bottom: 1px solid ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
+  border-bottom: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
 `;
 
 const SkeletonTitle = styled.div`
@@ -60,7 +61,6 @@ const DynastyEstablishEstate = () => {
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchMembers = async () => {
       try {
@@ -109,7 +109,6 @@ const DynastyEstablishEstate = () => {
           </SkeletonTitle>
           <SkeletonBadge>
             <Skeleton width="150px" height="25px" radius="20px" />
-           
           </SkeletonBadge>
           <Skeleton width="100%" height="60px" radius="8px" />
         </SkeletonHeader>
@@ -129,7 +128,7 @@ const DynastyEstablishEstate = () => {
           {/* ردیف‌های اسکلتون */}
           {Array.from({ length: 4 }).map((_, index) => (
             <SkeletonTableRow key={index}>
-              <Skeleton width="50px" height="14px" radius="4حط" />
+              <Skeleton width="50px" height="14px" radius="4px" />
               <Skeleton width="100px" height="14px" radius="4px" />
               <Skeleton width="60px" height="14px" radius="4px" />
               <Skeleton width="60px" height="14px" radius="4px" />

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../services/Utility";
 
 const Item = styled.div`
@@ -75,7 +75,7 @@ const Input = ({ id, icon, title, value, options, long, smallValue }) => {
       </InfoIcon>
       <Value smallValue={smallValue}>
         {id === 1 || id === 2 ? convertToPersian(+value) : value}
-        {id === 4 && getFieldTranslationByNames(options[0])}
+        {id === 4 && getTranslation(options[0])}
       </Value>
     </Item>
   );

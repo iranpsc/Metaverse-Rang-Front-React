@@ -1,7 +1,7 @@
 import { HiOutlineTrash } from "react-icons/hi";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -89,7 +89,7 @@ const UploadWrapper = styled.div`
   }
 `;
 
-const UploadCards = ({ setImageError, setNationImageURL }) => {
+const UploadCards = ({ setNationImageURL }) => {
   const [nationImage, setNationImage] = useState(null);
   const [imageError, setImageErrorState] = useState(false); // State for image upload error
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -128,7 +128,7 @@ const UploadCards = ({ setImageError, setNationImageURL }) => {
   return (
     <Container>
       <NationCard>
-        <Title>{getFieldTranslationByNames("878")}</Title>
+        <Title>{getTranslation("878")}</Title>
         <UploadWrapper hasError={imageError}>
           {!nationImage && (
             <Upload>

@@ -9,8 +9,8 @@ import ErrorModal from "../ErrorModal";
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
-  convertPersianNumbersToEnglish,
-  getFieldTranslationByNames,
+  convertToPersian,
+  getTranslation,
   ToastError,
 } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
@@ -145,7 +145,7 @@ const IdentityInputs = ({
     requestData.append("province", inputValues.province);
     requestData.append(
       "birthdate",
-      convertPersianNumbersToEnglish(inputValues.birthdate)
+      convertToPersian(inputValues.birthdate)
     );
     requestData.append("melli_card", nationImageURL);
     requestData.append("video[name]", JSON.parse(uploadResponse).name);
@@ -183,13 +183,13 @@ const IdentityInputs = ({
         {errors.length > 0 && (
           <Alert
             onclick={() => setOpenErrorModal(true)}
-            buttonText={getFieldTranslationByNames("882")}
-            text={getFieldTranslationByNames("882")}
-            info={getFieldTranslationByNames("880")}
+            buttonText={getTranslation("882")}
+            text={getTranslation("882")}
+            info={getTranslation("880")}
             type="error"
           />
         )}
-        <Title title={getFieldTranslationByNames("869")} />
+        <Title title={getTranslation("869")} />
         <Inputs
           identityError={identityError}
           data={data}
@@ -209,7 +209,7 @@ const IdentityInputs = ({
         />
         <Button
           large
-          label={getFieldTranslationByNames("877")}
+          label={getTranslation("877")}
           onclick={sendHandler}
           disabled={isDisabled ? true : isSending ? "pending" : false}
         />

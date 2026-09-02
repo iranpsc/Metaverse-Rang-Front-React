@@ -1,17 +1,17 @@
 import Modal from "../../components/Modal";
 import Tabs from "../../services/Hooks/useTabs";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 
 export default function Report() {
   const tabs = [
     {
       path: "send",
-      title: getFieldTranslationByNames("1386"),
+      title: getTranslation("1386"),
     },
     {
       path: "list",
 
-      title: getFieldTranslationByNames("22"),
+      title: getTranslation("22"),
     },
   ];
 

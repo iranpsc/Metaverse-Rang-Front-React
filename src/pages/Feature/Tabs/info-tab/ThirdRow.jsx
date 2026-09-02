@@ -1,6 +1,6 @@
 import { GrLocation } from "react-icons/gr";
 import TextValueIcon from "../../../../components/TextValueIcon";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const ThirdRow = ({ feature }) => {
   // Function to reverse the order of address components
@@ -19,7 +19,7 @@ const ThirdRow = ({ feature }) => {
 
   return (
     <TextValueIcon
-      title={getFieldTranslationByNames("59")}
+      title={getTranslation("59")}
       value={reversedAddress} // Using the reversed address here
       icon={<GrLocation />}
     />

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../services/Utility";
+import { getTranslation } from "../services/Utility";
 const RotateContainer = styled.div`
   display: none;
   position: fixed;
@@ -49,7 +49,7 @@ const RotateDevice = () => {
   return (
     <RotateContainer>
       <RotateIcon />
-      <RotateText>{getFieldTranslationByNames(1372)}</RotateText>
+      <RotateText>{getTranslation(1372)}</RotateText>
     </RotateContainer>
   );
 };

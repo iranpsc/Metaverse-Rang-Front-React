@@ -19,7 +19,7 @@ const Title = styled.h3`
 `;
 const Value = styled.h3`
   color: ${(props) => props.theme.colors.newColors.shades.title};
-  font-size: ${(props) => (props.small ? "10px" : "14px")};
+  font-size: ${(props) => (props.small ? "12px" : "14px")};
   font-weight: 400;
   @media (min-width: 998px) {
     font-size: 16px;

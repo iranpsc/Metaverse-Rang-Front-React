@@ -3,9 +3,9 @@ import avatar from "../../../../../assets/images/user.png";
 import styled from "styled-components";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../../services/Utility";
-
+import { metarangUrlCitizen } from "../../../../../services/Utility";
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};
@@ -130,7 +130,7 @@ const MemberCard = ({ selectedCitizen, memberType, setSelectedRelation }) => {
           <div>
             <h3>{selectedCitizen?.name}</h3>
             <a
-              href={`https://metarang.com/fa/citizen/${selectedCitizen?.code}`}
+              href={metarangUrlCitizen(selectedCitizen?.code)}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -140,19 +140,19 @@ const MemberCard = ({ selectedCitizen, memberType, setSelectedRelation }) => {
         </Profile>
       </Right>
       <Center>
-        <h4>{getFieldTranslationByNames(834)}</h4> {/* نسبت */}
+        <h4>{getTranslation(834)}</h4> {/* نسبت */}
         <StyledSelect onChange={handleRelationChange}>
-          <option value="">{getFieldTranslationByNames(1000)}</option>
+          <option value="">{getTranslation(1000)}</option>
           {relationTypes[memberType]?.map((relation) => (
             <option key={relation.value} value={relation.value}>
-              {getFieldTranslationByNames(relation.label)}
+              {getTranslation(relation.label)}
             </option>
           ))}
         </StyledSelect>
       </Center>
       <Left>
-        <h4>{getFieldTranslationByNames(1400)}</h4> {/* سن */}
-        <h3>{convertToPersian(selectedCitizen?.age)} {getFieldTranslationByNames(803)}</h3>
+        <h4>{getTranslation(1400)}</h4> {/* سن */}
+        <h3>{convertToPersian(selectedCitizen?.age)} {getTranslation(803)}</h3>
       </Left>
     </Container>
   );

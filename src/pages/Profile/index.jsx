@@ -1,14 +1,14 @@
 import Modal from "../../components/Modal";
 import Tabs from "../../services/Hooks/useTabs/index";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 
 export default function Profile() {
   const tabs = [
-    { path: "total", title: getFieldTranslationByNames("62"),  },
-    { path: "property", title: getFieldTranslationByNames("150"), },
-    { path: "transactions", title: getFieldTranslationByNames("61"), },
-    { path: "dynasty", title: getFieldTranslationByNames("158"), },
-    { path: "suggestion", title: getFieldTranslationByNames("735"), },
+    { path: "total", title: getTranslation("62"),  },
+    { path: "property", title: getTranslation("150"), },
+    { path: "transactions", title: getTranslation("61"), },
+    { path: "dynasty", title: getTranslation("158"), },
+    { path: "suggestion", title: getTranslation("735"), },
   ];
 
   return (

@@ -21,7 +21,7 @@ import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { Skeleton } from "../../../../components/Skeleton";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
 } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
@@ -87,7 +87,6 @@ const TransactionsTab = () => {
   const [hasMore, setHasMore] = useState(true);
   const { Request } = useRequest();
   const loaderRef = useRef(null);
-
   const convertPersianToEnglish = (str) => {
     if (!str) return str;
     const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
@@ -132,7 +131,7 @@ const TransactionsTab = () => {
       if (subject.red) subjectParams.push("red");
       if (subject.yellow) subjectParams.push("yellow");
       if (subject.psc) subjectParams.push("psc");
-      if (subject.rial) subjectParams.push("rial");
+      if (subject.rial) subjectParams.push("irr");
 
       const isFilterActive =
         searched ||
@@ -161,7 +160,6 @@ const TransactionsTab = () => {
 
       const response = await Request(`user/transactions?${params.toString()}`);
       const newTransactions = response.data.data;
-
       const processedTransactions = newTransactions.map((transaction) => {
         let assetGif = null;
         switch (transaction.asset) {
@@ -291,17 +289,17 @@ const TransactionsTab = () => {
     return (
       <Container>
         <div>
-          <Title title={getFieldTranslationByNames("61")} />
+          <Title title={getTranslation("61")} />
         </div>
         <Div>
           <SearchInput
             onchange={handleSearch}
             value={searched}
-            placeholder={getFieldTranslationByNames("63")}
+            placeholder={getTranslation("63")}
           />
           <Date>
             <DatePicker
-              placeholder={getFieldTranslationByNames("763")}
+              placeholder={getTranslation("763")}
               format="YYYY/MM/DD HH:mm:ss"
               plugins={[<TimePicker position="bottom" />]}
               calendar={persian}
@@ -345,17 +343,17 @@ const TransactionsTab = () => {
   return (
     <Container>
       <div>
-        <Title title={getFieldTranslationByNames("61")} />
+        <Title title={getTranslation("61")} />
       </div>
       <Div>
         <SearchInput
           onchange={handleSearch}
           value={searched}
-          placeholder={getFieldTranslationByNames("63")}
+          placeholder={getTranslation("63")}
         />
         <Date>
           <DatePicker
-            placeholder={getFieldTranslationByNames("763")}
+            placeholder={getTranslation("763")}
             format="YYYY/MM/DD HH:mm:ss"
             plugins={[<TimePicker position="bottom" />]}
             calendar={persian}

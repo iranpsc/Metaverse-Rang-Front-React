@@ -4,7 +4,7 @@ import TreeMember from "./TreeMember";
 import member from "../../../../../assets/images/user.png";
 import styled from "styled-components";
 import Title from "../../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 
 const Container = styled.div`
   padding: 20px 25px;
@@ -143,7 +143,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
 
   return (
     <Container>
-      <Title right title={getFieldTranslationByNames(112)} />
+      <Title right title={getTranslation(112)} />
       <Head>
         <img src={ownerImg || member} width={110} height={110} />
       </Head>
@@ -152,7 +152,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
           {members.siblings.length < 4 && (
             <Add onClick={() => handleAddMember("siblings")}>
               <FaPlus size={32} />
-              <span>{getFieldTranslationByNames(826)}</span>
+              <span>{getTranslation(826)}</span>
             </Add>
           )}
           {members.siblings.map((sibling, i) => (
@@ -167,7 +167,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
           {members.parent.length < 2 && (
             <Add onClick={() => handleAddMember("parent")}>
               <FaPlus size={32} />
-              <span>{getFieldTranslationByNames(1396)}</span>
+              <span>{getTranslation(1396)}</span>
             </Add>
           )}
           {members.parent.map((item, i) => (
@@ -184,7 +184,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
           {members.children.length < 4 && (
             <Add onClick={() => handleAddMember("children")}>
               <FaPlus size={32} />
-              <span>{getFieldTranslationByNames(827)}</span>
+              <span>{getTranslation(827)}</span>
             </Add>
           )}
           {members.children.map((child, i) => (
@@ -199,7 +199,7 @@ const FamilyTree = ({ members, setMode, ownerImg }) => {
           {members.spouse.length < 1 && (
             <Add onClick={() => handleAddMember("spouse")}>
               <FaPlus size={32} />
-              <span>{getFieldTranslationByNames(1397)}</span>
+              <span>{getTranslation(1397)}</span>
             </Add>
           )}
           {members.spouse.map((item, i) => (

@@ -13,9 +13,7 @@ const Div = styled.div`
 const InfoTab = () => {
   const [feature, setFeature] = useContext(FeatureContext);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    // وقتی feature اومد، لودینگ رو false کن
     if (feature) {
       setLoading(false);
     }

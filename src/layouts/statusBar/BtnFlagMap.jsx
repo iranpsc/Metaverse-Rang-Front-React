@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import FilterIcon from "../../assets/svg/filter.svg?react";
 import LocationIcon from "../../assets/svg/location.svg?react";

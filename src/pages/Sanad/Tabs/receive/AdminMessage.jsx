@@ -1,6 +1,6 @@
 import download from "../../../../assets/images/download.png";
 import styled from "styled-components";
-import { SanitizeHTML } from "../../../../services/Utility";
+import { SanitizeHTML, metarangUrlCitizen } from "../../../../services/Utility";
 
 const Content = styled.div``;
 const Header = styled.div`
@@ -105,7 +105,7 @@ const Download = styled.img`
 
 const AdminMessage = ({ data }) => {
   const adminResponses = data?.responses?.filter(
-    (response) => response.responser_name !== data?.sender?.name
+    (response) => response.responser_name !== data?.sender?.name,
   );
 
   const handleDownload = (url) => {
@@ -129,8 +129,9 @@ const AdminMessage = ({ data }) => {
             <Header>
               <span>{response.responser_name}</span>
               <a
-                href={`https://metarang.com/fa/citizens/${data.code}`}
-                target="_blank" rel="noreferrer"
+                href={metarangUrlCitizen(data.code)}
+                target="_blank"
+                rel="noreferrer"
               >
                 {data.code}
               </a>

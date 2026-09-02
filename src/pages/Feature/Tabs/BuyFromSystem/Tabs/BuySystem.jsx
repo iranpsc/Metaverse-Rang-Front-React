@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import Submit from "../../../../../components/Buttons/Submit";
 import { Container, Text } from "../../../Styles";
@@ -7,7 +7,7 @@ import { FeatureSvg } from "../../../../../services/constants/FeatureType";
 import Form from "../../../../../components/Form";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { ToastError } from "../../../../../services/Utility";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 
 const ContainerPrice = styled.div`
   width: 65%;
@@ -33,7 +33,7 @@ export default function BuySystem({ price, image, rgb, id }) {
 
   const onSubmit = () => {
     Request(`features/buy/${id}`, HTTP_METHOD.POST)
-      .then((response) => {
+      .then(() => {
         Navigate(FeatureSvg(rgb));
       })
       .catch((error) => {
@@ -44,7 +44,7 @@ export default function BuySystem({ price, image, rgb, id }) {
   return (
     <Container style={{ gap: "50px" }}>
       <Text style={{ fontWeight: "700" }}>
-        {getFieldTranslationByNames(1528)}{" "}
+        {getTranslation(1528)}{" "}
       </Text>
 
       <ContainerPrice>

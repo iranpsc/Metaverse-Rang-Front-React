@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import { useLayoutEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import SvgAni from "../../assets/Json/AniBackSvg.json";
 import LottieMessage from "./Components/LottieMessage";
@@ -23,7 +23,7 @@ export default function Educational() {
 
   useLayoutEffect(() => {
     const TimeOut = setTimeout(() => {
-      navigate("");
+      navigate("/");
     }, 5000);
 
     return () => clearTimeout(TimeOut);

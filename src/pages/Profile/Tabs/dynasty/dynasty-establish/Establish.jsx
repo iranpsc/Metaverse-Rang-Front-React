@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Title from "../../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 import List from "./List";
 
 const Container = styled.div`
@@ -21,9 +21,9 @@ const Establish = ({ members }) => {
   return (
     <Container>
       <Top>
-        <Title title={getFieldTranslationByNames(807)} />
-        <p>{getFieldTranslationByNames(806)}</p>
-        <p>{getFieldTranslationByNames(808)}</p>
+        <Title title={getTranslation(807)} />
+        <p>{getTranslation(806)}</p>
+        <p>{getTranslation(808)}</p>
       </Top>
 
       <List members={members} />

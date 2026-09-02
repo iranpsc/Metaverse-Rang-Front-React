@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import GeneralDefault from "./Tabs/GeneralDefault";
 import SpecialOrder from "./Tabs/SpecialOrder";
 import SidebarOptions from "./Tabs/components/SidebarOptions";

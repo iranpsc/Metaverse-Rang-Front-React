@@ -4,7 +4,7 @@ import moment from "moment-jalaali";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../services/Utility";
 
 const Container = styled.div`
@@ -115,7 +115,7 @@ const CurrentYears = () => {
   return (
     <Container>
       <Div>
-        <Label>{getFieldTranslationByNames("802")}</Label>
+        <Label>{getTranslation("802")}</Label>
         <div>
           <DropdownButton onClick={() => setIsOpen(!isOpen)}>
             <span>{convertToPersian(selectedYear)}</span>
@@ -130,7 +130,7 @@ const CurrentYears = () => {
             <DropdownMenu>
               {years.map((y) => (
                 <DropdownItem key={y} onClick={() => handleSelectYear(y)}>
-                  {getFieldTranslationByNames("803")} {convertToPersian(y)}
+                  {getTranslation("803")} {convertToPersian(y)}
                 </DropdownItem>
               ))}
             </DropdownMenu>
@@ -139,7 +139,7 @@ const CurrentYears = () => {
       </Div>
 
       <Content>
-        <Label>{getFieldTranslationByNames("804")}</Label>
+        <Label>{getTranslation("804")}</Label>
         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ... سال 1403
       </Content>
     </Container>

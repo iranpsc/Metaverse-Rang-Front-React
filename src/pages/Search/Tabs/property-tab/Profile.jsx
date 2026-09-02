@@ -1,7 +1,7 @@
 import { LuBuilding2 } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -41,10 +41,16 @@ const Profile = ({ item }) => {
         <LuBuilding2 size={30} />
       </IconWrapper>
       <Info>
-        <h2>
-          {getFieldTranslationByNames("1478")}
-        </h2>
-        <p onClick={() => Navigate(`/feature/${item?.id}`)}>
+        <h2>{getTranslation("1478")}</h2>
+        <p
+          onClick={() =>
+            Navigate(`/feature/${item?.id}/info`, {
+              state: {
+                from: location.pathname,
+              },
+            })
+          }
+        >
           {item?.feature_properties_id}
         </p>
       </Info>

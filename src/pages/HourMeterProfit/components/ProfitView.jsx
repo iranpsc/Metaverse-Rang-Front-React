@@ -6,7 +6,7 @@ import education from "../../../assets/images/courthouse.png";
 import house from "../../../assets/images/house.png";
 import styled from "styled-components";
 import useRequest from "../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 import { UserContextTypes } from "../../../services/actions/UserContextAction";
 
 import { UserContext } from "../../../services/reducers/UserContext";
@@ -40,19 +40,19 @@ const ProfitView = () => {
 
   const karbariMapping = {
     m: {
-      title: getFieldTranslationByNames("477"),
+      title: getTranslation("477"),
       logo: house,
       color: "#FFC700",
       background: "#ffc80021",
     },
     t: {
-      title: getFieldTranslationByNames("475"),
+      title: getTranslation("475"),
       logo: building,
       color: "#FF0000",
       background: "#ff000021",
     },
     a: {
-      title: getFieldTranslationByNames("476"),
+      title: getTranslation("476"),
       logo: education,
       color: "#0066FF",
       background: "#0066ff21",
@@ -87,21 +87,21 @@ const ProfitView = () => {
           : [
               {
                 id: 1,
-                title: getFieldTranslationByNames("28"),
+                title: getTranslation("28"),
                 logo: building,
                 value: +data.additional.total_tejari_profit,
                 color: "#FF0000",
               },
               {
                 id: 2,
-                title: getFieldTranslationByNames("29"),
+                title: getTranslation("29"),
                 logo: house,
                 value: +data.additional.total_maskoni_profit,
                 color: "#FFC700",
               },
               {
                 id: 3,
-                title: getFieldTranslationByNames("474"),
+                title: getTranslation("474"),
                 logo: education,
                 value: +data.additional.total_amozeshi_profit,
                 color: "#0066FF",

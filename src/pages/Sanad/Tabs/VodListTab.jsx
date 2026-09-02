@@ -1,6 +1,6 @@
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 const Container = styled.div`
   display: grid;
   grid-template-columns: 140px 1fr;

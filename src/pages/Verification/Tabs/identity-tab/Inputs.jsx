@@ -7,7 +7,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import styled from "styled-components";
 import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import Dropdown from "../../../../components/Common/Dropdown";
 
 const Birthday = styled.div`
@@ -53,7 +53,7 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
     <Container>
       {data.slice(0, 3).map((item) => (
         <EditInput
-          title={getFieldTranslationByNames(item.label)}
+          title={getTranslation(item.label)}
           value={inputValues[item.slug]}
           onchange={handleInputChange}
           key={item.id}
@@ -64,7 +64,7 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
       ))}
       <Dropdown
         options={data[3].options.map(
-          (option) => getFieldTranslationByNames(option.city) || option.city
+          (option) => getTranslation(option.city) || option.city
         )}
         selected={inputValues[data[3].slug]}
         onSelect={(value) =>
@@ -72,7 +72,7 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
             target: { name: data[3].slug, value },
           })
         }
-        placeholder={getFieldTranslationByNames("871")}
+        placeholder={getTranslation("871")}
         searchable={true}
         selectPlaceHolder={false}
       />
@@ -96,9 +96,9 @@ const Inputs = ({ data, inputValues, handleInputChange }) => {
       <Dropdown
         selectPlaceHolder={false}
         options={data[5].options.map((option) =>
-          getFieldTranslationByNames(option.gender)
+          getTranslation(option.gender)
         )}
-        placeholder={getFieldTranslationByNames("872")}
+        placeholder={getTranslation("872")}
         selected={inputValues[data[5].slug]}
         onSelect={(selectedOption) =>
           handleInputChange({

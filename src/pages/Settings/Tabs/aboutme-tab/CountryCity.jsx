@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import { useEffect, useState } from "react";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   getFieldsByTabName,
-  getFieldsByTabNameReverse,
 } from "../../../../services/Utility";
 const Container = styled.div`
   margin-top: 20px;
@@ -33,16 +32,10 @@ const Label = styled.label`
   margin-bottom: 10px;
   font-weight: 600;
 `;
-
 const CountryCity = () => {
   const { state, dispatch } = useGlobalState();
 
   const [fields, setFields] = useState({
-    cities: [],
-    countries: [],
-    languages: [],
-  });
-  const [fieldsReverse, setFieldsReverse] = useState({
     cities: [],
     countries: [],
     languages: [],
@@ -54,64 +47,34 @@ const CountryCity = () => {
     if (!isFieldsLoaded) {
       const loadFields = () => {
         const normalFields = {
-          cities: getFieldsByTabName("misc", "iranian-cities"),
-          countries: getFieldsByTabName("misc", "countries"),
-          languages: getFieldsByTabName("misc", "languages"),
-        };
-
-        const reversedFields = {
-          cities: getFieldsByTabNameReverse("misc", "iranian-cities"),
-          countries: getFieldsByTabNameReverse("misc", "countries"),
-          languages: getFieldsByTabNameReverse("misc", "languages"),
+          cities: getFieldsByTabName(907, 990),
+          countries: getFieldsByTabName(991, 1176),
+          languages: getFieldsByTabName(1177, 1300),
         };
 
         setFields(normalFields);
-        setFieldsReverse(reversedFields);
         setIsFieldsLoaded(true);
       };
 
       loadFields();
     }
   }, [isFieldsLoaded]);
-  const isPersianText = (text) => /[\u0600-\u06FF]/.test(text);
 
-  const getTranslation = (fieldsType, stateValue) => {
+  const getFieldTranslation = (fieldsType, stateValue) => {
     if (!isFieldsLoaded || !stateValue) return "";
 
-    const normalizedValue = stateValue.trim().toLowerCase();
-    const isPersian = isPersianText(stateValue);
-
-    const primaryFields = isPersian
-      ? fields[fieldsType]
-      : fieldsReverse[fieldsType];
-    const secondaryFields = isPersian
-      ? fieldsReverse[fieldsType]
-      : fields[fieldsType];
-
-    const selectedField = primaryFields.find(
-      (field) => field?.translation?.trim().toLowerCase() === normalizedValue
+    const selectedField = fields[fieldsType].find(
+      (field) => String(field.unique_id) === String(stateValue)
     );
 
-    if (selectedField)
-      return getFieldTranslationByNames(selectedField.unique_id);
-
-    const reversedField = secondaryFields.find(
-      (field) => field?.translation?.trim().toLowerCase() === normalizedValue
-    );
-
-    if (reversedField)
-      return getFieldTranslationByNames(reversedField.unique_id);
-
-    return "";
+    return selectedField?.translation || "";
   };
 
-  const handleFieldChange = (fieldsType, translation, actionType) => {
-    const selectedField = fields[fieldsType].find(
-      (field) => field?.translation === translation
-    );
-    if (selectedField) {
-      dispatch({ type: actionType, payload: selectedField.translation });
-    }
+  const handleFieldChange = (fieldsType, uniqueId, actionType) => {
+    dispatch({
+      type: actionType,
+      payload: String(uniqueId),
+    });
   };
 
   const options = [
@@ -134,17 +97,31 @@ const CountryCity = () => {
       actionType: "SET_LANGUAGE",
     },
   ];
+
   return (
     <Container>
       {options.map((option) => (
         <SelectContainer key={option.type}>
-          <Label>{getFieldTranslationByNames(option.translationId)}</Label>
+          <Label>{getTranslation(option.translationId)}</Label>
+
           <Dropdown
             searchable={true}
-            options={fields[option.type].map((field) => field.translation)}
-            placeholder={getTranslation(option.type, option.stateValue)}
-            onSelect={(translation) =>
-              handleFieldChange(option.type, translation, option.actionType)
+            options={fields[option.type].map((field) => ({
+              id: field.unique_id,
+              value: String(field.unique_id),
+              label: field.translation,
+            }))}
+            selected={option.stateValue}
+            placeholder={getFieldTranslation(
+              option.type,
+              option.stateValue
+            )}
+            onSelect={(uniqueId) =>
+              handleFieldChange(
+                option.type,
+                uniqueId,
+                option.actionType
+              )
             }
           />
         </SelectContainer>

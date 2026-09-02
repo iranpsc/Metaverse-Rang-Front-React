@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import Title from "../../../../components/Title";
 import remove from "../../../../assets/images/remove.png";
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { getTranslation } from "../../../../services/Utility/index";
 import ErrorMessage from "../../../../components/ErrorMessage";
 const Files = styled.div`
   display: flex;
@@ -73,12 +73,25 @@ const SendFiles = () => {
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState("");
   const MAX_FILE_SIZE_MB = 1;
-
   useEffect(() => {
     if (state.files.length === 0) {
       setPreviews([]);
+      return;
     }
+
+    const newPreviews = state.files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+      id: `${file.name}-${file.lastModified}`,
+    }));
+
+    setPreviews(newPreviews);
+
+    return () => {
+      newPreviews.forEach((item) => URL.revokeObjectURL(item.preview));
+    };
   }, [state.files]);
+
   const fileHandler = (e) => {
     setError("");
     const selectedFiles = Array.from(e.target.files);
@@ -94,7 +107,7 @@ const SendFiles = () => {
     });
 
     if (newUniqueFiles.length < selectedFiles.length) {
-      setError(getFieldTranslationByNames(1635));
+      setError(getTranslation(1635));
     }
 
     if (newUniqueFiles.length === 0) {
@@ -106,12 +119,12 @@ const SendFiles = () => {
     const filesToAdd = newUniqueFiles.slice(0, remainingSlots);
 
     if (newUniqueFiles.length > remainingSlots) {
-      setError(getFieldTranslationByNames(1636));
+      setError(getTranslation(1636));
     }
 
     for (const file of filesToAdd) {
       if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setError(getFieldTranslationByNames(1482));
+        setError(getTranslation(1482));
         e.target.value = "";
         return;
       }
@@ -148,7 +161,7 @@ const SendFiles = () => {
 
   return (
     <Container>
-      <Title title={getFieldTranslationByNames("21")} />
+      <Title title={getTranslation("21")} />
       <Files>
         {previews.map((item) => (
           <FilePreview key={item.id}>

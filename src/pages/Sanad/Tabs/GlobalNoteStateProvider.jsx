@@ -13,11 +13,17 @@ const reducer = (state, action) => {
       };
 
     case "ADD_NOTE":
+      if (state.notes.some((n) => n.id === action.payload.id)) {
+        return state;
+      }
+
       return {
         ...state,
-        notes: [...state.notes, action.payload],
+        notes:
+          action.position === "start"
+            ? [action.payload, ...state.notes]
+            : [...state.notes, action.payload],
       };
-
     case "UPDATE_NOTE":
       return {
         ...state,

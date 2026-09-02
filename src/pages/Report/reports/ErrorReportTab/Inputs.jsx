@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { getTranslation } from "../../../../services/Utility/index";
 import Dropdown from "../../../../components/Common/Dropdown";
 const Container = styled.div`
   display: grid;
@@ -50,11 +50,11 @@ const Title = styled.div`
 
 const Inputs = () => {
   const options = [
-    { id: 1, label: getFieldTranslationByNames("1385"), value: "displayError" },
-    { id: 2, label: getFieldTranslationByNames("15"), value: "spellingError" },
-    { id: 3, label: getFieldTranslationByNames("16"), value: "codingError" },
-    { id: 4, label: getFieldTranslationByNames("17"), value: "FPSError" },
-    { id: 5, label: getFieldTranslationByNames("18"), value: "disrespect" },
+    { id: 1, label: getTranslation("1385"), value: "displayError" },
+    { id: 2, label: getTranslation("15"), value: "spellingError" },
+    { id: 3, label: getTranslation("16"), value: "codingError" },
+    { id: 4, label: getTranslation("17"), value: "FPSError" },
+    { id: 5, label: getTranslation("18"), value: "disrespect" },
   ];
 
   const { state, dispatch } = useReportsGlobalState();
@@ -72,23 +72,23 @@ const Inputs = () => {
   return (
     <Container>
       <Subject>
-        <Label>{getFieldTranslationByNames("24")}</Label>
+        <Label>{getTranslation("24")}</Label>
         <Dropdown
           options={options}
           selected={
             options.find((opt) => opt.value === state.subject)?.label || ""
           } 
           onSelect={(val) => subjectHandler({ target: { value: val } })}
-          placeholder={getFieldTranslationByNames("24")}
+          placeholder={getTranslation("24")}
           searchable={false}
           selectPlaceHolder={false}
         />
       </Subject>
       <Title>
-        <Label>{getFieldTranslationByNames("19")}</Label>
+        <Label>{getTranslation("19")}</Label>
         <input
           type="text"
-          placeholder={getFieldTranslationByNames("19")}
+          placeholder={getTranslation("19")}
           value={state.title}
           onChange={(e) => titleHandler(e)}
           maxLength={130} // محدودیت 200 کاراکتر

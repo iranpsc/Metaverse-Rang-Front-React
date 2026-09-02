@@ -3,7 +3,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 import styled from "styled-components";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../services/Utility";
 import Result from "../../../components/Result";
 import { useTheme } from "../../../services/reducers/ThemeContext";
@@ -82,25 +82,25 @@ const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
       <Results>
         <Result
           title={
-            (getFieldTranslationByNames("521"),
-            getFieldTranslationByNames("48"))
+            (getTranslation("521"),
+            getTranslation("48"))
           }
           value={rial}
         />
         <Result
           title={
-            (getFieldTranslationByNames("521"),
-            getFieldTranslationByNames("47"))
+            (getTranslation("521"),
+            getTranslation("47"))
           }
           value={psc}
         />
         <ResultWrapper>
-          {getFieldTranslationByNames("522")}
+          {getTranslation("522")}
           <Value>
             {convertToPersian(rial)} IRR / {convertToPersian(psc)} PSC
           </Value>
         </ResultWrapper>
-        <Result title={getFieldTranslationByNames("523")} value={"5%"} />
+        <Result title={getTranslation("523")} value={"5%"} />
       </Results>
       <Actions>
         <ActionWrapper onClick={() => setAssign(false)}>

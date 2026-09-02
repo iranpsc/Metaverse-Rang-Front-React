@@ -29,7 +29,7 @@ export default function ContextMenu() {
     wrapperRef.current.style.left = `${x}px`;
   };
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     if (wrapperRef?.current?.style?.display) {
       wrapperRef.current.style.display = "none";
     }

@@ -2,7 +2,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
 import React, { useState } from "react";
 import RequestRow from "../../pages/Profile/Tabs/dynasty/sent/RequestRow";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 
 const Container = styled.div`
   border-radius: 0.25rem;
@@ -155,7 +155,6 @@ const Loader = styled.div`
   }
 `;
 
-
 const RequestsList = ({
   rows,
   member,
@@ -166,7 +165,6 @@ const RequestsList = ({
   type,
   isLoading, // اضافه شد
 }) => {
-
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({
     status: false,
@@ -217,14 +215,12 @@ const RequestsList = ({
         <TableHead>
           <TableRow>
             <TableHeader>
-              {type === "send"
-                ? getFieldTranslationByNames(1448)
-                : getFieldTranslationByNames(1447)}
+              {type === "sent" ? getTranslation(1448) : getTranslation(1447)}
             </TableHeader>
-            <TableHeader date> {getFieldTranslationByNames(850)}</TableHeader>
+            <TableHeader date> {getTranslation(850)}</TableHeader>
             <TableHeader>
               <Div>
-                {getFieldTranslationByNames(145)}
+                {getTranslation(145)}
                 <Arrows onClick={() => setFilters({ member: !filters.member })}>
                   <MdKeyboardArrowDown
                     style={{
@@ -244,7 +240,7 @@ const RequestsList = ({
                         {
                           onClick: () => handleMemberFilter(key),
                         },
-                        getFieldTranslationByNames(label),
+                        getTranslation(label),
                       )}
                       {member[key] && (
                         <span onClick={() => handleMemberRemove(key)}>X</span>
@@ -256,7 +252,7 @@ const RequestsList = ({
             </TableHeader>
             <TableHeader title>
               <Div>
-                {getFieldTranslationByNames(146)}
+                {getTranslation(146)}
 
                 <Arrows onClick={() => setFilters({ status: !filters.status })}>
                   <MdKeyboardArrowDown
@@ -273,7 +269,7 @@ const RequestsList = ({
                   {statusTypes.map(({ key, label }) => (
                     <FilterItem active={status[key]} key={key}>
                       <h1 onClick={() => handleStatusFilter(key)}>
-                        {getFieldTranslationByNames(label)}
+                        {getTranslation(label)}
                       </h1>
                       {status[key] && (
                         <span onClick={() => handleStatusRemove(key)}>X</span>
@@ -284,9 +280,9 @@ const RequestsList = ({
               )}
             </TableHeader>
             <TableHeader subject>
-              <Div>{getFieldTranslationByNames(851)}</Div>
+              <Div>{getTranslation(851)}</Div>
             </TableHeader>
-            <TableHeader>{getFieldTranslationByNames(147)}</TableHeader>
+            <TableHeader>{getTranslation(147)}</TableHeader>
           </TableRow>
         </TableHead>
         <tbody>
@@ -310,9 +306,7 @@ const RequestsList = ({
       </Table>
       {!isLoading && visibleRows < rows.length && (
         <Loader>
-          <button onClick={handleLoadMore}>
-            {getFieldTranslationByNames(1410)}
-          </button>
+          <button onClick={handleLoadMore}>{getTranslation(1410)}</button>
         </Loader>
       )}
     </Container>

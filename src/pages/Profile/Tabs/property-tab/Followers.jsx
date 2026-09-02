@@ -1,11 +1,11 @@
 import Follower from "./Follower";
-import SearchInput from "../../../Search/components/SearchInput";
+import SearchInput from "../../../../components/SearchInput";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
-import { useParams } from "react-router-dom";
+import { getTranslation } from "../../../../services/Utility";
+import { useParams } from "react-router";
 import Container from "../../../../components/Common/Container";
 import { Skeleton } from "../../../../components/Skeleton";
 
@@ -80,10 +80,10 @@ const Followers = () => {
   return (
     <Container>
       <div style={{ marginBottom: "20px" }}>
-        <Title title={getFieldTranslationByNames("38")} />
+        <Title title={getTranslation("38")} />
       </div>
       <SearchInput
-        placeholder={getFieldTranslationByNames("57")}
+        placeholder={getTranslation("57")}
         value={searched}
         onchange={(e) => setSearched(e.target.value)}
       />

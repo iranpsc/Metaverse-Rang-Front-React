@@ -8,10 +8,10 @@ import styled from "styled-components";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../services/reducers/UserContext";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
-import { useParams } from "react-router-dom";
+import { getTranslation } from "../../../../services/Utility";
+import { useParams } from "react-router";
 import { Skeleton } from "../../../../components/Skeleton";
-
+import { WalletContext } from "../../../../services/reducers/WalletContext";
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -24,8 +24,9 @@ const RealEstate = () => {
   const [loading, setLoading] = useState(true);
   const { Request } = useRequest();
   const [user] = useContext(UserContext);
-  const { id } = useParams();
+    const [wallet] = useContext(WalletContext);
 
+  const { id } = useParams();
   useEffect(() => {
     const requestId = id || user?.id;
     if (requestId) {
@@ -47,25 +48,25 @@ const RealEstate = () => {
     {
       id: 1,
       image: property1,
-      label: getFieldTranslationByNames("52"),
-      value: assets?.satisfaction,
+      label: getTranslation("52"),
+      value: wallet?.satisfaction,
     },
     {
       id: 2,
       image: property2,
-      label: getFieldTranslationByNames("475"),
+      label: getTranslation("475"),
       value: assets?.tejari_features_count,
     },
     {
       id: 3,
       image: property3,
-      label: getFieldTranslationByNames("477"),
+      label: getTranslation("477"),
       value: assets?.maskoni_features_count,
     },
     {
       id: 4,
       image: property4,
-      label: getFieldTranslationByNames("476"),
+      label: getTranslation("476"),
       value: assets?.amoozeshi_features_count,
     },
   ];

@@ -27,6 +27,7 @@ export default function useLanguage() {
       document.body.dir = i18n.dir();
 
       localStorage.setItem("selectedLanguage", lang);
+      
       setCurrentLang(lang);
 
     } catch (error) {

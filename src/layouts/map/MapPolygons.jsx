@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useRef } from "react";
+import { memo, useEffect, useState, useRef } from "react";
 import { Layer, Source, useMap } from "react-map-gl";
 import { useLoader } from "@react-three/fiber";
 import { Canvas, Coordinates } from "react-three-map/maplibre";
@@ -9,8 +9,10 @@ import { POLYGON_COLORS } from "../../services/constants/PolygonColors";
 import useRequest from "../../services/Hooks/useRequest";
 import { useMapData } from "../../services/reducers/mapContext";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
-
+import { useMapLands } from "../../services/reducers/MapLandsContext";
+import { showPolygons } from "../../services/Hooks/useMapUrlState";
 // Add the proxy URL to bypass CORS
+
 const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
   // Prepend proxy URL to avoid CORS issues
   const fbx = useLoader(FBXLoader, url, (loader) => {
@@ -54,12 +56,13 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
 });
 
 const MapPolygons = () => {
+
   const { buildings, setBuildings } = useMapData();
   const { selectedEnvironment } = useSelectedEnvironment();
-
+  const [isPolygonSourceLoaded, setIsPolygonSourceLoaded] = useState(false);
   const map = useMap();
   const bounds = map.current.getBounds();
-  const [features, setFeatures] = useState([]);
+  const { mapLands, setMapLands } = useMapLands();
   const [zoom, setZoom] = useState(map.current.getZoom());
   const [, setIsLoading] = useState(false);
   const { Request } = useRequest();
@@ -80,21 +83,20 @@ const MapPolygons = () => {
     window.Echo.channel("feature-status").listen(
       ".feature-status-changed",
       (e) => {
-        const data = features.map((feature) => {
+        const data = mapLands.map((feature) => {
           if (parseInt(feature.id) === parseInt(e.data.id)) {
             return { ...feature, rgb: e.data.rgb };
           }
           return feature;
         });
 
-        setFeatures(data);
+        setMapLands(data);
       },
     );
-  }, [features]);
+  }, [mapLands]);
 
   useEffect(() => {
-    if (bounds.getSouthWest().lng && zoom >= 14) {
-      const loadBuildings = zoom >= 15 ? "&load_buildings=1" : "";
+    if (bounds.getSouthWest().lng && zoom >= showPolygons) {
       Request(
         `features?points[]=${bounds.getSouthWest().lng},${
           bounds.getSouthWest().lat
@@ -104,7 +106,7 @@ const MapPolygons = () => {
           bounds.getNorthWest().lat
         }&points[]=${bounds.getNorthEast().lng},${
           bounds.getNorthEast().lat
-        }${loadBuildings}`,
+        }${"&load_buildings=1"}`,
       ).then((response) => {
         const newFeatures =
           response?.data?.data?.map((feature) => ({
@@ -120,22 +122,52 @@ const MapPolygons = () => {
           (feature) => feature.building_models || [],
         );
 
-        setFeatures((prevFeatures) => [...prevFeatures, ...newFeatures]);
+        setMapLands((prevFeatures) => [...prevFeatures, ...newFeatures]);
 
         setBuildings((prevModels) => [...prevModels, ...newBuildingModels]);
       });
     }
-  }, [bounds.getSouthWest().lng, zoom]);
+  }, [zoom]);
+  useEffect(() => {
+    if (!map.current || zoom < showPolygons) {
+      setIsPolygonSourceLoaded(false);
+      return;
+    }
+
+    const mapInstance = map.current;
+
+    const handleSourceData = (event) => {
+      if (event.sourceId === "polygons" && event.isSourceLoaded) {
+        setIsPolygonSourceLoaded(true);
+      }
+    };
+
+    mapInstance.on("sourcedata", handleSourceData);
+
+    const source = mapInstance.getSource("polygons");
+
+    if (source) {
+      const sourceCache = mapInstance.style?.sourceCaches?.["polygons"];
+
+      if (sourceCache?.loaded()) {
+        setIsPolygonSourceLoaded(true);
+      }
+    }
+
+    return () => {
+      mapInstance.off("sourcedata", handleSourceData);
+    };
+  }, [zoom]);
   return (
     <>
-      {zoom >= 14 && (
+      {zoom >= showPolygons && (
         <Source
           id="polygons"
           type="geojson"
           data={{
             type: "FeatureCollection",
-            features: features.map((polygon) => ({
-              type: "Feature",
+            features: mapLands.map((polygon) => ({
+              type: "mapLands",
               properties: {
                 id: polygon.id,
                 fill: POLYGON_COLORS[polygon.rgb],
@@ -152,7 +184,7 @@ const MapPolygons = () => {
             id="polygon-fill-layer"
             type="fill"
             beforeId={
-              map.current.getLayer("location-icon-layer")
+              map.current?.getLayer("location-icon-layer")
                 ? "location-icon-layer"
                 : undefined
             }
@@ -160,11 +192,12 @@ const MapPolygons = () => {
               "fill-color": ["get", "fill"],
             }}
           />
+
           <Layer
             id="polygon-outline-layer"
             type="line"
             beforeId={
-              map.current.getLayer("location-icon-layer")
+              map.current?.getLayer("location-icon-layer")
                 ? "location-icon-layer"
                 : undefined
             }
@@ -175,35 +208,43 @@ const MapPolygons = () => {
           />
         </Source>
       )}
-      {zoom >= 14 && buildings.length > 0 && (
-        <Canvas
-          latitude={36}
-          longitude={50}
-          key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
-        >
-          {buildings.map((model, index) => {
-            const endDate = new Date(model.building.construction_end_date);
-            const now = new Date();
-            const opacity = now < endDate ? 0.3 : 1;
-            const proxyFbxUrl = model.file.url;
-            return (
-              <Coordinates
-                key={model.feature_id}
-                latitude={parseFloat(model.building.position.split(",")[0])}
-                longitude={parseFloat(model.building.position.split(",")[1])}
-              >
-                <FBXModel
-                  opacity={opacity}
-                  url={proxyFbxUrl}
-                  rotation={[0, model.building.rotation ?? 0, 0]}
-                  setLoading={setIsLoading}
-                  uniqueKey={`${model.id}-${index}-model`}
-                />
-              </Coordinates>
-            );
-          })}
-        </Canvas>
-      )}
+      {zoom >= showPolygons &&
+        isPolygonSourceLoaded &&
+        buildings.length > 0 && (
+          <Canvas
+            latitude={36}
+            longitude={50}
+            key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
+          >
+            {buildings.map((model, index) => {
+              const endDate = new Date(model?.building?.construction_end_date);
+
+              const now = new Date();
+
+              const opacity = now < endDate ? 0.3 : 1;
+
+              const proxyFbxUrl = model.file.url;
+
+              return (
+                <Coordinates
+                  key={model.feature_id}
+                  latitude={parseFloat(model?.building?.position.split(",")[0])}
+                  longitude={parseFloat(
+                    model?.building?.position.split(",")[1],
+                  )}
+                >
+                  <FBXModel
+                    opacity={opacity}
+                    url={proxyFbxUrl}
+                    rotation={[0, model?.building?.rotation ?? 0, 0]}
+                    setLoading={setIsLoading}
+                    uniqueKey={`${model.id}-${index}-model`}
+                  />
+                </Coordinates>
+              );
+            })}
+          </Canvas>
+        )}
     </>
   );
 };

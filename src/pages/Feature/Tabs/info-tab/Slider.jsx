@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import { IoMdClose } from "react-icons/io";
 import KeenSlider from "./KeenSlider";
 import MobileSlider from "./MobileSlider";

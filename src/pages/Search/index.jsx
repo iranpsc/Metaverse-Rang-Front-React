@@ -1,15 +1,15 @@
 import ModalPosition from "../../components/ModalPosition";
 import Tabs from "../../services/Hooks/useTabs";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 export default function Search() {
   const tabs = [
     {
       path: "citizen",
-      title: getFieldTranslationByNames("470"),
+      title: getTranslation("470"),
     },
     {
       path: "property",
-      title: getFieldTranslationByNames("471"),
+      title: getTranslation("471"),
     },
   ];
 

@@ -1,8 +1,8 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import VodRow from "./Tabs/receive/VodRow";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation, isMobile } from "../../services/Utility";
 import { Skeleton } from "../../components/Skeleton";
 
 const Container = styled.div`
@@ -138,13 +138,65 @@ const SkeletonRow = styled.tr`
   }
 `;
 
-const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
+const VodList = ({
+  rows,
+  status,
+  setStatus,
+  domain,
+  subdomain,
+  isLoading,
+  loadMore,
+  hasMore,
+  isLoadMoreLoading,
+}) => {
   const [visibleRows, setVisibleRows] = useState(10);
   const [filters, setFilters] = useState({ status: false });
+  const observerRef = useRef(null);
+  const sentinelRef = useRef(null);
 
-  const handleLoadMore = () => {
-    setVisibleRows((prevVisibleRows) => prevVisibleRows + 10);
+  const handleLoadMore = async () => {
+    if (loadMore && hasMore) {
+      const loadedCount = await loadMore();
+      setVisibleRows(
+        (prevVisibleRows) =>
+          prevVisibleRows +
+          (typeof loadedCount === "number" ? loadedCount : 10),
+      );
+    } else {
+      setVisibleRows((prevVisibleRows) => prevVisibleRows + 10);
+    }
   };
+
+  const handleIntersect = useCallback(
+    async (entries) => {
+      if (
+        entries[0]?.isIntersecting &&
+        !isLoadMoreLoading &&
+        (hasMore || visibleRows < rows?.length)
+      ) {
+        await handleLoadMore();
+      }
+    },
+    [hasMore, visibleRows, rows?.length, handleLoadMore, isLoadMoreLoading],
+  );
+
+  useEffect(() => {
+    if (isMobile) return;
+    if (!sentinelRef.current || !(hasMore || visibleRows < rows?.length))
+      return;
+
+    const observer = new IntersectionObserver(handleIntersect, {
+      root: null,
+      rootMargin: "200px",
+      threshold: 0.1,
+    });
+    observer.observe(sentinelRef.current);
+    observerRef.current = observer;
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [handleIntersect, hasMore, visibleRows, rows?.length]);
 
   const handleFilterClick = (filterKey) => {
     setStatus((prevStatus) => ({
@@ -164,12 +216,12 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
         >
           <h1>
             {filterKey === "confirmed"
-              ? getFieldTranslationByNames("1343")
+              ? getTranslation("1343")
               : filterKey === "pending"
-                ? getFieldTranslationByNames("1344")
+                ? getTranslation("1373")
                 : filterKey === "failed"
-                  ? getFieldTranslationByNames("1345")
-                  : getFieldTranslationByNames("1346")}
+                  ? getTranslation("1345")
+                  : getTranslation("1346")}
           </h1>
           {status[filterKey] && (
             <span
@@ -193,14 +245,14 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
         <Table>
           <TableHead>
             <tr>
-              <TableHeader>{getFieldTranslationByNames("1339")}</TableHeader>
-              <TableHeader>{getFieldTranslationByNames("1319")}</TableHeader>
+              <TableHeader>{getTranslation("1339")}</TableHeader>
+              <TableHeader>{getTranslation("1319")}</TableHeader>
               <TableHeader>
-                <Div>{getFieldTranslationByNames("1340")}</Div>
+                <Div>{getTranslation("1340")}</Div>
               </TableHeader>
               <TableHeader>
                 <Div>
-                  {getFieldTranslationByNames("1341")}
+                  {getTranslation("1341")}
                   <Arrows
                     onClick={() => setFilters({ status: !filters.status })}
                   >
@@ -215,8 +267,8 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
                 </Div>
                 {filters.status && renderStatusFilters()}
               </TableHeader>
-              <TableHeader>{getFieldTranslationByNames("64")}</TableHeader>
-              <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
+              <TableHeader>{getTranslation("64")}</TableHeader>
+              <TableHeader>{getTranslation("1342")}</TableHeader>
             </tr>
           </TableHead>
           <tbody>
@@ -283,14 +335,14 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
       <Table>
         <TableHead>
           <tr>
-            <TableHeader>{getFieldTranslationByNames("1339")}</TableHeader>
-            <TableHeader>{getFieldTranslationByNames("1319")}</TableHeader>
+            <TableHeader>{getTranslation("1339")}</TableHeader>
+            <TableHeader>{getTranslation("1319")}</TableHeader>
             <TableHeader>
-              <Div>{getFieldTranslationByNames("1340")}</Div>
+              <Div>{getTranslation("1340")}</Div>
             </TableHeader>
             <TableHeader>
               <Div>
-                {getFieldTranslationByNames("1341")}
+                {getTranslation("1341")}
                 <Arrows onClick={() => setFilters({ status: !filters.status })}>
                   <MdKeyboardArrowDown
                     style={{
@@ -304,9 +356,9 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
               {filters.status && renderStatusFilters()}
             </TableHeader>
             <TableHeader style={{ whiteSpace: "nowrap" }}>
-              {getFieldTranslationByNames("64")}
+              {getTranslation("64")}
             </TableHeader>
-            <TableHeader>{getFieldTranslationByNames("1342")}</TableHeader>
+            <TableHeader>{getTranslation("1342")}</TableHeader>
           </tr>
         </TableHead>
         <tbody>
@@ -376,10 +428,15 @@ const VodList = ({ rows, status, setStatus, domain, subdomain, isLoading }) => {
                 ))}
         </tbody>
       </Table>
-      {visibleRows < rows?.length && (
+      {isMobile && (hasMore || visibleRows < rows?.length) && (
         <Loader>
-          <button onClick={handleLoadMore}>نمایش موارد بیشتر</button>
+          <button onClick={handleLoadMore} disabled={isLoadMoreLoading}>
+            {isLoadMoreLoading ? "در حال بارگذاری..." : getTranslation(1410)}
+          </button>
         </Loader>
+      )}
+      {!isMobile && hasMore && (
+        <div ref={sentinelRef} style={{ height: 1, width: "100%" }} />
       )}
     </Container>
   );

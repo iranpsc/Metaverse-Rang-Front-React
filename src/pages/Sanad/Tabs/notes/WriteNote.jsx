@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { GlobalNoteStateContext } from "../GlobalNoteStateProvider";
 import { AlertContext } from "../../../../services/reducers/AlertContext";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 import SendNote from "./SendNote";
 import WriteNoteInput from "./WriteNoteInput";
@@ -54,7 +54,7 @@ const ErrorMessage = styled.div`
 
 const WriteNote = () => {
   const { alert, setAlert } = useContext(AlertContext);
-  const { state, dispatch } = useContext(GlobalNoteStateContext);
+  const { dispatch } = useContext(GlobalNoteStateContext);
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -72,12 +72,12 @@ const WriteNote = () => {
 
   const handleSaveNote = () => {
     if (!title.trim() || !description.trim()) {
-      setError(getFieldTranslationByNames(1644));
+      setError(getTranslation(1644));
       return;
     }
 
     if (files.length > 5) {
-      setError(getFieldTranslationByNames(1636));
+      setError(getTranslation(1636));
       return;
     }
 
@@ -94,11 +94,15 @@ const WriteNote = () => {
 
     Request("notes", HTTP_METHOD.POST, formData)
       .then((response) => {
-        dispatch({ type: "ADD_NOTE", payload: response.data.data });
+        dispatch({
+          type: "ADD_NOTE",
+          payload: response.data.data,
+          position: "start",
+        });
         setAlert(true);
         resetForm();
       })
-      .catch(() => setError(getFieldTranslationByNames(1645)))
+      .catch(() => setError(getTranslation(1645)))
       .finally(() => {
         setIsSending(false); // پایان لودینگ
       });
@@ -115,12 +119,12 @@ const WriteNote = () => {
 
   return (
     <Container>
-      <Title right title={getFieldTranslationByNames("1354")} />
+      <Title right title={getTranslation("1354")} />
       <Subject>
-        <Label>{getFieldTranslationByNames("19")}</Label>
+        <Label>{getTranslation("19")}</Label>
         <input
           type="text"
-          placeholder={getFieldTranslationByNames("19")}
+          placeholder={getTranslation("19")}
           value={title}
           onChange={(e) => title.length < 201 && setTitle(e.target.value)}
         />
@@ -130,7 +134,7 @@ const WriteNote = () => {
       <div>
         <Button
           fit
-          label={getFieldTranslationByNames("629")}
+          label={getTranslation("629")}
           onclick={handleSaveNote}
           disabled={isDisabled ? true : isSending ? "pending" : false}
         />

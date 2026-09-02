@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { useState } from "react";
 import Title from "../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Files = styled.div`
   display: flex;
@@ -113,7 +113,7 @@ const SendFiles = ({ setFiles }) => {
 
   return (
     <Container>
-      <Title title={getFieldTranslationByNames("1328")} />
+      <Title title={getTranslation("1328")} />
       <Files>
         {previews.map((preview, index) => (
           <FilePreview key={index}>

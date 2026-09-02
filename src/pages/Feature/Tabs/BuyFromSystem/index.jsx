@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { FeatureColor } from "../../../../services/constants/FeatureType";
 import useActivity from "../../../../services/Hooks/useActivity";
 import { FeatureContext } from "../../Context/FeatureProvider";
@@ -9,7 +9,7 @@ export default function BuyFromSystem() {
 
   const tabs = [
     {
-      name: "قیمت فروشنده",
+      name: "قیمت فرو1شنده",
       component: (
         <BuySystem
           rgb={feature.properties.rgb}

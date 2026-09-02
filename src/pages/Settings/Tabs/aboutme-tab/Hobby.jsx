@@ -15,7 +15,7 @@ import styled from "styled-components";
 import tree from "../../../../assets/images/settings/tree.png";
 import { useGlobalState } from "./aboutGlobalStateProvider";
 import weight from "../../../../assets/images/settings/weight.png";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { useEffect, useState } from "react";
 import { useTheme } from "../../../../services/reducers/ThemeContext";
 const Container = styled.div`
@@ -117,7 +117,7 @@ const Hobby = () => {
   const { state, dispatch } = useGlobalState();
   const maxHobbies = 5;
   const selectedHobbiesCount = Object.keys(state.hobbies || {}).filter(
-    (key) => state.hobbies[key] === 1
+    (key) => state.hobbies[key] === true
   ).length;
   const remainingHobbies = maxHobbies - selectedHobbiesCount;
   const limitReached = selectedHobbiesCount >= maxHobbies;
@@ -131,7 +131,7 @@ const Hobby = () => {
 
   const handleHobbyChange = (hobbyKey) => {
     const updatedHobbies = { ...hobbyValue };
-    updatedHobbies[hobbyKey] = updatedHobbies[hobbyKey] === 1 ? 0 : 1;
+    updatedHobbies[hobbyKey] = updatedHobbies[hobbyKey] === true ? false : true;
     setHobbyValue(updatedHobbies);
     dispatch({ type: "SET_HOBBIES", payload: updatedHobbies });
   };
@@ -181,8 +181,8 @@ const Hobby = () => {
   return (
     <Container>
       <Div limitReached={limitReached}>
-        <Label>{getFieldTranslationByNames("784")}</Label>
-        <h4>{`${localizedRemainingHobbies} ${getFieldTranslationByNames(
+        <Label>{getTranslation("784")}</Label>
+        <h4>{`${localizedRemainingHobbies} ${getTranslation(
           "790"
         )}`}</h4>
       </Div>
@@ -191,14 +191,14 @@ const Hobby = () => {
           <CheckboxLabel key={hobby.id}>
             <input
               type="checkbox"
-              checked={hobbyValue[hobby.key] === 1}
+              checked={hobbyValue[hobby.key] === true}
               onChange={() => handleHobbyChange(hobby.key)}
-              disabled={hobbyValue[hobby.key] === 0 && limitReached}
+              disabled={hobbyValue[hobby.key] === false && limitReached}
             />
             <div>
               <HobbyIcon src={hobby.icon} alt={hobby.name}   themeMode={theme}
 />
-              <span>{getFieldTranslationByNames(hobby.translationId)}</span>
+              <span>{getTranslation(hobby.translationId)}</span>
             </div>
           </CheckboxLabel>
         ))}

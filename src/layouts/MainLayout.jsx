@@ -2,10 +2,10 @@ import MapTreeD from "./map";
 import Menu from "./menu";
 import StatusBar from "./statusBar";
 import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { MenuContextProvider } from "../services/reducers/MenuContext";
 import styled from "styled-components";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { UserContext } from "../services/reducers/UserContext";
 import { getItem } from "../services/Utility/LocalStorage";
 
@@ -27,22 +27,34 @@ const Container = styled.section`
 `;
 const MainLayout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const usertoken = getItem("user");
   const [user] = useContext(UserContext);
-
   useEffect(() => {
-    if (user === undefined || user === null) return;
+    if (!user || !usertoken) return;
+    // هنوز اطلاعات user کامل نشده
+    if (user.has_wallet === undefined) return;
 
-    if (user.has_wallet || !usertoken) return;
+    // کیف پول دارد
+    if (user.has_wallet === true) return;
+
+    // فقط وقتی URL نقشه به مقدار اولیه رسید
+    const isMapUrl = new URLSearchParams(location.search).has("map");
+
+    if (!isMapUrl) return;
 
     const currentSession = `${usertoken.token}-${usertoken.expire}`;
     const shownSession = localStorage.getItem("walletModalShown");
 
-    if (shownSession !== currentSession) {
-      localStorage.setItem("walletModalShown", currentSession);
-      navigate("/connectWallet", { replace: true });
-    }
-  }, [user, usertoken, navigate]);
+    if (shownSession === currentSession) return;
+
+    localStorage.setItem("walletModalShown", currentSession);
+
+    navigate("/connectWallet", {
+      replace: true,
+    });
+  }, [user, usertoken, location.search, navigate]);
   return (
     <Container>
       <MenuContextProvider>

@@ -57,6 +57,7 @@ const Input = ({
   disabled,
   name,
   maxLength,
+  inputMode,
 }) => {
   const isPersian = useLanguage();
 
@@ -94,7 +95,7 @@ const Input = ({
     <Wrapper>
       <InputElement
         type={type === "number" ? "text" : type}
-        inputMode={type === "number" ? "numeric" : undefined}
+        inputMode={inputMode ?? (type === "number" ? "numeric" : undefined)}
         placeholder={placeholder}
         value={displayValue}
         onChange={handleChange}
