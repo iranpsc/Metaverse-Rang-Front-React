@@ -46,38 +46,35 @@ const ErrorReportTab = () => {
   const [isSending, setIsSending] = useState(false);
 
   const containerRef = useRef(null);
-useEffect(() => {
-  const loadImage = async () => {
-    if (location?.state?.title === "photoReport") {
-      dispatch({ type: "SET_SUBJECT", payload: "disrespect" });
-      dispatch({
-        type: "SET_TITLE",
-        payload: "عکس دارای محتوای زننده است ",
-      });
-
-      try {
-        const response = await fetch(location.state.photo);
-        const blob = await response.blob();
-
-        const file = new File(
-          [blob],
-          location.state.photo.split("/").pop(),
-          { type: blob.type }
-        );
-
+  useEffect(() => {
+    const loadImage = async () => {
+      if (location?.state?.title === "photoReport") {
+        dispatch({ type: "SET_SUBJECT", payload: "disrespect" });
         dispatch({
-          type: "SET_FILES",
-          payload: [file],
+          type: "SET_TITLE",
+          payload: "عکس دارای محتوای زننده است ",
         });
 
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  };
+        try {
+          const response = await fetch(location.state.photo);
+          const blob = await response.blob();
 
-  loadImage();
-}, []);
+          const file = new File([blob], location.state.photo.split("/").pop(), {
+            type: blob.type,
+          });
+
+          dispatch({
+            type: "SET_FILES",
+            payload: [file],
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    };
+
+    loadImage();
+  }, []);
 
   const resetForm = () => {
     dispatch({ type: "SET_SUBJECT", payload: "" });
@@ -87,12 +84,7 @@ useEffect(() => {
   };
 
   const sendReport = async () => {
-    if (
-      state.subject &&
-      state.title &&
-      state.description &&
-      state.files.length > 0
-    ) {
+    if (state.subject && state.title && state.description) {
       setIsSending(true);
 
       const attachments = [...state.files];
@@ -137,12 +129,7 @@ useEffect(() => {
     }
   };
 
-  const isDisabled = !(
-    state.subject &&
-    state.title &&
-    state.description &&
-    state.files.length > 0
-  );
+  const isDisabled = !(state.subject && state.title && state.description);
 
   return (
     <Container ref={containerRef}>

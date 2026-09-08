@@ -33,8 +33,7 @@ const WriteVodTab = () => {
     if (
       state.subject &&
       state.title &&
-      state.description &&
-      state.files.length > 0
+      state.description
     ) {
       setIsSending(true);
 
@@ -96,8 +95,7 @@ const WriteVodTab = () => {
   const isDisabled = !(
     state.subject &&
     state.title &&
-    state.description &&
-    state.files.length > 0
+    state.description 
   );
 
   return (

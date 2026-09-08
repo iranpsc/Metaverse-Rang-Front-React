@@ -26,7 +26,7 @@ const RequestDetails = ({
   const handleSubmit = () => {
     Request(`dynasty/requests/${type === "send" ? "send" : "recieved"}/${data.id}`, HTTP_METHOD.POST)
       .then(() => {
-        ToastSuccess("سلسله با موفقیت تاسیس شد.");
+        ToastSuccess(getTranslation(1821));
       })
       .catch((error) => {
 

@@ -30,7 +30,7 @@ const PropertySelect = ({ data, setData }) => {
     Request(`dynasty/create/${id}`, HTTP_METHOD.POST)
       .then((response) => {
         setData({ ...response.data.data });
-        ToastSuccess("سلسله با موفقیت تاسیس شد.");
+        ToastSuccess(getTranslation(1821));
       })
       .catch((error) => {
         ToastError(error?.response?.data?.message || "خطایی رخ داد.");
