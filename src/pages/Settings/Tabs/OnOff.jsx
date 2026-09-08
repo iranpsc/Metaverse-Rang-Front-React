@@ -26,7 +26,7 @@ const On = styled.div`
   }
 `;
 
-const OnOff = ({ label, isOn, onToggle }) => {
+const OnOff = ({ isOn, onToggle }) => {
   const [off, setOff] = useState(!isOn);
 
   useEffect(() => {

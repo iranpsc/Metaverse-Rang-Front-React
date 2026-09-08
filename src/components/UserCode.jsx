@@ -1,6 +1,6 @@
 import { HiOutlineUser } from "react-icons/hi";
 import styled from "styled-components";
-
+import { metarangUrlCitizen } from "../services/Utility";
 const User = styled.div`
   a {
     color: #0066ff;
@@ -35,7 +35,7 @@ const UserCode = ({ title, code }) => {
         <HiOutlineUser size={20} />
         <span>{title}</span>
       </Div>
-      <a href={`https://metarang.com/fa/citizens/${code}`} target="_blank" rel="noreferrer">
+      <a href={metarangUrlCitizen(code)} target="_blank" rel="noreferrer">
         {code}
       </a>
     </User>

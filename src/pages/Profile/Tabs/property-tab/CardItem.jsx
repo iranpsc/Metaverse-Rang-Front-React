@@ -5,11 +5,11 @@ import styled from "styled-components";
 import { useState } from "react";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
   formatNumber,
 } from "../../../../services/Utility";
 import Button from "../../../../components/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import useRequest from "../../../../services/Hooks/useRequest";
 const PhotoName = styled.div`
   display: flex;
@@ -169,7 +169,7 @@ const CardItem = ({
   id,
   color,
   address,
-  area,
+  stability,
   price_psc,
   price_irr,
   photo,
@@ -200,28 +200,36 @@ const CardItem = ({
             <img src={photo} />
           </ImageWrapper>
           <Name>
-            <h3>{getFieldTranslationByNames(name)}</h3>
-            <span onClick={() => Navigate(`/feature/${navigateId}`)}>
+            <h3>{getTranslation(name)}</h3>
+            <span
+              onClick={() =>
+                Navigate(`/feature/${navigateId}/info`, {
+                  state: {
+                    from: location.pathname,
+                  },
+                })
+              }
+            >
               {id}
             </span>
           </Name>
         </PhotoName>
         <Address>
-          <span>{getFieldTranslationByNames("59")}</span>
+          <span>{getTranslation("59")}</span>
           <p data-tooltip-id={address}>{address}</p>
           <StyledTooltip id={address} place="top" content={address} />
         </Address>
       </Right>
       <Left>
         <Meter>
-          <span>{getFieldTranslationByNames("347")}</span>
-          <p>{convertToPersian(area)}</p>
+          <span>{getTranslation("347")}</span>
+          <p>{convertToPersian(formatNumber(stability))}</p>
         </Meter>
         {isDeleted ? (
           <div />
         ) : (
           <Price>
-            <span>{getFieldTranslationByNames("60")}</span>
+            <span>{getTranslation("60")}</span>
             <Div>
               <div>
                 <img width={24} height={24} src={rialpng} />
@@ -237,15 +245,17 @@ const CardItem = ({
         {isDeleted ? (
           <Button
             fit
-            label={getFieldTranslationByNames("352")}
+            label={getTranslation("352")}
             onClick={() =>
-              Navigate(`/feature/${navigateId}/sell/lowest`)
+              Navigate(`/feature/${navigateId}/sell/lowest`, {
+                state: {
+                  from: location.pathname,
+                },
+              })
             }
           />
         ) : (
-          <Delete onClick={handleDelete}>
-            {getFieldTranslationByNames("736")}
-          </Delete>
+          <Delete onClick={handleDelete}>{getTranslation("736")}</Delete>
         )}
       </Left>
     </Container>

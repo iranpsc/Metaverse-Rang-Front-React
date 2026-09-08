@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import { useTranslation } from "react-i18next";
 import mataphoto from "../../assets/images/3ddevelop.jpg";
 const Container = styled.div`
@@ -48,7 +48,7 @@ const ContainerList = styled.div`
   height: 2px;
   background-color: #aca8a888;
 `;*/
-const createSVG = (color) =>
+const createSVG = () =>
   `data:image/svg+xml;utf8,<svg width="9" height="40" viewBox="0 0 9 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.7334 0.823747V39.1763C8.7334 33.2923 6.43704 27.6407 2.33308 23.4243C0.477911 21.5183 0.47791 18.4817 2.33308 16.5757C6.43704 12.3593 8.7334 6.70767 8.7334 0.823747Z" fill="/></svg>`;
 
 const Tooltip = styled.div`
@@ -159,12 +159,12 @@ const TooltipContent = ({ imgSrc, name, lang, href, onlineUser }) => {
           <Hr />
           <ContainerTextTooltip>
             <Text>{onlineUser} </Text>
-            {getFieldTranslationByNames("252")}
+            {getTranslation("252")}
           </ContainerTextTooltip>
           <Hr />
           <ContainerTextTooltip>
             <Text>0</Text>
-            {getFieldTranslationByNames("253")}
+            {getTranslation("253")}
           </ContainerTextTooltip>
         </Tooltip>
       }
@@ -190,7 +190,7 @@ const ListPositions = () => {
         <React.Fragment >
           <TooltipContent
             imgSrc={mataphoto}
-            name={getFieldTranslationByNames("1591")}
+            name={getTranslation("1591")}
             lang={i18n.language}
             href="https://dev1-world-3d.metarang.com"
             onlineUser={"20"}
@@ -198,7 +198,7 @@ const ListPositions = () => {
         </React.Fragment>
       </ContainerList>
       {/*<BtnAllList>
-        {getFieldTranslationByNames("251")}
+        {getTranslation("251")}
       </BtnAllList>*/}
     </Container>
   );

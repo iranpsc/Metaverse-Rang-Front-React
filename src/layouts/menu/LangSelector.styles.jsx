@@ -23,7 +23,6 @@ export const LangButton = styled.div`
 
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid #d1d5db;
 
   display: flex;
   align-items: center;

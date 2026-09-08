@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { Label } from "../../../../components/sidbar";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 const Wrapper = styled.div`
   max-width: 171px !important;
   background-color: ${(props) =>
@@ -14,9 +14,9 @@ const Wrapper = styled.div`
 const SidebarOptions = () => {
   return (
     <Wrapper>
-      <NavLink to="price" replace end>
+      <NavLink to="../buy/price" replace end>
         {({ isActive }) => (
-          <Label menu={isActive}>{getFieldTranslationByNames("524")}</Label>
+          <Label menu={isActive}>{getTranslation("524")}</Label>
         )}
       </NavLink>
     </Wrapper>

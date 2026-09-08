@@ -1,17 +1,19 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import axios from "axios";
 import { getItem } from "../../Utility/LocalStorage";
-import { ToastError, getFieldTranslationByNames } from "../../Utility";
+import { ToastError, getTranslation } from "../../Utility";
 import { UserContext } from "../../reducers/UserContext";
 import { useContext } from "react";
 
 export default function useRequest() {
+  const isProduction = window.location.hostname === "world.metarang.com";
+
   const navigate = useNavigate();
   const accountSecurity = getItem("account_security")?.account_security;
   const [userInfo] = useContext(UserContext);
 
   const PROD_BASE_URL = "https://api.metarang.com/api/";
-  const DEV_BASE_URL = "https://api.metarang.com/api/";
+  const DEV_BASE_URL = "https://dev-api.metarang.com/api/";
 
   const HTTP_METHOD = {
     GET: "GET",
@@ -22,13 +24,17 @@ export default function useRequest() {
   };
 
   const checkSecurity = () => {
-    if (userInfo?.has_wallet) {
+    if (userInfo?.wallet_login) {
       return true;
     }
 
     if (!accountSecurity) {
-      ToastError(getFieldTranslationByNames("1603"));
-      navigate("/confirmation");
+      ToastError(getTranslation("1603"));
+      navigate("/confirmation", {
+        state: {
+          from: location.pathname,
+        },
+      });
       return false;
     }
 
@@ -40,15 +46,11 @@ export default function useRequest() {
     method = "GET",
     formData = {},
     customHeader = {},
-    environment = "production",
   ) {
-    const user = getItem("user"); // ← هر بار آخرین مقدار را می‌خوانیم
+    const user = getItem("user");
 
-    const BASE_URL =
-      environment === "development" ? DEV_BASE_URL : PROD_BASE_URL;
-
+    const BASE_URL = isProduction ? PROD_BASE_URL : DEV_BASE_URL;
     const finalURL = BASE_URL + directory;
-
     const headers = {
       ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {}),
       ...customHeader,
@@ -64,7 +66,7 @@ export default function useRequest() {
       .then((response) => response)
       .catch((error) => {
         if (error.response?.status === 410) {
-          ToastError(getFieldTranslationByNames("1603"));
+          ToastError(getTranslation("1603"));
         }
 
         throw error;

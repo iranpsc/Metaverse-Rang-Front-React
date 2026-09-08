@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import {
   WalletContext,
   WalletContextTypes,
@@ -13,10 +13,8 @@ import {
   FeatureColor,
   FeatureSvg,
 } from "../../../../services/constants/FeatureType";
-import {
-  getFieldTranslationByNames,
-  ToastError,
-} from "../../../../services/Utility";
+import { getTranslation, ToastError } from "../../../../services/Utility";
+import { useMapLands } from "../../../../services/reducers/MapLandsContext";
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,6 +29,8 @@ const InputsWrapper = styled.div`
 const SellerPriceInfo = () => {
   const [wallet, dispatch] = useContext(WalletContext);
   const [feature] = useContext(FeatureContext);
+  const { setMapLands } = useMapLands();
+
   const Navigate = useNavigate();
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
 
@@ -49,11 +49,11 @@ const SellerPriceInfo = () => {
     if (walletRaw < featurePrice) {
       const colorName =
         colorKey === "yellow"
-          ? getFieldTranslationByNames("1599")
+          ? getTranslation("1599")
           : colorKey === "red"
-            ? getFieldTranslationByNames("1600")
+            ? getTranslation("1600")
             : colorKey === "blue"
-              ? getFieldTranslationByNames("1601")
+              ? getTranslation("1601")
               : "نامشخص";
 
       ToastError(colorName);
@@ -71,6 +71,11 @@ const SellerPriceInfo = () => {
             [colorKey]: newAmount,
           },
         });
+        setMapLands((prev) =>
+          prev.map((land) =>
+            land.id === feature.id ? { ...land, rgb: "i" } : land,
+          ),
+        );
         Navigate(FeatureSvg(feature.properties.rgb));
       })
       .catch((error) => {
@@ -81,14 +86,14 @@ const SellerPriceInfo = () => {
     <>
       <InputsWrapper>
         <TextValueIcon
-          title={getFieldTranslationByNames("521")}
+          title={getTranslation("521")}
           value={feature.properties.stability}
           valueIcon={FeatureColor(feature.properties.rgb)}
           very_long
         />
       </InputsWrapper>
 
-      <Button label={getFieldTranslationByNames("353")} onclick={onSubmit} />
+      <Button label={getTranslation("353")} onclick={onSubmit} />
     </>
   );
 };

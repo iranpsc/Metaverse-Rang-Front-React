@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import styled from "styled-components";
 import { useScrollDirectionContext } from "../../reducers/ScrollDirectionContext";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 const TabsWrapper = styled.div`
   border-bottom: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};

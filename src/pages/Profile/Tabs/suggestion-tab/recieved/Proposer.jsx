@@ -3,8 +3,8 @@ import ConfettiExplosion from "react-confetti-explosion";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
-  SanitizeHTML,
+  getTranslation,
+  SanitizeHTML,ToastError,metarangUrlCitizen
 } from "../../../../../services/Utility/index";
 import line from "../../../../../assets/images/profile/Line.png";
 import pscpng from "../../../../../assets/images/profile/psc.gif";
@@ -164,10 +164,10 @@ const Proposer = ({
               }}
             />
             <div>
-              <p>{getFieldTranslationByNames("768")}</p>
+              <p>{getTranslation("768")}</p>
               <a
                 target="blank"
-                href={`https://metarang.com/fa/citizen/${code}`}
+                href={metarangUrlCitizen(code)}
               >
                 {code.toUpperCase()}
               </a>
@@ -175,13 +175,13 @@ const Proposer = ({
           </Person>
           <Time>
             <div>
-              <p>{getFieldTranslationByNames("769")}</p>
+              <p>{getTranslation("769")}</p>
               <h3>{convertToPersian(date)}</h3>
             </div>
           </Time>
         </Header>
         <Price percent={percent}>
-          <h3>{getFieldTranslationByNames("773")}</h3>
+          <h3>{getTranslation("773")}</h3>
           <Prices percent={percent}>
             <div>
               <img width={24} height={24} src={rialpng} />
@@ -212,7 +212,7 @@ const Proposer = ({
           />
           {information?.length > 277 && (
             <span onClick={() => setIsExpanded(!isExpanded)}>
-              {getFieldTranslationByNames(isExpanded ? "884" : "774")}
+              {getTranslation(isExpanded ? "884" : "774")}
             </span>
           )}
         </Text>
@@ -224,7 +224,7 @@ const Proposer = ({
               onClick={() => {
                 handleGracePeriod(7);
               }}
-              label={`${convertToPersian(7)} ${getFieldTranslationByNames(
+              label={`${convertToPersian(7)} ${getTranslation(
                 "772",
               )} `}
               color="#3B3B3B"
@@ -235,7 +235,7 @@ const Proposer = ({
               onClick={() => {
                 handleGracePeriod(1);
               }}
-              label={`${convertToPersian(1)} ${getFieldTranslationByNames(
+              label={`${convertToPersian(1)} ${getTranslation(
                 "772",
               )} `}
               color="#3B3B3B"
@@ -247,7 +247,7 @@ const Proposer = ({
         {day !== 0 && (
           <Div>
             <Remained>
-              {convertToPersian(day)} {getFieldTranslationByNames("1413")}
+              {convertToPersian(day)} {getTranslation("1413")}
             </Remained>
           </Div>
         )}
@@ -257,7 +257,7 @@ const Proposer = ({
               onReject();
             }}
           >
-            {getFieldTranslationByNames("775")}
+            {getTranslation("775")}
             {isExploding && (
               <ConfettiExplosion
                 zIndex={10}
@@ -278,7 +278,7 @@ const Proposer = ({
           </RejectButton>
           <div style={{ position: "relative" }}>
             <Button
-              label={getFieldTranslationByNames("776")}
+              label={getTranslation("776")}
               color="#18C08F"
               textColor="#FFFFFF"
               onClick={() => {

@@ -7,8 +7,9 @@ import TitleValue from "../../../../../components/TitleValue";
 import {
   calculateFee,
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
   formatNumber,
+  normalizeDecimalInput,
 } from "../../../../../services/Utility";
 import CustomEditor from "../../../../../components/Common/CustomEditor";
 // constants
@@ -37,19 +38,30 @@ const FillInputs = ({
   errors,
   totalIrr,
 }) => {
+
   const handleValueChange = (value, isRial) => {
-    // فقط مقدار همون فیلد ذخیره میشه
     if (isRial) {
-      setRial(value);
-    } else {
-      setPsc(convertToPersian(value, false));
+      const sanitizedValue = value === "" ? "" : Number(value);
+      setRial(Number.isFinite(sanitizedValue) ? sanitizedValue : 0);
+      return;
     }
+
+    const normalized = normalizeDecimalInput(value);
+    if (normalized === "") {
+      setPsc("");
+      return;
+    }
+
+    setPsc(normalized);
   };
 
   const handleRialChange = (e) => handleValueChange(e.target.value, true);
   const handlePscChange = (e) => handleValueChange(e.target.value, false);
 
-  const remainingAmount = totalIrr - rial - psc * PSC_TO_RIAL_RATE;
+  const remainingAmount = totalIrr - Number(rial || 0) - Number(psc || 0) * PSC_TO_RIAL_RATE;
+  const rialFee = calculateFee(Number(rial || 0));
+  const pscFee = calculateFee(Number(psc || 0));
+
   return (
     <>
       <InputsWrapper>
@@ -57,18 +69,14 @@ const FillInputs = ({
           value={formatNumber(rial)}
           onChange={handleRialChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
-            "521"
-          )} (${getFieldTranslationByNames("48")})`}
+
           insideText={<Rial />}
         />
         <Input
-          value={convertToPersian(psc)}
+          value={psc === "" ? "" : convertToPersian(psc)}
           onChange={handlePscChange}
           type="text"
-          placeholder={`${getFieldTranslationByNames(
-            "521"
-          )} (${getFieldTranslationByNames("47")})`}
+          inputMode="decimal"
           insideText={<Psc />}
         />
       </InputsWrapper>
@@ -80,36 +88,34 @@ const FillInputs = ({
           value={suggestText}
           onChange={setSuggestText}
           charLimit={1000}
-          placeholder={getFieldTranslationByNames("529")}
+          placeholder={getTranslation("529")}
         />
       </SuggestWrapper>
 
       <ResultWrapper>
         <Wrapper>
-          <Title>{getFieldTranslationByNames("522")}</Title>
+          <Title>{getTranslation("522")}</Title>
           <Value>
-            {convertToPersian(calculateFee(rial) || 0)}{" "}
-            {getFieldTranslationByNames("48")} /{" "}
-            {convertToPersian(calculateFee(psc) || 0)}{" "}
-            {getFieldTranslationByNames("47")}
+            {convertToPersian(rialFee || 0)} {getTranslation("48")} / {" "}
+            {convertToPersian(pscFee || 0)} {getTranslation("47")}
           </Value>
         </Wrapper>
         <Sec>
           <TitleValue
-            title={getFieldTranslationByNames("531")}
+            title={getTranslation("531")}
             value={convertToPersian(
               formatNumber(remainingAmount / PSC_TO_RIAL_RATE)
             )}
           />
           <TitleValue
-            title={getFieldTranslationByNames("523")}
+            title={getTranslation("523")}
             value={`${convertToPersian(5)}%`}
           />
         </Sec>
       </ResultWrapper>
 
       <div>
-        <Button label={getFieldTranslationByNames("532")} onclick={onSubmit} />
+        <Button label={getTranslation("532")} onclick={onSubmit} />
       </div>
     </>
   );

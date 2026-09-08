@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
 import { setItem } from "../../services/Utility/LocalStorage";
-import { getFieldTranslationByNames, ToastError } from "../../services/Utility";
+import { getTranslation, ToastError } from "../../services/Utility";
 import Button from "../../components/Button";
 
 const Codes = styled.div`
@@ -219,7 +219,7 @@ const SecondStep = ({ setStep, time }) => {
         })
         .catch(() => {
           setErrors(true);
-          ToastError(getFieldTranslationByNames("1639"));
+          ToastError(getTranslation("1639"));
         });
     } else {
       setErrors(true);
@@ -259,8 +259,8 @@ const SecondStep = ({ setStep, time }) => {
 
   return (
     <Container>
-      <h3>{getFieldTranslationByNames("860")}</h3>
-      <p>{getFieldTranslationByNames("861")}</p>
+      <h3>{getTranslation("860")}</h3>
+      <p>{getTranslation("861")}</p>
       <Codes>
         {[...Array(6)].map((_, index) => (
           <input
@@ -310,13 +310,13 @@ const SecondStep = ({ setStep, time }) => {
             .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])}
         </h4>
         {timer !== 0 ? (
-          <span>{getFieldTranslationByNames("863")}</span>
+          <span>{getTranslation("863")}</span>
         ) : (
-          <h2 onClick={resetHandler}>{getFieldTranslationByNames(1642)}</h2>
+          <h2 onClick={resetHandler}>{getTranslation(1642)}</h2>
         )}
       </div>
       <Button
-        label={getFieldTranslationByNames("859")}
+        label={getTranslation("859")}
         disabled={!allValuesNotEmpty}
         onClick={() => nextStep()}
       />

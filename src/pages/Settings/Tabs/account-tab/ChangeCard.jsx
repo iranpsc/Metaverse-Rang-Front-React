@@ -6,7 +6,7 @@ import EditInput from "../../../Feature/Tabs/enter-tab/EditInput";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastError,
   ToastSuccess,
 } from "../../../../services/Utility";
@@ -171,7 +171,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
 
   return (
     <Container id={id}>
-      <Title title={getFieldTranslationByNames(title)} />
+      <Title title={getTranslation(title)} />
       {warn && (
         <Warn>
           <RiErrorWarningLine size={22} />
@@ -187,7 +187,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
                 inputValues.find((input) => input.id === item.id)?.value || ""
               }
               onchange={(e) => handleInputChange(item.id, e.target.value)}
-              title={getFieldTranslationByNames(item.label)}
+              title={getTranslation(item.label)}
               error={
                 inputErrors.find((input) => input.id === item.id)?.error || ""
               }
@@ -203,7 +203,7 @@ const ChangeCard = ({ id, title, warn, inputs }) => {
 
       <Button
         full
-        label={getFieldTranslationByNames("629")}
+        label={getTranslation("629")}
         onclick={handleSave}
         disabled={isDisabled ? true : isSending ? "pending" : false}
       />

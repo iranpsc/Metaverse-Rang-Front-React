@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import AccountSecurityIcon from "../../assets/svg/accountSecurity.svg";
 import CentralSearch from "../../assets/svg/centralSearch.svg";
 import GlobalStatisticsIcon from "../../assets/svg/globalStatistics.svg";
@@ -12,16 +12,16 @@ import StoreIcon from "../../assets/svg/store.svg";
 import NotifIcon from "../../assets/svg/notif.svg";
 import ReportIcon from "../../assets/svg/report.svg";
 import Wallet from "../../assets/svg/wallet.svg";
-
 import GiftIcon from "../../assets/svg/gifts.svg";
 import { useMenuContext } from "../../services/reducers/MenuContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import Tippy from "@tippyjs/react";
 import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "../../services/reducers/UserContext";
 const Container = styled.div`
   height: 100vh;
+  white-space: nowrap;
 `;
 const Btn = styled.button`
   display: flex;
@@ -126,44 +126,6 @@ const Tooltip = styled.div`
   }
 `;
 
-const menuItems = [
-  { icon: GiftIcon, translationId: "231", navigate: "" },
-  {
-    icon: AccountSecurityIcon,
-    translationId: "31",
-    navigate: "confirmation",
-  },
-  {
-    icon: CentralSearch,
-    translationId: "232",
-    navigate: "search",
-  },
-  {
-    icon: GlobalStatisticsIcon,
-    translationId: "233",
-    navigate: "",
-  },
-  { icon: RobotIcon, translationId: "235", navigate: "" },
-  {
-    icon: ProfitIcon,
-    translationId: "236",
-    navigate: "profit",
-  },
-  {
-    icon: KycIcon,
-    translationId: "237",
-    navigate: "verification",
-  },
-  { icon: CalendarIcon, translationId: "262", navigate: "" },
-  { icon: StoreIcon, translationId: "30", navigate: "store" },
-  {
-    icon: NotifIcon,
-    translationId: "238",
-    navigate: "notifications",
-  },
-  { icon: ReportIcon, translationId: "23", navigate: "report" },
-  { icon: Wallet, translationId: "1668", navigate: "connectWallet" },
-];
 
 const BtnsMenu = () => {
   const { isOpen } = useMenuContext();
@@ -194,6 +156,70 @@ const BtnsMenu = () => {
     setSelectedItem(item.translationId);
     navigate(targetPath);
   };
+  const menuItems = [
+    { icon: GiftIcon, translationId: "231", navigate: "challenges" },
+
+    ...(!user?.wallet_login
+      ? [
+        {
+          icon: AccountSecurityIcon,
+          translationId: "31",
+          navigate: "confirmation",
+        },
+      ]
+      : []),
+
+    {
+      icon: CentralSearch,
+      translationId: "232",
+      navigate: "search/citizen",
+    },
+    {
+      icon: GlobalStatisticsIcon,
+      translationId: "233",
+      navigate: "",
+    },
+    {
+      icon: RobotIcon,
+      translationId: "235",
+      navigate: "",
+    },
+    {
+      icon: ProfitIcon,
+      translationId: "236",
+      navigate: "profit",
+    },
+    {
+      icon: KycIcon,
+      translationId: "237",
+      navigate: "verification",
+    },
+    {
+      icon: CalendarIcon,
+      translationId: "262",
+      navigate: "",
+    },
+    {
+      icon: StoreIcon,
+      translationId: "30",
+      navigate: "store",
+    },
+    {
+      icon: NotifIcon,
+      translationId: "238",
+      navigate: "notifications",
+    },
+    {
+      icon: ReportIcon,
+      translationId: "23",
+      navigate: "report",
+    },
+    {
+      icon: Wallet,
+      translationId: user?.has_wallet ? "1781" : "1668",
+      navigate: "connectWallet",
+    },
+  ];
 
   return (
     <Container>
@@ -202,7 +228,7 @@ const BtnsMenu = () => {
           key={index}
           content={
             <Tooltip lang={lang.i18n.language}>
-              {getFieldTranslationByNames(item.translationId)}
+              {getTranslation(item.translationId)}
             </Tooltip>
           }
           zIndex={10000}
@@ -230,7 +256,7 @@ const BtnsMenu = () => {
                 isOpen={isOpen}
                 isSelected={selectedItem === item.translationId}
               >
-                {getFieldTranslationByNames(item.translationId)}
+                {getTranslation(item.translationId)}
               </Text>
             </div>
             {item.translationId === "236" && user && (

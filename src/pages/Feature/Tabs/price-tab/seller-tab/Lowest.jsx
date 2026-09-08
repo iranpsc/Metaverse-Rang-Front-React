@@ -5,7 +5,7 @@ import { UserContext } from "../../../../../services/reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   TimeAgo,
   ToastError,
   ToastSuccess,
@@ -85,17 +85,17 @@ const Lowest = () => {
   const onSubmit = () => {
     if (user.birthdate == null) {
       if (percentage < 110) {
-        return ToastError(getFieldTranslationByNames(1647));
+        return ToastError(getTranslation(1647));
       }
     }
 
     if (TimeAgo(user?.birthdate) >= 18) {
       if (percentage < 80) {
-        return ToastError(getFieldTranslationByNames(1632));
+        return ToastError(getTranslation(1632));
       }
     } else {
       if (percentage < 110) {
-        return ToastError(getFieldTranslationByNames(1632));
+        return ToastError(getTranslation(1632));
       }
     }
     if (!checkSecurity()) return;
@@ -113,7 +113,7 @@ const Lowest = () => {
             minimum_price_percentage: percentage,
           },
         }));
-        ToastSuccess(getFieldTranslationByNames(1634));
+        ToastSuccess(getTranslation(1634));
       })
       .catch((error) => {
         ToastError(error.response.data.message);
@@ -122,7 +122,7 @@ const Lowest = () => {
   return (
     <Container>
       <Wrapper>
-        <Text>{getFieldTranslationByNames("518")}</Text>
+        <Text>{getTranslation("518")}</Text>
         <Div>
           <InputWrapper>
             <Input
@@ -136,7 +136,7 @@ const Lowest = () => {
             <Span>%</Span>
           </InputWrapper>
         </Div>
-        <Button label={getFieldTranslationByNames("519")} onClick={onSubmit} />
+        <Button label={getTranslation("519")} onClick={onSubmit} />
         {assign && (
           <ResultInfo
             lowest

@@ -41,7 +41,6 @@ const Name = styled.p`
 // ===============================
 export default function DropdownLanguageModule({
   langArray,
-  currentLangObject,
   changeLanguage,
   currentLang,
   setIsLangOpen,

@@ -41,7 +41,7 @@ const reducer = (state, action) => {
   }
 };
 
-const aboutStateContext = createContext();
+const AboutStateContext = createContext();
 
 export const GlobalStateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -79,12 +79,12 @@ export const GlobalStateProvider = ({ children }) => {
   }, []);
 
   return (
-    <aboutStateContext.Provider value={{ state, dispatch }}>
+    <AboutStateContext.Provider value={{ state, dispatch }}>
       {children}
-    </aboutStateContext.Provider>
+    </AboutStateContext.Provider>
   );
 };
 
 export const useGlobalState = () => {
-  return useContext(aboutStateContext);
+  return useContext(AboutStateContext);
 };

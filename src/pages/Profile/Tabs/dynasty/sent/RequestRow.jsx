@@ -1,6 +1,11 @@
 import { LuEye } from "react-icons/lu";
 import RequestDetails from "./RequestDetails";
-import { convertToPersian, getFieldTranslationByNames } from "../../../../../services/Utility";
+import {
+  convertToPersian,
+  getTranslation,
+  metarangUrlCitizen,
+  ConvertJalali,
+} from "../../../../../services/Utility";
 import gift from "../../../../../assets/images/satisfy.png";
 import pscGif from "../../../../../assets/gif/psc.gif";
 import styled from "styled-components";
@@ -99,7 +104,6 @@ const RequestRow = ({
   code,
   date,
   time,
-  name,
   status,
   member,
   gif,
@@ -110,15 +114,31 @@ const RequestRow = ({
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const { data, loading, fetchRequestDetails } = useRequestDetails(type);
+  const familyMap = {
+    برادر: 128,
+    پدر: 125,
+    مادر: 126,
+    همسر: 825,
+    فرزند: 129,
+  };
 
+  const family = familyMap[member] ?? 127;
   // اگر در حال لودینگ هستیم، اسکلتون نشون بده
   if (isLoading) {
     return (
       <SkeletonRow>
-        <td><Skeleton width="100px" height="16px" radius="4px" /></td>
-        <td><Skeleton width="120px" height="16px" radius="4px" /></td>
-        <td><Skeleton width="80px" height="16px" radius="4px" /></td>
-        <td><Skeleton width="100px" height="16px" radius="4px" /></td>
+        <td>
+          <Skeleton width="100px" height="16px" radius="4px" />
+        </td>
+        <td>
+          <Skeleton width="120px" height="16px" radius="4px" />
+        </td>
+        <td>
+          <Skeleton width="80px" height="16px" radius="4px" />
+        </td>
+        <td>
+          <Skeleton width="100px" height="16px" radius="4px" />
+        </td>
         <td>
           <Subject>
             <Div>
@@ -131,7 +151,9 @@ const RequestRow = ({
             </Div>
           </Subject>
         </td>
-        <td><Skeleton width="40px" height="40px" radius="10px" /></td>
+        <td>
+          <Skeleton width="40px" height="40px" radius="10px" />
+        </td>
       </SkeletonRow>
     );
   }
@@ -141,7 +163,7 @@ const RequestRow = ({
       await fetchRequestDetails(id);
       setShowDetails(true);
     } catch (error) {
-      // Handle error (e.g., show toast notification)
+      console.error("Error fetching request details:", error);
     }
   };
 
@@ -150,7 +172,11 @@ const RequestRow = ({
       <TableRow>
         <TableCell>
           <div>
-            <Code href={`https://metarang.com/fa/citizens/${code}`} target="_blank" rel="noopener noreferrer">
+            <Code
+              href={metarangUrlCitizen(code)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {code}
             </Code>
           </div>
@@ -158,12 +184,12 @@ const RequestRow = ({
         <TableCell>
           <div>
             <Date>
-              {date} | {time}
+              {ConvertJalali(date)} | {convertToPersian(time)}
             </Date>
           </div>
         </TableCell>
         <TableCell>
-          <Status>{member}</Status>
+          <Status>{getTranslation(family)}</Status>
         </TableCell>
         <TableCell>
           <Title
@@ -172,16 +198,16 @@ const RequestRow = ({
                 status === "confirmed"
                   ? "#18C08F"
                   : status === "pending"
-                  ? "#FFC700"
-                  : "#FF0000"
+                    ? "#FFC700"
+                    : "#FF0000"
               }`,
             }}
           >
             {status === "confirmed"
-              ? getFieldTranslationByNames(854)
+              ? getTranslation(854)
               : status === "pending"
-              ? getFieldTranslationByNames(852)
-              : getFieldTranslationByNames(853)}
+                ? getTranslation(852)
+                : getTranslation(853)}
           </Title>
         </TableCell>
         <TableCell>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import Button from "../../../../../components/Button";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   ToastSuccess,
 } from "../../../../../services/Utility";
 import ModalLg from "../../../../../components/Modal/ModalLg";
@@ -76,8 +76,6 @@ const Wrapper = styled.div`
 const SubmitDynastyModal = ({
   setOpenDetails,
   selectedCitizen,
-  members,
-  setMembers,
   setMode,
   memberType,
 }) => {
@@ -111,7 +109,7 @@ const SubmitDynastyModal = ({
         setOpenDetails(false);
         setMode({ mode: 1, type: null });
       }
-    } catch (error) {}
+    } catch (err) { console.error("Error submitting dynasty member:", err); }
   };
 
   return (
@@ -126,25 +124,25 @@ const SubmitDynastyModal = ({
           <Settings>
             {settings.map((setting) => (
               <Wrapper key={setting.id}>
-                <p>{getFieldTranslationByNames(setting.label)}</p>
-                <OnOff label={getFieldTranslationByNames(setting.label)} />
+                <p>{getTranslation(setting.label)}</p>
+                <OnOff label={getTranslation(setting.label)} />
               </Wrapper>
             ))}
           </Settings>
         ) : (
           <>
             <p>
-              {getFieldTranslationByNames(1401)} {memberType}{" "}
-              {getFieldTranslationByNames(1402)} {selectedCitizen.name}{" "}
-              {getFieldTranslationByNames(1403)}
+              {getTranslation(1401)} {memberType}{" "}
+              {getTranslation(1402)} {selectedCitizen.name}{" "}
+              {getTranslation(1403)}
             </p>
-            <p>{getFieldTranslationByNames(1404)}</p>
+            <p>{getTranslation(1404)}</p>
           </>
         )}
       </Texts>
       <Buttons>
         <Button
-          label={getFieldTranslationByNames(823)}
+          label={getTranslation(823)}
           color="#18C08F"
           onclick={handleAccept}
           fit
@@ -152,7 +150,7 @@ const SubmitDynastyModal = ({
           disabled={!selectedRelation} // Button will be disabled when no relation is selected
         />
         <Button
-          label={getFieldTranslationByNames(824)}
+          label={getTranslation(824)}
           color="#C30000"
           onclick={() => setOpenDetails(false)}
           fit

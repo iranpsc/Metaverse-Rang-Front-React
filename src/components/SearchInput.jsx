@@ -1,6 +1,6 @@
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import debounce from "lodash/debounce";
 
 const Container = styled.div`
@@ -12,38 +12,54 @@ const Container = styled.div`
 
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
+
   display: grid;
   align-items: center;
   grid-template-columns: 5px 1fr;
   gap: 50px;
+
   svg {
     background-color: ${(props) =>
       props.theme.colors.newColors.otherColors.inputBg};
   }
+
   input {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     height: 100%;
-    background-color: transparent;
+    background: transparent;
     font-size: 18px;
-    width: 100% !important;
+    width: 100%;
     outline: none;
     border: none;
-    background-color: ${(props) =>
-      props.theme.colors.newColors.otherColors.inputBg};
   }
 `;
 
-const SearchInput = ({ placeholder, value, onchange }) => {
+const SearchInput = ({ placeholder, value = "", onchange }) => {
+  const [inputValue, setInputValue] = useState(value);
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
+
   const debouncedSearch = useCallback(
     debounce((value) => {
-      onchange({ target: { value } });
+      onchange?.({ target: { value } });
     }, 500),
-    [onchange]
+    [onchange],
   );
 
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
+
   const handleChange = (e) => {
-    const searchTerm = e.target.value;
-    debouncedSearch(searchTerm);
+    const value = e.target.value;
+
+    setInputValue(value);
+
+    debouncedSearch(value);
   };
 
   return (
@@ -52,7 +68,7 @@ const SearchInput = ({ placeholder, value, onchange }) => {
       <input
         type="text"
         placeholder={placeholder}
-        defaultValue={value}
+        value={inputValue}
         onChange={handleChange}
       />
     </Container>

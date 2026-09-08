@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import FilterIcon from "../../../assets/images/filter.png";
 import MapIcon from "../../../assets/images/maps.png";

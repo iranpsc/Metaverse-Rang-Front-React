@@ -10,7 +10,7 @@ import { useState } from "react";
 import TitleValue from "../../../Store/shop/TitleValue";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../services/Utility";
 import UserCode from "../../../../components/UserCode";
 
@@ -108,24 +108,24 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
         <Div>
           <ParticipantSummary>
             <UserCode
-              title={getFieldTranslationByNames("563")}
+              title={getTranslation("563")}
               code="HM-2000081"
             />
             <TitleValue
-              title={getFieldTranslationByNames("564")}
+              title={getTranslation("564")}
               value={time}
             />
             <TitleValue
-              title={getFieldTranslationByNames("565")}
+              title={getTranslation("565")}
               value={debt}
             />
             <TitleValue
-              title={getFieldTranslationByNames("566")}
+              title={getTranslation("566")}
               value={level}
             />
             <SatisfyContainer>
               <Title>
-                <h3>{getFieldTranslationByNames("567")}</h3>
+                <h3>{getTranslation("567")}</h3>
                 <img src={satisfy} alt="pricing" width={18} height={18} />
               </Title>
               <span>{convertToPersian(satisfyCount)}</span>
@@ -155,13 +155,13 @@ const ParticipantItem = ({ id, time, debt, level, satisfyCount, options }) => {
             {options.map((option) => (
               <ParticipantInfo key={option.id}>
                 <TitleValue
-                  title={getFieldTranslationByNames("571")}
+                  title={getTranslation("571")}
                   value={option.submit}
                 />
 
                 <SatisfyContainer>
                   <Title>
-                    <h3> {getFieldTranslationByNames("567")}</h3>
+                    <h3> {getTranslation("567")}</h3>
                     <img src={satisfy} alt="pricing" width={18} height={18} />
                   </Title>
                   <span>{convertToPersian(satisfyCount)}</span>

@@ -17,7 +17,7 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        sourcemapPathTransform: (relativeSourcePath, sourcemapPath) => {
+        sourcemapPathTransform: (relativeSourcePath) => {
           return `~/${relativeSourcePath}`;
         },
       },

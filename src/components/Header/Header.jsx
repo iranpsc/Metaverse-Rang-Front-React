@@ -1,16 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Help from "../../assets/svg/exclamation.svg?react";
-import Report  from "../../assets/svg/question.svg?react";
+import Report from "../../assets/svg/question.svg?react";
 import { ExitIcon } from "../Icons/IconsHeader";
 import { BiExitFullscreen } from "react-icons/bi";
 import { PiGearSixFill } from "react-icons/pi";
 import { TiWarning } from "react-icons/ti";
 import Education from "../../components/Education/Education";
 import useAdviserData from "../../services/Hooks/useAdviserData";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import { useScrollDirectionContext } from "../../services/reducers/ScrollDirectionContext";
 const HelpIcon = styled(Help)`
   width: 40px;
@@ -119,15 +119,7 @@ const FullWrapper = styled.div`
   }
 `;
 
-const Header = ({
-  title,
-  long,
-  loading,
-  profile,
-  action,
-  setShowContainer,
-  handleExit,
-}) => {
+const Header = ({ title, long, loading, profile, action, handleExit }) => {
   const [openEducation, setOpenEducation] = useState(false);
   const location = useLocation();
   const navigation = useNavigate();
@@ -137,7 +129,6 @@ const Header = ({
   const newStr = location.pathname.replace(/\//g, "") + "-";
   const locationPage = location?.state?.locationPage;
   const adviserData = useAdviserData(newStr, locationPage);
-
   const handleReportClick = () => {
     navigation("/report/send", {
       state: {
@@ -145,36 +136,31 @@ const Header = ({
       },
     });
   };
-const handleExitClick = () => {
-  updateScrollDirection(false);
+  const handleExitClick = () => { 
+    updateScrollDirection(false);
 
-  if (handleExit) {
-    navigation(location.state?.background?.pathname || "/", {
-      replace: true,
-    });
-    handleExit();
-    return;
-  }
+    if (handleExit) {
+      navigation(location.state?.background?.pathname || "/", {
+        replace: true,
+      });
+      handleExit();
+      return;
+    }
+    const backgroundPath = location.state?.from;
 
-  const backgroundPath = location.state?.background?.pathname;
+    if (backgroundPath) {
+      navigation(backgroundPath, { replace: true });
+    } else {
+      navigation("/", { replace: true });
+    }
 
-  if (backgroundPath) {
-    navigation(backgroundPath, { replace: true });
-  } else {
-    navigation("/", { replace: true });
-  }
-
-  if (setShowContainer) {
-    setShowContainer(false);
-  }
-
-  if (action === "ChangeHiddenState") {
-    resetStates();
-  }
-};
+    if (action === "ChangeHiddenState") {
+      resetStates();
+    }
+  };
   return (
     <HeaderWrapper>
-      <Text long={long}>{getFieldTranslationByNames(title)}</Text>
+      <Text long={long}>{getTranslation(title)}</Text>
       <Icons>
         {loading && (
           <FullWrapper>

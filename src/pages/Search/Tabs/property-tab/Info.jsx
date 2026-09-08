@@ -1,7 +1,7 @@
 import psc from "../../../../assets/gif/psc.gif";
 import rial from "../../../../assets/gif/rial.gif";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation,metarangUrlCitizen } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -44,22 +44,22 @@ const Info = ({ item }) => {
   const items = [
     {
       id: 1,
-      title: getFieldTranslationByNames("46"),
+      title: getTranslation("46"),
       value: item?.address,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames("43"),
+      title: getTranslation("43"),
       value: item?.owner_code,
     },
     {
       id: 3,
-      title: getFieldTranslationByNames("45"),
+      title: getTranslation("45"),
       value: item?.price_psc,
     },
     {
       id: 4,
-      title: getFieldTranslationByNames("44"),
+      title: getTranslation("44"),
       value: item?.price_irr,
     },
   ];
@@ -105,7 +105,7 @@ const Info = ({ item }) => {
           )}
           {item.id == 2 && (
             <a
-              href={`https://metarang.com/fa/citizens/${item.value}`}
+              href={metarangUrlCitizen(item.value)}
               target="_blank" rel="noreferrer"
             >
               {item.value}

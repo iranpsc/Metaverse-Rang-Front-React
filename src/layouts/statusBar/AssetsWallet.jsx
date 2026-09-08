@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useContext } from "react";
 import { WalletContext } from "../../services/reducers/WalletContext";
 import styled from "styled-components";
@@ -50,7 +50,7 @@ const Line = styled.div`
   background-color: #efefef;
 `;
 
-const AssetItem = ({ title, value, img, index, totalassets }) => (
+const AssetItem = ({  value, img, index, totalassets }) => (
   <>
     <Asset>
       <TextAsset>{convertToPersian(formatAmount(value) || "0.000")}</TextAsset>

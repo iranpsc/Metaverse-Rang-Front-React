@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Input from "../physic-tab/Input";
 import Button from "../../../../components/Button";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Container = styled.div`
   width: 100%;
@@ -38,13 +38,13 @@ const EnterCode = ({ setPayStatus }) => {
   return (
     <Container>
       <Input
-        placeholder={getFieldTranslationByNames("535")}
+        placeholder={getTranslation("535")}
         onchange={() => {}}
       />
       <Div>
         <Button
           fit
-          label={getFieldTranslationByNames("536")}
+          label={getTranslation("536")}
           onclick={() => setPayStatus(true)}
         />
       </Div>

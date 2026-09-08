@@ -1,6 +1,6 @@
 import { FiInbox } from "react-icons/fi";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const NoNotification = () => {
     <Container>
       <FiInbox />
       <h2>
-        {getFieldTranslationByNames("865")}
+        {getTranslation("865")}
       </h2>
     </Container>
   );

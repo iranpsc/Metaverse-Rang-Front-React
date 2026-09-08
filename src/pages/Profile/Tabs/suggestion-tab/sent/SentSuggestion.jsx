@@ -4,11 +4,11 @@ import meter from "../../../../../assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../../../../services/Utility/index";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { Wrapper } from "../suggestionStyles";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import moment from "moment-jalaali";
 import Container from "../../../../../components/Common/Container";
 
@@ -125,14 +125,14 @@ const SentSuggestion = () => {
       } else {
         console.error("Error deleting suggestion:", response);
       }
-    } catch (error) {}
+    } catch (error) {console.error(error)}
   };
 
   // اسکلتون لودینگ
   if (loading) {
     return (
       <Container ref={containerRef}>
-        <Title right title={getFieldTranslationByNames("765")} />
+        <Title right title={getTranslation("765")} />
         <Wrapper>
           {Array.from({ length: 3 }).map((_, index) => (
             <Suggestion key={index} isLoading={true} />
@@ -144,7 +144,7 @@ const SentSuggestion = () => {
 
   return (
     <Container ref={containerRef}>
-      <Title right title={getFieldTranslationByNames("765")} />
+      <Title right title={getTranslation("765")} />
       <Wrapper>
         {convertSuggestions(
           suggestions.filter((s) => s.suggestions_list?.length > 0),

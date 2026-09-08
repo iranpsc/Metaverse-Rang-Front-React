@@ -1,11 +1,11 @@
 import "react-quill-new/dist/quill.snow.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import ReactQuill from "react-quill-new";
 import { CiEdit } from "react-icons/ci";
 import {
   convertToPersian,
   SanitizeHTML,
-  getFieldTranslationByNames,
+  getTranslation,
 } from "../../services/Utility";
 import styled from "styled-components";
 
@@ -16,9 +16,11 @@ const EditorContainer = styled.div`
   overflow: hidden;
   color: white;
   margin: 10px auto;
-  height: 212px;
+  height: ${({ showToolbar }) => (showToolbar ? "212px" : "162px")};
   border: ${({ border }) => (border ? "1px solid gray" : "none")};
+
   .ql-toolbar {
+    display: ${({ showToolbar }) => (showToolbar ? "block" : "none")};
     background-color: ${(props) =>
       props.theme.colors.newColors.otherColors.inputBg};
     border: none;
@@ -43,7 +45,6 @@ const EditorContainer = styled.div`
     font-family: "AzarMehr" !important;
   }
 
-  /* placeholder */
   && .ql-editor::before {
     font-size: inherit !important;
     color: #888;
@@ -89,6 +90,7 @@ const Char = styled.div`
   justify-content: end;
   align-items: center;
   gap: 5px;
+
   svg {
     color: ${({ isOverLimit, theme }) =>
       isOverLimit ? "red" : theme.colors.newColors.shades.title};
@@ -100,6 +102,7 @@ const Char = styled.div`
     font-weight: 400;
   }
 `;
+
 const formats = [
   "size",
   "bold",
@@ -108,14 +111,19 @@ const formats = [
   "strike",
   "blockquote",
   "list",
-  "bullet",
   "indent",
   "link",
   "code-block",
   "align",
 ];
 
-const getModules = (img = false) => {
+const getModules = (img = false, showToolbar = true) => {
+  if (!showToolbar) {
+    return {
+      toolbar: false,
+    };
+  }
+
   const toolbar = [
     ["bold", "italic", "underline", "strike", "blockquote"],
     [
@@ -132,19 +140,13 @@ const getModules = (img = false) => {
     toolbar[2].splice(1, 0, "image");
   }
 
-  return { toolbar };
+  return {
+    toolbar,
+  };
 };
 
 /**
- * Reusable RichTextEditor with strict char limit
- *
- * Props:
- * - value: string (initial content)
- * - onChange: function (called when value changes)
- * - charLimit: number (max characters)
- * - label: string (optional label above editor)
- * - showIcon: boolean (whether to show CiEdit icon)
- * - placeholder: string (placeholder when empty)
+ * Reusable RichTextEditor with strict character limit
  */
 const CustomEditor = ({
   value = "",
@@ -155,29 +157,89 @@ const CustomEditor = ({
   placeholder = "",
   border = false,
   img = false,
+  showToolbar = true,
 }) => {
-  const [content, setContent] = useState(value);
+  const [charCount, setCharCount] = useState(0);
+  const quillRef = useRef(null);
+  const lastValueRef = useRef(value);
+
+  /**
+   * تعداد واقعی کاراکترهای متن
+   * نه تعداد کاراکترهای HTML
+   */
+  const getTextLength = (editor) => {
+    if (!editor) return 0;
+
+    return Math.max(0, editor.getText().length - 1);
+  };
+
+  const getTextLengthFromHtml = (html) => {
+    if (!html) return 0;
+
+    const temp = document.createElement("div");
+    temp.innerHTML = html;
+
+    return Math.max(0, (temp.textContent || "").length - 1);
+  };
 
   useEffect(() => {
-    setContent(value);
-  }, [value]);
-  const handleChange = (val, delta, source, editor) => {
-    const text = editor.getText();
-    let newValue = val;
+    setCharCount(getTextLengthFromHtml(value));
 
-    if (text.length - 1 > charLimit) {
-      const quill = editor;
-      quill.deleteText(charLimit, text.length);
-      newValue = quill.root.innerHTML;
+    const quill = quillRef.current?.getEditor();
+    if (!quill) return;
+
+    if (value !== lastValueRef.current && value !== quill.root.innerHTML) {
+      quill.clipboard.dangerouslyPasteHTML(value || "");
+      lastValueRef.current = value;
+    }
+  }, [value]);
+
+  const modules = useMemo(() => getModules(img, showToolbar), [img, showToolbar]);
+
+  /**
+   * وقتی متن تغییر می‌کند
+   */
+  const handleChange = (val) => {
+    const quill = quillRef.current?.getEditor();
+    if (!quill) return;
+
+    let textLength = getTextLength(quill);
+
+    /**
+     * اگر متن از حد مجاز بیشتر شد،
+     * فقط مقدار اضافه را حذف می‌کنیم.
+     */
+    if (textLength > charLimit) {
+      const excess = textLength - charLimit;
+
+      quill.deleteText(charLimit, excess, "silent");
+
+      textLength = getTextLength(quill);
+
+      const safeValue = SanitizeHTML(quill.root.innerHTML);
+
+      setCharCount(textLength);
+      onChange?.(safeValue);
+
+      return;
     }
 
-    const safeValue = SanitizeHTML(newValue);
+    const safeValue = SanitizeHTML(val);
 
-    setContent(safeValue);
+    setCharCount(textLength);
     onChange?.(safeValue);
   };
 
+  /**
+   * جلوگیری از تایپ بیشتر از محدودیت
+   */
   const handleKeyDown = (event) => {
+    const quill = quillRef.current?.getEditor();
+
+    if (!quill) return;
+
+    const textLength = getTextLength(quill);
+
     const allowedKeys = [
       "Backspace",
       "Delete",
@@ -185,53 +247,96 @@ const CustomEditor = ({
       "ArrowRight",
       "ArrowUp",
       "ArrowDown",
+      "Home",
+      "End",
     ];
-    if (content.length >= charLimit && !allowedKeys.includes(event.key)) {
+
+    const isShortcut = event.ctrlKey || event.metaKey;
+    const isPasteShortcut = isShortcut && event.key?.toLowerCase() === "v";
+
+    if (
+      textLength >= charLimit &&
+      !allowedKeys.includes(event.key) &&
+      !isShortcut
+    ) {
+      event.preventDefault();
+    }
+
+    if (isPasteShortcut && textLength >= charLimit) {
       event.preventDefault();
     }
   };
+
+  /**
+   * مدیریت Paste
+   */
   const handlePaste = (event) => {
-    event.preventDefault();
+    const quill = quillRef.current?.getEditor();
 
-    const paste = event.clipboardData.getData("text");
-    const remaining = charLimit - content.length;
+    if (!quill) return;
 
-    if (paste.length > remaining) {
+    const paste = event.clipboardData.getData("text/plain");
+
+    if (!paste) return;
+
+    const selection = quill.getSelection(true);
+
+    if (!selection) return;
+
+    const currentLength = getTextLength(quill);
+
+    if (currentLength >= charLimit) {
+      event.preventDefault();
       return;
     }
 
-    const newValue = content + paste;
+    event.preventDefault();
 
-    const safeValue = SanitizeHTML(newValue);
+    const selectedLength = selection.length || 0;
+    const availableLength = charLimit - currentLength + selectedLength;
 
-    setContent(safeValue);
-    onChange?.(safeValue);
+    if (availableLength <= 0) return;
+
+    const textToInsert = paste.slice(0, availableLength);
+
+    if (selectedLength > 0) {
+      quill.deleteText(selection.index, selectedLength, "silent");
+    }
+
+    quill.insertText(selection.index, textToInsert, "user");
+    quill.setSelection(selection.index + textToInsert.length, 0, "silent");
   };
 
-  const remainingChars = charLimit - content.length;
-  const isOverLimit = remainingChars <= 0;
+  const remainingChars = Math.max(0, charLimit - charCount);
+
+  const isOverLimit = charCount >= charLimit;
 
   return (
-    <div>
+    <>
       {label && <Label>{label}</Label>}
-      <EditorContainer border={border}>
+
+      <EditorContainer showToolbar={showToolbar} border={border}>
         <ReactQuill
-          value={content}
+          ref={quillRef}
+          theme="snow"
+          defaultValue={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           onPaste={handlePaste}
-          modules={getModules(img)}
+          modules={modules}
           formats={formats}
           placeholder={placeholder}
         />
       </EditorContainer>
+
       <Char isOverLimit={isOverLimit}>
+        {showIcon && <CiEdit size={18} />}
+
         <span>
-          {convertToPersian(remainingChars)} {getFieldTranslationByNames("530")}
+          {convertToPersian(remainingChars)} {getTranslation("530")}
         </span>
-        {showIcon && <CiEdit size={20} />}
       </Char>
-    </div>
+    </>
   );
 };
 
