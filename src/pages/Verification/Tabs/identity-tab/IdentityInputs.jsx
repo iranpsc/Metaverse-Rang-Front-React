@@ -155,7 +155,7 @@ const IdentityInputs = ({ initialKyc = {}, onSubmitSuccess }) => {
     birthdate: initialKyc?.birthdate || "1370/01/01",
     gender: initialKyc?.gender || "",
   });
-/*console.log("inputValues", inputValues);
+  /*console.log("inputValues", inputValues);
 console.log("nationImageURL", nationImageURL);
 console.log("uploadResponse", uploadResponse);
 */
@@ -167,7 +167,7 @@ console.log("uploadResponse", uploadResponse);
       lname: initialKyc?.lname || "",
       melli_code: initialKyc?.melli_code || "",
       province: initialKyc?.province || "",
-      birthdate: initialKyc?.birthdate || "1300/01/01",
+      birthdate: initialKyc?.birthdate || "1370/01/01",
       gender: initialKyc?.gender || "",
     });
 
@@ -230,10 +230,14 @@ console.log("uploadResponse", uploadResponse);
       errorMessages.push("نام خانوادگی وارد نشده است.");
       newDetails[1].error = true;
     } else if (inputValues.lname.length < 3) {
-      errorMessages.push("نام خانوادگی وارد شده باید بیشتر از 3 کاراکتر داشته باشد.");
+      errorMessages.push(
+        "نام خانوادگی وارد شده باید بیشتر از 3 کاراکتر داشته باشد.",
+      );
       newDetails[1].error = true;
     } else if (inputValues.lname.length > 52) {
-      errorMessages.push("نام خانوادگی وارد شده باید بیشتر از 52 کاراکتر داشته باشد.");
+      errorMessages.push(
+        "نام خانوادگی وارد شده باید بیشتر از 52 کاراکتر داشته باشد.",
+      );
       newDetails[1].error = true;
     } else {
       newDetails[1].error = false;
@@ -305,7 +309,10 @@ console.log("uploadResponse", uploadResponse);
     requestData.append("video[name]", JSON.parse(uploadResponse).name);
     requestData.append("video[path]", JSON.parse(uploadResponse).path);
     requestData.append("verify_text_id", textVerify.id);
-    requestData.append("gender", inputValues.gender === "877" ? "male" : "female");
+    requestData.append(
+      "gender",
+      inputValues.gender === "877" ? "male" : "female",
+    );
     requestData.append("_method", "put");
 
     Request("kyc", HTTP_METHOD.POST, requestData, {
