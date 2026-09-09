@@ -38,11 +38,10 @@ const FillInputs = ({
   errors,
   totalIrr,
 }) => {
-
   const handleValueChange = (value, isRial) => {
     if (isRial) {
       const sanitizedValue = value === "" ? "" : Number(value);
-      setRial(Number.isFinite(sanitizedValue) ? sanitizedValue : 0);
+      setRial(Number.isFinite(sanitizedValue) ? sanitizedValue : "");
       return;
     }
 
@@ -58,7 +57,8 @@ const FillInputs = ({
   const handleRialChange = (e) => handleValueChange(e.target.value, true);
   const handlePscChange = (e) => handleValueChange(e.target.value, false);
 
-  const remainingAmount = totalIrr - Number(rial || 0) - Number(psc || 0) * PSC_TO_RIAL_RATE;
+  const remainingAmount =
+    totalIrr - Number(rial || 0) - Number(psc || 0) * PSC_TO_RIAL_RATE;
   const rialFee = calculateFee(Number(rial || 0));
   const pscFee = calculateFee(Number(psc || 0));
 
@@ -66,10 +66,9 @@ const FillInputs = ({
     <>
       <InputsWrapper>
         <Input
-          value={formatNumber(rial)}
+          value={rial === "" ? "" : formatNumber(rial)}
           onChange={handleRialChange}
           type="number"
-
           insideText={<Rial />}
         />
         <Input
@@ -96,7 +95,7 @@ const FillInputs = ({
         <Wrapper>
           <Title>{getTranslation("522")}</Title>
           <Value>
-            {convertToPersian(rialFee || 0)} {getTranslation("48")} / {" "}
+            {convertToPersian(rialFee || 0)} {getTranslation("48")} /{" "}
             {convertToPersian(pscFee || 0)} {getTranslation("47")}
           </Value>
         </Wrapper>
@@ -104,7 +103,7 @@ const FillInputs = ({
           <TitleValue
             title={getTranslation("531")}
             value={convertToPersian(
-              formatNumber(remainingAmount / PSC_TO_RIAL_RATE)
+              formatNumber(remainingAmount / PSC_TO_RIAL_RATE),
             )}
           />
           <TitleValue

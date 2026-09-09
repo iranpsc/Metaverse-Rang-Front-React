@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useContext } from "react";
+import { useEffect, useState, useCallback, useContext, useRef } from "react";
 import Button from "./Button";
 import ProfitList from "./ProfitList";
 import building from "../../../assets/images/building.png";
@@ -35,9 +35,8 @@ const ProfitView = () => {
   const { Request, HTTP_METHOD } = useRequest();
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [wallet, dispatch] = useContext(WalletContext); // WalletContext access
-  const [loading, setLoading] = useState(false);
-
+  const [wallet, dispatch] = useContext(WalletContext); 
+  const fetchingRef = useRef(false);
   const karbariMapping = {
     m: {
       title: getTranslation("477"),
@@ -58,73 +57,91 @@ const ProfitView = () => {
       background: "#0066ff21",
     },
   };
-  const fetchData = useCallback(async () => {
-    if (!hasMore || loading) return;
+const fetchData = useCallback(async () => {
+  if (!hasMore || fetchingRef.current) return;
 
-    setLoading(true);
+  fetchingRef.current = true;
 
-    try {
-      const { data } = await Request(
-        `hourly-profits?page=${page}`,
-        HTTP_METHOD.GET,
+  try {
+    const { data } = await Request(
+      `hourly-profits?page=${page}`,
+      HTTP_METHOD.GET,
+    );
+
+    const filteredData = data.data
+      .filter((item) => item.is_active)
+      .map((item) => ({
+        ...item,
+        ...karbariMapping[item.karbari],
+      }));
+
+    setCards((prev) => {
+      const existingIds = new Set(
+        prev.map((card) => String(card.id))
       );
-      const filteredData = data.data
-        .filter((item) => item.is_active)
-        .map((item) => ({
-          ...item,
-          ...karbariMapping[item.karbari],
-        }));
 
-      setCards((prev) => [...prev, ...filteredData]);
-
-      setHasMore(Boolean(data.links.next));
-      setPage((prev) => prev + 1);
-
-      // فقط بار اول
-      setButtons((prev) =>
-        prev.length
-          ? prev
-          : [
-              {
-                id: 1,
-                title: getTranslation("28"),
-                logo: building,
-                value: +data.additional.total_tejari_profit,
-                color: "#FF0000",
-              },
-              {
-                id: 2,
-                title: getTranslation("29"),
-                logo: house,
-                value: +data.additional.total_maskoni_profit,
-                color: "#FFC700",
-              },
-              {
-                id: 3,
-                title: getTranslation("474"),
-                logo: education,
-                value: +data.additional.total_amozeshi_profit,
-                color: "#0066FF",
-              },
-            ],
+      const uniqueCards = filteredData.filter(
+        (card) => !existingIds.has(String(card.id))
       );
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }, [page, hasMore, loading]);
+
+      return [...prev, ...uniqueCards];
+    });
+
+    setHasMore(Boolean(data.links.next));
+
+    setPage((prev) => prev + 1);
+
+    setButtons((prev) =>
+      prev.length
+        ? prev
+        : [
+            {
+              id: 1,
+              title: getTranslation("28"),
+              logo: building,
+              value: +data.additional.total_tejari_profit,
+              color: "#FF0000",
+            },
+            {
+              id: 2,
+              title: getTranslation("29"),
+              logo: house,
+              value: +data.additional.total_maskoni_profit,
+              color: "#FFC700",
+            },
+            {
+              id: 3,
+              title: getTranslation("474"),
+              logo: education,
+              value: +data.additional.total_amozeshi_profit,
+              color: "#0066FF",
+            },
+          ],
+    );
+  } catch (err) {
+    console.error(err);
+  } finally {
+    fetchingRef.current = false;
+  }
+}, [page, hasMore, Request, HTTP_METHOD]);
   useEffect(() => {
     fetchData();
   }, []);
+const handleScroll = (e) => {
+  const {
+    scrollTop,
+    scrollHeight,
+    clientHeight,
+  } = e.target;
 
-  const handleScroll = (e) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.target;
-
-    if (scrollHeight - scrollTop <= clientHeight + 800) {
-      fetchData();
-    }
-  };
+  if (
+    scrollHeight - scrollTop <= clientHeight + 800 &&
+    !fetchingRef.current &&
+    hasMore
+  ) {
+    fetchData();
+  }
+};
 
   const sumHandler = ({ color }) => {
     const sameColorCards = cards.filter((card) => card.color === color);
@@ -169,7 +186,6 @@ const ProfitView = () => {
                 : wallet.blue,
           };
 
-          // ✅ dispatch درست
           dispatch({
             type: WalletContextTypes.ADD_WALLET,
             payload: updatedWallet,
