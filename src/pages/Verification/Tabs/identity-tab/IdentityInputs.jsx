@@ -152,7 +152,7 @@ const IdentityInputs = ({ initialKyc = {}, onSubmitSuccess }) => {
     lname: initialKyc?.lname || "",
     melli_code: initialKyc?.melli_code || "",
     province: initialKyc?.province || "",
-    birthdate: initialKyc?.birthdate || "1300/01/01",
+    birthdate: initialKyc?.birthdate || "1370/01/01",
     gender: initialKyc?.gender || "",
   });
 /*console.log("inputValues", inputValues);
