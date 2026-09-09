@@ -27,14 +27,23 @@ const Select = styled.select`
   font-size: 16px;
 `;
 */
-const InfoInputs = ({ data, inputValues }) => {
+const identityInfoFields = [
+  { id: 1, slug: "fname", label: "647" },
+  { id: 2, slug: "lname", label: "646" },
+  { id: 3, slug: "melli_code", label: "870" },
+  { id: 4, slug: "province", label: "59" },
+  { id: 5, slug: "birthdate", label: "83" },
+  { id: 6, slug: "gender", label: "872" },
+];
+
+const InfoInputs = ({ kyc = {} }) => {
   return (
     <Container>
-      {Object.values(inputValues).map((item, index) => (
+      {identityInfoFields.map((field) => (
         <TitleValue
-          value={item}
-          title={getTranslation(data[index]?.label)}
-          key={item.id}
+          value={kyc?.[field.slug] || ""}
+          title={getTranslation(field.label)}
+          key={field.id}
         />
       ))}
     </Container>

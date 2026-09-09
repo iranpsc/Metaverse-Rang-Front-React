@@ -24,7 +24,7 @@ const Container = styled.div`
   }
 `;
 
-const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
+const IdentityInfo = ({ kyc = {}, showPending = false }) => {
   const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
@@ -41,17 +41,13 @@ const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
       <Wrapper>
         {showAlert && (
           <Alert
-            text={
-              showPending
-                ? getTranslation("1375")
-                : getTranslation("885")
-            }
+            text={showPending ? getTranslation("1375") : getTranslation("885")}
             type={showPending ? "pending" : "success"}
           />
         )}
         <Title title={getTranslation("869")} />
-        <InfoInputs data={data} inputValues={inputValues} />
-        <CardPhotos nationalCardImg={nationalCardImg} />
+        <InfoInputs kyc={kyc} />
+        <CardPhotos nationalCardImg={kyc?.melli_card} />
       </Wrapper>
     </Container>
   );
