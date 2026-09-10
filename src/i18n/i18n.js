@@ -5,7 +5,7 @@ import axios from "axios";
 export const TRANSLATIONS_API = "https://admin.metarang.com/api/translations";
 
 export const DEV_TRANSLATIONS_API =
-  "https://dev2-admin.metarang.com/api/translations";
+  "https://dev-admin.metarang.com/api/translations";
 
 export let languagesMeta = [];
 
