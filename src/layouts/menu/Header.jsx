@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import LogoIcon from "../../assets/svg/logoMeta.svg";
+import LogoIcon from "../../assets/images/metarang-newLogo.png";
 import { getTranslation } from "../../services/Utility";
 import { useMenuContext } from "../../services/reducers/MenuContext";
 import ArowMenu from "../../assets/svg/arowMenu.svg?react";
@@ -11,7 +11,8 @@ import ThemeMenuModule from "./ThemeMenuModule";
 import { languagesMeta } from "../../i18n/i18n";
 import { metarangUrl } from "../../services/Utility";
 const Logo = styled.img`
-  width: 37px;
+padding-top: 2px;
+  height: 42px;
   cursor: pointer;
 `;
 
