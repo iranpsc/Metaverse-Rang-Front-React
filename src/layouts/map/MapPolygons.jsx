@@ -280,16 +280,11 @@ const MapPolygons = () => {
         clearTimeout(requestTimeoutRef.current);
       }
     };
-  }, [
-    map,
-    Request,
-    setMapLands,
-    setBuildings,
+  }, [map, Request, setMapLands, setBuildings,
 
     //zoom موقت است تا رفع ایراد از سمت بکند
 
-    zoom,
-  ]);
+    zoom]);
 
   useEffect(() => {
     if (!map.current || zoom < showPolygons) {
@@ -385,13 +380,14 @@ const MapPolygons = () => {
             key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
           >
             {buildings.map((model, index) => {
-              const endDate = new Date(model?.building?.construction_end_date);
+              const endDate = new Date(
+                model?.building?.construction_end_date,
+              );
 
               const opacity = new Date() < endDate ? 0.3 : 1;
 
-              const [latitude, longitude] = model?.building?.position
-                ?.split(",")
-                .map(Number) ?? [0, 0];
+              const [latitude, longitude] =
+                model?.building?.position?.split(",").map(Number) ?? [0, 0];
               return (
                 <NearCoordinates
                   key={model.feature_id || model.id || index}

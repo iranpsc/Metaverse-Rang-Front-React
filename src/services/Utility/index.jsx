@@ -179,8 +179,16 @@ export const convertToPersian = (value) => {
   return isPersian
     ? str.replace(/\d/g, (d) => persianDigits[d])
     : str.replace(/[۰-۹]/g, (d) => englishDigits[persianDigits.indexOf(d)]);
-};
+};export const convertToEnglish = (value) => {
+  if (value == null) return "";
 
+  const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+  const englishDigits = "0123456789";
+
+  return String(value).replace(/[۰-۹]/g, (d) => {
+    return englishDigits[persianDigits.indexOf(d)];
+  });
+};
 export const ToastError = (message) => {
   return toast.error(message, {
     style: {

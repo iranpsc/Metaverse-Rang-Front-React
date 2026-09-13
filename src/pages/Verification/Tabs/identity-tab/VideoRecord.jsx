@@ -295,7 +295,7 @@ const VideoRecord = ({
     axios
       .get("https://admin.metarang.com/api/kyc-verify-text")
       .then((res) => {
-        setTextVerify(res.data);
+        setTextVerify(res.data.id);
       })
       .catch((err) => {
         Sentry.captureException(err);

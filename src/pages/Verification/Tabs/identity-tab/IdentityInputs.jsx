@@ -9,7 +9,7 @@ import ErrorModal from "../ErrorModal";
 import { verifyIranianNationalId } from "@persian-tools/persian-tools";
 import useRequest from "../../../../services/Hooks/useRequest";
 import {
-  convertToPersian,
+  convertToEnglish,
   getTranslation,
   ToastError,
 } from "../../../../services/Utility";
@@ -208,6 +208,7 @@ console.log("uploadResponse", uploadResponse);
       ),
     );
   };
+        console.log("res",textVerify)
 
   const sendHandler = () => {
     const errorMessages = [];
@@ -298,17 +299,16 @@ console.log("uploadResponse", uploadResponse);
     }
 
     setIsSending(true);
-
     const requestData = new FormData();
     requestData.append("fname", inputValues.fname);
     requestData.append("lname", inputValues.lname);
     requestData.append("melli_code", inputValues.melli_code);
     requestData.append("province", inputValues.province);
-    requestData.append("birthdate", convertToPersian(inputValues.birthdate));
+    requestData.append("birthdate", convertToEnglish(inputValues.birthdate));
     requestData.append("melli_card", nationImageURL);
     requestData.append("video[name]", JSON.parse(uploadResponse).name);
     requestData.append("video[path]", JSON.parse(uploadResponse).path);
-    requestData.append("verify_text_id", textVerify.id);
+    requestData.append("verify_text_id", textVerify);
     requestData.append(
       "gender",
       inputValues.gender === "877" ? "male" : "female",
