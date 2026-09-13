@@ -6,7 +6,7 @@ import  {
   useEffect,
   useRef,
 } from "react";
-import { Marker, useMap, Source, Layer } from "react-map-gl";
+import { Marker, useMap, Source, Layer } from "react-map-gl/maplibre";
 import { useLoader } from "@react-three/fiber";
 import { Canvas } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";

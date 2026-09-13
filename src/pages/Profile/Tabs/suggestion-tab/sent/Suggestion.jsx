@@ -19,7 +19,7 @@ import {
   metarangUrlCitizen,
 } from "../../../../../services/Utility";
 import { useNavigate } from "react-router";
-import { useMap } from "react-map-gl";
+import { useMap } from "react-map-gl/maplibre";
 import { calculatePolygonCentroid } from "../../../../../services/Utility/calculatePolygonCentroid";
 import { flyToMapPosition } from "../../../../../services/Utility/flyToMapPosition";
 import { Skeleton } from "../../../../../components/Skeleton";

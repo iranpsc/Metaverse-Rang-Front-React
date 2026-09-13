@@ -7,7 +7,7 @@ import React, {
   useMemo,
 } from "react";
 import Map from "react-map-gl/maplibre";
-import "maplibre-gl/dist/maplibre-gl.css";
+import 'maplibre-gl/dist/maplibre-gl.css';
 import { useNavigate } from "react-router";
 import { Container } from "./styles";
 import MapPolygons from "./MapPolygons";
@@ -23,9 +23,8 @@ import { useScrollDirectionContext } from "../../services/reducers/ScrollDirecti
 import { useTheme } from "../../services/reducers/ThemeContext";
 import styleMapLight from "../../assets/styleMapLight.json";
 import styleMapDark from "../../assets/styleMapDark.json";
-import useMapUrlState,{showPolygons} from "../../services/Hooks/useMapUrlState";
+import useMapUrlState, { showPolygons } from "../../services/Hooks/useMapUrlState";
 import { flyToMapPosition } from "../../services/Utility/flyToMapPosition";
-
 export const TransactionContext = createContext(null);
 const MemoMapPolygons = React.memo(MapPolygons);
 const MemoMapFlag = React.memo(MapFlag);
@@ -50,7 +49,7 @@ const MapTreeD = () => {
     map.zoomTo(map.getZoom() + delta, { duration: 200 });
   }, []);
 
-  const handleZoomEnd = useCallback(() => {}, []);
+  const handleZoomEnd = useCallback(() => { }, []);
 
   const handleFullscreenToggle = useCallback(() => {
     updateFullScreenMap(!isFullScreenMap);
@@ -98,7 +97,7 @@ const MapTreeD = () => {
 
   useEffect(() => {
     if (isFullScreen && screen.orientation) {
-      screen.orientation.lock("landscape-primary").catch(() => {});
+      screen.orientation.lock("landscape-primary").catch(() => { });
     }
   }, [isFullScreen]);
   useEffect(() => {
@@ -153,28 +152,28 @@ const MapTreeD = () => {
       pitch: map.getPitch(),
     });
   }, [setMapState]);
- const initializedRef = useRef(false);
+  const initializedRef = useRef(false);
 
-useEffect(() => {
-  if (!mapLoaded || !mapRef.current || initializedRef.current) return;
+  useEffect(() => {
+    if (!mapLoaded || !mapRef.current || initializedRef.current) return;
 
-  initializedRef.current = true;
+    initializedRef.current = true;
 
-  const state = getMapState();
+    const state = getMapState();
 
-  if (!state) return;
+    if (!state) return;
 
-  flyToMapPosition({
-    mapRef,
-    latitude: Number(state.lat),
-    longitude: Number(state.lng),
-    zoom: Number(state.zoom),
-    bearing: Number(state.bearing ?? 0),
-    pitch: Number(state.pitch ?? 40),
-    rotate: false,
-    marker: false,
-  });
-}, [mapLoaded, getMapState]);
+    flyToMapPosition({
+      mapRef,
+      latitude: Number(state.lat),
+      longitude: Number(state.lng),
+      zoom: Number(state.zoom),
+      bearing: Number(state.bearing ?? 0),
+      pitch: Number(state.pitch ?? 40),
+      rotate: false,
+      marker: false,
+    });
+  }, [mapLoaded, getMapState]);
   return (
     <AuthMiddleware>
       <TransactionContext.Provider
@@ -189,7 +188,9 @@ useEffect(() => {
               onMoveEnd={handleMoveEnd}
               ref={mapRef}
               className="map"
-              antialias
+              canvasContextAttributes={{
+                antialias: true,
+              }}
               mapStyle={initialStyle}
               RTLTextPlugin="https://map.irpsc.com/rtl.js"
               interactiveLayerIds={["polygon-fill-layer"]}
@@ -208,6 +209,7 @@ useEffect(() => {
               {confirmation && selectedEnvironment && !hiddenModel && (
                 <MemoMark />
               )}
+
               <MemoMapPolygons />
               <MemoMapFlag />
             </Map>

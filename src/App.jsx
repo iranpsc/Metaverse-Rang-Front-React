@@ -10,7 +10,7 @@ import WalletProvider from "./services/reducers/WalletContext";
 import FollowProvider from "./services/reducers/FollowContext";
 import { MapContextProvider } from "./services/reducers/mapContext";
 import { ThemeProviderContext } from "./services/reducers/ThemeContext";
-import { MapProvider } from "react-map-gl";
+import { MapProvider } from "react-map-gl/maplibre";
 import { SelectedEnvironmentProvider } from "./services/reducers/SelectedEnvironmentContext.jsx";
 import { AlertProvider } from "./services/reducers/AlertContext.jsx";
 import Routers from "./layouts/map/Routers.jsx";

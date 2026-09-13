@@ -1,7 +1,7 @@
 import { memo, useEffect, useRef, useState } from "react";
-import { Layer, Source, useMap } from "react-map-gl";
+import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import { useLoader } from "@react-three/fiber";
-import { Canvas, Coordinates } from "react-three-map/maplibre";
+import { Canvas, NearCoordinates } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { BORDER_COLORS } from "../../services/constants/BorderColors";
 import { POLYGON_COLORS } from "../../services/constants/PolygonColors";
@@ -62,7 +62,6 @@ const MapPolygons = () => {
   const { buildings, setBuildings } = useMapData();
   const { selectedEnvironment } = useSelectedEnvironment();
   const { mapLands, setMapLands } = useMapLands();
-
   const map = useMap();
   const { Request } = useRequest();
 
@@ -281,7 +280,16 @@ const MapPolygons = () => {
         clearTimeout(requestTimeoutRef.current);
       }
     };
-  }, [map, Request, setMapLands, setBuildings]);
+  }, [
+    map,
+    Request,
+    setMapLands,
+    setBuildings,
+
+    //zoom موقت است تا رفع ایراد از سمت بکند
+
+    zoom,
+  ]);
 
   useEffect(() => {
     if (!map.current || zoom < showPolygons) {
@@ -372,26 +380,23 @@ const MapPolygons = () => {
         isPolygonSourceLoaded &&
         buildings.length > 0 && (
           <Canvas
-            latitude={36}
-            longitude={50}
+            latitude={30.233922946967866}
+            longitude={54.20761223027057}
             key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
           >
             {buildings.map((model, index) => {
               const endDate = new Date(model?.building?.construction_end_date);
 
-              const now = new Date();
+              const opacity = new Date() < endDate ? 0.3 : 1;
 
-              const opacity = now < endDate ? 0.3 : 1;
-
+              const [latitude, longitude] = model?.building?.position
+                ?.split(",")
+                .map(Number) ?? [0, 0];
               return (
-                <Coordinates
+                <NearCoordinates
                   key={model.feature_id || model.id || index}
-                  latitude={parseFloat(
-                    model?.building?.position?.split(",")[0],
-                  )}
-                  longitude={parseFloat(
-                    model?.building?.position?.split(",")[1],
-                  )}
+                  latitude={latitude}
+                  longitude={longitude}
                 >
                   <FBXModel
                     opacity={opacity}
@@ -400,7 +405,7 @@ const MapPolygons = () => {
                     setLoading={setIsLoading}
                     uniqueKey={`${model.id}-${index}-model`}
                   />
-                </Coordinates>
+                </NearCoordinates>
               );
             })}
           </Canvas>

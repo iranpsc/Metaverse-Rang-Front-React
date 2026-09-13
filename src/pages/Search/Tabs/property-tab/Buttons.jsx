@@ -4,7 +4,7 @@ import {
   HiOutlineLocationMarker,
 } from "react-icons/hi";
 import { LuShoppingCart } from "react-icons/lu";
-import { useMap } from "react-map-gl";
+import { useMap } from "react-map-gl/maplibre";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { getTranslation } from "../../../../services/Utility";
