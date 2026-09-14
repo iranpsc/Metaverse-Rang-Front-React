@@ -3,9 +3,7 @@ import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
-export default defineConfig({  optimizeDeps: {
-    exclude: ["maplibre-gl"],
-  },
+export default defineConfig({  
   base: "/",
   plugins: [react(), svgr()],
   resolve: {

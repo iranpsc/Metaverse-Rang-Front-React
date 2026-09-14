@@ -7,7 +7,8 @@ import React, {
   useMemo,
 } from "react";
 import Map from "react-map-gl/maplibre";
-import 'maplibre-gl/dist/maplibre-gl.css';
+import { setWorkerUrl } from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css"
 import { useNavigate } from "react-router";
 import { Container } from "./styles";
 import MapPolygons from "./MapPolygons";
@@ -29,7 +30,7 @@ export const TransactionContext = createContext(null);
 const MemoMapPolygons = React.memo(MapPolygons);
 const MemoMapFlag = React.memo(MapFlag);
 const MemoMark = React.memo(Mark);
-
+setWorkerUrl("/assets/maplibre-gl-worker.mjs");
 const MapTreeD = () => {
   const { setMapState, getMapState } = useMapUrlState();
   const [selectedTransaction, setSelectedTransaction] = useState([]);

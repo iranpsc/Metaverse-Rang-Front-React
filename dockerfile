@@ -4,8 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci
-RUN npm ls three "@react-three/fiber" react-three-map react-map-gl maplibre-gl
+RUN npm install
 
 COPY . .
 
