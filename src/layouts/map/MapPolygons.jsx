@@ -280,11 +280,7 @@ const MapPolygons = () => {
         clearTimeout(requestTimeoutRef.current);
       }
     };
-  }, [map, Request, setMapLands, setBuildings,
-
-    //zoom موقت است تا رفع ایراد از سمت بکند
-
-    zoom]);
+  }, [map, Request, setMapLands, setBuildings]);
 
   useEffect(() => {
     if (!map.current || zoom < showPolygons) {
