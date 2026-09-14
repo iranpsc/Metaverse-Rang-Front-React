@@ -2,9 +2,11 @@ FROM docker.arvancloud.ir/node:20 AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package*.json ./
 
-RUN npm ci
+RUN npm install
+
+RUN npm ls three "@react-three/fiber" react-three-map react-map-gl maplibre-gl
 
 COPY . .
 
