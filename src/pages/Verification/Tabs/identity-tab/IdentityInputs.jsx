@@ -155,10 +155,7 @@ const IdentityInputs = ({ initialKyc = {}, onSubmitSuccess }) => {
     birthdate: initialKyc?.birthdate || "1370/01/01",
     gender: initialKyc?.gender || "",
   });
-  /*console.log("inputValues", inputValues);
-console.log("nationImageURL", nationImageURL);
-console.log("uploadResponse", uploadResponse);
-*/
+
   const { Request, HTTP_METHOD } = useRequest();
 
   useEffect(() => {
@@ -208,7 +205,6 @@ console.log("uploadResponse", uploadResponse);
       ),
     );
   };
-        console.log("res",textVerify)
 
   const sendHandler = () => {
     const errorMessages = [];
