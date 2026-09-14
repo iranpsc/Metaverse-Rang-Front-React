@@ -2,7 +2,7 @@ services:
   react-app:
     build:
       context: .
-    image: metarang-react
+    image: metarang
     container_name: react-app
 
     ports:

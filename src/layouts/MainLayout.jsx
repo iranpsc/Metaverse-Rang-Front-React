@@ -55,6 +55,7 @@ const MainLayout = () => {
       replace: true,
     });
   }, [user, usertoken, location.search, navigate]);
+  console.log("MainLayout render");
   return (
     <Container>
       <MenuContextProvider>
