@@ -158,7 +158,6 @@ const VideoRecord = ({
   setTextVerify,
   setIsVideoUploaded, // Add this new prop
 }) => {
-  console.log("BASE_URL", BASE_URL)
   const [capturing, setCapturing] = useState(false);
   const [videoURL, setVideoURL] = useState(null);
   const [error, setError] = useState(null);

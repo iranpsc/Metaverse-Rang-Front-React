@@ -1,7 +1,7 @@
 import { memo, useEffect, useRef, useState } from "react";
 import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import { useLoader } from "@react-three/fiber";
-import { Canvas, NearCoordinates } from "react-three-map/maplibre";
+import { Canvas, Coordinates } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { BORDER_COLORS } from "../../services/constants/BorderColors";
 import { POLYGON_COLORS } from "../../services/constants/PolygonColors";
@@ -385,7 +385,7 @@ const MapPolygons = () => {
               const [latitude, longitude] =
                 model?.building?.position?.split(",").map(Number) ?? [0, 0];
               return (
-                <NearCoordinates
+                <Coordinates
                   key={model.feature_id || model.id || index}
                   latitude={latitude}
                   longitude={longitude}
@@ -397,7 +397,7 @@ const MapPolygons = () => {
                     setLoading={setIsLoading}
                     uniqueKey={`${model.id}-${index}-model`}
                   />
-                </NearCoordinates>
+                </Coordinates>
               );
             })}
           </Canvas>

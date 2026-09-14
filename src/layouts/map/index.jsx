@@ -174,7 +174,7 @@ const MapTreeD = () => {
       marker: false,
     });
   }, [mapLoaded, getMapState]);
-  
+
   return (
     <AuthMiddleware>
       <TransactionContext.Provider
