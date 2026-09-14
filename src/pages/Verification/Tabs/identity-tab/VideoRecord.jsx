@@ -6,7 +6,7 @@ import Resumable from "resumablejs";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { getTranslation } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
-
+import { BASE_URL } from "../../../../services/Hooks/useRequest";
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
@@ -107,9 +107,9 @@ const Record = styled.div`
   border-radius: 100%;
   border: 3px dotted
     ${(props) =>
-      props.hasError
-        ? "red"
-        : props.theme.colors.newColors.otherColors.inputBorder};
+    props.hasError
+      ? "red"
+      : props.theme.colors.newColors.otherColors.inputBorder};
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -158,6 +158,7 @@ const VideoRecord = ({
   setTextVerify,
   setIsVideoUploaded, // Add this new prop
 }) => {
+  console.log("BASE_URL", BASE_URL)
   const [capturing, setCapturing] = useState(false);
   const [videoURL, setVideoURL] = useState(null);
   const [error, setError] = useState(null);
@@ -263,7 +264,7 @@ const VideoRecord = ({
 
   const uploadVideo = (file) => {
     const resumable = new Resumable({
-      target: "https://dev-api.metarang.com/api/upload",
+      target: `${BASE_URL}upload`,
       chunkSize: 100 * 1024 * 1024,
       simultaneousUploads: 4,
       testChunks: false,

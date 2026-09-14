@@ -174,6 +174,19 @@ const MapTreeD = () => {
       marker: false,
     });
   }, [mapLoaded, getMapState]);
+  const testStyle = {
+  version: 8,
+  sources: {},
+  layers: [
+    {
+      id: "background",
+      type: "background",
+      paint: {
+        "background-color": "#ff0000",
+      },
+    },
+  ],
+};
   return (
     <AuthMiddleware>
       <TransactionContext.Provider
@@ -191,7 +204,7 @@ const MapTreeD = () => {
               canvasContextAttributes={{
                 antialias: true,
               }}
-              mapStyle={initialStyle}
+  mapStyle={testStyle}
               RTLTextPlugin="https://map.irpsc.com/rtl.js"
               interactiveLayerIds={["polygon-fill-layer"]}
               maxPitch={68}

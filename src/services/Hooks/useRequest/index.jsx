@@ -4,16 +4,17 @@ import { getItem } from "../../Utility/LocalStorage";
 import { ToastError, getTranslation } from "../../Utility";
 import { UserContext } from "../../reducers/UserContext";
 import { useContext } from "react";
+  const isProduction = window.location.hostname === "world.metarang.com";
+  const PROD_BASE_URL = "https://api.metarang.com/api/";
+  const DEV_BASE_URL = "https://dev-api.metarang.com/api/";
+   export const BASE_URL = isProduction ? PROD_BASE_URL : DEV_BASE_URL;
 
 export default function useRequest() {
-  const isProduction = window.location.hostname === "world.metarang.com";
 
   const navigate = useNavigate();
   const accountSecurity = getItem("account_security")?.account_security;
   const [userInfo] = useContext(UserContext);
 
-  const PROD_BASE_URL = "https://api.metarang.com/api/";
-  const DEV_BASE_URL = "https://dev-api.metarang.com/api/";
 
   const HTTP_METHOD = {
     GET: "GET",
@@ -49,7 +50,6 @@ export default function useRequest() {
   ) {
     const user = getItem("user");
 
-    const BASE_URL = isProduction ? PROD_BASE_URL : DEV_BASE_URL;
     const finalURL = BASE_URL + directory;
     const headers = {
       ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {}),
