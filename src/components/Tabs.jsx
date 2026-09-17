@@ -17,13 +17,13 @@ const TabsWrapper = styled.div`
 `;
 
 const TabItem = styled.h3`
-  color: ${(props) => (props.active ? "#ffc700" : "#dedee9")};
+  color: ${(props) => (props.$active ? "#ffc700" : "#dedee9")};
   font-weight: 500;
   margin: 0;
   font-size: 16px;
   padding: 8px 26px;
   cursor: pointer;
-  border-bottom: 2px solid ${(props) => (props.active ? "#ffc700" : "#454545")};
+  border-bottom: 2px solid ${(props) => (props.$active ? "#ffc700" : "#454545")};
   @media (min-width: 998px) {
     font-size: 18px;
   }
@@ -49,7 +49,7 @@ const Tabs = ({ tabs, active, setActive, onTabClick }) => {
         <TabItem
           key={tab.key}
           data-tab={tab.key}
-          active={active === tab.key}
+          $active={active === tab.key}
           onClick={() => handleClick(tab)}
         >
           {tab.label}

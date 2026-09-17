@@ -58,7 +58,7 @@ const StatusFilterTitle = styled.div`
   align-items: center;
   cursor: pointer;
   color: ${(p) =>
-    p.active
+    p.$active
       ? p.theme.colors.newColors.primaryText
       : p.theme.colors.newColors.shades.title};
   &:hover {
@@ -66,7 +66,7 @@ const StatusFilterTitle = styled.div`
   }
   padding: 3px 10px;
   background-color: ${(p) =>
-    p.active ? p.theme.colors.shades[80] : "transparent"};
+    p.$active ? p.theme.colors.shades[80] : "transparent"};
   position: relative;
   &:hover {
     background-color: ${({ theme }) => theme.colors.shades[80]};
@@ -287,7 +287,7 @@ const ReportsList = ({
               </Div>
               {filters.member && (
                 <StatusFilter ref={filterRef}>
-                  <StatusFilterTitle active={member.displayError}>
+                  <StatusFilterTitle $active={member.displayError}>
                     <h1
                       onClick={() => {
                         setMember({ ...member, displayError: true });
@@ -307,7 +307,7 @@ const ReportsList = ({
                       </span>
                     )}
                   </StatusFilterTitle>
-                  <StatusFilterTitle active={member.spellingError}>
+                  <StatusFilterTitle $active={member.spellingError}>
                     <h2
                       onClick={() => {
                         setMember({ ...member, spellingError: true });
@@ -327,7 +327,7 @@ const ReportsList = ({
                       </span>
                     )}
                   </StatusFilterTitle>
-                  <StatusFilterTitle active={member.codingError}>
+                  <StatusFilterTitle $active={member.codingError}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, codingError: true });
@@ -347,7 +347,7 @@ const ReportsList = ({
                       </span>
                     )}
                   </StatusFilterTitle>
-                  <StatusFilterTitle active={member.FPSError}>
+                  <StatusFilterTitle $active={member.FPSError}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, FPSError: true });
@@ -367,7 +367,7 @@ const ReportsList = ({
                       </span>
                     )}
                   </StatusFilterTitle>
-                  <StatusFilterTitle active={member.disrespect}>
+                  <StatusFilterTitle $active={member.disrespect}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, disrespect: true });

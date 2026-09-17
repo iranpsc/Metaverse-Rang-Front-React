@@ -7,7 +7,7 @@ import { useState } from "react";
 import Follower from "./Follower";
 import { getTranslation } from "../../../services/Utility";
 const Btn = styled.button`
-  display: ${(props) => (props.isHidden ? "none" : "flex")};
+  display: ${(props) => (props.$isHidden ? "none" : "flex")};
   width: 100%;
   align-items: center;
   justify-content: start;
@@ -15,21 +15,21 @@ const Btn = styled.button`
   padding: 0 10px;
   border: none;
   background: ${(props) =>
-    props.isOpenDrop ? props.theme.openDropDown : "transparent"};
+    props.$isOpenDrop ? props.theme.openDropDown : "transparent"};
   height: 40px;
   border-radius: 10px;
 `;
 
 const SubMenu = styled.div`
-  display: ${(props) => (props.isOpenDrop ? "block" : "none")};
+  display: ${(props) => (props.$isOpenDrop ? "block" : "none")};
   width: 100%;
-  padding: ${(props) => (props.isOpenDrop ? " 0 10px" : "0")};
+  padding: ${(props) => (props.$isOpenDrop ? " 0 10px" : "0")};
 `;
 const IconHeader = styled(FollowingIcon)`
   width: 22px;
   height: 22px;
   fill: ${(props) =>
-    props.isOpenDrop ? "white" : props.theme.btnActiveThemeText};
+    props.$isOpenDrop ? "white" : props.theme.btnActiveThemeText};
 `;
 const Text = styled.p`
   color: #868b90;
@@ -45,11 +45,11 @@ const Fallowing = () => {
   const { isOpen } = useMenuContext();
   return (
     <>
-      <Btn isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
-        <IconHeader isOpenDrop={isOpenDrop} />
-        <Text isOpen={isOpen}> {getTranslation("55")}</Text>
+      <Btn $isOpenDrop={isOpenDrop} onClick={() => SetIsOpenDrop(!isOpenDrop)}>
+        <IconHeader $isOpenDrop={isOpenDrop} />
+        <Text $isOpen={isOpen}> {getTranslation("55")}</Text>
       </Btn>
-      <SubMenu isOpenDrop={isOpenDrop} isOpen={isOpen}>
+      <SubMenu $isOpenDrop={isOpenDrop} $isOpen={isOpen}>
         <Follower />
       </SubMenu>
     </>

@@ -67,8 +67,8 @@ const BtnNavigator = styled.button`
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${({ isOpenDrop, theme }) =>
-    isOpenDrop ? theme.colors.newColors.shades.menuBg : "transparent"};
+  background: ${({ $isOpenDrop, theme }) =>
+    $isOpenDrop ? theme.colors.newColors.shades.menuBg : "transparent"};
   height: 40px;
   border-radius: 10px;
   color: #868b90;
@@ -85,15 +85,15 @@ const BtnNavigator = styled.button`
 `;
 
 const SubMenu = styled.div`
-  display: ${({ isOpenDrop }) => (isOpenDrop ? "block" : "none")};
+  display: ${({ $isOpenDrop }) => ($isOpenDrop ? "block" : "none")};
   padding-left: 20px;
-  position: ${({ isOpen }) => (isOpen ? "relative" : "fixed")};
-  top: ${({ isOpen }) => (isOpen ? "0" : "10%")};
+  position: ${({ $isOpen }) => ($isOpen ? "relative" : "fixed")};
+  top: ${({ $isOpen }) => ($isOpen ? "0" : "10%")};
 
-  ${({ isPersian, isOpen }) =>
-    isPersian
-      ? `right: ${!isOpen ? "5.1%" : "0"};`
-      : `left: ${!isOpen ? "5.1%" : "0"};`}
+  ${({ $isPersian, $isOpen }) =>
+    $isPersian
+      ? `right: ${!$isOpen ? "5.1%" : "0"};`
+      : `left: ${!$isOpen ? "5.1%" : "0"};`}
 
   z-index: 1;
   background-color: ${({ theme }) => theme.colors.newColors.primaryText};
@@ -159,9 +159,9 @@ const ChevronIcon = styled(FaChevronDown)`
   min-height: 12px;
   color: ${({ theme }) => theme.colors.primary};
   transition: transform 0.3s ease;
-  transform: ${({ isOpenDrop }) =>
-    isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
-  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  transform: ${({ $isOpenDrop }) =>
+    $isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
+  display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
 `;
 
 const ChevronIcon2 = styled(FaChevronDown)`
@@ -169,8 +169,8 @@ const ChevronIcon2 = styled(FaChevronDown)`
   min-height: 12px;
   color: ${({ theme }) => theme.colors.primary};
   transition: transform 0.3s ease;
-  transform: ${({ isOpenDrop }) =>
-    isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
+  transform: ${({ $isOpenDrop }) =>
+    $isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
 `;
 
 const Profile = () => {
@@ -202,15 +202,15 @@ const Profile = () => {
           <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
           <Text isOpen={isOpen}>{user?.code?.toUpperCase() || ""}</Text>
         </BtbContainer>
-        <ChevronIcon isOpenDrop={isOpenDrop} isOpen={isOpen} />
+        <ChevronIcon $isOpenDrop={isOpenDrop} $isOpen={isOpen} />
       </Btn>
 
       <ContainerMain>
         <Container>
           <SubMenu
-            isOpenDrop={isOpenDrop}
-            isOpen={isOpen}
-            isPersian={isPersian}
+            $isOpenDrop={isOpenDrop}
+            $isOpen={isOpen}
+            $isPersian={isPersian}
           >
             <Btn isHidden={isOpen} onClick={handleToggleDrop}>
               <BtbContainer2>
@@ -223,7 +223,7 @@ const Profile = () => {
                 <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
                 <Text isOpen={!isOpen}>{user?.code || ""}</Text>
               </BtbContainer2>
-              <ChevronIcon2 isOpenDrop={isOpenDrop} />
+              <ChevronIcon2 $isOpenDrop={isOpenDrop} />
             </Btn>
 
             <BtnNavigator onClick={() => navigate("/documents")}>

@@ -13,17 +13,17 @@ import { removeItem } from "../../../services/Utility/LocalStorage";
 import { useLanguage } from "../../../services/reducers/LanguageContext";
 const Btn = styled.div`
   min-height: ${(props) =>
-    props.isClicked && props.isOpen ? "170px" : "35px"};
+    props.$isClicked && props.$isOpen ? "170px" : "35px"};
   width: 100%;
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};
   display: flex;
   position: ${(props) =>
-    !props.isOpen && props.isClicked ? "absolute" : "relative"};
-  bottom: ${(props) => (!props.isOpen && props.isClicked ? "23px" : "0")};
+    !props.$isOpen && props.$isClicked ? "absolute" : "relative"};
+  bottom: ${(props) => (!props.$isOpen && props.$isClicked ? "23px" : "0")};
   flex-direction: column;
   align-items: center;
-  justify-content: ${(props) => (props.isOpen ? "space-between" : "center")};
+  justify-content: ${(props) => (props.$isOpen ? "space-between" : "center")};
   border-radius: 10px;
   cursor: pointer;
   transition: min-height 0.3s ease;
@@ -31,16 +31,16 @@ const Btn = styled.div`
 
   @media (max-width: 1024px) {
     min-height: ${(props) =>
-      props.isClicked && props.isOpen ? "130px" : "35px"};
+      props.$isClicked && props.$isOpen ? "130px" : "35px"};
   }
   @media (max-height: 500px) {
     max-height: ${(props) =>
-      props.isClicked && props.isOpen ? "14px" : "35px"};
+      props.$isClicked && props.$isOpen ? "14px" : "35px"};
   }
 `;
 
 const Text = styled.p`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
+  display: ${(props) => (props.$isOpen ? "block" : "none")};
   color: ${(props) => props.theme.colors.newColors.primaryText};
 
   @media (max-width: 1024px) {
@@ -55,14 +55,14 @@ const CollapsedContainer = styled.div`
   width: 100%;
 `;
 const DefaultContainer = styled.div`
-  display: ${(props) => (props.isOpen && props.isClicked ? "none" : "flex")};
+  display: ${(props) => (props.$isOpen && props.$isClicked ? "none" : "flex")};
 
   align-items: center;
   justify-content: center;
   width: 100%;
 `;
 const TextDetail = styled.p`
-  display: ${(props) => (props.isClicked ? "block" : "none")};
+  display: ${(props) => (props.$isClicked ? "block" : "none")};
   color: ${(props) => props.theme.colors.newColors.primaryText};
   border-bottom: 1px solid
     ${(props) => props.theme.colors.newColors.primaryText};
@@ -79,35 +79,35 @@ const TextDetail = styled.p`
 
 const IconArrow = styled(ArowMenu)`
   stroke: ${(props) => props.theme.colors.newColors.shades[90]};
-  rotate: ${(props) => (props.isOpenDrop ? "90deg" : "270deg")};
+  rotate: ${(props) => (props.$isOpenDrop ? "90deg" : "270deg")};
   width: 40px;
   height: 40px;
 `;
 
 const Div = styled.div`
   position: ${(props) =>
-    !props.isOpen && props.isClicked ? "absolute" : "relative"};
+    !props.$isOpen && props.$isClicked ? "absolute" : "relative"};
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};
   ${(props) =>
-    !props.isPersian
-      ? `right: ${!props.isOpen ? "-25px" : "0"};`
-      : `left: ${!props.isOpen ? "-15px" : "0"};`};
-  bottom: ${(props) => (props.isOpen ? "0" : "-15px")};
+    !props.$isPersian
+      ? `right: ${!props.$isOpen ? "-25px" : "0"};`
+      : `left: ${!props.$isOpen ? "-15px" : "0"};`};
+  bottom: ${(props) => (props.$isOpen ? "0" : "-15px")};
   z-index: 10;
   padding: 6px 16px;
   border-radius: 10px;
   width: ${(props) =>
-    props.isOpen && props.isClicked ? "100%" : "fit-content"};
-  display: ${(props) => (props.isClicked ? "block" : "none")};
+    props.$isOpen && props.$isClicked ? "100%" : "fit-content"};
+  display: ${(props) => (props.$isClicked ? "block" : "none")};
   &::before {
     content: "";
     position: absolute;
     top: 10px;
     ${(props) => {
-      return !props.isPersian
-        ? `left: ${!props.isOpen ? "-8px" : "0"} ;rotate:226deg;`
-        : `right: ${!props.isOpen ? "-8px" : "0"} ;rotate: 45deg;`;
+      return !props.$isPersian
+        ? `left: ${!props.$isOpen ? "-8px" : "0"} ;rotate:226deg;`
+        : `right: ${!props.$isOpen ? "-8px" : "0"} ;rotate: 45deg;`;
     }};
     width: 0;
     height: 0;
@@ -117,7 +117,7 @@ const Div = styled.div`
       transparent transparent;
     border-radius: 0 7px 0 0;
     display: ${(props) =>
-      !props.isOpen && props.isClicked ? "block" : "none"};
+      !props.$isOpen && props.$isClicked ? "block" : "none"};
   }
   
   @media (max-height: 500px) {
@@ -146,37 +146,37 @@ const BtnAction = () => {
     });
   };
   return (
-    <Btn isOpen={isOpen} isClicked={isClicked} onClick={handleClick}>
-      <Div isOpen={isOpen} isClicked={isClicked} isPersian={isPersian}>
+    <Btn $isOpen={isOpen} $isClicked={isClicked} onClick={handleClick}>
+      <Div $isOpen={isOpen} $isClicked={isClicked} $isPersian={isPersian}>
         <TextDetail
-          isOpen={isOpen}
-          isClicked={isClicked}
+          $isOpen={isOpen}
+          $isClicked={isClicked}
           onClick={() => (window.location.href = metarangUrlCitizen(user.code))}
         >
           {getTranslation("162")}
         </TextDetail>
         <TextDetail
-          isOpen={isOpen}
-          isClicked={isClicked}
+          $isOpen={isOpen}
+          $isClicked={isClicked}
           onClick={() => (window.location.href = metarangUrl())}
         >
           {getTranslation("303")}
         </TextDetail>
         <TextDetail
-          isOpen={isOpen}
-          isClicked={isClicked}
+          $isOpen={isOpen}
+          $isClicked={isClicked}
           onClick={() => logoutHandler()}
         >
           {getTranslation("230")}
         </TextDetail>
-        <CollapsedContainer isOpen={isOpen}>
-          <IconArrow isOpenDrop={isClicked} />
-          <Text isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
+        <CollapsedContainer $isOpen={isOpen}>
+          <IconArrow $isOpenDrop={isClicked} />
+          <Text $isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
         </CollapsedContainer>
       </Div>
-      <DefaultContainer isOpen={isOpen} isClicked={isClicked}>
-        <IconArrow isOpenDrop={isClicked} />
-        <Text isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
+      <DefaultContainer $isOpen={isOpen} $isClicked={isClicked}>
+        <IconArrow $isOpenDrop={isClicked} />
+        <Text $isOpen={isOpen}>{user?.code.toUpperCase()}</Text>
       </DefaultContainer>
     </Btn>
   );

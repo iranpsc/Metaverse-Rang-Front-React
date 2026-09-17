@@ -50,7 +50,7 @@ const StatusFilterItems = styled.div`
   position: relative;
   border-radius: 5px;
   background-color: ${(props) =>
-    props.active ? props.theme.colors.shades[80] : "transparent"};
+    props.$active ? props.theme.colors.shades[80] : "transparent"};
   &:hover {
     background-color: ${({ theme }) => theme.colors.shades[80]};
     transition: all 0.2s linear;
@@ -66,7 +66,7 @@ const StatusFilterItems = styled.div`
   h1 {
     font-weight: 400;
     color: ${(props) =>
-      props.active
+      props.$active
         ? props.theme.colors.newColors.primaryText
         : props.theme.colors.newColors.shades.title};
     font-size: 16px;
@@ -99,9 +99,9 @@ const FilterItem = styled.div`
   align-items: center;
   cursor: pointer;
   background-color: ${(props) =>
-    props.active ? props.theme.colors.shades[80] : "transparent"};
+    props.$active ? props.theme.colors.shades[80] : "transparent"};
   color: ${(props) =>
-    props.active
+    props.$active
       ? props.theme.colors.newColors.primaryText
       : props.theme.colors.newColors.shades.title};
   &:hover {
@@ -234,7 +234,7 @@ const RequestsList = ({
               {filters.member && (
                 <StatusFilter>
                   {memberTypes.map(({ key, label, type }) => (
-                    <StatusFilterItems active={member[key]} key={key}>
+                    <StatusFilterItems $active={member[key]} key={key}>
                       {React.createElement(
                         type,
                         {
@@ -267,7 +267,7 @@ const RequestsList = ({
               {filters.status && (
                 <TitleFilter>
                   {statusTypes.map(({ key, label }) => (
-                    <FilterItem active={status[key]} key={key}>
+                    <FilterItem $active={status[key]} key={key}>
                       <h1 onClick={() => handleStatusFilter(key)}>
                         {getTranslation(label)}
                       </h1>

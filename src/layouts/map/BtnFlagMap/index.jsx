@@ -58,7 +58,7 @@ const ContainerIcon = styled.div`
 
 const Icon = styled.img`
   width: 30px;
-  filter: ${(props) => (props.active ? "none" : "grayscale(100%)")};
+  filter: ${(props) => (props.$active ? "none" : "grayscale(100%)")};
   cursor: pointer;
 `;
 
@@ -109,7 +109,7 @@ const BtnFlagMap = ({ flags, handleButtonClick }) => {
             <Icon src={FilterIcon} style={{ cursor: "not-allowed" }} />
             <Icon
               src={MapIcon}
-              active={clickState[flag.id]}
+              $active={clickState[flag.id]}
               onClick={() => handleClick(flag.id)}
             />
           </ContainerIcon>
