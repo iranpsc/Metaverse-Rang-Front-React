@@ -1,20 +1,22 @@
-import styled from "styled-components";
-import React, { Suspense, useContext, useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
+import { useContext, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
-import { convertToPersian } from "../../../../services/Utility";
+import { formatNumber, convertToPersian, getTranslation } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { useParams } from "react-router";
-import { Canvas } from "@react-three/fiber";
-import { Bounds, Center, OrbitControls, useFBX } from "@react-three/drei";
 
 const Container = styled.div`
+  position: relative;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
+
   padding: 10px 20px 10px 15px;
   margin-top: 20px;
+
   display: grid;
   grid-template-columns: 4fr 1fr;
   align-items: center;
@@ -23,6 +25,7 @@ const Container = styled.div`
 const Percent = styled.div`
   ${(props) => (props.IsPersian ? "border-left" : "border-right")}: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
+
   ${(props) => (props.IsPersian ? "padding-left" : "padding-right")}: 25px;
 `;
 
@@ -49,79 +52,197 @@ const ProgressContainer = styled.div`
   height: 8px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 28px;
+  overflow: hidden;
 `;
 
 const ProgressBar = styled.div`
   background-color: ${(props) => props.theme.colors.primary};
   border-radius: 8px;
-  width: ${(props) => `${props.percentage}%`};
-  transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  width: ${(props) => `${Math.min(Math.max(props.percentage || 0, 0), 100)}%`};
+
+  transition: width 0.5s ease;
   height: 100%;
 `;
 
 const LevelCount = styled.div`
+  position: relative;
+  width: 100%;
+  min-width: 0;
+
   display: flex;
-  padding-right: 10px;
-  justify-content: center;
   align-items: center;
-  gap: 8px;
+  justify-content: flex-start;
+  gap: 4px;
 
-  img {
-    cursor: pointer;
+  overflow-x: auto;
+  overflow-y: visible;
 
-    &:hover {
-      transform: translateY(-3px);
-      transition: transform 0.2s;
-    }
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+
+  padding: 6px 4px;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 16px,
+    black calc(100% - 16px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 16px,
+    black calc(100% - 16px),
+    transparent 100%
+  );
+
+  scrollbar-width: thin;
+  scrollbar-color: ${(props) => props.theme.colors.primary} transparent;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.primary};
+    border-radius: 10px;
   }
 `;
 
-function FbxModel({ url, onLoaded }) {
-  const model = useFBX(url);
+const popIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+`;
 
-  useEffect(() => {
-    if (model && onLoaded) {
-      onLoaded();
-    }
-  }, [model, onLoaded]);
+const LevelItemWrapper = styled.div`
+  position: relative;
+  width: 55px;
+  height: 55px;
 
-  return <primitive object={model} />;
-}
+  flex-shrink: 0;
+  scroll-snap-align: center;
 
-class FbxErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    this.state = {
-      hasError: false,
-    };
+  animation: ${popIn} 0.35s ease both;
+  animation-delay: ${(props) => `${props.$index * 0.05}s`};
+
+  img {
+    width: 55px;
+    height: 55px;
+
+    object-fit: contain;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.2s ease,
+      filter 0.2s ease;
   }
 
-  static getDerivedStateFromError() {
-    return {
-      hasError: true,
-    };
+  &:hover img {
+    transform: scale(1.15);
   }
+`;
 
-  componentDidCatch(error, info) {
-    console.error("FBX loading failed:", error, info);
+const LevelItem = styled.div`
+  display: flex;
+  position: relative;
+`;
+
+
+const tooltipFade = keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-50%, -95%);
   }
-
-  render() {
-    if (this.state.hasError) {
-      return null;
-    }
-
-    return this.props.children;
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%);
   }
-}
+`;
+
+const PortalTooltip = styled.div`
+  position: fixed;
+  transform: translate(-50%, -100%);
+
+  min-width: max-content;
+  max-width: 160px;
+
+  padding: 6px 10px;
+
+  border-radius: 6px;
+
+  background-color: ${(props) => props.theme.colors.newColors.shades.title};
+  color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+
+  font-size: 12px;
+  font-weight: 500;
+
+  white-space: nowrap;
+  text-align: center;
+
+  z-index: 9999;
+  pointer-events: none;
+
+  animation: ${tooltipFade} 0.15s ease both;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid
+      ${(props) => props.theme.colors.newColors.shades.title};
+  }
+`;
+
+const levelIds = {
+  "شهروند": 382,
+  "روزنامه نگار": 383,
+  "مشارکت کننده": 589,
+  "توسعه دهنده": 68,
+  "بازرس": 69,
+  "بازرگان": 590,
+  "دادخواه": 71,
+  "اعضای شورای شهر": 591,
+  "شهردار": 592,
+  "فرماندار": 74,
+  "وزیر": 75,
+  "داور": 76,
+  "دادگذار": 77,
+};
 
 const Level = () => {
   const [user] = useContext(UserContext);
+
   const [loading, setLoading] = useState(true);
+  const [levelData, setLevelData] = useState(null);
   const IsPersian = useLanguage();
+
   const { Request } = useRequest();
   const { id } = useParams();
+
+  const scrollRef = useRef(null);
+  const [tooltip, setTooltip] = useState(null); // { text, top, left }
 
   useEffect(() => {
     const requestId = id || user?.id;
@@ -134,6 +255,10 @@ const Level = () => {
     setLoading(true);
 
     Request(`users/${requestId}/levels`)
+      .then((res) => {
+        const data = res.data.data;
+        setLevelData(data);
+      })
       .catch((error) => {
         console.error("Error loading level:", error);
       })
@@ -141,6 +266,46 @@ const Level = () => {
         setLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    const node = scrollRef.current;
+    if (!node) return;
+
+    const handleScroll = () => setTooltip(null);
+    node.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => node.removeEventListener("scroll", handleScroll);
+  }, [levelData]);
+
+
+  useEffect(() => {
+    const node = scrollRef.current;
+    if (!node) return;
+
+    const handleWheel = (e) => {
+      if (node.scrollWidth <= node.clientWidth) return;
+
+      e.preventDefault();
+
+      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      node.scrollBy({ left: delta, behavior: "auto" });
+    };
+
+    node.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => node.removeEventListener("wheel", handleWheel);
+  }, [levelData]);
+
+  const showTooltip = (e, text) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltip({
+      text,
+      top: rect.top - 8,
+      left: rect.left + rect.width / 2,
+    });
+  };
+
+  const hideTooltip = () => setTooltip(null);
 
   if (loading) {
     return (
@@ -165,47 +330,62 @@ const Level = () => {
     );
   }
 
-  const fbxUrl = user?.level?.fbx_file || null;
+  if (!levelData) {
+    return null;
+  }
+
+  const {
+    latest_level,
+    previous_levels = [],
+    score_percentage_to_next_level,
+  } = levelData;
+
+
+  const levels = [
+    ...(latest_level ? [latest_level] : []),
+    ...[...previous_levels].reverse(),
+  ];
 
   return (
     <Container>
       <Percent IsPersian={IsPersian}>
         <Title>
-          <h2>{user?.level?.name}</h2>
+          <h2>{latest_level?.name}</h2>
           <h3>
-            {convertToPersian(user?.socre_percentage_to_next_level)}%
+            {convertToPersian(formatNumber(score_percentage_to_next_level))}%
           </h3>
         </Title>
 
         <ProgressContainer>
-          <ProgressBar
-            percentage={user?.socre_percentage_to_next_level}
-          />
+          <ProgressBar percentage={score_percentage_to_next_level} />
         </ProgressContainer>
       </Percent>
 
-      <LevelCount>
-        <div style={{ width: 65, height: 65 }}>
-          <Canvas camera={{ position: [0, 0, 3], fov: 35 }}>
-            <ambientLight intensity={2} />
-            <directionalLight position={[5, 5, 5]} />
+      <LevelCount ref={scrollRef}>
+        {levels.map((level, index) => {
+          const levelName = levelIds[level.name] ?? 382;
+          const translation = getTranslation(levelName);
 
-            <FbxErrorBoundary>
-              <Suspense fallback={null}>
-                {fbxUrl && (
-                  <Bounds fit clip observe margin={1.2}>
-                    <Center>
-                      <FbxModel url={fbxUrl} />
-                    </Center>
-                  </Bounds>
-                )}
-              </Suspense>
-            </FbxErrorBoundary>
-
-            <OrbitControls enableZoom={false} />
-          </Canvas>
-        </div>
+          return (
+            <LevelItemWrapper key={level.id} $index={index}>
+              <LevelItem
+                onMouseEnter={(e) => showTooltip(e, translation)}
+                onMouseLeave={hideTooltip}
+              >
+                <img src={level.image} alt={level.name} />
+              </LevelItem>
+            </LevelItemWrapper>
+          );
+        })}
       </LevelCount>
+
+      {tooltip &&
+        createPortal(
+          <PortalTooltip style={{ top: tooltip.top, left: tooltip.left }}>
+            {tooltip.text}
+          </PortalTooltip>,
+          document.body
+        )}
     </Container>
   );
 };

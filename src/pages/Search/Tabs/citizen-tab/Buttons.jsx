@@ -24,7 +24,7 @@ const IconWrapper = styled.div`
   svg {
     font-size: 20px;
     color: ${(props) =>
-      props.theme.colors.newColors.otherColors.buttonPrimaryText};
+    props.theme.colors.newColors.otherColors.buttonPrimaryText};
   }
 `;
 const Container = styled.div`
@@ -83,8 +83,8 @@ const Buttons = ({ user }) => {
       icon: <MdOutlineMailOutline />,
       label: getTranslation("469"),
       onClick: () =>
-        Navigate("/documents", {
-          state: { code: user?.code, user: user?.id },
+        Navigate("/documents/write", {
+          state: { code: user?.code, user: user?.id, from: location.pathname, },
         }),
     },
   ];

@@ -14,7 +14,6 @@ import {
   FeatureSvg,
 } from "../../../../services/constants/FeatureType";
 import { getTranslation, ToastError } from "../../../../services/Utility";
-import { useMapLands } from "../../../../services/reducers/MapLandsContext";
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,7 +28,6 @@ const InputsWrapper = styled.div`
 const SellerPriceInfo = () => {
   const [wallet, dispatch] = useContext(WalletContext);
   const [feature] = useContext(FeatureContext);
-  const { setMapLands } = useMapLands();
 
   const Navigate = useNavigate();
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
@@ -71,11 +69,7 @@ const SellerPriceInfo = () => {
             [colorKey]: newAmount,
           },
         });
-        setMapLands((prev) =>
-          prev.map((land) =>
-            land.id === feature.id ? { ...land, rgb: "i" } : land,
-          ),
-        );
+      
         Navigate(FeatureSvg(feature.properties.rgb));
       })
       .catch((error) => {

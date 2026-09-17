@@ -2,7 +2,7 @@ import ConfettiExplosion from "react-confetti-explosion";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { useState } from "react";
-import { getTranslation } from "../../../services/Utility";
+import { getTranslation, convertToPersian } from "../../../services/Utility";
 
 const Card = styled.div`
   border-radius: 5px;
@@ -130,8 +130,8 @@ const ProfitCard = ({
         </Value>
       </Content>
       <Footer>
-        {getTranslation("478")}
-        <h4>{dead_line}</h4>
+        {getTranslation("1827")} :
+        <h4>{convertToPersian(dead_line)}</h4>
       </Footer>
     </Card>
   );

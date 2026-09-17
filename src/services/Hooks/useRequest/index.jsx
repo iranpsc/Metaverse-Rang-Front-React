@@ -25,6 +25,7 @@ export default function useRequest() {
   };
 
   const checkSecurity = () => {
+    console.log("accountSecurity",accountSecurity)
     if (userInfo?.wallet_login) {
       return true;
     }

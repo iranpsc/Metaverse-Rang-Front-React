@@ -279,9 +279,8 @@ const ReportsList = ({
                 >
                   <MdKeyboardArrowDown
                     style={{
-                      transform: `${
-                        filters.member ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
+                      transform: `${filters.member ? "rotate(180deg)" : "rotate(360deg)"
+                        }`,
                     }}
                   />
                 </Arrows>

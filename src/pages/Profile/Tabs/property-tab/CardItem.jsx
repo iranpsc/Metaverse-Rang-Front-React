@@ -176,13 +176,14 @@ const CardItem = ({
   navigateId,
   card,
 }) => {
-  const { Request, HTTP_METHOD } = useRequest();
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const formattedRial = convertToPersian(formatNumber(price_irr));
   const [isDeleted, setIsDeleted] = useState(
     +card.properties.price_irr === 0 && +card.properties.price_psc === 0,
   );
   const formattedPsc = convertToPersian(formatNumber(price_psc));
   const handleDelete = () => {
+    if (!checkSecurity()) return;
     Request(`sell-requests/${navigateId}`, HTTP_METHOD.DELETE)
       .then(() => {
         setIsDeleted(!isDeleted);

@@ -10,7 +10,10 @@ import { useMapData } from "../../services/reducers/mapContext";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
 import { useMapLands } from "../../services/reducers/MapLandsContext";
 import { showPolygons } from "../../services/Hooks/useMapUrlState";
-
+import {
+  connectSocket,
+  onSocketEvent,
+} from "../../services/socket";
 const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
   const fbx = useLoader(FBXLoader, url, (loader) => {
     loader.manager.onStart = () => setLoading(true);
@@ -61,8 +64,10 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
 const MapPolygons = () => {
   const { buildings, setBuildings } = useMapData();
   const { selectedEnvironment } = useSelectedEnvironment();
-  const { mapLands, setMapLands } = useMapLands();
-  const map = useMap();
+  const {
+    mapLands,
+    setMapLands,
+  } = useMapLands(); const map = useMap();
   const { Request } = useRequest();
 
   const [isPolygonSourceLoaded, setIsPolygonSourceLoaded] = useState(false);
@@ -80,6 +85,48 @@ const MapPolygons = () => {
   const requestIdRef = useRef(0);
 
   useEffect(() => {
+    connectSocket();
+
+    const unsubscribe = onSocketEvent(
+      "feature-status-changed",
+      (payload) => {
+        console.log("[websocket] EVENT:", payload);
+
+        const eventData = payload?.data ?? payload;
+
+        console.log("[websocket] EVENT DATA:", eventData);
+
+        if (eventData?.id == null) {
+          return;
+        }
+
+        setMapLands((prevFeatures) => {
+          const updatedFeatures = prevFeatures.map((feature) => {
+            if (String(feature.id) === String(eventData.id)) {
+              console.log(
+                "[websocket] updating feature:",
+                feature.id,
+                "=>",
+                eventData.rgb
+              );
+
+              return {
+                ...feature,
+                rgb: eventData.rgb,
+              };
+            }
+
+            return feature;
+          });
+
+          return updatedFeatures;
+        });
+      }
+    );
+
+    return unsubscribe;
+  }, [setMapLands]);
+  useEffect(() => {
     if (!map.current) return;
 
     const mapInstance = map.current;
@@ -95,32 +142,7 @@ const MapPolygons = () => {
     };
   }, [map]);
 
-  useEffect(() => {
-    if (!window.Echo) return;
 
-    const channel = window.Echo.channel("feature-status");
-
-    const handleFeatureStatus = (e) => {
-      setMapLands((prevFeatures) =>
-        prevFeatures.map((feature) => {
-          if (parseInt(feature.id) === parseInt(e.data.id)) {
-            return {
-              ...feature,
-              rgb: e.data.rgb,
-            };
-          }
-
-          return feature;
-        }),
-      );
-    };
-
-    channel.listen(".feature-status-changed", handleFeatureStatus);
-
-    return () => {
-      channel.stopListening(".feature-status-changed", handleFeatureStatus);
-    };
-  }, [setMapLands]);
 
   useEffect(() => {
     if (!map.current) return;
@@ -259,14 +281,6 @@ const MapPolygons = () => {
 
     loadFeatures();
 
-    return () => {
-      mapInstance.off("moveend", handleMoveEnd);
-
-      if (requestTimeoutRef.current) {
-        clearTimeout(requestTimeoutRef.current);
-      }
-    };
-
     mapInstance.on("moveend", handleMoveEnd);
 
     requestTimeoutRef.current = setTimeout(() => {
@@ -321,16 +335,13 @@ const MapPolygons = () => {
           type="geojson"
           data={{
             type: "FeatureCollection",
-
             features: mapLands.map((polygon) => ({
               type: "Feature",
-
               properties: {
                 id: polygon.id,
                 fill: POLYGON_COLORS[polygon.rgb],
                 border: BORDER_COLORS[polygon.rgb],
               },
-
               geometry: {
                 type: "Polygon",
                 coordinates: [polygon.coordinates],

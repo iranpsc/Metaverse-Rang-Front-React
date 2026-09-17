@@ -40,7 +40,6 @@ import SendRequest from "../../pages/Profile/Tabs/dynasty/sent/SendRequest";
 import RecievedSuggestion from "../../pages/Profile/Tabs/suggestion-tab/recieved/RecievedSuggestion";
 import SentSuggestion from "../../pages/Profile/Tabs/suggestion-tab/sent/SentSuggestion";
 import AccountTab from "../../pages/Settings/Tabs/account-tab/AccountTab";
-
 import PublicTab from "../../pages/Settings/Tabs/public-tab/PublicTab";
 import SecurityTab from "../../pages/Settings/Tabs/security-tab/SecurityTab";
 import AboutMeTab from "../../pages/Settings/Tabs/aboutme-tab/AboutMeTab";
@@ -103,6 +102,10 @@ export default function Routers() {
         </Route>
 
         <Route
+          path="payment/verify"
+          element={<Navigate to="/profile/transactions" replace />}
+        />
+        <Route
           path="profile"
           element={
             <PrivateRoute>
@@ -112,13 +115,14 @@ export default function Routers() {
         >
           <Route index element={<Navigate to="total" replace />} />
           <Route path="total" element={<TotalTab />} />
+          <Route path="transactions" element={<TransactionsTab />} />
           <Route path="property" element={<PropertyTab />}>
             <Route index element={<Navigate to="houses" replace />} />
             <Route path="houses" element={<Houses />} />
             <Route path="following" element={<Following />} />
             <Route path="followers" element={<Followers />} />
           </Route>
-          <Route path="transactions" element={<TransactionsTab />} />
+
           <Route path="dynasty" element={<DynastyTab />}>
             <Route index element={<Navigate to="establish" replace />} />
 

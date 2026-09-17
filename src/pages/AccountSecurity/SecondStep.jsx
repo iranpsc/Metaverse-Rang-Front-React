@@ -204,28 +204,31 @@ const SecondStep = ({ setStep, time }) => {
     }
   };
   const allValuesNotEmpty = codeValues.every((value) => value !== "");
+const nextStep = (valuesArg) => {
+  const valuesToUse = valuesArg || codeValues;
 
-  const nextStep = (valuesArg) => {
-    const valuesToUse = valuesArg || codeValues;
-    if (valuesToUse.every((v) => v !== "")) {
-      const code = valuesToUse.join("");
-      Request("account/security/verify", HTTP_METHOD.POST, { code })
-        .then(() => {
-          setItem("account_security", {
-            account_security: Date.now() + parseInt(time) * 60 * 1000,
-            time,
-          });
-          setStep(3);
-        })
-        .catch(() => {
-          setErrors(true);
-          ToastError(getTranslation("1639"));
+  if (valuesToUse.every((v) => v !== "")) {
+    const code = valuesToUse.join("");
+
+    Request("account/security/verify", HTTP_METHOD.POST, { code })
+      .then(() => {
+        const duration = parseInt(time) * 60 * 1000;
+
+        setItem("account_security", {
+          account_security: Date.now() + duration,
+          time,
         });
-    } else {
-      setErrors(true);
-    }
-  };
 
+        setStep(3);
+      })
+      .catch(() => {
+        setErrors(true);
+        ToastError(getTranslation("1639"));
+      });
+  } else {
+    setErrors(true);
+  }
+};
   const resetInputs = () => {
     inputRefs.current.forEach((inputRef) => {
       inputRef.value = "";

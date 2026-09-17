@@ -4,10 +4,10 @@ import business from "../../../../assets/images/building.png";
 import education from "../../../../assets/images/courthouse.png";
 import house from "../../../../assets/images/house.png";
 import styled from "styled-components";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import Title from "../../../../components/Title";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getTranslation, fixNumbers } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import { useParams } from "react-router";
 import Container from "../../../../components/Common/Container";
 import SearchInput from "../../../../components/SearchInput";
@@ -129,9 +129,24 @@ const SkeletonCard = styled.div`
   align-items: center;
 `;
 
+const enhanceFeature = (feature) => {
+  const karbari = feature.properties?.karbari;
+  const propertyDetails = {
+    m: { name: "477", photo: house, color: "#ffc80021", slug: "house" },
+    t: { name: "475", photo: business, color: "#ff000021", slug: "industry" },
+    a: { name: "476", photo: education, color: "#0066ff21", slug: "education" },
+  }[karbari];
+
+  return propertyDetails
+    ? { ...feature, properties: { ...feature.properties, ...propertyDetails } }
+    : feature;
+};
+
+const SEARCH_DEBOUNCE_MS = 500;
+
 const Houses = () => {
   const [searched, setSearched] = useState("");
-
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const containerRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [property, setProperty] = useState({
@@ -147,76 +162,88 @@ const Houses = () => {
   const [hasMore, setHasMore] = useState(true);
   const { id } = useParams();
 
-  const loadMoreFeatures = useCallback(async () => {
-    if (loading || !hasMore) return;
+  const baseEndpoint = useMemo(
+    () => (id ? `players/${id}/assets` : "my-features"),
+    [id],
+  );
 
-    setLoading(true);
-
-    try {
-      const endpoint = id
-        ? `players/hm-2000002/assets`
-        : `my-features?page=${page}`;
-
-      const response = await Request(endpoint);
-
-      const newData = response.data.data || [];
-
-      if (newData.length === 0) {
-        setHasMore(false);
-        setLoading(false);
-        return;
-      }
-
-      const enhancedFeatures = newData.map((feature) => {
-        let newProperties = { ...feature.properties };
-        if (feature.properties.karbari === "m") {
-          newProperties = {
-            ...newProperties,
-            name: "477",
-            photo: house,
-            color: "#ffc80021",
-            slug: "house",
-          };
-        } else if (feature.properties.karbari === "t") {
-          newProperties = {
-            ...newProperties,
-            name: "475",
-            photo: business,
-            color: "#ff000021",
-            slug: "industry",
-          };
-        } else if (feature.properties.karbari === "a") {
-          newProperties = {
-            ...newProperties,
-            name: "476",
-            photo: education,
-            color: "#0066ff21",
-            slug: "education",
-          };
-        }
-        return { ...feature, properties: newProperties };
-      });
-
-      setFeatures((prevFeatures) => {
-        const uniqueFeatures = enhancedFeatures.filter(
-          (f) => !prevFeatures.some((prev) => prev.id === f.id),
-        );
-        return [...prevFeatures, ...uniqueFeatures];
-      });
-
-      setPage((prev) => prev + 1);
-      setHasMore(!!response.data.links?.next);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-      setInitialLoading(false);
-    }
-  }, [page, loading, hasMore, id]);
+  const selectedKarbari = useMemo(
+    () =>
+      [
+        property.industry && "t",
+        property.education && "a",
+        property.house && "m",
+      ].filter(Boolean),
+    [property],
+  );
 
   useEffect(() => {
-    loadMoreFeatures();
-  }, []);
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searched.trim());
+    }, SEARCH_DEBOUNCE_MS);
+
+    return () => clearTimeout(timer);
+  }, [searched]);
+
+
+  const buildFeaturesUrl = useCallback(
+    (pageNum) => {
+      const params = new URLSearchParams();
+      params.append("page", pageNum);
+
+      if (debouncedSearch) {
+        params.append("search", debouncedSearch);
+      }
+
+      if (selectedKarbari.length > 0) {
+        params.append("filter", selectedKarbari.join(","));
+      }
+      console.log("params", params.toString())
+
+      return `${baseEndpoint}?${params.toString()}`;
+    },
+    [baseEndpoint, debouncedSearch, selectedKarbari],
+  );
+  const fetchPage = useCallback(
+    async (pageNum, { replace = false } = {}) => {
+      setLoading(true);
+
+      try {
+        const response = await Request(buildFeaturesUrl(pageNum));
+        const newData = (response.data.data || []).map(enhanceFeature);
+        console.log("buildFeaturesUrl", buildFeaturesUrl(pageNum), "response", response.data.data)
+
+        setFeatures((prev) => {
+          const base = replace ? [] : prev;
+          const uniqueFeatures = newData.filter(
+            (f) => !base.some((p) => p.id === f.id),
+          );
+          return [...base, ...uniqueFeatures];
+        });
+
+        setHasMore(!!response.data.links?.next);
+        setPage(pageNum + 1);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+        setInitialLoading(false);
+      }
+    },
+    [buildFeaturesUrl, Request],
+  );
+  const loadMoreFeatures = useCallback(() => {
+    if (loading || !hasMore) return;
+    fetchPage(page);
+  }, [loading, hasMore, page, fetchPage]);
+
+  useEffect(() => {
+    setPage(1);
+    setHasMore(true);
+    setInitialLoading(true);
+    fetchPage(1, { replace: true });
+
+  }, [baseEndpoint, debouncedSearch, selectedKarbari]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -234,34 +261,19 @@ const Houses = () => {
     };
 
     container.addEventListener("scroll", handleScroll);
-    return () => {
-      container.removeEventListener("scroll", handleScroll);
-    };
+    return () => container.removeEventListener("scroll", handleScroll);
   }, [loadMoreFeatures, loading, hasMore]);
 
-  const normalizeSearch = (value) =>
-    fixNumbers(String(value || "")).toUpperCase().trim();
-
-  const filteredItems = features.filter((item) => {
-    const query = normalizeSearch(searched);
-
-    const codeMatch = normalizeSearch(item.properties.id).includes(query);
-    const addressMatch = normalizeSearch(item.properties.address).includes(query);
-    const meterMatch = normalizeSearch(item.properties.stability).includes(query);
-
-    const propertyMatch =
-      (!property.education && !property.house && !property.industry) ||
-      (property.education && item.properties.slug === "education") ||
-      (property.house && item.properties.slug === "house") ||
-      (property.industry && item.properties.slug === "industry");
-
-    return (codeMatch || addressMatch || meterMatch) && propertyMatch;
-  });
+  const selectedLabel = property.industry
+    ? getTranslation("475")
+    : property.education
+      ? getTranslation("476")
+      : getTranslation("477");
 
   // لودینگ اولیه - فقط اسکلتون کارت‌ها (سرچ و فیلتر ثابت)
   if (initialLoading) {
     return (
-      <Container id="scrollable-container">
+      <Container id="scrollable-container" ref={containerRef}>
         <div>
           <Title title={getTranslation("58")} />
         </div>
@@ -273,13 +285,7 @@ const Houses = () => {
           />
           <Wrapper>
             <Select onClick={() => setOpen(!open)}>
-              <span>
-                {property.industry
-                  ? getTranslation("475")
-                  : property.education
-                    ? getTranslation("476")
-                    : getTranslation("477")}
-              </span>
+              <span>{selectedLabel}</span>
             </Select>
           </Wrapper>
         </Div>
@@ -318,13 +324,7 @@ const Houses = () => {
         />
         <Wrapper>
           <Select onClick={() => setOpen(!open)}>
-            <span>
-              {property.industry
-                ? getTranslation("475")
-                : property.education
-                  ? getTranslation("476")
-                  : getTranslation("477")}
-            </span>
+            <span>{selectedLabel}</span>
             <MdKeyboardArrowDown
               style={{
                 transform: `${open ? "rotate(180deg)" : "rotate(360deg)"}`,
@@ -337,7 +337,10 @@ const Houses = () => {
                 industry={property.industry}
                 hover="#ff000021"
                 onClick={() => {
-                  setProperty({ ...property, industry: true });
+                  setProperty((current) => ({
+                    ...current,
+                    industry: !current.industry,
+                  }));
                   setOpen(false);
                 }}
               >
@@ -345,8 +348,8 @@ const Houses = () => {
                 {property.industry && (
                   <span
                     onClick={(e) => {
-                      setProperty({ ...property, industry: false });
                       e.stopPropagation();
+                      setProperty((current) => ({ ...current, industry: false }));
                       setOpen(false);
                     }}
                   >
@@ -358,7 +361,10 @@ const Houses = () => {
                 education={property.education}
                 hover="#0066ff21"
                 onClick={() => {
-                  setProperty({ ...property, education: true });
+                  setProperty((current) => ({
+                    ...current,
+                    education: !current.education,
+                  }));
                   setOpen(false);
                 }}
               >
@@ -366,8 +372,8 @@ const Houses = () => {
                 {property.education && (
                   <span
                     onClick={(e) => {
-                      setProperty({ ...property, education: false });
                       e.stopPropagation();
+                      setProperty((current) => ({ ...current, education: false }));
                       setOpen(false);
                     }}
                   >
@@ -379,7 +385,10 @@ const Houses = () => {
                 house={property.house}
                 hover="#ffc70021"
                 onClick={() => {
-                  setProperty({ ...property, house: true });
+                  setProperty((current) => ({
+                    ...current,
+                    house: !current.house,
+                  }));
                   setOpen(false);
                 }}
               >
@@ -387,8 +396,8 @@ const Houses = () => {
                 {property.house && (
                   <span
                     onClick={(e) => {
-                      setProperty({ ...property, house: false });
                       e.stopPropagation();
+                      setProperty((current) => ({ ...current, house: false }));
                       setOpen(false);
                     }}
                   >
@@ -401,14 +410,18 @@ const Houses = () => {
         </Wrapper>
       </Div>
       <List>
-        {filteredItems.map((card) => (
-          <CardItem
-            {...card.properties}
-            key={card.id}
-            navigateId={card.id}
-            card={card}
-          />
-        ))}
+        {features.map((card) => {
+
+          console.log("card", card)
+          return (
+            <CardItem
+              {...card.properties}
+              key={card.id}
+              navigateId={card.id}
+              card={card}
+            />
+          )
+        })}
       </List>
 
       {loading && features.length > 0 && (

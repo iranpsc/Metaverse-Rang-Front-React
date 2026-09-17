@@ -6,6 +6,7 @@ import {
   getTranslation,
 } from "../../../services/Utility";
 import Result from "../../../components/Result";
+import useRequest from "../../../services/Hooks/useRequest";
 import { useTheme } from "../../../services/reducers/ThemeContext";
 const Wrapper = styled.div`
   border-radius: 5px;
@@ -71,10 +72,22 @@ const Value = styled.p`
 
 const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
   const { theme } = useTheme();
+  const { Request, HTTP_METHOD, checkSecurity } = useRequest();
+
   const deleteHandler = () => {
-    setPsc("");
-    setRial("");
-    setAssign(false);
+    if (!checkSecurity()) return;
+    Request(`sell-requests/${navigateId}`, HTTP_METHOD.DELETE)
+      .then((res) => {
+        console.log("res", res)
+        setIsDeleted(!isDeleted);
+        setPsc("");
+        setRial("");
+        setAssign(false);
+      })
+      .catch((error) => {
+        console.error("Delete failed:", error);
+      });
+
   };
   const buttonColer = theme == "light" ? "black" : "white";
   return (
@@ -83,14 +96,14 @@ const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
         <Result
           title={
             (getTranslation("521"),
-            getTranslation("48"))
+              getTranslation("48"))
           }
           value={rial}
         />
         <Result
           title={
             (getTranslation("521"),
-            getTranslation("47"))
+              getTranslation("47"))
           }
           value={psc}
         />

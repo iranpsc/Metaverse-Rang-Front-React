@@ -1,10 +1,17 @@
 import { useLayoutEffect } from "react";
-import { BrowserRouter } from "react-router"; // Import useNavigate
+import { BrowserRouter } from "react-router";
 import { Toaster } from "react-hot-toast";
+
 import "./App.css";
 import "./i18n/i18n.js";
-import Echo from "laravel-echo";
-import Pusher from "pusher-js";
+
+import {
+  connectSocket,
+  disconnectSocket,
+} from "./services/socket";
+
+import { getItem } from "./services/Utility/LocalStorage";
+
 import UserProvider from "./services/reducers/UserContext.jsx";
 import WalletProvider from "./services/reducers/WalletContext";
 import FollowProvider from "./services/reducers/FollowContext";
@@ -20,19 +27,37 @@ import RotateDevice from "./components/RotateDevice";
 import { useAppHeight } from "./hooks/useAppHeight.js";
 import { ScrollDirectionProvider } from "./services/reducers/ScrollDirectionContext.jsx";
 import { MapLandsProvider } from "./services/reducers/MapLandsContext.jsx";
+
 function App() {
   useAppHeight();
+
   useLayoutEffect(() => {
-    window.Echo = new Echo({
-      broadcaster: "pusher",
-      key: "local",
-      cluster: "",
-      wsHost: "api.metarang.com",
-      encrypted: true,
-      forceTLS: true,
-      disableStats: true,
-      enabledTransports: ["wss", "ws"],
-    });
+    // اتصال اولیه در صورت وجود توکن
+    const token = getItem("user")?.token;
+
+    if (token) {
+      connectSocket(token);
+    }
+
+    // هماهنگ شدن Socket بین تب‌های مختلف
+    const onStorage = (event) => {
+      if (event.key !== "user") return;
+
+      const nextToken = getItem("user")?.token;
+
+      if (nextToken) {
+        connectSocket(nextToken);
+      } else {
+        disconnectSocket();
+      }
+    };
+
+    window.addEventListener("storage", onStorage);
+
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      disconnectSocket();
+    };
   }, []);
 
   return (
@@ -40,37 +65,38 @@ function App() {
       <BrowserRouter>
         <ScrollDirectionProvider>
           <LoaderProvider>
-          <MapLandsProvider>
-            <MapProvider>
-              <ThemeProviderContext>
-                <UserProvider>
-                  <WalletProvider>
-                    <FollowProvider>
-                      <SelectedEnvironmentProvider>
-                        <MapContextProvider>
-                          <AlertProvider>
-                            <RotateDevice />
-                            <Routers />
+            <MapLandsProvider>
+              <MapProvider>
+                <ThemeProviderContext>
+                  <UserProvider>
+                    <WalletProvider>
+                      <FollowProvider>
+                        <SelectedEnvironmentProvider>
+                          <MapContextProvider>
+                            <AlertProvider>
+                              <RotateDevice />
 
-                            <Toaster
-                              containerStyle={{
-                                zIndex: 100000,
-                                marginBottom: 48,
-                              }}
-                              position="bottom-right"
-                            />
-                          </AlertProvider>
-                        </MapContextProvider>
-                      </SelectedEnvironmentProvider>
-                    </FollowProvider>
-                  </WalletProvider>
-                </UserProvider>
-              </ThemeProviderContext>
-            </MapProvider>
+                              <Routers />
+
+                              <Toaster
+                                containerStyle={{
+                                  zIndex: 100000,
+                                  marginBottom: 48,
+                                }}
+                                position="bottom-right"
+                              />
+                            </AlertProvider>
+                          </MapContextProvider>
+                        </SelectedEnvironmentProvider>
+                      </FollowProvider>
+                    </WalletProvider>
+                  </UserProvider>
+                </ThemeProviderContext>
+              </MapProvider>
             </MapLandsProvider>
           </LoaderProvider>
         </ScrollDirectionProvider>
-      </BrowserRouter>{" "}
+      </BrowserRouter>
     </LanguageProvider>
   );
 }

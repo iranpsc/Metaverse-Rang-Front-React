@@ -1,15 +1,29 @@
 import { useContext, useCallback } from "react";
+
 import {
   AddUserAction,
   DeleteUserAction,
 } from "../../actions/UserContextAction";
+
 import { UserContext } from "../../reducers/UserContext";
+
 import {
   WalletContext,
   WalletContextTypes,
 } from "../../reducers/WalletContext";
-import { getItem, removeItem, setItem } from "../../Utility/LocalStorage";
+
+import {
+  getItem,
+  removeItem,
+  setItem,
+} from "../../Utility/LocalStorage";
+
 import useRequest from "../useRequest";
+
+import {
+  connectSocket,
+  disconnectSocket,
+} from "../../socket";
 
 export default function useAuth() {
   const [userState, setUserState] = useContext(UserContext);
@@ -19,6 +33,8 @@ export default function useAuth() {
 
   const logout = useCallback(() => {
     removeItem("user");
+
+    disconnectSocket();
 
     setUserState(DeleteUserAction());
 
@@ -47,34 +63,57 @@ export default function useAuth() {
   const setUser = useCallback(
     async (response) => {
       const expire =
-        Date.now() + Number(response.automatic_logout) * 60 * 1000;
+        Date.now() +
+        Number(response.automatic_logout) * 60 * 1000;
 
       setItem("user", {
         token: response.token,
         expire,
       });
 
+      // اتصال WebSocket بعد از ذخیره Token
+      connectSocket(response.token);
+
       try {
         const headers = {
           Authorization: `Bearer ${response.token}`,
         };
 
-        const [walletResponse, profileResponse] = await Promise.all([
-          Request("user/wallet", HTTP_METHOD.GET, {}, headers),
-          Request("auth/me", HTTP_METHOD.POST, {}, headers),
-        ]);
+        const [walletResponse, profileResponse] =
+          await Promise.all([
+            Request(
+              "user/wallet",
+              HTTP_METHOD.GET,
+              {},
+              headers
+            ),
+            Request(
+              "auth/me",
+              HTTP_METHOD.POST,
+              {},
+              headers
+            ),
+          ]);
 
         setWallet({
           type: WalletContextTypes.ADD_WALLET,
           payload: walletResponse.data.data,
         });
 
-        setUserState(AddUserAction(profileResponse.data.data));
-      } catch  {
+        setUserState(
+          AddUserAction(profileResponse.data.data)
+        );
+      } catch {
         logout();
       }
     },
-    [Request, HTTP_METHOD, logout, setUserState, setWallet]
+    [
+      Request,
+      HTTP_METHOD,
+      logout,
+      setUserState,
+      setWallet,
+    ]
   );
 
   const setUserWithToken = useCallback(async () => {
@@ -82,17 +121,33 @@ export default function useAuth() {
 
     if (!user) return;
 
+    // اتصال WebSocket با Token ذخیره‌شده
+    connectSocket(user.token);
+
     try {
       const headers = {
         Authorization: `Bearer ${user.token}`,
       };
 
-      const [profileResponse, walletResponse] = await Promise.all([
-        Request("auth/me", HTTP_METHOD.POST, {}, headers),
-        Request("user/wallet", HTTP_METHOD.GET, {}, headers),
-      ]);
+      const [profileResponse, walletResponse] =
+        await Promise.all([
+          Request(
+            "auth/me",
+            HTTP_METHOD.POST,
+            {},
+            headers
+          ),
+          Request(
+            "user/wallet",
+            HTTP_METHOD.GET,
+            {},
+            headers
+          ),
+        ]);
 
-      setUserState(AddUserAction(profileResponse.data.data));
+      setUserState(
+        AddUserAction(profileResponse.data.data)
+      );
 
       setWallet({
         type: WalletContextTypes.ADD_WALLET,
@@ -103,9 +158,19 @@ export default function useAuth() {
         logout();
       }
     }
-  }, [Request, HTTP_METHOD, getStoredUser, logout, setUserState, setWallet]);
+  }, [
+    Request,
+    HTTP_METHOD,
+    getStoredUser,
+    logout,
+    setUserState,
+    setWallet,
+  ]);
 
-  const getUser = useCallback(() => userState, [userState]);
+  const getUser = useCallback(
+    () => userState,
+    [userState]
+  );
 
   return {
     setUser,

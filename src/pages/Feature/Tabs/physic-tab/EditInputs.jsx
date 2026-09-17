@@ -103,11 +103,13 @@ const TagsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+
   gap: 6px;
   min-width: 0;
 `;
 
 const Tag = styled.div`
+
   display: flex;
   align-items: center;
   gap: 6px;
@@ -140,6 +142,7 @@ const First = styled.div`
 const Third = styled.div`
   display: flex;
   gap: 10px;
+  
 `;
 
 const Text = styled.p`
@@ -283,20 +286,20 @@ const EditInputs = ({ hasData, inputs, setEdit, buildingID, featureID }) => {
         buildings: (prev?.buildings ?? []).map((item) =>
           item.id === buildingID
             ? {
-                ...item,
-                building: {
-                  ...item.building,
-                  information: {
-                    ...(item.building?.information ?? {}),
-                    activity_line: payload.activity.join(","),
-                    name: payload.name,
-                    address: payload.address,
-                    postal_code: payload.post,
-                    website: payload.web,
-                    description: payload.about,
-                  },
+              ...item,
+              building: {
+                ...item.building,
+                information: {
+                  ...(item.building?.information ?? {}),
+                  activity_line: payload.activity.join(","),
+                  name: payload.name,
+                  address: payload.address,
+                  postal_code: payload.post,
+                  website: payload.web,
+                  description: payload.about,
                 },
-              }
+              },
+            }
             : item,
         ),
       }));
@@ -347,6 +350,7 @@ const EditInputs = ({ hasData, inputs, setEdit, buildingID, featureID }) => {
 
           {!isLimitReached && (
             <Dropdown
+            top="15px"
               options={availableActivityOptions}
               selected={null}
               onSelect={(value) => {

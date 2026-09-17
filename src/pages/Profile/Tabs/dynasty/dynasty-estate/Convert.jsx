@@ -37,7 +37,7 @@ const Convert = ({ data, setData }) => {
   const [selectedPropertyId, setSelectedPropertyId] = useState(null);
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const navigate = useNavigate();
-
+console.log("DynastyEstatevsDynastyEstatev",data)
   // Memoize filtered features
   const filteredFeatures = useMemo(() => {
     if (!data?.features) return [];

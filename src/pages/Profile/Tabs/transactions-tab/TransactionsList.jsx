@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import TransactionRow from "./TransactionRow";
 import blue from "../../../../assets/gif/blue-color.gif";
@@ -147,9 +147,9 @@ const FilterItem = styled.div`
     transition: all 0.2s linear;
 
     background-color: ${(props) =>
-      props.noHoverBg
-        ? "transparent !important"
-        : props.theme.colors.shades[80]};
+    props.noHoverBg
+      ? "transparent !important"
+      : props.theme.colors.shades[80]};
   }
 `;
 
@@ -157,17 +157,17 @@ const FilterItemText = styled.h1`
   font-size: 16px;
   &:hover {
     color: ${(props) => {
-      if (props.variant === "success") return "#18c08f";
-      if (props.variant === "pending") return "#ffc800";
-      if (props.variant === "failed") return "#ff0000";
-      return props.theme.colors.newColors.primaryText;
-    }};
+    if (props.variant === "success") return "#18c08f";
+    if (props.variant === "pending") return "#ffc800";
+    if (props.variant === "failed") return "#ff0000";
+    return props.theme.colors.newColors.primaryText;
+  }};
     background-color: ${(props) => {
-      if (props.variant === "success") return "#18c09017";
-      if (props.variant === "pending") return "#ffc80017";
-      if (props.variant === "failed") return "#ff000017";
-      return "transparent";
-    }};
+    if (props.variant === "success") return "#18c09017";
+    if (props.variant === "pending") return "#ffc80017";
+    if (props.variant === "failed") return "#ff000017";
+    return "transparent";
+  }};
   }
   font-weight: 400;
   cursor: pointer;
@@ -225,6 +225,9 @@ const TransactionsList = ({
     title: false,
     subject: false,
   });
+  const paymentReturned =
+    sessionStorage.getItem("payment_returned") === "true";
+
 
   return (
     <Container>
@@ -449,7 +452,11 @@ const TransactionsList = ({
         </TableHead>
         <TableBody>
           {rows.map((transaction, index) => (
-            <TransactionRow key={index} {...transaction} />
+            <TransactionRow
+              key={index}
+              {...transaction}
+              paymentReturned={paymentReturned && index === 0}
+            />
           ))}
         </TableBody>
       </Table>

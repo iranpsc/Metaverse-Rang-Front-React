@@ -72,6 +72,11 @@ const icons = [
   },
 ];
 
+const JSON_HEADERS = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
+};
+
 const Container = styled.div`
   border: 1px solid #454545;
   padding: 20px;
@@ -108,7 +113,6 @@ const Icons = styled.div`
     color: ${(props) => props.theme.colors.newColors.otherColors.iconText};
   }
 `;
-
 const IconWrapper = styled.div`
   width: 42px;
   height: 42px;
@@ -118,24 +122,35 @@ const IconWrapper = styled.div`
   justify-content: center;
 
   background-color: ${(props) =>
-    props.isActive
-      ? "#ff000029"
-      : props.theme.colors.newColors.otherColors.menuBg};
-
-  &:hover {
-    background-color: #ff000029;
-
-    svg {
-      color: #f44545ab;
-    }
-  }
+    props.isDisabled
+      ? props.theme.colors.newColors.otherColors.menuBg
+      : props.isActive
+        ? "#ff000029"
+        : props.theme.colors.newColors.otherColors.menuBg};
 
   svg {
     font-size: 20px;
-    color: ${(props) => (props.isActive ? "#f44545ab" : "#868B90")};
+    color: ${(props) =>
+    props.isDisabled
+      ? "#555"
+      : props.isActive
+        ? "#f44545ab"
+        : "#868B90"};
   }
 
-  cursor: pointer;
+  cursor: ${(props) => (props.isDisabled ? "not-allowed" : "pointer")};
+
+  opacity: ${(props) => (props.isDisabled ? 0.5 : 1)};
+
+  &:hover {
+    background-color: ${(props) =>
+    props.isDisabled ? props.theme.colors.newColors.otherColors.menuBg : "#ff000029"};
+
+    svg {
+      color: ${(props) =>
+    props.isDisabled ? "#555" : "#f44545ab"};
+    }
+  }
 `;
 
 const RestrictUser = () => {
@@ -162,7 +177,12 @@ const RestrictUser = () => {
 
     if (!requestId) return;
 
-    Request(`users/${requestId}/profile-limitations`, HTTP_METHOD.GET)
+    Request(
+      `users/${requestId}/profile-limitations`,
+      HTTP_METHOD.GET,
+      {},
+      JSON_HEADERS,
+    )
       .then((response) => {
         const limitation = response?.data?.data ?? response?.data;
 
@@ -213,61 +233,77 @@ const RestrictUser = () => {
 
     setOptions(updatedOptions);
 
-    const formData = new FormData();
-
-    optionsToSend.forEach((key) => {
-      formData.append(key, updatedOptions[key] ? "true" : "false");
-    });
-
-    formData.append("note", "");
-
-    if (hasExistingLimitation) {
-      formData.append("_method", "put");
-    }
+    const payload = {
+      options: optionsToSend.reduce(
+        (result, key) => {
+          result[key] = updatedOptions[key];
+          return result;
+        },
+        {},
+      ),
+      ...(hasExistingLimitation ? { _method: "put" } : {}),
+    };
 
     Request(
       hasExistingLimitation
         ? `profile-limitations/${limitationId}`
         : "profile-limitations",
-      HTTP_METHOD.POST,
-      formData,
-      {
-        "Content-Type": "multipart/form-data",
-      },
+      HTTP_METHOD.PUT,
+      payload,
+      JSON_HEADERS,
     )
-    /** .then((response) => {
+      .then((response) => {
         console.log("restriction updated:", response);
-      }) */
-     
+
+        const limitation = response?.data?.data ?? response?.data;
+
+        if (!hasExistingLimitation && limitation?.id) {
+          setLimitationId(limitation.id);
+          setHasExistingLimitation(true);
+        }
+      })
       .catch((error) => {
         console.error("Error updating restrictions:", error);
 
         setOptions(options);
       });
   };
-
+  const disabledSlugs = ["record", "sound", "email"];
   return (
     <Container>
       <Title>{getTranslation("726")}</Title>
 
       <Icons>
-        {icons.map((icon) => (
-          <div key={icon.id}>
-            <IconWrapper
-              data-tooltip-id={icon.slug}
-              isActive={options[icon.slug]}
-              onClick={() => handleIconClick(icon.slug)}
-            >
-              {icon.icon}
-            </IconWrapper>
+        {icons.map((icon) => {
+          const isDisabled = disabledSlugs.includes(icon.slug);
 
-            <ReactTooltip
-              id={icon.slug}
-              place="top"
-              content={getTranslation(icon.label)}
-            />
-          </div>
-        ))}
+          return (
+            <div key={icon.id}>
+              <IconWrapper
+                isDisabled={isDisabled}
+                isActive={!isDisabled && options[icon.slug]}
+                data-tooltip-id={icon.slug}
+                onClick={() => {
+                  if (isDisabled) return;
+
+                  handleIconClick(icon.slug);
+                }}
+              >
+                {icon.icon}
+              </IconWrapper>
+
+              <ReactTooltip
+                id={icon.slug}
+                place="top"
+                content={
+                  isDisabled
+                    ? ""
+                    : getTranslation(icon.label)
+                }
+              />
+            </div>
+          );
+        })}
       </Icons>
     </Container>
   );

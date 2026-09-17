@@ -85,11 +85,11 @@ const Status = styled.div`
     font-size: 16px;
     font-weight: 400;
     color: ${(props) =>
-      props.status === 1
-        ? "#18C08F"
-        : props.status === 0
-          ? "#FFC700"
-          : "#A0A0AB"};
+    props.status === 1
+      ? "#18C08F"
+      : props.status === 0
+        ? "#FFC700"
+        : "#A0A0AB"};
   }
 `;
 const Date = styled.div`
@@ -110,7 +110,7 @@ const VodCard = ({ data, setData, setShowDetails }) => {
   const onCloseTicket = () => {
     Request(`tickets/close/${data.id}`)
       .then(() => {
-        ToastSuccess("سند شما با موفقیت بسته شد ");
+        ToastSuccess(getTranslation(1825));
         setData((prev) => ({
           ...prev,
           status: 5,

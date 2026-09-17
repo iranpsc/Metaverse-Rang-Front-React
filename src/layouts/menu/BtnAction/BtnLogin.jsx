@@ -55,7 +55,7 @@ const BtnLogin = () => {
 
   return (
     <Btn isOpen={isOpen} onClick={handleClick}>
-      <Icon src={LoginIcon} />
+      <Icon />
       <Text isOpen={isOpen}>{getTranslation("4")}</Text>
     </Btn>
   );

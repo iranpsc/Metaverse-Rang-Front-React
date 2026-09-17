@@ -19,7 +19,7 @@ padding-top: 2px;
 const Container = styled.div`
   display: flex;
   align-items: start;
-  justify-content: ${(props) => (props.isOpen ? "space-between" : "center")};
+  justify-content: ${(props) => (props.$isOpen ? "space-between" : "center")};
   gap: 5px;
   width: 100%;
   position: relative;
@@ -29,7 +29,7 @@ const Headerbtn = styled.div`
   flex-direction: row;
   padding-top: 5px;
   gap: 10px;
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  display: ${(props) => (props.$isOpen ? "flex" : "none")};
 
   @media (max-width: 767px) {
     padding-top: 8px;
@@ -37,7 +37,7 @@ const Headerbtn = styled.div`
 `;
 
 const ContainerText = styled.div`
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  display: ${(props) => (props.$isOpen ? "flex" : "none")};
   align-items: start;
   white-space: nowrap;
   justify-content: center;
@@ -76,13 +76,13 @@ const BtnOpenCloseMenu = styled.button`
   align-items: center;
   justify-content: center;
   background-color: ${(p) =>
-    p.isOpen ? "transparent" : p.theme.colors.newColors.otherColors.themeBtn};
-  position: ${(props) => (props.isOpen ? "relative" : "absolute")};
+    p.$isOpen ? "transparent" : p.theme.colors.newColors.otherColors.themeBtn};
+  position: ${(props) => (props.$isOpen ? "relative" : "absolute")};
   ${(props) => {
     const direction = document.body.dir || "ltr";
     return direction === "ltr"
-      ? `right: ${!props.isOpen ? "-75px" : "0"}`
-      : `left: ${!props.isOpen ? "-75px" : "0"}`;
+      ? `right: ${!props.$isOpen ? "-75px" : "0"}`
+      : `left: ${!props.$isOpen ? "-75px" : "0"}`;
   }};
   z-index: 9;
   border: none;
@@ -95,11 +95,11 @@ const ContainerMain = styled.div`
 const Icon = styled(ArowMenu)`
   stroke: ${(props) => props.theme.colors.newColors.otherColors.iconText};
 
-  transform: ${({ isOpen, isPersian }) => {
-    if (isPersian) {
-      return isOpen ? "rotate(0deg)" : "rotate(180deg)";
+  transform: ${({ $isOpen, $isPersian }) => {
+    if ($isPersian) {
+      return $isOpen ? "rotate(0deg)" : "rotate(180deg)";
     } else {
-      return isOpen ? "rotate(180deg)" : "rotate(0deg)";
+      return $isOpen ? "rotate(180deg)" : "rotate(0deg)";
     }
   }};
 
@@ -122,7 +122,7 @@ const Header = () => {
     setCurrentLangObject(found || languagesMeta[0]);
   }, [currentLang]);
   return (
-    <Container isOpen={isOpen}>
+    <Container $isOpen={isOpen}>
       <ContainerMain>
         <Logo
           onClick={() => {
@@ -130,7 +130,7 @@ const Header = () => {
           }}
           src={LogoIcon}
         />
-        <ContainerText isOpen={isOpen}>
+        <ContainerText $isOpen={isOpen}>
           <Title
             onClick={() => {
               window.open(metarangUrl(), "_blank");
@@ -140,7 +140,7 @@ const Header = () => {
           </Title>
           <Details>{getTranslation(905)}</Details>
         </ContainerText>
-        <Headerbtn isOpen={isOpen}>
+        <Headerbtn $isOpen={isOpen}>
           <LangContainer isOpen={isOpen}>
             <LangButton onClick={() => setIsLangOpen(!isLangOpen)}>
               <img
@@ -173,8 +173,8 @@ const Header = () => {
           <ThemeMenuModule />
         </Headerbtn>
       </ContainerMain>
-      <BtnOpenCloseMenu onClick={toggleMenu} isOpen={isOpen}>
-        <Icon isOpen={isOpen} isPersian={isPersian} />
+      <BtnOpenCloseMenu onClick={toggleMenu} $isOpen={isOpen}>
+        <Icon $isOpen={isOpen} $isPersian={isPersian} />
       </BtnOpenCloseMenu>
     </Container>
   );

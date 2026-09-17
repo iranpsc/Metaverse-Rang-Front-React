@@ -10,6 +10,7 @@ import {
 import styled from "styled-components";
 
 const EditorContainer = styled.div`
+  width: 100%;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
   border-radius: 5px;
@@ -194,7 +195,10 @@ const CustomEditor = ({
     }
   }, [value]);
 
-  const modules = useMemo(() => getModules(img, showToolbar), [img, showToolbar]);
+  const modules = useMemo(
+    () => getModules(img, showToolbar),
+    [img, showToolbar],
+  );
 
   /**
    * وقتی متن تغییر می‌کند

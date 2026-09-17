@@ -36,7 +36,7 @@ const ArrowIcon = styled(MdKeyboardArrowDown)`
 
 const DropdownList = styled.div`
   position: absolute;
-  top: 100%;
+  top: ${({ top }) => top || "110%"};
   left: 0;
   width: 100%;
   background-color: ${({ theme }) =>
@@ -73,6 +73,7 @@ const SearchInput = styled.input`
 const Dropdown = ({
   options = [],
   selected,
+  top,
   onSelect,
   placeholder = "please select",
   searchable = false,
@@ -143,7 +144,7 @@ const Dropdown = ({
       )}
 
       {isOpen && (
-        <DropdownList>
+        <DropdownList top={top}>
           {searchable && (
             <SearchInput
               type="text"

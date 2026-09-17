@@ -1,4 +1,4 @@
-import  { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import FillInputs from "./FillInputs";
 import ResultInfo from "../../../components/ResultInfo";
@@ -33,7 +33,7 @@ const PriceDefine = () => {
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
   const [assign, setAssign] = useState(
     +feature?.properties?.price_irr !== 0 ||
-      +feature?.properties?.price_psc !== 0,
+    +feature?.properties?.price_psc !== 0,
   );
   const [rial, setRial] = useState(feature?.properties?.price_irr || "");
   const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
@@ -41,6 +41,7 @@ const PriceDefine = () => {
     rial: "",
     psc: "",
   });
+  console.log("feature",feature)
   const rialToPsc = feature?.properties?.price_irr / 900;
   const validateAndSubmit = () => {
     /** const userAge = TimeAgo(user?.birthdate);
