@@ -90,11 +90,9 @@ const MapPolygons = () => {
     const unsubscribe = onSocketEvent(
       "feature-status-changed",
       (payload) => {
-        //console.log("[websocket] EVENT:", payload);
 
         const eventData = payload?.data ?? payload;
 
-      //  console.log("[websocket] EVENT DATA:", eventData);
 
         if (eventData?.id == null) {
           return;
@@ -103,13 +101,7 @@ const MapPolygons = () => {
         setMapLands((prevFeatures) => {
           const updatedFeatures = prevFeatures.map((feature) => {
             if (String(feature.id) === String(eventData.id)) {
-              /*console.log(
-                "[websocket] updating feature:",
-                feature.id,
-                "=>",
-                eventData.rgb
-              );
-*/
+             
               return {
                 ...feature,
                 rgb: eventData.rgb,

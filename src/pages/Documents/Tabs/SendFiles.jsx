@@ -110,14 +110,13 @@ const SendFiles = ({ files = [], onFilesChange }) => {
       return URL.createObjectURL(file);
     }
     
-    return nonPhoto; // برای فایل‌های غیر عکسی مثل PDF
+    return nonPhoto; 
   };
 
   return (
     <Container>
       <Title title={getTranslation("1328")} />
       <Files>
-        {/* رندر کردن تمام فایل‌ها (قدیمی و جدید) */}
         {files.map((file, index) => (
           <FilePreview key={index}>
             <FileImage src={getPreview(file)} alt={`preview-${index}`} />
