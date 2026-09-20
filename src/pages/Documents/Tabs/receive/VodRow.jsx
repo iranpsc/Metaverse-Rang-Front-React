@@ -67,7 +67,6 @@ const VodRow = ({ id, code, date, time, title, status, sender }) => {
   const [showDetails, setShowDetails] = useState(false);
   const { Request } = useRequest();
   const [ticket, setTicket] = useState(null);
-
   const onClickHandler = async (id) => {
     try {
       const response = await Request(`tickets/${id}`);
@@ -94,17 +93,16 @@ const VodRow = ({ id, code, date, time, title, status, sender }) => {
           <Title
             style={{
               textAlign: "start",
-              color: `${
-                status === 1
-                  ? "#18C08F"
-                  : status === 4
-                    ? "#FFC700"
-                    : status === 3
-                      ? "#A0A0AB"
-                      : status === 0
-                        ? "#18C08F"
-                        : "#C30000"
-              }`,
+              color: `${status === 1
+                ? "#18C08F"
+                : status === 4
+                  ? "#FFC700"
+                  : status === 3
+                    ? "#A0A0AB"
+                    : status === 0
+                      ? "#18C08F"
+                      : "#C30000"
+                }`,
             }}
           >
             {(() => {

@@ -1,6 +1,5 @@
 import remove from "../../../../assets/images/remove.png";
 import styled from "styled-components";
-
 import { useState } from "react";
 import Title from "../../../../components/Title";
 import { getTranslation } from "../../../../services/Utility";
@@ -21,7 +20,6 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000000;
   gap: 10px;
   border: 1px dashed #454545;
   width: 220px;
@@ -29,6 +27,7 @@ const Div = styled.div`
   border-radius: 10px;
   cursor: pointer;
   position: relative;
+
   span {
     color: #a0a0ab;
     font-size: 60px;
@@ -60,7 +59,6 @@ const FileImage = styled.img`
 
 const RemoveButton = styled.img`
   border: none;
-  color: white;
   padding: 5px;
   border-radius: 3px;
   cursor: pointer;
@@ -75,36 +73,39 @@ const ErrorMessage = styled.div`
   margin: 10px 0;
 `;
 
-const SendFiles = ({ setFiles }) => {
-  const [previews, setPreviews] = useState([]);
+const SendFiles = ({ files, setFiles }) => {
   const [error, setError] = useState("");
 
   const fileHandler = (e) => {
     const selectedFiles = Array.from(e.target.files);
 
-    if (previews.length + selectedFiles.length > 5) {
+    if (files.length + selectedFiles.length > 5) {
       setError("You can only upload up to 5 files.");
       return;
     }
 
-    const filePreviews = selectedFiles.map((file) => ({
+    const newFiles = selectedFiles.map((file) => ({
       name: file.name,
       url: URL.createObjectURL(file),
       file,
     }));
 
-    setPreviews((prev) => [...prev, ...filePreviews]);
-
-    setFiles((prevFiles) => [...prevFiles, ...filePreviews]);
+    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    setError("");
 
     e.target.value = null;
   };
 
   const removeFile = (index) => {
-    const updatedPreviews = previews.filter((_, i) => i !== index);
-    setPreviews(updatedPreviews);
+    const fileToRemove = files[index];
 
-    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    if (fileToRemove?.url) {
+      URL.revokeObjectURL(fileToRemove.url);
+    }
+
+    setFiles((prevFiles) =>
+      prevFiles.filter((_, i) => i !== index)
+    );
   };
 
   const handleDivClick = () => {
@@ -114,10 +115,15 @@ const SendFiles = ({ setFiles }) => {
   return (
     <Container>
       <Title title={getTranslation("1328")} />
+
       <Files>
-        {previews.map((preview, index) => (
-          <FilePreview key={index}>
-            <FileImage src={preview.url} alt={`file-preview-${index}`} />
+        {files.map((file, index) => (
+          <FilePreview key={`${file.name}-${index}`}>
+            <FileImage
+              src={file.url}
+              alt={`file-preview-${index}`}
+            />
+
             <RemoveButton
               src={remove}
               alt="remove"
@@ -127,9 +133,11 @@ const SendFiles = ({ setFiles }) => {
             />
           </FilePreview>
         ))}
-        {previews.length < 5 && (
+
+        {files.length < 5 && (
           <Div onClick={handleDivClick}>
             <span>+</span>
+
             <HiddenInput
               id="file-input"
               type="file"
@@ -139,6 +147,7 @@ const SendFiles = ({ setFiles }) => {
           </Div>
         )}
       </Files>
+
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>
   );

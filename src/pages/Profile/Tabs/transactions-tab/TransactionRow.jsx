@@ -108,7 +108,6 @@ const TransactionRow = ({
       setOpenPrint(true);
 
       if (status == 0) {
-        console.log("yes")
         const updatedWallet = updateWalletValue(Wallet, {
           asset,
           value: amount,

@@ -65,7 +65,6 @@ const DynastyEstablishEstate = () => {
     const fetchMembers = async () => {
       try {
         const response = await Request("dynasty");
-        //console.log("response",response)
         const prizes = response.data.data.prizes;
         const hasDynasty = response.data.data["user-has-dynasty"];
         localStorage.setItem("dynastyStatus", hasDynasty ? "has" : "no");

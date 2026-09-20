@@ -174,17 +174,16 @@ const CardItem = ({
   price_irr,
   photo,
   navigateId,
-  card,
+  forSale, sellReq
 }) => {
+
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
-  const formattedRial = convertToPersian(formatNumber(price_irr));
-  const [isDeleted, setIsDeleted] = useState(
-    +card.properties.price_irr === 0 && +card.properties.price_psc === 0,
-  );
-  const formattedPsc = convertToPersian(formatNumber(price_psc));
+  const formattedRial = convertToPersian(formatNumber(sellReq?.price_irr));
+  const [isDeleted, setIsDeleted] = useState(Number(forSale) === 1);
+  const formattedPsc = convertToPersian(formatNumber(sellReq?.price_psc));
   const handleDelete = () => {
     if (!checkSecurity()) return;
-    Request(`sell-requests/${navigateId}`, HTTP_METHOD.DELETE)
+    Request(`sell-requests/${sellReq.id}`, HTTP_METHOD.DELETE)
       .then(() => {
         setIsDeleted(!isDeleted);
       })
@@ -226,7 +225,7 @@ const CardItem = ({
           <span>{getTranslation("347")}</span>
           <p>{convertToPersian(formatNumber(stability))}</p>
         </Meter>
-        {isDeleted ? (
+        {!isDeleted ? (
           <div />
         ) : (
           <Price>
@@ -243,12 +242,12 @@ const CardItem = ({
             </Div>
           </Price>
         )}
-        {isDeleted ? (
+        {!isDeleted ? (
           <Button
             fit
             label={getTranslation("352")}
             onClick={() =>
-              Navigate(`/feature/${navigateId}/sell/lowest`, {
+              Navigate(`/feature/${navigateId}/sell/PriceDefine`, {
                 state: {
                   from: location.pathname,
                 },

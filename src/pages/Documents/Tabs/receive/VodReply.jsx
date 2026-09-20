@@ -1,76 +1,78 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+import styled from "styled-components";
 
 import ReplyInput from "../ReplyInput";
 import SendFiles from "./SendFiles";
-import styled from "styled-components";
 import Button from "../../../../components/Button";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getTranslation } from "../../../../services/Utility";
-import { SanitizeHTML } from "../../../../services/Utility";
+import {
+  getTranslation,
+  SanitizeHTML, ToastSuccess
+} from "../../../../services/Utility";
+
 const Container = styled.div`
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.bgContainer};
-  padding: 20px;
+  background-color: ${({ theme }) =>
+    theme.colors.newColors.otherColors.bgContainer};
+  padding: 1px 20px 30px 20px;
   border-radius: 10px;
   margin-top: 30px;
 `;
 
-const VodReply = ({ setData, responseId }) => {
+const VodReply = ({ responseId, setAllMessages }) => {
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState([]);
-  const containerRef = useRef(null);
-  const { Request, HTTP_METHOD } = useRequest();
-  const handleSendReply = () => {
-    const formData = new FormData();
 
+  const { Request, HTTP_METHOD } = useRequest();
+
+  const handleSendReply = () => {
     const cleanMessage = SanitizeHTML(message);
+
     if (!cleanMessage) return;
 
+    const formData = new FormData();
     formData.append("response", cleanMessage);
 
-    if (files.length > 0 && files[0]?.file instanceof File) {
-      formData.append("attachment", files[0].file);
+    const file = files[0]?.file;
+
+    if (file instanceof File) {
+      formData.append("attachment", file);
     }
 
-    Request(`tickets/response/${responseId}`, HTTP_METHOD.POST, formData, {
-      "Content-Type": "multipart/form-data",
-    })
-      .then(() => {
-        const newResponse = {
-          response: cleanMessage,
-          attachment: files[0]?.file,
-          created_at: new Date().toISOString(),
-        };
+    Request(
+      `tickets/response/${responseId}`,
+      HTTP_METHOD.POST,
+      formData,
+      {
+        "Content-Type": "multipart/form-data",
+      }
+    )
+      .then((response) => {
+        const newMessages = response?.data?.data?.messages;
 
-        setData((prevData) => ({
-          ...prevData,
-          responses: Array.isArray(prevData.responses)
-            ? [...prevData.responses, newResponse]
-            : [newResponse],
-        }));
+        if (newMessages) {
+          setAllMessages(newMessages);
+        }
 
         setMessage("");
         setFiles([]);
-
-        if (containerRef.current) {
-          containerRef.current.scrollIntoView({
-            behavior: "smooth",
-          });
-        }
+        ToastSuccess(" پیام شما با موفقیت ارسال شد");
       })
       .catch((error) => {
         console.error("Failed to send reply:", error);
-        if (error.response) {
-          console.error("Server response:", error.response.data);
-          console.error("Status code:", error.response.status);
-        }
       });
   };
 
   return (
-    <Container ref={containerRef}>
-      <ReplyInput message={message} setMessage={setMessage} />
-      <SendFiles files={files} setFiles={setFiles} />
+    <Container>
+      <ReplyInput
+        message={message}
+        setMessage={setMessage}
+      />
+
+      <SendFiles
+        files={files}
+        setFiles={setFiles}
+      />
 
       <Button
         fit

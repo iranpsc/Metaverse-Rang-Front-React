@@ -253,7 +253,6 @@ const RestrictUser = () => {
       JSON_HEADERS,
     )
       .then((response) => {
-        console.log("restriction updated:", response);
 
         const limitation = response?.data?.data ?? response?.data;
 

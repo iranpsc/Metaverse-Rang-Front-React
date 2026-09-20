@@ -7,7 +7,7 @@ import { toGregorian } from "jalaali-js";
 export const SanitizeHTML = (html) => {
   if (!html) return "";
 
-  return DOMPurify.sanitize(html, {
+  const cleanHTML = DOMPurify.sanitize(html, {
     ALLOWED_TAGS: [
       "div",
       "p",
@@ -63,6 +63,11 @@ export const SanitizeHTML = (html) => {
     ],
     FORBID_TAGS: ["script", "iframe", "object", "embed"],
   });
+
+  const temp = document.createElement("div");
+  temp.innerHTML = cleanHTML;
+
+  return temp.textContent || "";
 };
 export const getPlainText = (htmlString) => {
   if (!htmlString) return "";
@@ -131,6 +136,27 @@ export function EmailValidator(email) {
     const cleanDecimal = decimalParts.join("").replace(/\./g, "");
     return `${wholePart || "0"}.${cleanDecimal}`;
   };
+
+export const sanitizePriceInputValue = (value) => {
+  if (value === "" || value === null || value === undefined) return "";
+
+  const raw = String(value).trim().replace(/,/g, "");
+  if (!/\d/.test(raw)) return "";
+
+  if (!/^\d*\.?\d*$/.test(raw)) return "";
+
+  if (raw.startsWith("0") && raw.length > 1 && !raw.startsWith("0.")) {
+    return "";
+  }
+
+  const [wholePart = "", decimalPart = ""] = raw.split(".");
+  const normalizedWhole = wholePart.replace(/^0+(?=\d)/, "") || "0";
+  const normalizedDecimal = decimalPart.replace(/0+$/, "");
+
+  if (!normalizedDecimal) return normalizedWhole;
+
+  return `${normalizedWhole}.${normalizedDecimal}`;
+};
 
 export const formatNumber = (value, decimals = 2) => {
   const num = Number(value);

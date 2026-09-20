@@ -133,9 +133,8 @@ const ReceivedList = () => {
     setLoadingMore(false);
     return loadedCount;
   };
- const filteredItems = rows.filter((row) => {
+  const filteredItems = rows.filter((row) => {
     const codeMatch = row?.title?.toString().includes(searched) || false;
-    //  console.log("row", row);
     const statusMatch =
       (!status.confirmed &&
         !status.failed &&

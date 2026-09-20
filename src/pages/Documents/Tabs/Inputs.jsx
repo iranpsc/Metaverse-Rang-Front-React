@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CgDanger } from "react-icons/cg";
+/* -------------------------------------------------------------------------- */
+/* کد های کامنت شده برای بخش توجه کنید پایین اینپوت است اگر در توسعه بشود به چندین کاربر پیام ارسلال کرد   */
+/* -------------------------------------------------------------------------- */
+
+//import { CgDanger } from "react-icons/cg";
 import styled from "styled-components";
 import { useLocation } from "react-router";
 import { useGlobalState } from "./GlobalVodStateProvider";
 import { getTranslation } from "../../../services/Utility";
 import useRequest from "../../../services/Hooks/useRequest";
 import Dropdown from "../../../components/Common/Dropdown";
-
-/* -------------------------------------------------------------------------- */
-/*                                   Styles                                   */
-/* -------------------------------------------------------------------------- */
-
+const limitedUser = 1;
 const Wrapper = styled.div``;
 
 const Container = styled.div`
@@ -164,10 +164,9 @@ const DropdownItem = styled.div`
 const SelectedDropdownItem = styled(DropdownItem)`
   background-color: ${(props) => props.theme.colors.newColors.otherColors.iconBg};
 `;
-
-const CitizenWarning = styled.div`
+/** const CitizenWarning = styled.div`
   color: #a0a0ab;
-
+padding-top: 5px;
   font-size: 13px;
   font-weight: 400;
 
@@ -176,14 +175,11 @@ const CitizenWarning = styled.div`
 
   gap: 2px;
 `;
+*/
 
-/* -------------------------------------------------------------------------- */
-/*                                  Component                                 */
-/* -------------------------------------------------------------------------- */
 
 const Inputs = () => {
   const location = useLocation()
-  console.log("from: location.pathname,", location)
 
   const options = [
     {
@@ -225,7 +221,6 @@ const Inputs = () => {
 
   const { state, dispatch } = useGlobalState();
   const { Request, HTTP_METHOD } = useRequest();
-  console.log("state", state)
   const [selectedCitizens, setSelectedCitizens] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCitizens, setFilteredCitizens] = useState([]);
@@ -238,15 +233,11 @@ const Inputs = () => {
   const dropdownRef = useRef(null);
   const searchTimeout = useRef(null);
 
-  /* ------------------------------------------------------------------------ */
-  /*                              Select Citizen                              */
-  /* ------------------------------------------------------------------------ */
 
   const handleCitizenSelect = useCallback(
     (citizen) => {
       if (!citizen) return;
 
-      // جلوگیری از انتخاب تکراری
       const alreadySelected = selectedCitizens.some(
         (selected) => selected.id === citizen.id
       );
@@ -258,8 +249,7 @@ const Inputs = () => {
         return;
       }
 
-      // حداکثر 9 شهروند
-      if (selectedCitizens.length >= 9) {
+      if (selectedCitizens.length >= limitedUser) {
         return;
       }
 
@@ -312,7 +302,7 @@ const Inputs = () => {
           (selected) => selected.id === matchedUser.id
         );
 
-        if (alreadySelected || selectedCitizens.length >= 9) return;
+        if (alreadySelected || selectedCitizens.length >= limitedUser) return;
 
         const updatedCitizens = [...selectedCitizens, matchedUser];
 
@@ -332,9 +322,6 @@ const Inputs = () => {
 
     searchCitizenByCode();
   }, []);
-  /* ------------------------------------------------------------------------ */
-  /*                              Remove Citizen                              */
-  /* ------------------------------------------------------------------------ */
 
   const removeCitizen = useCallback(
     (citizenId) => {
@@ -352,9 +339,6 @@ const Inputs = () => {
     [selectedCitizens, dispatch]
   );
 
-  /* ------------------------------------------------------------------------ */
-  /*                              Subject Handler                             */
-  /* ------------------------------------------------------------------------ */
 
   const handleSubjectChange = useCallback(
     (value) => {
@@ -363,7 +347,6 @@ const Inputs = () => {
         payload: value,
       });
 
-      // اگر از citizen خارج شدیم
       if (value !== "citizen") {
         setSearchTerm("");
         setFilteredCitizens([]);
@@ -374,9 +357,6 @@ const Inputs = () => {
     [dispatch]
   );
 
-  /* ------------------------------------------------------------------------ */
-  /*                               Title Handler                              */
-  /* ------------------------------------------------------------------------ */
 
   const handleTitleChange = useCallback(
     (event) => {
@@ -392,17 +372,12 @@ const Inputs = () => {
     [dispatch]
   );
 
-  /* ------------------------------------------------------------------------ */
-  /*                              Search Citizens                             */
-  /* ------------------------------------------------------------------------ */
 
   useEffect(() => {
-    // پاک کردن timeout قبلی
     if (searchTimeout.current) {
       clearTimeout(searchTimeout.current);
     }
 
-    // اگر citizen نیست یا سرچ خالی است
     if (
       state.subject !== "citizen" ||
       !searchTerm.trim()
@@ -425,7 +400,6 @@ const Inputs = () => {
 
           setFilteredCitizens(users);
 
-          // اولین نتیجه به صورت پیش‌فرض highlight شود
           setHighlightedIndex(
             users.length > 0 ? 0 : -1
           );
@@ -447,9 +421,6 @@ const Inputs = () => {
 
   ]);
 
-  /* ------------------------------------------------------------------------ */
-  /*                              Keyboard Handler                            */
-  /* ------------------------------------------------------------------------ */
 
   const handleKeyDown = useCallback(
     (event) => {
@@ -467,7 +438,6 @@ const Inputs = () => {
         return;
       }
 
-      // اگر نتیجه‌ای نداریم
       if (filteredCitizens.length === 0) {
         return;
       }
@@ -530,10 +500,7 @@ const Inputs = () => {
     ]
   );
 
-  /* ------------------------------------------------------------------------ */
   /*                           Click Outside Handler                          */
-  /* ------------------------------------------------------------------------ */
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -558,9 +525,6 @@ const Inputs = () => {
     };
   }, []);
 
-  /* ------------------------------------------------------------------------ */
-  /*                              Render                                      */
-  /* ------------------------------------------------------------------------ */
 
   return (
     <Wrapper>
@@ -603,7 +567,7 @@ const Inputs = () => {
       {state.subject === "citizen" && (
         <CitizenInputWrapper ref={dropdownRef}>
           <Label>
-            {getTranslation("1329")}
+            {getTranslation("133")}
           </Label>
 
           <SearchField>
@@ -622,7 +586,7 @@ const Inputs = () => {
               ))}
             </SelectedCitizens>
 
-            {selectedCitizens.length < 9 && (
+            {selectedCitizens.length < limitedUser && (
               <SearchInputField
                 type="text"
                 placeholder={
@@ -701,11 +665,11 @@ const Inputs = () => {
             )}
 
           {/* Warning */}
-          <CitizenWarning>
+          {/** <CitizenWarning>
             <CgDanger size={20} />
 
             {getTranslation("1330")}
-          </CitizenWarning>
+          </CitizenWarning>*/ }
         </CitizenInputWrapper>
       )}
     </Wrapper>

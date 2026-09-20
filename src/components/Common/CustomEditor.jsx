@@ -4,7 +4,6 @@ import ReactQuill from "react-quill-new";
 import { CiEdit } from "react-icons/ci";
 import {
   convertToPersian,
-  SanitizeHTML,
   getTranslation,
 } from "../../services/Utility";
 import styled from "styled-components";
@@ -162,7 +161,6 @@ const CustomEditor = ({
 }) => {
   const [charCount, setCharCount] = useState(0);
   const quillRef = useRef(null);
-  const lastValueRef = useRef(value);
 
   /**
    * تعداد واقعی کاراکترهای متن
@@ -183,17 +181,9 @@ const CustomEditor = ({
     return Math.max(0, (temp.textContent || "").length - 1);
   };
 
-  useEffect(() => {
-    setCharCount(getTextLengthFromHtml(value));
-
-    const quill = quillRef.current?.getEditor();
-    if (!quill) return;
-
-    if (value !== lastValueRef.current && value !== quill.root.innerHTML) {
-      quill.clipboard.dangerouslyPasteHTML(value || "");
-      lastValueRef.current = value;
-    }
-  }, [value]);
+ useEffect(() => {
+  setCharCount(getTextLengthFromHtml(value));
+}, [value]);
 
   const modules = useMemo(
     () => getModules(img, showToolbar),
@@ -203,36 +193,15 @@ const CustomEditor = ({
   /**
    * وقتی متن تغییر می‌کند
    */
-  const handleChange = (val) => {
-    const quill = quillRef.current?.getEditor();
-    if (!quill) return;
+const handleChange = (val) => {
+  const quill = quillRef.current?.getEditor();
+  if (!quill) return;
 
-    let textLength = getTextLength(quill);
+  const textLength = getTextLength(quill);
 
-    /**
-     * اگر متن از حد مجاز بیشتر شد،
-     * فقط مقدار اضافه را حذف می‌کنیم.
-     */
-    if (textLength > charLimit) {
-      const excess = textLength - charLimit;
-
-      quill.deleteText(charLimit, excess, "silent");
-
-      textLength = getTextLength(quill);
-
-      const safeValue = SanitizeHTML(quill.root.innerHTML);
-
-      setCharCount(textLength);
-      onChange?.(safeValue);
-
-      return;
-    }
-
-    const safeValue = SanitizeHTML(val);
-
-    setCharCount(textLength);
-    onChange?.(safeValue);
-  };
+  setCharCount(textLength);
+  onChange?.(val);
+};
 
   /**
    * جلوگیری از تایپ بیشتر از محدودیت
@@ -323,7 +292,7 @@ const CustomEditor = ({
         <ReactQuill
           ref={quillRef}
           theme="snow"
-          defaultValue={value}
+          value={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           onPaste={handlePaste}

@@ -258,9 +258,8 @@ const VodList = ({
                   >
                     <MdKeyboardArrowDown
                       style={{
-                        transform: `${
-                          filters.status ? "rotate(180deg)" : "rotate(360deg)"
-                        }`,
+                        transform: `${filters.status ? "rotate(180deg)" : "rotate(360deg)"
+                          }`,
                       }}
                     />
                   </Arrows>
@@ -346,9 +345,8 @@ const VodList = ({
                 <Arrows onClick={() => setFilters({ status: !filters.status })}>
                   <MdKeyboardArrowDown
                     style={{
-                      transform: `${
-                        filters.status ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
+                      transform: `${filters.status ? "rotate(180deg)" : "rotate(360deg)"
+                        }`,
                     }}
                   />
                 </Arrows>
@@ -364,74 +362,75 @@ const VodList = ({
         <tbody>
           {isLoading
             ? Array.from({ length: 5 }).map((_, index) => (
-                <SkeletonRow key={index}>
-                  <td>
-                    <Skeleton
-                      width="60px"
-                      height="16px"
-                      radius="4px"
-                      style={{ marginLeft: "auto", marginRight: "auto" }}
-                    />
-                  </td>
-                  <td>
-                    <Skeleton
-                      width="2000px"
-                      height="16px"
-                      radius="4px"
-                      style={{ marginLeft: "auto", marginRight: "auto" }}
-                    />
-                  </td>
-                  <td>
-                    <Skeleton
-                      width="200px"
-                      height="16px"
-                      radius="4px"
-                      style={{ marginLeft: "auto", marginRight: "auto" }}
-                    />
-                  </td>
-                  <td>
-                    <Skeleton
-                      width="80px"
-                      height="16px"
-                      radius="4px"
-                      style={{ marginLeft: "auto", marginRight: "auto" }}
-                    />
-                  </td>
-                  <td>
-                    <Skeleton
-                      width="120px"
-                      height="16px"
-                      radius="4px"
-                      style={{ marginLeft: "auto", marginRight: "auto" }}
-                    />
-                  </td>
-                  <td>
-                    <Skeleton
-                      width="40px"
-                      height="40px"
-                      radius="8px"
-                      style={{ marginLeft: "auto", marginRight: "auto" }}
-                    />
-                  </td>
-                </SkeletonRow>
-              ))
-            : rows
-                ?.slice(0, visibleRows)
-                .map((request) => (
-                  <VodRow
-                    key={request.id}
-                    {...request}
-                    domain={domain}
-                    subdomain={subdomain}
-                    isLoading={false}
+              <SkeletonRow key={index}>
+                <td>
+                  <Skeleton
+                    width="60px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
                   />
-                ))}
+                </td>
+                <td>
+                  <Skeleton
+                    width="2000px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+                <td>
+                  <Skeleton
+                    width="200px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+                <td>
+                  <Skeleton
+                    width="80px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+                <td>
+                  <Skeleton
+                    width="120px"
+                    height="16px"
+                    radius="4px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+                <td>
+                  <Skeleton
+                    width="40px"
+                    height="40px"
+                    radius="8px"
+                    style={{ marginLeft: "auto", marginRight: "auto" }}
+                  />
+                </td>
+              </SkeletonRow>
+            ))
+            : rows
+              ?.slice(0, visibleRows)
+              .map((request) => (
+                <VodRow
+                  key={request.id}
+                  {...request}
+                  domain={domain}
+                  subdomain={subdomain}
+                  isLoading={false}
+                  
+                />
+              ))}
         </tbody>
       </Table>
       {isMobile && (hasMore || visibleRows < rows?.length) && (
         <Loader>
           <button onClick={handleLoadMore} disabled={isLoadMoreLoading}>
-            {isLoadMoreLoading ? "در حال بارگذاری..." : getTranslation(1410)}
+            {isLoadMoreLoading ? getTranslation(1824) : getTranslation(1410)}
           </button>
         </Loader>
       )}

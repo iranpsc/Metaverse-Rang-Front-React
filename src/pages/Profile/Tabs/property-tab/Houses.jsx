@@ -198,7 +198,6 @@ const Houses = () => {
       if (selectedKarbari.length > 0) {
         params.append("filter", selectedKarbari.join(","));
       }
-      console.log("params", params.toString())
 
       return `${baseEndpoint}?${params.toString()}`;
     },
@@ -211,7 +210,6 @@ const Houses = () => {
       try {
         const response = await Request(buildFeaturesUrl(pageNum));
         const newData = (response.data.data || []).map(enhanceFeature);
-        console.log("buildFeaturesUrl", buildFeaturesUrl(pageNum), "response", response.data.data)
 
         setFeatures((prev) => {
           const base = replace ? [] : prev;
@@ -412,14 +410,16 @@ const Houses = () => {
       <List>
         {features.map((card) => {
 
-          console.log("card", card)
           return (
             <CardItem
               {...card.properties}
               key={card.id}
               navigateId={card.id}
               card={card}
-            />
+              sellReq={card["latest-sell-request"]}
+              forSale={card["is-for-sale"]} />
+
+
           )
         })}
       </List>

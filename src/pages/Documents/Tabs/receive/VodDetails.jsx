@@ -10,7 +10,7 @@ const Div = styled.div`
   height: 100%;
 `;
 
-const VodDetails = ({ setShowDetails, data, setData}) => {
+const VodDetails = ({ setShowDetails, data, setData }) => {
   return (
     <ModalLg setShowModal={setShowDetails} titleId={1347}>
       <Div>

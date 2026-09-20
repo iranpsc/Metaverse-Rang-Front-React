@@ -7,7 +7,7 @@ import Button from "../../../../components/Button";
 import Title from "../../../../components/Title";
 import { getTranslation } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { ToastError, ToastSuccess } from "../../../../services/Utility";
+import { ToastError, ToastSuccess, convertToPersian, ConvertJalali } from "../../../../services/Utility";
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 10px;
@@ -121,7 +121,7 @@ const VodCard = ({ data, setData, setShowDetails }) => {
         ToastError(error.response?.data?.error);
       });
   };
-
+  const start = data.messages[0].is_mine;
   return (
     <Container>
       <Info>
@@ -162,22 +162,22 @@ const VodCard = ({ data, setData, setShowDetails }) => {
         <Date>
           <Label>{getTranslation("64")}</Label>
           <h2>
-            {data?.date} | {data?.time}
+            {ConvertJalali(data?.date)} | {convertToPersian(data?.time)}
           </h2>
         </Date>
         <Buttons>
           <Button
-            fit
+            disabled fit
             // onclick={() => onCloseTicket()}
             grayTheme
             label={getTranslation("1350")}
-          />
-          <Button
+          />{start && <Button
             fit
             onclick={() => onCloseTicket()}
             grayTheme
             label={getTranslation("1349")}
-          />
+          />}
+
         </Buttons>
       </Content>
     </Container>

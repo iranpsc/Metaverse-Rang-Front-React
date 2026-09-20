@@ -27,13 +27,12 @@ const ArrowIcon = styled(MdKeyboardArrowDown)`
   font-size: 20px;
   color: #84858f;
   transition: transform 0.25s ease;
-  ${({ isOpen }) =>
-    isOpen &&
+  ${({ $isOpen }) =>
+    $isOpen &&
     css`
       transform: rotate(180deg);
     `}
 `;
-
 const DropdownList = styled.div`
   position: absolute;
   top: ${({ top }) => top || "110%"};
@@ -139,7 +138,7 @@ const Dropdown = ({
             );
             return obj ? obj.label : selected;
           })()}
-          <ArrowIcon isOpen={isOpen} />
+          <ArrowIcon $isOpen={isOpen} />
         </DropdownButton>
       )}
 

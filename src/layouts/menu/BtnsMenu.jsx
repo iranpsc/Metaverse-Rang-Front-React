@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { getTranslation } from "../../services/Utility";
+import { getTranslation, convertToPersian, formatNumber } from "../../services/Utility";
 import AccountSecurityIcon from "../../assets/svg/accountSecurity.svg";
 import CentralSearch from "../../assets/svg/centralSearch.svg";
 import GlobalStatisticsIcon from "../../assets/svg/globalStatistics.svg";
@@ -261,11 +261,11 @@ const BtnsMenu = () => {
             </div>
             {item.translationId === "236" && user && (
               <ValueBtn isOpen={isOpen}>
-                %{Number(user.hourly_profit_time_percentage).toFixed(1)}
+                %{convertToPersian(formatNumber(user.hourly_profit_time_percentage, 1))}
               </ValueBtn>
             )}
             {item.translationId === "238" && user && (
-              <ValueBtn isOpen={isOpen}>{user.notifications}</ValueBtn>
+              <ValueBtn isOpen={isOpen}>{convertToPersian(user.unread_notifications_count)}</ValueBtn>
             )}
           </Btn>
         </Tippy>

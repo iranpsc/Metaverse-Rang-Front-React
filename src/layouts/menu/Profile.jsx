@@ -21,11 +21,13 @@ const MessageIcon = styled(Message)`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
   width: 100%;
   height: fit-content;
   text-decoration: none;
   transition: all 0.5s ease-out;
-  padding-right: 10px;
 `;
 
 const Btn = styled.button`
@@ -89,7 +91,7 @@ const SubMenu = styled.div`
   padding-left: 20px;
   position: ${({ $isOpen }) => ($isOpen ? "relative" : "fixed")};
   top: ${({ $isOpen }) => ($isOpen ? "0" : "10%")};
-
+margin-top: 5px;
   ${({ $isPersian, $isOpen }) =>
     $isPersian
       ? `right: ${!$isOpen ? "5.1%" : "0"};`
@@ -100,7 +102,7 @@ const SubMenu = styled.div`
   padding: ${({ isOpen }) => (isOpen ? "0" : "10px")};
   border-radius: ${({ isOpen }) => (isOpen ? "0" : "10px")};
   width: ${({ isOpen }) => (isOpen ? "100%" : "16.6%")};
-  min-width: ${({ isOpen }) => (isOpen ? "" : "200px")};
+  min-width: ${({ isOpen }) => (isOpen ? "" : "210px")};
   max-height: ${({ isOpen }) => (isOpen ? "none" : "88vh")};
   overflow-y: ${({ isOpen }) => (isOpen ? "visible" : "auto")};
 `;

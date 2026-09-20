@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import FillInputs from "./FillInputs";
 import ResultInfo from "../../../components/ResultInfo";
@@ -7,8 +7,8 @@ import {
   ToastError,
   ToastSuccess,
   formatNumber,
+  sanitizePriceInputValue,
 } from "../../../../../services/Utility";
-//import { UserContext } from "../../../../../services/reducers/UserContext";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import Container from "../../../../../components/Common/Container";
@@ -23,79 +23,121 @@ const Wrapper = styled.div`
 const Text = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
   line-height: 1.6rem;
-
   font-size: 16px;
 `;
 
+const sanitizePriceSubmitValue = (value) => {
+  const sanitized = sanitizePriceInputValue(value);
+
+  if (sanitized === "") {
+    return null;
+  }
+
+  const number = Number(sanitized);
+  if (!Number.isFinite(number) || number <= 0) {
+    return null;
+  }
+
+  return number;
+};
+
 const PriceDefine = () => {
-  const [feature] = useContext(FeatureContext);
-  //const [user] = useContext(UserContext);
+  const [feature, setFeature] = useContext(FeatureContext);
+
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
-  const [assign, setAssign] = useState(
-    +feature?.properties?.price_irr !== 0 ||
-    +feature?.properties?.price_psc !== 0,
+
+  const [data, setData] = useState(null);
+  const [assign, setAssign] = useState(false);
+
+  const [rial, setRial] = useState(
+    data?.price_irr||0
   );
-  const [rial, setRial] = useState(feature?.properties?.price_irr || "");
-  const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
+
+  const [psc, setPsc] = useState(
+    data?.price_psc||0
+  );
+
   const [errors, setErrors] = useState({
     rial: "",
     psc: "",
   });
-  console.log("feature",feature)
-  const rialToPsc = feature?.properties?.price_irr / 900;
+
+
+
+  useEffect(() => {
+    Request("sell-requests")
+      .then((res) => {
+        const sellRequests = res?.data?.data || [];
+
+        const currentSellRequest = sellRequests.find(
+          (item) => Number(item.feature_id) === Number(feature?.id)
+        );
+
+        setData(currentSellRequest || null);
+        setAssign(!!currentSellRequest);
+
+        if (currentSellRequest) {
+          setRial(currentSellRequest.price_irr || 0);
+          setPsc(currentSellRequest.price_psc || 0);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching sell requests:", error);
+      });
+  }, [feature?.id]);
+
   const validateAndSubmit = () => {
-    /** const userAge = TimeAgo(user?.birthdate);
-    let minRial = calculateFee(feature.properties.price_irr, 80);
-    let minPsc = calculateFee(feature.properties.price_psc, 80); if (userAge < 18) {
-      minRial = calculateFee(feature.properties.price_irr, 110);
-      minPsc = calculateFee(feature.properties.price_psc, 110);
-    }
- */
-
-    {
-      /** if (rial < minRial) {
-      return setErrors((prev) => ({
-        ...prev,
-        rial: `حداقل ارزش معامله ${minRial}% قیمت اولیه میباشد`,
-      }));
-    }
-*/
-    }
-    {
-      /*if (psc < minPsc) {
-      return setErrors((prev) => ({
-        ...prev,
-        psc: `حداقل ارزش معامله ${minPsc}% قیمت اولیه میباشد`,
-      }));
-    }*/
-    }
-
     setErrors({
       rial: "",
       psc: "",
     });
 
+    const normalizedRial = sanitizePriceSubmitValue(rial);
+    const normalizedPsc = sanitizePriceSubmitValue(psc);
+
+    if (normalizedRial === null || normalizedPsc === null) {
+      ToastError("مقدار وارد شده معتبر نیست.");
+      return;
+    }
+
     const formData = {
-      price_irr: rial,
-      price_psc: psc,
+      price_irr: normalizedRial,
+      price_psc: normalizedPsc,
     };
+
     if (!checkSecurity()) return;
 
-    Request(`sell-requests/store/${feature?.id}`, HTTP_METHOD.POST, formData)
+    Request(
+      `sell-requests/store/${feature?.id}`,
+      HTTP_METHOD.POST,
+      formData
+    )
       .then(() => {
         ToastSuccess(getTranslation(1650));
+
         setAssign(true);
+
+        setFeature((feature) => ({
+          ...feature,
+          properties: {
+            ...feature.properties,
+            price_irr: formData.price_irr,
+            price_psc: formData.price_psc,
+          },
+        }));
       })
       .catch((error) => {
         const Err = error.response.status;
+
         if (Err == 403) {
           // ToastError(getTranslation(1652));
         }
+
         if (Err == 402) {
-          //for example
           // ToastError(getTranslation(1652));
         }
-        ToastError(error.response.data.message); //منتظر اینکه api برای دو ارور دو کد خطا جدا بفرستد
+
+        ToastError(error.response.data.message);
       });
   };
 
@@ -103,11 +145,10 @@ const PriceDefine = () => {
     <Container>
       <Wrapper>
         <Text>{getTranslation("520")}</Text>
+
         {!assign && (
           <FillInputs
-            assign={assign}
             rial={rial}
-            rialToPsc={rialToPsc}
             setRial={setRial}
             psc={psc}
             setPsc={setPsc}
@@ -116,6 +157,7 @@ const PriceDefine = () => {
             setAssign={setAssign}
           />
         )}
+
         {assign && (
           <ResultInfo
             rial={formatNumber(rial)}
@@ -123,6 +165,7 @@ const PriceDefine = () => {
             psc={formatNumber(psc)}
             setPsc={setPsc}
             setAssign={setAssign}
+            id={data?.id}
           />
         )}
       </Wrapper>

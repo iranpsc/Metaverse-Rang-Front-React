@@ -5,11 +5,10 @@ import Input from "../../../../../components/Input";
 import {
   calculateFee,
   getTranslation,
+  sanitizePriceInputValue, convertToPersian
 } from "../../../../../services/Utility";
 import TitleValue from "../../../../../components/TitleValue";
 import Button from "../../../../../components/Button";
-import { useContext } from "react";
-import { FeatureContext } from "../../../Context/FeatureProvider";
 
 const Div = styled.div`
   display: flex;
@@ -92,18 +91,27 @@ const FillInputs = ({
   psc,
   setPsc,
 }) => {
-  const [feature] = useContext(FeatureContext);
   const cancel =
-    +feature?.properties?.price_irr !== 0 ||
-    +feature?.properties?.price_psc !== 0;
+    rial !== 0 ||
+    psc !== 0;
+  const handleRialChange = (e) => {
+    setRial(sanitizePriceInputValue(e.target.value));
+  };
+
+  const handlePscChange = (e) => {
+    setPsc(sanitizePriceInputValue(e.target.value));
+  };
+
+  const rialValue = rial === 0 ? "" : rial;
+  const pscValue = psc === 0 ? "" : psc;
 
   return (
     <Div>
       <InputsWrapper>
         <Input
-          value={rial || 0}
+          value={rialValue}
           maxLength={14}
-          onChange={(e) => setRial(e.target.value)}
+          onChange={handleRialChange}
           type="number"
           placeholder={`${getTranslation(
             "521",
@@ -112,8 +120,8 @@ const FillInputs = ({
         />
         <Input
           maxLength={14}
-          value={psc}
-          onChange={(e) => setPsc(e.target.value)}
+          value={pscValue}
+          onChange={handlePscChange}
           type="number"
           placeholder={`${getTranslation(
             "521",
@@ -125,7 +133,7 @@ const FillInputs = ({
         <Wrapper>
           <Title>{getTranslation("522")}</Title>
           <Value>
-            {calculateFee(rial) || 0} IRR / {calculateFee(psc) || 0} PSC
+            {convertToPersian(calculateFee(rial) || 0)} IRR / {convertToPersian(calculateFee(psc) || 0)} PSC
           </Value>
         </Wrapper>
         <TitleValue title={getTranslation("523")} value="5%" />

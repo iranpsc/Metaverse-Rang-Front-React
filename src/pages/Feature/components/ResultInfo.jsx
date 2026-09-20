@@ -70,18 +70,16 @@ const Value = styled.p`
   font-weight: 400;
 `;
 
-const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial }) => {
+const ResultInfo = ({ setAssign, rial, psc, setPsc, setRial,id }) => {
   const { theme } = useTheme();
   const { Request, HTTP_METHOD, checkSecurity } = useRequest();
-
   const deleteHandler = () => {
     if (!checkSecurity()) return;
-    Request(`sell-requests/${navigateId}`, HTTP_METHOD.DELETE)
-      .then((res) => {
-        console.log("res", res)
-        setIsDeleted(!isDeleted);
-        setPsc("");
-        setRial("");
+    Request(`sell-requests/${id}`, HTTP_METHOD.DELETE)
+      .then(() => {
+        setAssign(false);
+        setPsc(0);
+        setRial(0);
         setAssign(false);
       })
       .catch((error) => {

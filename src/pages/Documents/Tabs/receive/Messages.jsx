@@ -1,18 +1,29 @@
 import { useState } from "react";
-import AdminMessage from "./AdminMessage";
-import CitizenMessage from "./CitizenMessage";
+import MessageItem from "./MessageItem";
 import VodReply from "./VodReply";
 
 const Messages = ({ data: initialData }) => {
-  const [data, setData] = useState(initialData);
+  const [allMessages, setAllMessages] = useState(
+    initialData?.messages || []
+  );
+
+  if (!initialData) return null;
+
   return (
     <>
-      <CitizenMessage data={data} />
-      {data?.responses.map((response) => (
-        <AdminMessage key={response.id} data={response} />
+      {allMessages.map((message, index) => (
+        <MessageItem
+          key={message?.id || `${message?.date}-${message?.time}-${index}`}
+          data={message}
+          isCurrentUser={message?.is_mine}
+        />
       ))}
-      {!(data?.status == 5) && (
-        <VodReply responseId={data.id} setData={setData} />
+
+      {initialData.status !== 5 && (
+        <VodReply
+          responseId={initialData.id}
+          setAllMessages={setAllMessages}
+        />
       )}
     </>
   );

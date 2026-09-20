@@ -79,6 +79,7 @@ const Bank = (settings) => {
   useEffect(() => {
     Request("bank-accounts")
       .then((response) => {
+
         setCards(response.data.data || []);
       })
       .catch((error) => {
@@ -199,18 +200,17 @@ const Bank = (settings) => {
     value: card.id,
     label: card.shaba_num,
   }));
-
   return (
     <Container>
       <Title title={getTranslation("635")} />
-
-      <Dropdown
-        options={options}
-        selected={selectedValue}
-        onSelect={handleSelectChange}
-        placeholder={getTranslation("636")}
-      />
-
+      {options.length > 0 && (
+        <Dropdown
+          options={options}
+          selected={selectedValue}
+          onSelect={handleSelectChange}
+          placeholder={getTranslation("636")}
+        />
+      )}
       <Wrapper>
         {items.map((item) => (
           <Div

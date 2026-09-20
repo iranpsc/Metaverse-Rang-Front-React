@@ -66,9 +66,9 @@ const StatusFilterItems = styled.div`
   h1 {
     font-weight: 400;
     color: ${(props) =>
-      props.$active
-        ? props.theme.colors.newColors.primaryText
-        : props.theme.colors.newColors.shades.title};
+    props.$active
+      ? props.theme.colors.newColors.primaryText
+      : props.theme.colors.newColors.shades.title};
     font-size: 16px;
     border-radius: 5px;
     padding: 2px 18px;
@@ -82,6 +82,7 @@ const TitleFilter = styled.div`
   position: absolute;
   top: 65px;
   gap: 5px;
+  white-space: nowrap;
   display: flex;
   flex-direction: column;
   width: 140px;
@@ -224,9 +225,8 @@ const RequestsList = ({
                 <Arrows onClick={() => setFilters({ member: !filters.member })}>
                   <MdKeyboardArrowDown
                     style={{
-                      transform: `${
-                        filters.member ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
+                      transform: `${filters.member ? "rotate(180deg)" : "rotate(360deg)"
+                        }`,
                     }}
                   />
                 </Arrows>
@@ -257,9 +257,8 @@ const RequestsList = ({
                 <Arrows onClick={() => setFilters({ status: !filters.status })}>
                   <MdKeyboardArrowDown
                     style={{
-                      transform: `${
-                        filters.status ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
+                      transform: `${filters.status ? "rotate(180deg)" : "rotate(360deg)"
+                        }`,
                     }}
                   />
                 </Arrows>
@@ -288,20 +287,20 @@ const RequestsList = ({
         <tbody>
           {isLoading
             ? // اسکلتون برای 5 ردیف
-              Array.from({ length: 5 }).map((_, index) => (
-                <RequestRow key={index} isLoading={true} />
-              ))
+            Array.from({ length: 5 }).map((_, index) => (
+              <RequestRow key={index} isLoading={true} />
+            ))
             : rows
-                .slice(0, visibleRows)
-                .map((request) => (
-                  <RequestRow
-                    key={request.id}
-                    {...request}
-                    type={type}
-                    setShowDetails={setShowDetails}
-                    isLoading={false}
-                  />
-                ))}
+              .slice(0, visibleRows)
+              .map((request) => (
+                <RequestRow
+                  key={request.id}
+                  {...request}
+                  type={type}
+                  setShowDetails={setShowDetails}
+                  isLoading={false}
+                />
+              ))}
         </tbody>
       </Table>
       {!isLoading && visibleRows < rows.length && (

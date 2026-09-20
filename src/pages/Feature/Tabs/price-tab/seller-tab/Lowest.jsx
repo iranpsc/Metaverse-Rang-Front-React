@@ -75,7 +75,7 @@ const Lowest = () => {
 
   const [assign, setAssign] = useState(
     +feature?.properties?.price_irr !== 0 ||
-      +feature?.properties?.price_psc !== 0,
+    +feature?.properties?.price_psc !== 0,
   );
   const [rial, setRial] = useState(feature?.properties?.price_irr || "");
   const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
@@ -103,14 +103,17 @@ const Lowest = () => {
     Request(
       `my-features/${user.id}/features/${feature?.id}`,
       HTTP_METHOD.POST,
-      { minimum_price_percentage: percentage },
+      { minimum_price_percentage: +percentage },
     )
-      .then(() => {
+      .then((res) => {
+        const response = res.data.data;
         setFeature((feature) => ({
           ...feature,
           properties: {
             ...feature.properties,
             minimum_price_percentage: percentage,
+            price_irr: response.price_irr,
+            price_psc: response.price_psc
           },
         }));
         ToastSuccess(getTranslation(1634));

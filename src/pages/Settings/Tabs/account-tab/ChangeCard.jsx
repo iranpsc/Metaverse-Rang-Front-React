@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
@@ -14,6 +14,9 @@ import {
   phoneNumberNormalizer,
   phoneNumberValidator,
 } from "@persian-tools/persian-tools";
+
+const PHONE_INPUT_ID = "phone";
+const CODE_INPUT_ID = "code";
 
 const Container = styled.div`
   padding: 20px;
@@ -55,155 +58,252 @@ const Error = styled.span`
   margin-top: -20px;
 `;
 
-const ChangeCard = ({ id, title, warn, inputs }) => {
+const ChangeCard = ({
+  id,
+  inputs,
+  availableResetMobileResets = 0,
+  onResetMobileSuccess,
+}) => {
   const { Request, HTTP_METHOD } = useRequest();
-  const [sentPhone, setSentPhone] = useState(false);
-  const [isSending, setIsSending] = useState(false); // حالت لودینگ دکمه
+  const [step, setStep] = useState("phone");
+  const [isSending, setIsSending] = useState(false);
   const [inputValues, setInputValues] = useState([]);
   const [inputErrors, setInputErrors] = useState([]);
+  const [remainingResets, setRemainingResets] = useState(
+    Number(availableResetMobileResets) || 0
+  );
 
   useEffect(() => {
-    if (Array.isArray(inputs)) {
-      setInputValues(
-        inputs.map((input) => ({ id: input.id, value: input.value }))
-      );
-      setInputErrors(inputs.map((input) => ({ id: input.id, error: "" })));
-    }
+    setRemainingResets(Number(availableResetMobileResets) || 0);
+  }, [availableResetMobileResets]);
+
+  const buildInputEntries = (mapper) =>
+    Array.isArray(inputs) ? inputs.map(mapper) : [];
+
+  const getInitialValues = () =>
+    buildInputEntries((input) => ({
+      id: String(input.id),
+      value: input.value ?? "",
+    }));
+
+  const getInitialErrors = () =>
+    buildInputEntries((input) => ({
+      id: String(input.id),
+      error: "",
+    }));
+
+  useEffect(() => {
+    if (!Array.isArray(inputs)) return;
+
+    setInputValues(getInitialValues());
+    setInputErrors(getInitialErrors());
+    setStep("phone");
   }, [inputs]);
 
-  const handleInputChange = (inputId, value) => {
-    setInputValues((prevInputValues) =>
-      prevInputValues.map((input) =>
-        input.id === inputId ? { ...input, value } : input
-      )
-    );
+  const getInputValue = (id) =>
+    inputValues.find((item) => String(item.id) === String(id))?.value ?? "";
 
-    setInputErrors((prevInputErrors) =>
-      prevInputErrors.map((input) =>
-        input.id === inputId
-          ? { ...input, error: validateInput(input, value) }
-          : input
-      )
-    );
-  };
+  const getInputError = (id) =>
+    inputErrors.find((item) => String(item.id) === String(id))?.error ?? "";
 
   const validateInput = (input, value) => {
+    if (!input) return "";
+
     if (input.validation === "mobile") {
       try {
         phoneNumberValidator(phoneNumberNormalizer(value, "0"));
+        return "";
       } catch {
-        return "شماره موبایل وارد شده صحیح نیست.";
-      }
-    } else if (input.validation === "email") {
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!emailRegex.test(value)) {
-        return "آدرس ایمیل وارد شده صحیح نیست.";
-      }
-    } else if (input.validation === "password") {
-      if (value.length < 6) {
-        return "رمز عبور باید حداقل شامل ۶ کاراکتر باشد.";
+        return getTranslation(1834);
       }
     }
+
+    if (input.validation === "code") {
+      if (String(value).trim().length !== 6) {
+        return getTranslation(1833);
+      }
+      return "";
+    }
+
     return "";
   };
 
-  const handleSave = () => {
-    setIsSending(true); // شروع لودینگ
+  const handleInputChange = (inputId, value) => {
+    const normalizedId = String(inputId);
+    const currentInput =
+      inputs.find((item) => String(item.id) === normalizedId) || {
+        id: normalizedId,
+        validation: normalizedId === CODE_INPUT_ID ? "code" : "mobile",
+      };
 
-    if (!sentPhone) {
-      const phoneInput = inputValues.find((input) => input.id == "1");
-      if (phoneInput && phoneInput.value) {
-        try {
-          phoneNumberValidator(phoneNumberNormalizer(phoneInput.value, "0"));
-          Request("reset/phone", HTTP_METHOD.POST, {
-            phone: phoneNumberNormalizer(phoneInput.value, "0"),
-          })
-            .then(() => {
-              setSentPhone(true);
-              ToastSuccess("کد تایید باموفقیت به شماره تلفن شما ارسال شد.");
-            })
-            .catch((error) => {
-              ToastError(error.response?.data?.message || "خطا در ارسال کد تایید");
-            })
-            .finally(() => {
-              setIsSending(false);
-            });
-        } catch {
-          ToastError("شماره تلفن معتبر نمی باشد.");
-          setIsSending(false);
-        }
-      } else {
-        ToastError("لطفا شماره تلفن را وارد کنید.");
-        setIsSending(false);
+    setInputValues((prevValues) => {
+      const exists = prevValues.some(
+        (item) => String(item.id) === normalizedId
+      );
+
+      if (exists) {
+        return prevValues.map((item) =>
+          String(item.id) === normalizedId ? { ...item, value } : item
+        );
       }
-    } else {
-      const codeInput = inputValues.find((input) => input.id === "code");
-      if (codeInput && codeInput.value.length === 6) {
-        Request("reset/phone/verify", HTTP_METHOD.POST, {
-          code: codeInput.value,
+
+      return [...prevValues, { id: normalizedId, value }];
+    });
+
+    setInputErrors((prevErrors) => {
+      const exists = prevErrors.some(
+        (item) => String(item.id) === normalizedId
+      );
+
+      const error = validateInput(currentInput, value);
+
+      if (exists) {
+        return prevErrors.map((item) =>
+          String(item.id) === normalizedId ? { ...item, error } : item
+        );
+      }
+
+      return [...prevErrors, { id: normalizedId, error }];
+    });
+  };
+
+  const visibleInputs = useMemo(() => {
+    if (!Array.isArray(inputs)) return [];
+
+    const baseInputs = inputs.filter((item) => String(item.id) !== CODE_INPUT_ID);
+
+    if (step === "phone") return baseInputs;
+
+    return [
+      ...baseInputs,
+      {
+        id: CODE_INPUT_ID,
+        type: "number",
+        label: 628,
+        value: "",
+        validation: "code",
+      },
+    ];
+  }, [inputs, step]);
+
+  const handleSave = () => {
+    setIsSending(true);
+
+    if (step === "phone") {
+      const rawPhone = getInputValue(PHONE_INPUT_ID);
+
+      if (!rawPhone) {
+        ToastError(getTranslation(1837));
+        setIsSending(false);
+        return;
+      }
+
+      try {
+        const normalizedPhone = phoneNumberNormalizer(rawPhone, "0");
+        phoneNumberValidator(normalizedPhone);
+
+        Request("mobile/send", HTTP_METHOD.POST, {
+          mobile: normalizedPhone,
         })
           .then(() => {
-            setSentPhone(false);
-            setInputValues(
-              inputs.map((input) => ({ id: input.id, value: "" }))
-            );
-            ToastSuccess("شماره تلفن با موفقیت بروزرسانی شد.");
+            setStep("code");
+            ToastSuccess(getTranslation(1836));
           })
-          .catch(() => {
-            ToastError("مشکلی در بروزرسانی شماره تلفن به وجود امد.");
+          .catch((error) => {
+            ToastError(
+              error.response?.data?.message || getTranslation(1835)
+            );
           })
           .finally(() => {
             setIsSending(false);
           });
-      } else {
-        ToastError("کد تایید باید 6 کاراکتر داشته باشد.");
+      } catch {
+        ToastError(getTranslation(1834));
         setIsSending(false);
       }
+      return;
     }
+
+    const codeValue = getInputValue(CODE_INPUT_ID);
+
+    if (!codeValue || String(codeValue).trim().length !== 6) {
+      ToastError(getTranslation(1833));
+      setIsSending(false);
+      return;
+    }
+
+    Request("mobile/verify", HTTP_METHOD.POST, {
+      code: codeValue,
+    })
+      .then(() => {
+        setStep("phone");
+        setInputValues(getInitialValues());
+        setInputErrors(getInitialErrors());
+
+        const nextResetCount = Math.max(remainingResets - 1, 0);
+        setRemainingResets(nextResetCount);
+
+        if (typeof onResetMobileSuccess === "function") {
+          onResetMobileSuccess(nextResetCount);
+        }
+
+        ToastSuccess(getTranslation(1832));
+      })
+      .catch(() => {
+        ToastError(getTranslation(1831));
+      })
+      .finally(() => {
+        setIsSending(false);
+      });
   };
 
   if (!Array.isArray(inputs) || inputs.length === 0) {
     return null;
   }
 
-  // بررسی غیرفعال بودن دکمه
-  const isDisabled = inputValues.some((input) => !input.value);
+  const isDisabled =
+    step === "phone"
+      ? !getInputValue(PHONE_INPUT_ID)
+      : !getInputValue(CODE_INPUT_ID) ||
+      String(getInputValue(CODE_INPUT_ID)).trim().length !== 6;
+
+  const buttonLabel = step === "phone" ? getTranslation("629") : getTranslation("628");
+  const warnMessage = ` ${remainingResets} ${getTranslation("1830")}`;
 
   return (
     <Container id={id}>
-      <Title title={getTranslation(title)} />
-      {warn && (
+      <Title title={getTranslation(625)} />
+      {warnMessage && (
         <Warn>
           <RiErrorWarningLine size={22} />
-          <h3>{warn}</h3>
+          <h3>{warnMessage}</h3>
         </Warn>
       )}
+
       <Inputs>
-        {inputs.map((item) => (
-          <div key={item.id}>
-            <EditInput
-              type={item.type}
-              value={
-                inputValues.find((input) => input.id === item.id)?.value || ""
-              }
-              onchange={(e) => handleInputChange(item.id, e.target.value)}
-              title={getTranslation(item.label)}
-              error={
-                inputErrors.find((input) => input.id === item.id)?.error || ""
-              }
-            />
-            {inputErrors.find((input) => input.id === item.id)?.error && (
-              <Error>
-                {inputErrors.find((input) => input.id === item.id)?.error}
-              </Error>
-            )}
-          </div>
-        ))}
+        {visibleInputs.map((item) => {
+          const inputId = String(item.id);
+          const itemValue = getInputValue(inputId);
+          const itemError = getInputError(inputId);
+
+          return (
+            <div key={inputId}>
+              <EditInput
+                type={item.type}
+                value={itemValue}
+                onchange={(e) => handleInputChange(inputId, e.target.value)}
+                title={getTranslation(item.label) || item.label}
+                error={itemError}
+              />
+              {itemError && <Error>{itemError}</Error>}
+            </div>
+          );
+        })}
       </Inputs>
 
       <Button
         full
-        label={getTranslation("629")}
+        label={buttonLabel}
         onclick={handleSave}
         disabled={isDisabled ? true : isSending ? "pending" : false}
       />
