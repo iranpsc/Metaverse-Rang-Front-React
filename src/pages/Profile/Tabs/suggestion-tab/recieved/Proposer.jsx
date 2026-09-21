@@ -130,24 +130,32 @@ const Proposer = ({
   const { Request, checkSecurity } = useRequest();
  
   const handleGracePeriod = async (selectedDay) => {
-    if (!id) return console.error("Error: id is undefined!");
-    try {
-      if (!checkSecurity()) return;
+  console.log("selectedDay", selectedDay);
 
-      await Request(
-        `buy-requests/add-grace-period/${id}`,
-        "POST",
-        new FormData().append("grace_period", selectedDay.toString()),
-        {
-          headers: { "Content-Type": "application/json" },
-        },
-        "production",
-      );
-      setDay(selectedDay);
-    } catch (error) {
-      ToastError(error?.response?.data?.message);
-    }
-  };
+  if (!id) {
+    console.error("Error: id is undefined!");
+    return;
+  }
+
+  try {
+    if (!checkSecurity()) return;
+
+    const formData = new FormData();
+    formData.append("grace_period", selectedDay);
+
+    await Request(
+      `buy-requests/add-grace-period/${id}`,
+      "POST",
+      formData,
+      {},
+      "production",
+    );
+
+    setDay(selectedDay);
+  } catch (error) {
+    ToastError(error?.response?.data?.message);
+  }
+};
 
   return (
     <Container>

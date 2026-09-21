@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState, useMemo } from "react";
 import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import { useLoader } from "@react-three/fiber";
 import { Canvas, NearCoordinates } from "react-three-map/maplibre";
@@ -14,17 +14,19 @@ import {
   connectSocket,
   onSocketEvent,
 } from "../../services/socket";
-const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
+import { clone as cloneSkeleton } from "three/examples/jsm/utils/SkeletonUtils";
+const FBXModel = memo(({ url, rotation, setLoading, opacity }) => {
   const fbx = useLoader(FBXLoader, url, (loader) => {
     loader.manager.onStart = () => setLoading(true);
     loader.manager.onLoad = () => setLoading(false);
     loader.manager.onError = () => setLoading(false);
   });
 
+  const clonedScene = useMemo(() => cloneSkeleton(fbx), [fbx]);
   useEffect(() => {
-    if (!fbx) return;
+    if (!clonedScene) return;
 
-    fbx.traverse((child) => {
+    clonedScene.traverse((child) => {
       if (!child.isMesh) return;
 
       const applyOpacity = (material) => {
@@ -35,28 +37,19 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
       };
 
       if (Array.isArray(child.material)) {
-        child.material.forEach((material) => {
-          if (material) {
-            applyOpacity(material);
-          }
-        });
+        child.material = child.material.map((m) => m.clone());
+        child.material.forEach(applyOpacity);
       } else if (child.material) {
+        child.material = child.material.clone();
         applyOpacity(child.material);
       }
     });
-  }, [fbx, opacity]);
-
-  const fbxRef = useRef();
+  }, [clonedScene, opacity]);
 
   return (
-    <group ref={fbxRef} rotation={rotation} scale={0.0097} key={uniqueKey}>
-      <hemisphereLight
-        args={["#ffffff", "#60666C"]}
-        intensity={12}
-        key={`${uniqueKey}-light`}
-      />
-
-      <primitive object={fbx} key={`${uniqueKey}-primitive`} />
+    <group rotation={rotation} scale={0.0097}>
+      <hemisphereLight args={["#ffffff", "#60666C"]} intensity={12} />
+      <primitive object={clonedScene} />
     </group>
   );
 });
@@ -101,7 +94,7 @@ const MapPolygons = () => {
         setMapLands((prevFeatures) => {
           const updatedFeatures = prevFeatures.map((feature) => {
             if (String(feature.id) === String(eventData.id)) {
-             
+
               return {
                 ...feature,
                 rgb: eventData.rgb,
@@ -188,7 +181,6 @@ const MapPolygons = () => {
           `&points[]=${northEast.lng},${northEast.lat}` +
           `&load_buildings=1`;
         const response = await Request(url);
-
         if (requestId !== requestIdRef.current) {
           return;
         }
@@ -213,7 +205,11 @@ const MapPolygons = () => {
           .filter((feature) => feature.id !== undefined && feature.id !== null);
 
         const newBuildingModels = data.flatMap(
-          (feature) => feature?.building_models || [],
+          (feature) =>
+            (feature?.building_models || []).map((model) => ({
+              ...model,
+              uniqueKey: `${model?.id}__${model?.building?.feature_id}`,
+            }))
         );
 
         setMapLands((prevFeatures) => {
@@ -233,16 +229,32 @@ const MapPolygons = () => {
         });
 
         setBuildings((prevModels) => {
-          const existingIds = new Set(
-            prevModels.map((model) => String(model.id)),
+          const getBuildingKey = (model) => {
+            const id = model?.id;
+            const featureId = model?.building?.feature_id;
+
+            return `${id}__${featureId}`;
+          };
+
+          const existingKeys = new Set(
+            prevModels.map((model) => getBuildingKey(model))
           );
 
-          const uniqueBuildings = newBuildingModels.filter(
-            (model) =>
-              model?.id !== undefined &&
-              model?.id !== null &&
-              !existingIds.has(String(model.id)),
-          );
+          const uniqueBuildings = newBuildingModels.filter((model) => {
+            if (model?.id == null || model?.building?.feature_id == null) {
+              return false;
+            }
+
+            const key = getBuildingKey(model);
+
+            if (existingKeys.has(key)) {
+              return false;
+            }
+
+            existingKeys.add(key);
+
+            return true;
+          });
 
           if (uniqueBuildings.length === 0) {
             return prevModels;
@@ -378,7 +390,7 @@ const MapPolygons = () => {
             longitude={54.20761223027057}
             key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
           >
-            {buildings.map((model, index) => {
+            {buildings.map((model) => {
               const endDate = new Date(
                 model?.building?.construction_end_date,
               );
@@ -386,10 +398,10 @@ const MapPolygons = () => {
               const opacity = new Date() < endDate ? 0.3 : 1;
 
               const [latitude, longitude] =
-                model?.building?.position?.split(",").map(Number) ?? [0, 0];
+                model?.building?.position?.split(",").map(Number);
               return (
                 <NearCoordinates
-                  key={model.feature_id || model.id || index}
+                  key={model.uniqueKey}
                   latitude={latitude}
                   longitude={longitude}
                 >
@@ -398,7 +410,7 @@ const MapPolygons = () => {
                     url={model.file.url}
                     rotation={[0, model?.building?.rotation ?? 0, 0]}
                     setLoading={setIsLoading}
-                    uniqueKey={`${model.id}-${index}-model`}
+                    uniqueKey={model.uniqueKey}
                   />
                 </NearCoordinates>
               );

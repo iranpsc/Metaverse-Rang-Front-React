@@ -122,7 +122,8 @@ const TextValueIcon = ({
   tag = false,
 }) => {
   const isPersian = useLanguage();
-
+const safeValue =
+  typeof value === "number" && Number.isNaN(value) ? "" : value;
   const valueRef = useRef(null);
   const textRef = useRef(null);
   const [animate, setAnimate] = useState(false);
@@ -157,10 +158,10 @@ const TextValueIcon = ({
       >
         <ValueScroll ref={textRef} animate={animate}>
           {tag
-            ? String(value)
-                .split(",")
-                .map((item, index) => <Tag key={index}>{item.trim()}</Tag>)
-            : value}
+            ? String(safeValue)
+              .split(",")
+              .map((item, index) => <Tag key={index}>{item.trim()}</Tag>)
+            : safeValue}
         </ValueScroll>
         {valueIcon}
       </Value>

@@ -188,7 +188,6 @@ const Suggestion = ({
     enter: { opacity: 1, transform: "translate3d(0, 0, 0)" },
     leave: { opacity: 0, transform: "translate3d(0, 40px, 0)" },
   });
-
   return (
     <Container>
       <Property>
@@ -241,15 +240,17 @@ const Suggestion = ({
         </Pricing>
       </Property>
       <Suggestions>
-        {transitions((style, item) => (
-          <animated.div key={item.id} style={style}>
-            <Proposer
-              {...item}
-              onReject={() => onRejectProposal(id, item.id)}
-              property={property}
-            />
-          </animated.div>
-        ))}
+        {transitions((style, item) => {
+          return (
+            <animated.div key={item.id} style={style}>
+              <Proposer
+                {...item}
+                onReject={() => onRejectProposal(id, item)}
+                property={property}
+              />
+            </animated.div>
+          )
+        })}
       </Suggestions>
     </Container>
   );

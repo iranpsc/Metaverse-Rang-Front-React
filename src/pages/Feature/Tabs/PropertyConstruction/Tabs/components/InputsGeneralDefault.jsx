@@ -75,7 +75,7 @@ const InputsGeneralDefault = () => {
       updateFormState(inputs); // Ensure inputs are passed correctly
       toggleConfirmation && toggleConfirmation();
       toggleIsSelectable && toggleIsSelectable(); // Ensure toggle functions exist
-      navigate("");
+      navigate("/");
     }
   };
   return (

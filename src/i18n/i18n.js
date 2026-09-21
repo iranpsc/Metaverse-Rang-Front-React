@@ -2,10 +2,10 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import axios from "axios";
 
-export const TRANSLATIONS_API = "https://admin.metarang.com/api/translations";
+export const TRANSLATIONS_API = "https://admin.metarang.com/api/translations?active=true";
 
 export const DEV_TRANSLATIONS_API =
-  "https://dev-admin.metarang.com/api/translations";
+  "https://dev-admin.metarang.com/api/translations?active=true";
 
 export let languagesMeta = [];
 
@@ -58,7 +58,7 @@ const normalizeTranslations = (payload) => {
 const customBackend = {
   type: "backend",
 
-  init: () => {},
+  init: () => { },
 
   read: async (language, namespace, callback) => {
     try {
