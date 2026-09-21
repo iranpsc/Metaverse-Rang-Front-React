@@ -1,8 +1,13 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import { TbTrash } from "react-icons/tb";
+import { useContext } from "react";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
 import { SanitizeHTML } from "../../services/Utility";
+import {
+  UserContext
+} from "../../services/reducers/UserContext";
+import { UserContextTypes } from "../../services/actions/UserContextAction";
 const Container = styled.div`
   padding: 20px;
   border-radius: 5px;
@@ -74,13 +79,21 @@ const TrashWrapper = styled.div`
 `;
 
 const NotifCard = ({ id, setNotifications, notifications, data }) => {
-  const { Request,HTTP_METHOD } = useRequest();
-
-  const ReadClickHandler = () => {
-    Request(`notifications/read/${id}`,HTTP_METHOD.POST).then(() => {
+  const { Request, HTTP_METHOD } = useRequest();
+  const [user, dispatch] = useContext(UserContext);
+  const deleteClickHandler = () => {
+    Request(`notifications/read/${id}`, HTTP_METHOD.POST).then(() => {
       setNotifications(
         notifications.filter((notification) => notification.id !== id)
       );
+      dispatch({
+        type: UserContextTypes.UPDATE_FIELD,
+        payload: {
+          key: "unread_notifications_count",
+          value: user.unread_notifications_count - 1,
+        },
+      });
+
     });
   };
   return (
@@ -97,7 +110,7 @@ const NotifCard = ({ id, setNotifications, notifications, data }) => {
             </h3>
           </NameAndDate>
         </Info>
-        <TrashWrapper onClick={ReadClickHandler}>
+        <TrashWrapper onClick={deleteClickHandler}>
           <TbTrash size={20} />
         </TrashWrapper>
       </Profile>

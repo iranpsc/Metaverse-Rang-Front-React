@@ -55,7 +55,7 @@ const VodReply = ({ responseId, setAllMessages }) => {
 
         setMessage("");
         setFiles([]);
-        ToastSuccess(" پیام شما با موفقیت ارسال شد");
+        ToastSuccess(getTranslation(1841));
       })
       .catch((error) => {
         console.error("Failed to send reply:", error);
