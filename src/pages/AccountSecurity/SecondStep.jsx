@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
@@ -11,6 +12,7 @@ const Codes = styled.div`
   margin: 0 auto;
   direction: ltr;
   margin-bottom: 30px !important;
+
   input {
     width: 30px;
     height: 50px;
@@ -27,6 +29,7 @@ const Codes = styled.div`
     align-items: center;
     justify-content: center;
   }
+
   @media (min-width: 1024px) {
     input {
       width: 60px;
@@ -35,13 +38,16 @@ const Codes = styled.div`
     }
   }
 `;
+
 const Container = styled.div`
   margin-top: 20px;
+
   h3 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
     font-weight: 400;
   }
+
   p {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-size: 16px;
@@ -59,6 +65,7 @@ const Container = styled.div`
     width: 93%;
     color: ${(props) => props.theme.colors.newColors.shades.title};
     margin-top: 20px;
+
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
       -webkit-appearance: none;
@@ -80,6 +87,7 @@ const Container = styled.div`
       props.theme.colors.newColors.otherColors.secondaryBtnText};
     cursor: pointer;
   }
+
   div {
     display: flex;
     align-items: center;
@@ -92,13 +100,16 @@ const Container = styled.div`
       color: #008bf8;
       margin-left: 5px;
     }
+
     span {
       color: #969696;
     }
+
     h2 {
       font-size: 12px;
       color: #dc920a;
       cursor: pointer;
+
       &:hover {
         color: #ad740a;
       }
@@ -106,41 +117,58 @@ const Container = styled.div`
   }
 `;
 
-
 const SecondStep = ({ setStep, time }) => {
   const inputRefs = useRef([]);
+  const timerInterval = useRef(null);
+
   const [timer, setTimer] = useState(2 * 60);
   const [errors, setErrors] = useState(false);
-  const [codeValues, setCodeValues] = useState(["", "", "", "", "", ""]);
-  const { Request, HTTP_METHOD } = useRequest(); // Use the request hook
-  const timerInterval = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [codeValues, setCodeValues] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
+
+  const { Request, HTTP_METHOD } = useRequest();
 
   useEffect(() => {
     timerInterval.current = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer > 0) {
           return prevTimer - 1;
-        } else {
-          clearInterval(timerInterval.current);
-          return 0;
         }
+
+        clearInterval(timerInterval.current);
+        return 0;
       });
     }, 1000);
 
-    return () => clearInterval(timerInterval.current);
+    return () => {
+      clearInterval(timerInterval.current);
+    };
   }, []);
+
   const handleKeyDown = (index, event) => {
     if (event.key === "Backspace") {
       if (codeValues[index] === "") {
         if (index > 0) {
           const newValues = [...codeValues];
+
           newValues[index - 1] = "";
+
           setCodeValues(newValues);
-          inputRefs.current[index - 1].focus();
+
+          inputRefs.current[index - 1]?.focus();
         }
       } else {
         const newValues = [...codeValues];
+
         newValues[index] = "";
+
         setCodeValues(newValues);
       }
     }
@@ -155,64 +183,95 @@ const SecondStep = ({ setStep, time }) => {
 
     return `${formattedMinutes}:${formattedSeconds}`;
   };
+
   const handleInputChange = (index, event) => {
     let value = event.target.value;
+
     value = value.replace(/[^\d]/g, "");
-    if (value.length > 1) value = value.slice(-1);
+
+    if (value.length > 1) {
+      value = value.slice(-1);
+    }
 
     const newValues = [...codeValues];
+
     newValues[index] = value;
+
     setCodeValues(newValues);
+
+    setErrors(false);
 
     if (value !== "") {
       if (index < inputRefs.current.length - 1) {
-        inputRefs.current[index + 1].focus();
+        inputRefs.current[index + 1]?.focus();
       }
     }
   };
+
   const handlePaste = (event) => {
     event.preventDefault();
+
     const pasteData = event.clipboardData
       .getData("text/plain")
       .replace(/[^\d]/g, "");
+
     const digits = pasteData.split("").slice(0, 6);
+
     const newValues = ["", "", "", "", "", ""];
+
     digits.forEach((digit, index) => {
       newValues[index] = digit;
+
       if (inputRefs.current[index]) {
         inputRefs.current[index].value = digit;
       }
     });
-    setCodeValues(newValues);
 
-    if (digits.length === 6 && newValues.every((v) => v !== "")) {
-      // اگر 6 رقم کامل پیست شد، به آخرین خونه برو
-      if (inputRefs.current[5]) {
-        inputRefs.current[5].focus();
-      }
+    setCodeValues(newValues);
+    setErrors(false);
+
+    if (digits.length === 6 && newValues.every((value) => value !== "")) {
+      inputRefs.current[5]?.focus();
+
       nextStep(newValues);
     } else {
-      const firstEmpty = newValues.findIndex((v) => v === "");
-      if (firstEmpty !== -1 && inputRefs.current[firstEmpty]) {
-        inputRefs.current[firstEmpty].focus();
+      const firstEmpty = newValues.findIndex((value) => value === "");
+
+      if (firstEmpty !== -1) {
+        inputRefs.current[firstEmpty]?.focus();
       } else if (digits.length > 0) {
         const lastFilled = Math.min(digits.length - 1, 5);
-        if (inputRefs.current[lastFilled]) {
-          inputRefs.current[lastFilled].focus();
-        }
+
+        inputRefs.current[lastFilled]?.focus();
       }
     }
   };
-  const allValuesNotEmpty = codeValues.every((value) => value !== "");
-const nextStep = (valuesArg) => {
-  const valuesToUse = valuesArg || codeValues;
 
-  if (valuesToUse.every((v) => v !== "")) {
+  const allValuesNotEmpty = codeValues.every(
+    (value) => value !== ""
+  );
+
+  const nextStep = (valuesArg) => {
+    if (loading) return;
+
+    const valuesToUse = valuesArg || codeValues;
+
+    if (!valuesToUse.every((value) => value !== "")) {
+      setErrors(true);
+      return;
+    }
+
     const code = valuesToUse.join("");
 
-    Request("account/security/verify", HTTP_METHOD.POST, { code })
+    setLoading(true);
+
+    Request(
+      "account/security/verify",
+      HTTP_METHOD.POST,
+      { code }
+    )
       .then(() => {
-        const duration = parseInt(time) * 60 * 1000;
+        const duration = parseInt(time, 10) * 60 * 1000;
 
         setItem("account_security", {
           account_security: Date.now() + duration,
@@ -223,35 +282,57 @@ const nextStep = (valuesArg) => {
       })
       .catch(() => {
         setErrors(true);
+
         ToastError(getTranslation("1639"));
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  } else {
-    setErrors(true);
-  }
-};
+  };
+
   const resetInputs = () => {
     inputRefs.current.forEach((inputRef) => {
-      inputRef.value = "";
+      if (inputRef) {
+        inputRef.value = "";
+      }
     });
-    inputRefs.current[0].focus();
+
+    inputRefs.current[0]?.focus();
   };
 
   const resetHandler = () => {
+    if (loading) return;
+
     resetInputs();
+
+    setCodeValues([
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ]);
+
     clearInterval(timerInterval.current);
 
-    Request("account/security", HTTP_METHOD.POST, { time })
+    Request(
+      "account/security",
+      HTTP_METHOD.POST,
+      { time }
+    )
       .then(() => {
         setErrors(false);
         setTimer(2 * 60);
+
         timerInterval.current = setInterval(() => {
           setTimer((prevTimer) => {
             if (prevTimer > 0) {
               return prevTimer - 1;
-            } else {
-              clearInterval(timerInterval.current);
-              return 0;
             }
+
+            clearInterval(timerInterval.current);
+            return 0;
           });
         }, 1000);
       })
@@ -263,7 +344,9 @@ const nextStep = (valuesArg) => {
   return (
     <Container>
       <h3>{getTranslation("860")}</h3>
+
       <p>{getTranslation("861")}</p>
+
       <Codes>
         {[...Array(6)].map((_, index) => (
           <input
@@ -272,9 +355,13 @@ const nextStep = (valuesArg) => {
             type="text"
             inputMode="numeric"
             maxLength={1}
-            ref={(el) => (inputRefs.current[index] = el)}
+            ref={(el) => {
+              inputRefs.current[index] = el;
+            }}
             value={codeValues[index]}
-            onChange={(event) => handleInputChange(index, event)}
+            onChange={(event) =>
+              handleInputChange(index, event)
+            }
             onKeyDown={(event) => {
               if (
                 event.key === "." ||
@@ -287,14 +374,22 @@ const nextStep = (valuesArg) => {
               }
 
               if (event.key === "Backspace") {
-                if (!codeValues[index] && index > 0) {
+                if (
+                  !codeValues[index] &&
+                  index > 0
+                ) {
                   inputRefs.current[index - 1]?.focus();
                 }
+
                 handleKeyDown(index, event);
                 return;
               }
 
-              if (event.key === "Enter" && allValuesNotEmpty) {
+              if (
+                event.key === "Enter" &&
+                allValuesNotEmpty
+              ) {
+                event.preventDefault();
                 nextStep();
                 return;
               }
@@ -306,21 +401,33 @@ const nextStep = (valuesArg) => {
           />
         ))}
       </Codes>
+
       <div>
         <h4>
           {formatTime(timer)
             .toLocaleString()
-            .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])}
+            .replace(
+              /\d/g,
+              (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]
+            )}
         </h4>
+
         {timer !== 0 ? (
           <span>{getTranslation("863")}</span>
         ) : (
-          <h2 onClick={resetHandler}>{getTranslation(1642)}</h2>
+          <h2 onClick={resetHandler}>
+            {getTranslation(1642)}
+          </h2>
         )}
       </div>
+
       <Button
         label={getTranslation("859")}
-        disabled={!allValuesNotEmpty}
+        disabled={
+          loading
+            ? "pending"
+            : !allValuesNotEmpty
+        }
         onClick={() => nextStep()}
       />
     </Container>
@@ -328,3 +435,4 @@ const nextStep = (valuesArg) => {
 };
 
 export default SecondStep;
+
