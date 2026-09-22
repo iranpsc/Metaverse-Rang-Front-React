@@ -15,10 +15,10 @@ import Wallet from "../../assets/svg/wallet.svg";
 import GiftIcon from "../../assets/svg/gifts.svg";
 import { useMenuContext } from "../../services/reducers/MenuContext";
 import { useNavigate, useLocation } from "react-router";
-import Tippy from "@tippyjs/react";
-import "tippy.js/animations/scale.css";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "../../services/reducers/UserContext";
+import ToolTip from "../../components/Tooltip";
+
 const Container = styled.div`
   height: 100vh;
   white-space: nowrap;
@@ -92,40 +92,6 @@ const ValueBtn = styled.span`
   left: 1px;
   top: -3px;
 `;
-
-const Tooltip = styled.div`
-  width: 146px;
-  height: 40px;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.iconBg};
-
-  border-radius: 10px;
-  color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
-
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 180%; /* 36px */
-  text-transform: capitalize;
-  @media (min-width: 1024px) {
-    display: flex;
-  }
-  ::after {
-    content: "";
-    position: absolute;
-    width: 9px;
-    height: 40px;
-    right: -8px;
-    left: -8px;
-    rotate: ${(props) => (props.lang == "en" ? "0" : "180deg")};
-  }
-`;
-
 
 const BtnsMenu = () => {
   const { isOpen } = useMenuContext();
@@ -224,51 +190,45 @@ const BtnsMenu = () => {
   return (
     <Container>
       {menuItems.map((item, index) => (
-        <Tippy
+        <ToolTip
           key={index}
-          content={
-            <Tooltip lang={lang.i18n.language}>
-              {getTranslation(item.translationId)}
-            </Tooltip>
+          lang={lang.i18n.language}
+          place="left"
+          disabled={isOpen} 
+          ContentToltip={getTranslation(item.translationId)}
+          Chidren={
+            <Btn
+              isOpen={isOpen}
+              isSelected={selectedItem === item.translationId}
+              onClick={() => handleClick(item)}
+              disabled={item.navigate === "" && item.translationId !== "sign out"}
+            >
+              <div>
+                <Icon
+                  src={item.icon}
+                  isSelected={selectedItem === item.translationId}
+                  isCompleted={
+                    item.navigate == "connectWallet" && user.has_wallet
+                  }
+                />
+                <Text
+                  isOpen={isOpen}
+                  isSelected={selectedItem === item.translationId}
+                >
+                  {getTranslation(item.translationId)}
+                </Text>
+              </div>
+              {item.translationId === "236" && user && (
+                <ValueBtn isOpen={isOpen}>
+                  %{convertToPersian(formatNumber(user.hourly_profit_time_percentage, 1))}
+                </ValueBtn>
+              )}
+              {item.translationId === "238" && user && (
+                <ValueBtn isOpen={isOpen}>{convertToPersian(user.unread_notifications_count)}</ValueBtn>
+              )}
+            </Btn>
           }
-          zIndex={10000}
-          placement="left"
-          interactive={true}
-          delay={50}
-          animation="scale"
-          disabled={isOpen} // Only show tooltip when menu is closed
-        >
-          <Btn
-            isOpen={isOpen}
-            isSelected={selectedItem === item.translationId} // Check if the item is selected
-            onClick={() => handleClick(item)}
-            disabled={item.navigate === "" && item.translationId !== "sign out"}
-          >
-            <div>
-              <Icon
-                src={item.icon}
-                isSelected={selectedItem === item.translationId}
-                isCompleted={
-                  item.navigate == "connectWallet" && user.has_wallet
-                }
-              />
-              <Text
-                isOpen={isOpen}
-                isSelected={selectedItem === item.translationId}
-              >
-                {getTranslation(item.translationId)}
-              </Text>
-            </div>
-            {item.translationId === "236" && user && (
-              <ValueBtn isOpen={isOpen}>
-                %{convertToPersian(formatNumber(user.hourly_profit_time_percentage, 1))}
-              </ValueBtn>
-            )}
-            {item.translationId === "238" && user && (
-              <ValueBtn isOpen={isOpen}>{convertToPersian(user.unread_notifications_count)}</ValueBtn>
-            )}
-          </Btn>
-        </Tippy>
+        />
       ))}
     </Container>
   );
