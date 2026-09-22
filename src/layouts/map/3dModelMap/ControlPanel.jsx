@@ -26,7 +26,7 @@ const Label = styled.label`
 const RangeInput = styled.input`
   flex-grow: 1;
   width: 100%;
-  -webkit-appearance: none;
+  appearance: none;
   height: 10px;
   border-radius: 5px;
   background: linear-gradient(
