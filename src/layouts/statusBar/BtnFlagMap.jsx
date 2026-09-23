@@ -4,9 +4,6 @@ import FilterIcon from "../../assets/svg/filter.svg?react";
 import LocationIcon from "../../assets/svg/location.svg?react";
 import useRequest from "../../services/Hooks/useRequest";
 import { useMapData } from "../../services/reducers/mapContext";
-import { useTranslation } from "react-i18next";
-import ToolTip from "../../components/Tooltip";
-
 const Btn = styled.div`
   display: flex;
   align-items: center;
@@ -56,7 +53,6 @@ const BtnFlagMap = () => {
   const { flags, setFlags, setPolygons } = useMapData();
   const [activeMapIds, setActiveMapIds] = useState([]);
   const { Request } = useRequest();
-  const { i18n } = useTranslation();
 
   useEffect(() => {
     async function fetchMap() {
@@ -105,24 +101,17 @@ const BtnFlagMap = () => {
         const isActive = activeMapIds.includes(flag.id);
 
         return (
-          <ToolTip
-            key={flag.id}
-            ContentToltip={flag.name}
-            lang={i18n.language}
-            Chidren={
-              <Btn className={isActive ? "active" : ""}>
-                <ContainerIcon>
-                  <IconFilter />
-                  <IconLocation
-                    $active={isActive}
-                    onClick={() => handleClick(flag.id)}
-                  />
-                </ContainerIcon>
+          <Btn key={flag.id} className={isActive ? "active" : ""}>
+            <ContainerIcon>
+              <IconFilter />
+              <IconLocation
+                $active={isActive}
+                onClick={() => handleClick(flag.id)}
+              />
+            </ContainerIcon>
 
-                <TitleFlag>{flag.name}</TitleFlag>
-              </Btn>
-            }
-          />
+            <TitleFlag>{flag.name}</TitleFlag>
+          </Btn>
         );
       })}
     </>
