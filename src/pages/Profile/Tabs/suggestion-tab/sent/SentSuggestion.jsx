@@ -1,22 +1,18 @@
+// SentSuggestion.jsx
 import Suggestion from "./Suggestion";
 import Title from "../../../../../components/Title";
-import meter from "../../../../../assets/images/profile/meter.png";
-import { useState, useEffect, useRef, useMemo } from "react";
-import {
-  convertToPersian,
-  getTranslation,
-} from "../../../../../services/Utility/index";
+import { useState, useEffect, useRef } from "react";
+import { getTranslation } from "../../../../../services/Utility/index";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { Wrapper } from "../suggestionStyles";
-import moment from "moment-jalaali";
 import Container from "../../../../../components/Common/Container";
 
 const SentSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { Request, checkSecurity } = useRequest();
+  const { Request } = useRequest();
   const containerRef = useRef(null);
-console.log("suggestions",suggestions)
+
   useEffect(() => {
     let isMounted = true;
 
@@ -27,61 +23,12 @@ console.log("suggestions",suggestions)
         const data = response?.data?.data;
 
         if (!Array.isArray(data)) {
-          console.error("Invalid data format:", response.data);
+          console.error("Invalid data format:", response?.data);
           return;
         }
 
-        const formattedSuggestions = data.map((item) => {
-          const gracePeriod = item.requested_grace_period;
-          let remainingHours = 0,
-            remainingMinutes = 0,
-            remainingSeconds = 0;
-
-          if (gracePeriod) {
-            const graceDate = moment(
-              gracePeriod,
-              "jYYYY/jMM/jDD HH:mm:ss",
-            ).toDate();
-            const diffTime = Math.max(0, graceDate - new Date());
-
-            remainingHours = Math.floor(diffTime / (1000 * 60 * 60));
-            remainingMinutes = Math.floor(
-              (diffTime % (1000 * 60 * 60)) / (1000 * 60),
-            );
-            remainingSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
-          }
-
-          return {
-            id: item.id,
-            property: {
-              image: meter,
-              location: item.feature_properties?.address,
-              code: item.feature_properties?.id,
-              owner: item.seller?.code,
-              date: item.created_at,
-              value: item.feature_properties?.stability,
-              coordinates: item.feature_coordinates || [],
-              karbari: item.feature_properties?.karbari,
-            },
-            suggestions_list: [
-              {
-                id: item.id,
-                code: item.seller?.code,
-                date: item.created_at,
-                rial: item.price_irr,
-                psc: item.price_psc,
-                percent: "210",
-                initialHours: remainingHours,
-                initialMinutes: remainingMinutes,
-                initialSeconds: remainingSeconds,
-                information: item.note,
-              },
-            ],
-          };
-        });
-
         if (isMounted) {
-          setSuggestions(formattedSuggestions);
+          setSuggestions(data);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -99,48 +46,6 @@ console.log("suggestions",suggestions)
     };
   }, []);
 
-  const convertSuggestions = useMemo(
-    () =>
-      (items) =>
-        items.map((suggestion) => ({
-          ...suggestion,
-          property: {
-            ...suggestion.property,
-            owner: suggestion.property.owner?.toUpperCase(),
-            value: convertToPersian(suggestion.property.value),
-            code: suggestion.property.code?.toUpperCase(),
-            date: convertToPersian(suggestion.property.date),
-          },
-          suggestions_list: suggestion.suggestions_list.map((item) => ({
-            ...item,
-            rial: convertToPersian(item.rial),
-            psc: convertToPersian(item.psc),
-          })),
-        })),
-    [],
-  );
-
-  const handleRejectProposal = async (suggestionId) => {
-    if (!checkSecurity()) return;
-
-    try {
-      const response = await Request(
-        `buy-requests/delete/${suggestionId}`,
-        "DELETE",
-        {},
-        {},
-        "production",
-      );
-
-      if ([200, 204].includes(response.status)) {
-        setSuggestions((prev) => prev.filter((s) => s.id !== suggestionId));
-      } else {
-        console.error("Error deleting suggestion:", response);
-      }
-    } catch (error) { console.error(error) }
-  };
-
-  // اسکلتون لودینگ
   if (loading) {
     return (
       <Container ref={containerRef}>
@@ -158,16 +63,8 @@ console.log("suggestions",suggestions)
     <Container ref={containerRef}>
       <Title right title={getTranslation("765")} />
       <Wrapper>
-        {convertSuggestions(
-          suggestions.filter((s) => s.suggestions_list?.length > 0),
-        ).map((suggestion) => (
-          <div key={suggestion.id} id={`suggestion-${suggestion.id}`}>
-            <Suggestion
-              {...suggestion}
-              onRejectProposal={handleRejectProposal}
-              isLoading={false}
-            />
-          </div>
+        {suggestions.map((item) => (
+          <Suggestion key={item.id} item={item} isLoading={false} />
         ))}
       </Wrapper>
     </Container>

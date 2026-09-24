@@ -1,9 +1,10 @@
-import { animated, useTransition } from "@react-spring/web";
+// Suggestion.jsx
 import Proposer from "./Proposer";
 import red from "../../../../../assets/images/profile/red-color.gif";
 import yellow from "../../../../../assets/images/profile/yellow-color.gif";
 import blue from "../../../../../assets/images/profile/blue-color.gif";
 import styled from "styled-components";
+import { useState } from "react";
 import {
   SuggestionsContainer,
   Location,
@@ -16,6 +17,7 @@ import {
 } from "../suggestionStyles";
 import {
   getTranslation,
+  convertToPersian,
   metarangUrlCitizen,
 } from "../../../../../services/Utility";
 import { useNavigate } from "react-router";
@@ -44,7 +46,6 @@ const Owner = styled.div`
     font-size: 14px;
     font-weight: 600;
   }
-
   a {
     text-decoration: none;
     color: #0066ff;
@@ -60,20 +61,17 @@ const Time = styled.div`
     font-size: 14px;
     font-weight: 600;
   }
-
   h3 {
     color: ${(props) => props.theme.colors.newColors.shades[30]};
     font-size: 18px;
     font-weight: 500;
     margin-top: 4px;
   }
-
   @media (min-width: 1366px) {
     margin-left: 70px;
   }
 `;
 
-// اسکلتون برای Suggestion
 const SkeletonSuggestion = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.menuBg};
@@ -82,17 +80,13 @@ const SkeletonSuggestion = styled.div`
   margin-bottom: 20px;
 `;
 
-const Suggestion = ({
-  id,
-  property,
-  suggestions_list,
-  onRejectProposal,
-  isLoading,
-}) => {
+const KARBARI_ICONS = { m: yellow, t: red, a: blue };
+
+const Suggestion = ({ item, isLoading }) => {
+  const [removed, setRemoved] = useState(false);
   const navigate = useNavigate();
   const mapRef = useMap();
 
-  // اسکلتون
   if (isLoading) {
     return (
       <SkeletonSuggestion>
@@ -127,7 +121,6 @@ const Suggestion = ({
               <Skeleton width="60px" height="16px" radius="4px" />
             </div>
           </div>
-
           <div
             style={{
               display: "flex",
@@ -140,91 +133,82 @@ const Suggestion = ({
             <Skeleton width="120px" height="40px" radius="8px" />
           </div>
         </div>
-
         <Skeleton width="100%" height="300px" radius="10px" />
       </SkeletonSuggestion>
     );
   }
 
-  if (!property) return null;
+  if (removed || !item) return null;
 
-  const xCoords = property.coordinates?.map((coord) => coord.x) || [];
-  const yCoords = property.coordinates?.map((coord) => coord.y) || [];
-  const center = calculatePolygonCentroid(property.coordinates || []);
-
-  const handleLocation = () => {
-    if (!property.coordinates) return;
-    flyToMapPosition({
-      latitude: center.y,
-      longitude: center.x,
-      mapRef: mapRef,
-      zoom: 17,
-    });
-    navigate("/");
-  };
-
+  const feature = item.feature_properties || {};
+  const coordinates = item.feature_coordinates || [];
+  const xCoords = coordinates.map((c) => c.x);
+  const yCoords = coordinates.map((c) => c.y);
   const minX = Math.min(...xCoords);
   const maxX = Math.max(...xCoords);
   const minY = Math.min(...yCoords);
   const maxY = Math.max(...yCoords);
   const hasXGreaterThan50 = xCoords.some((x) => x > 50);
+  const center = calculatePolygonCentroid(coordinates);
 
-  const normalizedPoints = property.coordinates
-    ?.map((coord) => {
-      const normalizedX =
+  const normalizedPoints = coordinates
+    .map((coord) => {
+      const nx =
         coord.x > 50
           ? ((coord.x - minX) / (maxX - minX)) * 40
           : ((coord.x - minX) / (maxX - minX)) * 100;
-      const normalizedY =
+      const ny =
         coord.x > 50
           ? ((coord.y - minY) / (maxY - minY)) * 140
           : ((coord.y - minY) / (maxY - minY)) * 100;
-      return `${normalizedX},${normalizedY}`;
+      return `${nx},${ny}`;
     })
     .join(" ");
 
-  const transitions = useTransition(suggestions_list || [], {
-    from: { opacity: 0, transform: "translate3d(0, 40px, 0)" },
-    enter: { opacity: 1, transform: "translate3d(0, 0, 0)" },
-    leave: { opacity: 0, transform: "translate3d(0, 40px, 0)" },
-  });
+  const handleLocation = () => {
+    if (!coordinates.length) return;
+    flyToMapPosition({ latitude: center.y, longitude: center.x, mapRef, zoom: 17 });
+    navigate("/");
+  };
+
   return (
     <Container>
       <Property>
         <Location>
           <AreaContainer>
             <StyledSVG
-              viewBox={`${hasXGreaterThan50 ? -15 : -30} ${hasXGreaterThan50 ? -85 : -110} 150 ${hasXGreaterThan50 ? 100 : 120}`}
+              viewBox={`${hasXGreaterThan50 ? -15 : -30} ${hasXGreaterThan50 ? -85 : -110
+                } 150 ${hasXGreaterThan50 ? 100 : 120}`}
             >
               <Polygon
-                karbari={property.karbari}
+                karbari={feature.karbari}
                 hasXGreaterThan50={hasXGreaterThan50}
                 points={normalizedPoints}
               />
             </StyledSVG>
           </AreaContainer>
           <div>
-            <p>{property.location}</p>
-            <h3 onClick={handleLocation}>{property.code}</h3>
+            <p>{feature.address}</p>
+            <h3 onClick={handleLocation}>{feature.id?.toString?.().toUpperCase?.()}</h3>
           </div>
         </Location>
         <Pricing>
           <Time>
             <p>{getTranslation("769")}</p>
-            <h3>{property.date}</h3>
+            <h3>{convertToPersian(item.created_at)}</h3>
           </Time>
           <Value>
             <h2>{getTranslation("767")}</h2>
             <div>
-              {property.karbari && (
+              {feature.karbari && (
                 <img
                   width={24}
                   height={24}
-                  src={{ m: yellow, t: red, a: blue }[property.karbari]}
+                  src={KARBARI_ICONS[feature.karbari]}
                   alt=""
                 />
               )}
-              <span>{property.value}</span>
+              <span>{convertToPersian(feature.stability)}</span>
             </div>
           </Value>
           <Owner>
@@ -232,25 +216,15 @@ const Suggestion = ({
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href={metarangUrlCitizen(property.owner)}
+              href={metarangUrlCitizen(item.seller?.code)}
             >
-              {property.owner}
+              {item.seller?.code?.toUpperCase?.()}
             </a>
           </Owner>
         </Pricing>
       </Property>
       <Suggestions>
-        {transitions((style, item) => {
-          return (
-            <animated.div key={item.id} style={style}>
-              <Proposer
-                {...item}
-                onReject={() => onRejectProposal(id, item)}
-                property={property}
-              />
-            </animated.div>
-          )
-        })}
+        <Proposer item={item} onRemoved={() => setRemoved(true)} />
       </Suggestions>
     </Container>
   );

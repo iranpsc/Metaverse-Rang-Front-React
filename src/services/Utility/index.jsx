@@ -279,6 +279,14 @@ export const truncateText = (text, maxLength = 20) => {
 
   return `${text.slice(0, maxLength)}...`;
 };
+
+
+const PSC_TO_IRR = 900;
+
+export const pscToIrr = (psc) => {
+  return (+psc || 0) * PSC_TO_IRR;
+};
+
 export const getTranslation = (fieldId) => {
   const resources = i18n.store.data;
   const currentLanguage = i18n.language || "fa";

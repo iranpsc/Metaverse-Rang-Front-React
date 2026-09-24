@@ -1,16 +1,23 @@
-import { useEffect, useState } from "react";
+// Proposer.jsx
+import { useEffect, useState, useContext } from "react";
 import ConfettiExplosion from "react-confetti-explosion";
 import {
   convertToPersian,
   getTranslation,
   SanitizeHTML,
+  ToastError, calculateFee
 } from "../../../../../services/Utility/index";
 import line from "../../../../../assets/images/profile/Line.png";
 import pscpng from "../../../../../assets/images/profile/psc.gif";
 import rialpng from "../../../../../assets/images/profile/rial.gif";
 import styled from "styled-components";
+import moment from "moment-jalaali";
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
-
+import useRequest from "../../../../../services/Hooks/useRequest/index";
+import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../../../services/reducers/WalletContext";
 import {
   Info,
   proposerContainer,
@@ -19,6 +26,7 @@ import {
   RejectButton,
   Text,
 } from "../suggestionStyles";
+
 const Price = styled(BasePrice)`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.iconBg};
@@ -73,101 +81,21 @@ const Buttons = styled.div`
 
 const Container = proposerContainer;
 
-const Proposer = ({
-  rial,
-  psc,
-  onReject,
-  information,
-  initialHours = 0,
-  initialMinutes = 0,
-  initialSeconds = 0,
-}) => {
-  const [time, setTime] = useState({
-    hours: initialHours,
-    minutes: initialMinutes,
-    seconds: initialSeconds,
-  });
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isExploding, setIsExploding] = useState(false);
-  const isPersian = useLanguage();
-
-  useEffect(() => {
-    if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) return;
-
-    const countdown = setInterval(() => {
-      setTime(({ hours, minutes, seconds }) => {
-        if (seconds > 0) return { hours, minutes, seconds: seconds - 1 };
-        if (minutes > 0) return { hours, minutes: minutes - 1, seconds: 59 };
-        if (hours > 0) return { hours: hours - 1, minutes: 59, seconds: 59 };
-        clearInterval(countdown);
-        return { hours: 0, minutes: 0, seconds: 0 };
-      });
-    }, 1000);
-
-    return () => clearInterval(countdown);
-  }, [time]);
-  return (
-    <Container>
-      <Info isPersian={isPersian}>
-        <Price>
-          <h3>{getTranslation("773")}</h3>
-          <Prices>
-            <PriceItem src={rialpng} value={rial} />
-            <img width={1} height={24} src={line} alt="Line" />
-            <PriceItem src={pscpng} value={psc} />
-          </Prices>
-        </Price>
-        <Text>
-          <p
-            dangerouslySetInnerHTML={{
-              __html:
-                information?.length > 277
-                  ? isExpanded
-                    ? SanitizeHTML(information)
-                    : SanitizeHTML(`${information.slice(0, 277)}...`)
-                  : SanitizeHTML(information || ""),
-            }}
-          />
-          {information?.length > 277 && (
-            <span onClick={() => setIsExpanded(!isExpanded)}>
-              {getTranslation(isExpanded ? "884" : "774")}
-            </span>
-          )}
-        </Text>
-      </Info>
-      <ProposalStatus>
-        <p>{getTranslation("777")}</p>
-        <TimeSection>
-          {["hours", "minutes", "seconds"].map((unit, index) => (
-            <TimeBox key={index}>
-              {convertToPersian(time[unit].toString().padStart(2, "0"))}
-              <span>
-                {getTranslation(["560", "33", "778"][index])}
-              </span>
-            </TimeBox>
-          ))}
-        </TimeSection>
-        <Buttons>
-          <RejectButton
-            onClick={() => {
-              onReject();
-              setIsExploding(true);
-              setTimeout(() => setIsExploding(false), 3000);
-            }}
-          >
-            {getTranslation("775")}
-            {isExploding && <ConfettiEffect />}
-          </RejectButton>
-        </Buttons>
-      </ProposalStatus>
-    </Container>
-  );
+const getRemainingTime = (gracePeriod) => {
+  if (!gracePeriod) return { hours: 0, minutes: 0, seconds: 0 };
+  const graceDate = moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate();
+  const diffTime = Math.max(0, graceDate - new Date());
+  return {
+    hours: Math.floor(diffTime / (1000 * 60 * 60)),
+    minutes: Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60)),
+    seconds: Math.floor((diffTime % (1000 * 60)) / 1000),
+  };
 };
 
 const PriceItem = ({ src, value }) => (
   <div>
     <img width={24} height={24} src={src} alt="Currency" />
-    <span>{value}</span>
+    <span>{convertToPersian(value)}</span>
   </div>
 );
 
@@ -188,5 +116,114 @@ const ConfettiEffect = () => (
     }}
   />
 );
+
+const Proposer = ({ item, onRemoved }) => {
+  const [time, setTime] = useState(() =>
+    getRemainingTime(item.requested_grace_period),
+  );
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExploding, setIsExploding] = useState(false);
+  const isPersian = useLanguage();
+  const { Request, checkSecurity } = useRequest();
+  const [Wallet, dispatch] = useContext(WalletContext);
+
+  const information = item.note || "";
+
+  useEffect(() => {
+    if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) return;
+
+    const countdown = setInterval(() => {
+      setTime(({ hours, minutes, seconds }) => {
+        if (seconds > 0) return { hours, minutes, seconds: seconds - 1 };
+        if (minutes > 0) return { hours, minutes: minutes - 1, seconds: 59 };
+        if (hours > 0) return { hours: hours - 1, minutes: 59, seconds: 59 };
+        clearInterval(countdown);
+        return { hours: 0, minutes: 0, seconds: 0 };
+      });
+    }, 1000);
+
+    return () => clearInterval(countdown);
+  }, [time]);
+
+  const handleReject = async () => {
+    if (!checkSecurity()) return;
+    try {
+      const response = await Request(
+        `buy-requests/delete/${item.id}`,
+        "DELETE",
+        {},
+        {},
+        "production",
+      );
+
+      if ([200, 204].includes(response.status)) {
+        setIsExploding(true);
+        setTimeout(() => onRemoved?.(), 1000);
+
+        dispatch({
+          type: WalletContextTypes.ADD_WALLET,
+          payload: {
+            ...Wallet,
+            irr: Wallet.irr + calculateFee(item.price_irr),
+            psc: Wallet.psc + calculateFee(item.price_psc)
+          },
+        });
+      }
+
+
+    } catch (error) {
+      ToastError(error?.response?.data?.message);
+    }
+  };
+
+  return (
+    <Container>
+      <Info isPersian={isPersian}>
+        <Price>
+          <h3>{getTranslation("773")}</h3>
+          <Prices>
+            <PriceItem src={rialpng} value={item.price_irr} />
+            <img width={1} height={24} src={line} alt="Line" />
+            <PriceItem src={pscpng} value={item.price_psc} />
+          </Prices>
+        </Price>
+        <Text>
+          <p
+            dangerouslySetInnerHTML={{
+              __html:
+                information.length > 277
+                  ? isExpanded
+                    ? SanitizeHTML(information)
+                    : SanitizeHTML(`${information.slice(0, 277)}...`)
+                  : SanitizeHTML(information),
+            }}
+          />
+          {information.length > 277 && (
+            <span onClick={() => setIsExpanded(!isExpanded)}>
+              {getTranslation(isExpanded ? "884" : "774")}
+            </span>
+          )}
+        </Text>
+      </Info>
+      <ProposalStatus>
+        <p>{getTranslation("777")}</p>
+        <TimeSection>
+          {["hours", "minutes", "seconds"].map((unit, index) => (
+            <TimeBox key={index}>
+              {convertToPersian(time[unit].toString().padStart(2, "0"))}
+              <span>{getTranslation(["560", "33", "778"][index])}</span>
+            </TimeBox>
+          ))}
+        </TimeSection>
+        <Buttons>
+          <RejectButton onClick={handleReject}>
+            {getTranslation("775")}
+            {isExploding && <ConfettiEffect />}
+          </RejectButton>
+        </Buttons>
+      </ProposalStatus>
+    </Container>
+  );
+};
 
 export default Proposer;
