@@ -1,23 +1,23 @@
 import Modal from "../../components/Modal";
 import Tabs from "../../services/Hooks/useTabs/index";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 export default function Settings() {
   const tabs = [
     {
       path: "public",
-      title: getFieldTranslationByNames("639"),
+      title: getTranslation("639"),
     },
     {
       path: "account",
-      title: getFieldTranslationByNames("640"),
+      title: getTranslation("640"),
     },
     {
       path: "security",
-      title: getFieldTranslationByNames("641"),
+      title: getTranslation("641"),
     },
     {
       path: "about",
-      title: getFieldTranslationByNames("95"),
+      title: getTranslation("95"),
     },
   ];
 

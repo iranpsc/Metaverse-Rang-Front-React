@@ -1,173 +1,55 @@
+// RecievedSuggestion.jsx
 import Suggestion from "./Suggestion";
 import Title from "../../../../../components/Title";
-import meter from "../../../../../assets/images/profile/meter.png";
 import { useState, useEffect, useRef } from "react";
 import { Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useLocation } from "react-router-dom";
-import moment from "moment-jalaali";
-import {
-  getFieldTranslationByNames,
-  ToastError,
-} from "../../../../../services/Utility/index";
+import { getTranslation } from "../../../../../services/Utility/index";
 import Container from "../../../../../components/Common/Container";
 
 const RecievedSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { Request, checkSecurity } = useRequest();
-  const location = useLocation();
-  const [isExploding, setIsExploding] = useState(false);
-  const [isExplodingAccept, setIsExplodingAccept] = useState(false);
-
+  const { Request } = useRequest();
   const containerRef = useRef(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchSuggestions = async () => {
       setLoading(true);
       try {
         const response = await Request("buy-requests/recieved", "GET");
         const data = response?.data?.data;
 
-        if (Array.isArray(data)) {
-          const formattedSuggestions = data.map((item) => {
-            const {
-              area = 0,
-              density = 0,
-              karbari = "",
-              address,
-              id,
-              stability,
-              price_psc,
-            } = item.feature_properties || {};
-            const gracePeriod = item.requested_grace_period || null;
+        if (!Array.isArray(data)) {
+          console.error("Invalid data format from API:", response?.data);
+          return;
+        }
 
-            const remainingDays = gracePeriod
-              ? Math.ceil(
-                  (moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate() -
-                    new Date()) /
-                    (1000 * 60 * 60 * 24),
-                )
-              : null;
-
-            const gracePeriodRemainingDays =
-              remainingDays <= 0 ? 0 : remainingDays;
-
-            const karbariValues = { t: 30000, m: 10000, a: 60000 };
-            const karbariValue = karbariValues[karbari] || 0;
-
-            const adjustedIrrPrice = item.price_irr * 0.95;
-            const adjustedPscPrice = item.price_psc * 0.95;
-            const baseIrrPrice = area * density * karbariValue;
-            const totalBaseIrr = baseIrrPrice;
-            const totalSuggestedIrr = adjustedPscPrice * 900 + adjustedIrrPrice;
-            const totalPriceDiffPercent = totalBaseIrr
-              ? ((totalSuggestedIrr - totalBaseIrr) / totalBaseIrr) * 100
-              : 0;
-
-            return {
-              id: item.id,
-              karbari: karbariValue,
-              property: {
-                image: meter,
-                location: address,
-                code: id,
-                value: stability || 0,
-                rial: price_psc > 0 ? 0 : totalBaseIrr,
-                psc: isNaN(price_psc) ? "0.00" : Number(price_psc).toFixed(2),
-                profile_photo: item.buyer?.profile_photo || "",
-                coordinates: item.feature_coordinates || [],
-                karbari,
-                gracePeriod: gracePeriodRemainingDays,
-              },
-              suggestions_list: [
-                {
-                  id: item.id,
-                  code: item.buyer?.code,
-                  date: item.created_at,
-                  rial: adjustedIrrPrice,
-                  psc: adjustedPscPrice,
-                  percent: totalPriceDiffPercent.toFixed(2),
-                  information: item.note || "",
-                },
-              ],
-            };
-          });
-
-          setSuggestions(formattedSuggestions);
-        } else {
-          console.error("Invalid data format from API:", response.data);
+        if (isMounted) {
+          setSuggestions(data);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchSuggestions();
-  }, [location,Request]);
 
-  const handleRejectProposal = async (suggestionId) => {
-    try {
-      if (!checkSecurity()) return;
-      const response = await Request(
-        `buy-requests/reject/${suggestionId}`,
-        "POST",
-      );
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
-      if ([200, 204].includes(response.status)) {
-        setSuggestions((prev) => prev.filter((s) => s.id !== suggestionId));
-      } else {
-        console.error("Error deleting suggestion:", response);
-      }
-    } catch (error) {
-      ToastError(error.response.data.message);
-    }
-    setIsExploding(!isExploding);
-  };
-
-  const handleAcceptProposal = async (suggestionId, proposerId) => {
-    try {
-      if (!checkSecurity()) return;
-      const response = await Request(
-        `buy-requests/accept/${proposerId}`,
-        "POST",
-      );
-
-      if ([200, 204].includes(response.status)) {
-        setSuggestions((prev) =>
-          prev
-            .map((s) =>
-              s.id === suggestionId
-                ? {
-                    ...s,
-                    suggestions_list: s.suggestions_list.filter(
-                      (item) => item.id !== proposerId,
-                    ),
-                  }
-                : s,
-            )
-            .filter((s) => s.suggestions_list.length > 0),
-        );
-      } else {
-        console.error("Error accepting suggestion:", response);
-      }
-    } catch (error) {
-      ToastError(error.response.data.message);
-    }
-    setIsExplodingAccept(!isExplodingAccept);
-  };
-
-  const validSuggestions = suggestions.filter(
-    (s) => s.suggestions_list?.length > 0,
-  );
-
-  // اسکلتون لودینگ
   if (loading) {
     return (
       <Container ref={containerRef}>
-        <Title right title={getFieldTranslationByNames("764")} />
+        <Title right title={getTranslation("764")} />
         <Wrapper>
           {Array.from({ length: 3 }).map((_, index) => (
             <Suggestion key={index} isLoading={true} />
@@ -179,19 +61,10 @@ const RecievedSuggestion = () => {
 
   return (
     <Container ref={containerRef}>
-      <Title right title={getFieldTranslationByNames("764")} />
+      <Title right title={getTranslation("764")} />
       <Wrapper>
-        {validSuggestions.map((s) => (
-          <div key={s.id} id={`suggestion-${s.id}`}>
-            <Suggestion
-              isExplodingAccept={isExplodingAccept}
-              isExploding={isExploding}
-              {...s}
-              onRejectProposal={handleRejectProposal}
-              onAcceptProposal={(pId) => handleAcceptProposal(s.id, pId)}
-              isLoading={false}
-            />
-          </div>
+        {suggestions.map((item) => (
+          <Suggestion key={item.id} item={item} isLoading={false} />
         ))}
       </Wrapper>
     </Container>

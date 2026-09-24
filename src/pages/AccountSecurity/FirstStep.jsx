@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+
+import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import styled from "styled-components";
 import useRequest from "../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import { useLanguage } from "../../services/reducers/LanguageContext";
 import Button from "../../components/Button";
+
 const Container = styled.div`
   margin-top: 20px;
 
@@ -13,6 +15,7 @@ const Container = styled.div`
     font-size: 16px;
     font-weight: 400;
   }
+
   p {
     color: ${(props) => props.theme.colors.newColors.otherColors.gray};
     font-size: 16px;
@@ -71,13 +74,16 @@ const Container = styled.div`
     }
   }
 `;
+
 const ButtonContainer = styled.div`
   display: flex;
   gap: 3px;
 `;
+
 const Div = styled.div`
   height: fit-content;
   position: relative;
+
   div {
     position: absolute;
     ${(props) => (props.isPersian ? "left" : "right")}: 8px;
@@ -92,6 +98,7 @@ const Div = styled.div`
     }
   }
 `;
+
 const Up = styled.span`
   user-select: none;
   display: inline-flex;
@@ -127,55 +134,86 @@ const Min = styled.span`
 
 const FirstStep = ({ setStep, time, setTime }) => {
   const [phone, setPhone] = useState(true);
-  const [formData, setFormData] = useState({ phone: "", time: time });
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    phone: "",
+    time: time,
+  });
+
   const { Request, HTTP_METHOD } = useRequest();
   const isPersian = useLanguage();
+
   const onSendHandler = () => {
+    if (loading) return;
+
     let sendTime = time;
+
     if (Number(sendTime) < 5) {
       sendTime = 5;
       setTime(5);
     }
-    if (phone) {
-      Request("account/security", HTTP_METHOD.POST, { time: sendTime })
-        .then(() => {
-          setStep(2);
-        })
-        .catch((error) => {
-          if (error.response.status === 422) {
-            setPhone(false);
-          }
-        });
-    } else {
-      Request("account/security", HTTP_METHOD.POST, {
-        ...formData,
-        time: sendTime,
-      }).then(() => {
+
+    setLoading(true);
+
+    const requestData = phone
+      ? { time: sendTime }
+      : {
+          ...formData,
+          time: sendTime,
+        };
+
+    Request(
+      "account/security",
+      HTTP_METHOD.POST,
+      requestData
+    )
+      .then(() => {
         setStep(2);
+      })
+      .catch((error) => {
+        if (error?.response?.status === 422) {
+          setPhone(false);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    }
   };
 
   const handleInputChange = (e) => {
-    setFormData({ [e.target.name]: e.target.value, time: time });
+    setFormData({
+      [e.target.name]: e.target.value,
+      time: time,
+    });
   };
 
-  const isTimeValid = time !== "" && time !== null && Number(time) >= 5;
+  const isTimeValid =
+    time !== "" &&
+    time !== null &&
+    Number(time) >= 5;
+
   const isPhoneValid =
     phone ||
-    (formData.phone &&
-      formData.phone.length === 11);
+    (formData.phone && formData.phone.length === 11);
+
   const isSubmitDisabled = !isTimeValid || !isPhoneValid;
+
   return (
     <Container
       as="form"
       onSubmit={(e) => {
         e.preventDefault();
+
+        if (loading) return;
+
         if (time === "" || time == null) {
           return;
         }
+
         if (Number(time) < 5) {
           setTime(5);
+
           setTimeout(() => {
             onSendHandler();
           }, 0);
@@ -184,22 +222,28 @@ const FirstStep = ({ setStep, time, setTime }) => {
         }
       }}
     >
-      <h3>{getFieldTranslationByNames("858")}</h3>
-      <p>{getFieldTranslationByNames("32")}</p>
+      <h3>{getTranslation("858")}</h3>
+
+      <p>{getTranslation("32")}</p>
+
       <Div isPersian={isPersian}>
         <ButtonContainer>
           <Up
             onClick={() =>
               setTime((prev) => {
                 if (prev === "" || prev == null) return 5;
+
                 const next = +prev + 1;
+
                 if (next > 60) return 60;
+
                 return Math.max(5, next);
               })
             }
           >
             <MdKeyboardArrowUp />
           </Up>
+
           <Down
             onClick={() => {
               if (time > 5) {
@@ -208,13 +252,14 @@ const FirstStep = ({ setStep, time, setTime }) => {
             }}
           >
             <MdKeyboardArrowDown />
-          </Down>{" "}
+          </Down>
         </ButtonContainer>
 
         <input
           value={time}
           onChange={(e) => {
             let value = e.target.value;
+
             value = value.replace(/[^\d]/g, "");
 
             if (value === "") {
@@ -242,9 +287,10 @@ const FirstStep = ({ setStep, time, setTime }) => {
           type="text"
           inputMode="numeric"
           name="time"
-          placeholder={getFieldTranslationByNames("858")}
+          placeholder={getTranslation("858")}
           maxLength={2}
         />
+
         {!phone && (
           <input
             type="text"
@@ -254,10 +300,13 @@ const FirstStep = ({ setStep, time, setTime }) => {
             value={formData.phone}
             onChange={(e) => {
               let value = e.target.value;
+
               value = value.replace(/[^0-9]/g, "");
+
               if (value.length > 11) {
                 value = value.slice(0, 11);
               }
+
               handleInputChange({
                 target: {
                   name: "phone",
@@ -267,6 +316,7 @@ const FirstStep = ({ setStep, time, setTime }) => {
             }}
             onKeyDown={(e) => {
               const invalidKeys = [".", "٫", "e", "E", "-", "+", " "];
+
               if (invalidKeys.includes(e.key)) {
                 e.preventDefault();
               }
@@ -274,17 +324,22 @@ const FirstStep = ({ setStep, time, setTime }) => {
             maxLength={11}
           />
         )}
+
         {time !== "" && (
-          <Min isPersian={isPersian}>{getFieldTranslationByNames("33")}</Min>
+          <Min isPersian={isPersian}>
+            {getTranslation("33")}
+          </Min>
         )}
       </Div>
+
       <Button
-        label={getFieldTranslationByNames("859")}
+        label={getTranslation("859")}
         type="submit"
-        disabled={isSubmitDisabled}
+        disabled={loading ? "pending" : isSubmitDisabled}
       />
     </Container>
   );
 };
 
 export default FirstStep;
+

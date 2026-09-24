@@ -3,7 +3,6 @@ import ChangeCard from "./ChangeCard";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 import { Skeleton } from "../../../../components/Skeleton";
 
@@ -52,14 +51,9 @@ const AccountTab = () => {
   const [loading, setLoading] = useState(true);
   const { Request } = useRequest();
 
-  const [mobileChange, setMobileChange] = useState({
-    title: "625",
-    warn: "",
-    inputs: [
-      { id: 1, type: "number", label: "631", value: "" },
-      { id: 2, type: "number", label: "34", value: "" },
-    ],
-  });
+  const mobileChange = {
+    inputs: [{ id: "phone", type: "number", label: "631", value: "" }],
+  };
 
   useEffect(() => {
     Request("settings")
@@ -71,62 +65,47 @@ const AccountTab = () => {
       });
   }, []);
 
-  useEffect(() => {
-    if (Object.keys(settings).length > 0) {
-      setMobileChange((prevState) => ({
-        ...prevState,
-        warn: ` ${settings.phone_reset_count}  ${getFieldTranslationByNames(
-          "1364"
-        )}`,
-      }));
-    }
-  }, [settings]);
+  const handleResetMobileSuccess = (nextResetCount) => {
+    setSettings((prevSettings) => ({
+      ...prevSettings,
+      available_reset_mobile_resets: nextResetCount,
+    }));
+  };
 
   // اسکلتون لودینگ - دقیقاً شبیه تصویر
   if (loading) {
     return (
       <GridContainer>
-        {/* کارت سمت چپ: تغییر شماره موبایل */}
         <SkeletonChangeCard>
-          {/* عنوان */}
           <Skeleton width="250px" height="24px" radius="4px" />
-          
-          {/* متن توضیحی */}
           <Skeleton width="200px" height="14px" radius="4px" />
-          
-          {/* شماره تلفن جدید */}
+
           <SkeletonRow>
             <Skeleton width="120px" height="16px" radius="4px" />
             <Skeleton width="80px" height="16px" radius="4px" />
           </SkeletonRow>
-          
-          {/* تایید */}
+
           <SkeletonRow>
             <Skeleton width="60px" height="16px" radius="4px" />
             <Skeleton width="80px" height="16px" radius="4px" />
           </SkeletonRow>
-          
-          {/* دکمه ذخیره با چکباکس */}
+
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Skeleton width="20px" height="20px" radius="4px" />
             <Skeleton width="80px" height="16px" radius="4px" />
           </div>
         </SkeletonChangeCard>
 
-        {/* کارت سمت راست: متغیرهای الزامی */}
         <SkeletonBankCard>
-          {/* عنوان */}
           <Skeleton width="150px" height="24px" radius="4px" />
-          
-          {/* شماره کارت */}
+
           <SkeletonDivider>
             <SkeletonRow>
               <Skeleton width="100px" height="16px" radius="4px" />
               <Skeleton width="40px" height="20px" radius="4px" />
             </SkeletonRow>
           </SkeletonDivider>
-          
-          {/* زمان تسویه حساب */}
+
           <SkeletonDivider>
             <div style={{ marginBottom: "8px" }}>
               <Skeleton width="130px" height="16px" radius="4px" />
@@ -136,16 +115,14 @@ const AccountTab = () => {
               <Skeleton width="40px" height="20px" radius="4px" />
             </SkeletonRow>
           </SkeletonDivider>
-          
-          {/* خروج اتوماتیک */}
+
           <SkeletonDivider>
             <SkeletonRow>
               <Skeleton width="200px" height="16px" radius="4px" />
               <Skeleton width="40px" height="20px" radius="4px" />
             </SkeletonRow>
           </SkeletonDivider>
-          
-          {/* دکمه ذخیره */}
+
           <Skeleton width="100%" height="45px" radius="8px" />
         </SkeletonBankCard>
       </GridContainer>
@@ -155,11 +132,11 @@ const AccountTab = () => {
   return (
     <GridContainer>
       <ChangeCard
-        title={mobileChange.title}
-        warn={mobileChange.warn}
         inputs={mobileChange.inputs}
+        availableResetMobileResets={settings.available_reset_mobile_resets}
+        onResetMobileSuccess={handleResetMobileSuccess}
       />
-      <Bank />
+      <Bank settings={settings} />
     </GridContainer>
   );
 };

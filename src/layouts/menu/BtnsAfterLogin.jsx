@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import HomeIcon from "../../assets/svg/home.svg";
 import NewsIcon from "../../assets/svg/news.svg";
 import BlogIcon from "../../assets/svg/blogs.svg";
@@ -11,37 +10,35 @@ import ContactIcon from "../../assets/svg/contact.svg";
 import CitizenIcon from "../../assets/svg/profileMember.svg";
 import CalendarIcon from "../../assets/svg/calendar.svg";
 import { useMenuContext } from "../../services/reducers/MenuContext";
-import Tippy from "@tippyjs/react";
-import "tippy.js/animations/scale.css";
-import { useTranslation } from "react-i18next";
+import ToolTip from "../../components/Tooltip";
+
+import i18n from "../../i18n/i18n";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
   width: 100%;
+  white-space: nowrap;
   overflow-y: auto;
 
-  /* Scrollbar styles for this component */
   &::-webkit-scrollbar {
     width: 6px;
   }
 
-  /* Track */
   &::-webkit-scrollbar-track {
     background-color: ${(props) => props.theme.colors.primary};
   }
 
-  /* Handle */
   &::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.colors.primary};
     border-radius: 10px;
   }
 
-  /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
     background-color: #999;
   }
+
   margin-bottom: auto;
   margin-top: 25px;
 `;
@@ -51,7 +48,7 @@ const Btn = styled.a`
   width: 100%;
   background-color: transparent;
   align-items: center;
-  justify-content: ${(props) => (props.isOpen ? "start" : "center")};
+  justify-content: ${(props) => (props.$isOpen ? "start" : "center")};
   gap: 16.865px;
   padding: 0 10px;
   border: none;
@@ -69,127 +66,95 @@ const Text = styled.p`
   font-weight: 500;
   line-height: 180%;
   font-size: 14px;
+
   @media (min-width: 1024px) {
     font-size: 16px;
   }
-  display: ${(props) => (props.isOpen ? "block" : "none")};
-`;
-const createSVG = (color) => ``;
-const Tooltip = styled.div`
-  width: 146px;
-  height: 40px;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.iconBg};
 
-  border-radius: 10px;
-  color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
-
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 180%; /* 36px */
-  text-transform: capitalize;
-  @media (min-width: 1024px) {
-    display: flex;
-  }
-  ::after {
-    content: "";
-    position: absolute;
-    background: ${(props) => `url('${createSVG(props.theme.tooltipBg)}')`};
-    width: 9px;
-    height: 40px;
-    right: -8px;
-    left: -8px;
-    rotate: ${(props) => (props.lang == "en" ? "0" : "180deg")};
-  }
+  display: ${(props) => (props.$isOpen ? "block" : "none")};
 `;
-const menuItems = [
-  { icon: HomeIcon, translationId: "149", link: "https://metarang.com/" },
-  {
-    icon: NewsIcon,
-    translationId: "255",
-    link: "https://metatimes.ir/",
-  },
-  {
-    icon: BlogIcon,
-    translationId: "258",
-    link: "https://metarang.com/fa/articles",
-  },
-  // {
-  //   icon: ChallengeIcon,
-  //   translationId: "297",
-  //   link: "https://metarang.com/home-competitions",
-  // },
-  {
-    icon: TrainingIcon,
-    translationId: "165",
-    link: "https://metarang.com/fa/education",
-  },
-  {
-    icon: AboutIcon,
-    translationId: "259",
-    link: "https://metarang.com/fa/about",
-  },
-  {
-    icon: ContactIcon,
-    translationId: "260",
-    link: "https://metarang.com/fa/contact",
-  },
-  {
-    icon: RobotIcon,
-    translationId: "574",
-    link: "https://metarang.com/fa/version",
-  },
-  {
-    icon: CalendarIcon,
-    translationId: "262",
-    link: "https://metarang.com/fa/calendar",
-  },
-  {
-    icon: CitizenIcon,
-    translationId: "263",
-    link: "https://metarang.com/fa/citizens",
-  },
-];
 
 const BtnsAfterLogin = () => {
   const { isOpen } = useMenuContext();
-  const lang = useTranslation();
+  const lang = i18n.language;
+
+  const baseURL = `https://metarang.com/${lang}`;
+
+  const menuItems = [
+    {
+      icon: HomeIcon,
+      translationId: "149",
+      link: baseURL,
+    },
+    {
+      icon: NewsIcon,
+      translationId: "255",
+      link: "https://metatimes.ir/",
+    },
+    {
+      icon: BlogIcon,
+      translationId: "258",
+      link: `${baseURL}/articles`,
+    },
+    {
+      icon: TrainingIcon,
+      translationId: "165",
+      link: `${baseURL}/education`,
+    },
+    {
+      icon: AboutIcon,
+      translationId: "259",
+      link: `${baseURL}/about`,
+    },
+    {
+      icon: ContactIcon,
+      translationId: "260",
+      link: `${baseURL}/contact`,
+    },
+    {
+      icon: RobotIcon,
+      translationId: "574",
+      link: `${baseURL}/version`,
+    },
+    {
+      icon: CalendarIcon,
+      translationId: "262",
+      link: `${baseURL}/calendar`,
+    },
+    {
+      icon: CitizenIcon,
+      translationId: "263",
+      link: `${baseURL}/citizens`,
+    },
+  ];
+
   return (
     <Container>
-      {menuItems.map((item, index) => (
-        <Tippy
-          content={
-            <Tooltip lang={lang.i18n.language}>
-              {getFieldTranslationByNames(item.translationId)}
-            </Tooltip>
-          }
-          zIndex={10000}
-          placement="left"
-          interactive={true}
-          delay={50}
-          animation="scale"
-          key={index}
-        >
+      {menuItems.map((item) => {
+        const title = getTranslation(item.translationId);
+
+        const button = (
           <Btn
-            key={index}
-            isOpen={isOpen}
+            $isOpen={isOpen}
             href={item.link}
-            target={"_blank"}
+            target="_blank"
             rel="noreferrer"
           >
             <Icon src={item.icon} />
-            <Text isOpen={isOpen}>
-              {getFieldTranslationByNames(item.translationId)}
-            </Text>
+            <Text $isOpen={isOpen}>{title}</Text>
           </Btn>
-        </Tippy>
-      ))}
+        );
+
+        return (
+          <ToolTip
+            disabled={isOpen} 
+            key={item.translationId}
+            TitleToltip={title}
+            classNamePosstion=""
+            Chidren={button}
+          />
+        );
+      })}
     </Container>
   );
 };

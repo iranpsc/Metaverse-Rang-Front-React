@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import FilterIcon from "../../assets/svg/filter.svg?react";
 import LocationIcon from "../../assets/svg/location.svg?react";
 import useRequest from "../../services/Hooks/useRequest";
 import { useMapData } from "../../services/reducers/mapContext";
-import Tippy from "@tippyjs/react";
-import "tippy.js/animations/scale.css";
-import { useTranslation } from "react-i18next";
 const Btn = styled.div`
   display: flex;
   align-items: center;
@@ -29,9 +26,9 @@ const IconFilter = styled(FilterIcon)`
 const IconLocation = styled(LocationIcon)`
   width: 14px;
   height: 16px;
-  fill: ${(props) => (props.active ? props.theme.colors.primary : "#868B90")};
+  fill: ${(props) => (props.$active ? props.theme.colors.primary : "#868B90")};
 
-  fill-opacity: ${(props) => (props.active ? "1" : "0.5")};
+  fill-opacity: ${(props) => (props.$active ? "1" : "0.5")};
   cursor: pointer;
 `;
 const TitleFlag = styled.p`
@@ -51,39 +48,12 @@ const ContainerIcon = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const Tooltip = styled.div`
-  width: 146px;
-  height: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.menuBg};
-  border-radius: 10px;
-  color: #868b90;
 
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 180%; /* 36px */
-  text-transform: capitalize;
-  ::after {
-    content: "";
-    position: absolute;
-    width: 9px;
-    height: 40px;
-    right: ${(props) => (props.lang == "en" ? "-8px" : "auto")};
-    left: ${(props) => (props.lang == "en" ? "auto" : "-8px")};
-    rotate: ${(props) => (props.lang == "en" ? "180deg" : "0")};
-  }
-`;
 const BtnFlagMap = () => {
   const { flags, setFlags, setPolygons } = useMapData();
   const [activeMapIds, setActiveMapIds] = useState([]);
   const { Request } = useRequest();
-  const { i18n } = useTranslation();
+
   useEffect(() => {
     async function fetchMap() {
       const response = await Request("maps");
@@ -131,30 +101,21 @@ const BtnFlagMap = () => {
         const isActive = activeMapIds.includes(flag.id);
 
         return (
-          <Tippy
-            key={flag.id}
-            content={<Tooltip lang={i18n.language}>{flag.name}</Tooltip>}
-            zIndex={10000}
-            placement="right"
-            interactive
-            delay={50}
-            animation="scale"
-          >
-            <Btn className={isActive ? "active" : ""}>
-              <ContainerIcon>
-                <IconFilter />
-                <IconLocation
-                  active={isActive}
-                  onClick={() => handleClick(flag.id)}
-                />
-              </ContainerIcon>
+          <Btn key={flag.id} className={isActive ? "active" : ""}>
+            <ContainerIcon>
+              <IconFilter />
+              <IconLocation
+                $active={isActive}
+                onClick={() => handleClick(flag.id)}
+              />
+            </ContainerIcon>
 
-              <TitleFlag>{flag.name}</TitleFlag>
-            </Btn>
-          </Tippy>
+            <TitleFlag>{flag.name}</TitleFlag>
+          </Btn>
         );
       })}
     </>
   );
 };
+
 export default BtnFlagMap;

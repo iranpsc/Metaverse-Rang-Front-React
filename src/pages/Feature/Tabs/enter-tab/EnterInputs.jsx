@@ -1,4 +1,4 @@
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import Input from "./Input";
 import styled from "styled-components";
 
@@ -19,7 +19,7 @@ const EnterInputs = ({ data }) => {
             (
               <Input
                 {...input}
-                title={getFieldTranslationByNames(input.title)}
+                title={getTranslation(input.title)}
                 key={input.id}
               />
             )

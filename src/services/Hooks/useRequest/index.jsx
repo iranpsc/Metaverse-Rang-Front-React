@@ -1,75 +1,79 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import axios from "axios";
 import { getItem } from "../../Utility/LocalStorage";
-import { ToastError, getFieldTranslationByNames } from "../../Utility";
+import { ToastError, getTranslation } from "../../Utility";
 import { UserContext } from "../../reducers/UserContext";
-import { useContext } from "react";
+import { useCallback, useContext, useMemo } from "react";
+
+const isProduction = window.location.hostname === "world.metarang.com";
+const PROD_BASE_URL = "https://api.metarang.com/api/";
+const DEV_BASE_URL = "https://dev-api.metarang.com/api/";
+export const BASE_URL = isProduction ? PROD_BASE_URL : DEV_BASE_URL;
 
 export default function useRequest() {
   const navigate = useNavigate();
   const accountSecurity = getItem("account_security")?.account_security;
   const [userInfo] = useContext(UserContext);
 
-  const PROD_BASE_URL = "https://api.metarang.com/api/";
-  const DEV_BASE_URL = "https://api.metarang.com/api/";
+  const HTTP_METHOD = useMemo(
+    () => ({
+      GET: "GET",
+      POST: "POST",
+      PUT: "PUT",
+      DELETE: "DELETE",
+      PATCH: "PATCH",
+    }),
+    [],
+  );
 
-  const HTTP_METHOD = {
-    GET: "GET",
-    POST: "POST",
-    PUT: "PUT",
-    DELETE: "DELETE",
-    PATCH: "PATCH",
-  };
-
-  const checkSecurity = () => {
-    if (userInfo?.has_wallet) {
+  const checkSecurity = useCallback(() => {
+    if (userInfo?.wallet_login) {
       return true;
     }
 
     if (!accountSecurity) {
-      ToastError(getFieldTranslationByNames("1603"));
-      navigate("/confirmation");
+      ToastError(getTranslation("1603"));
+      navigate("/confirmation", {
+        state: {
+          from: window.location.pathname,
+        },
+      });
       return false;
     }
 
     return true;
-  };
+  }, [accountSecurity, navigate, userInfo?.wallet_login]);
 
-  function Request(
-    directory,
-    method = "GET",
-    formData = {},
-    customHeader = {},
-    environment = "production",
-  ) {
-    const user = getItem("user"); // ← هر بار آخرین مقدار را می‌خوانیم
+  const Request = useCallback(
+    (directory, method = "GET", formData = {}, customHeader = {}) => {
+      const user = getItem("user");
+      const finalURL = BASE_URL + directory;
+      const headers = {
+        ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {}),
+        ...customHeader,
+      };
 
-    const BASE_URL =
-      environment === "development" ? DEV_BASE_URL : PROD_BASE_URL;
+      return axios
+        .request({
+          url: finalURL,
+          method,
+          headers,
+          data: method !== HTTP_METHOD.GET ? formData : {},
+        })
+        .then((response) => response)
+        .catch((error) => {
+          if (error.response?.status === 410) {
+            ToastError(getTranslation("1603"));
+          }
 
-    const finalURL = BASE_URL + directory;
+          throw error;
+        });
+    },
+    [HTTP_METHOD],
+  );
 
-    const headers = {
-      ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {}),
-      ...customHeader,
-    };
-
-    return axios
-      .request({
-        url: finalURL,
-        method,
-        headers,
-        data: method !== HTTP_METHOD.GET ? formData : {},
-      })
-      .then((response) => response)
-      .catch((error) => {
-        if (error.response?.status === 410) {
-          ToastError(getFieldTranslationByNames("1603"));
-        }
-
-        throw error;
-      });
-  }
-
-  return { Request, HTTP_METHOD, checkSecurity };
+  return useMemo(
+    () => ({ Request, HTTP_METHOD, checkSecurity }),
+    [Request, HTTP_METHOD, checkSecurity],
+  );
 }

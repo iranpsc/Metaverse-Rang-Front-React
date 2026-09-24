@@ -22,7 +22,7 @@ export const Container = styled.div`
 
 export const Label = styled.div`
   font-weight: 500;
-  white-space: nowrap;
+  white-space: wrap;
   color: ${(props) =>
     props.menu
       ? props.theme.colors.primary

@@ -10,9 +10,9 @@ import  FollowingIcon  from "../../../assets/svg/following.svg?react";
 import { useState } from "react";
 import useRequest from "../../../services/Hooks/useRequest";
 import { useLayoutEffect } from "react";
-import { getFieldTranslationByNames } from "../../../services/Utility";
+import { getTranslation } from "../../../services/Utility";
 const Btn = styled.button`
-  display: ${(props) => (props.isHidden ? "none" : "flex")};
+  display: ${(props) => (props.$isHidden ? "none" : "flex")};
   width: 100%;
   align-items: center;
   justify-content: start;
@@ -20,7 +20,7 @@ const Btn = styled.button`
   padding: 0 10px;
   border: none;
   background: ${(props) =>
-    props.isOpenDrop ? props.theme.openDropDown : "transparent"};
+    props.$isOpenDrop ? props.theme.openDropDown : "transparent"};
   height: 40px;
   border-radius: 10px;
 `;
@@ -33,7 +33,7 @@ const BtnNavigator = styled.button`
   padding: 0 10px;
   border: none;
   background: ${(props) =>
-    props.isOpenDrop ? props.theme.menuBg : "transparent"};
+    props.$isOpenDrop ? props.theme.menuBg : "transparent"};
   height: 40px;
   border-radius: 10px;
   color: #868b90;
@@ -45,7 +45,7 @@ const BtnNavigator = styled.button`
   filter: ${(props) => (props.disabled ? "opacity(0.5)" : "none")};
 `;
 const SubMenu = styled.div`
-  display: ${(props) => (props.isOpenDrop ? "block" : "none")};
+  display: ${(props) => (props.$isOpenDrop ? "block" : "none")};
   width: 100%;
   padding: 0 20px;
 `;
@@ -57,7 +57,7 @@ const IconHeader = styled(FollowingIcon)`
   width: 22px;
   height: 22px;
   fill: ${(props) =>
-    props.isOpenDrop ? "white" : props.theme.btnActiveThemeText};
+    props.$isOpenDrop ? "white" : props.theme.btnActiveThemeText};
 `;
 const Text = styled.p`
   color: #868b90;
@@ -101,32 +101,32 @@ const Follower = () => {
       {following.map((user) => (
         <React.Fragment key={user.id}>
           <Btn
-            isOpenDrop={openDropdowns[user.id]}
+            $isOpenDrop={openDropdowns[user.id]}
             onClick={() => toggleDropdown(user.id)}
           >
-            <IconHeader isOpenDrop={openDropdowns[user.id]} />
-            <Text isOpen={isOpen}>{user?.name}</Text>
+            <IconHeader $isOpenDrop={openDropdowns[user.id]} />
+            <Text $isOpen={isOpen}>{user?.name}</Text>
           </Btn>
-          <SubMenu isOpenDrop={openDropdowns[user.id]} isOpen={isOpen}>
+          <SubMenu $isOpenDrop={openDropdowns[user.id]} $isOpen={isOpen}>
             <BtnNavigator>
               <Icon src={Ticket} />
-              {getFieldTranslationByNames("241")}
+              {getTranslation("241")}
             </BtnNavigator>
             <BtnNavigator disabled>
               <Icon src={Message} />
-              {getFieldTranslationByNames("242")}
+              {getTranslation("242")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={ProfileMember} />
-              {getFieldTranslationByNames("243")}
+              {getTranslation("243")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={CitizenProfile} />
-              {getFieldTranslationByNames("162")}
+              {getTranslation("162")}
             </BtnNavigator>
             <BtnNavigator>
               <Icon src={Share} />
-              {getFieldTranslationByNames("244")}
+              {getTranslation("244")}
             </BtnNavigator>
           </SubMenu>
         </React.Fragment>

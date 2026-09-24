@@ -1,7 +1,7 @@
 import RequestList from '../components/RequestList';
 import RecieveRequestsList from './RecieveRequestsList';
 
-const RecievedList = ({ setShowDetails }) => {
+const RecievedList = ({  }) => {
   return (
     <RequestList
       title={114}

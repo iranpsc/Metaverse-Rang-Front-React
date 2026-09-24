@@ -1,4 +1,4 @@
-import React from "react";
+
 import ArrowUpImage from "../../assets/images/arrow-up.png";
 import ArrowDownImage from "../../assets/images/arrow-down.png";
 

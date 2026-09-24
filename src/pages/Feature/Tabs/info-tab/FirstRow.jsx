@@ -5,7 +5,7 @@ import { MdOutlineHome } from "react-icons/md";
 import styled from "styled-components";
 import TextValueIcon from "../../../../components/TextValueIcon";
 import { COMBINE_FEATURE } from "../../../../services/constants/FeatureType";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const RowWrapper = styled.div`
   display: flex;
@@ -29,13 +29,13 @@ const FirstRow = ({ feature }) => {
   const first_row_info = [
     {
       id: 1,
-      title: getFieldTranslationByNames("1478"),
+      title: getTranslation("1478"),
       value: feature?.properties?.id,
       icon: <MdOutlineHome />,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames("346"),
+      title: getTranslation("346"),
       value:
         feature?.properties?.owner === "rgb"
           ? "سیستم"
@@ -44,7 +44,7 @@ const FirstRow = ({ feature }) => {
     },
     {
       id: 3,
-      title: getFieldTranslationByNames("65"),
+      title: getTranslation("65"),
       value: COMBINE_FEATURE[feature?.properties?.rgb],
       icon: <BsCardChecklist />,
     },

@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig({  
   base: "/",
   plugins: [react(), svgr()],
   resolve: {
@@ -17,7 +17,7 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        sourcemapPathTransform: (relativeSourcePath, sourcemapPath) => {
+        sourcemapPathTransform: (relativeSourcePath) => {
           return `~/${relativeSourcePath}`;
         },
       },

@@ -2,7 +2,7 @@ import { Rnd } from "react-rnd";
 import loader from "../../../../assets/gif/loader.svg";
 import styled from "styled-components";
 import Header from "../../../../components/Education/Header";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const StyledRnd = styled(Rnd)`
   display: flex;
@@ -50,7 +50,7 @@ const LoadingModal = ({ isMobile, setOpen }) => {
       <Header loading title={5151} setOpenEducation={setOpen} />
       <Loader>
         <img src={loader} width={130} height={130} alt="loader" />
-        <Text>{getFieldTranslationByNames("552")}</Text>
+        <Text>{getTranslation("552")}</Text>
       </Loader>
     </StyledRnd>
   );

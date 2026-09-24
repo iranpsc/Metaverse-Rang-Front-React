@@ -7,8 +7,9 @@ import React, {
   useMemo,
 } from "react";
 import Map from "react-map-gl/maplibre";
-import "maplibre-gl/dist/maplibre-gl.css";
-import { useNavigate } from "react-router-dom";
+import { setWorkerUrl } from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css"
+import { useNavigate } from "react-router";
 import { Container } from "./styles";
 import MapPolygons from "./MapPolygons";
 import MapFlag from "./MapFlag";
@@ -23,13 +24,15 @@ import { useScrollDirectionContext } from "../../services/reducers/ScrollDirecti
 import { useTheme } from "../../services/reducers/ThemeContext";
 import styleMapLight from "../../assets/styleMapLight.json";
 import styleMapDark from "../../assets/styleMapDark.json";
+import useMapUrlState, { showPolygons } from "../../services/Hooks/useMapUrlState";
+import { flyToMapPosition } from "../../services/Utility/flyToMapPosition";
 export const TransactionContext = createContext(null);
-
 const MemoMapPolygons = React.memo(MapPolygons);
 const MemoMapFlag = React.memo(MapFlag);
 const MemoMark = React.memo(Mark);
-
+setWorkerUrl("/assets/maplibre-gl-worker.mjs");
 const MapTreeD = () => {
+  const { setMapState, getMapState } = useMapUrlState();
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
@@ -47,7 +50,7 @@ const MapTreeD = () => {
     map.zoomTo(map.getZoom() + delta, { duration: 200 });
   }, []);
 
-  const handleZoomEnd = useCallback(() => {}, []);
+  const handleZoomEnd = useCallback(() => { }, []);
 
   const handleFullscreenToggle = useCallback(() => {
     updateFullScreenMap(!isFullScreenMap);
@@ -95,7 +98,7 @@ const MapTreeD = () => {
 
   useEffect(() => {
     if (isFullScreen && screen.orientation) {
-      screen.orientation.lock("landscape-primary").catch(() => {});
+      screen.orientation.lock("landscape-primary").catch(() => { });
     }
   }, [isFullScreen]);
   useEffect(() => {
@@ -136,6 +139,42 @@ const MapTreeD = () => {
   const [initialStyle] = useState(() =>
     theme === "dark" ? styleMapDark : styleMapLight,
   );
+  const handleMoveEnd = useCallback(() => {
+    if (!initializedRef.current || !mapRef.current) return;
+
+    const map = mapRef.current.getMap();
+    const center = map.getCenter();
+
+    setMapState({
+      lat: center.lat,
+      lng: center.lng,
+      zoom: map.getZoom(),
+      bearing: map.getBearing(),
+      pitch: map.getPitch(),
+    });
+  }, [setMapState]);
+  const initializedRef = useRef(false);
+
+  useEffect(() => {
+    if (!mapLoaded || !mapRef.current || initializedRef.current) return;
+
+    initializedRef.current = true;
+
+    const state = getMapState();
+
+    if (!state) return;
+
+    flyToMapPosition({
+      mapRef,
+      latitude: Number(state.lat),
+      longitude: Number(state.lng),
+      zoom: Number(state.zoom),
+      bearing: Number(state.bearing ?? 0),
+      pitch: Number(state.pitch ?? 40),
+      rotate: false,
+      marker: false,
+    });
+  }, [mapLoaded, getMapState]);
 
   return (
     <AuthMiddleware>
@@ -148,9 +187,12 @@ const MapTreeD = () => {
             style={{ position: "relative", width: "100%", height: "100%" }}
           >
             <Map
+              onMoveEnd={handleMoveEnd}
               ref={mapRef}
               className="map"
-              antialias
+              canvasContextAttributes={{
+                antialias: true,
+              }}
               mapStyle={initialStyle}
               RTLTextPlugin="https://map.irpsc.com/rtl.js"
               interactiveLayerIds={["polygon-fill-layer"]}
@@ -159,7 +201,7 @@ const MapTreeD = () => {
               initialViewState={{
                 latitude: 25.229,
                 longitude: 54.2199,
-                zoom: 14,
+                zoom: showPolygons,
                 pitch: 40,
               }}
               onClick={handleMapClick}
@@ -169,6 +211,7 @@ const MapTreeD = () => {
               {confirmation && selectedEnvironment && !hiddenModel && (
                 <MemoMark />
               )}
+
               <MemoMapPolygons />
               <MemoMapFlag />
             </Map>

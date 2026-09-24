@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import "keen-slider/keen-slider.min.css";
 import "../../../../styles/styles.css";
 

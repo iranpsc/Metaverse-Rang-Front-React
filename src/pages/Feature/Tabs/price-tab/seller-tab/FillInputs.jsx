@@ -1,15 +1,16 @@
 import styled from "styled-components";
+import { useState } from "react";
 import Rial from "../../../../../components/Rial";
 import Psc from "../../../../../components/Psc";
 import Input from "../../../../../components/Input";
 import {
   calculateFee,
-  getFieldTranslationByNames,
+  getTranslation,
+  sanitizePriceInputValue,
+  convertToPersian,
 } from "../../../../../services/Utility";
 import TitleValue from "../../../../../components/TitleValue";
 import Button from "../../../../../components/Button";
-import { useContext } from "react";
-import { FeatureContext } from "../../../Context/FeatureProvider";
 
 const Div = styled.div`
   display: flex;
@@ -21,11 +22,13 @@ const ButtonBox = styled.div`
   display: flex;
   gap: 23px;
 `;
+
 const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 0 0 0 20px;
+
   @media (min-width: 600px) {
     flex-direction: row;
     padding-left: 0;
@@ -36,12 +39,15 @@ const ResultWrapper = styled.div`
   display: grid;
   gap: 20px;
   width: 100%;
+
   @media (min-width: 741px) {
     grid-template-columns: 2fr 1fr;
   }
+
   @media (min-width: 840px) {
     grid-template-columns: 5fr 2fr;
   }
+
   @media (min-width: 1200px) {
     grid-template-columns: 4fr 1fr;
   }
@@ -54,8 +60,8 @@ const Wrapper = styled.div`
   border: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   font-weight: 400;
-  ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   overflow: hidden;
+
   @media (min-width: 998px) {
     height: 48px;
   }
@@ -69,6 +75,7 @@ const Title = styled.h3`
     props.theme.colors.newColors.otherColors.inputBg};
   color: ${(props) => props.theme.colors.newColors.shades.title};
   padding: 5px 20px;
+
   @media (min-width: 998px) {
     padding: 8px 20px;
   }
@@ -76,9 +83,9 @@ const Title = styled.h3`
 
 const Value = styled.p`
   color: ${(props) => props.theme.colors.newColors.shades.title};
-
   font-size: 18px;
   padding: 5px 20px;
+
   @media (min-width: 998px) {
     padding: 8px 20px;
   }
@@ -92,56 +99,93 @@ const FillInputs = ({
   psc,
   setPsc,
 }) => {
-  const [feature] = useContext(FeatureContext);
-  const cancel =
-    +feature?.properties?.price_irr !== 0 ||
-    +feature?.properties?.price_psc !== 0;
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
+  const [isCancelLoading, setIsCancelLoading] = useState(false);
+
+  const cancel = rial !== 0 || psc !== 0;
+
+  const handleRialChange = (e) => {
+    setRial(sanitizePriceInputValue(e.target.value));
+  };
+
+  const handlePscChange = (e) => {
+    setPsc(sanitizePriceInputValue(e.target.value));
+  };
+
+  const handleSubmit = () => {
+    if (isSubmitLoading || isCancelLoading) return;
+
+    setIsSubmitLoading(true);
+
+    // یک tick به React فرصت می‌ده Spinner را render کند
+    setTimeout(() => {
+      validateAndSubmit();
+    }, 0);
+  };
+
+  const handleCancel = () => {
+    if (isSubmitLoading || isCancelLoading) return;
+
+    setIsCancelLoading(true);
+
+    // یک tick به React فرصت می‌ده Spinner را render کند
+    setTimeout(() => {
+      setAssign(true);
+    }, 0);
+  };
+
+  const rialValue = rial === 0 ? "" : rial;
+  const pscValue = psc === 0 ? "" : psc;
 
   return (
     <Div>
       <InputsWrapper>
         <Input
-          value={rial || 0}
+          value={rialValue}
           maxLength={14}
-          onChange={(e) => setRial(e.target.value)}
+          onChange={handleRialChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
-            "521",
-          )} (${getFieldTranslationByNames("48")})`}
+          placeholder={`${getTranslation("521")} (${getTranslation("48")})`}
           insideText={<Rial />}
         />
+
         <Input
           maxLength={14}
-          value={psc}
-          onChange={(e) => setPsc(e.target.value)}
+          value={pscValue}
+          onChange={handlePscChange}
           type="number"
-          placeholder={`${getFieldTranslationByNames(
-            "521",
-          )} (${getFieldTranslationByNames("47")})`}
+          placeholder={`${getTranslation("521")} (${getTranslation("47")})`}
           insideText={<Psc />}
         />
       </InputsWrapper>
+
       <ResultWrapper>
         <Wrapper>
-          <Title>{getFieldTranslationByNames("522")}</Title>
+          <Title>{getTranslation("522")}</Title>
+
           <Value>
-            {calculateFee(rial) || 0} IRR / {calculateFee(psc) || 0} PSC
+            {convertToPersian(calculateFee(rial) || 0)} IRR /{" "}
+            {convertToPersian(calculateFee(psc) || 0)} PSC
           </Value>
         </Wrapper>
-        <TitleValue title={getFieldTranslationByNames("523")} value="5%" />
+
+        <TitleValue title={getTranslation("523")} value="5%" />
       </ResultWrapper>
+
       <ButtonBox>
-        {" "}
         <Button
-          label={getFieldTranslationByNames("519")}
-          onclick={validateAndSubmit}
+          label={getTranslation("519")}
+          onclick={handleSubmit}
+          disabled={isSubmitLoading ? "pending" : false}
         />
+
         {cancel && (
           <Button
             color="red"
             edit
-            label={getFieldTranslationByNames("833")}
-            onclick={() => setAssign(true)}
+            label={getTranslation("833")}
+            onclick={handleCancel}
+            disabled={isCancelLoading ? "pending" : false}
           />
         )}
       </ButtonBox>

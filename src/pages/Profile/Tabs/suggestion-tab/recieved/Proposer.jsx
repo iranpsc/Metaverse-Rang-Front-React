@@ -1,16 +1,22 @@
+// Proposer.jsx
 import Button from "../../../../../components/Button";
 import ConfettiExplosion from "react-confetti-explosion";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import {
   convertToPersian,
-  getFieldTranslationByNames,
+  getTranslation,
   SanitizeHTML,
+  ToastError,
+  metarangUrlCitizen,
+  pscToIrr,
+  formatNumber,
 } from "../../../../../services/Utility/index";
 import line from "../../../../../assets/images/profile/Line.png";
 import pscpng from "../../../../../assets/images/profile/psc.gif";
 import rialpng from "../../../../../assets/images/profile/rial.gif";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import moment from "moment-jalaali";
 import { useLanguage } from "../../../../../services/reducers/LanguageContext";
 import {
   Info,
@@ -22,6 +28,10 @@ import {
 } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
 import DefaultProfile from "../../../../../assets/images/defulte-profile.png";
+import {
+  WalletContext,
+  WalletContextTypes,
+} from "../../../../../services/reducers/WalletContext";
 const Price = BasePrice;
 const ProposalStatus = styled.div``;
 
@@ -73,7 +83,7 @@ const Days = styled.div`
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
   button {
     background-color: ${(props) =>
-      props.theme.colors.newColors.otherColors.iconBg};
+    props.theme.colors.newColors.otherColors.iconBg};
     white-space: nowrap;
     font-size: 16px;
     padding: 8px;
@@ -110,40 +120,104 @@ const StyledArrowUp = styled(MdOutlineKeyboardArrowUp)`
   color: ${({ percent }) => (percent > 0 ? "#18C08F" : "#FF0000")};
   rotate: ${({ percent }) => (percent > 0 ? "" : "180deg")};
 `;
-const Proposer = ({
-  code,
-  date,
-  rial,
-  psc,
-  information,
-  percent,
-  onReject,
-  onAccept,
-  property,
-  id,
-  isExploding,
-  isExplodingAccept,
-}) => {
-  const [day, setDay] = useState(property.gracePeriod || 0);
+
+// محاسبه روزهای باقیمانده مهلت فقط برای نمایش (فرمت تاریخ)، نه نرمالایز بیزینسی
+const getGraceRemainingDays = (gracePeriod) => {
+  if (!gracePeriod) return 0;
+  const remaining = Math.ceil(
+    (moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate() - new Date()) /
+    (1000 * 60 * 60 * 24),
+  );
+  return remaining <= 0 ? 0 : remaining;
+};
+
+const Proposer = ({ item, onRemoved }) => {
+  const [day, setDay] = useState(() =>
+    getGraceRemainingDays(item.requested_grace_period),
+  );
+  const [Wallet, dispatch] = useContext(WalletContext);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isExploding, setIsExploding] = useState(false);
+  const [isExplodingAccept, setIsExplodingAccept] = useState(false);
+
   const isPersian = useLanguage();
   const { Request, checkSecurity } = useRequest();
- 
+  const calculatePercentDiff = (item) => {
+    const baseIrr = +item.price_irr || 0;
+    const basePsc = pscToIrr(item.price_psc);
+    const suggestedIrr = +item.feature_properties?.price_irr;
+    const suggestedPsc = pscToIrr(item.feature_properties?.price_psc);
+    const baseTotal = baseIrr + basePsc;
+    const suggestedTotal = suggestedIrr + suggestedPsc;
+
+    if (!baseTotal) return 0;
+
+    return ((suggestedTotal - baseTotal) / baseTotal) * 100;
+  };
+
+  const information = item.note || "";
+  const percent = calculatePercentDiff(item);
+
   const handleGracePeriod = async (selectedDay) => {
-    if (!id) return console.error("Error: id is undefined!");
+    if (!item?.id) {
+      console.error("Error: id is undefined!");
+      return;
+    }
     try {
       if (!checkSecurity()) return;
 
+      const formData = new FormData();
+      formData.append("grace_period", selectedDay);
+
       await Request(
-        `buy-requests/add-grace-period/${id}`,
+        `buy-requests/add-grace-period/${item.id}`,
         "POST",
-        new FormData().append("grace_period", selectedDay.toString()),
-        {
-          headers: { "Content-Type": "application/json" },
-        },
+        formData,
+        {},
         "production",
       );
+
       setDay(selectedDay);
+    } catch (error) {
+      ToastError(error?.response?.data?.message);
+    }
+  };
+
+  const handleReject = async () => {
+    try {
+      if (!checkSecurity()) return;
+      const response = await Request(`buy-requests/reject/${item.id}`, "POST");
+
+      if ([200, 204].includes(response.status)) {
+        setIsExploding(true);
+        setTimeout(() => onRemoved?.(), 300);
+      }
+    } catch (error) {
+      ToastError(error?.response?.data?.message);
+    }
+  };
+
+  const handleAccept = async () => {
+    try {
+      if (!checkSecurity()) return;
+      const response = await Request(`buy-requests/accept/${item.id}`, "POST");
+
+      if ([200, 204].includes(response.status)) {
+        setIsExplodingAccept(true);
+        setTimeout(() => onRemoved?.(), 100);
+
+        dispatch({
+          type: WalletContextTypes.ADD_WALLET,
+          payload: {
+            ...Wallet,
+            irr: Wallet.irr + +item.feature_properties.price_irr,
+            psc: Wallet.psc + +item.feature_properties.price_psc
+          },
+        });
+      }
+
+
+
     } catch (error) {
       ToastError(error?.response?.data?.message);
     }
@@ -155,8 +229,8 @@ const Proposer = ({
         <Header>
           <Person>
             <img
-              src={property.profile_photo || DefaultProfile}
-              alt={code}
+              src={item.buyer?.profile_photo || DefaultProfile}
+              alt={item.buyer?.code}
               width={60}
               height={60}
               onError={(e) => {
@@ -164,38 +238,43 @@ const Proposer = ({
               }}
             />
             <div>
-              <p>{getFieldTranslationByNames("768")}</p>
-              <a
-                target="blank"
-                href={`https://metarang.com/fa/citizen/${code}`}
-              >
-                {code.toUpperCase()}
+              <p>{getTranslation("768")}</p>
+              <a target="blank" href={metarangUrlCitizen(item.buyer?.code)}>
+                {item.buyer?.code?.toUpperCase?.()}
               </a>
             </div>
           </Person>
           <Time>
             <div>
-              <p>{getFieldTranslationByNames("769")}</p>
-              <h3>{convertToPersian(date)}</h3>
+              <p>{getTranslation("769")}</p>
+              <h3>{convertToPersian(item.created_at)}</h3>
             </div>
           </Time>
         </Header>
         <Price percent={percent}>
-          <h3>{getFieldTranslationByNames("773")}</h3>
+          <h3>{getTranslation("773")}</h3>
           <Prices percent={percent}>
             <div>
               <img width={24} height={24} src={rialpng} />
-              <span>{convertToPersian(rial)}</span>
+              <span>
+                {convertToPersian(
+                  formatNumber(item.feature_properties.price_irr),
+                )}
+              </span>
             </div>
             <img width={1} height={24} src={line} />
             <div>
               <img width={24} height={24} src={pscpng} />
-              <span>{convertToPersian(psc)}</span>
+              <span>
+                {convertToPersian(
+                  formatNumber(item.feature_properties.price_psc),
+                )}
+              </span>
             </div>
             <img width={1} height={24} src={line} />
             <div>
               <StyledArrowUp percent={percent} />
-              <h3>{convertToPersian(Math.abs(percent))}%</h3>
+              <h3>{convertToPersian(formatNumber(Math.abs(percent)))}%</h3>
             </div>
           </Prices>
         </Price>
@@ -203,16 +282,16 @@ const Proposer = ({
           <p
             dangerouslySetInnerHTML={{
               __html:
-                information?.length > 277
+                information.length > 277
                   ? isExpanded
                     ? SanitizeHTML(information)
                     : SanitizeHTML(`${information.slice(0, 277)}...`)
-                  : SanitizeHTML(information || ""),
+                  : SanitizeHTML(information),
             }}
           />
-          {information?.length > 277 && (
+          {information.length > 277 && (
             <span onClick={() => setIsExpanded(!isExpanded)}>
-              {getFieldTranslationByNames(isExpanded ? "884" : "774")}
+              {getTranslation(isExpanded ? "884" : "774")}
             </span>
           )}
         </Text>
@@ -221,23 +300,15 @@ const Proposer = ({
         {day === 0 && (
           <Days>
             <Button
-              onClick={() => {
-                handleGracePeriod(7);
-              }}
-              label={`${convertToPersian(7)} ${getFieldTranslationByNames(
-                "772",
-              )} `}
+              onClick={() => handleGracePeriod(7)}
+              label={`${convertToPersian(7)} ${getTranslation("772")} `}
               color="#3B3B3B"
               textColor="#949494"
               full
             />
             <Button
-              onClick={() => {
-                handleGracePeriod(1);
-              }}
-              label={`${convertToPersian(1)} ${getFieldTranslationByNames(
-                "772",
-              )} `}
+              onClick={() => handleGracePeriod(1)}
+              label={`${convertToPersian(1)} ${getTranslation("772")} `}
               color="#3B3B3B"
               textColor="#949494"
               full
@@ -247,20 +318,16 @@ const Proposer = ({
         {day !== 0 && (
           <Div>
             <Remained>
-              {convertToPersian(day)} {getFieldTranslationByNames("1413")}
+              {convertToPersian(day)} {getTranslation("1413")}
             </Remained>
           </Div>
         )}
         <Buttons>
-          <RejectButton
-            onClick={() => {
-              onReject();
-            }}
-          >
-            {getFieldTranslationByNames("775")}
+          <RejectButton onClick={handleReject}>
+            {getTranslation("775")}
             {isExploding && (
               <ConfettiExplosion
-                zIndex={10}
+                zIndex={9999}
                 particleCount={150}
                 duration={3000}
                 colors={["#C30000"]}
@@ -278,18 +345,15 @@ const Proposer = ({
           </RejectButton>
           <div style={{ position: "relative" }}>
             <Button
-              label={getFieldTranslationByNames("776")}
+              label={getTranslation("776")}
               color="#18C08F"
               textColor="#FFFFFF"
-              onClick={() => {
-                onAccept();
-              }}
+              onClick={handleAccept}
               full
             />
-
             {isExplodingAccept && (
               <ConfettiExplosion
-                zIndex={10}
+                zIndex={9999}
                 particleCount={150}
                 duration={3000}
                 colors={["#18C08F"]}

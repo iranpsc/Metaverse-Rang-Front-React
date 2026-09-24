@@ -4,7 +4,7 @@ import InfoInputs from "./InfoInputs";
 import styled from "styled-components";
 import Title from "../../../../components/Title";
 import Alert from "../../../../components/Alert/Alert";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const Wrapper = styled.div``;
 const Container = styled.div`
@@ -24,7 +24,7 @@ const Container = styled.div`
   }
 `;
 
-const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
+const IdentityInfo = ({ kyc = {}, showPending = false }) => {
   const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
@@ -41,17 +41,13 @@ const IdentityInfo = ({ data, inputValues, nationalCardImg, showPending }) => {
       <Wrapper>
         {showAlert && (
           <Alert
-            text={
-              showPending
-                ? getFieldTranslationByNames("1375")
-                : getFieldTranslationByNames("885")
-            }
+            text={showPending ? getTranslation("1375") : getTranslation("885")}
             type={showPending ? "pending" : "success"}
           />
         )}
-        <Title title={getFieldTranslationByNames("869")} />
-        <InfoInputs data={data} inputValues={inputValues} />
-        <CardPhotos nationalCardImg={nationalCardImg} />
+        <Title title={getTranslation("869")} />
+        <InfoInputs kyc={kyc} />
+        <CardPhotos nationalCardImg={kyc?.melli_card} />
       </Wrapper>
     </Container>
   );

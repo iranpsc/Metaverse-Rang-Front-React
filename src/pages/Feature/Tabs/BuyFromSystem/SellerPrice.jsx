@@ -1,6 +1,6 @@
 import SellerPriceInfo from "./SellerPriceInfo";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import Container from "../../../../components/Common/Container";
 const Wrapper = styled(Container)`
   display: flex;
@@ -21,7 +21,7 @@ const Text = styled.p`
 const SellerPrice = () => {
   return (
     <Wrapper>
-      <Text>{getFieldTranslationByNames(1528)} </Text>
+      <Text>{getTranslation(1528)} </Text>
       <SellerPriceInfo />
     </Wrapper>
   );

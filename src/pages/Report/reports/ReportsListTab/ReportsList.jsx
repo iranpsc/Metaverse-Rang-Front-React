@@ -1,8 +1,8 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import ReportRow from "./ReportRow";
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { getTranslation, isMobile } from "../../../../services/Utility/index";
 import { Skeleton } from "../../../../components/Skeleton";
 
 const Container = styled.div`
@@ -58,7 +58,7 @@ const StatusFilterTitle = styled.div`
   align-items: center;
   cursor: pointer;
   color: ${(p) =>
-    p.active
+    p.$active
       ? p.theme.colors.newColors.primaryText
       : p.theme.colors.newColors.shades.title};
   &:hover {
@@ -66,7 +66,7 @@ const StatusFilterTitle = styled.div`
   }
   padding: 3px 10px;
   background-color: ${(p) =>
-    p.active ? p.theme.colors.shades[80] : "transparent"};
+    p.$active ? p.theme.colors.shades[80] : "transparent"};
   position: relative;
   &:hover {
     background-color: ${({ theme }) => theme.colors.shades[80]};
@@ -77,7 +77,9 @@ const StatusFilterTitle = styled.div`
     cursor: pointer;
     font-size: 14px;
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-weight: 400;
     font-size: 16px;
   }
@@ -144,6 +146,14 @@ const ReportsList = ({
   });
 
   const filterRef = useRef(null);
+  const sentinelRef = useRef(null);
+
+  const handleLoadMoreRows = useCallback(() => {
+    if (!hasMore || isLoading) return;
+
+    handleLoadMore();
+    setVisibleRows((prev) => prev + 10);
+  }, [handleLoadMore, hasMore, isLoading]);
 
   const handleClickOutside = (event) => {
     if (
@@ -162,32 +172,56 @@ const ReportsList = ({
     };
   }, []);
 
-  // اسکلتون برای لودینگ
-  if (isLoading) {
+  useEffect(() => {
+    if (isMobile) return;
+    if (!sentinelRef.current || !(hasMore || visibleRows < rows.length)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          handleLoadMoreRows();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "200px",
+        threshold: 0.1,
+      },
+    );
+
+    observer.observe(sentinelRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [handleLoadMoreRows, hasMore, isMobile, rows.length, visibleRows]);
+
+  // اسکلتون فقط برای حالت اول بارگذاری اولیه
+  if (isLoading && rows.length === 0) {
     return (
       <Container>
         <Table>
           <TableHead>
             <TableRow>
               <TableHeader style={{ width: "0%", whiteSpace: "nowrap" }}>
-                <Div>{getFieldTranslationByNames("1383")}</Div>
+                <Div>{getTranslation("1383")}</Div>
               </TableHeader>
               <TableHeader style={{ width: "40%" }}>
-                <Div>{getFieldTranslationByNames("19")}</Div>
+                <Div>{getTranslation("19")}</Div>
               </TableHeader>
               <TableHeader style={{ width: "12%", whiteSpace: "nowrap" }}>
                 <Div>
-                  {getFieldTranslationByNames("746")}
+                  {getTranslation("746")}
                   <Arrows>
                     <MdKeyboardArrowDown />
                   </Arrows>
                 </Div>
               </TableHeader>
               <TableHeader style={{ width: "16%", whiteSpace: "nowrap" }}>
-                <Div>{getFieldTranslationByNames("64")}</Div>
+                <Div>{getTranslation("64")}</Div>
               </TableHeader>
               <TableHeader style={{ width: "10%", whiteSpace: "nowrap" }}>
-                {getFieldTranslationByNames("1380")}
+                {getTranslation("1380")}
               </TableHeader>
             </TableRow>
           </TableHead>
@@ -207,8 +241,13 @@ const ReportsList = ({
                   <Skeleton width="120px" height="16px" radius="4px" />
                 </td>
                 <td>
-                  <div style={{ display: "flex", gap: "8px" , justifyContent:"center"}}>
-                    
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Skeleton width="40px" height="40px" radius="6px" />
                   </div>
                 </td>
@@ -226,37 +265,36 @@ const ReportsList = ({
         <TableHead>
           <TableRow>
             <TableHeader style={{ width: "0%", whiteSpace: "nowrap" }}>
-              <Div>{getFieldTranslationByNames("1383")}</Div>
+              <Div>{getTranslation("1383")}</Div>
             </TableHeader>
             <TableHeader style={{ width: "40%" }}>
-              <Div>{getFieldTranslationByNames("19")}</Div>
+              <Div>{getTranslation("19")}</Div>
             </TableHeader>
             <TableHeader style={{ width: "12%", whiteSpace: "nowrap" }}>
               <Div>
-                {getFieldTranslationByNames("746")}
+                {getTranslation("746")}
                 <Arrows
                   className="arrow-container"
                   onClick={() => setFilters({ member: !filters.member })}
                 >
                   <MdKeyboardArrowDown
                     style={{
-                      transform: `${
-                        filters.member ? "rotate(180deg)" : "rotate(360deg)"
-                      }`,
+                      transform: `${filters.member ? "rotate(180deg)" : "rotate(360deg)"
+                        }`,
                     }}
                   />
                 </Arrows>
               </Div>
               {filters.member && (
                 <StatusFilter ref={filterRef}>
-                  <StatusFilterTitle active={member.displayError}>
+                  <StatusFilterTitle $active={member.displayError}>
                     <h1
                       onClick={() => {
                         setMember({ ...member, displayError: true });
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("1385")}
+                      {getTranslation("1385")}
                     </h1>
                     {member.displayError && (
                       <span
@@ -269,14 +307,14 @@ const ReportsList = ({
                       </span>
                     )}
                   </StatusFilterTitle>
-                  <StatusFilterTitle active={member.spellingError}>
+                  <StatusFilterTitle $active={member.spellingError}>
                     <h2
                       onClick={() => {
                         setMember({ ...member, spellingError: true });
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("15")}
+                      {getTranslation("15")}
                     </h2>
                     {member.spellingError && (
                       <span
@@ -289,14 +327,14 @@ const ReportsList = ({
                       </span>
                     )}
                   </StatusFilterTitle>
-                  <StatusFilterTitle active={member.codingError}>
+                  <StatusFilterTitle $active={member.codingError}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, codingError: true });
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("16")}
+                      {getTranslation("16")}
                     </h3>
                     {member.codingError && (
                       <span
@@ -309,14 +347,14 @@ const ReportsList = ({
                       </span>
                     )}
                   </StatusFilterTitle>
-                  <StatusFilterTitle active={member.FPSError}>
+                  <StatusFilterTitle $active={member.FPSError}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, FPSError: true });
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("17")}
+                      {getTranslation("17")}
                     </h3>
                     {member.FPSError && (
                       <span
@@ -329,14 +367,14 @@ const ReportsList = ({
                       </span>
                     )}
                   </StatusFilterTitle>
-                  <StatusFilterTitle active={member.disrespect}>
+                  <StatusFilterTitle $active={member.disrespect}>
                     <h3
                       onClick={() => {
                         setMember({ ...member, disrespect: true });
                         setFilters({ ...filters, member: false });
                       }}
                     >
-                      {getFieldTranslationByNames("18")}
+                      {getTranslation("18")}
                     </h3>
                     {member.disrespect && (
                       <span
@@ -353,10 +391,10 @@ const ReportsList = ({
               )}
             </TableHeader>
             <TableHeader style={{ width: "16%", whiteSpace: "nowrap" }}>
-              <Div>{getFieldTranslationByNames("64")}</Div>
+              <Div>{getTranslation("64")}</Div>
             </TableHeader>
             <TableHeader style={{ width: "10%", whiteSpace: "nowrap" }}>
-              {getFieldTranslationByNames("1380")}
+              {getTranslation("1380")}
             </TableHeader>
           </TableRow>
         </TableHead>
@@ -371,17 +409,16 @@ const ReportsList = ({
           ))}
         </tbody>
       </Table>
-      {hasMore && (
+      {isMobile && hasMore && (
         <Loader>
-          <button
-            onClick={() => {
-              handleLoadMore();
-              setVisibleRows((prev) => prev + 10);
-            }}
-          >
-            {getFieldTranslationByNames("368")}
+          <button onClick={handleLoadMoreRows} disabled={isLoading}>
+            {getTranslation("368")}
           </button>
         </Loader>
+      )}
+
+      {!isMobile && (hasMore || visibleRows < rows.length) && (
+        <div ref={sentinelRef} style={{ height: "1px" }} aria-hidden="true" />
       )}
     </Container>
   );

@@ -2,7 +2,7 @@ import Button from "../../../../components/Button";
 import Title from "../../../../components/Title";
 import styled from "styled-components";
 import { useGlobalState } from "./aboutGlobalStateProvider";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import useRequest from "../../../../services/Hooks/useRequest/index";
 import { useState } from "react";
 import Alert from "../../../../components/Alert/Alert";
@@ -60,16 +60,16 @@ const SaveInfo = () => {
   return (
     <>
       {successMessage && (
-        <Alert type="success" text={getFieldTranslationByNames("1361")} />
+        <Alert type="success" text={getTranslation("1361")} />
       )}
 
       <Header>
         <Text>
-          <Title title={getFieldTranslationByNames("95")} />
-          <p>{getFieldTranslationByNames("780")}</p>
+          <Title title={getTranslation("95")} />
+          <p>{getTranslation("780")}</p>
         </Text>
         <Button 
-          label={getFieldTranslationByNames("782")} 
+          label={getTranslation("782")} 
           fit 
           onclick={saveData}
           disabled={isSaving ? "pending" : false}

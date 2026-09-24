@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -83,20 +83,20 @@ const ConfirmCardDelete = ({ setOpenDeleteModal, setCards, deleteIndex }) => {
         <div>
           <Title>
             {" "}
-            {getFieldTranslationByNames("896")}
+            {getTranslation("896")}
           </Title>
           <Info>
             {" "}
-            {getFieldTranslationByNames("897")}{" "}
-            {getFieldTranslationByNames("898")}
+            {getTranslation("897")}{" "}
+            {getTranslation("898")}
           </Info>
         </div>
         <Buttons>
           <Button red onClick={handleDelete}>
-            {getFieldTranslationByNames("899")}
+            {getTranslation("899")}
           </Button>
           <Button onClick={() => setOpenDeleteModal(false)}>
-            {getFieldTranslationByNames("900")}
+            {getTranslation("900")}
           </Button>
         </Buttons>
       </Modal>

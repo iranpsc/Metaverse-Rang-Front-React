@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation, convertToPersian, formatNumber } from "../../services/Utility";
 import AccountSecurityIcon from "../../assets/svg/accountSecurity.svg";
 import CentralSearch from "../../assets/svg/centralSearch.svg";
 import GlobalStatisticsIcon from "../../assets/svg/globalStatistics.svg";
@@ -12,16 +12,16 @@ import StoreIcon from "../../assets/svg/store.svg";
 import NotifIcon from "../../assets/svg/notif.svg";
 import ReportIcon from "../../assets/svg/report.svg";
 import Wallet from "../../assets/svg/wallet.svg";
-
 import GiftIcon from "../../assets/svg/gifts.svg";
 import { useMenuContext } from "../../services/reducers/MenuContext";
-import { useNavigate, useLocation } from "react-router-dom";
-import Tippy from "@tippyjs/react";
-import "tippy.js/animations/scale.css";
+import { useNavigate, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "../../services/reducers/UserContext";
+import ToolTip from "../../components/Tooltip";
+
 const Container = styled.div`
   height: 100vh;
+  white-space: nowrap;
 `;
 const Btn = styled.button`
   display: flex;
@@ -93,78 +93,6 @@ const ValueBtn = styled.span`
   top: -3px;
 `;
 
-const Tooltip = styled.div`
-  width: 146px;
-  height: 40px;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  background-color: ${(props) =>
-    props.theme.colors.newColors.otherColors.iconBg};
-
-  border-radius: 10px;
-  color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
-
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 180%; /* 36px */
-  text-transform: capitalize;
-  @media (min-width: 1024px) {
-    display: flex;
-  }
-  ::after {
-    content: "";
-    position: absolute;
-    width: 9px;
-    height: 40px;
-    right: -8px;
-    left: -8px;
-    rotate: ${(props) => (props.lang == "en" ? "0" : "180deg")};
-  }
-`;
-
-const menuItems = [
-  { icon: GiftIcon, translationId: "231", navigate: "" },
-  {
-    icon: AccountSecurityIcon,
-    translationId: "31",
-    navigate: "confirmation",
-  },
-  {
-    icon: CentralSearch,
-    translationId: "232",
-    navigate: "search",
-  },
-  {
-    icon: GlobalStatisticsIcon,
-    translationId: "233",
-    navigate: "",
-  },
-  { icon: RobotIcon, translationId: "235", navigate: "" },
-  {
-    icon: ProfitIcon,
-    translationId: "236",
-    navigate: "profit",
-  },
-  {
-    icon: KycIcon,
-    translationId: "237",
-    navigate: "verification",
-  },
-  { icon: CalendarIcon, translationId: "262", navigate: "" },
-  { icon: StoreIcon, translationId: "30", navigate: "store" },
-  {
-    icon: NotifIcon,
-    translationId: "238",
-    navigate: "notifications",
-  },
-  { icon: ReportIcon, translationId: "23", navigate: "report" },
-  { icon: Wallet, translationId: "1668", navigate: "connectWallet" },
-];
-
 const BtnsMenu = () => {
   const { isOpen } = useMenuContext();
   const navigate = useNavigate();
@@ -194,55 +122,113 @@ const BtnsMenu = () => {
     setSelectedItem(item.translationId);
     navigate(targetPath);
   };
+  const menuItems = [
+    { icon: GiftIcon, translationId: "231", navigate: "challenges" },
+
+    ...(!user?.wallet_login
+      ? [
+        {
+          icon: AccountSecurityIcon,
+          translationId: "31",
+          navigate: "confirmation",
+        },
+      ]
+      : []),
+
+    {
+      icon: CentralSearch,
+      translationId: "232",
+      navigate: "search/citizen",
+    },
+    {
+      icon: GlobalStatisticsIcon,
+      translationId: "233",
+      navigate: "",
+    },
+    {
+      icon: RobotIcon,
+      translationId: "235",
+      navigate: "",
+    },
+    {
+      icon: ProfitIcon,
+      translationId: "236",
+      navigate: "profit",
+    },
+    {
+      icon: KycIcon,
+      translationId: "237",
+      navigate: "verification",
+    },
+    {
+      icon: CalendarIcon,
+      translationId: "262",
+      navigate: "",
+    },
+    {
+      icon: StoreIcon,
+      translationId: "30",
+      navigate: "store",
+    },
+    {
+      icon: NotifIcon,
+      translationId: "238",
+      navigate: "notifications",
+    },
+    {
+      icon: ReportIcon,
+      translationId: "23",
+      navigate: "report",
+    },
+    {
+      icon: Wallet,
+      translationId: user?.has_wallet ? "1781" : "1668",
+      navigate: "connectWallet",
+    },
+  ];
 
   return (
     <Container>
       {menuItems.map((item, index) => (
-        <Tippy
+        <ToolTip
           key={index}
-          content={
-            <Tooltip lang={lang.i18n.language}>
-              {getFieldTranslationByNames(item.translationId)}
-            </Tooltip>
+          lang={lang.i18n.language}
+          place="left"
+          disabled={isOpen} 
+          ContentToltip={getTranslation(item.translationId)}
+          Chidren={
+            <Btn
+              isOpen={isOpen}
+              isSelected={selectedItem === item.translationId}
+              onClick={() => handleClick(item)}
+              disabled={item.navigate === "" && item.translationId !== "sign out"}
+            >
+              <div>
+                <Icon
+                  src={item.icon}
+                  isSelected={selectedItem === item.translationId}
+                  isCompleted={
+                    item.navigate == "connectWallet" && user.has_wallet
+                  }
+                />
+                <Text
+                  isOpen={isOpen}
+                  isSelected={selectedItem === item.translationId}
+                >
+                  {getTranslation(item.translationId)}
+                </Text>
+              </div>
+              {item.translationId === "236" && user && (
+                <ValueBtn isOpen={isOpen}>
+                  %{convertToPersian(formatNumber(user.hourly_profit_time_percentage, 1))}
+                </ValueBtn>
+              )}
+              {item.translationId === "238" && user && (
+                <ValueBtn isOpen={isOpen}>{convertToPersian(user.unread_notifications_count)}</ValueBtn>
+              )}
+            </Btn>
           }
-          zIndex={10000}
-          placement="left"
-          interactive={true}
-          delay={50}
-          animation="scale"
-          disabled={isOpen} // Only show tooltip when menu is closed
-        >
-          <Btn
-            isOpen={isOpen}
-            isSelected={selectedItem === item.translationId} // Check if the item is selected
-            onClick={() => handleClick(item)}
-            disabled={item.navigate === "" && item.translationId !== "sign out"}
-          >
-            <div>
-              <Icon
-                src={item.icon}
-                isSelected={selectedItem === item.translationId}
-                isCompleted={
-                  item.navigate == "connectWallet" && user.has_wallet
-                }
-              />
-              <Text
-                isOpen={isOpen}
-                isSelected={selectedItem === item.translationId}
-              >
-                {getFieldTranslationByNames(item.translationId)}
-              </Text>
-            </div>
-            {item.translationId === "236" && user && (
-              <ValueBtn isOpen={isOpen}>
-                %{Number(user.hourly_profit_time_percentage).toFixed(1)}
-              </ValueBtn>
-            )}
-            {item.translationId === "238" && user && (
-              <ValueBtn isOpen={isOpen}>{user.notifications}</ValueBtn>
-            )}
-          </Btn>
-        </Tippy>
+        />
       ))}
     </Container>
   );

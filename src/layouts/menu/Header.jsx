@@ -1,20 +1,25 @@
 import styled from "styled-components";
-import LogoIcon from "../../assets/svg/logoMeta.svg";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import LogoIcon from "../../assets/images/metarang-newLogo.png";
+import { getTranslation } from "../../services/Utility";
 import { useMenuContext } from "../../services/reducers/MenuContext";
-import ArowMenu  from "../../assets/svg/arowMenu.svg?react";
+import ArowMenu from "../../assets/svg/arowMenu.svg?react";
 import { LangContainer, LangButton, LangMenu } from "./LangSelector.styles";
 import { useState, useEffect } from "react";
 import useLanguage from "../../services/Hooks/useLanguage";
 import DropdownLanguageModule from "../../components/DropDownLang/DropdownLanguageModule";
 import ThemeMenuModule from "./ThemeMenuModule";
 import { languagesMeta } from "../../i18n/i18n";
-const Logo = styled.img`width: 37px;`;
+import { metarangUrl } from "../../services/Utility";
+const Logo = styled.img`
+padding-top: 2px;
+  height: 42px;
+  cursor: pointer;
+`;
 
 const Container = styled.div`
   display: flex;
   align-items: start;
-  justify-content: ${(props) => (props.isOpen ? "space-between" : "center")};
+  justify-content: ${(props) => (props.$isOpen ? "space-between" : "center")};
   gap: 5px;
   width: 100%;
   position: relative;
@@ -24,30 +29,32 @@ const Headerbtn = styled.div`
   flex-direction: row;
   padding-top: 5px;
   gap: 10px;
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
-  
-  @media (max-width: 767px) {
-   padding-top: 8px;
-  }
+  display: ${(props) => (props.$isOpen ? "flex" : "none")};
 
+  @media (max-width: 767px) {
+    padding-top: 8px;
+  }
 `;
 
 const ContainerText = styled.div`
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  display: ${(props) => (props.$isOpen ? "flex" : "none")};
   align-items: start;
   white-space: nowrap;
   justify-content: center;
   flex-direction: column;
-  
+
   @media (max-width: 767px) {
-   padding-top: 2px;
+    padding-top: 2px;
   }
 `;
 
 const Title = styled.p`
   color: ${(props) => props.theme.colors.newColors.otherColors.headerMenu};
   font-size: 16px;
-  height: 28px;
+      padding-top: 2px;
+
+  height: 25px;
+  cursor: pointer;
   font-style: normal;
   font-weight: 700;
   line-height: 180%;
@@ -62,7 +69,6 @@ const Details = styled.p`
 `;
 
 const BtnOpenCloseMenu = styled.button`
-
   width: 41px;
   height: 41px;
   border-radius: 100%;
@@ -70,27 +76,30 @@ const BtnOpenCloseMenu = styled.button`
   align-items: center;
   justify-content: center;
   background-color: ${(p) =>
-    p.isOpen ? "transparent" : p.theme.colors.newColors.otherColors.themeBtn};
-  position: ${(props) => (props.isOpen ? "relative" : "absolute")};
+    p.$isOpen ? "transparent" : p.theme.colors.newColors.otherColors.themeBtn};
+  position: ${(props) => (props.$isOpen ? "relative" : "absolute")};
   ${(props) => {
     const direction = document.body.dir || "ltr";
     return direction === "ltr"
-      ? `right: ${!props.isOpen ? "-75px" : "0"}`
-      : `left: ${!props.isOpen ? "-75px" : "0"}`;
+      ? `right: ${!props.$isOpen ? "-75px" : "0"}`
+      : `left: ${!props.$isOpen ? "-75px" : "0"}`;
   }};
   z-index: 9;
   border: none;
 `;
 
-const ContainerMain = styled.div`display: flex; gap: 12px;`;
+const ContainerMain = styled.div`
+  display: flex;
+  gap: 12px;
+`;
 const Icon = styled(ArowMenu)`
   stroke: ${(props) => props.theme.colors.newColors.otherColors.iconText};
 
-  transform: ${({ isOpen, isPersian }) => {
-    if (isPersian) {
-      return isOpen ? "rotate(0deg)" : "rotate(180deg)";
+  transform: ${({ $isOpen, $isPersian }) => {
+    if ($isPersian) {
+      return $isOpen ? "rotate(0deg)" : "rotate(180deg)";
     } else {
-      return isOpen ? "rotate(180deg)" : "rotate(0deg)";
+      return $isOpen ? "rotate(180deg)" : "rotate(0deg)";
     }
   }};
 
@@ -100,8 +109,6 @@ const Icon = styled(ArowMenu)`
   height: 41px;
 `;
 
-
-
 const Header = () => {
   const { currentLang, changeLanguage, isPersian } = useLanguage();
   const [langArray, setLangArray] = useState([]);
@@ -109,21 +116,31 @@ const Header = () => {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const { isOpen, toggleMenu } = useMenuContext();
 
-
   useEffect(() => {
     setLangArray(languagesMeta);
     const found = languagesMeta.find((item) => item.code === currentLang);
     setCurrentLangObject(found || languagesMeta[0]);
   }, [currentLang]);
   return (
-    <Container isOpen={isOpen}>
+    <Container $isOpen={isOpen}>
       <ContainerMain>
-        <Logo src={LogoIcon} />
-        <ContainerText isOpen={isOpen}>
-          <Title>{getFieldTranslationByNames(148)}</Title>
-          <Details>{getFieldTranslationByNames(905)}</Details>
+        <Logo
+          onClick={() => {
+            window.open(metarangUrl(), "_blank");
+          }}
+          src={LogoIcon}
+        />
+        <ContainerText $isOpen={isOpen}>
+          <Title
+            onClick={() => {
+              window.open(metarangUrl(), "_blank");
+            }}
+          >
+            {getTranslation(148)}
+          </Title>
+          <Details>{getTranslation(905)}</Details>
         </ContainerText>
-        <Headerbtn isOpen={isOpen}>
+        <Headerbtn $isOpen={isOpen}>
           <LangContainer isOpen={isOpen}>
             <LangButton onClick={() => setIsLangOpen(!isLangOpen)}>
               <img
@@ -156,8 +173,8 @@ const Header = () => {
           <ThemeMenuModule />
         </Headerbtn>
       </ContainerMain>
-      <BtnOpenCloseMenu onClick={toggleMenu} isOpen={isOpen} >
-        <Icon isOpen={isOpen} isPersian={isPersian} />
+      <BtnOpenCloseMenu onClick={toggleMenu} $isOpen={isOpen}>
+        <Icon $isOpen={isOpen} $isPersian={isPersian} />
       </BtnOpenCloseMenu>
     </Container>
   );

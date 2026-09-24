@@ -1,27 +1,32 @@
-import React, { memo, useEffect, useState, useRef } from "react";
-import { Layer, Source, useMap } from "react-map-gl";
+import { memo, useEffect, useRef, useState, useMemo } from "react";
+import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import { useLoader } from "@react-three/fiber";
-import { Canvas, Coordinates } from "react-three-map/maplibre";
+import { Canvas, NearCoordinates } from "react-three-map/maplibre";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
-import { HemisphereLight } from "three";
 import { BORDER_COLORS } from "../../services/constants/BorderColors";
 import { POLYGON_COLORS } from "../../services/constants/PolygonColors";
 import useRequest from "../../services/Hooks/useRequest";
 import { useMapData } from "../../services/reducers/mapContext";
 import { useSelectedEnvironment } from "../../services/reducers/SelectedEnvironmentContext";
-
-// Add the proxy URL to bypass CORS
-const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
-  // Prepend proxy URL to avoid CORS issues
+import { useMapLands } from "../../services/reducers/MapLandsContext";
+import { showPolygons } from "../../services/Hooks/useMapUrlState";
+import {
+  connectSocket,
+  onSocketEvent,
+} from "../../services/socket";
+import { clone as cloneSkeleton } from "three/examples/jsm/utils/SkeletonUtils";
+const FBXModel = memo(({ url, rotation, setLoading, opacity }) => {
   const fbx = useLoader(FBXLoader, url, (loader) => {
     loader.manager.onStart = () => setLoading(true);
     loader.manager.onLoad = () => setLoading(false);
     loader.manager.onError = () => setLoading(false);
   });
-  useEffect(() => {
-    if (!fbx) return;
 
-    fbx.traverse((child) => {
+  const clonedScene = useMemo(() => cloneSkeleton(fbx), [fbx]);
+  useEffect(() => {
+    if (!clonedScene) return;
+
+    clonedScene.traverse((child) => {
       if (!child.isMesh) return;
 
       const applyOpacity = (material) => {
@@ -32,23 +37,19 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
       };
 
       if (Array.isArray(child.material)) {
-        child.material.forEach((mat) => {
-          if (mat) applyOpacity(mat);
-        });
+        child.material = child.material.map((m) => m.clone());
+        child.material.forEach(applyOpacity);
       } else if (child.material) {
+        child.material = child.material.clone();
         applyOpacity(child.material);
       }
     });
-  }, [fbx, opacity]);
-  const fbxRef = useRef();
+  }, [clonedScene, opacity]);
+
   return (
-    <group ref={fbxRef} rotation={rotation} scale={0.0097} key={uniqueKey}>
-      <hemisphereLight
-        args={["#ffffff", "#60666C"]}
-        intensity={12}
-        key={`${uniqueKey}-light`}
-      />
-      <primitive object={fbx} key={`${uniqueKey}-primitive`} />
+    <group rotation={rotation} scale={0.0097}>
+      <hemisphereLight args={["#ffffff", "#60666C"]} intensity={12} />
+      <primitive object={clonedScene} />
     </group>
   );
 });
@@ -56,85 +57,289 @@ const FBXModel = memo(({ url, rotation, setLoading, uniqueKey, opacity }) => {
 const MapPolygons = () => {
   const { buildings, setBuildings } = useMapData();
   const { selectedEnvironment } = useSelectedEnvironment();
-
-  const map = useMap();
-  const bounds = map.current.getBounds();
-  const [features, setFeatures] = useState([]);
-  const [zoom, setZoom] = useState(map.current.getZoom());
-  const [, setIsLoading] = useState(false);
+  const {
+    mapLands,
+    setMapLands,
+  } = useMapLands(); const map = useMap();
   const { Request } = useRequest();
 
+  const [isPolygonSourceLoaded, setIsPolygonSourceLoaded] = useState(false);
+
+  const [zoom, setZoom] = useState(map.current?.getZoom() || 0);
+
+  const [, setIsLoading] = useState(false);
+
+  const requestTimeoutRef = useRef(null);
+
+  const isRequestingRef = useRef(false);
+
+  const lastBoundsRef = useRef(null);
+
+  const requestIdRef = useRef(0);
+
   useEffect(() => {
-    const handleViewportChange = () => {
-      setZoom(map.current.getZoom());
+    connectSocket();
+
+    const unsubscribe = onSocketEvent(
+      "feature-status-changed",
+      (payload) => {
+
+        const eventData = payload?.data ?? payload;
+
+
+        if (eventData?.id == null) {
+          return;
+        }
+
+        setMapLands((prevFeatures) => {
+          const updatedFeatures = prevFeatures.map((feature) => {
+            if (String(feature.id) === String(eventData.id)) {
+
+              return {
+                ...feature,
+                rgb: eventData.rgb,
+              };
+            }
+
+            return feature;
+          });
+
+          return updatedFeatures;
+        });
+      }
+    );
+
+    return unsubscribe;
+  }, [setMapLands]);
+  useEffect(() => {
+    if (!map.current) return;
+
+    const mapInstance = map.current;
+
+    const handleZoomEnd = () => {
+      setZoom(mapInstance.getZoom());
     };
 
-    map.current.on("zoomend", handleViewportChange);
+    mapInstance.on("zoomend", handleZoomEnd);
 
     return () => {
-      map.current.off("zoomend", handleViewportChange);
+      mapInstance.off("zoomend", handleZoomEnd);
     };
   }, [map]);
 
-  useEffect(() => {
-    window.Echo.channel("feature-status").listen(
-      ".feature-status-changed",
-      (e) => {
-        const data = features.map((feature) => {
-          if (parseInt(feature.id) === parseInt(e.data.id)) {
-            return { ...feature, rgb: e.data.rgb };
-          }
-          return feature;
-        });
 
-        setFeatures(data);
-      },
-    );
-  }, [features]);
 
   useEffect(() => {
-    if (bounds.getSouthWest().lng && zoom >= 14) {
-      const loadBuildings = zoom >= 15 ? "&load_buildings=1" : "";
-      Request(
-        `features?points[]=${bounds.getSouthWest().lng},${
-          bounds.getSouthWest().lat
-        }&points[]=${bounds.getSouthEast().lng},${
-          bounds.getSouthEast().lat
-        }&points[]=${bounds.getNorthWest().lng},${
-          bounds.getNorthWest().lat
-        }&points[]=${bounds.getNorthEast().lng},${
-          bounds.getNorthEast().lat
-        }${loadBuildings}`,
-      ).then((response) => {
-        const newFeatures =
-          response?.data?.data?.map((feature) => ({
+    if (!map.current) return;
+
+    const mapInstance = map.current;
+
+    const loadFeatures = async () => {
+      if (mapInstance.getZoom() < showPolygons) {
+        return;
+      }
+
+      if (isRequestingRef.current) {
+        return;
+      }
+
+      const bounds = mapInstance.getBounds();
+
+      if (!bounds) return;
+
+      const southWest = bounds.getSouthWest();
+      const southEast = bounds.getSouthEast();
+      const northWest = bounds.getNorthWest();
+      const northEast = bounds.getNorthEast();
+
+      const boundsKey = [
+        southWest.lng.toFixed(4),
+        southWest.lat.toFixed(4),
+        southEast.lng.toFixed(4),
+        southEast.lat.toFixed(4),
+        northWest.lng.toFixed(4),
+        northWest.lat.toFixed(4),
+        northEast.lng.toFixed(4),
+        northEast.lat.toFixed(4),
+      ].join(",");
+
+      if (lastBoundsRef.current === boundsKey) {
+        return;
+      }
+
+      lastBoundsRef.current = boundsKey;
+
+      const requestId = ++requestIdRef.current;
+
+      isRequestingRef.current = true;
+
+      try {
+        const url =
+          `features?points[]=${southWest.lng},${southWest.lat}` +
+          `&points[]=${southEast.lng},${southEast.lat}` +
+          `&points[]=${northWest.lng},${northWest.lat}` +
+          `&points[]=${northEast.lng},${northEast.lat}` +
+          `&load_buildings=1`;
+        const response = await Request(url);
+        if (requestId !== requestIdRef.current) {
+          return;
+        }
+
+        const data = response?.data?.data || [];
+
+        if (!Array.isArray(data) || data.length === 0) {
+          return;
+        }
+
+        const newFeatures = data
+          .map((feature) => ({
             id: feature?.geometry?.feature_id,
             rgb: feature?.properties?.rgb,
-            coordinates: feature?.geometry?.coordinates.map((coordinate) => [
-              parseFloat(coordinate.x),
-              parseFloat(coordinate.y),
-            ]),
-          })) || [];
 
-        const newBuildingModels = response?.data?.data?.flatMap(
-          (feature) => feature.building_models || [],
+            coordinates:
+              feature?.geometry?.coordinates?.map((coordinate) => [
+                parseFloat(coordinate.x),
+                parseFloat(coordinate.y),
+              ]) || [],
+          }))
+          .filter((feature) => feature.id !== undefined && feature.id !== null);
+
+        const newBuildingModels = data.flatMap(
+          (feature) =>
+            (feature?.building_models || []).map((model) => ({
+              ...model,
+              uniqueKey: `${model?.id}__${model?.building?.feature_id}`,
+            }))
         );
 
-        setFeatures((prevFeatures) => [...prevFeatures, ...newFeatures]);
+        setMapLands((prevFeatures) => {
+          const existingIds = new Set(
+            prevFeatures.map((feature) => String(feature.id)),
+          );
 
-        setBuildings((prevModels) => [...prevModels, ...newBuildingModels]);
-      });
+          const uniqueFeatures = newFeatures.filter(
+            (feature) => !existingIds.has(String(feature.id)),
+          );
+
+          if (uniqueFeatures.length === 0) {
+            return prevFeatures;
+          }
+
+          return [...prevFeatures, ...uniqueFeatures];
+        });
+
+        setBuildings((prevModels) => {
+          const getBuildingKey = (model) => {
+            const id = model?.id;
+            const featureId = model?.building?.feature_id;
+
+            return `${id}__${featureId}`;
+          };
+
+          const existingKeys = new Set(
+            prevModels.map((model) => getBuildingKey(model))
+          );
+
+          const uniqueBuildings = newBuildingModels.filter((model) => {
+            if (model?.id == null || model?.building?.feature_id == null) {
+              return false;
+            }
+
+            const key = getBuildingKey(model);
+
+            if (existingKeys.has(key)) {
+              return false;
+            }
+
+            existingKeys.add(key);
+
+            return true;
+          });
+
+          if (uniqueBuildings.length === 0) {
+            return prevModels;
+          }
+
+          return [...prevModels, ...uniqueBuildings];
+        });
+      } catch (error) {
+        console.error("Error loading map features:", error);
+
+        lastBoundsRef.current = null;
+      } finally {
+        isRequestingRef.current = false;
+      }
+    };
+
+    const handleMoveEnd = () => {
+      if (requestTimeoutRef.current) {
+        clearTimeout(requestTimeoutRef.current);
+      }
+
+      requestTimeoutRef.current = setTimeout(() => {
+        loadFeatures();
+      }, 600);
+    };
+
+    mapInstance.on("moveend", handleMoveEnd);
+
+    loadFeatures();
+
+    mapInstance.on("moveend", handleMoveEnd);
+
+    requestTimeoutRef.current = setTimeout(() => {
+      loadFeatures();
+    }, 300);
+
+    return () => {
+      mapInstance.off("moveend", handleMoveEnd);
+
+      if (requestTimeoutRef.current) {
+        clearTimeout(requestTimeoutRef.current);
+      }
+    };
+  }, [map, Request, setMapLands, setBuildings]);
+
+  useEffect(() => {
+    if (!map.current || zoom < showPolygons) {
+      setIsPolygonSourceLoaded(false);
+      return;
     }
-  }, [bounds.getSouthWest().lng, zoom]);
+
+    const mapInstance = map.current;
+
+    const handleSourceData = (event) => {
+      if (event.sourceId === "polygons" && event.isSourceLoaded) {
+        setIsPolygonSourceLoaded(true);
+      }
+    };
+
+    mapInstance.on("sourcedata", handleSourceData);
+
+    const source = mapInstance.getSource("polygons");
+
+    if (source) {
+      const sourceCache = mapInstance.style?.sourceCaches?.["polygons"];
+
+      if (sourceCache?.loaded()) {
+        setIsPolygonSourceLoaded(true);
+      }
+    }
+
+    return () => {
+      mapInstance.off("sourcedata", handleSourceData);
+    };
+  }, [zoom, map]);
+
   return (
     <>
-      {zoom >= 14 && (
+      {zoom >= showPolygons && (
         <Source
           id="polygons"
           type="geojson"
           data={{
             type: "FeatureCollection",
-            features: features.map((polygon) => ({
+            features: mapLands.map((polygon) => ({
               type: "Feature",
               properties: {
                 id: polygon.id,
@@ -152,7 +357,7 @@ const MapPolygons = () => {
             id="polygon-fill-layer"
             type="fill"
             beforeId={
-              map.current.getLayer("location-icon-layer")
+              map.current?.getLayer("location-icon-layer")
                 ? "location-icon-layer"
                 : undefined
             }
@@ -160,11 +365,12 @@ const MapPolygons = () => {
               "fill-color": ["get", "fill"],
             }}
           />
+
           <Layer
             id="polygon-outline-layer"
             type="line"
             beforeId={
-              map.current.getLayer("location-icon-layer")
+              map.current?.getLayer("location-icon-layer")
                 ? "location-icon-layer"
                 : undefined
             }
@@ -175,35 +381,42 @@ const MapPolygons = () => {
           />
         </Source>
       )}
-      {zoom >= 14 && buildings.length > 0 && (
-        <Canvas
-          latitude={36}
-          longitude={50}
-          key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
-        >
-          {buildings.map((model, index) => {
-            const endDate = new Date(model.building.construction_end_date);
-            const now = new Date();
-            const opacity = now < endDate ? 0.3 : 1;
-            const proxyFbxUrl = model.file.url;
-            return (
-              <Coordinates
-                key={model.feature_id}
-                latitude={parseFloat(model.building.position.split(",")[0])}
-                longitude={parseFloat(model.building.position.split(",")[1])}
-              >
-                <FBXModel
-                  opacity={opacity}
-                  url={proxyFbxUrl}
-                  rotation={[0, model.building.rotation ?? 0, 0]}
-                  setLoading={setIsLoading}
-                  uniqueKey={`${model.id}-${index}-model`}
-                />
-              </Coordinates>
-            );
-          })}
-        </Canvas>
-      )}
+
+      {zoom >= showPolygons &&
+        isPolygonSourceLoaded &&
+        buildings.length > 0 && (
+          <Canvas
+            latitude={30.233922946967866}
+            longitude={54.20761223027057}
+            key={selectedEnvironment ? selectedEnvironment.id : "no-env"}
+          >
+            {buildings.map((model) => {
+              const endDate = new Date(
+                model?.building?.construction_end_date,
+              );
+
+              const opacity = new Date() < endDate ? 0.3 : 1;
+
+              const [latitude, longitude] =
+                model?.building?.position?.split(",").map(Number);
+              return (
+                <NearCoordinates
+                  key={model.uniqueKey}
+                  latitude={latitude}
+                  longitude={longitude}
+                >
+                  <FBXModel
+                    opacity={opacity}
+                    url={model.file.url}
+                    rotation={[0, model?.building?.rotation ?? 0, 0]}
+                    setLoading={setIsLoading}
+                    uniqueKey={model.uniqueKey}
+                  />
+                </NearCoordinates>
+              );
+            })}
+          </Canvas>
+        )}
     </>
   );
 };

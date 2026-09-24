@@ -82,9 +82,9 @@ const Value = styled.div`
 `;
 
 const ValueScroll = styled.span`
-  display: inline-block;
+  display: flex;
+  gap: 5px;
   padding-left: 10px;
-
   ${(props) =>
     props.animate &&
     `
@@ -100,6 +100,16 @@ const ValueScroll = styled.span`
     }
   }
 `;
+const Tag = styled.span`
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: ${(props) => props.theme.colors.newColors.otherColors.iconBg};
+  border: 1px solid
+    ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
+  white-space: nowrap;
+`;
 
 const TextValueIcon = ({
   icon,
@@ -109,9 +119,11 @@ const TextValueIcon = ({
   long,
   smallValue,
   very_long,
+  tag = false,
 }) => {
   const isPersian = useLanguage();
-
+const safeValue =
+  typeof value === "number" && Number.isNaN(value) ? "" : value;
   const valueRef = useRef(null);
   const textRef = useRef(null);
   const [animate, setAnimate] = useState(false);
@@ -145,7 +157,11 @@ const TextValueIcon = ({
         onScroll={stopAnimation}
       >
         <ValueScroll ref={textRef} animate={animate}>
-          {value}
+          {tag
+            ? String(safeValue)
+              .split(",")
+              .map((item, index) => <Tag key={index}>{item.trim()}</Tag>)
+            : safeValue}
         </ValueScroll>
         {valueIcon}
       </Value>

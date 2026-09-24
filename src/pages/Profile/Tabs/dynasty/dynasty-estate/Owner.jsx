@@ -1,5 +1,5 @@
 import Title from "../../../../../components/Title";
-import { getFieldTranslationByNames } from "../../../../../services/Utility";
+import { getTranslation } from "../../../../../services/Utility";
 import Details from "./Details";
 import Model3D from "./Model3D";
 
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 const Owner = ({ data }) => {
   return (
     <Container>
-      <Title title={getFieldTranslationByNames(819)} />
+      <Title title={getTranslation(819)} />
       <Wrapper>
         <Model3D />
         <Details data={data} />

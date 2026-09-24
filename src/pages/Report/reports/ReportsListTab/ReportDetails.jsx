@@ -13,7 +13,6 @@ const Div = styled.div`
 const ReportDetails = ({
   reportDetails,
   setShowDetails,
-  status,
   code,
   date,
   time,

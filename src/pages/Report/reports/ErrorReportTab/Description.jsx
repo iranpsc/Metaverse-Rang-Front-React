@@ -1,5 +1,5 @@
 import { useReportsGlobalState } from "../GlobalReportStateProvider";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { getTranslation } from "../../../../services/Utility/index";
 import CustomEditor from "../../../../components/Common/CustomEditor";
 
 const Description = () => {
@@ -13,7 +13,7 @@ const Description = () => {
     <CustomEditor
       value={state.description}
       onChange={handleChange}
-      label={getFieldTranslationByNames("20")}
+      label={getTranslation("20")}
     />
   );
 };

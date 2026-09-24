@@ -4,9 +4,9 @@ import { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import Resumable from "resumablejs";
 import { UserContext } from "../../../../services/reducers/UserContext";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 import * as Sentry from "@sentry/react";
-
+import { BASE_URL } from "../../../../services/Hooks/useRequest";
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
@@ -107,9 +107,9 @@ const Record = styled.div`
   border-radius: 100%;
   border: 3px dotted
     ${(props) =>
-      props.hasError
-        ? "red"
-        : props.theme.colors.newColors.otherColors.inputBorder};
+    props.hasError
+      ? "red"
+      : props.theme.colors.newColors.otherColors.inputBorder};
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -153,7 +153,6 @@ const getSupportedMimeType = () => {
 const VideoRecord = ({
   setVideoError,
   setVideoURLParent,
-  uploadResponse,
   setUploadResponse,
   textVerify,
   setTextVerify,
@@ -264,7 +263,7 @@ const VideoRecord = ({
 
   const uploadVideo = (file) => {
     const resumable = new Resumable({
-      target: "https://api.metarang.com/api/upload",
+      target: `${BASE_URL}upload`,
       chunkSize: 100 * 1024 * 1024,
       simultaneousUploads: 4,
       testChunks: false,
@@ -273,7 +272,7 @@ const VideoRecord = ({
 
     resumable.addFile(file);
 
-    resumable.on("fileAdded", (file) => {
+    resumable.on("fileAdded", () => {
       resumable.upload();
     });
 
@@ -296,7 +295,7 @@ const VideoRecord = ({
     axios
       .get("https://admin.metarang.com/api/kyc-verify-text")
       .then((res) => {
-        setTextVerify(res.data);
+        setTextVerify(res.data.id);
       })
       .catch((err) => {
         Sentry.captureException(err);
@@ -306,7 +305,7 @@ const VideoRecord = ({
 
   return (
     <Container>
-      <Title>{getFieldTranslationByNames("873")}</Title>
+      <Title>{getTranslation("873")}</Title>
       <Div>
         <ContainerRecorder>
           <Record
@@ -344,15 +343,15 @@ const VideoRecord = ({
         </ContainerRecorder>
 
         <Info>
-          <h4>{getFieldTranslationByNames("874")}</h4>
+          <h4>{getTranslation("874")}</h4>
           <p>
             {textVerify.text} {user.code}
           </p>
           <div>
-            <h3>{getFieldTranslationByNames("876")}</h3>
+            <h3>{getTranslation("876")}</h3>
             <h5>
               {timeLeft}
-              <span>{getFieldTranslationByNames("778")}</span>
+              <span>{getTranslation("778")}</span>
             </h5>
           </div>
         </Info>
@@ -364,5 +363,5 @@ const VideoRecord = ({
 
 // Wrap the component with Sentry error boundary
 export default Sentry.withErrorBoundary(VideoRecord, {
-  fallback: (props) => <div>خطایی رخ داده است. لطفا صفحه را رفرش کنید.</div>,
+  fallback: () => <div>خطایی رخ داده است. لطفا صفحه را رفرش کنید.</div>,
 });

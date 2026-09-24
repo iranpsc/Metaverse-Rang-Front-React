@@ -1,20 +1,22 @@
-// Level.jsx - کپی کن جایگزین کن
-import { Tooltip as ReactTooltip } from "react-tooltip";
-import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
+import { useContext, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { UserContext } from "../../../../services/reducers/UserContext";
 import { useLanguage } from "../../../../services/reducers/LanguageContext";
-import { convertToPersian } from "../../../../services/Utility";
+import { formatNumber, convertToPersian, getTranslation } from "../../../../services/Utility";
 import { Skeleton } from "../../../../components/Skeleton";
 import useRequest from "../../../../services/Hooks/useRequest";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 const Container = styled.div`
+  position: relative;
   border-radius: 10px;
   background-color: ${(props) =>
     props.theme.colors.newColors.otherColors.inputBg};
+
   padding: 10px 20px 10px 15px;
   margin-top: 20px;
+
   display: grid;
   grid-template-columns: 4fr 1fr;
   align-items: center;
@@ -23,76 +25,287 @@ const Container = styled.div`
 const Percent = styled.div`
   ${(props) => (props.IsPersian ? "border-left" : "border-right")}: 1px solid
     ${(props) => props.theme.colors.newColors.otherColors.inputBorder};
+
   ${(props) => (props.IsPersian ? "padding-left" : "padding-right")}: 25px;
 `;
+
 const Title = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 16px;
   justify-content: space-between;
+
   h2 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 600;
     font-size: 16px;
   }
+
   h3 {
     color: ${(props) => props.theme.colors.newColors.shades.title};
     font-weight: 500;
     font-size: 16px;
   }
 `;
+
 const ProgressContainer = styled.div`
   height: 8px;
   background-color: ${(props) => props.theme.colors.newColors.shades.bg2};
   border-radius: 28px;
+  overflow: hidden;
 `;
+
 const ProgressBar = styled.div`
   background-color: ${(props) => props.theme.colors.primary};
   border-radius: 8px;
-  width: ${(props) => `${props.percentage}%`};
-  transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  width: ${(props) => `${Math.min(Math.max(props.percentage || 0, 0), 100)}%`};
+
+  transition: width 0.5s ease;
   height: 100%;
 `;
+
 const LevelCount = styled.div`
+  position: relative;
+  width: 100%;
+  min-width: 0;
+
   display: flex;
-  padding-right: 10px;
-  justify-content: end;
-  align-items: end;
-  margin-top: 10px;
-  gap: 8px;
-  img {
-    cursor: pointer;
-    &:hover {
-      transform: translateY(-3px);
-      transition: transform 0.2s;
-    }
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+
+  overflow-x: auto;
+  overflow-y: visible;
+
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+
+  padding: 6px 4px;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 16px,
+    black calc(100% - 16px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 16px,
+    black calc(100% - 16px),
+    transparent 100%
+  );
+
+  scrollbar-width: thin;
+  scrollbar-color: ${(props) => props.theme.colors.primary} transparent;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.primary};
+    border-radius: 10px;
   }
 `;
 
+const popIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+`;
+
+const LevelItemWrapper = styled.div`
+  position: relative;
+  width: 55px;
+  height: 55px;
+
+  flex-shrink: 0;
+  scroll-snap-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: ${popIn} 0.35s ease both;
+  animation-delay: ${(props) => `${props.$index * 0.05}s`};
+
+  img {
+    width: 55px;
+    height: 55px;
+
+    object-fit: contain;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.2s ease,
+      filter 0.2s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.15);
+  }
+`;
+
+const LevelItem = styled.div`
+  display: flex;
+  position: relative;
+`;
+
+
+const tooltipFade = keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-50%, -95%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%);
+  }
+`;
+
+const PortalTooltip = styled.div`
+  position: fixed;
+  transform: translate(-50%, -100%);
+
+  min-width: max-content;
+  max-width: 160px;
+
+  padding: 6px 10px;
+
+  border-radius: 6px;
+
+  background-color: ${(props) => props.theme.colors.newColors.shades.title};
+  color: ${(props) => props.theme.colors.newColors.otherColors.inputBg};
+
+  font-size: 12px;
+  font-weight: 500;
+
+  white-space: nowrap;
+  text-align: center;
+
+  z-index: 9999;
+  pointer-events: none;
+
+  animation: ${tooltipFade} 0.15s ease both;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid
+      ${(props) => props.theme.colors.newColors.shades.title};
+  }
+`;
+
+const levelIds = {
+  "شهروند": 382,
+  "روزنامه نگار": 383,
+  "مشارکت کننده": 589,
+  "توسعه دهنده": 68,
+  "بازرس": 69,
+  "بازرگان": 590,
+  "دادخواه": 71,
+  "اعضای شورای شهر": 591,
+  "شهردار": 592,
+  "فرماندار": 74,
+  "وزیر": 75,
+  "داور": 76,
+  "دادگذار": 77,
+};
+
 const Level = () => {
   const [user] = useContext(UserContext);
+
   const [loading, setLoading] = useState(true);
+  const [levelData, setLevelData] = useState(null);
   const IsPersian = useLanguage();
+
   const { Request } = useRequest();
   const { id } = useParams();
+
+  const scrollRef = useRef(null);
+  const [tooltip, setTooltip] = useState(null); // { text, top, left }
 
   useEffect(() => {
     const requestId = id || user?.id;
 
-    if (requestId) {
-      setLoading(true);
-      // آدرس API رو پیدا کن - ممکنه یکی از اینها باشه
-      Request(`users/${requestId}/level`)
-        .then((response) => {})
-        .catch((error) => {
-          console.error("Error loading level:", error);
-          // اگه ارور خورد، یه دیتای پیشفرض بذار که حداقل اسکلتون بره
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+    if (!requestId) {
+      setLoading(false);
+      return;
     }
-  }, [id, user?.id]);
+
+    setLoading(true);
+
+    Request(`users/${requestId}/levels`)
+      .then((res) => {
+        const data = res.data.data;
+        setLevelData(data);
+      })
+      .catch((error) => {
+        console.error("Error loading level:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    const node = scrollRef.current;
+    if (!node) return;
+
+    const handleScroll = () => setTooltip(null);
+    node.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => node.removeEventListener("scroll", handleScroll);
+  }, [levelData]);
+
+
+  useEffect(() => {
+    const node = scrollRef.current;
+    if (!node) return;
+
+    const handleWheel = (e) => {
+      if (node.scrollWidth <= node.clientWidth) return;
+
+      e.preventDefault();
+
+      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      node.scrollBy({ left: delta, behavior: "auto" });
+    };
+
+    node.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => node.removeEventListener("wheel", handleWheel);
+  }, [levelData]);
+
+  const showTooltip = (e, text) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltip({
+      text,
+      top: rect.top - 8,
+      left: rect.left + rect.width / 2,
+    });
+  };
+
+  const hideTooltip = () => setTooltip(null);
 
   if (loading) {
     return (
@@ -102,10 +315,12 @@ const Level = () => {
             <Skeleton width="120px" height="20px" radius="4px" />
             <Skeleton width="50px" height="20px" radius="4px" />
           </Title>
+
           <ProgressContainer>
             <Skeleton width="70%" height="8px" radius="8px" />
           </ProgressContainer>
         </Percent>
+
         <LevelCount>
           <Skeleton width="44px" height="44px" radius="50%" />
           <Skeleton width="44px" height="44px" radius="50%" />
@@ -115,48 +330,62 @@ const Level = () => {
     );
   }
 
+  if (!levelData) {
+    return null;
+  }
+
+  const {
+    latest_level,
+    previous_levels = [],
+    score_percentage_to_next_level,
+  } = levelData;
+
+
+  const levels = [
+    ...(latest_level ? [latest_level] : []),
+    ...[...previous_levels].reverse(),
+  ];
+
   return (
     <Container>
       <Percent IsPersian={IsPersian}>
         <Title>
-          <h2>{user?.level?.name}</h2>
-          <h3>{convertToPersian(user?.socre_percentage_to_next_level)}%</h3>
+          <h2>{latest_level?.name}</h2>
+          <h3>
+            {convertToPersian(formatNumber(score_percentage_to_next_level))}%
+          </h3>
         </Title>
+
         <ProgressContainer>
-          <ProgressBar percentage={user?.socre_percentage_to_next_level} />
+          <ProgressBar percentage={score_percentage_to_next_level} />
         </ProgressContainer>
       </Percent>
-      <LevelCount>
-        {user.previous_levels &&
-          user?.previous_levels.map((item, index) => (
-            <div key={index}>
-              <img
-                data-tooltip-id={item.slug}
-                width={65}
-                height={65}
-                src={item.image}
-                alt={item.image}
-              />
-              <ReactTooltip id={item.slug} place="top" content={item.name} />
-            </div>
-          ))}
-        {user.level && (
-          <div>
-            <img
-              data-tooltip-id={user.level.id}
-              width={65}
-              height={65}
-              src={user.level.image}
-              alt={user.level.name}
-            />
-            <ReactTooltip
-              id={user.level.background_image}
-              place="top"
-              content={user.level.name}
-            />
-          </div>
-        )}
+
+      <LevelCount ref={scrollRef}>
+        {levels.map((level, index) => {
+          const levelName = levelIds[level.name] ?? 382;
+          const translation = getTranslation(levelName);
+
+          return (
+            <LevelItemWrapper key={level.id} $index={index}>
+              <LevelItem
+                onMouseEnter={(e) => showTooltip(e, translation)}
+                onMouseLeave={hideTooltip}
+              >
+                <img src={level.image} alt={level.name} />
+              </LevelItem>
+            </LevelItemWrapper>
+          );
+        })}
       </LevelCount>
+
+      {tooltip &&
+        createPortal(
+          <PortalTooltip style={{ top: tooltip.top, left: tooltip.left }}>
+            {tooltip.text}
+          </PortalTooltip>,
+          document.body
+        )}
     </Container>
   );
 };

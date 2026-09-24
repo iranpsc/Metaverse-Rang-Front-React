@@ -3,7 +3,7 @@ import { LoaderContext } from "../../../../services/reducers/LoaderProvider.jsx"
 import { LuEye } from "react-icons/lu";
 import ReportDetails from "./ReportDetails.jsx";
 import styled from "styled-components";
-import { getFieldTranslationByNames } from "../../../../services/Utility/index";
+import { getTranslation } from "../../../../services/Utility/index";
 import useRequest from "../../../../services/Hooks/useRequest";
 import { convertToPersian } from "../../../../services/Utility/index";
 
@@ -106,15 +106,15 @@ const ReportRow = ({
   const translateMember = (member) => {
     switch (member) {
       case "spellingError":
-        return getFieldTranslationByNames("15");
+        return getTranslation("15");
       case "FPSError":
-        return getFieldTranslationByNames("17");
+        return getTranslation("17");
       case "displayError":
-        return getFieldTranslationByNames("1385");
+        return getTranslation("1385");
       case "codingError":
-        return getFieldTranslationByNames("16");
+        return getTranslation("16");
       case "disrespect":
-        return getFieldTranslationByNames("18");
+        return getTranslation("18");
       default:
         return member;
     }
@@ -150,10 +150,10 @@ const ReportRow = ({
             }}
           >
             {status === "confirmed"
-              ? getFieldTranslationByNames("1343")
+              ? getTranslation("1343")
               : status === "pending"
-                ? getFieldTranslationByNames("852")
-                : getFieldTranslationByNames("1345")}
+                ? getTranslation("852")
+                : getTranslation("1345")}
           </Title>
         </TableCell>*/}
         <TableCell>

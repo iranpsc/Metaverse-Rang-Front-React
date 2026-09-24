@@ -1,12 +1,15 @@
 import NotifCard from "./NotifCard";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import useRequest from "../../services/Hooks/useRequest";
 import ModalSm from "../../components/Modal/ModalSm";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { getTranslation } from "../../services/Utility";
 import NoNotification from "./NoNotification";
 import { Skeleton } from "../../components/Skeleton";
-
+import {
+  UserContext
+} from "../../services/reducers/UserContext";
+import { UserContextTypes } from "../../services/actions/UserContextAction";
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,6 +48,7 @@ const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true); // اضافه شد
   const { Request, HTTP_METHOD } = useRequest();
+  const [user, dispatch] = useContext(UserContext);
 
   useEffect(() => {
     setLoading(true);
@@ -65,6 +69,13 @@ const Notifications = () => {
     Request("notifications/read/all", HTTP_METHOD.POST)
       .then(() => {
         setNotifications([]);
+        dispatch({
+          type: UserContextTypes.UPDATE_FIELD,
+          payload: {
+            key: "unread_notifications_count",
+            value: user.unread_notifications_count = 0,
+          },
+        });
       })
       .catch((err) => console.error(err));
   };
@@ -72,21 +83,21 @@ const Notifications = () => {
   return (
     <ModalSm title={"238"}>
       <Container>
-        <h4 onClick={handleDelete}>{getFieldTranslationByNames("866")}</h4>
+        <h4 onClick={handleDelete}>{getTranslation("866")}</h4>
         <Div>
           {loading ? (
             // اسکلتون برای 3 کارت
             Array.from({ length: 3 }).map((_, index) => (
               <SkeletonCard key={index}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent:"space-between" ,width:"100%", gap: "12px", marginBottom: "10px" }}>
-                  <div style={{ display: "flex", alignItems: "center" , gap: "12px", }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", gap: "12px", marginBottom: "10px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", }}>
                     <Skeleton width="60px" height="60px" radius="50%" />
-                  <div>
-                    <Skeleton width="120px" height="20px" radius="4px" style={{ marginBottom: "8px" }} />
-                    <Skeleton width="150px" height="14px" radius="4px" />
+                    <div>
+                      <Skeleton width="120px" height="20px" radius="4px" style={{ marginBottom: "8px" }} />
+                      <Skeleton width="150px" height="14px" radius="4px" />
+                    </div>
                   </div>
-                  </div>
-                  <Skeleton width="35px" height="35px" radius="50%"  />
+                  <Skeleton width="35px" height="35px" radius="50%" />
                 </div>
                 <Skeleton width="100%" height="30px" radius="4px" />
               </SkeletonCard>

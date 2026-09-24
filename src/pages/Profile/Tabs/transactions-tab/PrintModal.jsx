@@ -32,11 +32,11 @@ const PrintOnlyStyles = () => (
 );
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BsCheckCircleFill } from "react-icons/bs";
-import  Exit  from "../../../../assets/svg/close.svg?react";
+import Exit from "../../../../assets/svg/close.svg?react";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation,ConvertJalali,convertToPersian } from "../../../../services/Utility";
 
 const BackGround = styled.div`
   z-index: 999;
@@ -88,7 +88,7 @@ const Header = styled.div`
     color: ${(props) =>
       props.status == "0"
         ? "#00966d"
-        : props.status == "-138"
+        : props.status == "-138" || props.status == "-1"
           ? "#C30000"
           : "#FFC700"};
     font-size: 24px;
@@ -108,7 +108,7 @@ const Div = styled.div`
   color: ${(props) =>
     props.status == "0"
       ? "#00966d"
-      : props.status == "-138"
+      : props.status == "-138" || props.status == "-1"
         ? "#C30000"
         : "#FFC700"};
   margin-bottom: 10px;
@@ -175,6 +175,7 @@ const PrintModal = ({
   const handlePrint = () => {
     window.print();
   };
+
   return (
     <BackGround>
       <Modal>
@@ -186,30 +187,30 @@ const PrintModal = ({
             {status == "0" ? (
               <BsCheckCircleFill size={80} />
             ) : status == "1" ? (
-              <AiFillCloseCircle size={80} />
-            ) : (
               <IoReloadCircleSharp size={80} />
+            ) : (
+              <AiFillCloseCircle size={80} />
             )}
           </Div>
           {status == "0" ? (
             <>
-              <p>{getFieldTranslationByNames("744")}</p>
-              <span>{getFieldTranslationByNames("745")}</span>
+              <p>{getTranslation("744")}</p>
+              <span>{getTranslation("745")}</span>
             </>
-          ) : status == "-138" ? (
+          ) : status == "-138" || status == "-1" ? (
             <>
-              <p>{getFieldTranslationByNames("761")}</p>
-              <span>{getFieldTranslationByNames("762")}</span>
+              <p>{getTranslation("761")}</p>
+              <span>{getTranslation("762")}</span>
             </>
           ) : (
             <>
-              <p>{getFieldTranslationByNames("759")}</p>
-              <span>{getFieldTranslationByNames("760")}</span>
+              <p>{getTranslation("759")}</p>
+              <span>{getTranslation("760")}</span>
             </>
           )}
           <Info>
             <Row>
-              <Title>{getFieldTranslationByNames("750")}</Title>
+              <Title>{getTranslation("750")}</Title>
               <Gif>
                 <img
                   loading="lazy"
@@ -218,35 +219,31 @@ const PrintModal = ({
                   src={gif}
                   alt={code}
                 />
-                <Value>خرید {count}</Value>
+                <Value>{getTranslation("353")} {convertToPersian(count)}</Value>
               </Gif>
             </Row>
             <Row>
-              <Title>{getFieldTranslationByNames("747")}</Title>
+              <Title>{getTranslation("747")}</Title>
               <Value>{code}</Value>
             </Row>
             <Row>
-              <Title>{getFieldTranslationByNames("748")}</Title>
-              <Value>{date}</Value>
+              <Title>{getTranslation("748")}</Title>
+              <Value>{ConvertJalali(date)}</Value>
             </Row>
             <Row>
-              <Title>{getFieldTranslationByNames("749")}</Title>
-              <Value>{time}</Value>
+              <Title>{getTranslation("749")}</Title>
+              <Value>{convertToPersian(time)}</Value>
             </Row>
             <Row>
-              <Title>{getFieldTranslationByNames("750")}</Title>
+              <Title>{getTranslation("750")}</Title>
               <Value>{title}</Value>
             </Row>
             <Row not={false}>
-              <Title>{getFieldTranslationByNames("751")}</Title>
-              <Value>{count}</Value>
+              <Title>{getTranslation("751")}</Title>
+              <Value>{convertToPersian(count)}</Value>
             </Row>
             <div className="print-hide" style={{ marginTop: "10px" }}>
-              <Button
-                full
-                label={getFieldTranslationByNames("67")}
-                onclick={handlePrint}
-              />
+              <Button full label={getTranslation("67")} onclick={handlePrint} />
             </div>
           </Info>
         </Header>

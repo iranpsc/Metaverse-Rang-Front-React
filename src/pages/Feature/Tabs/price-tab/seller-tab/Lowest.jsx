@@ -5,7 +5,7 @@ import { UserContext } from "../../../../../services/reducers/UserContext";
 import { FeatureContext } from "../../../Context/FeatureProvider";
 import useRequest from "../../../../../services/Hooks/useRequest";
 import {
-  getFieldTranslationByNames,
+  getTranslation,
   TimeAgo,
   ToastError,
   ToastSuccess,
@@ -75,7 +75,7 @@ const Lowest = () => {
 
   const [assign, setAssign] = useState(
     +feature?.properties?.price_irr !== 0 ||
-      +feature?.properties?.price_psc !== 0,
+    +feature?.properties?.price_psc !== 0,
   );
   const [rial, setRial] = useState(feature?.properties?.price_irr || "");
   const [psc, setPsc] = useState(feature?.properties?.price_psc || "");
@@ -85,17 +85,17 @@ const Lowest = () => {
   const onSubmit = () => {
     if (user.birthdate == null) {
       if (percentage < 110) {
-        return ToastError(getFieldTranslationByNames(1647));
+        return ToastError(getTranslation(1647));
       }
     }
 
     if (TimeAgo(user?.birthdate) >= 18) {
       if (percentage < 80) {
-        return ToastError(getFieldTranslationByNames(1632));
+        return ToastError(getTranslation(1632));
       }
     } else {
       if (percentage < 110) {
-        return ToastError(getFieldTranslationByNames(1632));
+        return ToastError(getTranslation(1632));
       }
     }
     if (!checkSecurity()) return;
@@ -103,17 +103,20 @@ const Lowest = () => {
     Request(
       `my-features/${user.id}/features/${feature?.id}`,
       HTTP_METHOD.POST,
-      { minimum_price_percentage: percentage },
+      { minimum_price_percentage: +percentage },
     )
-      .then(() => {
+      .then((res) => {
+        const response = res.data.data;
         setFeature((feature) => ({
           ...feature,
           properties: {
             ...feature.properties,
             minimum_price_percentage: percentage,
+            price_irr: response.price_irr,
+            price_psc: response.price_psc
           },
         }));
-        ToastSuccess(getFieldTranslationByNames(1634));
+        ToastSuccess(getTranslation(1634));
       })
       .catch((error) => {
         ToastError(error.response.data.message);
@@ -122,7 +125,7 @@ const Lowest = () => {
   return (
     <Container>
       <Wrapper>
-        <Text>{getFieldTranslationByNames("518")}</Text>
+        <Text>{getTranslation("518")}</Text>
         <Div>
           <InputWrapper>
             <Input
@@ -136,7 +139,7 @@ const Lowest = () => {
             <Span>%</Span>
           </InputWrapper>
         </Div>
-        <Button label={getFieldTranslationByNames("519")} onClick={onSubmit} />
+        <Button label={getTranslation("519")} onClick={onSubmit} />
         {assign && (
           <ResultInfo
             lowest

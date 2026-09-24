@@ -4,7 +4,7 @@ import Content from "./Content";
 import Footer from "./Footer";
 import Header from "./Header";
 import Video from "./Video";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 const DraggableContainer = styled.div`
   background-color: ${(props) =>

@@ -1,9 +1,9 @@
-import { Outlet, Route, Routes, Navigate } from "react-router-dom";
+import { Outlet, Route, Routes, Navigate } from "react-router";
 
 import Search from "../../pages/Search";
 import PrivateRoute from "../../routes/PrivateRoute";
 import Report from "../../pages/Report";
-import Sanad from "../../pages/Sanad";
+import Sanad from "../../pages/Documents";
 import Settings from "../../pages/Settings";
 import Notifications from "../../pages/Notifications";
 import Store from "../../pages/Store";
@@ -19,12 +19,12 @@ import HourMeterProfit from "../../pages/HourMeterProfit";
 import WalletSetupTab from "../../pages/MetaWallet/WalletSetupTab";
 import AccountSecurityModal from "../../pages/AccountSecurity";
 //import { ProfileInfoProvider } from './services/reducers/profileInfoContext.jsx';
-import WriteVodTab from "../../pages/Sanad/Tabs/WriteVodTab";
-import VodListTab from "../../pages/Sanad/Tabs/VodListTab";
-import ReceivedList from "../../pages/Sanad/Tabs/receive/ReceivedList";
-import SentList from "../../pages/Sanad/Tabs/sent/SentList";
-import NotesListTab from "../../pages/Sanad/Tabs/notes/NotesListTab";
-
+import WriteVodTab from "../../pages/Documents/Tabs/WriteVodTab";
+import VodListTab from "../../pages/Documents/Tabs/VodListTab";
+import ReceivedList from "../../pages/Documents/Tabs/receive/ReceivedList";
+import SentList from "../../pages/Documents/Tabs/sent/SentList";
+import NotesListTab from "../../pages/Documents/Tabs/notes/NotesListTab";
+import Challenge from "../../pages/Challenges/Challenge";
 import DynastyTab from "../../pages/Profile/Tabs/dynasty/DynastyTab";
 import PropertyTab from "../../pages/Profile/Tabs/property-tab/PropertyTab";
 import TotalTab from "../../pages/Profile/Tabs/total-tab/TotalTab";
@@ -40,7 +40,6 @@ import SendRequest from "../../pages/Profile/Tabs/dynasty/sent/SendRequest";
 import RecievedSuggestion from "../../pages/Profile/Tabs/suggestion-tab/recieved/RecievedSuggestion";
 import SentSuggestion from "../../pages/Profile/Tabs/suggestion-tab/sent/SentSuggestion";
 import AccountTab from "../../pages/Settings/Tabs/account-tab/AccountTab";
-
 import PublicTab from "../../pages/Settings/Tabs/public-tab/PublicTab";
 import SecurityTab from "../../pages/Settings/Tabs/security-tab/SecurityTab";
 import AboutMeTab from "../../pages/Settings/Tabs/aboutme-tab/AboutMeTab";
@@ -56,10 +55,14 @@ import CurrenciesContent from "../../pages/Store/shop/currency-tab/CurrenciesCon
 import ErrorReportTab from "../../pages/Report/reports/ErrorReportTab/ErrorReportTab";
 import ReportsListTab from "../../pages/Report/reports/ReportsListTab/ReportsListTab";
 import { ReportStateProvider } from "../../pages/Report/reports/GlobalReportStateProvider";
-import { GlobalVodStateProvider } from "../../pages/Sanad/Tabs/GlobalVodStateProvider";
-import { GlobalNoteStateProvider } from "../../pages/Sanad/Tabs/GlobalNoteStateProvider";
+import { GlobalVodStateProvider } from "../../pages/Documents/Tabs/GlobalVodStateProvider";
+import { GlobalNoteStateProvider } from "../../pages/Documents/Tabs/GlobalNoteStateProvider";
 import MainLayout from "../MainLayout";
+import { useContext } from "react";
+import { UserContext } from "../../services/reducers/UserContext";
+import ControlPanel from "./3dModelMap/ControlPanel";
 export default function Routers() {
+  const [user] = useContext(UserContext);
   return (
     <Routes>
       <Route path="" element={<MainLayout />}>
@@ -99,6 +102,10 @@ export default function Routers() {
         </Route>
 
         <Route
+          path="payment/verify"
+          element={<Navigate to="/profile/transactions" replace />}
+        />
+        <Route
           path="profile"
           element={
             <PrivateRoute>
@@ -108,13 +115,14 @@ export default function Routers() {
         >
           <Route index element={<Navigate to="total" replace />} />
           <Route path="total" element={<TotalTab />} />
+          <Route path="transactions" element={<TransactionsTab />} />
           <Route path="property" element={<PropertyTab />}>
             <Route index element={<Navigate to="houses" replace />} />
             <Route path="houses" element={<Houses />} />
             <Route path="following" element={<Following />} />
             <Route path="followers" element={<Followers />} />
           </Route>
-          <Route path="transactions" element={<TransactionsTab />} />
+
           <Route path="dynasty" element={<DynastyTab />}>
             <Route index element={<Navigate to="establish" replace />} />
 
@@ -144,14 +152,17 @@ export default function Routers() {
           <Route path="security" element={<SecurityTab />} />
           <Route path="about" element={<AboutMeTab />} />
         </Route>
-        <Route
-          path="confirmation"
-          element={
-            <PrivateRoute>
-              <AccountSecurityModal />
-            </PrivateRoute>
-          }
-        />
+        {!user?.wallet_login && (
+          <Route
+            path="confirmation"
+            element={
+              <PrivateRoute>
+                <AccountSecurityModal />
+              </PrivateRoute>
+            }
+          />
+        )}
+
         <Route
           path="connectWallet"
           element={
@@ -160,7 +171,14 @@ export default function Routers() {
             </PrivateRoute>
           }
         />
-
+        <Route
+          path="challenges"
+          element={
+            <PrivateRoute>
+              <Challenge />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="search"
           element={
@@ -252,6 +270,15 @@ export default function Routers() {
           }
         />
 
+
+        <Route
+          path="ControlPanel"
+          element={
+            <PrivateRoute>
+              <ControlPanel />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="verification"
           element={
@@ -274,6 +301,7 @@ export default function Routers() {
 
           <Route path="signup" element={<SignupLottie />} />
         </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import CanvasPreview from "./CanvasPreview";
-import { getFieldTranslationByNames } from "../../../../../../services/Utility";
+import { getTranslation } from "../../../../../../services/Utility";
 import ModalLg from "../../../../../../components/Modal/ModalLg";
 
 const ContainerDetail = styled.div`
@@ -58,7 +58,7 @@ const PreviewModel = ({ data, setShowModal }) => {
     <ModalLg setShowModal={setShowModal} titleId="371" help report>
       <Container>
         <ContainerDetail>
-          <div>   <TextTitle>{getFieldTranslationByNames("372")}</TextTitle>
+          <div>   <TextTitle>{getTranslation("372")}</TextTitle>
           <TextTitle>{data[0].name}</TextTitle></div>
        
 

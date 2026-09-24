@@ -3,7 +3,6 @@ import { css, cx } from '@emotion/css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// eslint-disable-next-line react/display-name
 export const Button = React.forwardRef(
   (
     {
@@ -34,7 +33,6 @@ export const Button = React.forwardRef(
   )
 )
 
-// eslint-disable-next-line react/display-name
 export const EditorValue = React.forwardRef(
   (
     {
@@ -88,7 +86,6 @@ export const EditorValue = React.forwardRef(
   }
 )
 
-// eslint-disable-next-line react/display-name
 export const Icon = React.forwardRef(
   (
     { className, ...props },
@@ -109,7 +106,6 @@ export const Icon = React.forwardRef(
   )
 )
 
-// eslint-disable-next-line react/display-name
 export const Instruction = React.forwardRef(
   (
     { className, ...props },
@@ -132,7 +128,6 @@ export const Instruction = React.forwardRef(
   )
 )
 
-// eslint-disable-next-line react/display-name
 export const Menu = React.forwardRef(
   (
     { className, ...props },
@@ -164,7 +159,6 @@ export const Portal = ({ children }) => {
     : null
 }
 
-// eslint-disable-next-line react/display-name
 export const Toolbar = React.forwardRef(
   (
     { className, ...props },

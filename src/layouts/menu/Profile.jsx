@@ -10,8 +10,8 @@ import Message from "../../assets/svg/message.svg?react";
 import ProfileMember from "../../assets/svg/profileMember.svg";
 import Ticket from "../../assets/svg/ticket.svg";
 import Setting from "../../assets/svg/setting.svg";
-import { useNavigate } from "react-router-dom";
-import { getFieldTranslationByNames } from "../../services/Utility";
+import { useNavigate } from "react-router";
+import { getTranslation } from "../../services/Utility";
 import { useLanguage } from "../../services/reducers/LanguageContext";
 
 const MessageIcon = styled(Message)`
@@ -21,11 +21,13 @@ const MessageIcon = styled(Message)`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
   width: 100%;
   height: fit-content;
   text-decoration: none;
   transition: all 0.5s ease-out;
-  padding-right: 10px;
 `;
 
 const Btn = styled.button`
@@ -67,8 +69,8 @@ const BtnNavigator = styled.button`
   gap: 8px;
   padding: 0 10px;
   border: none;
-  background: ${({ isOpenDrop, theme }) =>
-    isOpenDrop ? theme.colors.newColors.shades.menuBg : "transparent"};
+  background: ${({ $isOpenDrop, theme }) =>
+    $isOpenDrop ? theme.colors.newColors.shades.menuBg : "transparent"};
   height: 40px;
   border-radius: 10px;
   color: #868b90;
@@ -85,22 +87,22 @@ const BtnNavigator = styled.button`
 `;
 
 const SubMenu = styled.div`
-  display: ${({ isOpenDrop }) => (isOpenDrop ? "block" : "none")};
+  display: ${({ $isOpenDrop }) => ($isOpenDrop ? "block" : "none")};
   padding-left: 20px;
-  position: ${({ isOpen }) => (isOpen ? "relative" : "fixed")};
-  top: ${({ isOpen }) => (isOpen ? "0" : "10%")};
-
-  ${({ isPersian, isOpen }) =>
-    isPersian
-      ? `right: ${!isOpen ? "5.1%" : "0"};`
-      : `left: ${!isOpen ? "5.1%" : "0"};`}
+  position: ${({ $isOpen }) => ($isOpen ? "relative" : "fixed")};
+  top: ${({ $isOpen }) => ($isOpen ? "0" : "10%")};
+margin-top: 5px;
+  ${({ $isPersian, $isOpen }) =>
+    $isPersian
+      ? `right: ${!$isOpen ? "5.1%" : "0"};`
+      : `left: ${!$isOpen ? "5.1%" : "0"};`}
 
   z-index: 1;
   background-color: ${({ theme }) => theme.colors.newColors.primaryText};
   padding: ${({ isOpen }) => (isOpen ? "0" : "10px")};
   border-radius: ${({ isOpen }) => (isOpen ? "0" : "10px")};
   width: ${({ isOpen }) => (isOpen ? "100%" : "16.6%")};
-  min-width: ${({ isOpen }) => (isOpen ? "" : "200px")};
+  min-width: ${({ isOpen }) => (isOpen ? "" : "210px")};
   max-height: ${({ isOpen }) => (isOpen ? "none" : "88vh")};
   overflow-y: ${({ isOpen }) => (isOpen ? "visible" : "auto")};
 `;
@@ -159,9 +161,9 @@ const ChevronIcon = styled(FaChevronDown)`
   min-height: 12px;
   color: ${({ theme }) => theme.colors.primary};
   transition: transform 0.3s ease;
-  transform: ${({ isOpenDrop }) =>
-    isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
-  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  transform: ${({ $isOpenDrop }) =>
+    $isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
+  display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
 `;
 
 const ChevronIcon2 = styled(FaChevronDown)`
@@ -169,8 +171,8 @@ const ChevronIcon2 = styled(FaChevronDown)`
   min-height: 12px;
   color: ${({ theme }) => theme.colors.primary};
   transition: transform 0.3s ease;
-  transform: ${({ isOpenDrop }) =>
-    isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
+  transform: ${({ $isOpenDrop }) =>
+    $isOpenDrop ? "rotate(180deg)" : "rotate(0deg)"};
 `;
 
 const Profile = () => {
@@ -202,15 +204,15 @@ const Profile = () => {
           <Level isOpen={isOpen}>{user?.level?.slug || 0}</Level>
           <Text isOpen={isOpen}>{user?.code?.toUpperCase() || ""}</Text>
         </BtbContainer>
-        <ChevronIcon isOpenDrop={isOpenDrop} isOpen={isOpen} />
+        <ChevronIcon $isOpenDrop={isOpenDrop} $isOpen={isOpen} />
       </Btn>
 
       <ContainerMain>
         <Container>
           <SubMenu
-            isOpenDrop={isOpenDrop}
-            isOpen={isOpen}
-            isPersian={isPersian}
+            $isOpenDrop={isOpenDrop}
+            $isOpen={isOpen}
+            $isPersian={isPersian}
           >
             <Btn isHidden={isOpen} onClick={handleToggleDrop}>
               <BtbContainer2>
@@ -223,27 +225,27 @@ const Profile = () => {
                 <Level isOpen={!isOpen}>{user?.level?.slug || 0}</Level>
                 <Text isOpen={!isOpen}>{user?.code || ""}</Text>
               </BtbContainer2>
-              <ChevronIcon2 isOpenDrop={isOpenDrop} />
+              <ChevronIcon2 $isOpenDrop={isOpenDrop} />
             </Btn>
 
             <BtnNavigator onClick={() => navigate("/documents")}>
               <Icon src={Ticket} />
-              {getFieldTranslationByNames("241")}
+              {getTranslation("241")}
             </BtnNavigator>
 
             <BtnNavigator style={{ color: "#868b907c", cursor: "default" }}>
               <MessageIcon />
-              {getFieldTranslationByNames("242")}
+              {getTranslation("242")}
             </BtnNavigator>
 
             <BtnNavigator onClick={() => navigate("/profile")}>
               <Icon src={ProfileMember} />
-              {getFieldTranslationByNames("243")}
+              {getTranslation("243")}
             </BtnNavigator>
 
             <BtnNavigator onClick={() => navigate("/settings")}>
               <Icon src={Setting} />
-              {getFieldTranslationByNames("642")}
+              {getTranslation("642")}
             </BtnNavigator>
 
             <Union />

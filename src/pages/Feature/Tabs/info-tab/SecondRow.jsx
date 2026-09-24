@@ -6,7 +6,7 @@ import { RxLayout } from "react-icons/rx";
 
 import styled from "styled-components";
 import TextValueIcon from "../../../../components/TextValueIcon";
-import { getFieldTranslationByNames } from "../../../../services/Utility";
+import { getTranslation } from "../../../../services/Utility";
 
 const RowWrapper = styled.div`
   display: flex;
@@ -30,31 +30,31 @@ const SecondRow = ({ feature }) => {
   const second_row_info = [
     {
       id: 4,
-      title: getFieldTranslationByNames("347"),
+      title: getTranslation("347"),
       value: feature?.properties?.area,
       icon: <RxLayout />,
     },
     {
       id: 1,
-      title: getFieldTranslationByNames("348"),
+      title: getTranslation("348"),
       value: feature?.properties?.density,
       icon: <HiOutlineBuildingOffice />,
     },
     {
       id: 5,
-      title: getFieldTranslationByNames("349"),
+      title: getTranslation("349"),
       value: (feature?.properties?.area * feature?.properties?.density) / 100,
       icon: <RiCloseCircleLine />,
     },
     {
       id: 2,
-      title: getFieldTranslationByNames("350"),
+      title: getTranslation("350"),
       value: 10,
       icon: <LuPackageOpen />,
     },
     {
       id: 3,
-      title: getFieldTranslationByNames("351"),
+      title: getTranslation("351"),
       value: "آزاد",
       icon: <MdOutlinePlaylistAddCheckCircle />,
     },

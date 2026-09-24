@@ -1,10 +1,8 @@
 import ConfettiExplosion from "react-confetti-explosion";
-
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { useState } from "react";
-import {
-  getFieldTranslationByNames,
-} from "../../../services/Utility";
+import { getTranslation, convertToPersian } from "../../../services/Utility";
 
 const Card = styled.div`
   border-radius: 5px;
@@ -31,6 +29,7 @@ const Info = styled.div`
     }
     h2 {
       font-size: 16px;
+      cursor: pointer;
       color: #ffc700;
       font-weight: 600;
     }
@@ -84,8 +83,10 @@ const ProfitCard = ({
   amount,
   dead_line,
   onclick,
+  feature_db_id,
 }) => {
   const [isExploding, setIsExploding] = useState(false);
+  const Navigate = useNavigate();
   return (
     <Card>
       <Content>
@@ -95,7 +96,17 @@ const ProfitCard = ({
           </Image>
           <div>
             <h3>{title}</h3>
-            <h2>{feature_id.toUpperCase()}</h2>
+            <h2
+              onClick={() =>
+                Navigate(`/feature/${feature_db_id}/info`, {
+                  state: {
+                    from: location.pathname,
+                  },
+                })
+              }
+            >
+              {feature_id?.toUpperCase()}
+            </h2>
           </div>
         </Info>
         <Value
@@ -119,8 +130,8 @@ const ProfitCard = ({
         </Value>
       </Content>
       <Footer>
-        {getFieldTranslationByNames("478")}
-        <h4>{dead_line}</h4>
+        {getTranslation("1827")} :
+        <h4>{convertToPersian(dead_line)}</h4>
       </Footer>
     </Card>
   );
