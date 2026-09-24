@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LuEye } from "react-icons/lu";
 import VodDetails from "./VodDetails.jsx";
 import styled from "styled-components";
-import { getTranslation } from "../../../../services/Utility/index.jsx";
+import { getTranslation,convertToPersian,ConvertJalali } from "../../../../services/Utility/index.jsx";
 import useRequest from "../../../../services/Hooks/useRequest/index.jsx";
 
 const TableRow = styled.tr`
@@ -127,7 +127,7 @@ const VodRow = ({ id, code, date, time, title, status, sender }) => {
         </TableCell>
         <TableCell>
           <Date>
-            {date} | {time}
+            {ConvertJalali(date)} | {convertToPersian(time)}
           </Date>
         </TableCell>
         <TableCell
