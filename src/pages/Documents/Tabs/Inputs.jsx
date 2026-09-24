@@ -179,7 +179,7 @@ padding-top: 5px;
 
 
 const Inputs = () => {
-  const location = useLocation()
+  const location = useLocation();
 
   const options = [
     {

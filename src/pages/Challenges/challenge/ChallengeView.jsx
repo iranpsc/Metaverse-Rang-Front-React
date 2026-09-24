@@ -17,7 +17,7 @@ const ChallengeView = () => {
   const [timings, setTimings] = useState(null);
   useEffect(() => {
     setShining(null)
-  }, [])
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {

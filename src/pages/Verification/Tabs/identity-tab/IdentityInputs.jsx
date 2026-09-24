@@ -137,7 +137,7 @@ const initialDetails = [
 
 const IdentityInputs = ({ initialKyc = {}, onSubmitSuccess }) => {
   const [identityError, setIdentityError] = useState(false);
-  const [videoError, setVideoError] = useState(false);
+  const [, setVideoError] = useState(false);
   const [videoURL, setVideoURL] = useState(null);
   const [nationImageURL, setNationImageURL] = useState(null);
   const [uploadResponse, setUploadResponse] = useState(null);

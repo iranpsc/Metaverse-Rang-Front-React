@@ -115,12 +115,11 @@ const SwiperContainer = styled.div`
 export default function Slider() {
   const [profileImage, setProfileImage] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [user, dispatch] = useContext(UserContext);
+  const [, dispatch] = useContext(UserContext);
   const [selectedImage, setSelectedImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
-  ("user ", user)
   const { Request, HTTP_METHOD } = useRequest();
 
   const defaultImage = {

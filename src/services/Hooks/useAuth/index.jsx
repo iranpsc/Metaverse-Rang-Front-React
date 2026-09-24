@@ -71,7 +71,6 @@ export default function useAuth() {
         expire,
       });
 
-      // اتصال WebSocket بعد از ذخیره Token
       connectSocket(response.token);
 
       try {
@@ -121,7 +120,6 @@ export default function useAuth() {
 
     if (!user) return;
 
-    // اتصال WebSocket با Token ذخیره‌شده
     connectSocket(user.token);
 
     try {
