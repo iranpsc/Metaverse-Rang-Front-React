@@ -80,22 +80,15 @@ export function connectSocket(token = resolveToken()) {
   });
 
   socket.on("connect", () => {
-    console.log("[websocket] connected:", socket.id);
   });
 
-  socket.on("connect_error", (err) => {
-    console.warn(
-      "[websocket] connect_error:",
-      err?.message || err
-    );
+  socket.on("connect_error", () => {
   });
 
-  socket.on("disconnect", (reason) => {
-    console.log("[websocket] disconnected:", reason);
+  socket.on("disconnect", () => {
   });
 
-  socket.on("connected", (data) => {
-    console.log("[websocket] gateway connected:", data);
+  socket.on("connected", () => {
   });
 
   return socket;
