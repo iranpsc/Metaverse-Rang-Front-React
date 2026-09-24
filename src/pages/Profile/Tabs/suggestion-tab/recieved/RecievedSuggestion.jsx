@@ -1,10 +1,9 @@
 import Suggestion from "./Suggestion";
 import Title from "../../../../../components/Title";
 import meter from "../../../../../assets/images/profile/meter.png";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Wrapper } from "../suggestionStyles";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
-import { useLocation } from "react-router";
 import moment from "moment-jalaali";
 import {
   getTranslation,
@@ -16,97 +15,106 @@ const RecievedSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const { Request, checkSecurity } = useRequest();
-  const location = useLocation();
   const [isExploding, setIsExploding] = useState(false);
   const [isExplodingAccept, setIsExplodingAccept] = useState(false);
-
+console.log("suggestions",suggestions)
   const containerRef = useRef(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchSuggestions = async () => {
       setLoading(true);
       try {
         const response = await Request("buy-requests/recieved", "GET");
         const data = response?.data?.data;
 
-        if (Array.isArray(data)) {
-          const formattedSuggestions = data.map((item) => {
-            const {
-              area = 0,
-              density = 0,
-              karbari = "",
-              address,
-              id,
-              stability,
-              price_psc,
-            } = item.feature_properties || {};
-            const gracePeriod = item.requested_grace_period || null;
-
-            const remainingDays = gracePeriod
-              ? Math.ceil(
-                  (moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate() -
-                    new Date()) /
-                    (1000 * 60 * 60 * 24),
-                )
-              : null;
-
-            const gracePeriodRemainingDays =
-              remainingDays <= 0 ? 0 : remainingDays;
-
-            const karbariValues = { t: 30000, m: 10000, a: 60000 };
-            const karbariValue = karbariValues[karbari] || 0;
-
-            const adjustedIrrPrice = item.price_irr * 0.95;
-            const adjustedPscPrice = item.price_psc * 0.95;
-            const baseIrrPrice = area * density * karbariValue;
-            const totalBaseIrr = baseIrrPrice;
-            const totalSuggestedIrr = adjustedPscPrice * 900 + adjustedIrrPrice;
-            const totalPriceDiffPercent = totalBaseIrr
-              ? ((totalSuggestedIrr - totalBaseIrr) / totalBaseIrr) * 100
-              : 0;
-
-            return {
-              id: item.id,
-              karbari: karbariValue,
-              property: {
-                image: meter,
-                location: address,
-                code: id,
-                value: stability || 0,
-                rial: price_psc > 0 ? 0 : totalBaseIrr,
-                psc: isNaN(price_psc) ? "0.00" : Number(price_psc).toFixed(2),
-                profile_photo: item.buyer?.profile_photo || "",
-                coordinates: item.feature_coordinates || [],
-                karbari,
-                gracePeriod: gracePeriodRemainingDays,
-              },
-              suggestions_list: [
-                {
-                  id: item.id,
-                  code: item.buyer?.code,
-                  date: item.created_at,
-                  rial: adjustedIrrPrice,
-                  psc: adjustedPscPrice,
-                  percent: totalPriceDiffPercent.toFixed(2),
-                  information: item.note || "",
-                },
-              ],
-            };
-          });
-
-          setSuggestions(formattedSuggestions);
-        } else {
+        if (!Array.isArray(data)) {
           console.error("Invalid data format from API:", response.data);
+          return;
+        }
+
+        const formattedSuggestions = data.map((item) => {
+          const {
+            area = 0,
+            density = 0,
+            karbari = "",
+            address,
+            id,
+            stability,
+            price_psc,
+          } = item.feature_properties || {};
+          const gracePeriod = item.requested_grace_period || null;
+
+          const remainingDays = gracePeriod
+            ? Math.ceil(
+              (moment(gracePeriod, "jYYYY/jMM/jDD HH:mm:ss").toDate() -
+                new Date()) /
+              (1000 * 60 * 60 * 24),
+            )
+            : null;
+
+          const gracePeriodRemainingDays = remainingDays <= 0 ? 0 : remainingDays;
+
+          const karbariValues = { t: 30000, m: 10000, a: 60000 };
+          const karbariValue = karbariValues[karbari] || 0;
+
+          const adjustedIrrPrice = item.price_irr * 0.95;
+          const adjustedPscPrice = item.price_psc * 0.95;
+          const baseIrrPrice = area * density * karbariValue;
+          const totalBaseIrr = baseIrrPrice;
+          const totalSuggestedIrr = adjustedPscPrice * 900 + adjustedIrrPrice;
+          const totalPriceDiffPercent = totalBaseIrr
+            ? ((totalSuggestedIrr - totalBaseIrr) / totalBaseIrr) * 100
+            : 0;
+
+          return {
+            id: item.id,
+            karbari: karbariValue,
+            property: {
+              image: meter,
+              location: address,
+              code: id,
+              value: stability || 0,
+              rial: price_psc > 0 ? 0 : totalBaseIrr,
+              psc: isNaN(price_psc) ? "0.00" : Number(price_psc).toFixed(2),
+              profile_photo: item.buyer?.profile_photo || "",
+              coordinates: item.feature_coordinates || [],
+              karbari,
+              gracePeriod: gracePeriodRemainingDays,
+            },
+            suggestions_list: [
+              {
+                id: item.id,
+                code: item.buyer?.code,
+                date: item.created_at,
+                rial: adjustedIrrPrice,
+                psc: adjustedPscPrice,
+                percent: totalPriceDiffPercent.toFixed(2),
+                information: item.note || "",
+              },
+            ],
+          };
+        });
+
+        if (isMounted) {
+          setSuggestions(formattedSuggestions);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchSuggestions();
-  }, [location]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleRejectProposal = async (suggestionId) => {
     try {
@@ -141,11 +149,11 @@ const RecievedSuggestion = () => {
             .map((s) =>
               s.id === suggestionId
                 ? {
-                    ...s,
-                    suggestions_list: s.suggestions_list.filter(
-                      (item) => item.id !== proposerId,
-                    ),
-                  }
+                  ...s,
+                  suggestions_list: s.suggestions_list.filter(
+                    (item) => item.id !== proposerId,
+                  ),
+                }
                 : s,
             )
             .filter((s) => s.suggestions_list.length > 0),
@@ -159,8 +167,9 @@ const RecievedSuggestion = () => {
     setIsExplodingAccept(!isExplodingAccept);
   };
 
-  const validSuggestions = suggestions.filter(
-    (s) => s.suggestions_list?.length > 0,
+  const validSuggestions = useMemo(
+    () => suggestions.filter((s) => s.suggestions_list?.length > 0),
+    [suggestions],
   );
 
   // اسکلتون لودینگ

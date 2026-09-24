@@ -1,14 +1,13 @@
 import Suggestion from "./Suggestion";
 import Title from "../../../../../components/Title";
 import meter from "../../../../../assets/images/profile/meter.png";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import {
   convertToPersian,
   getTranslation,
 } from "../../../../../services/Utility/index";
 import useRequest from "../../../../../services/Hooks/useRequest/index";
 import { Wrapper } from "../suggestionStyles";
-import { useLocation } from "react-router";
 import moment from "moment-jalaali";
 import Container from "../../../../../components/Common/Container";
 
@@ -16,10 +15,11 @@ const SentSuggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const { Request, checkSecurity } = useRequest();
-  const location = useLocation();
   const containerRef = useRef(null);
-
+console.log("suggestions",suggestions)
   useEffect(() => {
+    let isMounted = true;
+
     const fetchSuggestions = async () => {
       setLoading(true);
       try {
@@ -80,33 +80,45 @@ const SentSuggestion = () => {
           };
         });
 
-        setSuggestions(formattedSuggestions);
+        if (isMounted) {
+          setSuggestions(formattedSuggestions);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchSuggestions();
-  }, [location]);
 
-  const convertSuggestions = (suggestions) =>
-    suggestions.map((suggestion) => ({
-      ...suggestion,
-      property: {
-        ...suggestion.property,
-        owner: suggestion.property.owner?.toUpperCase(),
-        value: convertToPersian(suggestion.property.value),
-        code: suggestion.property.code?.toUpperCase(),
-        date: convertToPersian(suggestion.property.date),
-      },
-      suggestions_list: suggestion.suggestions_list.map((item) => ({
-        ...item,
-        rial: convertToPersian(item.rial),
-        psc: convertToPersian(item.psc),
-      })),
-    }));
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const convertSuggestions = useMemo(
+    () =>
+      (items) =>
+        items.map((suggestion) => ({
+          ...suggestion,
+          property: {
+            ...suggestion.property,
+            owner: suggestion.property.owner?.toUpperCase(),
+            value: convertToPersian(suggestion.property.value),
+            code: suggestion.property.code?.toUpperCase(),
+            date: convertToPersian(suggestion.property.date),
+          },
+          suggestions_list: suggestion.suggestions_list.map((item) => ({
+            ...item,
+            rial: convertToPersian(item.rial),
+            psc: convertToPersian(item.psc),
+          })),
+        })),
+    [],
+  );
 
   const handleRejectProposal = async (suggestionId) => {
     if (!checkSecurity()) return;
@@ -125,7 +137,7 @@ const SentSuggestion = () => {
       } else {
         console.error("Error deleting suggestion:", response);
       }
-    } catch (error) {console.error(error)}
+    } catch (error) { console.error(error) }
   };
 
   // اسکلتون لودینگ

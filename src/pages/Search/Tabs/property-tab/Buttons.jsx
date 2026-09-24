@@ -77,8 +77,10 @@ const Buttons = ({ item, system }) => {
       icon: <HiOutlineCurrencyDollar />,
       onClick: () => {
         Navigate(`/feature/${item?.id}/buy/suggest`, {
-          state: { activePageNumber: 1, activeTab: 1 },
-        });
+          state: {
+            from: location.pathname,
+          }
+        },);
       },
     });
   }

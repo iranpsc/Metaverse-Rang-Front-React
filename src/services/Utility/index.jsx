@@ -288,7 +288,7 @@ export const getTranslation = (fieldId) => {
     {};
 
   if (!translationData || Object.keys(translationData).length === 0) {
-    return "Translation not found";
+    return `E-Uniq${fieldId}`;
   }
 
   if (translationData.modals) {
@@ -325,7 +325,7 @@ export const getTranslation = (fieldId) => {
     }
   }
 
-  return `Translation '${fieldId}' not found`;
+  return `E-Uniq${fieldId}`;
 };
 //getFieldsByTabName(112, 120)
 // => ["متن 112" تا "متن 120"]

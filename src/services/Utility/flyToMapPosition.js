@@ -4,7 +4,7 @@ export const flyToMapPosition = ({
   longitude,
   zoom = 17,
   bearing = 0,
-  pitch = 0,
+  pitch = 50,
   rotate = true,
   marker = true,
 }) => {
@@ -19,54 +19,56 @@ export const flyToMapPosition = ({
     map.removeSource("location-icon");
   }
 
-  // Add marker
-  if (marker) {
-    map.loadImage(
-      "https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png",
-      (error, image) => {
-        if (error) return;
+  const addMarker = (image) => {
+    if (!map.hasImage("custom-marker")) {
+      map.addImage("custom-marker", image);
+    }
 
-        if (!map.hasImage("custom-marker")) {
-          map.addImage("custom-marker", image);
-        }
-
-        map.addSource("location-icon", {
-          type: "geojson",
-          data: {
-            type: "Feature",
-            geometry: {
-              type: "Point",
-              coordinates: [longitude, latitude],
-            },
-          },
-        });
-
-        map.addLayer({
-          id: "location-icon-layer",
-          type: "symbol",
-          source: "location-icon",
-          layout: {
-            "icon-image": "custom-marker",
-            "icon-size": 0.65,
-            "icon-offset": [0, -15],
-          },
-        });
+    map.addSource("location-icon", {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [longitude, latitude],
+        },
       },
-    );
+    });
+
+    map.addLayer({
+      id: "location-icon-layer",
+      type: "symbol",
+      source: "location-icon",
+      layout: {
+        "icon-image": "custom-marker",
+        "icon-size": 0.65,
+        "icon-offset": [0, -15],
+      },
+    });
+  };
+
+  if (marker) {
+    map
+      .loadImage("https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png")
+      .then((image) => {
+        addMarker(image.data ?? image);
+      })
+      .catch((error) => {
+        console.error("خطا در بارگذاری آیکون مارکر:", error);
+      });
   }
 
-  // Fly
- map.stop();
+  map.stop();
 
-map.flyTo({
-  center: [longitude, latitude],
-  zoom,
-  bearing,
-  pitch,
-  essential: true,
-  speed: 1.2,
-  curve: 1.42,
-});
+  map.flyTo({
+    center: [longitude, latitude],
+    zoom,
+    bearing,
+    pitch,
+    essential: true,
+    speed: 1.2,
+    curve: 1.42,
+  });
 
   if (!rotate) return;
 

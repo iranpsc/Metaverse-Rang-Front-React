@@ -296,7 +296,7 @@ const RestrictUser = () => {
                 place="top"
                 content={
                   isDisabled
-                    ? ""
+                    ? null
                     : getTranslation(icon.label)
                 }
               />

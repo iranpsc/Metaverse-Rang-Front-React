@@ -127,17 +127,7 @@ const PriceDefine = () => {
         }));
       })
       .catch((error) => {
-        const Err = error.response.status;
-
-        if (Err == 403) {
-          // ToastError(getTranslation(1652));
-        }
-
-        if (Err == 402) {
-          // ToastError(getTranslation(1652));
-        }
-
-        ToastError(error.response.data.message);
+           ToastError(error.response.data.message);
       });
   };
 
