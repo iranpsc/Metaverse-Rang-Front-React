@@ -29,11 +29,7 @@ export const tools = [
     id: 6,
     number: 50000,
     path: "50000",
-  },{
-    id: 7,
-    number: 60000,
-    path: "60000",
-  },
+  }
 ];
 
 export const currencies = [
