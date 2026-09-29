@@ -1,4 +1,4 @@
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import nonPhoto from "../../../assets/images/file.png";
 import remove from "../../../assets/images/remove.png";
@@ -78,14 +78,21 @@ const SendFiles = ({ files = [], onFilesChange }) => {
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
   const MAX_FILE_SIZE_MB = 9;
+  const MAX_FILES = 5;
 
   const fileHandler = (e) => {
     setError("");
     const selectedFiles = Array.from(e.target.files);
-    
+
+    if (files.length + selectedFiles.length > MAX_FILES) {
+      setError(getTranslation("1636"));
+      e.target.value = null;
+      return;
+    }
+
     // بررسی حجم تک‌تک فایل‌ها
     const invalidFile = selectedFiles.find(f => f.size > MAX_FILE_SIZE_MB * 1024 * 1024);
-    
+
     if (invalidFile) {
       setError(getTranslation("1643"));
       return;
@@ -104,13 +111,13 @@ const SendFiles = ({ files = [], onFilesChange }) => {
   const getPreview = (file) => {
     // اگر فایل از نوع استرینگ باشد (آدرس URL از سمت سرور)
     if (typeof file === "string") return file;
-    
+
     // اگر فایل جدید آپلود شده باشد
     if (file instanceof File && file.type.startsWith("image/")) {
       return URL.createObjectURL(file);
     }
-    
-    return nonPhoto; 
+
+    return nonPhoto;
   };
 
   return (
@@ -129,17 +136,18 @@ const SendFiles = ({ files = [], onFilesChange }) => {
             />
           </FilePreview>
         ))}
-
-        <Div onClick={() => fileInputRef.current.click()}>
-          <span>+</span>
-          <HiddenInput
-            ref={fileInputRef}
-            type="file"
-            multiple
-            accept="image/*,.pdf,.doc,.docx"
-            onChange={fileHandler}
-          />
-        </Div>
+        {files.length < MAX_FILES && (
+          <Div onClick={() => fileInputRef.current.click()}>
+            <span>+</span>
+            <HiddenInput
+              ref={fileInputRef}
+              type="file"
+              multiple
+              accept="image/*,.pdf,.doc,.docx"
+              onChange={fileHandler}
+            />
+          </Div>
+        )}
       </Files>
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>

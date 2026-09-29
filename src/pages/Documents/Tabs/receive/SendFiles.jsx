@@ -80,7 +80,7 @@ const SendFiles = ({ files, setFiles }) => {
     const selectedFiles = Array.from(e.target.files);
 
     if (files.length + selectedFiles.length > 5) {
-      setError("You can only upload up to 5 files.");
+      setError(getTranslation("1636"));
       return;
     }
 
