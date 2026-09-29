@@ -79,8 +79,6 @@ const TabContainer = styled.div`
   }
 `;
 
-// محتوا در حالت لندسکیپ موبایل همیشه ارتفاع کامل داره و فقط جابجا میشه،
-// پس clientHeight کانتینر اسکرول هیچ‌وقت عوض نمیشه.
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -129,13 +127,10 @@ function Tabs({ items = [] }) {
   const activeIndex = items.findIndex((i) => i.path === activeTabPath);
   const activeTab = activeIndex === -1 ? 0 : activeIndex;
 
-  // با عوض شدن تب، محتوا از بالا شروع میشه؛ نوار تب باید دوباره نمایش داده بشه
   useEffect(() => {
     updateScrollDirection(false);
   }, [location.pathname]);
 
-  // به‌جای scrollIntoView (که ممکنه والدهای دیگه رو هم اسکرول کنه و باعث پرش بشه)
-  // فقط خود نوار تب رو به صورت افقی اسکرول می‌کنیم
   useEffect(() => {
     const container = tabContainerRef.current;
     const tab = tabRefs.current[activeTab];

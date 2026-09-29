@@ -15,9 +15,9 @@ const StyledContainer = styled.div`
   }
 `;
 
-const DIRECTION_THRESHOLD = 12; // حداقل مسافت برای تشخیص جهت
-const TOP_OFFSET = 10; // نزدیک بالا همیشه نوار نمایش داده میشه
-const MIN_SCROLLABLE = 80; // محتوای کوتاه‌تر از این، نوار همیشه باز می‌مونه
+const DIRECTION_THRESHOLD = 12; 
+const TOP_OFFSET = 10; 
+const MIN_SCROLLABLE = 80; 
 
 function BaseContainer({ children, className }, forwardedRef) {
   const internalRef = useRef(null);
@@ -32,7 +32,7 @@ function BaseContainer({ children, className }, forwardedRef) {
     if (!element) return;
 
     let lastY = element.scrollTop;
-    let lastDirection = null; // true = پایین (مخفی)، false = بالا (نمایش)
+    let lastDirection = null; 
     let ticking = false;
 
     const setDirection = (goingDown) => {
@@ -47,10 +47,8 @@ function BaseContainer({ children, className }, forwardedRef) {
       const y = element.scrollTop;
       const maxScroll = element.scrollHeight - element.clientHeight;
 
-      // bounce در iOS: نادیده بگیر
       if (y < 0 || y > maxScroll) return;
 
-      // محتوای کوتاه یا نزدیک بالا: نوار همیشه نمایش داده بشه
       if (maxScroll < MIN_SCROLLABLE || y < TOP_OFFSET) {
         setDirection(false);
         lastY = y;
@@ -59,7 +57,6 @@ function BaseContainer({ children, className }, forwardedRef) {
 
       const diff = y - lastY;
 
-      // lastY رو عمداً آپدیت نمی‌کنیم تا حرکت‌های آهسته و کوچک جمع بشن
       if (Math.abs(diff) < DIRECTION_THRESHOLD) return;
 
       setDirection(diff > 0);
