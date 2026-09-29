@@ -1,7 +1,7 @@
 import psc from "../../../../assets/gif/psc.gif";
 import rial from "../../../../assets/gif/rial.gif";
 import styled from "styled-components";
-import { getTranslation,metarangUrlCitizen } from "../../../../services/Utility";
+import { getTranslation, metarangUrlCitizen } from "../../../../services/Utility";
 
 const Container = styled.div`
   display: flex;
@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   div {
     display: flex;
     align-items: center;
@@ -33,6 +34,7 @@ const Wrapper = styled.div`
   a {
     color: #0066ff;
     text-decoration: none;
+    
   }
   & img {
     width: 20px;

@@ -16,7 +16,7 @@ const Styledcomponents = {
   Container: styled.div``,
   Wrapper: styled.div`
     display: grid;
-    gap: 20px;
+    gap: 10px;
     margin-top: 20px;
 
     grid-template-columns: 1fr;
@@ -27,6 +27,8 @@ const Styledcomponents = {
   Header: styled.div`
     display: flex;
     align-items: center;
+        margin-top: 10px;
+
     justify-content: space-between;
   `,
 };
