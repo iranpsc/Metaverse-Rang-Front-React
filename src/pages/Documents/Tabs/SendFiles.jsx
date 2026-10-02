@@ -90,7 +90,6 @@ const SendFiles = ({ files = [], onFilesChange }) => {
       return;
     }
 
-    // بررسی حجم تک‌تک فایل‌ها
     const invalidFile = selectedFiles.find(f => f.size > MAX_FILE_SIZE_MB * 1024 * 1024);
 
     if (invalidFile) {
@@ -98,9 +97,8 @@ const SendFiles = ({ files = [], onFilesChange }) => {
       return;
     }
 
-    // اضافه کردن فایل‌های جدید به لیست قبلی
     onFilesChange([...files, ...selectedFiles]);
-    e.target.value = null; // ریست کردن اینپوت برای انتخاب مجدد همان فایل در صورت نیاز
+    e.target.value = null; 
   };
 
   const removeFile = (indexToRemove) => {
@@ -109,10 +107,8 @@ const SendFiles = ({ files = [], onFilesChange }) => {
   };
 
   const getPreview = (file) => {
-    // اگر فایل از نوع استرینگ باشد (آدرس URL از سمت سرور)
     if (typeof file === "string") return file;
 
-    // اگر فایل جدید آپلود شده باشد
     if (file instanceof File && file.type.startsWith("image/")) {
       return URL.createObjectURL(file);
     }
